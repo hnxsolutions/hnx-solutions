@@ -1,0 +1,376 @@
+"use client";
+import { useState } from "react";
+import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
+import { HiExternalLink, HiEye, HiArrowRight } from "react-icons/hi";
+import { FiGithub } from "react-icons/fi";
+
+const categories = ["All", "Web Apps", "Mobile Apps", "AI Solutions", "E-Commerce"];
+
+const projects = [
+  {
+    title: "FinTrack Pro",
+    description:
+      "Enterprise financial dashboard with real-time analytics, multi-currency support, and AI-powered forecasting for investment firms.",
+    longDescription:
+      "Built a comprehensive financial management platform serving 12K+ active users. Features include real-time portfolio tracking, AI-powered market forecasting, automated report generation, and multi-currency support across 50+ currencies. The system processes millions of transactions daily with sub-second response times.",
+    category: "Web Apps",
+    tags: ["Next.js", "TypeScript", "PostgreSQL", "Charts", "Redis", "WebSocket"],
+    stats: { users: "12K+", metric: "Real-time", timeline: "6 weeks" },
+    color: "from-cyan-500/20 to-blue-500/20",
+    challenges: [
+      "Real-time data synchronization across thousands of concurrent users",
+      "Complex financial calculations with sub-millisecond accuracy",
+      "Multi-timezone support for global investment teams",
+    ],
+    results: [
+      "40% faster portfolio analysis compared to previous system",
+      "99.99% uptime since launch",
+      "2x increase in user engagement",
+    ],
+  },
+  {
+    title: "MediConnect",
+    description:
+      "Telemedicine platform connecting patients with doctors. Video consultations, prescription management, and health tracking.",
+    longDescription:
+      "Developed a full-featured telemedicine platform enabling video consultations, prescription management, and health tracking. The app supports both iOS and Android with a single codebase, features HIPAA-compliant video calls, integrated prescription workflows, and comprehensive health dashboards for patients and doctors.",
+    category: "Mobile Apps",
+    tags: ["React Native", "WebRTC", "Node.js", "MongoDB", "HealthKit", "HIPAA"],
+    stats: { users: "8K+", metric: "iOS & Android", timeline: "8 weeks" },
+    color: "from-emerald-500/20 to-teal-500/20",
+    challenges: [
+      "HIPAA compliance for handling sensitive medical data",
+      "Low-latency video calling with adaptive bitrate",
+      "Integration with pharmacy APIs for prescription management",
+    ],
+    results: [
+      "80% reduction in no-show appointments",
+      "4.8★ rating on both app stores",
+      "Serving 3 hospital networks with 50+ doctors",
+    ],
+  },
+  {
+    title: "AI Support Agent",
+    description:
+      "Intelligent customer support system trained on company data. Handles 80% of queries autonomously with natural conversations.",
+    longDescription:
+      "Built an AI-powered customer support system that handles 80% of incoming queries without human intervention. The system uses GPT-4 with custom fine-tuning on company-specific data, features multi-language support, sentiment analysis, and intelligent escalation to human agents when needed.",
+    category: "AI Solutions",
+    tags: ["GPT-4", "LangChain", "Vector DB", "Python", "Pinecone", "FastAPI"],
+    stats: { users: "50K+", metric: "Queries/month", timeline: "5 weeks" },
+    color: "from-amber-500/20 to-orange-500/20",
+    challenges: [
+      "Training the model on 10,000+ company-specific documents",
+      "Maintaining context across multi-turn conversations",
+      "Handling edge cases with graceful human escalation",
+    ],
+    results: [
+      "80% autonomous resolution rate",
+      "60% reduction in support costs",
+      "Average response time under 2 seconds",
+    ],
+  },
+  {
+    title: "ShopFlow",
+    description:
+      "Modern e-commerce platform with AI-powered recommendations, real-time inventory, and seamless payment integrations.",
+    longDescription:
+      "Created a modern e-commerce platform featuring AI-powered product recommendations, real-time inventory management, and frictionless checkout with multiple payment providers. The platform handles 25K+ orders with automated fulfillment, dynamic pricing, and comprehensive seller analytics.",
+    category: "E-Commerce",
+    tags: ["Next.js", "Stripe", "Redis", "Algolia", "AWS S3", "Webhook"],
+    stats: { users: "25K+", metric: "Orders processed", timeline: "7 weeks" },
+    color: "from-violet-500/20 to-purple-500/20",
+    challenges: [
+      "Real-time inventory sync across multiple warehouses",
+      "AI recommendation engine processing millions of user interactions",
+      "PCI-DSS compliant payment processing with multiple providers",
+    ],
+    results: [
+      "35% increase in average order value through AI recommendations",
+      "Sub-2-second page load times across the platform",
+      "99.9% order processing accuracy",
+    ],
+  },
+  {
+    title: "TaskForge",
+    description:
+      "Project management platform for remote teams. Kanban boards, time tracking, sprint planning, and team analytics.",
+    longDescription:
+      "Developed a comprehensive project management platform designed for distributed teams. Features include real-time Kanban boards, sprint planning with velocity tracking, integrated time tracking, team performance analytics, and automated status reports. Built with WebSocket for real-time collaboration.",
+    category: "Web Apps",
+    tags: ["React", "Node.js", "WebSocket", "Redis", "PostgreSQL", "Docker"],
+    stats: { users: "6K+", metric: "Teams active", timeline: "6 weeks" },
+    color: "from-sky-500/20 to-indigo-500/20",
+    challenges: [
+      "Real-time collaboration with conflict resolution",
+      "Complex permission system across organizations, teams, and projects",
+      "Performance optimization for boards with 1000+ tasks",
+    ],
+    results: [
+      "25% improvement in team productivity reported by users",
+      "Real-time sync across unlimited team members",
+      "Adopted by 200+ companies within first 3 months",
+    ],
+  },
+  {
+    title: "FitPulse",
+    description:
+      "Fitness tracking app with workout plans, nutrition logging, progress analytics, and social challenges.",
+    longDescription:
+      "Built a comprehensive fitness tracking mobile app with personalized workout plans, nutrition logging with barcode scanning, progress analytics with body measurements, and social fitness challenges. Integrates with Apple HealthKit and Google Fit for comprehensive health data aggregation.",
+    category: "Mobile Apps",
+    tags: ["React Native", "Firebase", "HealthKit", "Charts", "Cloud Functions"],
+    stats: { users: "15K+", metric: "Active users", timeline: "5 weeks" },
+    color: "from-pink-500/20 to-rose-500/20",
+    challenges: [
+      "Accurate calorie and macro tracking with a database of 500K+ foods",
+      "Seamless HealthKit/Google Fit integration for automatic data sync",
+      "Gamification system to maintain user engagement",
+    ],
+    results: [
+      "15K+ active users within 2 months of launch",
+      "Average session duration of 12 minutes",
+      "4.7★ rating on both app stores",
+    ],
+  },
+];
+
+export default function PortfolioPage() {
+  const [activeCategory, setActiveCategory] = useState("All");
+  const [expandedProject, setExpandedProject] = useState<string | null>(null);
+
+  const filtered =
+    activeCategory === "All"
+      ? projects
+      : projects.filter((p) => p.category === activeCategory);
+
+  return (
+    <main>
+      {/* Page Hero */}
+      <section className="relative pt-40 pb-20 grid-bg overflow-hidden">
+        <div className="absolute top-20 left-10 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-20 right-10 w-80 h-80 bg-accent/8 rounded-full blur-3xl" />
+
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center"
+          >
+            <span className="text-primary text-sm font-semibold tracking-widest uppercase">
+              Our Work
+            </span>
+            <h1 className="text-5xl md:text-6xl font-bold mt-4 mb-6">
+              Featured{" "}
+              <span className="gradient-text">Case Studies</span>
+            </h1>
+            <p className="text-light-300 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
+              Real-world solutions we&apos;ve built for clients across industries.
+              Each project designed to deliver measurable impact. Click any project
+              to explore the full case study.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Filter + Projects */}
+      <section className="py-24 relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-dark-900 via-dark-800/50 to-dark-900" />
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
+          {/* Filter Tabs */}
+          <div className="flex flex-wrap justify-center gap-3 mb-14">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => {
+                  setActiveCategory(cat);
+                  setExpandedProject(null);
+                }}
+                className={`px-5 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                  activeCategory === cat
+                    ? "bg-gradient-to-r from-primary to-accent text-dark-900"
+                    : "bg-dark-700/50 text-light-300 hover:text-light-100 hover:bg-dark-600"
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+
+          {/* Projects */}
+          <motion.div layout className="space-y-8">
+            <AnimatePresence mode="popLayout">
+              {filtered.map((project) => {
+                const isExpanded = expandedProject === project.title;
+
+                return (
+                  <motion.div
+                    key={project.title}
+                    layout
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.4 }}
+                    className="glass-card rounded-2xl overflow-hidden glow-border cursor-pointer"
+                    onClick={() =>
+                      setExpandedProject(isExpanded ? null : project.title)
+                    }
+                  >
+                    <div className="grid lg:grid-cols-3 gap-0">
+                      {/* Project Image / Header */}
+                      <div
+                        className={`h-48 lg:h-auto bg-gradient-to-br ${project.color} flex items-center justify-center relative overflow-hidden`}
+                      >
+                        <div className="text-8xl font-black text-white/10">
+                          {project.title[0]}
+                        </div>
+                        <div className="absolute top-4 left-4">
+                          <span className="px-3 py-1 text-xs rounded-full bg-dark-900/60 text-light-200 backdrop-blur-sm">
+                            {project.category}
+                          </span>
+                        </div>
+                        <div className="absolute bottom-4 right-4 flex gap-2">
+                          <button className="w-10 h-10 rounded-full bg-dark-900/40 backdrop-blur-sm border border-white/20 flex items-center justify-center text-light-200 hover:text-primary transition-colors">
+                            <HiEye size={18} />
+                          </button>
+                          <button className="w-10 h-10 rounded-full bg-dark-900/40 backdrop-blur-sm border border-white/20 flex items-center justify-center text-light-200 hover:text-primary transition-colors">
+                            <FiGithub size={18} />
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Project Info */}
+                      <div className="lg:col-span-2 p-8">
+                        <div className="flex items-center justify-between mb-3">
+                          <h2 className="text-2xl font-bold">{project.title}</h2>
+                          <HiExternalLink className="text-light-300" />
+                        </div>
+
+                        <p className="text-light-300 leading-relaxed mb-6">
+                          {isExpanded ? project.longDescription : project.description}
+                        </p>
+
+                        <div className="flex flex-wrap gap-2 mb-6">
+                          {project.tags.map((tag) => (
+                            <span
+                              key={tag}
+                              className="px-3 py-1 text-xs rounded-md bg-white/5 text-light-200 border border-white/10"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+
+                        <div className="flex items-center gap-8 mb-6">
+                          <div>
+                            <p className="text-lg font-bold text-primary">
+                              {project.stats.users}
+                            </p>
+                            <p className="text-xs text-light-300">Users</p>
+                          </div>
+                          <div>
+                            <p className="text-lg font-bold text-accent-light">
+                              {project.stats.metric}
+                            </p>
+                            <p className="text-xs text-light-300">Status</p>
+                          </div>
+                          <div>
+                            <p className="text-lg font-bold text-emerald-400">
+                              {project.stats.timeline}
+                            </p>
+                            <p className="text-xs text-light-300">Timeline</p>
+                          </div>
+                        </div>
+
+                        {/* Expanded Details */}
+                        <AnimatePresence>
+                          {isExpanded && (
+                            <motion.div
+                              initial={{ opacity: 0, height: 0 }}
+                              animate={{ opacity: 1, height: "auto" }}
+                              exit={{ opacity: 0, height: 0 }}
+                              transition={{ duration: 0.3 }}
+                              className="overflow-hidden"
+                            >
+                              <div className="grid md:grid-cols-2 gap-8 pt-6 border-t border-white/5">
+                                <div>
+                                  <h3 className="text-sm font-semibold uppercase tracking-wider text-primary mb-3">
+                                    Challenges Solved
+                                  </h3>
+                                  <ul className="space-y-2">
+                                    {project.challenges.map((c) => (
+                                      <li
+                                        key={c}
+                                        className="flex items-start gap-2 text-sm text-light-300"
+                                      >
+                                        <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 flex-shrink-0" />
+                                        {c}
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+                                <div>
+                                  <h3 className="text-sm font-semibold uppercase tracking-wider text-emerald-400 mb-3">
+                                    Results Achieved
+                                  </h3>
+                                  <ul className="space-y-2">
+                                    {project.results.map((r) => (
+                                      <li
+                                        key={r}
+                                        className="flex items-start gap-2 text-sm text-light-300"
+                                      >
+                                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-1.5 flex-shrink-0" />
+                                        {r}
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+
+                        <p className="text-xs text-primary mt-4">
+                          {isExpanded ? "Click to collapse" : "Click to view full case study →"}
+                        </p>
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </AnimatePresence>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-24 relative grid-bg">
+        <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="glass-card rounded-2xl p-12 glow-border"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Want Results Like <span className="gradient-text">These?</span>
+            </h2>
+            <p className="text-light-300 text-lg max-w-xl mx-auto mb-8">
+              Let&apos;s discuss how we can build a solution that delivers
+              measurable impact for your business.
+            </p>
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-primary to-accent text-dark-900 font-bold rounded-xl hover:shadow-xl hover:shadow-primary/25 transition-all hover:-translate-y-1"
+            >
+              Start Your Project
+              <HiArrowRight />
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+    </main>
+  );
+}
