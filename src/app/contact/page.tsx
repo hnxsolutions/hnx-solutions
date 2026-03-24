@@ -8,20 +8,26 @@ const contactInfo = [
   {
     icon: HiMail,
     label: "Email",
-    value: "hello@hnx.services",
-    href: "mailto:hello@hnx.services",
+    value: "hnxtechnologies@gmail.com",
+    href: "mailto:hnxtechnologies@gmail.com",
   },
   {
     icon: HiPhone,
     label: "Phone",
-    value: "+91 XXXXX XXXXX",
-    href: "tel:+91XXXXXXXXXX",
+    value: "+91 98963 24736",
+    href: "tel:+919896324736",
+  },
+  {
+    icon: HiPhone,
+    label: "Phone",
+    value: "+91 98175 58010",
+    href: "tel:+919817558010",
   },
   {
     icon: HiLocationMarker,
     label: "Location",
-    value: "India",
-    href: "#",
+    value: "Mohali, Punjab, India",
+    href: "https://maps.google.com/?q=Mohali,Punjab,India",
   },
 ];
 

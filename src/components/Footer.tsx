@@ -49,7 +49,7 @@ export default function Footer() {
             <p className="text-sm text-light-300 leading-relaxed max-w-sm mb-6">
               Crafting next-generation web platforms, mobile apps, and
               AI-powered systems that drive real business results. Based in
-              India, serving clients globally.
+              Mohali, Punjab, serving clients globally.
             </p>
             <div className="flex gap-3">
               {socials.map((s) => (
