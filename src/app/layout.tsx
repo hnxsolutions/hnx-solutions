@@ -18,6 +18,21 @@ export const metadata: Metadata = {
   title: "HNX Technologies | Next-Gen Software & Mobile App Development",
   description:
     "HNX Technologies delivers cutting-edge web applications, mobile apps, AI automation, and cloud solutions for businesses worldwide.",
+  metadataBase: new URL("https://hnx.services"),
+  openGraph: {
+    title: "HNX Technologies | Next-Gen Software & Mobile App Development",
+    description:
+      "HNX Technologies delivers cutting-edge web applications, mobile apps, AI automation, and cloud solutions for businesses worldwide.",
+    url: "https://hnx.services",
+    siteName: "HNX Technologies",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "HNX Technologies | Next-Gen Software & Mobile App Development",
+    description:
+      "HNX Technologies delivers cutting-edge web applications, mobile apps, AI automation, and cloud solutions for businesses worldwide.",
+  },
 };
 
 export default function RootLayout({

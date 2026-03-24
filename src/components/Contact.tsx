@@ -1,5 +1,5 @@
 "use client";
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useRef } from "react";
 import { motion } from "framer-motion";
 import { HiMail, HiLocationMarker, HiPhone, HiArrowRight } from "react-icons/hi";
 import { FiGithub, FiLinkedin, FiTwitter, FiInstagram } from "react-icons/fi";
@@ -8,8 +8,8 @@ const contactInfo = [
   {
     icon: HiMail,
     label: "Email",
-    value: "hello@hnxtechnologies.com",
-    href: "mailto:hello@hnxtechnologies.com",
+    value: "hello@hnx.services",
+    href: "mailto:hello@hnx.services",
   },
   {
     icon: HiPhone,
@@ -34,11 +34,45 @@ const socials = [
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const formRef = useRef<HTMLFormElement>(null);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3000);
+    setLoading(true);
+    setError(null);
+
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.get("name"),
+          email: formData.get("email"),
+          projectType: formData.get("projectType"),
+          budget: formData.get("budget") || undefined,
+          message: formData.get("message"),
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.message || "Something went wrong");
+      } else {
+        setSubmitted(true);
+        formRef.current?.reset();
+        setTimeout(() => setSubmitted(false), 3000);
+      }
+    } catch {
+      setError("Failed to send message. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -135,9 +169,15 @@ export default function Contact() {
             className="lg:col-span-3"
           >
             <form
+              ref={formRef}
               onSubmit={handleSubmit}
               className="glass-card rounded-2xl p-8 md:p-10 glow-border"
             >
+              {error && (
+                <div className="mb-5 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm">
+                  {error}
+                </div>
+              )}
               <div className="grid md:grid-cols-2 gap-5 mb-5">
                 <div>
                   <label className="block text-sm font-medium mb-2 text-light-200">
@@ -145,6 +185,7 @@ export default function Contact() {
                   </label>
                   <input
                     type="text"
+                    name="name"
                     required
                     className="w-full px-4 py-3.5 rounded-xl bg-dark-700/50 border border-white/10 text-light-100 placeholder:text-light-300/50 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
                     placeholder="John Doe"
@@ -156,6 +197,7 @@ export default function Contact() {
                   </label>
                   <input
                     type="email"
+                    name="email"
                     required
                     className="w-full px-4 py-3.5 rounded-xl bg-dark-700/50 border border-white/10 text-light-100 placeholder:text-light-300/50 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
                     placeholder="john@company.com"
@@ -168,6 +210,7 @@ export default function Contact() {
                   Project Type
                 </label>
                 <select
+                  name="projectType"
                   required
                   className="w-full px-4 py-3.5 rounded-xl bg-dark-700/50 border border-white/10 text-light-100 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
                   defaultValue=""
@@ -190,6 +233,7 @@ export default function Contact() {
                   Budget Range
                 </label>
                 <select
+                  name="budget"
                   className="w-full px-4 py-3.5 rounded-xl bg-dark-700/50 border border-white/10 text-light-100 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
                   defaultValue=""
                 >
@@ -209,6 +253,7 @@ export default function Contact() {
                   Project Details
                 </label>
                 <textarea
+                  name="message"
                   required
                   rows={5}
                   className="w-full px-4 py-3.5 rounded-xl bg-dark-700/50 border border-white/10 text-light-100 placeholder:text-light-300/50 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all resize-none"
@@ -218,10 +263,11 @@ export default function Contact() {
 
               <button
                 type="submit"
-                className="w-full flex items-center justify-center gap-2 py-4 bg-gradient-to-r from-primary to-accent text-dark-900 font-bold rounded-xl text-base hover:shadow-lg hover:shadow-primary/25 transition-all hover:-translate-y-0.5"
+                disabled={loading}
+                className="w-full flex items-center justify-center gap-2 py-4 bg-gradient-to-r from-primary to-accent text-dark-900 font-bold rounded-xl text-base hover:shadow-lg hover:shadow-primary/25 transition-all hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {submitted ? "Message Sent! ✓" : "Send Message"}
-                {!submitted && <HiArrowRight />}
+                {loading ? "Sending..." : submitted ? "Message Sent! ✓" : "Send Message"}
+                {!submitted && !loading && <HiArrowRight />}
               </button>
             </form>
           </motion.div>

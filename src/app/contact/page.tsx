@@ -8,8 +8,8 @@ const contactInfo = [
   {
     icon: HiMail,
     label: "Email",
-    value: "hello@hnxtechnologies.com",
-    href: "mailto:hello@hnxtechnologies.com",
+    value: "hello@hnx.services",
+    href: "mailto:hello@hnx.services",
   },
   {
     icon: HiPhone,
