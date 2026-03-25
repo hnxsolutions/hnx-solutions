@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   HiChatAlt2,
@@ -11,6 +12,9 @@ import {
   HiArrowRight,
   HiCheck,
 } from "react-icons/hi";
+
+const aiHeroBgImage =
+  "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1800&q=85";
 
 const solutions = [
   {
@@ -91,29 +95,69 @@ export default function AIAutomationPage() {
   return (
     <main>
       {/* Page Hero */}
-      <section className="relative pt-40 pb-20 grid-bg overflow-hidden">
-        <div className="absolute top-20 left-10 w-96 h-96 bg-accent/2 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-10 w-80 h-80 bg-primary/3 rounded-full blur-3xl" />
+      <section className="relative min-h-[52vh] pt-34 pb-16 overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <Image
+            src={aiHeroBgImage}
+            alt="AI systems and automation visual"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-[70%_center] md:object-center scale-[1.06] opacity-28 contrast-105 saturate-95"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-dark-900/97 via-dark-900/84 to-dark-900/52" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_24%,rgba(99,102,241,0.2),transparent_36%),radial-gradient(circle_at_82%_78%,rgba(56,189,248,0.16),transparent_30%)]" />
+          <div className="absolute right-0 top-1/2 hidden h-[32rem] w-[36rem] -translate-y-1/2 bg-[radial-gradient(circle,rgba(6,10,18,0.66)_0%,rgba(6,10,18,0.4)_44%,rgba(6,10,18,0)_74%)] blur-2xl lg:block" />
+        </div>
 
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
+        <div className="absolute top-20 left-10 z-[1] h-96 w-96 rounded-full bg-accent/3 blur-3xl" />
+        <div className="absolute bottom-20 right-10 z-[1] h-80 w-80 rounded-full bg-primary/4 blur-3xl" />
+
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-center"
+            className="max-w-3xl"
           >
-            <span className="text-primary text-sm font-semibold tracking-widest uppercase">
+            <span className="inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/10 px-4 py-2 text-xs font-semibold tracking-[0.24em] text-primary uppercase">
+              <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
               AI & Automation
             </span>
-            <h1 className="text-5xl md:text-6xl font-bold mt-4 mb-6">
+            <h1 className="mt-5 text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.08] tracking-tight mb-6">
               Intelligent Systems That{" "}
               <span className="gradient-text">Work While You Sleep</span>
             </h1>
-            <p className="text-light-300 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
+            <p className="text-light-200 text-base sm:text-lg md:text-xl max-w-2xl leading-relaxed">
               We build custom AI solutions that cut costs, save time, and scale
               your business operations autonomously. From chatbots to full workflow
               automation — powered by the latest in AI technology.
             </p>
+
+            <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-4">
+              <Link
+                href="#ai-solutions"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-primary to-accent px-8 py-4 text-base font-bold text-dark-900 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/25"
+              >
+                Explore Solutions
+                <HiArrowRight className="text-lg" />
+              </Link>
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-light-300/20 px-8 py-4 text-base font-semibold text-light-100 transition-all hover:bg-white/5 hover:border-primary/30"
+              >
+                Get a Quote
+              </Link>
+            </div>
+
+            <div className="mt-7 sm:mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-light-300/80 sm:gap-x-5">
+              {["AI Chatbots", "Workflow Agents", "Document AI", "Predictive Insights"].map((item, index) => (
+                <span key={item} className="inline-flex items-center gap-4">
+                  <span className="font-medium tracking-wide">{item}</span>
+                  {index < 3 ? <span className="h-1 w-1 rounded-full bg-primary/70" /> : null}
+                </span>
+              ))}
+            </div>
           </motion.div>
 
           {/* Stats */}
@@ -121,12 +165,12 @@ export default function AIAutomationPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16"
+            className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-14"
           >
             {stats.map((stat) => (
-              <div key={stat.label} className="glass-card rounded-2xl p-6 text-center glow-border">
+              <div key={stat.label} className="rounded-2xl border border-white/[0.08] bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02))] p-6 text-center shadow-[0_12px_36px_rgba(0,0,0,0.18)] backdrop-blur-xl">
                 <p className="text-3xl font-bold gradient-text">{stat.value}</p>
-                <p className="text-sm text-light-300 mt-1">{stat.label}</p>
+                <p className="mt-1 text-sm font-medium text-light-200">{stat.label}</p>
               </div>
             ))}
           </motion.div>
@@ -134,7 +178,7 @@ export default function AIAutomationPage() {
       </section>
 
       {/* Solutions Detail */}
-      <section className="py-24 relative">
+      <section id="ai-solutions" className="py-24 relative">
         <div className="absolute inset-0 bg-gradient-to-b from-dark-900 via-dark-800/30 to-dark-900" />
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
           <motion.div

@@ -1,12 +1,16 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { HiExternalLink, HiEye, HiArrowRight } from "react-icons/hi";
 import { FiGithub } from "react-icons/fi";
 import SitePreview from "@/components/SitePreview";
 
 const categories = ["All", "Web Apps", "Mobile Apps", "AI Solutions", "E-Commerce", "Healthcare"];
+
+const portfolioHeroBgImage =
+  "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1800&q=85";
 
 const projects = [
   {
@@ -151,35 +155,75 @@ export default function PortfolioPage() {
   return (
     <main>
       {/* Page Hero */}
-      <section className="relative pt-40 pb-20 grid-bg overflow-hidden">
-        <div className="absolute top-20 left-10 w-96 h-96 bg-primary/2 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-10 w-80 h-80 bg-accent/3 rounded-full blur-3xl" />
+      <section className="relative min-h-[52vh] pt-34 pb-16 overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <Image
+            src={portfolioHeroBgImage}
+            alt="Portfolio projects and development team"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-[70%_center] md:object-center scale-[1.06] opacity-28 contrast-105 saturate-95"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-dark-900/97 via-dark-900/84 to-dark-900/52" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_22%,rgba(56,189,248,0.18),transparent_33%),radial-gradient(circle_at_84%_78%,rgba(139,92,246,0.13),transparent_28%)]" />
+          <div className="absolute right-0 top-1/2 hidden h-[32rem] w-[36rem] -translate-y-1/2 bg-[radial-gradient(circle,rgba(6,10,18,0.66)_0%,rgba(6,10,18,0.4)_44%,rgba(6,10,18,0)_74%)] blur-2xl lg:block" />
+        </div>
 
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
+        <div className="absolute top-20 left-10 z-[1] h-96 w-96 rounded-full bg-primary/3 blur-3xl" />
+        <div className="absolute bottom-20 right-10 z-[1] h-80 w-80 rounded-full bg-accent/4 blur-3xl" />
+
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-center"
+            className="max-w-3xl"
           >
-            <span className="text-primary text-sm font-semibold tracking-widest uppercase">
+            <span className="inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/10 px-4 py-2 text-xs font-semibold tracking-[0.24em] text-primary uppercase">
+              <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
               Our Work
             </span>
-            <h1 className="text-5xl md:text-6xl font-bold mt-4 mb-6">
+            <h1 className="mt-5 text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.08] tracking-tight mb-6">
               Featured{" "}
               <span className="gradient-text">Case Studies</span>
             </h1>
-            <p className="text-light-300 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
+            <p className="text-light-200 text-base sm:text-lg md:text-xl max-w-2xl leading-relaxed">
               Real-world solutions we&apos;ve built for clients across industries.
               Each project designed to deliver measurable impact. Click any project
               to explore the full case study.
             </p>
+
+            <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-4">
+              <Link
+                href="#portfolio-grid"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-primary to-accent px-8 py-4 text-base font-bold text-dark-900 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/25"
+              >
+                Explore Projects
+                <HiArrowRight className="text-lg" />
+              </Link>
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-light-300/20 px-8 py-4 text-base font-semibold text-light-100 transition-all hover:bg-white/5 hover:border-primary/30"
+              >
+                Get a Quote
+              </Link>
+            </div>
+
+            <div className="mt-7 sm:mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-light-300/80 sm:gap-x-5">
+              {["Web Platforms", "Mobile Apps", "AI Systems", "Cloud Delivery"].map((item, index) => (
+                <span key={item} className="inline-flex items-center gap-4">
+                  <span className="font-medium tracking-wide">{item}</span>
+                  {index < 3 ? <span className="h-1 w-1 rounded-full bg-primary/70" /> : null}
+                </span>
+              ))}
+            </div>
           </motion.div>
         </div>
       </section>
 
       {/* Filter + Projects */}
-      <section className="py-24 relative">
+      <section id="portfolio-grid" className="py-24 relative">
         <div className="absolute inset-0 bg-gradient-to-b from-dark-900 via-dark-800/50 to-dark-900" />
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
           {/* Filter Tabs */}
