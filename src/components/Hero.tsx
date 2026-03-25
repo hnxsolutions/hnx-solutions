@@ -65,7 +65,7 @@ export default function Hero() {
       <div className="absolute bottom-20 right-10 w-80 h-80 bg-accent/3 rounded-full blur-3xl" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/[0.01] rounded-full blur-[120px]" />
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-32 pb-20 w-full">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-24 pb-12 w-full">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left Content */}
           <motion.div
@@ -136,8 +136,8 @@ export default function Hero() {
             className="hidden lg:block relative"
           >
             <div
-              className="relative w-full aspect-square max-w-lg mx-auto cursor-pointer"
-              style={{ perspective: "1200px" }}
+              className="relative w-full max-w-lg mx-auto cursor-pointer"
+              style={{ perspective: "1200px", height: "420px" }}
               onClick={nextCard}
             >
               {/* Render cards in reverse so the active one is on top */}
@@ -166,7 +166,7 @@ export default function Hero() {
                       duration: 0.7,
                       ease: [0.4, 0, 0.2, 1],
                     }}
-                    className="absolute inset-12 rounded-3xl glass-card overflow-hidden border border-white/[0.06]"
+                    className="absolute inset-6 rounded-3xl glass-card overflow-hidden border border-white/[0.06]"
                     style={{
                       transformOrigin: "center bottom",
                       backfaceVisibility: "hidden",
@@ -205,7 +205,7 @@ export default function Hero() {
               })}
 
               {/* Card indicator dots */}
-              <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+              <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex gap-2 z-10">
                 {flipCards.map((_, i) => (
                   <button
                     key={i}
@@ -237,7 +237,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6"
+          className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-6"
         >
           {stats.map((stat) => (
             <div
