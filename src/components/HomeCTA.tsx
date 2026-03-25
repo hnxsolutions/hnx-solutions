@@ -5,7 +5,7 @@ import { HiArrowRight } from "react-icons/hi";
 
 export default function HomeCTA() {
   return (
-    <section className="py-28 relative">
+    <section className="py-16 relative">
       <div className="absolute inset-0 bg-gradient-to-b from-dark-900 via-dark-800/40 to-dark-900" />
       <div className="max-w-4xl mx-auto px-6 lg:px-8 relative text-center">
         <motion.div

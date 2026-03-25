@@ -141,7 +141,7 @@ export default function Hero() {
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="hidden lg:block relative"
+            className="hidden lg:block relative -mt-38"
           >
             <div
               className="relative w-full max-w-lg mx-auto cursor-pointer"

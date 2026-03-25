@@ -25,15 +25,15 @@ const footerLinks = {
 };
 
 const socials = [
-  { icon: FiGithub, href: "#", label: "GitHub", tooltip: "Star us on GitHub", bg: "bg-white/10 text-white shadow-[0_0_12px_rgba(255,255,255,0.15)]", hoverBg: "hover:bg-white/20 hover:shadow-[0_0_24px_rgba(255,255,255,0.25)]" },
-  { icon: FiLinkedin, href: "#", label: "LinkedIn", tooltip: "Connect on LinkedIn", bg: "bg-[#0a66c2]/20 text-[#5b9bd5] shadow-[0_0_12px_rgba(10,102,194,0.2)]", hoverBg: "hover:bg-[#0a66c2]/30 hover:shadow-[0_0_24px_rgba(10,102,194,0.4)]" },
-  { icon: FiInstagram, href: "#", label: "Instagram", tooltip: "Follow on Instagram", bg: "bg-[#e1306c]/15 text-[#e1306c] shadow-[0_0_12px_rgba(225,48,108,0.2)]", hoverBg: "hover:bg-[#e1306c]/25 hover:shadow-[0_0_24px_rgba(225,48,108,0.4)]" },
+  { icon: FiGithub, href: "#", label: "GitHub" },
+  { icon: FiLinkedin, href: "#", label: "LinkedIn" },
+  { icon: FiInstagram, href: "#", label: "Instagram" },
 ];
 
 export default function Footer() {
   return (
-    <footer className="relative pb-6 pt-8 w-full bg-dark-900 border-t border-white/[0.08]">
-      <div className="max-w-7xl mx-auto px-8 lg:px-12 py-14">
+    <footer className="relative pb-2 pt-8 w-full bg-dark-900 border-t border-white/[0.08]">
+      <div className="max-w-7xl mx-auto px-8 lg:px-12 pb-0 pt-14">
         <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-12">
           {/* Brand */}
           <div className="lg:col-span-2">
@@ -48,26 +48,10 @@ export default function Footer() {
             <p className="text-sm text-light-300 leading-relaxed max-w-sm mb-6">
               Crafting next-generation web platforms, mobile apps, and
               AI-powered systems that drive real business results. Based in
-              Mohali, Punjab, serving clients globally.
+              Mohali, Punjab, serving clients globally.<br />
+              We blend creativity with technology to deliver scalable, secure, and innovative solutions.<br />
+              Partner with us for digital transformation, automation, and growth in a rapidly evolving world.
             </p>
-            <div className="inline-flex items-center gap-4 px-4 py-2.5 rounded-2xl bg-white/[0.04] border border-white/[0.08] shadow-[0_0_30px_rgba(77,208,225,0.06)]">
-              <span className="text-xs text-primary font-bold tracking-widest uppercase">Follow us</span>
-              <div className="w-px h-5 bg-gradient-to-b from-transparent via-primary/30 to-transparent" />
-              {socials.map((s) => (
-                <a
-                  key={s.label}
-                  href={s.href}
-                  aria-label={s.label}
-                  className={`group relative w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 hover:-translate-y-1 hover:scale-110 ${s.bg} ${s.hoverBg}`}
-                >
-                  <s.icon size={16} className="transition-transform duration-300 group-hover:scale-110" />
-                  <span className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1.5 rounded-lg bg-white text-dark-900 text-xs font-semibold whitespace-nowrap opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 shadow-lg">
-                    {s.tooltip}
-                    <span className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-white" />
-                  </span>
-                </a>
-              ))}
-            </div>
           </div>
 
           {/* Links */}
@@ -94,9 +78,22 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-white/[0.06] flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-light-300">
-            © {new Date().getFullYear()} HNX Technologies. All rights reserved.
+        <div className="mt-12 pt-8 border-t border-white/[0.06] flex flex-col items-center gap-4">
+          <div className="flex justify-center mb-2 gap-4">
+            {socials.map((s) => (
+              <a
+                key={s.label}
+                href={s.href}
+                aria-label={s.label}
+                className="group relative w-10 h-10 rounded-xl flex items-center justify-center bg-white/5 text-white transition-all duration-300 hover:-translate-y-1 hover:scale-110"
+                style={{ boxShadow: '0 0 12px 1px rgba(255,255,255,0.25)' }}
+              >
+                <s.icon size={20} className="transition-transform duration-300 group-hover:scale-110 text-white" />
+              </a>
+            ))}
+          </div>
+          <p className="text-sm text-light-300 text-center">
+            © 2025 HNX Technologies. All rights reserved.
           </p>
         </div>
       </div>

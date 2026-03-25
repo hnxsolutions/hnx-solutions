@@ -29,7 +29,7 @@ const projects = [
 
 export default function HomePortfolio() {
   return (
-    <section className="py-28 relative grid-bg">
+    <section className="py-8 relative grid-bg">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -48,7 +48,7 @@ export default function HomePortfolio() {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-6 mb-12">
+        <div className="grid md:grid-cols-3 gap-6 mb-8">
           {projects.map((project, i) => (
             <motion.div
               key={project.title}

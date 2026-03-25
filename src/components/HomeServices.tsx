@@ -44,7 +44,7 @@ const item = {
 
 export default function HomeServices() {
   return (
-    <section className="py-28 relative">
+    <section className="py-8 relative">
       <div className="absolute inset-0 bg-gradient-to-b from-dark-900 via-dark-800/50 to-dark-900" />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
@@ -71,7 +71,7 @@ export default function HomeServices() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
-          className="grid md:grid-cols-3 gap-6 mb-12"
+          className="grid md:grid-cols-3 gap-6 mb-8"
         >
           {highlights.map((svc) => (
             <motion.div key={svc.title} variants={item}>
