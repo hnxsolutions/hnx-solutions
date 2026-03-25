@@ -2,7 +2,7 @@
 import { useState, FormEvent } from "react";
 import { motion } from "framer-motion";
 import { HiMail, HiLocationMarker, HiPhone, HiArrowRight } from "react-icons/hi";
-import { FiGithub, FiLinkedin, FiTwitter, FiInstagram } from "react-icons/fi";
+import { FiGithub, FiLinkedin, FiInstagram } from "react-icons/fi";
 
 const contactInfo = [
   {
@@ -32,10 +32,9 @@ const contactInfo = [
 ];
 
 const socials = [
-  { icon: FiGithub, href: "#", label: "GitHub" },
-  { icon: FiLinkedin, href: "#", label: "LinkedIn" },
-  { icon: FiTwitter, href: "#", label: "Twitter" },
-  { icon: FiInstagram, href: "#", label: "Instagram" },
+  { icon: FiGithub, href: "#", label: "GitHub", tooltip: "Star us on GitHub", bg: "bg-white/10 text-white shadow-[0_0_12px_rgba(255,255,255,0.15)]", hoverBg: "hover:bg-white/20 hover:shadow-[0_0_24px_rgba(255,255,255,0.25)]" },
+  { icon: FiLinkedin, href: "#", label: "LinkedIn", tooltip: "Connect on LinkedIn", bg: "bg-[#0a66c2]/20 text-[#5b9bd5] shadow-[0_0_12px_rgba(10,102,194,0.2)]", hoverBg: "hover:bg-[#0a66c2]/30 hover:shadow-[0_0_24px_rgba(10,102,194,0.4)]" },
+  { icon: FiInstagram, href: "#", label: "Instagram", tooltip: "Follow on Instagram", bg: "bg-[#e1306c]/15 text-[#e1306c] shadow-[0_0_12px_rgba(225,48,108,0.2)]", hoverBg: "hover:bg-[#e1306c]/25 hover:shadow-[0_0_24px_rgba(225,48,108,0.4)]" },
 ];
 
 export default function ContactPage() {
@@ -109,16 +108,21 @@ export default function ContactPage() {
 
               {/* Socials */}
               <div className="pt-6">
-                <p className="text-sm text-light-300 mb-4">Follow Us</p>
-                <div className="flex gap-3">
+                <div className="inline-flex items-center gap-4 px-4 py-2.5 rounded-2xl bg-white/[0.04] border border-white/[0.08] shadow-[0_0_30px_rgba(77,208,225,0.06)]">
+                  <span className="text-xs text-primary font-bold tracking-widest uppercase">Follow us</span>
+                  <div className="w-px h-5 bg-gradient-to-b from-transparent via-primary/30 to-transparent" />
                   {socials.map((s) => (
                     <a
                       key={s.label}
                       href={s.href}
                       aria-label={s.label}
-                      className="w-11 h-11 rounded-xl border border-white/10 flex items-center justify-center text-light-300 hover:text-primary hover:border-primary/30 hover:bg-primary/5 transition-all"
+                      className={`group relative w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-300 hover:-translate-y-1 hover:scale-110 ${s.bg} ${s.hoverBg}`}
                     >
-                      <s.icon size={18} />
+                      <s.icon size={18} className="transition-transform duration-300 group-hover:scale-110" />
+                      <span className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1.5 rounded-lg bg-white text-dark-900 text-xs font-semibold whitespace-nowrap opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 shadow-lg">
+                        {s.tooltip}
+                        <span className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-white" />
+                      </span>
                     </a>
                   ))}
                 </div>

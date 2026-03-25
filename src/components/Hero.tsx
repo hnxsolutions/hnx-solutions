@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { HiArrowRight, HiPlay } from "react-icons/hi";
-import { FiGithub, FiLinkedin, FiTwitter } from "react-icons/fi";
+import { FiGithub, FiLinkedin, FiInstagram } from "react-icons/fi";
 
 const stats = [
   { value: "50+", label: "Projects Delivered" },
@@ -110,19 +110,27 @@ export default function Hero() {
             </div>
 
             {/* Social Links */}
-            <div className="flex items-center gap-4">
-              <span className="text-sm text-light-300">Follow us:</span>
+            <div className="inline-flex items-center gap-4 px-5 py-3 rounded-2xl bg-white/[0.04] border border-white/[0.08] shadow-[0_0_30px_rgba(77,208,225,0.06)]">
+              <span className="text-xs text-primary font-bold tracking-widest uppercase">Follow us</span>
+              <div className="w-px h-5 bg-gradient-to-b from-transparent via-primary/30 to-transparent" />
               {[
-                { Icon: FiGithub, href: "#" },
-                { Icon: FiLinkedin, href: "#" },
-                { Icon: FiTwitter, href: "#" },
-              ].map(({ Icon, href }, i) => (
+                { Icon: FiGithub, href: "#", label: "Star us on GitHub", bg: "bg-white/10 text-white shadow-[0_0_12px_rgba(255,255,255,0.15)]", hoverBg: "hover:bg-white/20 hover:shadow-[0_0_24px_rgba(255,255,255,0.25)]" },
+                { Icon: FiLinkedin, href: "#", label: "Connect on LinkedIn", bg: "bg-[#0a66c2]/20 text-[#5b9bd5] shadow-[0_0_12px_rgba(10,102,194,0.2)]", hoverBg: "hover:bg-[#0a66c2]/30 hover:shadow-[0_0_24px_rgba(10,102,194,0.4)]" },
+                { Icon: FiInstagram, href: "#", label: "Follow on Instagram", bg: "bg-[#e1306c]/15 text-[#e1306c] shadow-[0_0_12px_rgba(225,48,108,0.2)]", hoverBg: "hover:bg-[#e1306c]/25 hover:shadow-[0_0_24px_rgba(225,48,108,0.4)]" },
+              ].map(({ Icon, href, label, bg, hoverBg }, i) => (
                 <a
                   key={i}
                   href={href}
-                  className="w-10 h-10 rounded-lg border border-white/10 flex items-center justify-center text-light-300 hover:text-primary hover:border-primary/30 transition-all"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`group relative w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-300 hover:-translate-y-1 hover:scale-110 ${bg} ${hoverBg}`}
                 >
-                  <Icon size={18} />
+                  <Icon size={19} className="transition-transform duration-300 group-hover:scale-110" />
+                  {/* Tooltip */}
+                  <span className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1.5 rounded-lg bg-white text-dark-900 text-xs font-semibold whitespace-nowrap opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 shadow-lg">
+                    {label}
+                    <span className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-white" />
+                  </span>
                 </a>
               ))}
             </div>

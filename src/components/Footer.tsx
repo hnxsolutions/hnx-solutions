@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { FiGithub, FiLinkedin, FiTwitter, FiInstagram } from "react-icons/fi";
+import { FiGithub, FiLinkedin, FiInstagram } from "react-icons/fi";
 
 const footerLinks = {
   Services: [
@@ -25,21 +25,20 @@ const footerLinks = {
 };
 
 const socials = [
-  { icon: FiGithub, href: "#", label: "GitHub" },
-  { icon: FiLinkedin, href: "#", label: "LinkedIn" },
-  { icon: FiTwitter, href: "#", label: "Twitter" },
-  { icon: FiInstagram, href: "#", label: "Instagram" },
+  { icon: FiGithub, href: "#", label: "GitHub", tooltip: "Star us on GitHub", bg: "bg-white/10 text-white shadow-[0_0_12px_rgba(255,255,255,0.15)]", hoverBg: "hover:bg-white/20 hover:shadow-[0_0_24px_rgba(255,255,255,0.25)]" },
+  { icon: FiLinkedin, href: "#", label: "LinkedIn", tooltip: "Connect on LinkedIn", bg: "bg-[#0a66c2]/20 text-[#5b9bd5] shadow-[0_0_12px_rgba(10,102,194,0.2)]", hoverBg: "hover:bg-[#0a66c2]/30 hover:shadow-[0_0_24px_rgba(10,102,194,0.4)]" },
+  { icon: FiInstagram, href: "#", label: "Instagram", tooltip: "Follow on Instagram", bg: "bg-[#e1306c]/15 text-[#e1306c] shadow-[0_0_12px_rgba(225,48,108,0.2)]", hoverBg: "hover:bg-[#e1306c]/25 hover:shadow-[0_0_24px_rgba(225,48,108,0.4)]" },
 ];
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/5 bg-dark-800/50">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+    <footer className="relative pb-6 pt-8 w-full bg-dark-900 border-t border-white/[0.08]">
+      <div className="max-w-7xl mx-auto px-8 lg:px-12 py-14">
         <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-12">
           {/* Brand */}
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center gap-3 mb-5">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center font-bold text-dark-900 text-lg">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center font-bold text-dark-900 text-lg shadow-[0_0_20px_rgba(77,208,225,0.2)]">
                 H
               </div>
               <span className="text-xl font-bold">
@@ -51,15 +50,21 @@ export default function Footer() {
               AI-powered systems that drive real business results. Based in
               Mohali, Punjab, serving clients globally.
             </p>
-            <div className="flex gap-3">
+            <div className="inline-flex items-center gap-4 px-4 py-2.5 rounded-2xl bg-white/[0.04] border border-white/[0.08] shadow-[0_0_30px_rgba(77,208,225,0.06)]">
+              <span className="text-xs text-primary font-bold tracking-widest uppercase">Follow us</span>
+              <div className="w-px h-5 bg-gradient-to-b from-transparent via-primary/30 to-transparent" />
               {socials.map((s) => (
                 <a
                   key={s.label}
                   href={s.href}
                   aria-label={s.label}
-                  className="w-10 h-10 rounded-lg border border-white/10 flex items-center justify-center text-light-300 hover:text-primary hover:border-primary/30 transition-all"
+                  className={`group relative w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 hover:-translate-y-1 hover:scale-110 ${s.bg} ${s.hoverBg}`}
                 >
-                  <s.icon size={16} />
+                  <s.icon size={16} className="transition-transform duration-300 group-hover:scale-110" />
+                  <span className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1.5 rounded-lg bg-white text-dark-900 text-xs font-semibold whitespace-nowrap opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 shadow-lg">
+                    {s.tooltip}
+                    <span className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-white" />
+                  </span>
                 </a>
               ))}
             </div>
@@ -68,7 +73,8 @@ export default function Footer() {
           {/* Links */}
           {Object.entries(footerLinks).map(([title, links]) => (
             <div key={title}>
-              <h4 className="text-sm font-semibold uppercase tracking-wider text-light-100 mb-5">
+              <h4 className="text-sm font-semibold uppercase tracking-wider text-light-100 mb-5 flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_8px_rgba(77,208,225,0.5)]" />
                 {title}
               </h4>
               <ul className="space-y-3">
@@ -76,7 +82,7 @@ export default function Footer() {
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="text-sm text-light-300 hover:text-primary transition-colors"
+                      className="text-sm text-light-300 hover:text-primary hover:translate-x-1 transition-all duration-200 inline-block"
                     >
                       {link.name}
                     </Link>
@@ -88,14 +94,9 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="mt-12 pt-8 border-t border-white/[0.06] flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-light-300">
             © {new Date().getFullYear()} HNX Technologies. All rights reserved.
-          </p>
-          <p className="text-sm text-light-300">
-            Built with <span className="text-primary">Next.js</span>,{" "}
-            <span className="text-primary">React</span> &{" "}
-            <span className="text-primary">Tailwind CSS</span>
           </p>
         </div>
       </div>
