@@ -92,8 +92,8 @@ export default function AIAutomationPage() {
     <main>
       {/* Page Hero */}
       <section className="relative pt-40 pb-20 grid-bg overflow-hidden">
-        <div className="absolute top-20 left-10 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-10 w-80 h-80 bg-primary/8 rounded-full blur-3xl" />
+        <div className="absolute top-20 left-10 w-96 h-96 bg-accent/2 rounded-full blur-3xl" />
+        <div className="absolute bottom-20 right-10 w-80 h-80 bg-primary/3 rounded-full blur-3xl" />
 
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
           <motion.div

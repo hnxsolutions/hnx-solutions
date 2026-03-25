@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#021a0f"/><stop offset="50%" stop-color="#06321d"/><stop offset="100%" stop-color="#010f08"/></linearGradient>
+    <linearGradient id="s1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#10b981"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient>
+    <linearGradient id="s2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#06b6d4"/><stop offset="100%" stop-color="#3b82f6"/></linearGradient>
+    <linearGradient id="s3" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f59e0b"/><stop offset="100%" stop-color="#ef4444"/></linearGradient>
+    <linearGradient id="s4" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#a855f7"/><stop offset="100%" stop-color="#ec4899"/></linearGradient>
+    <linearGradient id="shieldFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#10b981" stop-opacity="0.12"/><stop offset="100%" stop-color="#06b6d4" stop-opacity="0.02"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="glow2"><feGaussianBlur stdDeviation="22" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="600" height="600" fill="url(#bg)"/>
+  <!-- Ambient orbs -->
+  <circle cx="300" cy="270" r="210" fill="#10b981" opacity="0.07" filter="url(#glow2)"/>
+  <circle cx="140" cy="140" r="130" fill="#06b6d4" opacity="0.05" filter="url(#glow2)"/>
+  <circle cx="470" cy="470" r="130" fill="#a855f7" opacity="0.04" filter="url(#glow2)"/>
+  <!-- Shield -->
+  <path d="M300,100 L430,172 L430,315 C430,410 300,480 300,480 C300,480 170,410 170,315 L170,172 Z" stroke="url(#s1)" stroke-width="3" fill="url(#shieldFill)" opacity="0.7"/>
+  <path d="M300,130 L410,192 L410,310 C410,390 300,450 300,450 C300,450 190,390 190,310 L190,192 Z" stroke="#10b981" stroke-width="1.5" fill="none" opacity="0.25"/>
+  <!-- Check mark — bright and glowing -->
+  <polyline points="255,280 288,320 365,235" stroke="url(#s1)" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.85" filter="url(#glow)"/>
+  <!-- Padlock -->
+  <g transform="translate(300,415)" opacity="0.6">
+    <rect x="-22" y="-6" width="44" height="34" rx="6" fill="url(#s2)" fill-opacity="0.35" stroke="url(#s2)" stroke-width="1.8"/>
+    <path d="M-11,-6 L-11,-20 C-11,-32 11,-32 11,-20 L11,-6" fill="none" stroke="url(#s1)" stroke-width="2"/>
+    <circle cx="0" cy="10" r="5" fill="url(#s1)" opacity="0.8" filter="url(#glow)"/>
+  </g>
+  <!-- Scanning arcs — colourful -->
+  <path d="M300,120 Q205,60 100,120" stroke="url(#s1)" stroke-width="2" fill="none" opacity="0.3"/>
+  <path d="M300,120 Q395,60 500,120" stroke="url(#s2)" stroke-width="2" fill="none" opacity="0.3"/>
+  <path d="M300,120 Q195,30 70,88" stroke="url(#s4)" stroke-width="1.2" fill="none" opacity="0.18"/>
+  <path d="M300,120 Q405,30 530,88" stroke="url(#s3)" stroke-width="1.2" fill="none" opacity="0.18"/>
+  <!-- Signal nodes on arcs -->
+  <circle cx="155" cy="80" r="10" fill="url(#s1)" opacity="0.65" filter="url(#glow)"/>
+  <circle cx="155" cy="80" r="4.5" fill="#fff" opacity="0.45"/>
+  <circle cx="445" cy="80" r="10" fill="url(#s2)" opacity="0.6" filter="url(#glow)"/>
+  <circle cx="445" cy="80" r="4.5" fill="#fff" opacity="0.4"/>
+  <circle cx="85" cy="105" r="8" fill="url(#s4)" opacity="0.5" filter="url(#glow)"/>
+  <circle cx="85" cy="105" r="3.5" fill="#fff" opacity="0.35"/>
+  <circle cx="515" cy="105" r="8" fill="url(#s3)" opacity="0.5" filter="url(#glow)"/>
+  <circle cx="515" cy="105" r="3.5" fill="#fff" opacity="0.35"/>
+  <!-- Hex grid pattern — colourful -->
+  <g stroke-width="1.2" fill="none" opacity="0.12">
+    <polygon points="80,520 115,502 150,520 150,555 115,573 80,555" stroke="url(#s1)"/>
+    <polygon points="150,520 185,502 220,520 220,555 185,573 150,555" stroke="url(#s2)"/>
+    <polygon points="220,520 255,502 290,520 290,555 255,573 220,555" stroke="url(#s4)"/>
+    <polygon points="290,520 325,502 360,520 360,555 325,573 290,555" stroke="url(#s1)"/>
+    <polygon points="360,520 395,502 430,520 430,555 395,573 360,555" stroke="url(#s3)"/>
+    <polygon points="430,520 465,502 500,520 500,555 465,573 430,555" stroke="url(#s2)"/>
+  </g>
+  <!-- Floating colourful binary fragments -->
+  <g opacity="0.2" font-family="monospace" font-size="12">
+    <text x="28" y="200" fill="url(#s1)">01101</text>
+    <text x="20" y="250" fill="url(#s2)">110010</text>
+    <text x="30" y="300" fill="url(#s4)">01011</text>
+    <text x="22" y="350" fill="url(#s3)">10110</text>
+    <text x="498" y="200" fill="url(#s2)">10010</text>
+    <text x="490" y="250" fill="url(#s1)">011011</text>
+    <text x="500" y="300" fill="url(#s3)">10110</text>
+    <text x="492" y="350" fill="url(#s4)">01101</text>
+  </g>
+  <!-- Stars -->
+  <circle cx="60" cy="50" r="2.5" fill="#10b981" opacity="0.6"/>
+  <circle cx="540" cy="40" r="3" fill="#06b6d4" opacity="0.5"/>
+  <circle cx="560" cy="470" r="2.5" fill="#ec4899" opacity="0.4"/>
+  <circle cx="40" cy="480" r="2" fill="#f59e0b" opacity="0.4"/>
+  <circle cx="300" cy="30" r="2" fill="#a855f7" opacity="0.5"/>
+</svg>

@@ -1,5 +1,7 @@
 "use client";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { HiArrowRight, HiPlay } from "react-icons/hi";
 import { FiGithub, FiLinkedin, FiTwitter } from "react-icons/fi";
@@ -11,13 +13,57 @@ const stats = [
   { value: "5+", label: "Years Experience" },
 ];
 
+const flipCards = [
+  {
+    title: "HNX Technologies",
+    subtitle: "Web · Mobile · AI · Cloud",
+    image: "/images/flip-cloud.svg",
+    badges: ["Next.js", "React Native", "AI/ML", "Cloud", "TypeScript"],
+  },
+  {
+    title: "Deep Research",
+    subtitle: "Data-driven product validation",
+    image: "/images/flip-research.svg",
+    badges: ["Analytics", "Due Diligence", "Market Fit", "Strategy"],
+  },
+  {
+    title: "AI Automation",
+    subtitle: "Intelligent workflow systems",
+    image: "/images/flip-ai.svg",
+    badges: ["Chatbots", "Agents", "ML Pipelines", "NLP"],
+  },
+  {
+    title: "Cloud Security",
+    subtitle: "Zero-trust infrastructure",
+    image: "/images/flip-security.svg",
+    badges: ["Encryption", "Compliance", "IAM", "Firewall"],
+  },
+  {
+    title: "SaaS Solutions",
+    subtitle: "Full-stack product engineering",
+    image: "/images/flip-saas.svg",
+    badges: ["Billing", "Multi-tenant", "Dashboards", "Auth"],
+  },
+];
+
 export default function Hero() {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const nextCard = useCallback(() => {
+    setActiveIndex((prev) => (prev + 1) % flipCards.length);
+  }, []);
+
+  useEffect(() => {
+    const id = setInterval(nextCard, 3000);
+    return () => clearInterval(id);
+  }, [nextCard]);
+
   return (
     <section id="home" className="relative min-h-screen flex items-center grid-bg overflow-hidden">
       {/* Ambient Orbs */}
-      <div className="absolute top-20 left-10 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 right-10 w-80 h-80 bg-accent/8 rounded-full blur-3xl" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/3 rounded-full blur-[120px]" />
+      <div className="absolute top-20 left-10 w-96 h-96 bg-primary/2 rounded-full blur-3xl" />
+      <div className="absolute bottom-20 right-10 w-80 h-80 bg-accent/3 rounded-full blur-3xl" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/[0.01] rounded-full blur-[120px]" />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-32 pb-20 w-full">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -82,40 +128,100 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          {/* Right - 3D-like Visual */}
+          {/* Right - Stacked Flip Card Visual */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             className="hidden lg:block relative"
           >
-            <div className="relative w-full aspect-square max-w-lg mx-auto">
-              {/* Central hexagon shape */}
-              <div className="absolute inset-8 rounded-3xl bg-gradient-to-br from-dark-700 to-dark-800 border border-white/10 rotate-6 animate-float" />
-              <div className="absolute inset-12 rounded-3xl glass-card flex flex-col items-center justify-center gap-6 -rotate-3">
-                <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center animate-pulse-glow">
-                  <span className="text-3xl font-black text-dark-900">H</span>
-                </div>
-                <div className="text-center">
-                  <p className="text-2xl font-bold">HNX Technologies</p>
-                  <p className="text-light-300 text-sm mt-1">
-                    Web · Mobile · AI · Cloud
-                  </p>
-                </div>
-                {/* Floating tech badges */}
-                <div className="flex flex-wrap gap-2 justify-center px-8">
-                  {["Next.js", "React Native", "AI/ML", "Cloud", "TypeScript"].map(
-                    (tech) => (
-                      <span
-                        key={tech}
-                        className="px-3 py-1 text-xs rounded-full bg-primary/10 text-primary border border-primary/20"
-                      >
-                        {tech}
-                      </span>
-                    )
-                  )}
-                </div>
+            <div
+              className="relative w-full aspect-square max-w-lg mx-auto cursor-pointer"
+              style={{ perspective: "1200px" }}
+              onClick={nextCard}
+            >
+              {/* Render cards in reverse so the active one is on top */}
+              {flipCards.map((c, i) => {
+                const offset = (i - activeIndex + flipCards.length) % flipCards.length;
+                // offset 0 = active (front), 1 = just behind, 2+ = further back
+                const isActive = offset === 0;
+                const zIndex = flipCards.length - offset;
+                const scale = 1 - offset * 0.05;
+                const translateY = offset * 14;
+                const rotateZ = offset * 2;
+                const opacity = offset <= 2 ? 1 - offset * 0.2 : 0;
+
+                return (
+                  <motion.div
+                    key={c.title}
+                    animate={{
+                      scale,
+                      y: translateY,
+                      rotateZ,
+                      rotateY: isActive ? 0 : 0,
+                      opacity,
+                      zIndex,
+                    }}
+                    transition={{
+                      duration: 0.7,
+                      ease: [0.4, 0, 0.2, 1],
+                    }}
+                    className="absolute inset-12 rounded-3xl glass-card overflow-hidden border border-white/[0.06]"
+                    style={{
+                      transformOrigin: "center bottom",
+                      backfaceVisibility: "hidden",
+                    }}
+                  >
+                    {/* Full-bleed background image */}
+                    <Image
+                      src={c.image}
+                      alt={c.title}
+                      fill
+                      className="object-cover"
+                    />
+                    {/* Dark overlay for readability */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
+
+                    {/* Content overlaid at bottom */}
+                    <div className="relative h-full flex flex-col items-center justify-end gap-3 p-6 pb-8">
+                      <div className="text-center">
+                        <p className="text-2xl font-bold text-white drop-shadow-lg">{c.title}</p>
+                        <p className="text-light-200 text-sm mt-1 drop-shadow">{c.subtitle}</p>
+                      </div>
+
+                      <div className="flex flex-wrap gap-2 justify-center px-2">
+                        {c.badges.map((badge) => (
+                          <span
+                            key={badge}
+                            className="px-3 py-1 text-xs rounded-full bg-white/10 text-white/90 border border-white/20 backdrop-blur-sm"
+                          >
+                            {badge}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })}
+
+              {/* Card indicator dots */}
+              <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                {flipCards.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setActiveIndex(i);
+                    }}
+                    className={`w-2 h-2 rounded-full transition-all ${
+                      i === activeIndex
+                        ? "bg-primary w-6"
+                        : "bg-light-300/30 hover:bg-light-300/50"
+                    }`}
+                  />
+                ))}
               </div>
+
               {/* Decorative dots */}
               <div className="absolute -top-4 -right-4 w-24 h-24 grid grid-cols-4 gap-2 opacity-30">
                 {Array.from({ length: 16 }).map((_, i) => (

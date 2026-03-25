@@ -5,22 +5,25 @@ import { HiArrowRight } from "react-icons/hi";
 
 const projects = [
   {
-    title: "FinTrack Pro",
-    category: "Web App",
-    tags: ["Next.js", "TypeScript", "PostgreSQL"],
-    color: "from-cyan-500/20 to-blue-500/20",
+    title: "Novakos Healthcare",
+    category: "Healthcare",
+    tags: ["Next.js", "TypeScript", "Tailwind CSS"],
+    color: "from-emerald-500/20 to-cyan-500/20",
+    liveUrl: "https://www.novakoshealthcare.com",
   },
   {
     title: "MediConnect",
     category: "Mobile App",
     tags: ["React Native", "WebRTC", "Node.js"],
     color: "from-emerald-500/20 to-teal-500/20",
+    liveUrl: undefined as string | undefined,
   },
   {
     title: "AI Support Agent",
     category: "AI Solution",
     tags: ["GPT-4", "LangChain", "Python"],
     color: "from-amber-500/20 to-orange-500/20",
+    liveUrl: undefined as string | undefined,
   },
 ];
 
@@ -59,11 +62,25 @@ export default function HomePortfolio() {
                 className="block group glass-card rounded-2xl overflow-hidden glow-border hover:-translate-y-2 transition-all duration-500"
               >
                 <div
-                  className={`h-40 bg-gradient-to-br ${project.color} flex items-center justify-center`}
+                  className={`h-40 bg-gradient-to-br ${project.color} flex items-center justify-center relative overflow-hidden`}
                 >
-                  <div className="text-6xl font-black text-white/10">
-                    {project.title[0]}
-                  </div>
+                  {project.liveUrl ? (
+                    <div className="absolute inset-0 overflow-hidden">
+                      <iframe
+                        src={project.liveUrl}
+                        title={`Preview of ${project.title}`}
+                        className="w-[1280px] h-[720px] origin-top-left pointer-events-none"
+                        style={{ transform: "scale(0.25)", transformOrigin: "top left" }}
+                        tabIndex={-1}
+                        loading="lazy"
+                        sandbox="allow-scripts allow-same-origin"
+                      />
+                    </div>
+                  ) : (
+                    <div className="text-6xl font-black text-white/10">
+                      {project.title[0]}
+                    </div>
+                  )}
                 </div>
                 <div className="p-6">
                   <span className="text-xs text-primary font-medium">{project.category}</span>

@@ -3,12 +3,13 @@ import { NextResponse } from "next/server";
 const projects = [
   {
     id: 1,
-    title: "FinTrack Pro",
+    title: "Novakos Healthcare",
     description:
-      "Enterprise financial dashboard with real-time analytics, multi-currency support, and AI-powered forecasting for investment firms.",
-    category: "Web Apps",
-    tags: ["Next.js", "TypeScript", "PostgreSQL", "Charts"],
-    stats: { users: "12K+", metric: "Real-time" },
+      "B2B pharmaceutical distribution platform with 160+ medicines catalog, bulk ordering, buyer registration, and compliance management for chemists, pharmacies, and hospitals.",
+    category: "Healthcare",
+    tags: ["Next.js", "TypeScript", "Tailwind CSS", "SEO"],
+    stats: { users: "500+", metric: "Live" },
+    liveUrl: "https://www.novakoshealthcare.com",
   },
   {
     id: 2,

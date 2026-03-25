@@ -1,18 +1,18 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-primary: #00e5ff;
-  --color-primary-dark: #00b8d4;
-  --color-accent: #7c4dff;
-  --color-accent-light: #b388ff;
-  --color-dark-900: #0a0a0f;
-  --color-dark-800: #12121a;
-  --color-dark-700: #1a1a28;
-  --color-dark-600: #242436;
-  --color-dark-500: #2e2e44;
-  --color-light-100: #f0f0f5;
-  --color-light-200: #c8c8d8;
-  --color-light-300: #9898aa;
+  --color-primary: #4dd0e1;
+  --color-primary-dark: #26c6da;
+  --color-accent: #9575cd;
+  --color-accent-light: #b39ddb;
+  --color-dark-900: #181818;
+  --color-dark-800: #212121;
+  --color-dark-700: #2a2a2a;
+  --color-dark-600: #333333;
+  --color-dark-500: #3d3d3d;
+  --color-light-100: #efefef;
+  --color-light-200: #c2c2c2;
+  --color-light-300: #959595;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -42,7 +42,7 @@ body {
 }
 
 ::selection {
-  background: rgba(0, 229, 255, 0.3);
+  background: rgba(77, 208, 225, 0.15);
   color: white;
 }
 
@@ -52,8 +52,8 @@ body {
 }
 
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 20px rgba(0, 229, 255, 0.2); }
-  50% { box-shadow: 0 0 40px rgba(0, 229, 255, 0.4); }
+  0%, 100% { box-shadow: 0 0 15px rgba(77, 208, 225, 0.1); }
+  50% { box-shadow: 0 0 25px rgba(77, 208, 225, 0.2); }
 }
 
 @keyframes gradient-shift {
@@ -71,7 +71,7 @@ body {
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, #00e5ff, #7c4dff, #00e5ff);
+  background: linear-gradient(135deg, #4dd0e1, #9575cd, #4dd0e1);
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
@@ -80,24 +80,53 @@ body {
 }
 
 .glass-card {
-  background: rgba(18, 18, 26, 0.7);
+  background: rgba(33, 33, 33, 0.7);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .glow-border {
-  border: 1px solid rgba(0, 229, 255, 0.15);
+  border: 1px solid rgba(77, 208, 225, 0.08);
   transition: all 0.4s ease;
 }
 
 .glow-border:hover {
-  border-color: rgba(0, 229, 255, 0.4);
-  box-shadow: 0 0 30px rgba(0, 229, 255, 0.1);
+  border-color: rgba(77, 208, 225, 0.2);
+  box-shadow: 0 0 20px rgba(77, 208, 225, 0.05);
 }
 
 .grid-bg {
   background-image:
-    linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 229, 255, 0.03) 1px, transparent 1px);
+    linear-gradient(rgba(77, 208, 225, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(77, 208, 225, 0.015) 1px, transparent 1px);
   background-size: 60px 60px;
+}
+
+/* Flip Cards */
+.flip-card-container {
+  perspective: 900px;
+  height: 280px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.flip-card-flipped {
+  transform: rotateY(180deg);
+}
+
+.flip-card-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
 }

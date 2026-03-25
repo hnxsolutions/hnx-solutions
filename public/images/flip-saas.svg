@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1a0510"/><stop offset="50%" stop-color="#30082a"/><stop offset="100%" stop-color="#0f020a"/></linearGradient>
+    <linearGradient id="r1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f43f5e"/><stop offset="100%" stop-color="#ec4899"/></linearGradient>
+    <linearGradient id="r2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#06b6d4"/><stop offset="100%" stop-color="#3b82f6"/></linearGradient>
+    <linearGradient id="r3" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f59e0b"/><stop offset="100%" stop-color="#f97316"/></linearGradient>
+    <linearGradient id="r4" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#10b981"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient>
+    <linearGradient id="r5" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#a855f7"/><stop offset="100%" stop-color="#6366f1"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="glow2"><feGaussianBlur stdDeviation="22" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="600" height="600" fill="url(#bg)"/>
+  <!-- Ambient orbs -->
+  <circle cx="300" cy="230" r="200" fill="#f43f5e" opacity="0.06" filter="url(#glow2)"/>
+  <circle cx="130" cy="450" r="150" fill="#06b6d4" opacity="0.05" filter="url(#glow2)"/>
+  <circle cx="480" cy="150" r="130" fill="#a855f7" opacity="0.05" filter="url(#glow2)"/>
+  <!-- Dashboard frame -->
+  <rect x="80" y="90" width="440" height="295" rx="16" stroke="url(#r1)" stroke-width="2.5" fill="#f43f5e" fill-opacity="0.04" opacity="0.6"/>
+  <!-- Titlebar -->
+  <rect x="80" y="90" width="440" height="38" rx="16" fill="url(#r1)" fill-opacity="0.08"/>
+  <circle cx="108" cy="109" r="6" fill="url(#r1)" opacity="0.55"/>
+  <circle cx="130" cy="109" r="6" fill="url(#r3)" opacity="0.45"/>
+  <circle cx="152" cy="109" r="6" fill="url(#r4)" opacity="0.35"/>
+  <!-- Colourful line chart -->
+  <polyline points="115,285 168,262 222,272 278,218 332,238 388,188 442,212 498,172" stroke="url(#r1)" stroke-width="3" fill="none" opacity="0.7" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"/>
+  <!-- Area fill under curve -->
+  <polygon points="115,285 168,262 222,272 278,218 332,238 388,188 442,212 498,172 498,360 115,360" fill="url(#r1)" fill-opacity="0.06"/>
+  <!-- Second line -->
+  <polyline points="115,305 168,290 222,298 278,268 332,280 388,252 442,260 498,235" stroke="url(#r2)" stroke-width="2" fill="none" opacity="0.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Data points — multicolour -->
+  <circle cx="168" cy="262" r="6" fill="url(#r1)" opacity="0.9" filter="url(#glow)"/>
+  <circle cx="278" cy="218" r="6" fill="url(#r3)" opacity="0.85" filter="url(#glow)"/>
+  <circle cx="388" cy="188" r="6" fill="url(#r5)" opacity="0.85" filter="url(#glow)"/>
+  <circle cx="498" cy="172" r="7" fill="url(#r4)" opacity="0.9" filter="url(#glow)"/>
+  <!-- Grid lines -->
+  <g stroke="#f43f5e" stroke-width="0.6" opacity="0.08">
+    <line x1="115" y1="200" x2="498" y2="200"/>
+    <line x1="115" y1="240" x2="498" y2="240"/>
+    <line x1="115" y1="280" x2="498" y2="280"/>
+    <line x1="115" y1="320" x2="498" y2="320"/>
+  </g>
+  <!-- Metric cards — vibrant -->
+  <g opacity="0.65">
+    <!-- Card 1 -->
+    <rect x="80" y="425" width="130" height="85" rx="12" stroke="url(#r1)" stroke-width="1.5" fill="url(#r1)" fill-opacity="0.06"/>
+    <rect x="98" y="448" width="50" height="7" rx="3.5" fill="url(#r1)" opacity="0.45"/>
+    <rect x="98" y="464" width="80" height="12" rx="5" fill="url(#r1)" opacity="0.55"/>
+    <rect x="98" y="484" width="35" height="6" rx="3" fill="url(#r4)" opacity="0.4"/>
+    <!-- Card 2 -->
+    <rect x="235" y="425" width="130" height="85" rx="12" stroke="url(#r2)" stroke-width="1.5" fill="url(#r2)" fill-opacity="0.06"/>
+    <rect x="253" y="448" width="50" height="7" rx="3.5" fill="url(#r2)" opacity="0.45"/>
+    <rect x="253" y="464" width="80" height="12" rx="5" fill="url(#r2)" opacity="0.55"/>
+    <rect x="253" y="484" width="35" height="6" rx="3" fill="url(#r3)" opacity="0.4"/>
+    <!-- Card 3 -->
+    <rect x="390" y="425" width="130" height="85" rx="12" stroke="url(#r5)" stroke-width="1.5" fill="url(#r5)" fill-opacity="0.06"/>
+    <rect x="408" y="448" width="50" height="7" rx="3.5" fill="url(#r5)" opacity="0.45"/>
+    <rect x="408" y="464" width="80" height="12" rx="5" fill="url(#r5)" opacity="0.55"/>
+    <rect x="408" y="484" width="35" height="6" rx="3" fill="url(#r1)" opacity="0.4"/>
+  </g>
+  <!-- Donut chart — multicolour -->
+  <g transform="translate(478,155)" opacity="0.5">
+    <circle cx="0" cy="0" r="24" stroke="url(#r1)" stroke-width="6" fill="none" stroke-dasharray="80 70"/>
+    <circle cx="0" cy="0" r="24" stroke="url(#r2)" stroke-width="6" fill="none" stroke-dasharray="35 115" stroke-dashoffset="-80"/>
+    <circle cx="0" cy="0" r="24" stroke="url(#r3)" stroke-width="6" fill="none" stroke-dasharray="25 125" stroke-dashoffset="-115"/>
+  </g>
+  <!-- Mini bar chart — colourful -->
+  <g transform="translate(115,148)" opacity="0.4">
+    <rect x="0" y="22" width="10" height="32" rx="4" fill="url(#r2)"/>
+    <rect x="16" y="10" width="10" height="44" rx="4" fill="url(#r1)"/>
+    <rect x="32" y="28" width="10" height="26" rx="4" fill="url(#r3)"/>
+    <rect x="48" y="0" width="10" height="54" rx="4" fill="url(#r4)"/>
+  </g>
+  <!-- Stars -->
+  <circle cx="55" cy="55" r="3" fill="#f43f5e" opacity="0.6"/>
+  <circle cx="548" cy="45" r="2.5" fill="#06b6d4" opacity="0.5"/>
+  <circle cx="45" cy="555" r="2.5" fill="#10b981" opacity="0.4"/>
+  <circle cx="560" cy="560" r="3" fill="#a855f7" opacity="0.5"/>
+  <circle cx="300" cy="565" r="2" fill="#f59e0b" opacity="0.4"/>
+</svg>

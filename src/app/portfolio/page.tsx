@@ -4,29 +4,31 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { HiExternalLink, HiEye, HiArrowRight } from "react-icons/hi";
 import { FiGithub } from "react-icons/fi";
+import SitePreview from "@/components/SitePreview";
 
-const categories = ["All", "Web Apps", "Mobile Apps", "AI Solutions", "E-Commerce"];
+const categories = ["All", "Web Apps", "Mobile Apps", "AI Solutions", "E-Commerce", "Healthcare"];
 
 const projects = [
   {
-    title: "FinTrack Pro",
+    title: "Novakos Healthcare",
     description:
-      "Enterprise financial dashboard with real-time analytics, multi-currency support, and AI-powered forecasting for investment firms.",
+      "B2B pharmaceutical distribution platform with 160+ medicines catalog, bulk ordering, buyer registration, and compliance management for chemists, pharmacies, and hospitals.",
     longDescription:
-      "Built a comprehensive financial management platform serving 12K+ active users. Features include real-time portfolio tracking, AI-powered market forecasting, automated report generation, and multi-currency support across 50+ currencies. The system processes millions of transactions daily with sub-second response times.",
-    category: "Web Apps",
-    tags: ["Next.js", "TypeScript", "PostgreSQL", "Charts", "Redis", "WebSocket"],
-    stats: { users: "12K+", metric: "Real-time", timeline: "6 weeks" },
-    color: "from-cyan-500/20 to-blue-500/20",
+      "Built a comprehensive B2B pharmaceutical distribution platform for Novakos Healthcare, a trusted PCD pharma partner. The platform features a catalog of 160+ medicines across 23 therapeutic categories including antibiotics, analgesics, derma, hepatoprotective, and ortho products. Key features include a bulk ordering system, buyer registration with verification, medicine catalog with category filtering, compliance documentation, and a responsive design optimized for healthcare professionals. The site serves 500+ pharmacies and hospitals with temperature-controlled warehousing visibility and GDP compliance transparency.",
+    category: "Healthcare",
+    tags: ["Next.js", "TypeScript", "Tailwind CSS", "SEO", "Responsive Design", "B2B Platform"],
+    stats: { users: "500+", metric: "Live", timeline: "3 weeks" },
+    color: "from-emerald-500/20 to-cyan-500/20",
+    liveUrl: "https://www.novakoshealthcare.com",
     challenges: [
-      "Real-time data synchronization across thousands of concurrent users",
-      "Complex financial calculations with sub-millisecond accuracy",
-      "Multi-timezone support for global investment teams",
+      "Organizing 160+ medicines across 23 therapeutic categories with intuitive filtering",
+      "Building a GDPR-compliant buyer registration and bulk ordering workflow",
+      "Optimizing SEO for pharmaceutical B2B search visibility",
     ],
     results: [
-      "40% faster portfolio analysis compared to previous system",
-      "99.99% uptime since launch",
-      "2x increase in user engagement",
+      "Serving 500+ pharmacies and hospitals since launch",
+      "160+ products cataloged across 23 categories",
+      "Bulk order inquiries increased by 3x after launch",
     ],
   },
   {
@@ -139,6 +141,7 @@ const projects = [
 export default function PortfolioPage() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [expandedProject, setExpandedProject] = useState<string | null>(null);
+  const [previewProject, setPreviewProject] = useState<{ url: string; title: string } | null>(null);
 
   const filtered =
     activeCategory === "All"
@@ -149,8 +152,8 @@ export default function PortfolioPage() {
     <main>
       {/* Page Hero */}
       <section className="relative pt-40 pb-20 grid-bg overflow-hidden">
-        <div className="absolute top-20 left-10 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-10 w-80 h-80 bg-accent/8 rounded-full blur-3xl" />
+        <div className="absolute top-20 left-10 w-96 h-96 bg-primary/2 rounded-full blur-3xl" />
+        <div className="absolute bottom-20 right-10 w-80 h-80 bg-accent/3 rounded-full blur-3xl" />
 
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
           <motion.div
@@ -218,26 +221,67 @@ export default function PortfolioPage() {
                       setExpandedProject(isExpanded ? null : project.title)
                     }
                   >
-                    <div className="grid lg:grid-cols-3 gap-0">
+                    <div className={`grid lg:grid-cols-3 gap-0 ${isExpanded ? "items-stretch" : ""}`}>
                       {/* Project Image / Header */}
                       <div
-                        className={`h-48 lg:h-auto bg-gradient-to-br ${project.color} flex items-center justify-center relative overflow-hidden`}
+                        className={`${isExpanded ? "h-64 lg:h-full" : "h-48 lg:h-auto"} min-h-[200px] bg-gradient-to-br ${project.color} flex items-center justify-center relative overflow-hidden transition-all duration-500`}
                       >
-                        <div className="text-8xl font-black text-white/10">
-                          {project.title[0]}
-                        </div>
+                        {project.liveUrl ? (
+                          <div className="absolute inset-0 overflow-hidden">
+                            <iframe
+                              src={project.liveUrl}
+                              title={`Preview of ${project.title}`}
+                              className="w-[1280px] h-[900px] origin-top-left pointer-events-none"
+                              style={{ transform: "scale(0.35)", transformOrigin: "top left" }}
+                              tabIndex={-1}
+                              loading="lazy"
+                              sandbox="allow-scripts allow-same-origin"
+                            />
+                          </div>
+                        ) : (
+                          <div className="text-8xl font-black text-white/10">
+                            {project.title[0]}
+                          </div>
+                        )}
                         <div className="absolute top-4 left-4">
                           <span className="px-3 py-1 text-xs rounded-full bg-dark-900/60 text-light-200 backdrop-blur-sm">
                             {project.category}
                           </span>
                         </div>
                         <div className="absolute bottom-4 right-4 flex gap-2">
-                          <button className="w-10 h-10 rounded-full bg-dark-900/40 backdrop-blur-sm border border-white/20 flex items-center justify-center text-light-200 hover:text-primary transition-colors">
-                            <HiEye size={18} />
-                          </button>
-                          <button className="w-10 h-10 rounded-full bg-dark-900/40 backdrop-blur-sm border border-white/20 flex items-center justify-center text-light-200 hover:text-primary transition-colors">
-                            <FiGithub size={18} />
-                          </button>
+                          {project.liveUrl ? (
+                            <>
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setPreviewProject({ url: project.liveUrl!, title: project.title });
+                                }}
+                                className="w-10 h-10 rounded-full bg-dark-900/40 backdrop-blur-sm border border-white/20 flex items-center justify-center text-light-200 hover:text-primary transition-colors"
+                                title="Preview site"
+                              >
+                                <HiEye size={18} />
+                              </button>
+                              <a
+                                href={project.liveUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={(e) => e.stopPropagation()}
+                                className="w-10 h-10 rounded-full bg-dark-900/40 backdrop-blur-sm border border-white/20 flex items-center justify-center text-light-200 hover:text-primary transition-colors"
+                                title="Visit site"
+                              >
+                                <HiExternalLink size={18} />
+                              </a>
+                            </>
+                          ) : (
+                            <>
+                              <button className="w-10 h-10 rounded-full bg-dark-900/40 backdrop-blur-sm border border-white/20 flex items-center justify-center text-light-200 hover:text-primary transition-colors">
+                                <HiEye size={18} />
+                              </button>
+                              <button className="w-10 h-10 rounded-full bg-dark-900/40 backdrop-blur-sm border border-white/20 flex items-center justify-center text-light-200 hover:text-primary transition-colors">
+                                <FiGithub size={18} />
+                              </button>
+                            </>
+                          )}
                         </div>
                       </div>
 
@@ -332,6 +376,30 @@ export default function PortfolioPage() {
                           )}
                         </AnimatePresence>
 
+                        {/* Live site buttons */}
+                        {project.liveUrl && isExpanded && (
+                          <div className="flex items-center gap-3 mt-4">
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setPreviewProject({ url: project.liveUrl!, title: project.title });
+                              }}
+                              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary/10 border border-primary/30 text-sm text-primary hover:bg-primary/20 transition-all"
+                            >
+                              <HiEye size={16} /> Preview Site
+                            </button>
+                            <a
+                              href={project.liveUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              onClick={(e) => e.stopPropagation()}
+                              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-light-200 hover:text-primary hover:border-primary/30 transition-all"
+                            >
+                              <HiExternalLink size={16} /> Visit Live Site
+                            </a>
+                          </div>
+                        )}
+
                         <p className="text-xs text-primary mt-4">
                           {isExpanded ? "Click to collapse" : "Click to view full case study →"}
                         </p>
@@ -371,6 +439,15 @@ export default function PortfolioPage() {
           </motion.div>
         </div>
       </section>
+
+      {/* Site Preview Modal */}
+      {previewProject && (
+        <SitePreview
+          url={previewProject.url}
+          title={previewProject.title}
+          onClose={() => setPreviewProject(null)}
+        />
+      )}
     </main>
   );
 }

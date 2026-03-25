@@ -3,19 +3,21 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { HiExternalLink, HiEye } from "react-icons/hi";
 import { FiGithub } from "react-icons/fi";
+import SitePreview from "./SitePreview";
 
-const categories = ["All", "Web Apps", "Mobile Apps", "AI Solutions", "E-Commerce"];
+const categories = ["All", "Web Apps", "Mobile Apps", "AI Solutions", "E-Commerce", "Healthcare"];
 
 const projects = [
   {
-    title: "FinTrack Pro",
+    title: "Novakos Healthcare",
     description:
-      "Enterprise financial dashboard with real-time analytics, multi-currency support, and AI-powered forecasting for investment firms.",
-    category: "Web Apps",
-    tags: ["Next.js", "TypeScript", "PostgreSQL", "Charts"],
-    stats: { users: "12K+", metric: "Real-time" },
-    color: "from-cyan-500/20 to-blue-500/20",
-    accent: "cyan",
+      "B2B pharmaceutical distribution platform with 160+ medicines catalog, bulk ordering, buyer registration, and compliance management for chemists, pharmacies, and hospitals.",
+    category: "Healthcare",
+    tags: ["Next.js", "TypeScript", "Tailwind CSS", "SEO"],
+    stats: { users: "500+", metric: "Live" },
+    color: "from-emerald-500/20 to-cyan-500/20",
+    accent: "emerald",
+    liveUrl: "https://www.novakoshealthcare.com",
   },
   {
     title: "MediConnect",
@@ -71,6 +73,7 @@ const projects = [
 
 export default function Portfolio() {
   const [activeCategory, setActiveCategory] = useState("All");
+  const [previewProject, setPreviewProject] = useState<{ url: string; title: string } | null>(null);
 
   const filtered =
     activeCategory === "All"
@@ -133,18 +136,55 @@ export default function Portfolio() {
                 <div
                   className={`h-48 bg-gradient-to-br ${project.color} flex items-center justify-center relative overflow-hidden`}
                 >
-                  <div className="text-6xl font-black text-white/10">
-                    {project.title[0]}
-                  </div>
+                  {project.liveUrl ? (
+                    <div className="absolute inset-0 overflow-hidden">
+                      <iframe
+                        src={project.liveUrl}
+                        title={`Preview of ${project.title}`}
+                        className="w-[1280px] h-[720px] origin-top-left pointer-events-none"
+                        style={{ transform: "scale(0.28)", transformOrigin: "top left" }}
+                        tabIndex={-1}
+                        loading="lazy"
+                        sandbox="allow-scripts allow-same-origin"
+                      />
+                    </div>
+                  ) : (
+                    <div className="text-6xl font-black text-white/10">
+                      {project.title[0]}
+                    </div>
+                  )}
 
                   {/* Hover overlay */}
                   <div className="absolute inset-0 bg-dark-900/80 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <button className="w-12 h-12 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center text-primary hover:bg-primary/30 transition-colors">
-                      <HiEye size={20} />
-                    </button>
-                    <button className="w-12 h-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-light-200 hover:bg-white/20 transition-colors">
-                      <FiGithub size={20} />
-                    </button>
+                    {project.liveUrl ? (
+                      <>
+                        <button
+                          onClick={() => setPreviewProject({ url: project.liveUrl!, title: project.title })}
+                          className="w-12 h-12 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center text-primary hover:bg-primary/30 transition-colors"
+                          title="Preview site"
+                        >
+                          <HiEye size={20} />
+                        </button>
+                        <a
+                          href={project.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-12 h-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-light-200 hover:bg-white/20 transition-colors"
+                          title="Visit site"
+                        >
+                          <HiExternalLink size={20} />
+                        </a>
+                      </>
+                    ) : (
+                      <>
+                        <button className="w-12 h-12 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center text-primary hover:bg-primary/30 transition-colors">
+                          <HiEye size={20} />
+                        </button>
+                        <button className="w-12 h-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-light-200 hover:bg-white/20 transition-colors">
+                          <FiGithub size={20} />
+                        </button>
+                      </>
+                    )}
                   </div>
                 </div>
 
@@ -187,6 +227,15 @@ export default function Portfolio() {
           </AnimatePresence>
         </motion.div>
       </div>
+
+      {/* Site Preview Modal */}
+      {previewProject && (
+        <SitePreview
+          url={previewProject.url}
+          title={previewProject.title}
+          onClose={() => setPreviewProject(null)}
+        />
+      )}
     </section>
   );
 }

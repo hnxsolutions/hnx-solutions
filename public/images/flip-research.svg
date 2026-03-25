@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1a0533"/><stop offset="50%" stop-color="#2d1b69"/><stop offset="100%" stop-color="#0d0221"/></linearGradient>
+    <linearGradient id="v1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#a855f7"/><stop offset="100%" stop-color="#6366f1"/></linearGradient>
+    <linearGradient id="v2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ec4899"/><stop offset="100%" stop-color="#f43f5e"/></linearGradient>
+    <linearGradient id="v3" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#06b6d4"/><stop offset="100%" stop-color="#3b82f6"/></linearGradient>
+    <linearGradient id="v4" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stop-color="#f59e0b"/><stop offset="100%" stop-color="#ef4444"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="glow2"><feGaussianBlur stdDeviation="22" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="600" height="600" fill="url(#bg)"/>
+  <!-- Ambient orbs -->
+  <circle cx="250" cy="220" r="200" fill="#a855f7" opacity="0.08" filter="url(#glow2)"/>
+  <circle cx="420" cy="450" r="150" fill="#ec4899" opacity="0.06" filter="url(#glow2)"/>
+  <circle cx="100" cy="480" r="120" fill="#06b6d4" opacity="0.05" filter="url(#glow2)"/>
+  <!-- Magnifying glass -->
+  <circle cx="260" cy="225" r="120" stroke="url(#v1)" stroke-width="4" fill="none" opacity="0.5" filter="url(#glow)"/>
+  <circle cx="260" cy="225" r="105" stroke="#a855f7" stroke-width="2" fill="#a855f7" fill-opacity="0.06"/>
+  <circle cx="260" cy="225" r="85" stroke="#6366f1" stroke-width="1" fill="none" opacity="0.2"/>
+  <!-- Lens flare -->
+  <circle cx="215" cy="180" r="15" fill="#a855f7" opacity="0.1" filter="url(#glow)"/>
+  <!-- Handle -->
+  <line x1="348" y1="318" x2="445" y2="415" stroke="url(#v1)" stroke-width="12" stroke-linecap="round" opacity="0.6"/>
+  <line x1="350" y1="320" x2="440" y2="410" stroke="#c084fc" stroke-width="5" stroke-linecap="round" opacity="0.3"/>
+  <!-- Data constellation inside lens -->
+  <g filter="url(#glow)">
+    <circle cx="215" cy="185" r="10" fill="url(#v1)" opacity="0.9"/>
+    <circle cx="285" cy="170" r="8" fill="url(#v2)" opacity="0.85"/>
+    <circle cx="315" cy="225" r="9" fill="url(#v3)" opacity="0.8"/>
+    <circle cx="260" cy="265" r="11" fill="url(#v4)" opacity="0.75"/>
+    <circle cx="195" cy="245" r="7" fill="url(#v1)" opacity="0.7"/>
+    <circle cx="295" cy="275" r="7" fill="url(#v2)" opacity="0.65"/>
+    <circle cx="240" cy="205" r="6" fill="url(#v3)" opacity="0.7"/>
+  </g>
+  <!-- Constellation lines with color -->
+  <g stroke-width="1.8" fill="none" opacity="0.35">
+    <line x1="215" y1="185" x2="285" y2="170" stroke="url(#v1)"/>
+    <line x1="285" y1="170" x2="315" y2="225" stroke="url(#v2)"/>
+    <line x1="315" y1="225" x2="260" y2="265" stroke="url(#v3)"/>
+    <line x1="260" y1="265" x2="195" y2="245" stroke="url(#v4)"/>
+    <line x1="195" y1="245" x2="215" y2="185" stroke="url(#v1)"/>
+    <line x1="215" y1="185" x2="260" y2="265" stroke="#6366f1" stroke-width="0.8" opacity="0.5"/>
+    <line x1="285" y1="170" x2="260" y2="265" stroke="#ec4899" stroke-width="0.8" opacity="0.5"/>
+    <line x1="240" y1="205" x2="295" y2="275" stroke="#06b6d4" stroke-width="0.8" opacity="0.5"/>
+  </g>
+  <!-- Colourful bar chart -->
+  <rect x="70" y="430" width="50" height="90" rx="8" fill="url(#v3)" opacity="0.45"/>
+  <rect x="135" y="395" width="50" height="125" rx="8" fill="url(#v1)" opacity="0.55"/>
+  <rect x="200" y="370" width="50" height="150" rx="8" fill="url(#v2)" opacity="0.6"/>
+  <rect x="265" y="340" width="50" height="180" rx="8" fill="url(#v4)" opacity="0.65"/>
+  <rect x="330" y="365" width="50" height="155" rx="8" fill="url(#v1)" opacity="0.55"/>
+  <rect x="395" y="350" width="50" height="170" rx="8" fill="url(#v3)" opacity="0.6"/>
+  <rect x="460" y="325" width="50" height="195" rx="8" fill="url(#v2)" opacity="0.55"/>
+  <!-- Trend line -->
+  <polyline points="95,420 160,385 225,360 290,330 355,358 420,340 485,315" stroke="#fff" stroke-width="3" fill="none" opacity="0.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"/>
+  <!-- Trend dots -->
+  <circle cx="95" cy="420" r="5" fill="#06b6d4" opacity="0.9" filter="url(#glow)"/>
+  <circle cx="225" cy="360" r="5" fill="#ec4899" opacity="0.85" filter="url(#glow)"/>
+  <circle cx="290" cy="330" r="6" fill="#f59e0b" opacity="0.9" filter="url(#glow)"/>
+  <circle cx="485" cy="315" r="5" fill="#a855f7" opacity="0.85" filter="url(#glow)"/>
+  <!-- Baseline -->
+  <line x1="55" y1="520" x2="525" y2="520" stroke="#a855f7" stroke-width="1.5" opacity="0.15"/>
+  <!-- Stars -->
+  <circle cx="500" cy="100" r="3" fill="#fbc2eb" opacity="0.6"/>
+  <circle cx="540" cy="180" r="2.5" fill="#06b6d4" opacity="0.5"/>
+  <circle cx="80" cy="90" r="2.5" fill="#a855f7" opacity="0.5"/>
+  <circle cx="40" cy="160" r="2" fill="#f59e0b" opacity="0.4"/>
+  <circle cx="550" cy="550" r="2.5" fill="#ec4899" opacity="0.4"/>
+  <circle cx="50" cy="560" r="2" fill="#06b6d4" opacity="0.3"/>
+</svg>
