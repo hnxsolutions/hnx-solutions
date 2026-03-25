@@ -7,10 +7,15 @@ import {
   HiCloud,
   HiColorSwatch,
   HiTrendingUp,
+  HiBriefcase,
+  HiCog,
+  HiServer,
+  HiArrowRight,
 } from "react-icons/hi";
 
 const services = [
   {
+    id: "web-development",
     icon: HiCode,
     title: "Web Development",
     description:
@@ -19,6 +24,16 @@ const services = [
     color: "from-cyan-400 to-blue-500",
   },
   {
+    id: "saas-development",
+    icon: HiServer,
+    title: "SaaS Development",
+    description:
+      "Build scalable, secure, and subscription-based SaaS platforms with modern architecture, seamless user experience, and cloud-native deployment.",
+    tags: ["Next.js", "React", "Node.js", "PostgreSQL", "Stripe", "AWS/Vercel"],
+    color: "from-indigo-400 to-violet-600",
+  },
+  {
+    id: "mobile-apps",
     icon: HiDeviceMobile,
     title: "Mobile App Development",
     description:
@@ -27,6 +42,25 @@ const services = [
     color: "from-violet-400 to-purple-500",
   },
   {
+    id: "crm-salesforce",
+    icon: HiBriefcase,
+    title: "CRM & Salesforce",
+    description:
+      "Optimize business processes with Salesforce implementation and custom CRM solutions. Streamline sales, marketing, and customer service operations with automation and data-driven insights.",
+    tags: ["Salesforce", "CRM", "Business Automation", "Integration", "Einstein AI", "Apex", "LWC"],
+    color: "from-orange-400 to-red-500",
+  },
+  {
+    id: "devops",
+    icon: HiCog,
+    title: "DevOps",
+    description:
+      "Automate infrastructure, streamline CI/CD pipelines, and deploy scalable, reliable systems with monitoring and disaster recovery.",
+    tags: ["Kubernetes", "Jenkins", "AWS", "Docker", "Terraform", "GitLab CI", "Ansible"],
+    color: "from-slate-400 to-gray-500",
+  },
+  {
+    id: "ai-automation",
     icon: HiLightningBolt,
     title: "AI & Automation",
     description:
@@ -35,6 +69,7 @@ const services = [
     color: "from-amber-400 to-orange-500",
   },
   {
+    id: "cloud-solutions",
     icon: HiCloud,
     title: "Cloud Solutions",
     description:
@@ -43,6 +78,7 @@ const services = [
     color: "from-emerald-400 to-teal-500",
   },
   {
+    id: "ui-ux-design",
     icon: HiColorSwatch,
     title: "UI/UX Design",
     description:
@@ -51,6 +87,7 @@ const services = [
     color: "from-pink-400 to-rose-500",
   },
   {
+    id: "digital-growth",
     icon: HiTrendingUp,
     title: "Digital Growth",
     description:
@@ -72,69 +109,83 @@ const item = {
 
 export default function Services() {
   return (
-    <section id="services" className="py-32 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-dark-900 via-dark-800/50 to-dark-900" />
+    <>
+      <section id="services" className="py-32 relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-dark-900 via-dark-800/50 to-dark-900" />
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-20"
-        >
-          <span className="text-primary text-sm font-semibold tracking-widest uppercase">
-            What We Do
-          </span>
-          <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6">
-            Full-Spectrum <span className="gradient-text">Technology Services</span>
-          </h2>
-          <p className="text-light-300 text-lg max-w-2xl mx-auto">
-            From ideation to deployment, we deliver end-to-end solutions that
-            transform your vision into powerful digital products.
-          </p>
-        </motion.div>
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-20"
+          >
+            <span className="text-primary text-sm font-semibold tracking-widest uppercase">
+              What We Do
+            </span>
+            <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6">
+              Full-Spectrum <span className="gradient-text">Technology Services</span>
+            </h2>
+            <p className="text-light-300 text-lg max-w-2xl mx-auto">
+              From ideation to deployment, we deliver end-to-end solutions that
+              transform your vision into powerful digital products.
+            </p>
+          </motion.div>
 
-        {/* Services Grid */}
-        <motion.div
-          variants={container}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
-          {services.map((service) => (
-            <motion.div
-              key={service.title}
-              variants={item}
-              className="group glass-card rounded-2xl p-8 glow-border hover:-translate-y-2 transition-all duration-500"
-            >
-              <div
-                className={`w-14 h-14 rounded-xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}
+          {/* Services Grid */}
+          <motion.div
+            variants={container}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
+            {services.map((service) => (
+              <motion.div
+                key={service.id}
+                variants={item}
+                suppressHydrationWarning
+                className="group glass-card rounded-2xl p-8 glow-border hover:-translate-y-2 transition-all duration-500"
               >
-                <service.icon className="text-2xl text-white" />
-              </div>
+                <div
+                  className={`w-14 h-14 rounded-xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}
+                >
+                  <service.icon className="text-2xl text-white" />
+                </div>
 
-              <h3 className="text-xl font-bold mb-3">{service.title}</h3>
-              <p className="text-light-300 text-sm leading-relaxed mb-6">
-                {service.description}
-              </p>
+                <h3 className="text-xl font-bold mb-3">{service.title}</h3>
+                <p className="text-light-300 text-sm leading-relaxed mb-6">
+                  {service.description}
+                </p>
 
-              <div className="flex flex-wrap gap-2">
-                {service.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="px-3 py-1 text-xs rounded-full bg-white/5 text-light-200 border border-white/10"
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {service.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-3 py-1 text-xs rounded-full bg-white/5 text-light-200 border border-white/10"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="mt-4">
+                  <a
+                    href={`/blog/${service.id}`}
+                    style={{ pointerEvents: 'auto' }}
+                    className="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-primary hover:text-white transition-colors group/btn cursor-pointer"
                   >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
-    </section>
+                    Learn More
+                    <HiArrowRight className="group-hover/btn:translate-x-1 transition-transform" />
+                  </a>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+    </>
   );
 }

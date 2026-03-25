@@ -1,0 +1,95 @@
+{
+  "id": "web-development",
+  "title": "Web Development",
+  "blogTitle": "The Future of Web Development: Building Scalable Digital Products",
+  "icon": "HiCode",
+  "color": "from-cyan-400 to-blue-500",
+  "introduction": "In today's fast-paced digital world, businesses need powerful, scalable, and high-performance web applications to stay competitive. At HNX Technologies, we specialize in building modern web solutions using cutting-edge technologies like Next.js, React, and TypeScript.",
+  "sections": [
+    {
+      "title": "Why Web Development Matters",
+      "icon": "💡",
+      "content": "A strong web presence is no longer optional — it's essential. Your website is your digital identity, and it must deliver:",
+      "points": [
+        "⚡ Fast performance",
+        "📱 Mobile responsiveness",
+        "🔐 Secure architecture",
+        "📈 Scalable infrastructure"
+      ]
+    },
+    {
+      "title": "Technologies We Use",
+      "icon": "🛠",
+      "content": "We use modern tools and frameworks to deliver the best results:",
+      "points": [
+        "Next.js – Server-side rendering & SEO optimization",
+        "React – Dynamic and interactive UI",
+        "TypeScript – Type-safe and scalable code",
+        "Node.js – Powerful backend services",
+        "PostgreSQL – Reliable database",
+        "Tailwind CSS – Modern and responsive design"
+      ]
+    },
+    {
+      "title": "What We Build",
+      "icon": "🔥",
+      "subsections": [
+        {
+          "subtitle": "1. Custom Web Applications",
+          "content": "We create fully customized web apps tailored to your business needs with high performance and scalability."
+        },
+        {
+          "subtitle": "2. Progressive Web Apps (PWAs)",
+          "content": "PWAs provide app-like experiences:",
+          "points": [
+            "Works offline",
+            "Installable on devices",
+            "Fast and responsive"
+          ]
+        },
+        {
+          "subtitle": "3. E-commerce Platforms",
+          "content": "We develop scalable e-commerce solutions with:",
+          "points": [
+            "Real-time inventory",
+            "Secure payments",
+            "Advanced analytics"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Performance & SEO Focus",
+      "icon": "⚡",
+      "content": "We build applications with:",
+      "points": [
+        "Server-side rendering (SSR)",
+        "Optimized loading speed",
+        "SEO-friendly structure"
+      ]
+    },
+    {
+      "title": "Scalable Architecture",
+      "icon": "☁️",
+      "content": "Our solutions are built to grow with your business:",
+      "points": [
+        "Cloud-ready infrastructure",
+        "Microservices architecture",
+        "High availability"
+      ]
+    },
+    {
+      "title": "Future-Ready Development",
+      "icon": "🤖",
+      "content": "We integrate:",
+      "points": [
+        "AI-powered features",
+        "Automation systems",
+        "Smart analytics"
+      ]
+    }
+  ],
+  "conclusion": "At HNX Technologies, we don't just build websites — we build scalable digital products that drive business growth.",
+  "cta": "Ready to build your next project? Start your journey with HNX Technologies today.",
+  "tags": ["Next.js", "React", "Web Development", "Performance"]
+}

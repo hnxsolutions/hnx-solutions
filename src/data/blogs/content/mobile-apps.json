@@ -1,0 +1,92 @@
+{
+  "id": "mobile-apps",
+  "title": "Mobile App Development",
+  "blogTitle": "Cross-Platform Mobile Development: React Native vs Flutter",
+  "icon": "HiDeviceMobile",
+  "color": "from-violet-400 to-purple-500",
+  "introduction": "Mobile apps are essential for business growth. Building native apps for iOS and Android separately is costly and time-consuming. That's why we leverage React Native and Flutter to deliver high-performance cross-platform solutions.",
+  "sections": [
+    {
+      "title": "Why Cross-Platform Development",
+      "icon": "💡",
+      "content": "Save time and money while reaching more users:",
+      "points": [
+        "🎯 Single codebase for iOS & Android",
+        "💰 Cost-effective development",
+        "⏱️ Faster time to market",
+        "🔄 Easier maintenance"
+      ]
+    },
+    {
+      "title": "React Native vs Flutter",
+      "icon": "⚔️",
+      "subsections": [
+        {
+          "subtitle": "React Native",
+          "content": "Powered by JavaScript and React ecosystem:",
+          "points": [
+            "Large community and libraries",
+            "JavaScript developers can easily transition",
+            "Excellent for startups"
+          ]
+        },
+        {
+          "subtitle": "Flutter",
+          "content": "Powered by Dart with blazing-fast performance:",
+          "points": [
+            "Superior performance",
+            "Beautiful UI out of the box",
+            "Excellent documentation"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Our Mobile Stack",
+      "icon": "🛠",
+      "content": "We use best-in-class tools and frameworks:",
+      "points": [
+        "React Native – For JavaScript-based apps",
+        "Flutter – For high-performance apps",
+        "Expo – Rapid development and deployment",
+        "Firebase – Backend services and analytics"
+      ]
+    },
+    {
+      "title": "Features We Enable",
+      "icon": "🔥",
+      "subsections": [
+        {
+          "subtitle": "Push Notifications",
+          "content": "Real-time engagement with users through smart notifications."
+        },
+        {
+          "subtitle": "Offline-First Architecture",
+          "content": "Apps work seamlessly even without internet connection."
+        },
+        {
+          "subtitle": "Biometric Authentication",
+          "content": "Secure access with fingerprint or facial recognition."
+        },
+        {
+          "subtitle": "In-App Purchases",
+          "content": "Monetize your app with seamless payment integration."
+        }
+      ]
+    },
+    {
+      "title": "App Store Optimization",
+      "icon": "📱",
+      "content": "We handle the complete launch process:",
+      "points": [
+        "Store listing optimization",
+        "Beta testing and feedback",
+        "Launch strategy",
+        "Post-launch support"
+      ]
+    }
+  ],
+  "conclusion": "Mobile apps are no longer optional. With cross-platform development, you can reach iOS and Android users without breaking the bank.",
+  "cta": "Let's build your mobile app. Contact us today!",
+  "tags": ["React Native", "Flutter", "Mobile", "iOS/Android"]
+}

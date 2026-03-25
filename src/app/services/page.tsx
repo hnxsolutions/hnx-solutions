@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
@@ -11,17 +12,23 @@ import {
   HiTrendingUp,
   HiArrowRight,
   HiCheck,
+  HiBriefcase,
+  HiCog,
+  HiServer,
 } from "react-icons/hi";
-import { FaCloud, FaMobileAlt, FaRobot, FaPalette, FaChartLine } from "react-icons/fa";
+import { FaCloud, FaMobileAlt, FaRobot, FaPalette, FaChartLine, FaBriefcase, FaCog, FaServer } from "react-icons/fa";
 import AnimatedGridBG from "@/components/AnimatedGridBG";
+import BlogModal from "@/components/BlogModal";
 import { heroDashboardSvg } from "@/components/heroDashboardSvg";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import { heroBgUrl } from "@/components/heroBgUrl";
 import { heroBgSvg } from "@/components/heroBgSvg";
 import Image from "next/image";
+import { blogContent } from "@/data/blogContent";
 
 const services = [
   {
+    id: "web-development",
     icon: HiCode,
     title: "Web Development",
     description:
@@ -37,6 +44,24 @@ const services = [
     color: "from-cyan-400 to-blue-500",
   },
   {
+    id: "saas-development",
+    icon: HiServer,
+    title: "SaaS Development",
+    description:
+      "Build scalable, secure, and subscription-based SaaS platforms with modern architecture, seamless user experience, and cloud-native deployment.",
+    details: [
+      "MVP architecture for startups (build fast, validate ideas quickly)",
+      "Multi-tenant SaaS architecture for scalable user management",
+      "Subscription & billing integration (Stripe / Razorpay)",
+      "Secure authentication and role-based access control",
+      "Admin dashboards with analytics and reporting",
+      "Cloud deployment with CI/CD and performance optimization",
+    ],
+    tags: ["Next.js", "React", "Node.js", "PostgreSQL", "Stripe", "AWS/Vercel"],
+    color: "from-indigo-400 to-violet-600",
+  },
+  {
+    id: "mobile-apps",
     icon: HiDeviceMobile,
     title: "Mobile App Development",
     description:
@@ -52,6 +77,40 @@ const services = [
     color: "from-violet-400 to-purple-500",
   },
   {
+    id: "crm-salesforce",
+    icon: HiBriefcase,
+    title: "CRM & Salesforce",
+    description:
+      "Optimize business processes with Salesforce implementation and custom CRM solutions. Streamline sales, marketing, and customer service operations with automation and data-driven insights.",
+    details: [
+      "Salesforce implementation, customization, and advanced configuration",
+      "Custom CRM solutions designed to fit your unique business workflows",
+      "Lead management, sales pipeline optimization, and real-time forecasting",
+      "Automation using Flow Builder, Apex, and process optimization tools",
+      "Integration with existing business tools and ERPs",
+      "User training, adoption, and ongoing support",
+    ],
+    tags: ["Salesforce", "CRM", "Business Automation", "Integration", "Einstein AI", "Apex", "LWC"],
+    color: "from-orange-400 to-red-500",
+  },
+  {
+    id: "devops",
+    icon: HiCog,
+    title: "DevOps",
+    description:
+      "Automate infrastructure, streamline CI/CD pipelines, and deploy scalable, reliable systems with monitoring and disaster recovery.",
+    details: [
+      "Containerization with Docker and orchestration using Kubernetes",
+      "CI/CD pipeline setup with automated testing and deployment",
+      "Infrastructure as Code (IaC) using Terraform and Ansible",
+      "Monitoring, logging, and alerting for high system reliability",
+      "Disaster recovery planning, backup strategies, and security hardening",
+    ],
+    tags: ["Kubernetes", "Jenkins", "AWS", "Docker", "Terraform", "GitLab CI", "Ansible"],
+    color: "from-slate-400 to-gray-500",
+  },
+  {
+    id: "ai-automation",
     icon: HiLightningBolt,
     title: "AI & Automation",
     description:
@@ -67,6 +126,7 @@ const services = [
     color: "from-amber-400 to-orange-500",
   },
   {
+    id: "cloud-solutions",
     icon: HiCloud,
     title: "Cloud Solutions",
     description:
@@ -82,6 +142,7 @@ const services = [
     color: "from-emerald-400 to-teal-500",
   },
   {
+    id: "ui-ux-design",
     icon: HiColorSwatch,
     title: "UI/UX Design",
     description:
@@ -97,6 +158,7 @@ const services = [
     color: "from-pink-400 to-rose-500",
   },
   {
+    id: "digital-growth",
     icon: HiTrendingUp,
     title: "Digital Growth",
     description:
@@ -128,7 +190,10 @@ const cardVariants = {
 
 
 export default function ServicesPage() {
+  const [selectedService, setSelectedService] = useState<string | null>(null);
+  
   return (
+    <>
     <main className="bg-dark-900 text-white">
       {/* Hero Section */}
       <section className="relative min-h-[48vh] flex items-center justify-center overflow-hidden py-20 md:py-24 pt-26 md:pt-30">
@@ -270,6 +335,9 @@ export default function ServicesPage() {
               const icons = [
                 <FaCloud key="web" className="text-3xl text-accent drop-shadow-glow" />,
                 <FaMobileAlt key="mobile" className="text-3xl text-accent drop-shadow-glow" />,
+                <FaServer key="saas" className="text-3xl text-accent drop-shadow-glow" />,
+                <FaBriefcase key="crm" className="text-3xl text-accent drop-shadow-glow" />,
+                <FaCog key="devops" className="text-3xl text-accent drop-shadow-glow" />,
                 <FaRobot key="ai" className="text-3xl text-accent drop-shadow-glow" />,
                 <FaCloud key="cloud" className="text-3xl text-accent drop-shadow-glow" />,
                 <FaPalette key="uiux" className="text-3xl text-accent drop-shadow-glow" />,
@@ -335,13 +403,13 @@ export default function ServicesPage() {
                     <span className="text-xs font-semibold uppercase tracking-[0.22em] text-white/40">
                       Tailored Delivery
                     </span>
-                    <Link
-                      href="/contact"
-                      className="inline-flex items-center gap-2 text-sm font-semibold text-cyan-300 transition-all duration-300 group-hover:text-white"
+                    <button
+                      onClick={() => setSelectedService(service.id)}
+                      className="inline-flex items-center gap-2 text-sm font-semibold text-cyan-300 transition-all duration-300 hover:text-white group/btn hover:translate-x-1"
                     >
                       Learn more
-                      <HiArrowRight className="text-base transition-transform duration-300 group-hover:translate-x-1" />
-                    </Link>
+                      <HiArrowRight className="text-base transition-transform duration-300 group-hover/btn:translate-x-1" />
+                    </button>
                   </div>
                   <div className="absolute -inset-1 rounded-3xl pointer-events-none group-hover:animate-border-glow" />
                 </motion.div>
@@ -390,5 +458,21 @@ export default function ServicesPage() {
         </div>
       </section>
     </main>
+
+    {/* Blog Modal */}
+    {selectedService && (
+      <BlogModal
+        isOpen={!!selectedService}
+        onClose={() => setSelectedService(null)}
+        serviceId={selectedService}
+        serviceTitle={
+          services.find((s) => s.id === selectedService)?.title || ""
+        }
+        blogData={
+          blogContent[selectedService as keyof typeof blogContent] || null
+        }
+      />
+    )}
+    </>
   );
 }
