@@ -65,7 +65,7 @@ export default function Hero() {
       <div className="absolute bottom-20 right-10 w-80 h-80 bg-accent/3 rounded-full blur-3xl" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/[0.01] rounded-full blur-[120px]" />
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-24 pb-12 w-full">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-10 md:pt-24 pb-12 w-full">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left Content */}
           <motion.div
