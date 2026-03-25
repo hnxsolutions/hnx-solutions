@@ -7,10 +7,10 @@ import { HiArrowRight, HiPlay } from "react-icons/hi";
 import { FiGithub, FiLinkedin, FiInstagram } from "react-icons/fi";
 
 const stats = [
-  { value: "50+", label: "Projects Delivered" },
-  { value: "30+", label: "Happy Clients" },
+  { value: "20+", label: "Projects Delivered" },
+  { value: "15+", label: "Happy Clients" },
   { value: "99%", label: "Client Satisfaction" },
-  { value: "5+", label: "Years Experience" },
+  { value: "2+", label: "Years Experience" },
 ];
 
 const flipCards = [
