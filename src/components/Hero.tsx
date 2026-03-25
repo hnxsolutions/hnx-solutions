@@ -13,6 +13,9 @@ const stats = [
   { value: "2+", label: "Years Experience" },
 ];
 
+const homeHeroBgImage =
+  "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1600&q=85";
+
 const flipCards = [
   {
     title: "HNX Technologies",
@@ -59,20 +62,36 @@ export default function Hero() {
   }, [nextCard]);
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center grid-bg overflow-hidden">
-      {/* Ambient Orbs */}
-      <div className="absolute top-20 left-10 w-96 h-96 bg-primary/2 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 right-10 w-80 h-80 bg-accent/3 rounded-full blur-3xl" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/[0.01] rounded-full blur-[120px]" />
+    <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
+      <div className="absolute inset-0 z-0">
+        <Image
+          src={homeHeroBgImage}
+          alt="Modern digital workspace"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-[78%_center] md:object-[70%_center] scale-[1.08] opacity-26 contrast-105 saturate-90"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-dark-900 via-dark-900/88 to-dark-900/62 md:from-dark-900/96 md:via-dark-900/82 md:to-dark-900/46" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_28%,rgba(56,189,248,0.12),transparent_30%),radial-gradient(circle_at_84%_74%,rgba(139,92,246,0.10),transparent_24%)]" />
+        <div className="absolute right-0 top-1/2 hidden h-[36rem] w-[42rem] -translate-y-1/2 bg-[radial-gradient(circle,rgba(6,10,18,0.62)_0%,rgba(6,10,18,0.42)_44%,rgba(6,10,18,0)_74%)] blur-2xl lg:block" />
+      </div>
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-10 md:pt-24 pb-12 w-full">
+      {/* Ambient Orbs */}
+      <div className="absolute top-20 left-10 z-[1] w-96 h-96 bg-primary/2 rounded-full blur-3xl" />
+      <div className="absolute bottom-20 right-10 z-[1] w-80 h-80 bg-accent/3 rounded-full blur-3xl" />
+      <div className="absolute top-1/2 left-1/2 z-[1] -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/[0.01] rounded-full blur-[120px]" />
+
+      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 pt-10 md:pt-24 pb-12 w-full">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left Content */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
+            className="relative"
           >
+            <div className="absolute -inset-x-4 -inset-y-6 -z-10 rounded-[2rem] bg-[radial-gradient(circle,rgba(6,10,18,0.78)_0%,rgba(6,10,18,0.52)_52%,rgba(6,10,18,0)_100%)] blur-xl md:hidden" />
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-8">
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
               Engineering Tomorrow&apos;s Solutions Today
@@ -92,7 +111,7 @@ export default function Hero() {
               measurable business growth.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 mb-16">
+            <div className="flex flex-col sm:flex-row gap-4 mb-8">
               <Link
                 href="/contact"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-primary to-accent text-dark-900 font-bold rounded-xl text-base hover:shadow-xl hover:shadow-primary/25 transition-all hover:-translate-y-1"
@@ -107,6 +126,20 @@ export default function Hero() {
                 <HiPlay className="text-lg" />
                 View Our Work
               </Link>
+            </div>
+
+            <div className="mb-7 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-light-300/75 sm:gap-x-5">
+              {[
+                "Web Platforms",
+                "Mobile Apps",
+                "AI Automation",
+                "Cloud Systems",
+              ].map((item, index) => (
+                <span key={item} className="inline-flex items-center gap-4">
+                  <span className="font-medium tracking-wide">{item}</span>
+                  {index < 3 ? <span className="h-1 w-1 rounded-full bg-primary/70" /> : null}
+                </span>
+              ))}
             </div>
 
             {/* Social Links */}
@@ -141,11 +174,11 @@ export default function Hero() {
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="hidden lg:block relative -mt-38"
+            className="hidden lg:block relative -mt-20 xl:-mt-32"
           >
             <div
-              className="relative w-full max-w-lg mx-auto cursor-pointer"
-              style={{ perspective: "1200px", height: "420px" }}
+              className="relative w-full max-w-md xl:max-w-lg mx-auto cursor-pointer"
+              style={{ perspective: "1200px", height: "380px" }}
               onClick={nextCard}
             >
               {/* Render cards in reverse so the active one is on top */}
@@ -174,7 +207,7 @@ export default function Hero() {
                       duration: 0.7,
                       ease: [0.4, 0, 0.2, 1],
                     }}
-                    className="absolute inset-6 rounded-3xl glass-card overflow-hidden border border-white/[0.06]"
+                    className="absolute inset-5 xl:inset-6 rounded-3xl glass-card overflow-hidden border border-white/[0.06]"
                     style={{
                       transformOrigin: "center bottom",
                       backfaceVisibility: "hidden",
@@ -250,12 +283,12 @@ export default function Hero() {
           {stats.map((stat) => (
             <div
               key={stat.label}
-              className="glass-card rounded-2xl p-6 text-center glow-border"
+              className="rounded-2xl border border-white/[0.08] bg-[linear-gradient(180deg,rgba(255,255,255,0.07),rgba(255,255,255,0.02))] p-6 text-center shadow-[0_12px_36px_rgba(0,0,0,0.18)] backdrop-blur-xl"
             >
               <p className="text-3xl md:text-4xl font-bold gradient-text">
                 {stat.value}
               </p>
-              <p className="text-sm text-light-300 mt-1">{stat.label}</p>
+              <p className="mt-1 text-sm font-medium text-light-200">{stat.label}</p>
             </div>
           ))}
         </motion.div>
