@@ -44,7 +44,7 @@ const item = {
 
 export default function HomeServices() {
   return (
-    <section className="py-24 relative">
+    <section className="py-12 relative">
       <div className="absolute inset-0 bg-gradient-to-b from-dark-900 via-dark-800/50 to-dark-900" />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
