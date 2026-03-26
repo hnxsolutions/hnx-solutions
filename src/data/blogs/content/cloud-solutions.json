@@ -1,0 +1,28 @@
+{
+  "category": "cloud-solutions",
+  "totalCount": 1,
+  "lastUpdated": "2026-03-26T09:53:52.527Z",
+  "blogs": [
+    {
+      "id": "cloud-solutions",
+      "slug": "cloud-solutions-infrastructure",
+      "title": "Cloud Solutions: AWS, GCP & Azure Infrastructure",
+      "category": "cloud-solutions",
+      "description": "Cloud infrastructure design, deployment, and management. AWS, GCP, and Azure solutions for maximum reliability and scalability.",
+      "author": "HNX Technologies",
+      "createdAt": "2026-02-15",
+      "readTime": 12,
+      "image": "/images/blog/cloud-solutions.svg",
+      "tags": [
+        "AWS",
+        "Cloud Computing",
+        "GCP",
+        "Azure",
+        "Infrastructure"
+      ],
+      "seoTitle": "Cloud Solutions: AWS, GCP & Azure Best Practices",
+      "seoDescription": "Cloud infrastructure design and deployment. Master AWS, GCP, and Azure for scalable, reliable cloud solutions.",
+      "content": "Cloud computing has revolutionized how organizations build and deploy applications. By leveraging cloud platforms like AWS, GCP, and Azure, businesses can scale globally while reducing infrastructure costs.\n\n## Cloud Computing Benefits\n\n- 🌐 Global accessibility\n- 📈 Easy scalability\n- 💰 Cost efficiency\n- 🔐 Built-in security\n- ⚡ High performance\n\n## AWS Ecosystem\n\n### Compute Services\n- EC2 for virtual machines\n- Lambda for serverless computing\n- ECS for container orchestration\n- Elastic Beanstalk for app deployment\n\n### Storage & Databases\n- S3 for object storage\n- RDS for managed databases\n- DynamoDB for NoSQL\n- ElastiCache for caching\n\n### Networking\n- VPC for network isolation\n- CloudFront for CDN\n- ALB/NLB for load balancing\n- Route 53 for DNS\n\n## GCP Services\n\n### Compute Platform\n- Google Compute Engine\n- Cloud Functions\n- Cloud Run\n- Google Kubernetes Engine (GKE)\n\n### Data & Analytics\n- BigQuery for analytics\n- Cloud Storage\n- Cloud SQL\n- Dataflow for processing\n\n## Azure Solutions\n\n### Compute Options\n- Virtual Machines\n- App Service\n- Azure Functions\n- Azure Kubernetes Service\n\n### Enterprise Services\n- SQL Database\n- Cosmos DB\n- Azure DevOps\n- Application Insights\n\n## Implementation Strategy\n\n- Multi-region deployment\n- Disaster recovery planning\n- Cost optimization\n- Security hardening"
+    }
+  ]
+}

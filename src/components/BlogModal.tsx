@@ -10,12 +10,12 @@ interface BlogModalProps {
   serviceTitle?: string;
   blogData: {
     title: string;
-    blogTitle: string;
-    color: string;
-    introduction: string;
-    sections: Array<{
+    blogTitle?: string;
+    color?: string;
+    introduction?: string;
+    sections?: Array<{
       title: string;
-      icon: string;
+      icon?: string;
       content?: string;
       points?: string[];
       subsections?: Array<{
@@ -24,9 +24,9 @@ interface BlogModalProps {
         points?: string[];
       }>;
     }>;
-    conclusion: string;
-    cta: string;
-  };
+    conclusion?: string;
+    cta?: string;
+  } | null;
 }
 
 export default function BlogModal({
@@ -75,17 +75,19 @@ export default function BlogModal({
             <div className="flex-1 overflow-y-auto">
               <div className="max-w-3xl mx-auto px-6 md:px-8 py-8">
                 {/* Introduction */}
-                <motion.p
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 }}
-                  className="text-lg text-light-300 leading-relaxed mb-8"
-                >
-                  {blogData.introduction}
-                </motion.p>
+                {blogData.introduction && (
+                  <motion.p
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 }}
+                    className="text-lg text-light-300 leading-relaxed mb-8"
+                  >
+                    {blogData.introduction}
+                  </motion.p>
+                )}
 
                 {/* Sections */}
-                {blogData.sections.map((section, sectionIndex: number) => (
+                {blogData.sections?.map((section, sectionIndex: number) => (
                   <motion.div
                     key={sectionIndex}
                     initial={{ opacity: 0, y: 20 }}
@@ -143,16 +145,18 @@ export default function BlogModal({
                 ))}
 
                 {/* Conclusion */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 }}
-                  className="bg-gradient-to-r from-cyan-400/10 to-blue-500/10 rounded-2xl p-6 md:p-8 mt-12 border border-cyan-400/20"
-                >
-                  <h3 className="text-xl font-bold text-white mb-3">🏁 Conclusion</h3>
-                  <p className="text-light-300 mb-6">{blogData.conclusion}</p>
-                  <p className="text-cyan-300 font-semibold">👉 {blogData.cta}</p>
-                </motion.div>
+                {(blogData.conclusion || blogData.cta) && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 }}
+                    className="bg-gradient-to-r from-cyan-400/10 to-blue-500/10 rounded-2xl p-6 md:p-8 mt-12 border border-cyan-400/20"
+                  >
+                    <h3 className="text-xl font-bold text-white mb-3">🏁 Conclusion</h3>
+                    {blogData.conclusion && <p className="text-light-300 mb-6">{blogData.conclusion}</p>}
+                    {blogData.cta && <p className="text-cyan-300 font-semibold">👉 {blogData.cta}</p>}
+                  </motion.div>
+                )}
               </div>
             </div>
 

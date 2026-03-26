@@ -1,0 +1,27 @@
+{
+  "category": "ui-ux-design",
+  "totalCount": 1,
+  "lastUpdated": "2026-03-26T09:53:52.528Z",
+  "blogs": [
+    {
+      "id": "ui-ux-design",
+      "slug": "ui-ux-design-user-centered",
+      "title": "UI/UX Design: User-Centered Design Principles",
+      "category": "ui-ux-design",
+      "description": "User-centered design that converts. Beautiful, intuitive interfaces crafted with research-backed design principles and modern tools.",
+      "author": "HNX Technologies",
+      "createdAt": "2026-02-20",
+      "readTime": 11,
+      "image": "/images/blog/ui-ux-design.svg",
+      "tags": [
+        "UI/UX Design",
+        "Design Systems",
+        "Figma",
+        "User Research"
+      ],
+      "seoTitle": "UI/UX Design: User-Centered Design & Design Systems",
+      "seoDescription": "Master UI/UX design principles. Create beautiful, intuitive interfaces using design systems, research, and modern tools.",
+      "content": "Great design isn't just about aesthetics — it's about solving user problems and creating delightful experiences. User-centered design puts users at the heart of the design process.\n\n## Core UX Principles\n\n- 👥 User Research\n- 🎯 Clear Information Architecture\n- ♿ Accessibility First\n- 🎨 Visual Hierarchy\n- 📱 Responsive Design\n\n## User Research Methods\n\n### Qualitative Research\n- User interviews\n- Contextual inquiry\n- Usability testing\n- Focus groups\n\n### Quantitative Analysis\n- Analytics review\n- A/B testing\n- Surveys\n- Heat mapping\n\n## Design Systems\n\n### Component Library\n- Buttons and inputs\n- Cards and layouts\n- Navigation patterns\n- Form components\n\n### Design Tokens\n- Color palettes\n- Typography scales\n- Spacing systems\n- Shadow definitions\n\n### Documentation\n- Component usage guidelines\n- Code examples\n- Accessibility standards\n- Brand guidelines\n\n## Tools & Technologies\n\n### Design Tools\n- Figma for collaborative design\n- Prototyping tools\n- Design automation\n- Version control\n\n### Development Integration\n- Design handoff tools\n- Component specifications\n- CSS extraction\n- Animation exports\n\n## Best Practices\n\n- Mobile-first design\n- Accessibility compliance\n- Performance optimization\n- Consistent branding"
+    }
+  ]
+}

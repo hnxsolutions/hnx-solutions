@@ -1,0 +1,34 @@
+<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="reactBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#61dafb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2196f3;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="reactAccent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#64b5f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1976d2;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#reactBg)"/>
+  <circle cx="80" cy="60" r="50" fill="rgba(255,255,255,0.1)"/>
+  <circle cx="350" cy="280" r="70" fill="rgba(255,255,255,0.08)"/>
+  
+  <!-- React atoms -->
+  <g transform="translate(150, 80)">
+    <!-- Center nucleus -->
+    <circle cx="50" cy="50" r="8" fill="white" opacity="0.9"/>
+    <!-- Orbiting electrons -->
+    <ellipse cx="50" cy="50" rx="35" ry="20" fill="none" stroke="white" stroke-width="1.5" opacity="0.6"/>
+    <circle cx="85" cy="50" r="3" fill="white" opacity="0.8"/>
+    <ellipse cx="50" cy="50" rx="20" ry="35" fill="none" stroke="white" stroke-width="1.5" opacity="0.6" transform="rotate(60 50 50)"/>
+    <circle cx="50" cy="85" r="3" fill="white" opacity="0.8" transform="rotate(60 50 50)"/>
+    <ellipse cx="50" cy="50" rx="35" ry="20" fill="none" stroke="white" stroke-width="1.5" opacity="0.6" transform="rotate(120 50 50)"/>
+    <circle cx="85" cy="50" r="3" fill="white" opacity="0.8" transform="rotate(120 50 50)"/>
+  </g>
+  
+  <rect x="60" y="170" width="280" height="70" rx="10" fill="rgba(255,255,255,0.15)" stroke="white" stroke-width="2"/>
+  <text x="200" y="195" font-size="13" font-weight="bold" text-anchor="middle" fill="white">Component-Based</text>
+  <text x="200" y="215" font-size="12" text-anchor="middle" fill="white" opacity="0.9">Reusable • Scalable • Maintainable</text>
+  
+  <text x="200" y="275" font-size="18" font-weight="bold" text-anchor="middle" fill="white">React Best Practices</text>
+</svg>

@@ -1,9 +1,14 @@
 "use client";
-import { use } from "react";
+
+import { use, useEffect, useState, useMemo } from "react";
 import { motion } from "framer-motion";
-import { HiArrowLeft, HiArrowRight } from "react-icons/hi";
 import Link from "next/link";
-import { blogContent } from "@/data/blogContent";
+import { HiArrowLeft, HiArrowRight } from "react-icons/hi";
+import { getBlogBySlug, getBlogsByCategory } from "@/data/blogContent";
+import { calculateReadTime } from "@/lib/readTimeCalculator";
+import TableOfContents from "@/components/TableOfContents";
+import ShareButtons from "@/components/ShareButtons";
+import BlogEngagement from "@/components/BlogEngagement";
 
 interface PageProps {
   params: Promise<{
@@ -13,19 +18,37 @@ interface PageProps {
 
 export default function BlogPage({ params }: PageProps) {
   const { slug } = use(params);
-  const blogData = blogContent[slug as keyof typeof blogContent];
+  const blog = getBlogBySlug(slug);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
-  if (!blogData) {
+  // Calculate read time dynamically based on content length
+  const calculatedReadTime = useMemo(() => {
+    if (!blog) return 0;
+    return calculateReadTime(blog.content);
+  }, [blog]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const progress = windowHeight > 0 ? (window.scrollY / windowHeight) * 100 : 0;
+      setScrollProgress(progress);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  if (!blog) {
     return (
-      <main className="bg-dark-900 text-white min-h-screen flex items-center justify-center">
+      <main className="bg-blog-cream-50 text-blog-text min-h-screen flex items-center justify-center pt-12 md:pt-16">
         <div className="text-center">
           <h1 className="text-4xl font-bold mb-4">Blog Not Found</h1>
-          <p className="text-light-300 mb-8">The article you&apos;re looking for doesn&apos;t exist.</p>
+          <p className="text-blog-text-muted mb-8">The article you&apos;re looking for doesn&apos;t exist.</p>
           <Link
-            href="/services"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-cyan-400 to-blue-500 text-dark-900 font-semibold rounded-xl"
+            href="/blog"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-blog-tan-600 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-blog-tan-600/50 transition-all"
           >
-            <HiArrowLeft /> Back to Services
+            <HiArrowLeft /> Back to Blog
           </Link>
         </div>
       </main>
@@ -33,128 +56,261 @@ export default function BlogPage({ params }: PageProps) {
   }
 
   return (
-    <main className="bg-dark-900 text-white">
-      {/* Header */}
-      <section className={`relative py-20 bg-gradient-to-r ${blogData.color}`}>
-        <div className="max-w-4xl mx-auto px-6 lg:px-8">
-          <Link
-            href="/services"
-            className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-6 transition-colors"
+    <main className="bg-blog-cream-50 text-blog-text pt-12 md:pt-16">
+      {/* Scroll Progress Bar */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1 bg-blog-tan-600 z-50"
+        style={{ scaleX: scrollProgress / 100 }}
+        initial={{ scaleX: 0 }}
+        transition={{ type: "tween", duration: 0 }}
+      />
+
+      {/* Header Section - Light Theme */}
+      <section className="relative py-12 md:py-16 border-b border-blog-divider">
+        <div className="max-w-3xl mx-auto px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
           >
-            <HiArrowLeft /> Back to Services
-          </Link>
-          <h1 className="text-5xl md:text-6xl font-bold mb-4">{blogData.blogTitle}</h1>
-          <p className="text-lg text-white/90">{blogData.introduction}</p>
+            {/* Back Button and Title */}
+            <Link
+              href="/blog"
+              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-blog-tan-400/10 hover:bg-blog-tan-400/20 text-blog-tan-600 transition-all font-medium text-sm mb-2"
+              title="Back to Blog"
+            >
+              <HiArrowLeft className="text-base" />
+              Back
+            </Link>
+            <h1 className="text-3xl md:text-4xl font-bold leading-tight text-blog-text mb-4">
+              {blog.title}
+            </h1>
+
+            {/* Meta Info */}
+            <div className="flex flex-wrap items-center gap-4 text-sm text-blog-text-light mb-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blog-tan-400 to-blog-tan-600 flex items-center justify-center text-white font-semibold text-sm">
+                  {blog.author.charAt(0)}
+                </div>
+                <span>{blog.author}</span>
+              </div>
+              <span className="w-1 h-1 rounded-full bg-blog-divider" />
+              <time dateTime={blog.createdAt}>
+                {new Date(blog.createdAt).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </time>
+              <span className="w-1 h-1 rounded-full bg-blog-divider" />
+              <span className="text-blog-text-light">{calculatedReadTime} min read</span>
+            </div>
+
+            {/* Description */}
+            <p className="text-base text-blog-text-muted">{blog.description}</p>
+          </motion.div>
         </div>
       </section>
 
-      {/* Content */}
-      <section className="py-16">
-        <div className="max-w-4xl mx-auto px-6 lg:px-8">
-            {blogData.sections.map((section, sectionIndex: number) => (
-            <motion.div
-              key={sectionIndex}
+      {/* Content Section with Sidebar */}
+      <section className="relative py-12 md:py-16">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+            {/* Main Content */}
+            <motion.article
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="mb-16"
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
+              className="lg:col-span-8"
             >
-              <h2 className="text-4xl font-bold text-white mb-6">
-                {section.icon} {section.title}
-              </h2>
+              {/* Render markdown content */}
+              <div className="space-y-6 text-blog-text-muted">
+                {blog.content.split("\n\n").map((paragraph, idx) => {
+                  if (paragraph.startsWith("##")) {
+                    const level = paragraph.match(/^#+/)?.[0].length || 2;
+                    const text = paragraph.replace(/^#+\s+/, "");
+                    const id = text
+                      .toLowerCase()
+                      .replace(/[^\w\s-]/g, "")
+                      .replace(/\s+/g, "-");
 
-              {section.content && (
-                <p className="text-lg text-light-300 leading-relaxed mb-6">
-                  {section.content}
-                </p>
-              )}
+                    return (
+                      <motion.div
+                        key={idx}
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        data-toc-id={id}
+                      >
+                        {level === 2 ? (
+                          <h2 className="text-2xl font-bold text-blog-text mt-6 mb-3">
+                            {text}
+                          </h2>
+                        ) : (
+                          <h3 className="text-lg font-semibold text-blog-text-light mt-4 mb-2">
+                            {text}
+                          </h3>
+                        )}
+                      </motion.div>
+                    );
+                  }
 
-              {section.points && (
-                <ul className="space-y-3 mb-8">
-                  {section.points.map((point: string, idx: number) => (
-                    <li key={idx} className="flex items-start gap-4 text-light-300">
-                      <span className="text-2xl flex-shrink-0">
-                        {point.split(" ")[0]}
-                      </span>
-                      <span className="text-base">
-                        {point.substring(point.indexOf(" ") + 1)}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              )}
+                  if (paragraph.startsWith("-")) {
+                    return (
+                      <motion.ul
+                        key={idx}
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="space-y-2 list-disc list-inside"
+                      >
+                        {paragraph.split("\n").map((item, itemIdx) => (
+                          <li key={itemIdx} className="text-base text-blog-text-muted">
+                            {item.replace(/^-\s+/, "")}
+                          </li>
+                        ))}
+                      </motion.ul>
+                    );
+                  }
 
-              {section.subsections && (
-                <div className="space-y-8 bg-white/5 rounded-2xl p-8 border border-cyan-400/20">
-                  {section.subsections?.map((sub, subIdx: number) => (
-                    <div key={subIdx}>
-                      <h3 className="text-2xl font-bold text-cyan-300 mb-3">
-                        {sub.subtitle}
-                      </h3>
-                      <p className="text-light-300 mb-4">{sub.content}</p>
-                      {'points' in sub && sub.points && sub.points.length > 0 && (
-                        <ul className="space-y-2">
-                          {sub.points.map((point: string, pIdx: number) => (
-                            <li key={pIdx} className="text-light-200">
-                              • {point}
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </div>
-                  ))}
+                  return (
+                    <motion.p
+                      key={idx}
+                      initial={{ opacity: 0, y: 10 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      className="text-base leading-relaxed text-blog-text-muted"
+                    >
+                      {paragraph}
+                    </motion.p>
+                  );
+                })}
+
+                {/* Inline Engagement Section - At end of article */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  className="flex items-center justify-between pt-8 mt-8 border-t border-blog-divider"
+                >
+                  <div>
+                    <p className="text-lg font-semibold text-blog-text">Enjoying this article?</p>
+                  </div>
+                  <div className="flex items-center gap-6">
+                    <BlogEngagement slug={blog.slug} isDarkTheme={false} layout="horizontal" hideComment={true} />
+                  </div>
+                </motion.div>
+              </div>
+            </motion.article>
+
+            {/* Sidebar: Table of Contents & Share */}
+            <motion.aside
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3, duration: 0.6 }}
+              className="hidden lg:block lg:col-span-4"
+            >
+              {/* Sticky container for TOC and Share buttons */}
+              <div className="sticky top-24 flex flex-col gap-8">
+                {/* Table of Contents */}
+                <TableOfContents content={blog.content} />
+
+                {/* Share Buttons */}
+                <div className="bg-blog-cream-100 rounded-lg p-5 border border-blog-divider">
+                  <ShareButtons slug={blog.slug} title={blog.title} description={blog.description} isDarkTheme={false} />
                 </div>
-              )}
-            </motion.div>
-          ))}
+              </div>
+            </motion.aside>
+          </div>
+        </div>
 
-          {/* Conclusion */}
+        {/* Mobile Share Buttons */}
+        <div className="lg:hidden max-w-3xl mx-auto px-6 mt-8 pt-6 border-t border-blog-divider">
+          <div className="bg-blog-cream-100 rounded-lg p-5 border border-blog-divider inline-block">
+            <ShareButtons slug={blog.slug} title={blog.title} description={blog.description} isDarkTheme={false} />
+          </div>
+        </div>
+      </section>
+
+      {/* Related Articles Section */}
+      <section className="relative py-12 md:py-16 border-t border-blog-divider bg-blog-cream-100/50">
+        <div className="max-w-5xl mx-auto px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-gradient-to-r from-cyan-400/20 to-blue-500/20 rounded-3xl p-12 border border-cyan-400/30 my-20"
           >
-            <h2 className="text-3xl font-bold text-white mb-6">🏁 Conclusion</h2>
-            <p className="text-xl text-light-300 leading-relaxed mb-8">
-              {blogData.conclusion}
-            </p>
-            <p className="text-2xl font-semibold text-cyan-300 mb-8">
-              👉 {blogData.cta}
-            </p>
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-400 to-blue-500 text-dark-900 font-bold rounded-xl hover:shadow-lg hover:shadow-cyan-400/50 transition-all"
-            >
-              Start Your Project
-              <HiArrowRight />
+            <h2 className="text-2xl font-bold mb-8 text-blog-text">Related Articles</h2>
+            <div className="grid md:grid-cols-3 gap-6">
+              {getBlogsByCategory(blog.category)
+                .filter((b) => b.slug !== slug)
+                .slice(0, 3)
+                .map((relatedBlog, idx) => (
+                  <motion.div
+                    key={relatedBlog.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: idx * 0.1 }}
+                  >
+                    <Link href={`/blog/${relatedBlog.slug}`}>
+                      <motion.div
+                        whileHover={{ y: -4, boxShadow: "0 12px 24px rgba(0,0,0,0.1)" }}
+                        className="group p-5 rounded-lg border border-blog-divider bg-white hover:border-blog-tan-400 transition-all cursor-pointer h-full"
+                      >
+                        <div className="mb-3 inline-block px-3 py-1 rounded-full bg-blog-tan-400/10 text-xs font-medium text-blog-tan-600">
+                          {relatedBlog.category.replace(/-/g, " ")}
+                        </div>
+                        <h3 className="text-lg font-bold mb-2 group-hover:text-blog-tan-600 transition-colors line-clamp-2 text-blog-text">
+                          {relatedBlog.title}
+                        </h3>
+                        <p className="text-sm text-blog-text-muted mb-3 line-clamp-2">
+                          {relatedBlog.description}
+                        </p>
+                        <div className="flex items-center justify-between text-xs text-blog-text-light">
+                          <span>{calculateReadTime(relatedBlog.content)} min read</span>
+                          <span className="group-hover:translate-x-1 transition-transform">→</span>
+                        </div>
+                      </motion.div>
+                    </Link>
+                  </motion.div>
+                ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* What's Next Section - Simplified Button Bar */}
+      <section className="relative py-12 md:py-16 border-t border-blog-divider bg-blog-cream-100/50">
+        <div className="max-w-4xl mx-auto px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="flex items-center justify-between gap-4"
+          >
+            {/* Back to Blog Button */}
+            <Link href="/blog" className="flex-1">
+              <motion.button
+                whileHover={{ y: -2 }}
+                className="w-full px-6 py-3 bg-white border border-blog-divider rounded-lg hover:border-blog-tan-400 hover:shadow-md transition-all font-semibold text-blog-text inline-flex items-center justify-center gap-2"
+              >
+                <HiArrowLeft className="text-lg" />
+                Back to Blog
+              </motion.button>
+            </Link>
+
+            {/* Get in Touch Button */}
+            <Link href="/contact" className="flex-1">
+              <motion.button
+                whileHover={{ y: -2 }}
+                className="w-full px-6 py-3 bg-blog-tan-600 text-white rounded-lg hover:shadow-lg hover:shadow-blog-tan-600/30 transition-all font-semibold inline-flex items-center justify-center gap-2"
+              >
+                Get in Touch
+                <HiArrowRight className="text-lg" />
+              </motion.button>
             </Link>
           </motion.div>
-
-          {/* Related Services */}
-          <div className="my-16">
-            <h2 className="text-3xl font-bold mb-8">Explore Other Services</h2>
-            <div className="grid md:grid-cols-2 gap-6">
-              <Link
-                href="/services"
-                className="group p-6 rounded-xl border border-cyan-400/20 hover:border-cyan-400/50 bg-white/5 hover:bg-white/10 transition-all"
-              >
-                <h3 className="text-xl font-bold mb-2 group-hover:text-cyan-300 transition-colors">
-                  View All Services
-                </h3>
-                <p className="text-light-300">Explore our complete service offerings</p>
-              </Link>
-              <Link
-                href="/contact"
-                className="group p-6 rounded-xl border border-cyan-400/20 hover:border-cyan-400/50 bg-white/5 hover:bg-white/10 transition-all"
-              >
-                <h3 className="text-xl font-bold mb-2 group-hover:text-cyan-300 transition-colors">
-                  Get Started
-                </h3>
-                <p className="text-light-300">Ready to transform your business?</p>
-              </Link>
-            </div>
-          </div>
         </div>
       </section>
     </main>

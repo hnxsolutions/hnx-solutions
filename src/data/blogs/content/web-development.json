@@ -1,95 +1,220 @@
 {
-  "id": "web-development",
-  "title": "Web Development",
-  "blogTitle": "The Future of Web Development: Building Scalable Digital Products",
-  "icon": "HiCode",
-  "color": "from-cyan-400 to-blue-500",
-  "introduction": "In today's fast-paced digital world, businesses need powerful, scalable, and high-performance web applications to stay competitive. At HNX Technologies, we specialize in building modern web solutions using cutting-edge technologies like Next.js, React, and TypeScript.",
-  "sections": [
+  "category": "web-development",
+  "totalCount": 6,
+  "lastUpdated": "2026-03-26T09:53:52.519Z",
+  "blogs": [
     {
-      "title": "Why Web Development Matters",
-      "icon": "💡",
-      "content": "A strong web presence is no longer optional — it's essential. Your website is your digital identity, and it must deliver:",
-      "points": [
-        "⚡ Fast performance",
-        "📱 Mobile responsiveness",
-        "🔐 Secure architecture",
-        "📈 Scalable infrastructure"
-      ]
+      "id": "web-development-testing-strategies",
+      "slug": "testing-strategies-complete-guide",
+      "title": "Complete Guide to Frontend Testing Strategies: Unit, Integration & E2E Testing",
+      "category": "web-development",
+      "description": "Master comprehensive testing strategies for modern web applications. Learn unit testing, integration testing, and E2E testing best practices with Jest, React Testing Library, and Cypress.",
+      "author": "HNX Technologies",
+      "createdAt": "2026-03-26",
+      "readTime": 15,
+      "image": "/images/blog/testing-strategies.svg",
+      "tags": [
+        "Testing",
+        "Jest",
+        "React Testing Library",
+        "Cypress",
+        "Web Development",
+        "Quality Assurance"
+      ],
+      "seoTitle": "Frontend Testing Strategies: Unit, Integration & E2E Testing Guide",
+      "seoDescription": "Complete guide to testing web applications with Jest, React Testing Library, and Cypress. Learn testing pyramid, best practices, and CI/CD integration.",
+      "content": "# Complete Guide to Frontend Testing Strategies: Unit, Integration & E2E Testing\n\nTesting is one of the most critical aspects of modern web development, yet many teams struggle to find the right balance between coverage, speed, and maintainability. In this comprehensive guide, we'll explore the complete testing pyramid, from unit tests to end-to-end tests, and show you how to implement effective testing strategies for your Next.js and React applications.\n\n## Why Testing Matters\n\nBuilding high-quality web applications requires more than just writing code. Testing ensures:\n\n- **Reliability**: Catch bugs before they reach production\n- **Confidence**: Refactor with confidence knowing your tests have your back\n- **Documentation**: Tests serve as living documentation of how your code should behave\n- **Cost Reduction**: Finding bugs early is exponentially cheaper than fixing them in production\n- **User Experience**: Well-tested applications provide better performance and stability\n\n## The Testing Pyramid\n\nThe testing pyramid is a fundamental concept in software quality assurance:\n\n```\n      ▲\n     ╱│╲\n    ╱ │ ╲    E2E Tests (10%)\n   ╱  │  ╲   Small number of tests, slow, but high value\n  ╱───┼───╲\n ╱         ╲  Integration Tests (30%)\n╱           ╲ Medium number of tests, medium speed\n─────────────\nUnit Tests (60%)\nLarge number of tests, fast, isolated\n```\n\nThe pyramid suggests that your test suite should be composed primarily of unit tests (60%), followed by integration tests (30%), and a smaller number of E2E tests (10%). This approach balances speed, cost, and confidence.\n\n## Unit Testing: The Foundation\n\nUnit tests are the foundation of a solid testing strategy. They test individual functions, components, or modules in isolation.\n\n### Why Unit Tests?\n\n1. **Speed**: Run thousands of tests in seconds\n2. **Isolation**: Test one piece of functionality at a time\n3. **Easy to Debug**: Pinpoint exactly where failures occur\n4. **Low Cost**: Quick to write and maintain\n\n### Unit Testing with Jest\n\nJest is the most popular testing framework for JavaScript and React applications. Let's look at a simple example:\n\n```javascript\n// math.js\nexport function add(a, b) {\n  return a + b;\n}\n\nexport function multiply(a, b) {\n  return a * b;\n}\n\n// math.test.js\nimport { add, multiply } from './math';\n\ndescribe('Math functions', () => {\n  test('adds two numbers correctly', () => {\n    expect(add(2, 3)).toBe(5);\n    expect(add(-1, 1)).toBe(0);\n    expect(add(0, 0)).toBe(0);\n  });\n\n  test('multiplies two numbers correctly', () => {\n    expect(multiply(2, 3)).toBe(6);\n    expect(multiply(-1, 5)).toBe(-5);\n    expect(multiply(0, 100)).toBe(0);\n  });\n});\n```\n\n### Testing React Components with React Testing Library\n\nReact Testing Library encourages testing components from the user's perspective, not implementation details:\n\n```javascript\nimport { render, screen } from '@testing-library/react';\nimport userEvent from '@testing-library/user-event';\nimport Counter from './Counter';\n\ndescribe('Counter Component', () => {\n  test('renders initial count', () => {\n    render(<Counter initialValue={0} />);\n    expect(screen.getByText('Count: 0')).toBeInTheDocument();\n  });\n\n  test('increments count when button is clicked', async () => {\n    const user = userEvent.setup();\n    render(<Counter initialValue={0} />);\n    \n    const incrementButton = screen.getByRole('button', { name: /increment/i });\n    await user.click(incrementButton);\n    \n    expect(screen.getByText('Count: 1')).toBeInTheDocument();\n  });\n\n  test('decrements count when decrement button is clicked', async () => {\n    const user = userEvent.setup();\n    render(<Counter initialValue={5} />);\n    \n    const decrementButton = screen.getByRole('button', { name: /decrement/i });\n    await user.click(decrementButton);\n    \n    expect(screen.getByText('Count: 4')).toBeInTheDocument();\n  });\n});\n```\n\n### Best Practices for Unit Testing\n\n1. **Test Behavior, Not Implementation**: Focus on what the function/component does, not how it does it\n2. **Keep Tests Simple**: One assertion per test when possible\n3. **Use Descriptive Names**: Test names should clearly describe what they test\n4. **Follow AAA Pattern**: Arrange, Act, Assert\n5. **Avoid Test Interdependence**: Each test should be independent\n6. **Mock External Dependencies**: Isolate the unit being tested\n\n## Integration Testing: Bringing It All Together\n\nIntegration tests verify that multiple components or modules work together correctly. They test more complex workflows and interactions.\n\n### When to Use Integration Tests\n\nIntegration tests are valuable for:\n- Testing component interactions\n- Testing API calls with mock servers\n- Testing form submissions with validation\n- Testing state management (Redux, Context API)\n- Testing routing between pages\n\n### Example: Form Submission Integration Test\n\n```javascript\nimport { render, screen, waitFor } from '@testing-library/react';\nimport userEvent from '@testing-library/user-event';\nimport { LoginForm } from './LoginForm';\nimport { server } from './mocks/server';\nimport { rest } from 'msw';\n\ndescribe('LoginForm Integration', () => {\n  test('successfully submits login form', async () => {\n    const user = userEvent.setup();\n    \n    server.use(\n      rest.post('/api/login', (req, res, ctx) => {\n        return res(ctx.json({ token: 'test-token', userId: 123 }));\n      })\n    );\n    \n    render(<LoginForm onSuccess={jest.fn()} />);\n    \n    const emailInput = screen.getByLabelText(/email/i);\n    const passwordInput = screen.getByLabelText(/password/i);\n    const submitButton = screen.getByRole('button', { name: /login/i });\n    \n    await user.type(emailInput, 'user@example.com');\n    await user.type(passwordInput, 'password123');\n    await user.click(submitButton);\n    \n    await waitFor(() => {\n      expect(screen.getByText(/login successful/i)).toBeInTheDocument();\n    });\n  });\n\n  test('displays error message on login failure', async () => {\n    const user = userEvent.setup();\n    \n    server.use(\n      rest.post('/api/login', (req, res, ctx) => {\n        return res(\n          ctx.status(401),\n          ctx.json({ error: 'Invalid credentials' })\n        );\n      })\n    );\n    \n    render(<LoginForm />);\n    \n    const emailInput = screen.getByLabelText(/email/i);\n    const passwordInput = screen.getByLabelText(/password/i);\n    const submitButton = screen.getByRole('button', { name: /login/i });\n    \n    await user.type(emailInput, 'user@example.com');\n    await user.type(passwordInput, 'wrongpassword');\n    await user.click(submitButton);\n    \n    await waitFor(() => {\n      expect(screen.getByText(/invalid credentials/i)).toBeInTheDocument();\n    });\n  });\n});\n```\n\n### Integration Testing Best Practices\n\n1. **Use Mock APIs**: Use MSW (Mock Service Worker) to mock API calls\n2. **Test Real User Workflows**: Test the paths users actually take\n3. **Keep Tests Focused**: Test one workflow per test\n4. **Use Realistic Data**: Use data that mirrors production scenarios\n5. **Clean Up Properly**: Reset mocks and state between tests\n\n## End-to-End Testing: Full User Journeys\n\nE2E tests run your application in a real browser and test complete user workflows from start to finish. They provide the highest confidence but are slower and more expensive to run.\n\n### When to Use E2E Tests\n\nE2E tests are essential for:\n- Critical user paths (signup, checkout, login)\n- Cross-browser compatibility\n- Full page interactions\n- Navigation flows\n- Real API interactions (on staging)\n\n### E2E Testing with Cypress\n\nCypress is a popular E2E testing framework that makes writing and debugging tests easy:\n\n```javascript\n// cypress/e2e/user-signup.cy.js\ndescribe('User Signup Flow', () => {\n  beforeEach(() => {\n    cy.visit('http://localhost:3000/signup');\n  });\n\n  it('successfully signs up a new user', () => {\n    // Fill form\n    cy.get('input[name=\"email\"]').type('newuser@example.com');\n    cy.get('input[name=\"password\"]').type('SecurePassword123!');\n    cy.get('input[name=\"confirmPassword\"]').type('SecurePassword123!');\n    cy.get('input[name=\"fullName\"]').type('John Doe');\n    \n    // Accept terms\n    cy.get('input[type=\"checkbox\"]').check();\n    \n    // Submit form\n    cy.get('button[type=\"submit\"]').click();\n    \n    // Verify success\n    cy.url().should('include', '/dashboard');\n    cy.get('h1').should('contain', 'Welcome, John');\n  });\n\n  it('shows validation errors for invalid input', () => {\n    cy.get('input[name=\"email\"]').type('invalid-email');\n    cy.get('input[name=\"password\"]').type('short');\n    cy.get('button[type=\"submit\"]').click();\n    \n    cy.get('.error-message').should('contain', 'Invalid email');\n    cy.get('.error-message').should('contain', 'Password must be at least 8 characters');\n  });\n\n  it('prevents duplicate email registration', () => {\n    cy.get('input[name=\"email\"]').type('existing@example.com');\n    cy.get('input[name=\"password\"]').type('ValidPassword123!');\n    cy.get('input[name=\"confirmPassword\"]').type('ValidPassword123!');\n    cy.get('input[name=\"fullName\"]').type('Jane Doe');\n    cy.get('input[type=\"checkbox\"]').check();\n    cy.get('button[type=\"submit\"]').click();\n    \n    cy.get('.error-message').should('contain', 'Email already registered');\n  });\n});\n```\n\n### E2E Testing with Playwright\n\nPlaywright is another excellent E2E testing framework with better multi-browser support:\n\n```javascript\n// tests/checkout.spec.ts\nimport { test, expect } from '@playwright/test';\n\ntest.describe('E-commerce Checkout Flow', () => {\n  test('complete purchase with valid payment', async ({ page }) => {\n    // Navigate to product page\n    await page.goto('http://localhost:3000/products/laptop-pro');\n    \n    // Add to cart\n    await page.click('button:has-text(\"Add to Cart\")');\n    \n    // Navigate to checkout\n    await page.click('a:has-text(\"Go to Checkout\")');\n    \n    // Fill shipping information\n    await page.fill('input[name=\"address\"]', '123 Main St');\n    await page.fill('input[name=\"city\"]', 'San Francisco');\n    await page.fill('input[name=\"zipCode\"]', '94105');\n    \n    // Fill payment information\n    await page.fill('[data-testid=\"card-number\"]', '4242424242424242');\n    await page.fill('[data-testid=\"expiry\"]', '12/25');\n    await page.fill('[data-testid=\"cvc\"]', '123');\n    \n    // Complete purchase\n    await page.click('button:has-text(\"Complete Purchase\")');\n    \n    // Verify success\n    await expect(page.locator('text=Order Confirmed')).toBeVisible();\n    await expect(page).toHaveURL(/\\/order-confirmation/);\n  });\n});\n```\n\n### E2E Testing Best Practices\n\n1. **Test Critical Paths Only**: Focus on core user journeys\n2. **Use Page Object Model**: Organize tests with reusable page abstractions\n3. **Handle Asynchronous Operations**: Wait for elements and network requests\n4. **Run Against Staging**: E2E tests should run against realistic environments\n5. **Keep Scenarios Independent**: Don't rely on test execution order\n\n## CI/CD Integration: Automated Testing\n\nEffective testing requires automating your test suite in your CI/CD pipeline.\n\n### GitHub Actions Configuration\n\n```yaml\nname: Run Tests\n\non: [push, pull_request]\n\njobs:\n  test:\n    runs-on: ubuntu-latest\n    \n    strategy:\n      matrix:\n        node-version: [18.x, 20.x]\n    \n    steps:\n      - uses: actions/checkout@v3\n      \n      - uses: actions/setup-node@v3\n        with:\n          node-version: ${{ matrix.node-version }}\n          cache: 'npm'\n      \n      # Install dependencies\n      - run: npm ci\n      \n      # Run unit and integration tests\n      - run: npm run test:unit\n      - run: npm run test:integration\n      \n      # Generate coverage report\n      - run: npm run test:coverage\n      \n      # Upload coverage to Codecov\n      - uses: codecov/codecov-action@v3\n        with:\n          files: ./coverage/coverage-final.json\n  \n  e2e:\n    runs-on: ubuntu-latest\n    needs: test\n    \n    steps:\n      - uses: actions/checkout@v3\n      \n      - uses: actions/setup-node@v3\n        with:\n          node-version: 20.x\n          cache: 'npm'\n      \n      - run: npm ci\n      \n      # Build the application\n      - run: npm run build\n      \n      # Start the application\n      - run: npm run dev &\n      \n      # Wait for app to be ready\n      - run: npx wait-on http://localhost:3000\n      \n      # Run E2E tests\n      - run: npm run test:e2e\n```\n\n## Measuring Test Coverage\n\nCode coverage measures how much of your code is tested. While 100% coverage isn't always necessary, it helps identify untested code paths.\n\n### Setting Coverage Thresholds\n\n```javascript\n// jest.config.js\nmodule.exports = {\n  collectCoverageFrom: [\n    'src/**/*.{js,jsx,ts,tsx}',\n    '!src/index.ts',\n    '!src/**/*.d.ts',\n    '!src/**/*.stories.{js,jsx,ts,tsx}',\n  ],\n  coverageThreshold: {\n    global: {\n      branches: 70,\n      functions: 75,\n      lines: 80,\n      statements: 80,\n    },\n    './src/lib/': {\n      branches: 90,\n      functions: 90,\n      lines: 90,\n      statements: 90,\n    },\n  },\n};\n```\n\n## Common Testing Pitfalls\n\n### 1. Testing Implementation Details\n\n**Bad:** Testing internal state or function calls\n```javascript\n// ❌ Don't do this\ntest('button calls handleClick function', () => {\n  const mock = jest.fn();\n  render(<Button onClick={mock} />);\n  screen.getByRole('button').click();\n  expect(mock).toHaveBeenCalled(); // Implementation detail\n});\n```\n\n**Good:** Test what the user sees\n```javascript\n// ✓ Do this instead\ntest('shows success message when button is clicked', async () => {\n  const user = userEvent.setup();\n  render(<Button />);\n  await user.click(screen.getByRole('button'));\n  expect(screen.getByText(/success/i)).toBeInTheDocument();\n});\n```\n\n### 2. Flaky Tests\n\nFlaky tests fail intermittently due to timing issues. Always use proper async handling:\n\n```javascript\n// ❌ Flaky\ntest('loads user data', () => {\n  render(<UserProfile userId=\"123\" />);\n  expect(screen.getByText('John Doe')).toBeInTheDocument();\n});\n\n// ✓ Reliable\ntest('loads user data', async () => {\n  render(<UserProfile userId=\"123\" />);\n  await screen.findByText('John Doe');\n});\n```\n\n### 3. Over-Mocking\n\nMocking too much makes tests brittle. Only mock external dependencies:\n\n```javascript\n// ❌ Over-mocked\ntest('adds numbers', () => {\n  const add = jest.fn().mockReturnValue(5);\n  expect(add(2, 3)).toBe(5);\n});\n\n// ✓ Better\nimport { add } from './math';\ntest('adds numbers', () => {\n  expect(add(2, 3)).toBe(5);\n});\n```\n\n## Setting Up Your Test Suite\n\n### Install Dependencies\n\n```bash\nnpm install --save-dev jest @testing-library/react @testing-library/jest-dom\nnpm install --save-dev cypress msw\n```\n\n### jest.config.js\n\n```javascript\nmodule.exports = {\n  testEnvironment: 'jsdom',\n  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],\n  moduleNameMapper: {\n    '^@/(.*)$': '<rootDir>/src/$1',\n  },\n  testMatch: [\n    '**/__tests__/**/*.[jt]s?(x)',\n    '**/?(*.)+(spec|test).[jt]s?(x)',\n  ],\n  collectCoverageFrom: [\n    'src/**/*.{js,jsx,ts,tsx}',\n    '!src/**/*.d.ts',\n  ],\n};\n```\n\n## Conclusion\n\nEffective testing is crucial for building reliable, maintainable web applications. By following the testing pyramid—focusing on unit tests, supplemented with integration tests, and secured with critical E2E tests—you can achieve high code quality without sacrificing development speed.\n\nThe key takeaways:\n\n1. **Unit Tests**: Fast, cheap, and your foundation (60% of tests)\n2. **Integration Tests**: Test component interactions and workflows (30% of tests)\n3. **E2E Tests**: Verify critical user journeys (10% of tests)\n4. **Automation**: Integrate testing into your CI/CD pipeline\n5. **Best Practices**: Test behavior, avoid flakiness, use realistic data\n\nStart small with unit tests, gradually add integration tests as complexity grows, and use E2E tests to protect your most critical user paths. With consistent, thoughtful testing practices, you'll build applications that your users can rely on.\n\nRemember: The best test is the one that catches bugs before they reach your users. Happy testing!"
     },
     {
-      "title": "Technologies We Use",
-      "icon": "🛠",
-      "content": "We use modern tools and frameworks to deliver the best results:",
-      "points": [
-        "Next.js – Server-side rendering & SEO optimization",
-        "React – Dynamic and interactive UI",
-        "TypeScript – Type-safe and scalable code",
-        "Node.js – Powerful backend services",
-        "PostgreSQL – Reliable database",
-        "Tailwind CSS – Modern and responsive design"
-      ]
+      "id": "web-development-security",
+      "slug": "web-development-security-practices",
+      "title": "Web Development Security: Protecting Your Applications from Modern Threats",
+      "category": "web-development",
+      "description": "Essential security practices for web developers. Learn about authentication, authorization, data protection, and defending against common vulnerabilities.",
+      "author": "HNX Technologies",
+      "createdAt": "2026-02-15",
+      "readTime": 12,
+      "image": "/images/blog/web-security.svg",
+      "tags": [
+        "Security",
+        "Web Development",
+        "Best Practices",
+        "Authentication",
+        "Data Protection"
+      ],
+      "seoTitle": "Web Development Security: Protect Against Modern Threats",
+      "seoDescription": "Essential web development security practices. Learn authentication, authorization, HTTPS, CSRF protection, and securing your web applications.",
+      "content": "Security is not optional in web development. Let's explore the essential practices that will help you build secure applications.\n\n## Authentication & Authorization\n\n### Authentication\nVerify user identity:\n\n- Use secure password hashing (bcrypt, Argon2)\n- Implement multi-factor authentication (MFA)\n- Never store plain-text passwords\n\n### Authorization\nControl what authenticated users can access:\n\n- Role-based access control (RBAC)\n- Implement granular permissions\n- Check authorization on backend\n\n## HTTPS & TLS\n\nAlways use HTTPS:\n\n- Encrypts data in transit\n- Prevents man-in-the-middle attacks\n- Required for modern web standards\n- Use strong TLS versions\n\n## CSRF Protection\n\nPrevent Cross-Site Request Forgery:\n\n- Use CSRF tokens\n- Enforce SameSite cookies\n- Validate request origins\n\n## SQL Injection & Input Validation\n\n### Input Validation\nAlways validate user input:\n\n- Server-side validation is essential\n- Whitelist acceptable values\n- Sanitize output\n\n### Prepared Statements\nUse parameterized queries:\n\n- Prevent SQL injection\n- Separate code from data\n- Support across all databases\n\n## XSS Prevention\n\nProtect against Cross-Site Scripting:\n\n- Escape user-generated content\n- Use Content Security Policy (CSP)\n- Trust but verify third-party scripts\n\n## Secure Data Storage\n\n### Sensitive Data\nNever expose secrets in frontend code:\n\n- Use environment variables\n- Keep API keys on backend\n- Use secure configuration management\n\n### Data Encryption\nEncrypt sensitive data at rest:\n\n- Use strong encryption algorithms\n- Manage keys securely\n- Regular security audits\n\n## Dependency Management\n\n### Keep Dependencies Updated\nRegularly update packages:\n\n- Security patches available\n- Use npm audit for vulnerabilities\n- Review release notes before updating\n\n## Security Headers\n\nImplement important headers:\n\n- X-Frame-Options – Prevent clickjacking\n- X-Content-Type-Options – Prevent MIME attacks\n- Strict-Transport-Security – Force HTTPS\n\n## Regular Security Practices\n\n- Perform security code reviews\n- Use vulnerability scanning tools\n- Maintain security logs\n- Have incident response plan"
     },
     {
-      "title": "What We Build",
-      "icon": "🔥",
-      "subsections": [
+      "id": "web-development-typescript",
+      "slug": "typescript-for-scalable-web-development",
+      "title": "TypeScript for Web Development: Building Scalable and Type-Safe Applications",
+      "category": "web-development",
+      "description": "A comprehensive guide to using TypeScript in modern web development. Learn type systems, interfaces, generics, and best practices for building robust applications.",
+      "author": "HNX Technologies",
+      "createdAt": "2026-02-10",
+      "readTime": 14,
+      "image": "/images/blog/typescript.svg",
+      "tags": [
+        "TypeScript",
+        "JavaScript",
+        "Type Safety",
+        "Web Development",
+        "Best Practices"
+      ],
+      "seoTitle": "TypeScript for Web Development: Type Safety & Best Practices",
+      "seoDescription": "Learn TypeScript fundamentals for web development. Master types, interfaces, generics, and build type-safe, scalable web applications.",
+      "content": "TypeScript has become essential for modern web development. Let's explore how to leverage TypeScript to build more robust and maintainable applications.\n\n## Why TypeScript Matters\n\nTypeScript adds a type system to JavaScript:\n\n- Catch errors at compile time\n- Improve code readability\n- Enable better IDE support\n- Make refactoring safer\n\n## Understanding Types\n\n### Basic Types\nTypeScript includes basic types:\n\n- string, number, boolean\n- any (avoid when possible)\n- unknown (safer alternative to any)\n- null and undefined\n\n### Union Types\nAllow variables to hold multiple types:\n\n- string | number\n- Useful for flexible APIs\n- Better type safety than any\n\n## Interfaces & Type Aliases\n\n### Interfaces\nDefine the shape of objects:\n\n- Extensible and composable\n- Great for class contracts\n- Self-documenting code\n\n### Type Aliases\nMore flexible than interfaces:\n\n- Works with primitives\n- Can use union types\n- Better for function signatures\n\n## Generics\n\nCreate reusable components with type parameters:\n\n- Maintain type information through transformations\n- Build flexible, type-safe libraries\n- Essential for utility types\n\n## Advanced Type Features\n\n### Mapped Types\nCreate new types from existing ones:\n\n- Reduce code duplication\n- Keep types in sync\n- Enable powerful transformations\n\n### Conditional Types\nChoose types based on conditions:\n\n- Build smart type utilities\n- Create type-safe helpers\n- Improve API ergonomics\n\n## TypeScript with React\n\n### Typing Props\nEnsure component props are type-safe:\n\n- Use interface or type for props\n- Make props self-documenting\n- Enable autocomplete in usage\n\n### Typing State\nType useState properly:\n\n- Explicit type annotations\n- Inference when possible\n- Better error messages\n\n## Common Pitfalls\n\n- Over-using any\n- Not leveraging inference\n- Overly complex types\n- Ignoring strict mode\n\n## Best Practices\n\n- Enable strict mode in tsconfig.json\n- Use const assertions for literals\n- Leverage utility types\n- Keep types simple and readable"
+    },
+    {
+      "id": "web-development-nextjs-performance",
+      "slug": "nextjs-performance-optimization",
+      "title": "Next.js Performance Optimization: Mastering Speed and Core Web Vitals",
+      "category": "web-development",
+      "description": "Comprehensive guide to optimizing Next.js applications. Learn image optimization, code splitting, caching strategies, and achieving excellent Core Web Vitals scores.",
+      "author": "HNX Technologies",
+      "createdAt": "2026-02-05",
+      "readTime": 13,
+      "image": "/images/blog/nextjs-performance.svg",
+      "tags": [
+        "Next.js",
+        "Performance",
+        "Web Vitals",
+        "Optimization",
+        "Frontend"
+      ],
+      "seoTitle": "Next.js Performance Optimization: Core Web Vitals & Speed",
+      "seoDescription": "Master Next.js performance optimization including image optimization, code splitting, and Core Web Vitals. Build lightning-fast web applications.",
+      "content": "Next.js provides built-in optimization features that make it easy to build fast web applications. Let's explore the strategies that will help you achieve excellent performance scores.\n\n## Image Optimization with Next.js Image\n\nThe Next.js Image component automatically optimizes images:\n\n- Serves correctly sized images for each device\n- Adopts modern image formats (WebP, AVIF)\n- Lazy loading by default\n- Responsive images out of the box\n\n## Code Splitting & Bundling\n\n### Automatic Code Splitting\nNext.js automatically splits your code by page:\n\n- Each page loads only necessary code\n- Reduces initial page load time\n- Improves overall app performance\n\n### Dynamic Imports\nUse dynamic imports for large libraries that aren't needed immediately:\n\n- Load components on demand\n- Reduce initial bundle size\n- Better user experience\n\n## Core Web Vitals\n\nFocus on three key metrics:\n\n- Largest Contentful Paint (LCP) – Load time\n- First Input Delay (FID) – Interactivity\n- Cumulative Layout Shift (CLS) – Visual stability\n\n## Caching Strategies\n\n### Static Generation (SSG)\nPre-render pages at build time for best performance:\n\n- Extremely fast page loads\n- Can be revalidated incrementally\n- Perfect for content that doesn't change often\n\n### Server-Side Rendering (SSR)\nRender pages on demand for dynamic content:\n\n- Fresh content on every request\n- SEO-friendly\n- More server resources required\n\n## Database & API Optimization\n\n### API Routes Performance\nOptimize your API endpoints:\n\n- Use caching headers\n- Implement pagination\n- Minimize response payload\n\n### Connection Pooling\nManage database connections efficiently to handle traffic spikes.\n\n## Font Optimization\n\nLoad fonts strategically:\n\n- Use font-display: swap for fast text rendering\n- Self-host critical fonts\n- Minimize font weights\n\n## Deployment & Monitoring\n\n### Vercel Deployment\nGet automatic performance optimizations with Vercel:\n\n- Edge network for global performance\n- Automatic scaling\n- Built-in analytics\n\n### Performance Monitoring\nTrack metrics with tools like Vercel Analytics and Google Analytics."
+    },
+    {
+      "id": "web-development-react-best-practices",
+      "slug": "react-best-practices-2026",
+      "title": "React Best Practices: Building Efficient and Maintainable Components",
+      "category": "web-development",
+      "description": "Master React development with proven best practices. Learn about hooks, performance optimization, component patterns, and testing strategies for scalable applications.",
+      "author": "HNX Technologies",
+      "createdAt": "2026-02-01",
+      "readTime": 11,
+      "image": "/images/blog/react-best-practices.svg",
+      "tags": [
+        "React",
+        "JavaScript",
+        "Best Practices",
+        "Hooks",
+        "Performance"
+      ],
+      "seoTitle": "React Best Practices 2026: Component Patterns & Optimization",
+      "seoDescription": "Learn React best practices including hooks, component patterns, performance optimization, and testing. Build scalable and maintainable React applications.",
+      "content": "React has become the standard for building modern user interfaces. In this guide, we'll explore proven best practices that will help you write better, more efficient React code.\n\n## Understanding React Hooks\n\nHooks revolutionized React development by enabling functional components with state management. Key hooks include:\n\n- useState – Manage component state\n- useEffect – Handle side effects\n- useContext – Share data across components\n- useReducer – Complex state management\n- useCallback – Optimize function references\n\n## Component Architecture\n\n### Separation of Concerns\nKeep components focused on a single responsibility:\n\n- Smart components handle logic\n- Presentational components focus on UI\n- Custom hooks encapsulate reusable logic\n\n### Prop Drilling & Context\nAvoid excessive prop drilling by using React Context for shared state. This keeps your component tree clean and manageable.\n\n## Performance Optimization\n\n### Memoization\nUse React.memo for expensive components to prevent unnecessary re-renders:\n\n- Prevents re-render when props haven't changed\n- Reduces computational overhead\n- Improves overall application performance\n\n### Code Splitting\nOptimize bundle size with lazy loading:\n\n- Lazy load routes with React.lazy\n- Use Suspense for loading states\n- Reduces initial page load time\n\n## State Management Patterns\n\nUse local state for component-specific data and global state for shared data across the app. Over-centralizing state can make applications harder to maintain.\n\n## Testing React Components\n\n### Unit Testing\nTest individual components with React Testing Library:\n\n- Test behavior, not implementation\n- Write maintainable tests\n- Improve code confidence\n\n### Integration Testing\nTest component interactions and data flow across multiple components.\n\n## Common Pitfalls to Avoid\n\n- Mutating state directly\n- Creating functions in render methods\n- Not cleaning up effects\n- Incorrect dependency arrays\n\n## Future-Proofing Your React Code\n\nStay updated with React developments and use React 18+ features for better performance and capabilities."
+    },
+    {
+      "id": "web-development",
+      "slug": "web-development-guide",
+      "title": "The Future of Web Development: Building Scalable Digital Products",
+      "category": "web-development",
+      "description": "High-performance web applications built with Next.js, React, and TypeScript. Learn how to build scalable, modern web solutions for enterprise needs.",
+      "author": "HNX Technologies",
+      "createdAt": "2026-01-15",
+      "readTime": 12,
+      "image": "/images/blog/web-development.svg",
+      "tags": [
+        "Next.js",
+        "React",
+        "Web Development",
+        "Performance",
+        "Scalability"
+      ],
+      "seoTitle": "Web Development Guide: Modern Technologies & Best Practices",
+      "seoDescription": "Building scalable web applications with Next.js, React, and TypeScript. Enterprise-grade web solutions for businesses.",
+      "content": "In today's fast-paced digital world, businesses need powerful, scalable, and high-performance web applications to stay competitive. At HNX Technologies, we specialize in building modern web solutions using cutting-edge technologies like Next.js, React, and TypeScript.\n\n## Why Web Development Matters\n\nA strong web presence is no longer optional — it's essential. Your website is your digital identity, and it must deliver:\n\n- ⚡ Fast performance\n- 📱 Mobile responsiveness\n- 🔐 Secure architecture\n- 📈 Scalable infrastructure\n\n## Technologies We Use\n\nWe use modern tools and frameworks to deliver the best results:\n\n- Next.js – Server-side rendering & SEO optimization\n- React – Dynamic and interactive UI\n- TypeScript – Type-safe and scalable code\n- Node.js – Powerful backend services\n- PostgreSQL – Reliable database\n- Tailwind CSS – Modern and responsive design\n\n## What We Build\n\n### Custom Web Applications\nWe create fully customized web apps tailored to your business needs with high performance and scalability.\n\n### Progressive Web Apps (PWAs)\nPWAs provide app-like experiences:\n- Works offline\n- Installable on devices\n- Fast and responsive\n\n### E-commerce Platforms\nWe develop scalable e-commerce solutions with:\n- Real-time inventory\n- Secure payments\n- Advanced analytics\n\n## Performance & SEO Focus\n\nWe build applications with:\n- Server-side rendering (SSR)\n- Optimized loading speed\n- SEO-friendly structure\n\n## Scalable Architecture\n\nOur solutions are built to grow with your business:\n- Cloud-ready infrastructure\n- Microservices architecture\n- High availability\n\n## Future-Ready Development\n\nWe integrate:\n- AI-powered features\n- Automation systems\n- Smart analytics",
+      "_deprecated_sections": [
         {
-          "subtitle": "1. Custom Web Applications",
-          "content": "We create fully customized web apps tailored to your business needs with high performance and scalability."
-        },
-        {
-          "subtitle": "2. Progressive Web Apps (PWAs)",
-          "content": "PWAs provide app-like experiences:",
+          "title": "Why Web Development Matters",
+          "icon": "💡",
+          "content": "A strong web presence is no longer optional — it's essential. Your website is your digital identity, and it must deliver:",
           "points": [
-            "Works offline",
-            "Installable on devices",
-            "Fast and responsive"
+            "⚡ Fast performance",
+            "📱 Mobile responsiveness",
+            "🔐 Secure architecture",
+            "📈 Scalable infrastructure"
           ]
         },
         {
-          "subtitle": "3. E-commerce Platforms",
-          "content": "We develop scalable e-commerce solutions with:",
+          "title": "Technologies We Use",
+          "icon": "🛠",
+          "content": "We use modern tools and frameworks to deliver the best results:",
           "points": [
-            "Real-time inventory",
-            "Secure payments",
-            "Advanced analytics"
+            "Next.js – Server-side rendering & SEO optimization",
+            "React – Dynamic and interactive UI",
+            "TypeScript – Type-safe and scalable code",
+            "Node.js – Powerful backend services",
+            "PostgreSQL – Reliable database",
+            "Tailwind CSS – Modern and responsive design"
+          ]
+        },
+        {
+          "title": "What We Build",
+          "icon": "🔥",
+          "subsections": [
+            {
+              "subtitle": "1. Custom Web Applications",
+              "content": "We create fully customized web apps tailored to your business needs with high performance and scalability."
+            },
+            {
+              "subtitle": "2. Progressive Web Apps (PWAs)",
+              "content": "PWAs provide app-like experiences:",
+              "points": [
+                "Works offline",
+                "Installable on devices",
+                "Fast and responsive"
+              ]
+            },
+            {
+              "subtitle": "3. E-commerce Platforms",
+              "content": "We develop scalable e-commerce solutions with:",
+              "points": [
+                "Real-time inventory",
+                "Secure payments",
+                "Advanced analytics"
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Performance & SEO Focus",
+          "icon": "⚡",
+          "content": "We build applications with:",
+          "points": [
+            "Server-side rendering (SSR)",
+            "Optimized loading speed",
+            "SEO-friendly structure"
+          ]
+        },
+        {
+          "title": "Scalable Architecture",
+          "icon": "☁️",
+          "content": "Our solutions are built to grow with your business:",
+          "points": [
+            "Cloud-ready infrastructure",
+            "Microservices architecture",
+            "High availability"
+          ]
+        },
+        {
+          "title": "Future-Ready Development",
+          "icon": "🤖",
+          "content": "We integrate:",
+          "points": [
+            "AI-powered features",
+            "Automation systems",
+            "Smart analytics"
           ]
         }
-      ]
-    },
-    {
-      "title": "Performance & SEO Focus",
-      "icon": "⚡",
-      "content": "We build applications with:",
-      "points": [
-        "Server-side rendering (SSR)",
-        "Optimized loading speed",
-        "SEO-friendly structure"
-      ]
-    },
-    {
-      "title": "Scalable Architecture",
-      "icon": "☁️",
-      "content": "Our solutions are built to grow with your business:",
-      "points": [
-        "Cloud-ready infrastructure",
-        "Microservices architecture",
-        "High availability"
-      ]
-    },
-    {
-      "title": "Future-Ready Development",
-      "icon": "🤖",
-      "content": "We integrate:",
-      "points": [
-        "AI-powered features",
-        "Automation systems",
-        "Smart analytics"
-      ]
+      ],
+      "_deprecated_conclusion": "At HNX Technologies, we don't just build websites — we build scalable digital products that drive business growth.",
+      "_deprecated_cta": "Ready to build your next project? Start your journey with HNX Technologies today."
     }
-  ],
-  "conclusion": "At HNX Technologies, we don't just build websites — we build scalable digital products that drive business growth.",
-  "cta": "Ready to build your next project? Start your journey with HNX Technologies today.",
-  "tags": ["Next.js", "React", "Web Development", "Performance"]
+  ]
 }

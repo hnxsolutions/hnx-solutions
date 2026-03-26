@@ -1,0 +1,50 @@
+<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="devopsBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ec4899;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#be185d;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="devopsAccent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f472b6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f91880;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#devopsBg)"/>
+  <circle cx="80" cy="60" r="65" fill="rgba(244,114,182,0.1)"/>
+  <circle cx="340" cy="270" r="70" fill="rgba(244,114,182,0.08)"/>
+  
+  <!-- CI/CD Pipeline -->
+  <g transform="translate(40, 90)">
+    <!-- Build -->
+    <rect x="0" y="0" width="50" height="50" rx="4" fill="url(#devopsAccent)" stroke="white" stroke-width="2"/>
+    <text x="25" y="32" font-size="11" font-weight="bold" text-anchor="middle" fill="white">Build</text>
+    
+    <!-- Arrow -->
+    <path d="M 55 25 L 70 25" stroke="white" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <polygon points="70,25 65,22 65,28" fill="white"/>
+    
+    <!-- Test -->
+    <rect x="75" y="0" width="50" height="50" rx="4" fill="rgba(244,114,182,0.8)" stroke="white" stroke-width="2"/>
+    <text x="100" y="32" font-size="11" font-weight="bold" text-anchor="middle" fill="white">Test</text>
+    
+    <!-- Arrow -->
+    <path d="M 130 25 L 145 25" stroke="white" stroke-width="2"/>
+    <polygon points="145,25 140,22 140,28" fill="white"/>
+    
+    <!-- Deploy -->
+    <rect x="150" y="0" width="50" height="50" rx="4" fill="url(#devopsAccent)" stroke="white" stroke-width="2"/>
+    <text x="175" y="32" font-size="11" font-weight="bold" text-anchor="middle" fill="white">Deploy</text>
+    
+    <!-- Monitor -->
+    <rect x="225" y="0" width="50" height="50" rx="4" fill="rgba(244,114,182,0.8)" stroke="white" stroke-width="2"/>
+    <text x="250" y="32" font-size="11" font-weight="bold" text-anchor="middle" fill="white">Monitor</text>
+  </g>
+  
+  <!-- Feedback loop -->
+  <g transform="translate(40, 90)">
+    <path d="M 250 55 Q 125 95 25 55" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2" stroke-dasharray="5,5"/>
+    <text x="125" y="85" font-size="10" text-anchor="middle" fill="rgba(255,255,255,0.7)">Continuous Feedback</text>
+  </g>
+  
+  <text x="200" y="270" font-size="16" font-weight="bold" text-anchor="middle" fill="#f472b6">DevOps Pipeline</text>
+</svg>

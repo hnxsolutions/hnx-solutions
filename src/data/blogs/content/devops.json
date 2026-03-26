@@ -1,0 +1,29 @@
+{
+  "category": "devops",
+  "totalCount": 1,
+  "lastUpdated": "2026-03-26T09:53:52.525Z",
+  "blogs": [
+    {
+      "id": "devops",
+      "slug": "devops-continuous-deployment",
+      "title": "DevOps: Automating Infrastructure & Pipelines",
+      "category": "devops",
+      "description": "Streamline CI/CD pipelines and automate deployment. Deploy scalable, reliable systems with monitoring and disaster recovery.",
+      "author": "HNX Technologies",
+      "createdAt": "2026-02-05",
+      "readTime": 12,
+      "image": "/images/blog/devops.svg",
+      "tags": [
+        "DevOps",
+        "CI/CD",
+        "Kubernetes",
+        "AWS",
+        "Docker",
+        "Automation"
+      ],
+      "seoTitle": "DevOps & CI/CD: Continuous Integration & Deployment Guide",
+      "seoDescription": "DevOps best practices. Automate infrastructure, CI/CD pipelines, and deployments using Kubernetes, Docker, and Jenkins.",
+      "content": "DevOps is the bridge between development and operations, enabling teams to deliver software faster and more reliably. By automating infrastructure, streamlining pipelines, and emphasizing collaboration, DevOps drives continuous improvement.\n\n## DevOps Core Principles\n\n- 🚀 Continuous Integration\n- 🔄 Continuous Deployment\n- 📊 Monitoring & Logging\n- 🔧 Infrastructure as Code\n- 🤝 Team Collaboration\n\n## CI/CD Pipeline Architecture\n\n### Source Control\n- Git-based version control\n- Branch strategies\n- Code review workflows\n\n### Build Automation\n- Automated testing\n- Code quality checks\n- Artifact building\n\n### Deployment Stages\n- Staging environment validation\n- Production deployment\n- Rollback capabilities\n\n## Technologies & Tools\n\n### Containerization\n- Docker for application packaging\n- Container registries\n- Image scanning\n\n### Orchestration\n- Kubernetes for scaling\n- Pod management\n- Service discovery\n\n### CI/CD Tools\n- Jenkins for pipeline automation\n- GitLab CI for source integration\n- GitHub Actions for workflows\n\n## Infrastructure Management\n\n### Cloud Platforms\n- AWS for scalable infrastructure\n- Multi-region deployment\n- Load balancing and auto-scaling\n\n### Infrastructure as Code\n- Terraform for provisioning\n- Ansible for configuration\n- CloudFormation for AWS resources\n\n## Monitoring & Observability\n\n- Real-time monitoring\n- Log aggregation\n- Performance analytics\n- Alert management"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="aiBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#a855f7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7c3aed;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="aiAccent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#d8b4fe;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#c084fc;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#aiBg)"/>
+  <circle cx="70" cy="50" r="65" fill="rgba(216,180,254,0.1)"/>
+  <circle cx="350" cy="280" r="70" fill="rgba(216,180,254,0.08)"/>
+  
+  <!-- Neural network -->
+  <g transform="translate(120, 50)">
+    <!-- Top layer neurons -->
+    <circle cx="20" cy="20" r="6" fill="url(#aiAccent)" stroke="white" stroke-width="1.5"/>
+    <circle cx="60" cy="20" r="6" fill="url(#aiAccent)" stroke="white" stroke-width="1.5"/>
+    <circle cx="100" cy="20" r="6" fill="url(#aiAccent)" stroke="white" stroke-width="1.5"/>
+    <circle cx="140" cy="20" r="6" fill="url(#aiAccent)" stroke="white" stroke-width="1.5"/>
+    
+    <!-- Middle layer neurons -->
+    <circle cx="40" cy="60" r="7" fill="rgba(216,180,254,0.9)" stroke="white" stroke-width="1.5"/>
+    <circle cx="100" cy="60" r="7" fill="rgba(216,180,254,0.9)" stroke="white" stroke-width="1.5"/>
+    <circle cx="140" cy="60" r="7" fill="rgba(216,180,254,0.9)" stroke="white" stroke-width="1.5"/>
+    
+    <!-- Connections -->
+    <line x1="20" y1="20" x2="40" y2="60" stroke="rgba(216,180,254,0.3)" stroke-width="1"/>
+    <line x1="60" y1="20" x2="40" y2="60" stroke="rgba(216,180,254,0.3)" stroke-width="1"/>
+    <line x1="60" y1="20" x2="100" y2="60" stroke="rgba(216,180,254,0.3)" stroke-width="1"/>
+    <line x1="100" y1="20" x2="100" y2="60" stroke="rgba(216,180,254,0.3)" stroke-width="1"/>
+    <line x1="140" y1="20" x2="100" y2="60" stroke="rgba(216,180,254,0.3)" stroke-width="1"/>
+    <line x1="140" y1="20" x2="140" y2="60" stroke="rgba(216,180,254,0.3)" stroke-width="1"/>
+  </g>
+  
+  <!-- AI Features -->
+  <g transform="translate(80, 150)">
+    <rect x="0" y="0" width="240" height="95" rx="3" fill="rgba(216,180,254,0.1)" stroke="rgba(216,180,254,0.3)" stroke-width="1"/>
+    <text x="10" y="20" font-size="11" font-weight="bold" fill="#d8b4fe">⚡ Machine Learning</text>
+    <text x="10" y="40" font-size="11" font-weight="bold" fill="#d8b4fe">🤖 Automation</text>
+    <text x="10" y="60" font-size="11" font-weight="bold" fill="#d8b4fe">📊 Predictive Analytics</text>
+    <text x="10" y="80" font-size="11" font-weight="bold" fill="#d8b4fe">🔬 Pattern Recognition</text>
+  </g>
+  
+  <text x="200" y="270" font-size="16" font-weight="bold" text-anchor="middle" fill="#d8b4fe">AI Automation</text>
+</svg>
