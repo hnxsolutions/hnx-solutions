@@ -1,10 +1,22 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useEffect, useState, FormEvent } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { HiMail, HiLocationMarker, HiPhone, HiArrowRight } from "react-icons/hi";
+import {
+  AnimatePresence,
+  motion,
+  useReducedMotion,
+  type Transition,
+} from "framer-motion";
+import {
+  HiMail,
+  HiLocationMarker,
+  HiPhone,
+  HiArrowRight,
+  HiCheckCircle,
+  HiExclamationCircle,
+} from "react-icons/hi";
 import { FiGithub, FiLinkedin, FiInstagram } from "react-icons/fi";
 
 const contactHeroBgImage =
@@ -72,6 +84,8 @@ type ContactFormData = {
   message: string;
 };
 
+type SubmitState = "idle" | "loading" | "success" | "error";
+
 const initialFormData: ContactFormData = {
   name: "",
   email: "",
@@ -81,14 +95,32 @@ const initialFormData: ContactFormData = {
 };
 
 export default function ContactPage() {
-  const [submitted, setSubmitted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
+
+  const [submitState, setSubmitState] = useState<SubmitState>("idle");
   const [formData, setFormData] = useState<ContactFormData>(initialFormData);
+  const [feedbackMessage, setFeedbackMessage] = useState("");
+
+  useEffect(() => {
+    if (submitState !== "success") return;
+
+    const timer = window.setTimeout(() => {
+      setSubmitState("idle");
+      setFeedbackMessage("");
+    }, 3200);
+
+    return () => window.clearTimeout(timer);
+  }, [submitState]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
+
+    if (submitState === "error") {
+      setSubmitState("idle");
+      setFeedbackMessage("");
+    }
 
     setFormData((prev) => ({
       ...prev,
@@ -99,8 +131,11 @@ export default function ContactPage() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if (submitState === "loading") return;
+
     try {
-      setIsSubmitting(true);
+      setSubmitState("loading");
+      setFeedbackMessage("");
 
       const response = await fetch("/api/contact", {
         method: "POST",
@@ -113,24 +148,32 @@ export default function ContactPage() {
       const result = await response.json();
 
       if (!response.ok) {
-        console.error("Contact submission failed:", result);
-        alert(result.message || "Failed to send message.");
+        setSubmitState("error");
+        setFeedbackMessage(result.message || "Failed to send message. Please try again.");
         return;
       }
 
-      setSubmitted(true);
+      setSubmitState("success");
+      setFeedbackMessage("Message sent successfully. We’ll get back to you shortly.");
       setFormData(initialFormData);
-
-      setTimeout(() => {
-        setSubmitted(false);
-      }, 3000);
     } catch (error) {
       console.error("Contact form error:", error);
-      alert("Something went wrong while sending your message.");
-    } finally {
-      setIsSubmitting(false);
+      setSubmitState("error");
+      setFeedbackMessage("Something went wrong while sending your message.");
     }
   };
+
+  const isSubmitting = submitState === "loading";
+  const isSuccess = submitState === "success";
+  const isError = submitState === "error";
+
+  const primaryTransition: Transition = shouldReduceMotion
+  ? { duration: 0.01 }
+  : { type: "spring" as const, stiffness: 240, damping: 22 };
+
+  const softTransition: Transition = shouldReduceMotion
+  ? { duration: 0.01 }
+  : { duration: 0.35, ease: [0.22, 1, 0.36, 1] };
 
   return (
     <main>
@@ -155,7 +198,7 @@ export default function ContactPage() {
 
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="max-w-3xl"
@@ -211,7 +254,7 @@ export default function ContactPage() {
           <div className="grid lg:grid-cols-5 gap-10">
             {/* Contact Info */}
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
+              initial={shouldReduceMotion ? false : { opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
               className="lg:col-span-2 space-y-8"
@@ -234,7 +277,6 @@ export default function ContactPage() {
                 </a>
               ))}
 
-              {/* Socials */}
               <div className="pt-6">
                 <div className="inline-flex items-center gap-4 px-4 py-2.5 rounded-2xl bg-white/[0.04] border border-white/[0.08] shadow-[0_0_30px_rgba(77,208,225,0.06)]">
                   <span className="text-xs text-primary font-bold tracking-widest uppercase">
@@ -261,7 +303,6 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              {/* Why Work With Us */}
               <div className="glass-card rounded-2xl p-6 glow-border">
                 <h4 className="font-bold mb-4">Why Work With HNX?</h4>
                 <ul className="space-y-2.5 text-sm text-light-300">
@@ -280,7 +321,6 @@ export default function ContactPage() {
                 </ul>
               </div>
 
-              {/* Response time box */}
               <div className="glass-card rounded-2xl p-6 glow-border text-center">
                 <p className="text-3xl font-bold gradient-text mb-2">&lt;24h</p>
                 <p className="text-sm text-light-300">Average response time</p>
@@ -289,123 +329,344 @@ export default function ContactPage() {
 
             {/* Contact Form */}
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
+              initial={shouldReduceMotion ? false : { opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
               id="quote-form"
               className="lg:col-span-3"
             >
-              <form
-                onSubmit={handleSubmit}
-                className="glass-card rounded-2xl p-8 md:p-10 glow-border"
+              <motion.div
+                layout
+                transition={primaryTransition}
+                className="relative [perspective:1400px]"
               >
-                <h3 className="text-2xl font-bold mb-8">Send Us a Message</h3>
+                <AnimatePresence>
+                  {isSuccess && (
+                    <motion.div
+                      role="status"
+                      aria-live="polite"
+                      initial={
+                        shouldReduceMotion
+                          ? { opacity: 0 }
+                          : { opacity: 0, y: 18, rotateX: -14, scale: 0.96 }
+                      }
+                      animate={{
+                        opacity: 1,
+                        y: 0,
+                        rotateX: 0,
+                        scale: 1,
+                      }}
+                      exit={
+                        shouldReduceMotion
+                          ? { opacity: 0 }
+                          : { opacity: 0, y: -10, scale: 0.985, filter: "blur(6px)" }
+                      }
+                      transition={softTransition}
+                      className="pointer-events-none absolute inset-x-4 top-4 z-20 md:left-auto md:right-4 md:w-[360px]"
+                    >
+                      <div className="relative overflow-hidden rounded-2xl border border-emerald-400/25 bg-white/[0.08] px-5 py-4 text-left shadow-[0_18px_60px_rgba(16,185,129,0.22)] backdrop-blur-2xl">
+                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(52,211,153,0.22),transparent_42%),radial-gradient(circle_at_bottom_right,rgba(56,189,248,0.16),transparent_36%)]" />
+                        <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-emerald-400/15 blur-2xl" />
+                        <div className="relative flex items-start gap-4">
+                          <motion.div
+                            initial={shouldReduceMotion ? false : { scale: 0.85, rotate: -8 }}
+                            animate={{ scale: 1, rotate: 0 }}
+                            transition={{ delay: 0.08, ...softTransition }}
+                            className="mt-0.5 flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-400/15 text-emerald-300 ring-1 ring-emerald-300/20"
+                          >
+                            <HiCheckCircle size={24} />
+                          </motion.div>
+                          <div className="min-w-0">
+                            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-300/90">
+                              Message sent
+                            </p>
+                            <p className="mt-1 text-sm leading-6 text-light-100">
+                              Thanks — your project request is in. We’ll reply soon with the next
+                              steps.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
 
-                <div className="grid md:grid-cols-2 gap-5 mb-5">
-                  <div>
-                    <label className="block text-sm font-medium mb-2 text-light-200">
-                      Your Name
-                    </label>
-                    <input
-                      type="text"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3.5 rounded-xl bg-dark-700/50 border border-white/10 text-light-100 placeholder:text-light-300/50 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
-                      placeholder="John Doe"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium mb-2 text-light-200">
-                      Email Address
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3.5 rounded-xl bg-dark-700/50 border border-white/10 text-light-100 placeholder:text-light-300/50 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
-                      placeholder="john@company.com"
-                    />
-                  </div>
-                </div>
-
-                <div className="mb-5">
-                  <label className="block text-sm font-medium mb-2 text-light-200">
-                    Project Type
-                  </label>
-                  <select
-                    name="projectType"
-                    value={formData.projectType}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3.5 rounded-xl bg-dark-700/50 border border-white/10 text-light-100 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
-                  >
-                    <option value="" disabled>
-                      Select a service
-                    </option>
-                    <option value="Web Application">Web Application</option>
-                    <option value="Mobile App">Mobile App</option>
-                    <option value="AI & Automation">AI & Automation</option>
-                    <option value="Cloud Solutions">Cloud Solutions</option>
-                    <option value="UI/UX Design">UI/UX Design</option>
-                    <option value="Full-Stack Solution">Full-Stack Solution</option>
-                    <option value="Other">Other</option>
-                  </select>
-                </div>
-
-                <div className="mb-5">
-                  <label className="block text-sm font-medium mb-2 text-light-200">
-                    Budget Range
-                  </label>
-                  <select
-                    name="budget"
-                    value={formData.budget}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3.5 rounded-xl bg-dark-700/50 border border-white/10 text-light-100 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
-                  >
-                    <option value="" disabled>
-                      Select budget range
-                    </option>
-                    <option value="Under $1,000">Under $1,000</option>
-                    <option value="$1,000 - $3,000">$1,000 - $3,000</option>
-                    <option value="$3,000 - $8,000">$3,000 - $8,000</option>
-                    <option value="$8,000 - $15,000">$8,000 - $15,000</option>
-                    <option value="$15,000+">$15,000+</option>
-                  </select>
-                </div>
-
-                <div className="mb-8">
-                  <label className="block text-sm font-medium mb-2 text-light-200">
-                    Project Details
-                  </label>
-                  <textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    rows={5}
-                    className="w-full px-4 py-3.5 rounded-xl bg-dark-700/50 border border-white/10 text-light-100 placeholder:text-light-300/50 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all resize-none"
-                    placeholder="Tell us about your project, goals, and timeline."
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full flex items-center justify-center gap-2 py-4 bg-gradient-to-r from-primary to-accent text-dark-900 font-bold rounded-xl text-base hover:shadow-lg hover:shadow-primary/25 transition-all hover:-translate-y-0.5 disabled:opacity-70 disabled:cursor-not-allowed"
+                <motion.form
+                  layout
+                  onSubmit={handleSubmit}
+                  transition={primaryTransition}
+                  className={`glass-card relative overflow-hidden rounded-2xl p-8 md:p-10 glow-border ${
+                    isSubmitting ? "shadow-[0_0_0_1px_rgba(56,189,248,0.18)]" : ""
+                  }`}
+                  style={{
+                    transformStyle: "preserve-3d",
+                  }}
                 >
-                  {isSubmitting
-                    ? "Sending..."
-                    : submitted
-                    ? "Message Sent! ✓"
-                    : "Send Message"}
-                  {!isSubmitting && !submitted && <HiArrowRight />}
-                </button>
-              </form>
+                  <motion.div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0"
+                    animate={
+                      isSubmitting && !shouldReduceMotion
+                        ? {
+                            backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                          }
+                        : { backgroundPosition: "50% 50%" }
+                    }
+                    transition={{
+                      duration: 4,
+                      repeat: isSubmitting ? Infinity : 0,
+                      ease: "linear",
+                    }}
+                    style={{
+                      backgroundImage:
+                        "radial-gradient(circle at 15% 20%, rgba(56,189,248,0.09), transparent 28%), radial-gradient(circle at 85% 80%, rgba(139,92,246,0.08), transparent 25%)",
+                    }}
+                  />
+
+                  <div className="relative z-10">
+                    <div className="mb-8 flex items-start justify-between gap-4">
+                      <div>
+                        <h3 className="text-2xl font-bold">Send Us a Message</h3>
+                        <p className="mt-2 text-sm text-light-300/80">
+                          Tell us what you’re building and we’ll suggest the best next step.
+                        </p>
+                      </div>
+
+                      <AnimatePresence mode="wait">
+                        {isSubmitting ? (
+                          <motion.div
+                            key="loading-chip"
+                            initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.92 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.95 }}
+                            transition={softTransition}
+                            className="hidden sm:flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-2 text-xs font-semibold tracking-wide text-primary"
+                          >
+                            <span className="relative flex h-4 w-4 items-center justify-center">
+                              <span className="absolute inline-flex h-4 w-4 rounded-full border-2 border-primary/25" />
+                              <motion.span
+                                className="absolute inline-flex h-4 w-4 rounded-full border-2 border-transparent border-t-primary"
+                                animate={shouldReduceMotion ? {} : { rotate: 360 }}
+                                transition={{
+                                  duration: 0.9,
+                                  repeat: Infinity,
+                                  ease: "linear",
+                                }}
+                              />
+                            </span>
+                            Sending
+                          </motion.div>
+                        ) : null}
+                      </AnimatePresence>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-5 mb-5">
+                      <div>
+                        <label className="block text-sm font-medium mb-2 text-light-200">
+                          Your Name
+                        </label>
+                        <input
+                          type="text"
+                          name="name"
+                          value={formData.name}
+                          onChange={handleChange}
+                          required
+                          className="w-full px-4 py-3.5 rounded-xl bg-dark-700/50 border border-white/10 text-light-100 placeholder:text-light-300/50 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
+                          placeholder="John Doe"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium mb-2 text-light-200">
+                          Email Address
+                        </label>
+                        <input
+                          type="email"
+                          name="email"
+                          value={formData.email}
+                          onChange={handleChange}
+                          required
+                          className="w-full px-4 py-3.5 rounded-xl bg-dark-700/50 border border-white/10 text-light-100 placeholder:text-light-300/50 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
+                          placeholder="john@company.com"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="mb-5">
+                      <label className="block text-sm font-medium mb-2 text-light-200">
+                        Project Type
+                      </label>
+                      <select
+                        name="projectType"
+                        value={formData.projectType}
+                        onChange={handleChange}
+                        required
+                        className="w-full px-4 py-3.5 rounded-xl bg-dark-700/50 border border-white/10 text-light-100 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
+                      >
+                        <option value="" disabled>
+                          Select a service
+                        </option>
+                        <option value="Web Application">Web Application</option>
+                        <option value="Mobile App">Mobile App</option>
+                        <option value="AI & Automation">AI & Automation</option>
+                        <option value="Cloud Solutions">Cloud Solutions</option>
+                        <option value="UI/UX Design">UI/UX Design</option>
+                        <option value="Full-Stack Solution">Full-Stack Solution</option>
+                        <option value="Other">Other</option>
+                      </select>
+                    </div>
+
+                    <div className="mb-5">
+                      <label className="block text-sm font-medium mb-2 text-light-200">
+                        Budget Range
+                      </label>
+                      <select
+                        name="budget"
+                        value={formData.budget}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3.5 rounded-xl bg-dark-700/50 border border-white/10 text-light-100 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
+                      >
+                        <option value="" disabled>
+                          Select budget range
+                        </option>
+                        <option value="Under $1,000">Under $1,000</option>
+                        <option value="$1,000 - $3,000">$1,000 - $3,000</option>
+                        <option value="$3,000 - $8,000">$3,000 - $8,000</option>
+                        <option value="$8,000 - $15,000">$8,000 - $15,000</option>
+                        <option value="$15,000+">$15,000+</option>
+                      </select>
+                    </div>
+
+                    <div className="mb-6">
+                      <label className="block text-sm font-medium mb-2 text-light-200">
+                        Project Details
+                      </label>
+                      <textarea
+                        name="message"
+                        value={formData.message}
+                        onChange={handleChange}
+                        required
+                        rows={5}
+                        className="w-full px-4 py-3.5 rounded-xl bg-dark-700/50 border border-white/10 text-light-100 placeholder:text-light-300/50 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all resize-none"
+                        placeholder="Tell us about your project, goals, and timeline."
+                      />
+                    </div>
+
+                    <AnimatePresence mode="wait">
+                      {isError && feedbackMessage ? (
+                        <motion.div
+                          key="error-message"
+                          initial={shouldReduceMotion ? false : { opacity: 0, y: 8 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: -6 }}
+                          transition={softTransition}
+                          className="mb-5 flex items-start gap-3 rounded-2xl border border-rose-400/20 bg-rose-500/10 px-4 py-3 text-sm text-rose-100"
+                          role="alert"
+                        >
+                          <HiExclamationCircle className="mt-0.5 shrink-0 text-rose-300" size={20} />
+                          <span>{feedbackMessage}</span>
+                        </motion.div>
+                      ) : null}
+                    </AnimatePresence>
+
+                    <motion.button
+                      layout
+                      whileTap={shouldReduceMotion ? {} : { scale: 0.985 }}
+                      type="submit"
+                      disabled={isSubmitting}
+                      transition={primaryTransition}
+                      className="group relative w-full overflow-hidden rounded-xl"
+                    >
+                      <motion.span
+                        aria-hidden="true"
+                        className="absolute inset-0"
+                        animate={
+                          isSubmitting && !shouldReduceMotion
+                            ? { x: ["-120%", "120%"] }
+                            : { x: "-120%" }
+                        }
+                        transition={{
+                          duration: 1.25,
+                          repeat: isSubmitting ? Infinity : 0,
+                          ease: "easeInOut",
+                        }}
+                        style={{
+                          background:
+                            "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.18) 50%, transparent 100%)",
+                        }}
+                      />
+                      <motion.span
+                        layout
+                        transition={primaryTransition}
+                        className={`relative flex w-full items-center justify-center gap-2 py-4 text-base font-bold text-dark-900 transition-all ${
+                          isSuccess
+                            ? "bg-gradient-to-r from-emerald-300 to-teal-300 shadow-[0_16px_45px_rgba(16,185,129,0.22)]"
+                            : "bg-gradient-to-r from-primary to-accent hover:shadow-lg hover:shadow-primary/25"
+                        } ${isSubmitting ? "cursor-not-allowed opacity-90" : "hover:-translate-y-0.5"}`}
+                      >
+                        <AnimatePresence mode="wait" initial={false}>
+                          {isSubmitting ? (
+                            <motion.span
+                              key="loading"
+                              initial={shouldReduceMotion ? false : { opacity: 0, y: 8 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: -8 }}
+                              transition={softTransition}
+                              className="flex items-center gap-3"
+                            >
+                              <span className="relative flex h-5 w-5 items-center justify-center">
+                                <span className="absolute inline-flex h-5 w-5 rounded-full border-2 border-dark-900/20" />
+                                <motion.span
+                                  className="absolute inline-flex h-5 w-5 rounded-full border-2 border-transparent border-t-dark-900"
+                                  animate={shouldReduceMotion ? {} : { rotate: 360 }}
+                                  transition={{
+                                    duration: 0.9,
+                                    repeat: Infinity,
+                                    ease: "linear",
+                                  }}
+                                />
+                              </span>
+                              Sending your message...
+                            </motion.span>
+                          ) : isSuccess ? (
+                            <motion.span
+                              key="success"
+                              initial={shouldReduceMotion ? false : { opacity: 0, y: 8 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: -8 }}
+                              transition={softTransition}
+                              className="flex items-center gap-2"
+                            >
+                              <HiCheckCircle size={20} />
+                              Message Sent
+                            </motion.span>
+                          ) : (
+                            <motion.span
+                              key="idle"
+                              initial={shouldReduceMotion ? false : { opacity: 0, y: 8 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: -8 }}
+                              transition={softTransition}
+                              className="flex items-center gap-2"
+                            >
+                              Send Message
+                              <HiArrowRight className="transition-transform duration-300 group-hover:translate-x-0.5" />
+                            </motion.span>
+                          )}
+                        </AnimatePresence>
+                      </motion.span>
+                    </motion.button>
+
+                    <p
+                      className="mt-4 text-xs text-light-300/65"
+                      aria-live="polite"
+                    >
+                      We usually reply within 24 hours with next steps, estimates, or a discovery
+                      call suggestion.
+                    </p>
+                  </div>
+                </motion.form>
+              </motion.div>
             </motion.div>
           </div>
         </div>
