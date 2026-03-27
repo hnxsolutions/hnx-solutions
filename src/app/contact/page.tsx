@@ -1,4 +1,5 @@
 "use client";
+
 import { useState, FormEvent } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -37,18 +38,98 @@ const contactInfo = [
 ];
 
 const socials = [
-  { icon: FiGithub, href: "#", label: "GitHub", tooltip: "Star us on GitHub", bg: "bg-white/10 text-white shadow-[0_0_12px_rgba(255,255,255,0.15)]", hoverBg: "hover:bg-white/20 hover:shadow-[0_0_24px_rgba(255,255,255,0.25)]" },
-  { icon: FiLinkedin, href: "#", label: "LinkedIn", tooltip: "Connect on LinkedIn", bg: "bg-[#0a66c2]/20 text-[#5b9bd5] shadow-[0_0_12px_rgba(10,102,194,0.2)]", hoverBg: "hover:bg-[#0a66c2]/30 hover:shadow-[0_0_24px_rgba(10,102,194,0.4)]" },
-  { icon: FiInstagram, href: "#", label: "Instagram", tooltip: "Follow on Instagram", bg: "bg-[#e1306c]/15 text-[#e1306c] shadow-[0_0_12px_rgba(225,48,108,0.2)]", hoverBg: "hover:bg-[#e1306c]/25 hover:shadow-[0_0_24px_rgba(225,48,108,0.4)]" },
+  {
+    icon: FiGithub,
+    href: "#",
+    label: "GitHub",
+    tooltip: "Star us on GitHub",
+    bg: "bg-white/10 text-white shadow-[0_0_12px_rgba(255,255,255,0.15)]",
+    hoverBg: "hover:bg-white/20 hover:shadow-[0_0_24px_rgba(255,255,255,0.25)]",
+  },
+  {
+    icon: FiLinkedin,
+    href: "#",
+    label: "LinkedIn",
+    tooltip: "Connect on LinkedIn",
+    bg: "bg-[#0a66c2]/20 text-[#5b9bd5] shadow-[0_0_12px_rgba(10,102,194,0.2)]",
+    hoverBg: "hover:bg-[#0a66c2]/30 hover:shadow-[0_0_24px_rgba(10,102,194,0.4)]",
+  },
+  {
+    icon: FiInstagram,
+    href: "#",
+    label: "Instagram",
+    tooltip: "Follow on Instagram",
+    bg: "bg-[#e1306c]/15 text-[#e1306c] shadow-[0_0_12px_rgba(225,48,108,0.2)]",
+    hoverBg: "hover:bg-[#e1306c]/25 hover:shadow-[0_0_24px_rgba(225,48,108,0.4)]",
+  },
 ];
+
+type ContactFormData = {
+  name: string;
+  email: string;
+  projectType: string;
+  budget: string;
+  message: string;
+};
+
+const initialFormData: ContactFormData = {
+  name: "",
+  email: "",
+  projectType: "",
+  budget: "",
+  message: "",
+};
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState<ContactFormData>(initialFormData);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3000);
+
+    try {
+      setIsSubmitting(true);
+
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        console.error("Contact submission failed:", result);
+        alert(result.message || "Failed to send message.");
+        return;
+      }
+
+      setSubmitted(true);
+      setFormData(initialFormData);
+
+      setTimeout(() => {
+        setSubmitted(false);
+      }, 3000);
+    } catch (error) {
+      console.error("Contact form error:", error);
+      alert("Something went wrong while sending your message.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -79,28 +160,28 @@ export default function ContactPage() {
             transition={{ duration: 0.6 }}
             className="max-w-3xl"
           >
-            <span className="inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/10 px-4 py-2 text-xs font-semibold tracking-[0.24em] text-primary uppercase">
-              <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-              Get In Touch
+            <span className="inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/10 px-4 py-2 text-xs font-semibold tracking-[0.22em] uppercase text-primary shadow-[0_0_18px_rgba(56,189,248,0.15)]">
+              Contact HNX
             </span>
-            <h1 className="mt-5 text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.08] tracking-tight mb-6">
-              Let&apos;s Build{" "}
-              <span className="gradient-text">Something Great</span>
+
+            <h1 className="mt-6 text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.05]">
+              Let’s Build Something
+              <span className="block gradient-text mt-2">That Actually Moves the Needle.</span>
             </h1>
-            <p className="text-light-200 text-base sm:text-lg md:text-xl max-w-2xl leading-relaxed">
-              Have a project in mind? We&apos;re ready to turn your vision into
-              reality. Fill out the form below or reach out directly — we respond
-              within 24 hours.
+
+            <p className="mt-6 max-w-2xl text-lg sm:text-xl text-light-300 leading-relaxed">
+              From web apps and mobile experiences to AI automation and scalable cloud solutions,
+              we help brands launch faster and grow smarter.
             </p>
 
-            <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-4">
+            <div className="mt-8 flex flex-wrap gap-4">
               <Link
                 href="#quote-form"
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-primary to-accent px-8 py-4 text-base font-bold text-dark-900 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/25"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-primary to-accent px-8 py-4 text-base font-bold text-dark-900 shadow-[0_0_30px_rgba(56,189,248,0.28)] transition-all hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(56,189,248,0.4)]"
               >
-                Get a Quote
-                <HiArrowRight className="text-lg" />
+                Start Your Project <HiArrowRight />
               </Link>
+
               <a
                 href="mailto:hnxtechnologies@gmail.com"
                 className="inline-flex items-center justify-center gap-2 rounded-xl border border-light-300/20 px-8 py-4 text-base font-semibold text-light-100 transition-all hover:bg-white/5 hover:border-primary/30"
@@ -110,12 +191,14 @@ export default function ContactPage() {
             </div>
 
             <div className="mt-7 sm:mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-light-300/80 sm:gap-x-5">
-              {["Fast Response", "Clear Scope", "Transparent Pricing", "Production Delivery"].map((item, index) => (
-                <span key={item} className="inline-flex items-center gap-4">
-                  <span className="font-medium tracking-wide">{item}</span>
-                  {index < 3 ? <span className="h-1 w-1 rounded-full bg-primary/70" /> : null}
-                </span>
-              ))}
+              {["Fast Response", "Clear Scope", "Transparent Pricing", "Production Delivery"].map(
+                (item, index) => (
+                  <span key={item} className="inline-flex items-center gap-4">
+                    <span className="font-medium tracking-wide">{item}</span>
+                    {index < 3 ? <span className="h-1 w-1 rounded-full bg-primary/70" /> : null}
+                  </span>
+                )
+              )}
             </div>
           </motion.div>
         </div>
@@ -154,7 +237,9 @@ export default function ContactPage() {
               {/* Socials */}
               <div className="pt-6">
                 <div className="inline-flex items-center gap-4 px-4 py-2.5 rounded-2xl bg-white/[0.04] border border-white/[0.08] shadow-[0_0_30px_rgba(77,208,225,0.06)]">
-                  <span className="text-xs text-primary font-bold tracking-widest uppercase">Follow us</span>
+                  <span className="text-xs text-primary font-bold tracking-widest uppercase">
+                    Follow us
+                  </span>
                   <div className="w-px h-5 bg-gradient-to-b from-transparent via-primary/30 to-transparent" />
                   {socials.map((s) => (
                     <a
@@ -163,8 +248,11 @@ export default function ContactPage() {
                       aria-label={s.label}
                       className={`group relative w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-300 hover:-translate-y-1 hover:scale-110 ${s.bg} ${s.hoverBg}`}
                     >
-                      <s.icon size={18} className="transition-transform duration-300 group-hover:scale-110" />
-                      <span className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1.5 rounded-lg bg-white text-dark-900 text-xs font-semibold whitespace-nowrap opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 shadow-lg">
+                      <s.icon
+                        size={18}
+                        className="transition-transform duration-300 group-hover:scale-110"
+                      />
+                      <span className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 rounded-lg bg-white px-3 py-1.5 text-dark-900 text-xs font-semibold whitespace-nowrap opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 shadow-lg">
                         {s.tooltip}
                         <span className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-white" />
                       </span>
@@ -220,17 +308,24 @@ export default function ContactPage() {
                     </label>
                     <input
                       type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
                       required
                       className="w-full px-4 py-3.5 rounded-xl bg-dark-700/50 border border-white/10 text-light-100 placeholder:text-light-300/50 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
                       placeholder="John Doe"
                     />
                   </div>
+
                   <div>
                     <label className="block text-sm font-medium mb-2 text-light-200">
                       Email Address
                     </label>
                     <input
                       type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
                       required
                       className="w-full px-4 py-3.5 rounded-xl bg-dark-700/50 border border-white/10 text-light-100 placeholder:text-light-300/50 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
                       placeholder="john@company.com"
@@ -243,20 +338,22 @@ export default function ContactPage() {
                     Project Type
                   </label>
                   <select
+                    name="projectType"
+                    value={formData.projectType}
+                    onChange={handleChange}
                     required
                     className="w-full px-4 py-3.5 rounded-xl bg-dark-700/50 border border-white/10 text-light-100 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
-                    defaultValue=""
                   >
                     <option value="" disabled>
                       Select a service
                     </option>
-                    <option>Web Application</option>
-                    <option>Mobile App</option>
-                    <option>AI & Automation</option>
-                    <option>Cloud Solutions</option>
-                    <option>UI/UX Design</option>
-                    <option>Full-Stack Solution</option>
-                    <option>Other</option>
+                    <option value="Web Application">Web Application</option>
+                    <option value="Mobile App">Mobile App</option>
+                    <option value="AI & Automation">AI & Automation</option>
+                    <option value="Cloud Solutions">Cloud Solutions</option>
+                    <option value="UI/UX Design">UI/UX Design</option>
+                    <option value="Full-Stack Solution">Full-Stack Solution</option>
+                    <option value="Other">Other</option>
                   </select>
                 </div>
 
@@ -265,17 +362,19 @@ export default function ContactPage() {
                     Budget Range
                   </label>
                   <select
+                    name="budget"
+                    value={formData.budget}
+                    onChange={handleChange}
                     className="w-full px-4 py-3.5 rounded-xl bg-dark-700/50 border border-white/10 text-light-100 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
-                    defaultValue=""
                   >
                     <option value="" disabled>
                       Select budget range
                     </option>
-                    <option>Under $1,000</option>
-                    <option>$1,000 - $3,000</option>
-                    <option>$3,000 - $8,000</option>
-                    <option>$8,000 - $15,000</option>
-                    <option>$15,000+</option>
+                    <option value="Under $1,000">Under $1,000</option>
+                    <option value="$1,000 - $3,000">$1,000 - $3,000</option>
+                    <option value="$3,000 - $8,000">$3,000 - $8,000</option>
+                    <option value="$8,000 - $15,000">$8,000 - $15,000</option>
+                    <option value="$15,000+">$15,000+</option>
                   </select>
                 </div>
 
@@ -284,19 +383,27 @@ export default function ContactPage() {
                     Project Details
                   </label>
                   <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
                     required
                     rows={5}
                     className="w-full px-4 py-3.5 rounded-xl bg-dark-700/50 border border-white/10 text-light-100 placeholder:text-light-300/50 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all resize-none"
-                    placeholder="Tell us about your project, goals, and timeline..."
+                    placeholder="Tell us about your project, goals, and timeline."
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full flex items-center justify-center gap-2 py-4 bg-gradient-to-r from-primary to-accent text-dark-900 font-bold rounded-xl text-base hover:shadow-lg hover:shadow-primary/25 transition-all hover:-translate-y-0.5"
+                  disabled={isSubmitting}
+                  className="w-full flex items-center justify-center gap-2 py-4 bg-gradient-to-r from-primary to-accent text-dark-900 font-bold rounded-xl text-base hover:shadow-lg hover:shadow-primary/25 transition-all hover:-translate-y-0.5 disabled:opacity-70 disabled:cursor-not-allowed"
                 >
-                  {submitted ? "Message Sent! ✓" : "Send Message"}
-                  {!submitted && <HiArrowRight />}
+                  {isSubmitting
+                    ? "Sending..."
+                    : submitted
+                    ? "Message Sent! ✓"
+                    : "Send Message"}
+                  {!isSubmitting && !submitted && <HiArrowRight />}
                 </button>
               </form>
             </motion.div>
