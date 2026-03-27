@@ -9,14 +9,84 @@ import { getPaginatedBlogs, getAllBlogs } from "@/data/blogs/loader";
 import type { BlogCategory, BlogPost } from "@/data/blogs/types";
 
 const BLOGS_PER_PAGE = 10;
+const BLOG_CATEGORIES: BlogCategory[] = [
+  "web-development",
+  "saas-development",
+  "mobile-apps",
+  "crm-salesforce",
+  "devops",
+  "ai-automation",
+  "cloud-solutions",
+  "ui-ux-design",
+  "digital-growth",
+];
+
+function parseCategoryFromQuery(value: string | null): BlogCategory | null {
+  if (!value) {
+    return null;
+  }
+
+  return BLOG_CATEGORIES.includes(value as BlogCategory)
+    ? (value as BlogCategory)
+    : null;
+}
+
+function scrollToBlogTop(behavior: ScrollBehavior = "auto") {
+  const topAnchor = document.getElementById("blog-page-top");
+  if (topAnchor) {
+    const absoluteTop = window.scrollY + topAnchor.getBoundingClientRect().top;
+    window.scrollTo({ top: Math.max(0, absoluteTop), behavior });
+    return;
+  }
+
+  window.scrollTo({ top: 0, behavior });
+}
 
 export default function BlogPage() {
+  const [categoryFromQuery, setCategoryFromQuery] = useState<BlogCategory | null>(null);
   const [activeCategory, setActiveCategory] = useState<BlogCategory | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [blogs, setBlogs] = useState<BlogPost[]>([]);
   const [totalPages, setTotalPages] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const syncCategoryFromUrl = () => {
+      const params = new URLSearchParams(window.location.search);
+      setCategoryFromQuery(parseCategoryFromQuery(params.get("category")));
+    };
+
+    syncCategoryFromUrl();
+    window.addEventListener("popstate", syncCategoryFromUrl);
+
+    return () => {
+      window.removeEventListener("popstate", syncCategoryFromUrl);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!("scrollRestoration" in window.history)) {
+      return;
+    }
+
+    const previous = window.history.scrollRestoration;
+    window.history.scrollRestoration = "manual";
+
+    return () => {
+      window.history.scrollRestoration = previous;
+    };
+  }, []);
+
+  useEffect(() => {
+    setActiveCategory((prev) => (prev === categoryFromQuery ? prev : categoryFromQuery));
+    setCurrentPage((prev) => (prev === 1 ? prev : 1));
+
+    requestAnimationFrame(() => {
+      scrollToBlogTop("auto");
+      setTimeout(() => scrollToBlogTop("auto"), 80);
+    });
+  }, [categoryFromQuery]);
 
   // Load blogs when category or page changes
   useEffect(() => {
@@ -65,6 +135,22 @@ export default function BlogPage() {
   const handleCategoryChange = (category: BlogCategory | null) => {
     setActiveCategory(category);
     setCurrentPage(1);
+    scrollToBlogTop("smooth");
+
+    const params = new URLSearchParams(window.location.search);
+    if (category) {
+      params.set("category", category);
+    } else {
+      params.delete("category");
+    }
+
+    const query = params.toString();
+    const nextUrl = query
+      ? `${window.location.pathname}?${query}`
+      : window.location.pathname;
+
+    window.history.replaceState({}, "", nextUrl);
+    setCategoryFromQuery(category);
   };
 
   const handlePageChange = (page: number) => {
@@ -77,7 +163,7 @@ export default function BlogPage() {
   };
 
   return (
-    <main className="bg-blog-cream-50 text-blog-text pt-26 md:pt-24 lg:pt-6 xl:pt-8 w-full max-w-full overflow-x-hidden">
+    <main id="blog-page-top" className="bg-blog-cream-50 text-blog-text pt-26 md:pt-24 lg:pt-6 xl:pt-8 w-full max-w-full overflow-x-hidden">
       {/* Hero Section - Lighter, centered, smaller */}
       <section className="relative py-6 max-[374px]:py-4 md:py-12 lg:py-18">
         <div className="absolute inset-0 bg-gradient-to-b from-blog-tan-400/5 to-blog-cream-50" />

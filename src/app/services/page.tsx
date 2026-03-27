@@ -18,13 +18,11 @@ import {
 } from "react-icons/hi";
 import { FaCloud, FaMobileAlt, FaRobot, FaPalette, FaChartLine, FaBriefcase, FaCog, FaServer } from "react-icons/fa";
 import AnimatedGridBG from "@/components/AnimatedGridBG";
-import BlogModal from "@/components/BlogModal";
 import { heroDashboardSvg } from "@/components/heroDashboardSvg";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import { heroBgUrl } from "@/components/heroBgUrl";
 import { heroBgSvg } from "@/components/heroBgSvg";
 import Image from "next/image";
-import { blogContent } from "@/data/blogContent";
 
 const services = [
   {
@@ -190,7 +188,6 @@ const cardVariants = {
 
 
 export default function ServicesPage() {
-  const [selectedService, setSelectedService] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -378,8 +375,8 @@ export default function ServicesPage() {
                   className="group glass-card rounded-3xl p-8 md:p-10 glow-border border border-white/8 transition-all duration-500 shadow-xl hover:border-cyan-300/20 hover:shadow-accent/30 hover:shadow-2xl cursor-pointer relative overflow-hidden"
                   style={{ perspective: "900px", transformStyle: "preserve-3d" }}
                 >
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.14),transparent_42%),radial-gradient(circle_at_bottom_right,rgba(139,92,246,0.14),transparent_34%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-                  <div className="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/70 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                  <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.14),transparent_42%),radial-gradient(circle_at_bottom_right,rgba(139,92,246,0.14),transparent_34%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                  <div className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/70 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                   <div className="flex flex-col items-center mb-6">
                     <span className="mb-3 animate-fade-in-up transition-transform duration-500 group-hover:scale-110 group-hover:-translate-y-1">
                       {icons[i]}
@@ -427,13 +424,13 @@ export default function ServicesPage() {
                     <span className="text-xs font-semibold uppercase tracking-[0.22em] text-white/40">
                       Tailored Delivery
                     </span>
-                    <button
-                      onClick={() => setSelectedService(service.id)}
+                    <Link
+                      href={`/blog?category=${service.id}`}
                       className="inline-flex items-center gap-2 text-sm font-semibold text-cyan-300 transition-all duration-300 hover:text-white group/btn hover:translate-x-1"
                     >
                       Learn more
                       <HiArrowRight className="text-base transition-transform duration-300 group-hover/btn:translate-x-1" />
-                    </button>
+                    </Link>
                   </div>
                   <div className="absolute -inset-1 rounded-3xl pointer-events-none group-hover:animate-border-glow" />
                 </motion.div>
@@ -482,21 +479,6 @@ export default function ServicesPage() {
         </div>
       </section>
     </main>
-
-    {/* Blog Modal */}
-    {selectedService && (
-      <BlogModal
-        isOpen={!!selectedService}
-        onClose={() => setSelectedService(null)}
-        serviceId={selectedService}
-        serviceTitle={
-          services.find((s) => s.id === selectedService)?.title || ""
-        }
-        blogData={
-          blogContent[selectedService as keyof typeof blogContent] || null
-        }
-      />
-    )}
     </>
   );
 }

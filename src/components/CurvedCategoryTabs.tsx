@@ -23,7 +23,6 @@ const categories: { id: BlogCategory; label: string }[] = [
   { id: "digital-growth", label: "Growth" },
 ];
 
-const VISIBLE_TABS = 5;
 const TAB_WIDTH = 110; // approximate width of each tab in px
 const VISIBLE_WIDTH = TAB_WIDTH * 4.5 + 60; // Width to show only 4-5 tabs
 
@@ -33,7 +32,6 @@ export default function CurvedCategoryTabs({
   isDarkTheme = false,
 }: CurvedCategoryTabsProps) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [scrollPosition, setScrollPosition] = useState(0);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
   const [isDragging, setIsDragging] = useState(false);
@@ -44,7 +42,6 @@ export default function CurvedCategoryTabs({
     if (!container) return;
 
     const handleScroll = () => {
-      setScrollPosition(container.scrollLeft);
       setCanScrollLeft(container.scrollLeft > 0);
       setCanScrollRight(
         container.scrollLeft < container.scrollWidth - container.clientWidth - 10
@@ -57,6 +54,28 @@ export default function CurvedCategoryTabs({
 
     return () => container.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Keep the active category visible when selected via deep-link or tab click.
+  useEffect(() => {
+    if (!scrollContainerRef.current) return;
+
+    if (!activeCategory) {
+      scrollContainerRef.current.scrollTo({ left: 0, behavior: "smooth" });
+      return;
+    }
+
+    const activeTab = scrollContainerRef.current.querySelector<HTMLButtonElement>(
+      `button[data-category="${activeCategory}"]`
+    );
+
+    if (!activeTab) return;
+
+    activeTab.scrollIntoView({
+      behavior: "smooth",
+      inline: "center",
+      block: "nearest",
+    });
+  }, [activeCategory]);
 
   // Smooth snap scroll to position
   const scrollToPosition = (position: number) => {
@@ -172,9 +191,10 @@ export default function CurvedCategoryTabs({
             }}
           >
             {/* Category Tabs */}
-            {categories.map((category, idx) => (
+            {categories.map((category) => (
               <motion.button
                 key={category.id}
+                data-category={category.id}
                 onClick={() => onCategoryChange(category.id)}
                 whileHover={!isDragging ? { scale: 1.06, y: -1 } : {}}
                 whileTap={{ scale: 0.96 }}

@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   HiCode,
@@ -172,14 +173,13 @@ export default function Services() {
                 </div>
 
                 <div className="mt-4">
-                  <a
-                    href={`/blog/${service.id}`}
-                    style={{ pointerEvents: 'auto' }}
+                  <Link
+                    href={`/blog?category=${service.id}`}
                     className="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-primary hover:text-white transition-colors group/btn cursor-pointer"
                   >
                     Learn More
                     <HiArrowRight className="group-hover/btn:translate-x-1 transition-transform" />
-                  </a>
+                  </Link>
                 </div>
               </motion.div>
             ))}
