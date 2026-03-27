@@ -1,19 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-
-// Simple in-memory storage for engagement data with user likes tracking
-// In production, this should use a database (Supabase, Prisma, MongoDB, etc.)
-const engagementStore: Record<
-  string,
-  { likes: number; comments: number; likedBy: Set<string> }
-> = {};
-
-// Helper to get engagement data
-function getEngagement(slug: string) {
-  if (!engagementStore[slug]) {
-    engagementStore[slug] = { likes: 0, comments: 0, likedBy: new Set() };
-  }
-  return engagementStore[slug];
-}
+import { connectToDatabase } from "@/lib/mongodb";
+import { BlogEngagement } from "@/models/BlogEngagement";
+import { BlogUserLike } from "@/models/BlogUserLike";
 
 // Helper to get or create user ID from request
 function getUserId(request: NextRequest): string {
@@ -34,9 +22,20 @@ export async function GET(
   const { slug } = await context.params;
 
   try {
-    const data = getEngagement(slug);
+    await connectToDatabase();
+
+    const data = await BlogEngagement.findOneAndUpdate(
+      { slug },
+      { $setOnInsert: { likes: 0, comments: 0 } },
+      { upsert: true, new: true, setDefaultsOnInsert: true }
+    ).lean();
+
+    if (!data) {
+      throw new Error("Failed to initialize engagement data");
+    }
+
     const userId = getUserId(request);
-    const userLiked = data.likedBy.has(userId);
+    const userLiked = !!(await BlogUserLike.exists({ slug, userId }));
 
     const response = NextResponse.json(
       {
@@ -73,34 +72,43 @@ export async function POST(
 
   try {
     const body = await request.json();
-    const { action } = body; // "like" or "comment"
+    const { action } = body; // "like"
 
-    if (!action || !["like", "comment"].includes(action)) {
+    if (action !== "like") {
       return NextResponse.json(
-        { error: "Invalid action. Provide 'like' or 'comment'." },
+        { error: "Invalid action. Provide 'like'." },
         { status: 400 }
       );
     }
 
-    const data = getEngagement(slug);
+    await connectToDatabase();
+
+    const data = await BlogEngagement.findOneAndUpdate(
+      { slug },
+      { $setOnInsert: { likes: 0, comments: 0 } },
+      { upsert: true, new: true, setDefaultsOnInsert: true }
+    );
+
+    if (!data) {
+      throw new Error("Failed to initialize engagement data");
+    }
+
     const userId = getUserId(request);
     let userLiked = false;
 
-    // Toggle like or increment comment
-    if (action === "like") {
-      // Toggle: if user already liked, remove the like; otherwise add it
-      if (data.likedBy.has(userId)) {
-        data.likedBy.delete(userId);
-        data.likes = Math.max(0, data.likes - 1);
-        userLiked = false;
-      } else {
-        data.likedBy.add(userId);
-        data.likes += 1;
-        userLiked = true;
-      }
-    } else if (action === "comment") {
-      data.comments += 1;
+    const existingLike = await BlogUserLike.findOne({ slug, userId });
+
+    if (existingLike) {
+      await BlogUserLike.deleteOne({ _id: existingLike._id });
+      data.likes = Math.max(0, data.likes - 1);
+      userLiked = false;
+    } else {
+      await BlogUserLike.create({ slug, userId });
+      data.likes += 1;
+      userLiked = true;
     }
+
+    await data.save();
 
     // Return updated engagement data
     const response = NextResponse.json(
