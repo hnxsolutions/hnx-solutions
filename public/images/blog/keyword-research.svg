@@ -1,0 +1,80 @@
+<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="kwBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8b5cf6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#6d28d9;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="kwAccent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#c4b5fd;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#a78bfa;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#kwBg)"/>
+  <circle cx="70" cy="60" r="65" fill="rgba(196,181,253,0.1)"/>
+  <circle cx="340" cy="270" r="70" fill="rgba(196,181,253,0.08)"/>
+
+  <!-- Search bar mockup -->
+  <g transform="translate(55, 55)">
+    <rect x="0" y="0" width="200" height="28" rx="14" fill="rgba(196,181,253,0.15)" stroke="rgba(196,181,253,0.4)" stroke-width="1.5"/>
+    <circle cx="18" cy="14" r="7" fill="none" stroke="rgba(196,181,253,0.6)" stroke-width="2"/>
+    <line x1="23" y1="19" x2="28" y2="24" stroke="rgba(196,181,253,0.6)" stroke-width="2" stroke-linecap="round"/>
+    <rect x="35" y="10" width="90" height="8" rx="4" fill="rgba(196,181,253,0.3)"/>
+  </g>
+
+  <!-- Keyword chips / tag cloud -->
+  <g transform="translate(55, 100)">
+    <!-- Row 1 -->
+    <rect x="0" y="0" width="60" height="18" rx="9" fill="rgba(196,181,253,0.25)" stroke="rgba(196,181,253,0.5)" stroke-width="1"/>
+    <text x="30" y="13" font-size="8" text-anchor="middle" fill="#c4b5fd">seo tips</text>
+
+    <rect x="68" y="0" width="72" height="18" rx="9" fill="rgba(196,181,253,0.35)" stroke="rgba(196,181,253,0.5)" stroke-width="1"/>
+    <text x="104" y="13" font-size="8" text-anchor="middle" fill="#c4b5fd">long-tail</text>
+
+    <rect x="148" y="0" width="55" height="18" rx="9" fill="rgba(196,181,253,0.2)" stroke="rgba(196,181,253,0.5)" stroke-width="1"/>
+    <text x="175" y="13" font-size="8" text-anchor="middle" fill="#c4b5fd">ranking</text>
+
+    <!-- Row 2 -->
+    <rect x="10" y="26" width="80" height="18" rx="9" fill="rgba(196,181,253,0.3)" stroke="rgba(196,181,253,0.5)" stroke-width="1"/>
+    <text x="50" y="39" font-size="8" text-anchor="middle" fill="#c4b5fd">search intent</text>
+
+    <rect x="98" y="26" width="65" height="18" rx="9" fill="rgba(196,181,253,0.2)" stroke="rgba(196,181,253,0.5)" stroke-width="1"/>
+    <text x="130" y="39" font-size="8" text-anchor="middle" fill="#c4b5fd">backlinks</text>
+
+    <rect x="171" y="26" width="40" height="18" rx="9" fill="rgba(196,181,253,0.35)" stroke="rgba(196,181,253,0.5)" stroke-width="1"/>
+    <text x="191" y="39" font-size="8" text-anchor="middle" fill="#c4b5fd">SERP</text>
+
+    <!-- Row 3 -->
+    <rect x="0" y="52" width="55" height="18" rx="9" fill="rgba(196,181,253,0.2)" stroke="rgba(196,181,253,0.5)" stroke-width="1"/>
+    <text x="27" y="65" font-size="8" text-anchor="middle" fill="#c4b5fd">volume</text>
+
+    <rect x="63" y="52" width="70" height="18" rx="9" fill="rgba(196,181,253,0.3)" stroke="rgba(196,181,253,0.5)" stroke-width="1"/>
+    <text x="98" y="65" font-size="8" text-anchor="middle" fill="#c4b5fd">competition</text>
+
+    <rect x="141" y="52" width="68" height="18" rx="9" fill="rgba(196,181,253,0.25)" stroke="rgba(196,181,253,0.5)" stroke-width="1"/>
+    <text x="175" y="65" font-size="8" text-anchor="middle" fill="#c4b5fd">CPC value</text>
+  </g>
+
+  <!-- Volume bars -->
+  <g transform="translate(60, 185)">
+    <line x1="30" y1="0" x2="30" y2="80" stroke="rgba(196,181,253,0.2)" stroke-width="1"/>
+    <line x1="0" y1="80" x2="200" y2="80" stroke="rgba(196,181,253,0.2)" stroke-width="1.5"/>
+    <rect x="40" y="30" width="20" height="50" fill="url(#kwAccent)" opacity="0.75"/>
+    <rect x="70" y="10" width="20" height="70" fill="url(#kwAccent)" opacity="0.75"/>
+    <rect x="100" y="45" width="20" height="35" fill="url(#kwAccent)" opacity="0.75"/>
+    <rect x="130" y="20" width="20" height="60" fill="url(#kwAccent)" opacity="0.75"/>
+    <text x="50" y="95" font-size="7" text-anchor="middle" fill="rgba(196,181,253,0.6)">Short</text>
+    <text x="80" y="95" font-size="7" text-anchor="middle" fill="rgba(196,181,253,0.6)">Long</text>
+    <text x="110" y="95" font-size="7" text-anchor="middle" fill="rgba(196,181,253,0.6)">Local</text>
+    <text x="140" y="95" font-size="7" text-anchor="middle" fill="rgba(196,181,253,0.6)">Brand</text>
+  </g>
+
+  <!-- Badges -->
+  <g transform="translate(295, 185)">
+    <rect x="0" y="0" width="75" height="25" rx="2" fill="rgba(196,181,253,0.15)" stroke="rgba(196,181,253,0.4)" stroke-width="1"/>
+    <text x="37.5" y="16" font-size="10" font-weight="bold" text-anchor="middle" fill="#c4b5fd">10K+ KW</text>
+    <rect x="0" y="32" width="75" height="25" rx="2" fill="rgba(196,181,253,0.15)" stroke="rgba(196,181,253,0.4)" stroke-width="1"/>
+    <text x="37.5" y="48" font-size="10" font-weight="bold" text-anchor="middle" fill="#c4b5fd">Analysis</text>
+  </g>
+
+  <text x="200" y="272" font-size="15" font-weight="bold" text-anchor="middle" fill="#c4b5fd">Keyword Strategy</text>
+</svg>

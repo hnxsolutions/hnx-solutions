@@ -8,9 +8,17 @@ interface BlogListProps {
   blogs: BlogPost[];
   isEmpty?: boolean;
   isDarkTheme?: boolean;
+  activeCategory?: string | null;
+  currentPage?: number;
 }
 
-export default function BlogList({ blogs, isEmpty = false, isDarkTheme = false }: BlogListProps) {
+export default function BlogList({
+  blogs,
+  isEmpty = false,
+  isDarkTheme = false,
+  activeCategory = null,
+  currentPage = 1,
+}: BlogListProps) {
   if (isEmpty || blogs.length === 0) {
     return (
       <motion.div
@@ -37,6 +45,8 @@ export default function BlogList({ blogs, isEmpty = false, isDarkTheme = false }
           blog={blog}
           index={index}
           isDarkTheme={isDarkTheme}
+          activeCategory={activeCategory}
+          currentPage={currentPage}
         />
       ))}
     </motion.div>

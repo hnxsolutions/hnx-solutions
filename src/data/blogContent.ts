@@ -68,3 +68,33 @@ export function getCategories(): string[] {
   const categories = new Set(Object.values(blogContent).map(blog => blog.category));
   return Array.from(categories);
 }
+
+/**
+ * Get related blogs for a given blog post.
+ * Scoring: number of shared tags (case-insensitive) — higher = more relevant.
+ * Tiebreaker: most recent first.
+ * Falls back to newest-first when the current blog has no tags.
+ */
+export function getRelatedBlogs(
+  currentSlug: string,
+  category: string,
+  tags: string[],
+  limit = 3
+): BlogPost[] {
+  const normalizedTags = tags.map((t) => t.toLowerCase());
+
+  return Object.values(blogContent)
+    .filter((blog) => blog.category === category && blog.slug !== currentSlug)
+    .map((blog) => {
+      const sharedTags = (blog.tags ?? []).filter((t) =>
+        normalizedTags.includes(t.toLowerCase())
+      ).length;
+      return { blog, score: sharedTags };
+    })
+    .sort((a, b) => {
+      if (b.score !== a.score) return b.score - a.score;
+      return new Date(b.blog.createdAt).getTime() - new Date(a.blog.createdAt).getTime();
+    })
+    .slice(0, limit)
+    .map(({ blog }) => blog);
+}

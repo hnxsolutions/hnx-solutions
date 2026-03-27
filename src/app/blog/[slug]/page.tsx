@@ -1,10 +1,12 @@
 "use client";
 
-import { use, useEffect, useState, useMemo } from "react";
+import { use, useEffect, useState, useMemo, useCallback } from "react";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { HiArrowLeft, HiArrowRight } from "react-icons/hi";
-import { getBlogBySlug, getBlogsByCategory } from "@/data/blogContent";
+import { getBlogBySlug, getBlogsByCategory, getRelatedBlogs } from "@/data/blogContent";
 import { calculateReadTime } from "@/lib/readTimeCalculator";
 import TableOfContents from "@/components/TableOfContents";
 import ShareButtons from "@/components/ShareButtons";
@@ -16,16 +18,89 @@ interface PageProps {
   }>;
 }
 
+const BLOGS_PER_PAGE = 10;
+
 export default function BlogPage({ params }: PageProps) {
   const { slug } = use(params);
   const blog = getBlogBySlug(slug);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const relatedReturnPath = searchParams.get("returnTo");
+  const restoreSlug = searchParams.get("restoreSlug") || slug;
+  const shouldInterceptBrowserBack = Boolean(
+    relatedReturnPath && relatedReturnPath.startsWith("/blog")
+  );
+
+  const backHref = useMemo(() => {
+    if (relatedReturnPath && relatedReturnPath.startsWith("/blog")) {
+      return relatedReturnPath;
+    }
+
+    const backFromQuery = searchParams.get("back");
+    if (backFromQuery && backFromQuery.startsWith("/blog")) {
+      return backFromQuery;
+    }
+
+    if (typeof window !== "undefined") {
+      const saved = sessionStorage.getItem("blog:return");
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved) as { path?: string };
+          if (parsed.path && parsed.path.startsWith("/blog")) {
+            return parsed.path;
+          }
+        } catch {
+          // ignore
+        }
+      }
+    }
+
+    return "/blog";
+  }, [relatedReturnPath, searchParams]);
 
   // Calculate read time dynamically based on content length
   const calculatedReadTime = useMemo(() => {
     if (!blog) return 0;
     return calculateReadTime(blog.content);
   }, [blog]);
+
+  const getListPathForBlog = (targetSlug: string, category: string) => {
+    const categoryBlogs = getBlogsByCategory(category);
+    const targetIndex = categoryBlogs.findIndex((item) => item.slug === targetSlug);
+
+    const page = targetIndex >= 0 ? Math.floor(targetIndex / BLOGS_PER_PAGE) + 1 : 1;
+    const params = new URLSearchParams();
+    params.set("category", category);
+    if (page > 1) {
+      params.set("page", String(page));
+    }
+
+    const query = params.toString();
+    return query ? `/blog?${query}` : "/blog";
+  };
+
+  const handleRelatedArticleOpen = (targetSlug: string, category: string) => {
+    const listPath = getListPathForBlog(targetSlug, category);
+
+    router.push(
+      `/blog/${targetSlug}?returnTo=${encodeURIComponent(listPath)}&restoreSlug=${encodeURIComponent(targetSlug)}`
+    );
+  };
+
+  const saveReturnToListState = useCallback(() => {
+    if (!relatedReturnPath || !relatedReturnPath.startsWith("/blog")) {
+      return;
+    }
+
+    sessionStorage.setItem(
+      "blog:return",
+      JSON.stringify({
+        path: relatedReturnPath,
+        targetSlug: restoreSlug,
+      })
+    );
+  }, [relatedReturnPath, restoreSlug]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,6 +112,25 @@ export default function BlogPage({ params }: PageProps) {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (!shouldInterceptBrowserBack || !relatedReturnPath) {
+      return;
+    }
+
+    window.history.pushState({ hnxRelatedReturn: true }, "", window.location.href);
+
+    const handlePopState = () => {
+      saveReturnToListState();
+      router.replace(relatedReturnPath);
+    };
+
+    window.addEventListener("popstate", handlePopState);
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, [relatedReturnPath, router, saveReturnToListState, shouldInterceptBrowserBack]);
 
   if (!blog) {
     return (
@@ -75,7 +169,8 @@ export default function BlogPage({ params }: PageProps) {
           >
             {/* Back Button and Title */}
             <Link
-              href="/blog"
+              href={backHref}
+              onClick={saveReturnToListState}
               className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-blog-tan-400/10 hover:bg-blog-tan-400/20 text-blog-tan-600 transition-all font-medium text-sm mb-2"
               title="Back to Blog"
             >
@@ -242,9 +337,7 @@ export default function BlogPage({ params }: PageProps) {
           >
             <h2 className="text-2xl font-bold mb-8 text-blog-text">Related Articles</h2>
             <div className="grid md:grid-cols-3 gap-6">
-              {getBlogsByCategory(blog.category)
-                .filter((b) => b.slug !== slug)
-                .slice(0, 3)
+              {getRelatedBlogs(slug, blog.category, blog.tags ?? [], 3)
                 .map((relatedBlog, idx) => (
                   <motion.div
                     key={relatedBlog.id}
@@ -253,7 +346,11 @@ export default function BlogPage({ params }: PageProps) {
                     viewport={{ once: true }}
                     transition={{ delay: idx * 0.1 }}
                   >
-                    <Link href={`/blog/${relatedBlog.slug}`}>
+                    <button
+                      type="button"
+                      onClick={() => handleRelatedArticleOpen(relatedBlog.slug, relatedBlog.category)}
+                      className="w-full text-left"
+                    >
                       <motion.div
                         whileHover={{ y: -4, boxShadow: "0 12px 24px rgba(0,0,0,0.1)" }}
                         className="group p-5 rounded-lg border border-blog-divider bg-white hover:border-blog-tan-400 transition-all cursor-pointer h-full"
@@ -272,7 +369,7 @@ export default function BlogPage({ params }: PageProps) {
                           <span className="group-hover:translate-x-1 transition-transform">→</span>
                         </div>
                       </motion.div>
-                    </Link>
+                    </button>
                   </motion.div>
                 ))}
             </div>
@@ -280,7 +377,6 @@ export default function BlogPage({ params }: PageProps) {
         </div>
       </section>
 
-      {/* What's Next Section - Simplified Button Bar */}
       <section className="relative py-12 md:py-16 border-t border-blog-divider bg-blog-cream-100/50">
         <div className="max-w-4xl mx-auto px-6 lg:px-8">
           <motion.div
@@ -290,7 +386,7 @@ export default function BlogPage({ params }: PageProps) {
             className="flex items-center justify-between gap-4"
           >
             {/* Back to Blog Button */}
-            <Link href="/blog" className="flex-1">
+            <Link href={backHref} onClick={saveReturnToListState} className="flex-1">
               <motion.button
                 whileHover={{ y: -2 }}
                 className="w-full px-6 py-3 bg-white border border-blog-divider rounded-lg hover:border-blog-tan-400 hover:shadow-md transition-all font-semibold text-blog-text inline-flex items-center justify-center gap-2"

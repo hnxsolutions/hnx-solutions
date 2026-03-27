@@ -13,12 +13,16 @@ interface BlogItemProps {
   blog: BlogPost;
   index?: number;
   isDarkTheme?: boolean;
+  activeCategory?: string | null;
+  currentPage?: number;
 }
 
 export default function BlogItem({
   blog,
   index = 0,
   isDarkTheme = false,
+  activeCategory = null,
+  currentPage = 1,
 }: BlogItemProps) {
   const calculatedReadTime = useMemo(
     () => calculateReadTime(blog.content),
@@ -38,8 +42,47 @@ export default function BlogItem({
     ? "hover:shadow-lg hover:shadow-cyan-400/50"
     : "hover:shadow-lg hover:shadow-blog-tan-600/30";
 
+  const getListPath = () => {
+    const params = new URLSearchParams(window.location.search);
+    if (activeCategory) {
+      params.set("category", activeCategory);
+    } else {
+      params.delete("category");
+    }
+
+    if (currentPage > 1) {
+      params.set("page", String(currentPage));
+    } else {
+      params.delete("page");
+    }
+
+    const query = params.toString();
+    return query ? `${window.location.pathname}?${query}` : window.location.pathname;
+  };
+
+  const detailHref = (() => {
+    if (typeof window === "undefined") {
+      return `/blog/${blog.slug}`;
+    }
+
+    return `/blog/${blog.slug}?back=${encodeURIComponent(getListPath())}`;
+  })();
+
+  const saveReturnState = () => {
+    const path = getListPath();
+
+    sessionStorage.setItem(
+      "blog:return",
+      JSON.stringify({
+        path,
+        scrollY: window.scrollY,
+      })
+    );
+  };
+
   return (
     <motion.article
+      data-blog-slug={blog.slug}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.05 }}
@@ -48,7 +91,11 @@ export default function BlogItem({
     >
       <div className="flex flex-col md:flex-row gap-6 md:gap-10">
         {/* Left: Thumbnail Image */}
-        <Link href={`/blog/${blog.slug}`} className="group flex-shrink-0 w-full md:w-48 h-40 md:h-40">
+        <Link
+          href={detailHref}
+          onClick={saveReturnState}
+          className="group flex-shrink-0 w-full md:w-48 h-40 md:h-40"
+        >
           <div className="relative h-full w-full rounded-lg overflow-hidden bg-gradient-to-br from-blog-tan-400/20 to-blog-tan-600/20 group-hover:scale-105 transition-transform duration-300">
             {blog.image ? (
               <Image
@@ -75,7 +122,7 @@ export default function BlogItem({
         {/* Right: Content Section */}
         <div className="flex-1 min-w-0 flex flex-col justify-between">
           {/* Title and Description - Wrapped in Link */}
-          <Link href={`/blog/${blog.slug}`} className="group">
+          <Link href={detailHref} onClick={saveReturnState} className="group">
             <div className="mb-4">
               {/* Title */}
               <h2
@@ -111,7 +158,7 @@ export default function BlogItem({
           {/* Bottom Row: Continue Reading Button + Engagement Icons */}
           <div className="flex items-center justify-between gap-4 mt-4">
             {/* Continue Reading Button - Wrapped in Link */}
-            <Link href={`/blog/${blog.slug}`}>
+            <Link href={detailHref} onClick={saveReturnState}>
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}

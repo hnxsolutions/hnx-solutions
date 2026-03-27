@@ -31,6 +31,15 @@ function parseCategoryFromQuery(value: string | null): BlogCategory | null {
     : null;
 }
 
+function parsePageFromQuery(value: string | null): number {
+  const parsed = Number(value);
+  if (!Number.isFinite(parsed) || parsed < 1) {
+    return 1;
+  }
+
+  return Math.floor(parsed);
+}
+
 function scrollToBlogTop(behavior: ScrollBehavior = "auto") {
   const topAnchor = document.getElementById("blog-page-top");
   if (topAnchor) {
@@ -44,6 +53,7 @@ function scrollToBlogTop(behavior: ScrollBehavior = "auto") {
 
 export default function BlogPage() {
   const [categoryFromQuery, setCategoryFromQuery] = useState<BlogCategory | null>(null);
+  const [pageFromQuery, setPageFromQuery] = useState(1);
   const [activeCategory, setActiveCategory] = useState<BlogCategory | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [blogs, setBlogs] = useState<BlogPost[]>([]);
@@ -55,6 +65,7 @@ export default function BlogPage() {
     const syncCategoryFromUrl = () => {
       const params = new URLSearchParams(window.location.search);
       setCategoryFromQuery(parseCategoryFromQuery(params.get("category")));
+      setPageFromQuery(parsePageFromQuery(params.get("page")));
     };
 
     syncCategoryFromUrl();
@@ -66,27 +77,79 @@ export default function BlogPage() {
   }, []);
 
   useEffect(() => {
-    if (!("scrollRestoration" in window.history)) {
-      return;
-    }
-
-    const previous = window.history.scrollRestoration;
-    window.history.scrollRestoration = "manual";
-
-    return () => {
-      window.history.scrollRestoration = previous;
-    };
-  }, []);
-
-  useEffect(() => {
     setActiveCategory((prev) => (prev === categoryFromQuery ? prev : categoryFromQuery));
-    setCurrentPage((prev) => (prev === 1 ? prev : 1));
+    setCurrentPage((prev) => (prev === pageFromQuery ? prev : pageFromQuery));
 
     requestAnimationFrame(() => {
       scrollToBlogTop("auto");
       setTimeout(() => scrollToBlogTop("auto"), 80);
     });
-  }, [categoryFromQuery]);
+  }, [categoryFromQuery, pageFromQuery]);
+
+  useEffect(() => {
+    if (isLoading) {
+      return;
+    }
+
+    const saved = sessionStorage.getItem("blog:return");
+    if (!saved) {
+      return;
+    }
+
+    try {
+      const parsed = JSON.parse(saved) as {
+        path?: string;
+        scrollY?: number;
+        targetSlug?: string;
+      };
+
+      const currentPath = `${window.location.pathname}${window.location.search}`;
+      if (parsed.path !== currentPath) {
+        return;
+      }
+
+      if (parsed.targetSlug) {
+        const selector = `[data-blog-slug="${parsed.targetSlug}"]`;
+        const restoreTargetCard = (attempt: number = 0) => {
+          const targetCard = document.querySelector(selector);
+
+          if (targetCard instanceof HTMLElement) {
+            targetCard.scrollIntoView({ block: "center", behavior: "auto" });
+            targetCard.classList.remove("blog-return-focus");
+            targetCard.classList.add("blog-return-focus");
+            setTimeout(() => {
+              targetCard.scrollIntoView({ block: "center", behavior: "auto" });
+            }, 80);
+            setTimeout(() => {
+              targetCard.classList.remove("blog-return-focus");
+            }, 2100);
+            return;
+          }
+
+          if (attempt < 6) {
+            setTimeout(() => restoreTargetCard(attempt + 1), 120);
+          }
+        };
+
+        requestAnimationFrame(() => {
+          restoreTargetCard();
+        });
+        return;
+      }
+
+      if (Number.isFinite(parsed.scrollY)) {
+        const targetY = Math.max(0, Number(parsed.scrollY));
+        requestAnimationFrame(() => {
+          window.scrollTo({ top: targetY, behavior: "auto" });
+          setTimeout(() => window.scrollTo({ top: targetY, behavior: "auto" }), 80);
+        });
+      }
+    } catch {
+      // Ignore malformed session data
+    } finally {
+      sessionStorage.removeItem("blog:return");
+    }
+  }, [isLoading, activeCategory, currentPage]);
 
   // Load blogs when category or page changes
   useEffect(() => {
@@ -143,6 +206,7 @@ export default function BlogPage() {
     } else {
       params.delete("category");
     }
+    params.delete("page");
 
     const query = params.toString();
     const nextUrl = query
@@ -159,7 +223,20 @@ export default function BlogPage() {
     }
 
     setCurrentPage(page);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    const params = new URLSearchParams(window.location.search);
+    if (page > 1) {
+      params.set("page", String(page));
+    } else {
+      params.delete("page");
+    }
+
+    const query = params.toString();
+    const nextUrl = query
+      ? `${window.location.pathname}?${query}`
+      : window.location.pathname;
+
+    window.history.replaceState({}, "", nextUrl);
+    scrollToBlogTop("smooth");
   };
 
   return (
@@ -224,6 +301,8 @@ export default function BlogPage() {
             <BlogList 
               blogs={blogs} 
               isEmpty={blogs.length === 0}
+              activeCategory={activeCategory}
+              currentPage={currentPage}
               isDarkTheme={false}
             />
           )}
