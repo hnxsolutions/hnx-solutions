@@ -67,10 +67,19 @@ export default function BlogPage() {
     setCurrentPage(1);
   };
 
+  const handlePageChange = (page: number) => {
+    if (page === currentPage) {
+      return;
+    }
+
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
-    <main className="bg-blog-cream-50 text-blog-text pt-6 md:pt-8">
+    <main className="bg-blog-cream-50 text-blog-text pt-26 md:pt-24 lg:pt-6 xl:pt-8 w-full max-w-full overflow-x-hidden">
       {/* Hero Section - Lighter, centered, smaller */}
-      <section className="relative py-12 md:py-18">
+      <section className="relative py-6 max-[374px]:py-4 md:py-12 lg:py-18">
         <div className="absolute inset-0 bg-gradient-to-b from-blog-tan-400/5 to-blog-cream-50" />
         <div className="max-w-4xl mx-auto px-6 lg:px-8 relative">
           <motion.div
@@ -90,7 +99,7 @@ export default function BlogPage() {
       </section>
 
       {/* Category Tabs */}
-      <section className="relative pt-0 pb-4">
+      <section className="relative pt-0 pb-2 max-[374px]:pb-1 md:pb-4">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -107,7 +116,7 @@ export default function BlogPage() {
       </section>
 
       {/* Blog List */}
-      <section className="relative py-6 md:py-4">
+      <section className="relative py-4 max-[374px]:py-3 md:py-6 lg:py-8">
         <div className="max-w-5xl mx-auto px-6 lg:px-8">
           {isLoading ? (
             <div className="flex justify-center items-center py-20">
@@ -142,7 +151,7 @@ export default function BlogPage() {
             <Pagination
               currentPage={currentPage}
               totalPages={totalPages}
-              onPageChange={setCurrentPage}
+              onPageChange={handlePageChange}
             />
           </div>
         </section>

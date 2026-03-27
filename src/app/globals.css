@@ -31,6 +31,13 @@
   scroll-behavior: smooth;
 }
 
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
 body {
   background: var(--color-dark-900);
   color: var(--color-light-100);

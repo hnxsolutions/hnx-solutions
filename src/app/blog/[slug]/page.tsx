@@ -40,7 +40,7 @@ export default function BlogPage({ params }: PageProps) {
 
   if (!blog) {
     return (
-      <main className="bg-blog-cream-50 text-blog-text min-h-screen flex items-center justify-center pt-12 md:pt-16">
+      <main className="bg-blog-cream-50 text-blog-text min-h-screen flex items-center justify-center pt-12 md:pt-16 w-full max-w-full overflow-x-hidden">
         <div className="text-center">
           <h1 className="text-4xl font-bold mb-4">Blog Not Found</h1>
           <p className="text-blog-text-muted mb-8">The article you&apos;re looking for doesn&apos;t exist.</p>
@@ -56,7 +56,7 @@ export default function BlogPage({ params }: PageProps) {
   }
 
   return (
-    <main className="bg-blog-cream-50 text-blog-text pt-12 md:pt-16">
+    <main className="bg-blog-cream-50 text-blog-text pt-12 md:pt-16 w-full max-w-full overflow-x-hidden">
       {/* Scroll Progress Bar */}
       <motion.div
         className="fixed top-0 left-0 right-0 h-1 bg-blog-tan-600 z-50"

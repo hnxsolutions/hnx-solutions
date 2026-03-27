@@ -110,15 +110,18 @@ export default function CurvedCategoryTabs({
     : "hover:bg-blog-tan-400/10 hover:text-blog-tan-600";
 
   return (
-    <div className="w-full flex justify-center py-2">
-      <div className="flex items-center justify-center gap-4" style={{ maxWidth: VISIBLE_WIDTH }}>
+    <div className="w-full flex justify-center py-1 max-[374px]:py-0.5 md:py-2 px-2 max-[374px]:px-1 overflow-x-hidden">
+      <div
+        className="flex items-center justify-center gap-2 max-[374px]:gap-1 md:gap-4 w-full md:w-auto min-w-0 max-w-full"
+        style={{ maxWidth: `${VISIBLE_WIDTH}px` }}
+      >
         {/* Left Arrow Button */}
         <motion.button
           onClick={handleLeftClick}
           disabled={!canScrollLeft}
           whileHover={canScrollLeft ? { scale: 1.12, x: -2 } : {}}
           whileTap={canScrollLeft ? { scale: 0.92 } : {}}
-          className={`flex-shrink-0 p-2.5 rounded-lg transition-all duration-200 ${
+          className={`flex-shrink-0 p-1.5 max-[374px]:p-1 md:p-2.5 rounded-lg transition-all duration-200 ${
             canScrollLeft
               ? `${arrowColor} ${arrowBg} cursor-pointer`
               : "text-gray-400 cursor-not-allowed opacity-30"
@@ -133,7 +136,7 @@ export default function CurvedCategoryTabs({
           onClick={() => onCategoryChange(null)}
           whileHover={{ scale: 1.06 }}
           whileTap={{ scale: 0.96 }}
-          className={`flex-shrink-0 px-6 py-2.5 rounded-3xl font-medium text-sm whitespace-nowrap transition-all duration-200 ${
+          className={`flex-shrink-0 px-3 max-[374px]:px-2.5 md:px-6 py-1.5 max-[374px]:py-1 md:py-2.5 rounded-3xl font-medium text-xs md:text-sm whitespace-nowrap transition-all duration-200 ${
             activeCategory === null
               ? `${activeTabBg} ${activeTabText} shadow-lg shadow-cyan-500/25`
               : `border-2 ${inactiveTabBorder} ${inactiveTabHover}`
@@ -143,7 +146,7 @@ export default function CurvedCategoryTabs({
         </motion.button>
 
         {/* Scroll Container with Gradient Hints */}
-        <div className="relative flex-1 overflow-hidden rounded-2xl">
+        <div className="relative flex-1 min-w-0 overflow-hidden rounded-2xl">
           {/* Left Gradient Hint */}
           {canScrollLeft && (
             <motion.div
@@ -161,7 +164,7 @@ export default function CurvedCategoryTabs({
             drag="x"
             dragElastic={0.15}
             dragMomentum={false}
-            className="flex gap-4 overflow-x-auto scroll-smooth cursor-grab active:cursor-grabbing px-1"
+            className="flex gap-2 max-[374px]:gap-1 md:gap-4 overflow-x-auto scroll-smooth cursor-grab active:cursor-grabbing px-1 max-[374px]:px-0.5"
             style={{
               scrollBehavior: "smooth",
               scrollbarWidth: "none",
@@ -176,7 +179,7 @@ export default function CurvedCategoryTabs({
                 whileHover={!isDragging ? { scale: 1.06, y: -1 } : {}}
                 whileTap={{ scale: 0.96 }}
                 transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                className={`flex-shrink-0 px-6 py-2.5 rounded-3xl font-medium text-sm whitespace-nowrap transition-all duration-200 ${
+                className={`flex-shrink-0 px-3 max-[374px]:px-2.5 md:px-6 py-1.5 max-[374px]:py-1 md:py-2.5 rounded-3xl font-medium text-xs md:text-sm whitespace-nowrap transition-all duration-200 ${
                   activeCategory === category.id
                     ? `${activeTabBg} ${activeTabText} shadow-lg shadow-cyan-500/25`
                     : `border-2 ${inactiveTabBorder} ${inactiveTabHover}`
@@ -203,7 +206,7 @@ export default function CurvedCategoryTabs({
           disabled={!canScrollRight}
           whileHover={canScrollRight ? { scale: 1.12, x: 2 } : {}}
           whileTap={canScrollRight ? { scale: 0.92 } : {}}
-          className={`flex-shrink-0 p-2.5 rounded-lg transition-all duration-200 ${
+          className={`flex-shrink-0 p-1.5 max-[374px]:p-1 md:p-2.5 rounded-lg transition-all duration-200 ${
             canScrollRight
               ? `${arrowColor} ${arrowBg} cursor-pointer`
               : "text-gray-400 cursor-not-allowed opacity-30"

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
@@ -191,10 +191,26 @@ const cardVariants = {
 
 export default function ServicesPage() {
   const [selectedService, setSelectedService] = useState<string | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 767px)");
+    const updateIsMobile = () => setIsMobile(mediaQuery.matches);
+
+    updateIsMobile();
+
+    if (typeof mediaQuery.addEventListener === "function") {
+      mediaQuery.addEventListener("change", updateIsMobile);
+      return () => mediaQuery.removeEventListener("change", updateIsMobile);
+    }
+
+    mediaQuery.addListener(updateIsMobile);
+    return () => mediaQuery.removeListener(updateIsMobile);
+  }, []);
   
   return (
     <>
-    <main className="bg-dark-900 text-white">
+    <main className="bg-dark-900 text-white w-full max-w-full overflow-x-hidden">
       {/* Hero Section */}
       <section className="relative min-h-[48vh] flex items-center justify-center overflow-hidden py-20 md:py-24 pt-26 md:pt-30">
         {/* Unsplash background image with gradient overlays */}
@@ -215,7 +231,11 @@ export default function ServicesPage() {
           />
           {/* Extra SVG shape for tech/abstract glow */}
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none z-10"
-            style={{ width: 600, height: 600, opacity: 0.45 }}
+            style={{
+              width: "min(92vw, 600px)",
+              height: "min(92vw, 600px)",
+              opacity: 0.45,
+            }}
             aria-hidden
             dangerouslySetInnerHTML={{ __html: heroBgSvg }}
           />
@@ -326,9 +346,10 @@ export default function ServicesPage() {
           </motion.div>
           <motion.div
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10"
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.2 }}
+            initial={isMobile ? false : "hidden"}
+            animate={isMobile ? "show" : undefined}
+            whileInView={isMobile ? undefined : "show"}
+            viewport={isMobile ? undefined : { once: true, amount: 0.2 }}
           >
             {services.map((service, i) => {
               // Modern SVG icons for each service
@@ -382,15 +403,18 @@ export default function ServicesPage() {
                   </div>
                   <motion.ul
                     className="space-y-2 text-left mt-2"
-                    initial="hidden"
-                    whileInView="show"
-                    viewport={{ once: true }}
+                    initial={isMobile ? false : "hidden"}
+                    animate={isMobile ? "show" : undefined}
+                    whileInView={isMobile ? undefined : "show"}
+                    viewport={isMobile ? undefined : { once: true }}
                   >
                     {service.details.slice(0, 3).map((detail, j) => (
                       <motion.li
                         key={detail}
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
+                        initial={isMobile ? false : { opacity: 0, x: -20 }}
+                        animate={isMobile ? { opacity: 1, x: 0 } : undefined}
+                        whileInView={isMobile ? undefined : { opacity: 1, x: 0 }}
+                        viewport={isMobile ? undefined : { once: true }}
                         transition={{ delay: 0.2 + j * 0.08, duration: 0.4 }}
                         className="flex items-start gap-2 text-sm text-light-200"
                       >
