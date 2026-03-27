@@ -1,75 +1,11 @@
 "use client";
 import { useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { HiExternalLink, HiEye } from "react-icons/hi";
 import { FiGithub } from "react-icons/fi";
 import SitePreview from "./SitePreview";
-
-const categories = ["All", "Web Apps", "Mobile Apps", "AI Solutions", "E-Commerce", "Healthcare"];
-
-const projects = [
-  {
-    title: "Novakos Healthcare",
-    description:
-      "B2B pharmaceutical distribution platform with 160+ medicines catalog, bulk ordering, buyer registration, and compliance management for chemists, pharmacies, and hospitals.",
-    category: "Healthcare",
-    tags: ["Next.js", "TypeScript", "Tailwind CSS", "SEO"],
-    stats: { users: "500+", metric: "Live" },
-    color: "from-emerald-500/20 to-cyan-500/20",
-    accent: "emerald",
-    liveUrl: "https://www.novakoshealthcare.com",
-  },
-  {
-    title: "MediConnect",
-    description:
-      "Telemedicine platform connecting patients with doctors. Video consultations, prescription management, and health tracking.",
-    category: "Mobile Apps",
-    tags: ["React Native", "WebRTC", "Node.js", "MongoDB"],
-    stats: { users: "8K+", metric: "iOS & Android" },
-    color: "from-emerald-500/20 to-teal-500/20",
-    accent: "emerald",
-  },
-  {
-    title: "AI Support Agent",
-    description:
-      "Intelligent customer support system trained on company data. Handles 80% of queries autonomously with natural conversations.",
-    category: "AI Solutions",
-    tags: ["GPT-4", "LangChain", "Vector DB", "Python"],
-    stats: { users: "50K+", metric: "Queries/month" },
-    color: "from-amber-500/20 to-orange-500/20",
-    accent: "amber",
-  },
-  {
-    title: "ShopFlow",
-    description:
-      "Modern e-commerce platform with AI-powered recommendations, real-time inventory, and seamless payment integrations.",
-    category: "E-Commerce",
-    tags: ["Next.js", "Stripe", "Redis", "Algolia"],
-    stats: { users: "25K+", metric: "Orders processed" },
-    color: "from-violet-500/20 to-purple-500/20",
-    accent: "violet",
-  },
-  {
-    title: "TaskForge",
-    description:
-      "Project management platform for remote teams. Kanban boards, time tracking, sprint planning, and team analytics.",
-    category: "Web Apps",
-    tags: ["React", "Node.js", "WebSocket", "Redis"],
-    stats: { users: "6K+", metric: "Teams active" },
-    color: "from-sky-500/20 to-indigo-500/20",
-    accent: "sky",
-  },
-  {
-    title: "FitPulse",
-    description:
-      "Fitness tracking app with workout plans, nutrition logging, progress analytics, and social challenges.",
-    category: "Mobile Apps",
-    tags: ["React Native", "Firebase", "HealthKit", "Charts"],
-    stats: { users: "15K+", metric: "Active users" },
-    color: "from-pink-500/20 to-rose-500/20",
-    accent: "pink",
-  },
-];
+import { portfolioCategories, portfolioProjects } from "@/data/portfolioProjects";
 
 export default function Portfolio() {
   const [activeCategory, setActiveCategory] = useState("All");
@@ -77,8 +13,8 @@ export default function Portfolio() {
 
   const filtered =
     activeCategory === "All"
-      ? projects
-      : projects.filter((p) => p.category === activeCategory);
+      ? portfolioProjects
+      : portfolioProjects.filter((p) => p.category === activeCategory);
 
   return (
     <section id="portfolio" className="py-32 relative grid-bg">
@@ -97,14 +33,14 @@ export default function Portfolio() {
             Featured <span className="gradient-text">Case Studies</span>
           </h2>
           <p className="text-light-300 text-lg max-w-2xl mx-auto">
-            Real-world solutions we've built for clients across industries.
+            Real-world solutions we&apos;ve built for clients across industries.
             Each project designed to deliver measurable impact.
           </p>
         </motion.div>
 
         {/* Filter Tabs */}
         <div className="flex flex-wrap justify-center gap-3 mb-14">
-          {categories.map((cat) => (
+            {portfolioCategories.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
@@ -136,7 +72,18 @@ export default function Portfolio() {
                 <div
                   className={`h-48 bg-gradient-to-br ${project.color} flex items-center justify-center relative overflow-hidden`}
                 >
-                  {project.liveUrl ? (
+                  {project.imageUrl ? (
+                    <>
+                      <Image
+                        src={project.imageUrl}
+                        alt={`${project.title} preview`}
+                        fill
+                        sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                        className="object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-dark-900/70 via-dark-900/15 to-transparent" />
+                    </>
+                  ) : project.liveUrl ? (
                     <div className="absolute inset-0 overflow-hidden">
                       <iframe
                         src={project.liveUrl}
@@ -156,8 +103,9 @@ export default function Portfolio() {
 
                   {/* Hover overlay */}
                   <div className="absolute inset-0 bg-dark-900/80 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    {project.liveUrl ? (
+                    {project.liveUrl || project.githubUrl ? (
                       <>
+                        {project.liveUrl ? (
                         <button
                           onClick={() => setPreviewProject({ url: project.liveUrl!, title: project.title })}
                           className="w-12 h-12 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center text-primary hover:bg-primary/30 transition-colors"
@@ -165,15 +113,29 @@ export default function Portfolio() {
                         >
                           <HiEye size={20} />
                         </button>
-                        <a
-                          href={project.liveUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="w-12 h-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-light-200 hover:bg-white/20 transition-colors"
-                          title="Visit site"
-                        >
-                          <HiExternalLink size={20} />
-                        </a>
+                        ) : null}
+                        {project.liveUrl ? (
+                          <a
+                            href={project.liveUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-12 h-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-light-200 hover:bg-white/20 transition-colors"
+                            title="Visit site"
+                          >
+                            <HiExternalLink size={20} />
+                          </a>
+                        ) : null}
+                        {project.githubUrl ? (
+                          <a
+                            href={project.githubUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-12 h-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-light-200 hover:bg-white/20 transition-colors"
+                            title="Open GitHub repository"
+                          >
+                            <FiGithub size={20} />
+                          </a>
+                        ) : null}
                       </>
                     ) : (
                       <>
@@ -191,7 +153,11 @@ export default function Portfolio() {
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-3">
                     <h3 className="text-lg font-bold">{project.title}</h3>
-                    <HiExternalLink className="text-light-300 group-hover:text-primary transition-colors" />
+                    {project.liveUrl ? (
+                      <HiExternalLink className="text-light-300 group-hover:text-primary transition-colors" />
+                    ) : project.githubUrl ? (
+                      <FiGithub className="text-light-300 group-hover:text-primary transition-colors" />
+                    ) : null}
                   </div>
 
                   <p className="text-sm text-light-300 leading-relaxed mb-4">
@@ -212,13 +178,13 @@ export default function Portfolio() {
                   <div className="flex items-center gap-6 pt-4 border-t border-white/5">
                     <div>
                       <p className="text-sm font-bold text-primary">{project.stats.users}</p>
-                      <p className="text-xs text-light-300">Users</p>
+                      <p className="text-xs text-light-300">{project.stats.usersLabel ?? "Users"}</p>
                     </div>
                     <div>
                       <p className="text-sm font-bold text-accent-light">
                         {project.stats.metric}
                       </p>
-                      <p className="text-xs text-light-300">Status</p>
+                      <p className="text-xs text-light-300">{project.stats.metricLabel ?? "Status"}</p>
                     </div>
                   </div>
                 </div>

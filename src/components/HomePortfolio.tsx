@@ -1,31 +1,9 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { HiArrowRight } from "react-icons/hi";
-
-const projects = [
-  {
-    title: "Novakos Healthcare",
-    category: "Healthcare",
-    tags: ["Next.js", "TypeScript", "Tailwind CSS"],
-    color: "from-emerald-500/20 to-cyan-500/20",
-    liveUrl: "https://www.novakoshealthcare.com",
-  },
-  {
-    title: "MediConnect",
-    category: "Mobile App",
-    tags: ["React Native", "WebRTC", "Node.js"],
-    color: "from-emerald-500/20 to-teal-500/20",
-    liveUrl: undefined as string | undefined,
-  },
-  {
-    title: "AI Support Agent",
-    category: "AI Solution",
-    tags: ["GPT-4", "LangChain", "Python"],
-    color: "from-amber-500/20 to-orange-500/20",
-    liveUrl: undefined as string | undefined,
-  },
-];
+import { homePortfolioProjects } from "@/data/portfolioProjects";
 
 export default function HomePortfolio() {
   return (
@@ -49,7 +27,7 @@ export default function HomePortfolio() {
         </motion.div>
 
         <div className="grid md:grid-cols-3 gap-6 mb-8">
-          {projects.map((project, i) => (
+          {homePortfolioProjects.map((project, i) => (
             <motion.div
               key={project.title}
               initial={{ opacity: 0, y: 30 }}
@@ -64,7 +42,18 @@ export default function HomePortfolio() {
                 <div
                   className={`h-40 bg-gradient-to-br ${project.color} flex items-center justify-center relative overflow-hidden`}
                 >
-                  {project.liveUrl ? (
+                  {project.imageUrl ? (
+                    <>
+                      <Image
+                        src={project.imageUrl}
+                        alt={`${project.title} preview`}
+                        fill
+                        sizes="(min-width: 768px) 33vw, 100vw"
+                        className="object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-dark-900/65 via-dark-900/20 to-transparent" />
+                    </>
+                  ) : project.liveUrl ? (
                     <div className="absolute inset-0 overflow-hidden">
                       <iframe
                         src={project.liveUrl}
