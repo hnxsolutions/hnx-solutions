@@ -93,7 +93,7 @@ export default function Footer() {
             ))}
           </div>
           <p className="text-sm text-light-300 text-center">
-            © 2025 HNX Technologies. All rights reserved.
+            © 2026 HNX Technologies. All rights reserved.
           </p>
         </div>
       </div>

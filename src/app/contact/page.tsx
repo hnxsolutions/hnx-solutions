@@ -14,7 +14,6 @@ import {
   HiLocationMarker,
   HiPhone,
   HiArrowRight,
-  HiCheckCircle,
   HiExclamationCircle,
 } from "react-icons/hi";
 import { FiGithub, FiLinkedin, FiInstagram } from "react-icons/fi";
@@ -100,17 +99,19 @@ export default function ContactPage() {
   const [submitState, setSubmitState] = useState<SubmitState>("idle");
   const [formData, setFormData] = useState<ContactFormData>(initialFormData);
   const [feedbackMessage, setFeedbackMessage] = useState("");
+  const [showSuccessOverlay, setShowSuccessOverlay] = useState(false);
 
   useEffect(() => {
-    if (submitState !== "success") return;
+    if (!showSuccessOverlay) return;
 
     const timer = window.setTimeout(() => {
+      setShowSuccessOverlay(false);
       setSubmitState("idle");
       setFeedbackMessage("");
-    }, 3200);
+    }, 18000);
 
     return () => window.clearTimeout(timer);
-  }, [submitState]);
+  }, [showSuccessOverlay]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -126,6 +127,12 @@ export default function ContactPage() {
       ...prev,
       [name]: value,
     }));
+  };
+
+  const handleCloseSuccessOverlay = () => {
+    setShowSuccessOverlay(false);
+    setSubmitState("idle");
+    setFeedbackMessage("");
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -153,7 +160,13 @@ export default function ContactPage() {
         return;
       }
 
+      document.getElementById("quote-form")?.scrollIntoView({
+        behavior: shouldReduceMotion ? "auto" : "smooth",
+        block: "center",
+      });
+
       setSubmitState("success");
+      setShowSuccessOverlay(true);
       setFeedbackMessage("Message sent successfully. We’ll get back to you shortly.");
       setFormData(initialFormData);
     } catch (error) {
@@ -168,12 +181,12 @@ export default function ContactPage() {
   const isError = submitState === "error";
 
   const primaryTransition: Transition = shouldReduceMotion
-  ? { duration: 0.01 }
-  : { type: "spring" as const, stiffness: 240, damping: 22 };
+    ? { duration: 0.01 }
+    : { type: "spring" as const, stiffness: 240, damping: 22 };
 
   const softTransition: Transition = shouldReduceMotion
-  ? { duration: 0.01 }
-  : { duration: 0.35, ease: [0.22, 1, 0.36, 1] };
+    ? { duration: 0.01 }
+    : { duration: 0.35, ease: [0.22, 1, 0.36, 1] };
 
   return (
     <main>
@@ -333,7 +346,7 @@ export default function ContactPage() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
               id="quote-form"
-              className="lg:col-span-3"
+              className="lg:col-span-3 scroll-mt-24"
             >
               <motion.div
                 layout
@@ -341,52 +354,184 @@ export default function ContactPage() {
                 className="relative [perspective:1400px]"
               >
                 <AnimatePresence>
-                  {isSuccess && (
+                  {showSuccessOverlay && (
                     <motion.div
                       role="status"
                       aria-live="polite"
                       initial={
                         shouldReduceMotion
                           ? { opacity: 0 }
-                          : { opacity: 0, y: 18, rotateX: -14, scale: 0.96 }
+                          : { opacity: 0, y: 18, scale: 0.96 }
                       }
-                      animate={{
-                        opacity: 1,
-                        y: 0,
-                        rotateX: 0,
-                        scale: 1,
-                      }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={
                         shouldReduceMotion
                           ? { opacity: 0 }
-                          : { opacity: 0, y: -10, scale: 0.985, filter: "blur(6px)" }
+                          : { opacity: 0, y: -10, scale: 0.97 }
                       }
                       transition={softTransition}
-                      className="pointer-events-none absolute inset-x-4 top-4 z-20 md:left-auto md:right-4 md:w-[360px]"
-                    >
-                      <div className="relative overflow-hidden rounded-2xl border border-emerald-400/25 bg-white/[0.08] px-5 py-4 text-left shadow-[0_18px_60px_rgba(16,185,129,0.22)] backdrop-blur-2xl">
-                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(52,211,153,0.22),transparent_42%),radial-gradient(circle_at_bottom_right,rgba(56,189,248,0.16),transparent_36%)]" />
-                        <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-emerald-400/15 blur-2xl" />
-                        <div className="relative flex items-start gap-4">
+                      className="absolute inset-0 z-30 flex items-center justify-center rounded-2xl pointer-events-none"                    >
+                      <div className="absolute inset-0 rounded-2xl bg-dark-950/65 backdrop-blur-md" />
+
+                      <motion.div
+                        initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.92, y: 14 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        transition={{
+                          delay: shouldReduceMotion ? 0 : 0.08,
+                          ...softTransition,
+                        }}
+                        className="relative z-10 mx-3 flex w-[min(94vw,720px)] min-h-[520px] flex-col items-center justify-center overflow-hidden rounded-[2rem] border border-emerald-300/20 bg-white/[0.08] px-6 py-8 text-center shadow-[0_28px_100px_rgba(16,185,129,0.22)] backdrop-blur-2xl sm:px-10 pointer-events-auto"                        style={{ transformStyle: "preserve-3d" }}
+                      >
+                        <button
+                          type="button"
+                          onClick={handleCloseSuccessOverlay}
+                          aria-label="Close success message"
+                          className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/10 text-white/80 transition hover:bg-white/20 hover:text-white"
+                        >
+                          ✕
+                        </button>
+
+                        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(52,211,153,0.20),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(56,189,248,0.16),transparent_30%)]" />
+                        <div className="pointer-events-none absolute -left-16 top-10 h-36 w-36 rounded-full bg-emerald-300/10 blur-3xl" />
+                        <div className="pointer-events-none absolute -right-16 bottom-10 h-36 w-36 rounded-full bg-sky-300/10 blur-3xl" />
+
+                        {/* <motion.span
+                          aria-hidden="true"
+                          className="pointer-events-none absolute h-80 w-80 rounded-full border border-emerald-300/20"
+                          animate={{ rotate: 360 }}
+                          transition={{ duration: 4, ease: "linear" }}
+                        />
+                        <motion.span
+                          aria-hidden="true"
+                          className="pointer-events-none absolute h-64 w-64 rounded-full border border-sky-300/15"
+                          animate={{ rotate: -360 }}
+                          transition={{ duration: 4, ease: "linear" }}
+                        /> */}
+
+                        <motion.div
+                          initial={
+                            shouldReduceMotion
+                              ? false
+                              : {
+                                  opacity: 0,
+                                  scale: 0.82,
+                                  y: 42,
+                                  rotateX: -18,
+                                  rotateY: 14,
+                                  z: -80,
+                                }
+                          }
+                          animate={{
+                            opacity: 1,
+                            scale: 1,
+                            y: 0,
+                            rotateX: 0,
+                            rotateY: 0,
+                            z: 0,
+                          }}
+                          transition={{
+                            delay: shouldReduceMotion ? 0 : 0.2,
+                            duration: shouldReduceMotion ? 0.01 : 0.8,
+                            ease: [0.22, 1, 0.36, 1],
+                          }}
+                          className="relative z-10 flex flex-col items-center"
+                          style={{ transformStyle: "preserve-3d" }}
+                        >
                           <motion.div
-                            initial={shouldReduceMotion ? false : { scale: 0.85, rotate: -8 }}
-                            animate={{ scale: 1, rotate: 0 }}
-                            transition={{ delay: 0.08, ...softTransition }}
-                            className="mt-0.5 flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-400/15 text-emerald-300 ring-1 ring-emerald-300/20"
+                            animate={
+                              shouldReduceMotion
+                                ? {}
+                                : {
+                                    y: [0, -10, 0],
+                                    rotateX: [0, 3, 0],
+                                    rotateY: [-3, 3, -3],
+                                  }
+                            }
+                            transition={{
+                              duration: 1,
+                              repeat: Infinity,
+                              ease: "easeInOut",
+                            }}
+                            className="flex flex-col items-center"
+                            style={{ transformStyle: "preserve-3d" }}
                           >
-                            <HiCheckCircle size={24} />
+                            <motion.div
+                              animate={
+                                shouldReduceMotion
+                                  ? {}
+                                  : {
+                                      y: [0, -6, 0],
+                                      rotate: [0, -4, 4, 0],
+                                    }
+                              }
+                              transition={{
+                                duration: 2.8,
+                                repeat: Infinity,
+                                ease: "easeInOut",
+                              }}
+                              className="select-none text-[5.5rem] sm:text-[6.5rem] drop-shadow-[0_18px_40px_rgba(16,185,129,0.22)]"
+                              style={{ transform: "translateZ(52px)" }}
+                            >
+                              🤖
+                            </motion.div>
+
+                            <motion.div
+                              initial={
+                                shouldReduceMotion
+                                  ? false
+                                  : {
+                                      opacity: 0,
+                                      y: 36,
+                                      rotateX: -18,
+                                      rotateY: -12,
+                                      scale: 0.88,
+                                    }
+                              }
+                              animate={{
+                                opacity: 1,
+                                y: 0,
+                                rotateX: 0,
+                                rotateY: 0,
+                                scale: 1,
+                              }}
+                              transition={{
+                                delay: shouldReduceMotion ? 0 : 0.2,
+                                duration: shouldReduceMotion ? 0.01 : 0.85,
+                                ease: [0.22, 1, 0.36, 1],
+                              }}
+                              className="relative mt-[-20px] overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.08] px-7 py-5 backdrop-blur-2xl"
+                              style={{
+                                transformStyle: "preserve-3d",
+                                transform: "translateZ(110px)",
+                                boxShadow:
+                                  "0 35px 120px rgba(16,185,129,0.22), 0 18px 40px rgba(56,189,248,0.10), inset 0 1px 0 rgba(255,255,255,0.08)",
+                              }}
+                            >
+                              {/* top glow line */}
+                              <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-emerald-300/70 to-transparent" />
+
+                              {/* background gradient glow */}
+                              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(52,211,153,0.10),transparent_40%),radial-gradient(circle_at_bottom_right,rgba(56,189,248,0.10),transparent_35%)]" />
+
+                              <p className="relative text-[11px] font-bold uppercase tracking-[0.32em] text-emerald-300/95 text-center">
+                                MESSAGE SENT
+                              </p>
+
+                              <h3 className="relative mt-3 text-2xl sm:text-3xl font-black leading-tight text-white text-center">
+                                Your request has been received 🚀
+                              </h3>
+
+                              <p className="relative mt-3 text-sm sm:text-base leading-7 text-light-100/90 text-center">
+                                Our team is carefully reviewing your idea and preparing the best next steps.
+                              </p>
+
+                              <p className="relative mt-2 text-sm sm:text-base font-medium leading-7 text-sky-200 text-center">
+                                We&apos;ll contact you soon!!
+                              </p>
+                            </motion.div>
                           </motion.div>
-                          <div className="min-w-0">
-                            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-300/90">
-                              Message sent
-                            </p>
-                            <p className="mt-1 text-sm leading-6 text-light-100">
-                              Thanks — your project request is in. We’ll reply soon with the next
-                              steps.
-                            </p>
-                          </div>
-                        </div>
-                      </div>
+                        </motion.div>
+                      </motion.div>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -395,7 +540,7 @@ export default function ContactPage() {
                   layout
                   onSubmit={handleSubmit}
                   transition={primaryTransition}
-                  className={`glass-card relative overflow-hidden rounded-2xl p-8 md:p-10 glow-border ${
+                  className={`glass-card relative overflow-hidden rounded-2xl px-8 py-3 md:px-10 md:py-4 glow-border ${
                     isSubmitting ? "shadow-[0_0_0_1px_rgba(56,189,248,0.18)]" : ""
                   }`}
                   style={{
@@ -423,11 +568,19 @@ export default function ContactPage() {
                     }}
                   />
 
-                  <div className="relative z-10">
-                    <div className="mb-8 flex items-start justify-between gap-4">
+                  <motion.div
+                    animate={
+                      showSuccessOverlay && !shouldReduceMotion
+                        ? { opacity: 0.18, scale: 0.985, filter: "blur(2px)" }
+                        : { opacity: 1, scale: 1, filter: "blur(0px)" }
+                    }
+                    transition={softTransition}
+                    className="relative z-10"
+                  >
+                    <div className="mb-5 flex items-start justify-between gap-4">
                       <div>
                         <h3 className="text-2xl font-bold">Send Us a Message</h3>
-                        <p className="mt-2 text-sm text-light-300/80">
+                        <p className="mt-1 text-sm text-light-300/80">
                           Tell us what you’re building and we’ll suggest the best next step.
                         </p>
                       </div>
@@ -460,9 +613,9 @@ export default function ContactPage() {
                       </AnimatePresence>
                     </div>
 
-                    <div className="grid md:grid-cols-2 gap-5 mb-5">
+                    <div className="grid md:grid-cols-2 gap-4 mb-4">
                       <div>
-                        <label className="block text-sm font-medium mb-2 text-light-200">
+                        <label className="block text-sm font-medium mb-1.5 text-light-200">
                           Your Name
                         </label>
                         <input
@@ -471,7 +624,7 @@ export default function ContactPage() {
                           value={formData.name}
                           onChange={handleChange}
                           required
-                          className="w-full px-4 py-3.5 rounded-xl bg-dark-700/50 border border-white/10 text-light-100 placeholder:text-light-300/50 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
+                          className="w-full px-4 py-2.5 rounded-xl bg-dark-700/50 border border-white/10 text-light-100 placeholder:text-light-300/50 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
                           placeholder="John Doe"
                         />
                       </div>
@@ -486,13 +639,13 @@ export default function ContactPage() {
                           value={formData.email}
                           onChange={handleChange}
                           required
-                          className="w-full px-4 py-3.5 rounded-xl bg-dark-700/50 border border-white/10 text-light-100 placeholder:text-light-300/50 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
+                          className="w-full px-4 py-2.5 rounded-xl bg-dark-700/50 border border-white/10 text-light-100 placeholder:text-light-300/50 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
                           placeholder="john@company.com"
                         />
                       </div>
                     </div>
 
-                    <div className="mb-5">
+                    <div className="mb-4">
                       <label className="block text-sm font-medium mb-2 text-light-200">
                         Project Type
                       </label>
@@ -501,7 +654,7 @@ export default function ContactPage() {
                         value={formData.projectType}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3.5 rounded-xl bg-dark-700/50 border border-white/10 text-light-100 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
+                        className="w-full px-4 py-2.5 rounded-xl bg-dark-700/50 border border-white/10 text-light-100 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
                       >
                         <option value="" disabled>
                           Select a service
@@ -516,7 +669,7 @@ export default function ContactPage() {
                       </select>
                     </div>
 
-                    <div className="mb-5">
+                    <div className="mb-4">
                       <label className="block text-sm font-medium mb-2 text-light-200">
                         Budget Range
                       </label>
@@ -524,7 +677,7 @@ export default function ContactPage() {
                         name="budget"
                         value={formData.budget}
                         onChange={handleChange}
-                        className="w-full px-4 py-3.5 rounded-xl bg-dark-700/50 border border-white/10 text-light-100 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
+                        className="w-full px-4 py-2.5 rounded-xl bg-dark-700/50 border border-white/10 text-light-100 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
                       >
                         <option value="" disabled>
                           Select budget range
@@ -537,7 +690,7 @@ export default function ContactPage() {
                       </select>
                     </div>
 
-                    <div className="mb-6">
+                    <div className="mb-4">
                       <label className="block text-sm font-medium mb-2 text-light-200">
                         Project Details
                       </label>
@@ -546,8 +699,8 @@ export default function ContactPage() {
                         value={formData.message}
                         onChange={handleChange}
                         required
-                        rows={5}
-                        className="w-full px-4 py-3.5 rounded-xl bg-dark-700/50 border border-white/10 text-light-100 placeholder:text-light-300/50 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all resize-none"
+                        rows={3}
+                        className="w-full px-4 py-2.5 rounded-xl bg-dark-700/50 border border-white/10 text-light-100 placeholder:text-light-300/50 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all resize-none"
                         placeholder="Tell us about your project, goals, and timeline."
                       />
                     </div>
@@ -595,10 +748,11 @@ export default function ContactPage() {
                             "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.18) 50%, transparent 100%)",
                         }}
                       />
+
                       <motion.span
                         layout
                         transition={primaryTransition}
-                        className={`relative flex w-full items-center justify-center gap-2 py-4 text-base font-bold text-dark-900 transition-all ${
+                        className={`relative flex w-full items-center justify-center gap-2 py-3 text-base font-bold text-dark-900 transition-all ${
                           isSuccess
                             ? "bg-gradient-to-r from-emerald-300 to-teal-300 shadow-[0_16px_45px_rgba(16,185,129,0.22)]"
                             : "bg-gradient-to-r from-primary to-accent hover:shadow-lg hover:shadow-primary/25"
@@ -635,10 +789,22 @@ export default function ContactPage() {
                               animate={{ opacity: 1, y: 0 }}
                               exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: -8 }}
                               transition={softTransition}
-                              className="flex items-center gap-2"
+                              className="flex items-center gap-3"
                             >
-                              <HiCheckCircle size={20} />
-                              Message Sent
+                              <span className="relative flex h-6 w-6 items-center justify-center">
+                                <span className="absolute inline-flex h-6 w-6 rounded-full border-2 border-dark-900/25" />
+                                <motion.span
+                                  className="absolute inline-flex h-6 w-6 rounded-full border-2 border-transparent border-t-dark-900"
+                                  animate={shouldReduceMotion ? {} : { rotate: 360 }}
+                                  transition={{ duration: 3.5, ease: "linear" }}
+                                />
+                                <motion.span
+                                  className="absolute inline-flex h-2.5 w-2.5 rounded-full bg-dark-900"
+                                  animate={shouldReduceMotion ? {} : { scale: [0.8, 1.15, 1] }}
+                                  transition={{ duration: 0.7, ease: "easeOut" }}
+                                />
+                              </span>
+                              Sent
                             </motion.span>
                           ) : (
                             <motion.span
@@ -657,14 +823,11 @@ export default function ContactPage() {
                       </motion.span>
                     </motion.button>
 
-                    <p
-                      className="mt-4 text-xs text-light-300/65"
-                      aria-live="polite"
-                    >
+                    <p className="mt-2 text-xs text-light-300/65" aria-live="polite">
                       We usually reply within 24 hours with next steps, estimates, or a discovery
                       call suggestion.
                     </p>
-                  </div>
+                  </motion.div>
                 </motion.form>
               </motion.div>
             </motion.div>
