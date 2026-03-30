@@ -16,6 +16,7 @@ export async function POST(req: NextRequest) {
       budget,
       message,
       chatTranscript,
+      submissionKey,
     } = body;
 
     if (!name || !email || !projectType || !message) {
@@ -26,6 +27,41 @@ export async function POST(req: NextRequest) {
           required: ["name", "email", "projectType", "message"],
         },
         { status: 400 }
+      );
+    }
+
+    if (!submissionKey) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "submissionKey is required",
+        },
+        { status: 400 }
+      );
+    }
+
+    const existingSubmission = await ContactSubmission.findOne({
+      submissionKey,
+    });
+
+    if (existingSubmission) {
+      return NextResponse.json(
+        {
+          success: true,
+          message: "Lead already submitted",
+          action: "lead_already_saved",
+          data: {
+            id: existingSubmission._id,
+            name: existingSubmission.name,
+            email: existingSubmission.email,
+            phone: existingSubmission.phone,
+            projectType: existingSubmission.projectType,
+            budget: existingSubmission.budget,
+            source: existingSubmission.source,
+            status: existingSubmission.status,
+          },
+        },
+        { status: 200 }
       );
     }
 
@@ -45,6 +81,7 @@ export async function POST(req: NextRequest) {
       message,
       source: "ai_chat",
       status: "new",
+      submissionKey,
       ipAddress,
       userAgent,
       chatTranscript: Array.isArray(chatTranscript) ? chatTranscript : [],

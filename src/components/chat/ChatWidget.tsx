@@ -50,28 +50,46 @@ export default function ChatWidget() {
   const [loading, setLoading] = useState(false);
 
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
+  const hasSubmittedLeadRef = useRef(false);
+  const submissionKeyRef = useRef(
+    typeof crypto !== "undefined" ? crypto.randomUUID() : `lead-${Date.now()}`
+  );
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, quickReplies, loading]);
 
-  async function saveLead(leadData: ChatResponse extends infer T
-    ? T extends { mode: "action"; data: infer D }
-      ? D
-      : never
-    : never) {
+  async function saveLead(leadData: {
+    name: string;
+    email: string;
+    phone?: string;
+    projectType: string;
+    budget?: string;
+    message: string;
+    chatTranscript: Message[];
+  }) {
+    if (hasSubmittedLeadRef.current) {
+      return;
+    }
+
+    hasSubmittedLeadRef.current = true;
+
     try {
       const res = await fetch("/api/leads", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(leadData),
+        body: JSON.stringify({
+          ...leadData,
+          submissionKey: submissionKeyRef.current,
+        }),
       });
 
       const data = await res.json();
 
       if (!res.ok) {
+        hasSubmittedLeadRef.current = false;
         throw new Error(data?.error || "Failed to save lead");
       }
 
@@ -86,6 +104,8 @@ export default function ChatWidget() {
 
       setQuickReplies(["Need another service", "Talk to team"]);
     } catch (error) {
+      hasSubmittedLeadRef.current = false;
+
       setMessages((prev) => [
         ...prev,
         {
@@ -97,9 +117,31 @@ export default function ChatWidget() {
     }
   }
 
+  function resetConversation() {
+    setMessages([
+      {
+        role: "assistant",
+        content:
+          "Hi, I’m the AI assistant for hnx.services. I can help with websites, mobile apps, software, CRM, and AI automation. What would you like help with?",
+      },
+    ]);
+    setQuickReplies(["Website", "Mobile App", "Software", "CRM"]);
+    setInput("");
+    hasSubmittedLeadRef.current = false;
+    submissionKeyRef.current =
+      typeof crypto !== "undefined"
+        ? crypto.randomUUID()
+        : `lead-${Date.now()}`;
+  }
+
   async function handleSend(customText?: string) {
     const userText = (customText ?? input).trim();
     if (!userText || loading) return;
+
+    if (userText === "Need another service") {
+      resetConversation();
+      return;
+    }
 
     const updatedMessages: Message[] = [
       ...messages,

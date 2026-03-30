@@ -9,6 +9,7 @@ export interface ContactSubmissionDoc {
   message: string;
   status: "new" | "read" | "responded";
   source: "contact_form" | "ai_chat";
+  submissionKey?: string;
   ipAddress?: string;
   userAgent?: string;
   chatTranscript?: {
@@ -67,6 +68,14 @@ const contactSubmissionSchema = new Schema<ContactSubmissionDoc>(
       enum: ["contact_form", "ai_chat"],
       default: "contact_form",
       required: true,
+    },
+    submissionKey: {
+      type: String,
+      required: false,
+      unique: true,
+      sparse: true,
+      index: true,
+      trim: true,
     },
     ipAddress: {
       type: String,
