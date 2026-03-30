@@ -32,7 +32,16 @@ type ChatResponse =
     };
 
 const WELCOME_MESSAGE =
-  "Hi, I’m the AI assistant for hnx.services. I can help with websites, mobile apps, software, CRM, and AI automation. What would you like help with?";
+  "Hi! I’m the HNX AI assistant. I can help with websites, mobile apps, CRM, SaaS, custom software, and AI automation. Tell me what you want to build, improve, or automate.";
+
+const DEFAULT_QUICK_REPLIES = [
+  "Build a website",
+  "Create a mobile app",
+  "CRM solution",
+  "Build SaaS",
+  "AI automation",
+  "Talk to team",
+];
 
 export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
@@ -43,23 +52,23 @@ export default function ChatWidget() {
       content: WELCOME_MESSAGE,
     },
   ]);
-  const [quickReplies, setQuickReplies] = useState<string[]>([
-    "Website",
-    "Mobile App",
-    "Software",
-    "CRM",
-  ]);
+  const [quickReplies, setQuickReplies] =
+    useState<string[]>(DEFAULT_QUICK_REPLIES);
   const [loading, setLoading] = useState(false);
 
+  const messagesContainerRef = useRef<HTMLDivElement | null>(null);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const hasSubmittedLeadRef = useRef(false);
   const submissionKeyRef = useRef(
     typeof crypto !== "undefined" ? crypto.randomUUID() : `lead-${Date.now()}`
   );
 
+  const hasStartedChat = messages.some((message) => message.role === "user");
+
   useEffect(() => {
+    if (!hasStartedChat) return;
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, quickReplies, loading]);
+  }, [messages, quickReplies, loading, hasStartedChat]);
 
   async function saveLead(leadData: {
     name: string;
@@ -98,11 +107,17 @@ export default function ChatWidget() {
         {
           role: "assistant",
           content:
-            "Thanks — your request has been shared with our team. We’ll contact you soon.",
+            "Thanks — your request has been shared with our team. We’ll contact you soon. Meanwhile, you can also ask about pricing, timeline, features, or another service.",
         },
       ]);
 
-      setQuickReplies(["Need another service", "Talk to team"]);
+      setQuickReplies([
+        "Ask another question",
+        "Need another service",
+        "Pricing",
+        "Project timeline",
+        "Talk to team",
+      ]);
     } catch {
       hasSubmittedLeadRef.current = false;
 
@@ -115,7 +130,7 @@ export default function ChatWidget() {
         },
       ]);
 
-      setQuickReplies(["Website", "Mobile App", "Software", "CRM"]);
+      setQuickReplies(DEFAULT_QUICK_REPLIES);
     }
   }
 
@@ -126,7 +141,7 @@ export default function ChatWidget() {
         content: WELCOME_MESSAGE,
       },
     ]);
-    setQuickReplies(["Website", "Mobile App", "Software", "CRM"]);
+    setQuickReplies(DEFAULT_QUICK_REPLIES);
     setInput("");
     hasSubmittedLeadRef.current = false;
     submissionKeyRef.current =
@@ -144,6 +159,85 @@ export default function ChatWidget() {
       return;
     }
 
+    if (userText === "Ask another question") {
+      setMessages((prev) => [
+        ...prev,
+        { role: "user", content: "Ask another question" },
+        {
+          role: "assistant",
+          content:
+            "Sure — ask me anything about websites, mobile apps, CRM, SaaS, software, or AI automation.",
+        },
+      ]);
+      setQuickReplies([
+        "Pricing",
+        "Project timeline",
+        "Recommended features",
+        "Talk to team",
+      ]);
+      return;
+    }
+
+    if (userText === "Pricing") {
+      setMessages((prev) => [
+        ...prev,
+        { role: "user", content: "Pricing" },
+        {
+          role: "assistant",
+          content:
+            "Pricing depends on the project type, features, complexity, and timeline. Tell me what you want to build, and I’ll help you with an estimated range.",
+        },
+      ]);
+      setQuickReplies([
+        "Build a website",
+        "Create a mobile app",
+        "CRM solution",
+        "Build SaaS",
+        "AI automation",
+      ]);
+      return;
+    }
+
+    if (userText === "Project timeline") {
+      setMessages((prev) => [
+        ...prev,
+        { role: "user", content: "Project timeline" },
+        {
+          role: "assistant",
+          content:
+            "Timeline depends on scope and complexity. A simple website may take days, while a custom app, CRM, or SaaS platform can take weeks. Tell me your requirement and I’ll guide you better.",
+        },
+      ]);
+      setQuickReplies([
+        "Build a website",
+        "Create a mobile app",
+        "CRM solution",
+        "Build SaaS",
+        "AI automation",
+      ]);
+      return;
+    }
+
+    if (userText === "Recommended features") {
+      setMessages((prev) => [
+        ...prev,
+        { role: "user", content: "Recommended features" },
+        {
+          role: "assistant",
+          content:
+            "Recommended features depend on your project type. For example, websites may need lead forms, SEO pages, and admin control, while apps or SaaS products may need login, dashboards, payments, notifications, and automation. Tell me what you want to build and I’ll suggest the best features.",
+        },
+      ]);
+      setQuickReplies([
+        "Build a website",
+        "Create a mobile app",
+        "CRM solution",
+        "Build SaaS",
+        "AI automation",
+      ]);
+      return;
+    }
+
     if (userText === "Talk to team") {
       setMessages((prev) => [
         ...prev,
@@ -158,6 +252,10 @@ export default function ChatWidget() {
       return;
     }
 
+    const isFirstUserMessage = !messages.some(
+      (message) => message.role === "user"
+    );
+
     const updatedMessages: Message[] = [
       ...messages,
       { role: "user", content: userText },
@@ -167,6 +265,17 @@ export default function ChatWidget() {
     setInput("");
     setQuickReplies([]);
     setLoading(true);
+
+    if (isFirstUserMessage) {
+      requestAnimationFrame(() => {
+        if (messagesContainerRef.current) {
+          messagesContainerRef.current.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+        }
+      });
+    }
 
     try {
       const res = await fetch("/api/chat", {
@@ -211,7 +320,7 @@ export default function ChatWidget() {
             "Sorry, something went wrong. Please try again in a moment.",
         },
       ]);
-      setQuickReplies(["Website", "Mobile App", "Software", "CRM"]);
+      setQuickReplies(DEFAULT_QUICK_REPLIES);
     } finally {
       setLoading(false);
     }
@@ -276,18 +385,23 @@ export default function ChatWidget() {
               </button>
             </div>
 
-            <div className="relative mt-4 rounded-2xl border border-white/10 bg-white/10 p-3 backdrop-blur sm:mt-5 sm:p-4">
-              <p className="text-sm font-medium leading-6">
-                Welcome! I can help you with websites, mobile apps, CRM, SaaS,
-                software, and AI automation.
-              </p>
-              <p className="mt-2 text-xs text-gray-300">
-                Share your requirement and I’ll guide you step by step.
-              </p>
-            </div>
+            {!hasStartedChat && (
+              <div className="relative mt-4 rounded-2xl border border-white/10 bg-white/10 p-3 backdrop-blur sm:mt-5 sm:p-4">
+                <p className="text-sm font-medium leading-6">
+                  Welcome! I can help you with websites, mobile apps, CRM, SaaS,
+                  software, and AI automation.
+                </p>
+                <p className="mt-2 text-xs text-gray-300">
+                  Share your requirement and I’ll guide you step by step.
+                </p>
+              </div>
+            )}
           </div>
 
-          <div className="min-h-0 flex-1 space-y-4 overflow-y-auto bg-[#f7f7f8] px-3 py-4 sm:px-4">
+          <div
+            ref={messagesContainerRef}
+            className="min-h-0 flex-1 space-y-4 overflow-y-auto bg-[#f7f7f8] px-3 py-4 sm:px-4"
+          >
             {messages.map((message, index) => (
               <ChatBubble
                 key={index}
