@@ -3,13 +3,18 @@ import { Schema, model, models } from "mongoose";
 export interface ContactSubmissionDoc {
   name: string;
   email: string;
+  phone?: string;
   projectType: string;
   budget?: string;
   message: string;
   status: "new" | "read" | "responded";
-  source: "contact_form";
+  source: "contact_form" | "ai_chat";
   ipAddress?: string;
   userAgent?: string;
+  chatTranscript?: {
+    role: string;
+    content: string;
+  }[];
   createdAt: Date;
   updatedAt: Date;
 }
@@ -27,6 +32,11 @@ const contactSubmissionSchema = new Schema<ContactSubmissionDoc>(
       required: true,
       index: true,
       lowercase: true,
+      trim: true,
+    },
+    phone: {
+      type: String,
+      required: false,
       trim: true,
     },
     projectType: {
@@ -54,7 +64,7 @@ const contactSubmissionSchema = new Schema<ContactSubmissionDoc>(
     },
     source: {
       type: String,
-      enum: ["contact_form"],
+      enum: ["contact_form", "ai_chat"],
       default: "contact_form",
       required: true,
     },
@@ -65,6 +75,23 @@ const contactSubmissionSchema = new Schema<ContactSubmissionDoc>(
     userAgent: {
       type: String,
       required: false,
+    },
+    chatTranscript: {
+      type: [
+        {
+          role: {
+            type: String,
+            required: true,
+            trim: true,
+          },
+          content: {
+            type: String,
+            required: true,
+            trim: true,
+          },
+        },
+      ],
+      default: [],
     },
   },
   {

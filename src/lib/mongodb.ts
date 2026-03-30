@@ -37,8 +37,7 @@ export async function connectToDatabase() {
 
   if (!cache.promise) {
     cache.promise = mongoose.connect(DB_URI, {
-      dbName: "hnx-technologies",
-      bufferCommands: false,
+    dbName: process.env.MONGODB_DB_NAME || "hnx-technologies",     
     });
   }
 
