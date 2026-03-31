@@ -1,39 +1,51 @@
 "use client";
+
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { HiArrowRight } from "react-icons/hi";
 
 export default function HomeCTA() {
   return (
-    <section className="py-16 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-dark-900 via-dark-800/40 to-dark-900" />
-      <div className="max-w-4xl mx-auto px-6 lg:px-8 relative text-center">
+    <section className="relative bg-[var(--bg)] py-20 text-[var(--text)]">
+      <div className="relative mx-auto max-w-4xl px-6 text-center lg:px-8">
+
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 40, scale: 0.98 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{
+            duration: 0.7,
+            ease: [0.25, 0.46, 0.45, 0.94],
+          }}
           viewport={{ once: true }}
-          className="glass-card rounded-2xl p-12 md:p-16 glow-border"
+          className="glass-card depth-card premium-card cursor-glow rounded-3xl p-12 md:p-16"
         >
-          <h2 className="text-3xl md:text-5xl font-bold mb-6">
-            Ready to Build <span className="gradient-text">Your Next Project?</span>
+          {/* TITLE */}
+          <h2 className="mb-6 text-3xl font-bold md:text-5xl">
+            Ready to Build{" "}
+            <span className="gradient-text">Your Next Project?</span>
           </h2>
-          <p className="text-light-300 text-lg max-w-xl mx-auto mb-10">
-            From web platforms to mobile apps to AI automation — we turn ideas
-            into production-ready products. Let&apos;s start the conversation.
+
+          {/* TEXT */}
+          <p className="mx-auto mb-10 max-w-xl text-lg text-[var(--text-soft)]">
+            We transform ideas into scalable, production-ready products.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+
+          {/* BUTTONS */}
+          <div className="flex flex-col justify-center gap-4 sm:flex-row">
+
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-primary to-accent text-dark-900 font-bold rounded-xl text-base hover:shadow-xl hover:shadow-primary/25 transition-all hover:-translate-y-1"
+              className="btn-shine inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-primary to-accent px-8 py-4 text-base font-bold text-dark-900 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/25"
             >
               Start Your Project
               <HiArrowRight />
             </Link>
+
             <Link
-              href="/pricing"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-light-300/20 text-light-100 font-semibold rounded-xl text-base hover:bg-white/5 hover:border-primary/30 transition-all"
+              href="/services"
+              className="gradient-border inline-flex items-center justify-center gap-2 rounded-xl border border-[var(--border)] bg-white/50 px-8 py-4 text-base font-semibold transition-all hover:bg-white/80 dark:bg-white/[0.03]"
             >
-              View Pricing
+              View Services
             </Link>
           </div>
         </motion.div>

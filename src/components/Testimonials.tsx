@@ -1,106 +1,131 @@
 "use client";
+
 import { motion } from "framer-motion";
 import { HiStar } from "react-icons/hi";
+import { useTilt } from "@/hooks/useTilt";
 
 const testimonials = [
   {
     name: "Arjun Mehta",
     role: "CEO, StartupForge",
-    text: "HNX Technologies rebuilt our entire platform from scratch. The new system handles 10x more traffic and our conversion rates doubled. Their team is incredibly talented and responsive.",
+    text: "HNX Technologies rebuilt our entire platform from scratch. The new system handles 10x more traffic and our conversion rates doubled.",
     rating: 5,
   },
   {
     name: "Sarah Williams",
     role: "VP of Product, HealthBridge",
-    text: "The mobile app they delivered for our telemedicine platform was flawless. On time, under budget, and the UX was better than what we envisioned. Truly a world-class team.",
+    text: "The mobile app they delivered was flawless. On time, under budget, and the UX exceeded expectations.",
     rating: 5,
   },
   {
     name: "Rajesh Gupta",
     role: "Director, EduSphere",
-    text: "Their AI automation system reduced our customer support workload by 70%. The chatbot handles queries so naturally that users think they're talking to a human. Incredible work.",
+    text: "Their AI automation reduced our workload by 70%. The chatbot feels human-level.",
     rating: 5,
   },
   {
     name: "Emily Chen",
     role: "Founder, ShopLocal",
-    text: "We needed an e-commerce platform that could scale fast. HNX delivered a beautiful, blazing-fast store that processes thousands of orders daily. Best investment we made.",
+    text: "A blazing-fast platform handling thousands of orders daily. Best investment we made.",
     rating: 5,
   },
   {
     name: "Michael Torres",
     role: "CTO, DataSync",
-    text: "The cloud migration they executed was seamless. Zero downtime, 40% cost reduction, and our infrastructure is now infinitely more scalable. Highly recommended.",
+    text: "Zero downtime migration with 40% cost reduction. Highly scalable now.",
     rating: 5,
   },
   {
     name: "Priya Sharma",
     role: "Marketing Head, GrowthPilot",
-    text: "HNX's digital growth strategy and SEO optimization increased our organic traffic by 300% in just 4 months. They truly understand both technology and business.",
+    text: "Organic traffic grew 300% in 4 months. They understand both tech and business.",
     rating: 5,
   },
 ];
 
 export default function Testimonials() {
   return (
-    <section className="py-12 relative grid-bg">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        {/* Header */}
+    <section className="relative grid-bg bg-[var(--bg)] py-16 text-[var(--text)]">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+
+        {/* HEADER */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="mb-16 text-center"
         >
-          <span className="text-primary text-sm font-semibold tracking-widest uppercase">
+          <span className="text-sm font-semibold uppercase tracking-widest text-primary">
             Testimonials
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6">
+
+          <h2 className="mt-4 mb-6 text-4xl font-bold md:text-5xl">
             What Our <span className="gradient-text">Clients Say</span>
           </h2>
-          <p className="text-light-300 text-lg max-w-2xl mx-auto">
-            Real feedback from businesses we&apos;ve helped transform with technology.
+
+          <p className="mx-auto max-w-2xl text-lg text-[var(--text-soft)]">
+            Real feedback from businesses we&apos;ve helped scale.
           </p>
         </motion.div>
 
-        {/* Testimonials Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {testimonials.map((t, i) => (
-            <motion.div
-              key={t.name}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="glass-card rounded-2xl p-8 glow-border hover:-translate-y-1 transition-all duration-500"
-            >
-              {/* Stars */}
-              <div className="flex gap-1 mb-5">
-                {Array.from({ length: t.rating }).map((_, j) => (
-                  <HiStar key={j} className="text-amber-400 text-lg" />
-                ))}
-              </div>
+        {/* CARDS */}
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {testimonials.map((t, i) => {
+            const { ref, handleMove, reset } = useTilt();
 
-              <p className="text-light-200 text-sm leading-relaxed mb-6 italic">
-                &ldquo;{t.text}&rdquo;
-              </p>
+            return (
+              <motion.div
+                key={t.name}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{
+                  delay: i * 0.1,
+                  duration: 0.6,
+                  ease: [0.25, 0.46, 0.45, 0.94],
+                }}
+                viewport={{ once: true }}
+              >
+                <div
+                  ref={ref}
+                  onMouseMove={handleMove}
+                  onMouseLeave={reset}
+                  className="group glass-card depth-card premium-card cursor-glow rounded-2xl p-8 transition-all duration-500"
+                >
+                  {/* STARS */}
+                  <div className="mb-5 flex gap-1">
+                    {Array.from({ length: t.rating }).map((_, j) => (
+                      <HiStar key={j} className="text-lg text-amber-400" />
+                    ))}
+                  </div>
 
-              <div className="flex items-center gap-4 pt-4 border-t border-white/5">
-                <div className="w-11 h-11 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-                  <span className="text-sm font-bold text-dark-900">
-                    {t.name
-                      .split(" ")
-                      .map((n) => n[0])
-                      .join("")}
-                  </span>
+                  {/* TEXT */}
+                  <p className="mb-6 text-sm italic text-[var(--text-muted)]">
+                    “{t.text}”
+                  </p>
+
+                  {/* USER */}
+                  <div className="flex items-center gap-4 border-t border-[var(--border)] pt-4">
+                    <div className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent">
+                      <span className="text-sm font-bold text-dark-900">
+                        {t.name
+                          .split(" ")
+                          .map((n) => n[0])
+                          .join("")}
+                      </span>
+                    </div>
+
+                    <div>
+                      <p className="text-sm font-semibold">{t.name}</p>
+                      <p className="text-xs text-[var(--text-soft)]">
+                        {t.role}
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <p className="font-semibold text-sm">{t.name}</p>
-                  <p className="text-xs text-light-300">{t.role}</p>
-                </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

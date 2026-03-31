@@ -1,4 +1,5 @@
 "use client";
+
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -62,7 +63,10 @@ export default function Hero() {
   }, [nextCard]);
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
+    <section
+      id="home"
+      className="hero-light relative flex min-h-screen items-center overflow-hidden bg-[var(--bg)] text-[var(--text)]"
+    >
       <div className="absolute inset-0 z-0">
         <Image
           src={homeHeroBgImage}
@@ -70,127 +74,214 @@ export default function Hero() {
           fill
           priority
           sizes="100vw"
-          className="object-cover object-[78%_center] md:object-[70%_center] scale-[1.08] opacity-26 contrast-105 saturate-90"
+          className="object-cover object-[78%_center] scale-[1.06] opacity-72 brightness-[1.08] contrast-[1.03] saturate-[1.02] md:object-[70%_center] dark:opacity-26 dark:brightness-90 dark:contrast-105 dark:saturate-90"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-dark-900 via-dark-900/88 to-dark-900/62 md:from-dark-900/96 md:via-dark-900/82 md:to-dark-900/46" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_28%,rgba(56,189,248,0.12),transparent_30%),radial-gradient(circle_at_84%_74%,rgba(139,92,246,0.10),transparent_24%)]" />
-        <div className="absolute right-0 top-1/2 hidden h-[36rem] w-[42rem] -translate-y-1/2 bg-[radial-gradient(circle,rgba(6,10,18,0.62)_0%,rgba(6,10,18,0.42)_44%,rgba(6,10,18,0)_74%)] blur-2xl lg:block" />
+
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(248,250,252,0.78)_0%,rgba(248,250,252,0.58)_24%,rgba(248,250,252,0.18)_52%,rgba(248,250,252,0.02)_78%,rgba(248,250,252,0)_100%)] dark:bg-gradient-to-r dark:from-dark-900 dark:via-dark-900/88 dark:to-dark-900/62 md:dark:from-dark-900/96 md:dark:via-dark-900/82 md:dark:to-dark-900/46" />
+
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_28%,rgba(56,189,248,0.05),transparent_28%),radial-gradient(circle_at_82%_76%,rgba(139,92,246,0.04),transparent_24%)] dark:bg-[radial-gradient(circle_at_16%_28%,rgba(56,189,248,0.12),transparent_30%),radial-gradient(circle_at_84%_74%,rgba(139,92,246,0.10),transparent_24%)]" />
+
+        <div className="absolute left-0 top-1/2 h-[36rem] w-[34rem] -translate-y-1/2 bg-[radial-gradient(circle,rgba(255,255,255,0.32)_0%,rgba(255,255,255,0.12)_46%,rgba(255,255,255,0)_72%)] blur-2xl lg:block dark:hidden" />
+        <div className="absolute right-0 top-1/2 hidden h-[36rem] w-[42rem] -translate-y-1/2 bg-[radial-gradient(circle,rgba(6,10,18,0.62)_0%,rgba(6,10,18,0.42)_44%,rgba(6,10,18,0)_74%)] blur-2xl dark:lg:block" />
       </div>
 
-      {/* Ambient Orbs */}
-      <div className="absolute top-20 left-10 z-[1] w-96 h-96 bg-primary/2 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 right-10 z-[1] w-80 h-80 bg-accent/3 rounded-full blur-3xl" />
-      <div className="absolute top-1/2 left-1/2 z-[1] -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/[0.01] rounded-full blur-[120px]" />
+      <div className="absolute left-10 top-20 z-[1] h-96 w-96 rounded-full bg-primary/5 blur-3xl dark:bg-primary/2" />
+      <div className="absolute bottom-20 right-10 z-[1] h-80 w-80 rounded-full bg-accent/5 blur-3xl dark:bg-accent/3" />
+      <div className="absolute left-1/2 top-1/2 z-[1] h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/[0.025] blur-[120px] dark:bg-primary/[0.01]" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 pt-10 md:pt-24 pb-12 w-full">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Left Content */}
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-12 pt-10 lg:px-8 md:pt-24">
+        <div className="grid items-center gap-16 lg:grid-cols-2">
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{
+              duration: 0.6,
+              ease: [0.25, 0.46, 0.45, 0.94],
+            }}
             className="relative"
           >
-            <div className="absolute -inset-x-4 -inset-y-6 -z-10 rounded-[2rem] bg-[radial-gradient(circle,rgba(6,10,18,0.78)_0%,rgba(6,10,18,0.52)_52%,rgba(6,10,18,0)_100%)] blur-xl md:hidden" />
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-8">
-              <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-              Engineering Tomorrow&apos;s Solutions Today
-            </div>
+            <div className="absolute -inset-x-4 -inset-y-6 -z-10 rounded-[2rem] bg-[radial-gradient(circle,rgba(255,255,255,0.84)_0%,rgba(255,255,255,0.42)_52%,rgba(255,255,255,0)_100%)] blur-xl md:hidden dark:bg-[radial-gradient(circle,rgba(6,10,18,0.78)_0%,rgba(6,10,18,0.52)_52%,rgba(6,10,18,0)_100%)]" />
 
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight mb-6">
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                delay: 0.1,
+                duration: 0.6,
+                ease: [0.25, 0.46, 0.45, 0.94],
+              }}
+              className="mb-8 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-2 text-sm font-medium text-primary backdrop-blur-sm"
+            >
+              <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
+              Engineering Tomorrow&apos;s Solutions Today
+            </motion.div>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                delay: 0.15,
+                duration: 0.6,
+                ease: [0.25, 0.46, 0.45, 0.94],
+              }}
+              className="mb-6 text-5xl font-bold leading-[1.05] tracking-tight text-[var(--text)] md:text-6xl lg:text-7xl"
+            >
               We Build
               <br />
               <span className="gradient-text">Digital Products</span>
               <br />
               That Scale
-            </h1>
+            </motion.h1>
 
-            <p className="text-lg md:text-xl text-light-300 max-w-lg mb-10 leading-relaxed">
+            <motion.p
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                delay: 0.22,
+                duration: 0.6,
+                ease: [0.25, 0.46, 0.45, 0.94],
+              }}
+              className="mb-10 max-w-lg text-lg leading-relaxed text-[var(--text-muted)] md:text-xl"
+            >
               HNX Technologies crafts enterprise-grade web platforms, mobile
               applications, and AI-powered automation systems that drive
               measurable business growth.
-            </p>
+            </motion.p>
 
-            <div className="flex flex-col sm:flex-row gap-4 mb-8">
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                delay: 0.28,
+                duration: 0.6,
+                ease: [0.25, 0.46, 0.45, 0.94],
+              }}
+              className="mb-8 flex flex-col gap-4 sm:flex-row"
+            >
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-primary to-accent text-dark-900 font-bold rounded-xl text-base hover:shadow-xl hover:shadow-primary/25 transition-all hover:-translate-y-1"
+                className="btn-shine inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-primary to-accent px-8 py-4 text-base font-bold text-dark-900 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/25"
               >
                 Start Your Project
                 <HiArrowRight className="text-lg" />
               </Link>
+
               <Link
                 href="/portfolio"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-light-300/20 text-light-100 font-semibold rounded-xl text-base hover:bg-white/5 hover:border-primary/30 transition-all"
+                className="gradient-border inline-flex items-center justify-center gap-2 rounded-xl border border-[var(--border)] bg-white/55 px-8 py-4 text-base font-semibold text-[var(--text)] transition-all hover:border-primary/30 hover:bg-white/78 dark:bg-white/[0.03]"
               >
                 <HiPlay className="text-lg" />
                 View Our Work
               </Link>
-            </div>
+            </motion.div>
 
-            <div className="mb-7 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-light-300/75 sm:gap-x-5">
-              {[
-                "Web Platforms",
-                "Mobile Apps",
-                "AI Automation",
-                "Cloud Systems",
-              ].map((item, index) => (
-                <span key={item} className="inline-flex items-center gap-4">
-                  <span className="font-medium tracking-wide">{item}</span>
-                  {index < 3 ? <span className="h-1 w-1 rounded-full bg-primary/70" /> : null}
-                </span>
-              ))}
-            </div>
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                delay: 0.34,
+                duration: 0.6,
+                ease: [0.25, 0.46, 0.45, 0.94],
+              }}
+              className="mb-7 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-[var(--text-muted)] sm:gap-x-5"
+            >
+              {["Web Platforms", "Mobile Apps", "AI Automation", "Cloud Systems"].map(
+                (item, index) => (
+                  <span key={item} className="inline-flex items-center gap-4">
+                    <span className="font-medium tracking-wide">{item}</span>
+                    {index < 3 ? (
+                      <span className="h-1 w-1 rounded-full bg-primary/70" />
+                    ) : null}
+                  </span>
+                )
+              )}
+            </motion.div>
 
-            {/* Social Links */}
-            <div className="inline-flex items-center gap-4 px-5 py-3 rounded-2xl bg-white/[0.04] border border-white/[0.08] shadow-[0_0_30px_rgba(77,208,225,0.06)]">
-              <span className="text-xs text-primary font-bold tracking-widest uppercase">Follow us</span>
-              <div className="w-px h-5 bg-gradient-to-b from-transparent via-primary/30 to-transparent" />
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                delay: 0.4,
+                duration: 0.6,
+                ease: [0.25, 0.46, 0.45, 0.94],
+              }}
+              className="inline-flex items-center gap-4 rounded-2xl border border-[var(--border)] bg-white/55 px-5 py-3 shadow-[0_0_30px_rgba(77,208,225,0.04)] backdrop-blur-xl dark:bg-white/[0.04] dark:shadow-[0_0_30px_rgba(77,208,225,0.06)]"
+            >
+              <span className="text-xs font-bold uppercase tracking-widest text-primary">
+                Follow us
+              </span>
+              <div className="h-5 w-px bg-gradient-to-b from-transparent via-primary/30 to-transparent" />
+
               {[
-                { Icon: FiGithub, href: "#", label: "Star us on GitHub", bg: "bg-white/10 text-white shadow-[0_0_12px_rgba(255,255,255,0.15)]", hoverBg: "hover:bg-white/20 hover:shadow-[0_0_24px_rgba(255,255,255,0.25)]" },
-                { Icon: FiLinkedin, href: "#", label: "Connect on LinkedIn", bg: "bg-[#0a66c2]/20 text-[#5b9bd5] shadow-[0_0_12px_rgba(10,102,194,0.2)]", hoverBg: "hover:bg-[#0a66c2]/30 hover:shadow-[0_0_24px_rgba(10,102,194,0.4)]" },
-                { Icon: FiInstagram, href: "#", label: "Follow on Instagram", bg: "bg-[#e1306c]/15 text-[#e1306c] shadow-[0_0_12px_rgba(225,48,108,0.2)]", hoverBg: "hover:bg-[#e1306c]/25 hover:shadow-[0_0_24px_rgba(225,48,108,0.4)]" },
+                {
+                  Icon: FiGithub,
+                  href: "#",
+                  label: "Star us on GitHub",
+                  bg: "bg-slate-900/8 text-[var(--text)] shadow-[0_0_12px_rgba(15,23,42,0.08)] dark:bg-white/10 dark:text-white dark:shadow-[0_0_12px_rgba(255,255,255,0.15)]",
+                  hoverBg:
+                    "hover:bg-slate-900/12 hover:shadow-[0_0_24px_rgba(15,23,42,0.14)] dark:hover:bg-white/20 dark:hover:shadow-[0_0_24px_rgba(255,255,255,0.25)]",
+                },
+                {
+                  Icon: FiLinkedin,
+                  href: "#",
+                  label: "Connect on LinkedIn",
+                  bg: "bg-[#0a66c2]/20 text-[#0a66c2] shadow-[0_0_12px_rgba(10,102,194,0.2)] dark:text-[#5b9bd5]",
+                  hoverBg:
+                    "hover:bg-[#0a66c2]/30 hover:shadow-[0_0_24px_rgba(10,102,194,0.4)]",
+                },
+                {
+                  Icon: FiInstagram,
+                  href: "#",
+                  label: "Follow on Instagram",
+                  bg: "bg-[#e1306c]/15 text-[#e1306c] shadow-[0_0_12px_rgba(225,48,108,0.2)]",
+                  hoverBg:
+                    "hover:bg-[#e1306c]/25 hover:shadow-[0_0_24px_rgba(225,48,108,0.4)]",
+                },
               ].map(({ Icon, href, label, bg, hoverBg }, i) => (
                 <a
                   key={i}
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`group relative w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-300 hover:-translate-y-1 hover:scale-110 ${bg} ${hoverBg}`}
+                  className={`group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-300 hover:-translate-y-1 hover:scale-110 ${bg} ${hoverBg}`}
                 >
-                  <Icon size={19} className="transition-transform duration-300 group-hover:scale-110" />
-                  {/* Tooltip */}
-                  <span className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1.5 rounded-lg bg-white text-dark-900 text-xs font-semibold whitespace-nowrap opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 shadow-lg">
+                  <Icon
+                    size={19}
+                    className="transition-transform duration-300 group-hover:scale-110"
+                  />
+                  <span className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 scale-90 whitespace-nowrap rounded-lg bg-white px-3 py-1.5 text-xs font-semibold text-dark-900 opacity-0 shadow-lg transition-all duration-200 group-hover:scale-100 group-hover:opacity-100 dark:bg-dark-800 dark:text-light-100">
                     {label}
-                    <span className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-white" />
+                    <span className="absolute left-1/2 top-full -translate-x-1/2 border-4 border-transparent border-t-white dark:border-t-dark-800" />
                   </span>
                 </a>
               ))}
-            </div>
+            </motion.div>
           </motion.div>
 
-          {/* Right - Stacked Flip Card Visual */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="hidden lg:block relative -mt-20 xl:-mt-32"
+            transition={{
+              duration: 0.6,
+              delay: 0.2,
+              ease: [0.25, 0.46, 0.45, 0.94],
+            }}
+            className="relative -mt-20 hidden lg:block xl:-mt-32"
           >
             <div
-              className="relative w-full max-w-md xl:max-w-lg mx-auto cursor-pointer"
-              style={{ perspective: "1200px", height: "380px" }}
+              className="relative mx-auto w-full max-w-md cursor-pointer xl:max-w-lg"
+              style={{ perspective: "1400px", height: "420px" }}
               onClick={nextCard}
             >
-              {/* Render cards in reverse so the active one is on top */}
               {flipCards.map((c, i) => {
                 const offset = (i - activeIndex + flipCards.length) % flipCards.length;
-                // offset 0 = active (front), 1 = just behind, 2+ = further back
-                const isActive = offset === 0;
-                const zIndex = flipCards.length - offset;
-                const scale = 1 - offset * 0.05;
-                const translateY = offset * 14;
-                const rotateZ = offset * 2;
-                const opacity = offset <= 2 ? 1 - offset * 0.2 : 0;
+                const isFront = offset === 0;
+                const zIndex = 30 - offset;
+                const scale = 1 - offset * 0.055;
+                const translateY = offset * 18;
+                const translateX = offset * 8;
+                const rotateZ = offset * 1.8;
+                const opacity = offset <= 3 ? 1 - offset * 0.18 : 0;
 
                 return (
                   <motion.div
@@ -198,43 +289,49 @@ export default function Hero() {
                     animate={{
                       scale,
                       y: translateY,
+                      x: translateX,
                       rotateZ,
-                      rotateY: isActive ? 0 : 0,
                       opacity,
                       zIndex,
                     }}
                     transition={{
                       duration: 0.7,
-                      ease: [0.4, 0, 0.2, 1],
+                      ease: [0.25, 0.46, 0.45, 0.94],
                     }}
-                    className="absolute inset-5 xl:inset-6 rounded-3xl glass-card overflow-hidden border border-white/[0.06]"
+                    className="absolute inset-3 overflow-hidden rounded-[2rem] border border-white/15 bg-white/8 shadow-[0_24px_60px_rgba(15,23,42,0.18)] backdrop-blur-2xl dark:border-white/10 dark:bg-white/[0.04] dark:shadow-[0_24px_60px_rgba(0,0,0,0.28)]"
                     style={{
                       transformOrigin: "center bottom",
                       backfaceVisibility: "hidden",
                     }}
                   >
-                    {/* Full-bleed background image */}
                     <Image
                       src={c.image}
                       alt={c.title}
                       fill
                       className="object-cover"
                     />
-                    {/* Dark overlay for readability */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
 
-                    {/* Content overlaid at bottom */}
-                    <div className="relative h-full flex flex-col items-center justify-end gap-3 p-6 pb-8">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/78 via-black/38 to-black/14" />
+
+                    {isFront && (
+                      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.18),transparent_28%),radial-gradient(circle_at_bottom_right,rgba(56,189,248,0.12),transparent_30%)]" />
+                    )}
+
+                    <div className="relative flex h-full flex-col items-center justify-end gap-3 p-7 pb-9">
                       <div className="text-center">
-                        <p className="text-2xl font-bold text-white drop-shadow-lg">{c.title}</p>
-                        <p className="text-light-200 text-sm mt-1 drop-shadow">{c.subtitle}</p>
+                        <p className="text-2xl font-bold text-white drop-shadow-lg xl:text-[1.75rem]">
+                          {c.title}
+                        </p>
+                        <p className="mt-1 text-sm text-white/80 drop-shadow">
+                          {c.subtitle}
+                        </p>
                       </div>
 
-                      <div className="flex flex-wrap gap-2 justify-center px-2">
+                      <div className="flex flex-wrap justify-center gap-2 px-2">
                         {c.badges.map((badge) => (
                           <span
                             key={badge}
-                            className="px-3 py-1 text-xs rounded-full bg-white/10 text-white/90 border border-white/20 backdrop-blur-sm"
+                            className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs text-white/90 backdrop-blur-sm"
                           >
                             {badge}
                           </span>
@@ -245,8 +342,7 @@ export default function Hero() {
                 );
               })}
 
-              {/* Card indicator dots */}
-              <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+              <div className="absolute -bottom-10 left-1/2 z-10 flex -translate-x-1/2 gap-2">
                 {flipCards.map((_, i) => (
                   <button
                     key={i}
@@ -254,41 +350,45 @@ export default function Hero() {
                       e.stopPropagation();
                       setActiveIndex(i);
                     }}
-                    className={`w-2 h-2 rounded-full transition-all ${
+                    className={`h-2.5 rounded-full transition-all ${
                       i === activeIndex
-                        ? "bg-primary w-6"
-                        : "bg-light-300/30 hover:bg-light-300/50"
+                        ? "w-7 bg-primary shadow-[0_0_12px_rgba(14,165,233,0.45)] dark:shadow-[0_0_12px_rgba(77,208,225,0.45)]"
+                        : "w-2.5 bg-[var(--text-soft)]/28 hover:bg-[var(--text-soft)]/48"
                     }`}
                   />
                 ))}
               </div>
 
-              {/* Decorative dots */}
-              <div className="absolute -top-4 -right-4 w-24 h-24 grid grid-cols-4 gap-2 opacity-30">
+              <div className="absolute -right-6 -top-6 grid h-24 w-24 grid-cols-4 gap-2 opacity-35">
                 {Array.from({ length: 16 }).map((_, i) => (
-                  <div key={i} className="w-1.5 h-1.5 rounded-full bg-primary" />
+                  <div key={i} className="h-1.5 w-1.5 rounded-full bg-primary" />
                 ))}
               </div>
             </div>
           </motion.div>
         </div>
 
-        {/* Stats Bar */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-6"
+          transition={{
+            duration: 0.6,
+            delay: 0.5,
+            ease: [0.25, 0.46, 0.45, 0.94],
+          }}
+          className="mt-14 grid grid-cols-2 gap-6 md:grid-cols-4"
         >
           {stats.map((stat) => (
             <div
               key={stat.label}
-              className="rounded-2xl border border-white/[0.08] bg-[linear-gradient(180deg,rgba(255,255,255,0.07),rgba(255,255,255,0.02))] p-6 text-center shadow-[0_12px_36px_rgba(0,0,0,0.18)] backdrop-blur-xl"
+              className="premium-card cursor-glow depth-card rounded-2xl border border-[var(--border)] bg-[linear-gradient(180deg,rgba(255,255,255,0.76),rgba(255,255,255,0.48))] p-6 text-center shadow-[0_12px_36px_rgba(15,23,42,0.08)] backdrop-blur-xl dark:bg-[linear-gradient(180deg,rgba(255,255,255,0.07),rgba(255,255,255,0.02))] dark:shadow-[0_12px_36px_rgba(0,0,0,0.18)]"
             >
-              <p className="text-3xl md:text-4xl font-bold gradient-text">
+              <p className="gradient-text text-3xl font-bold md:text-4xl">
                 {stat.value}
               </p>
-              <p className="mt-1 text-sm font-medium text-light-200">{stat.label}</p>
+              <p className="mt-1 text-sm font-medium text-[var(--text-muted)]">
+                {stat.label}
+              </p>
             </div>
           ))}
         </motion.div>

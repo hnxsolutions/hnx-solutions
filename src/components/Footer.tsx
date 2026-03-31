@@ -1,4 +1,5 @@
 "use client";
+
 import Link from "next/link";
 import { FiGithub, FiLinkedin, FiInstagram } from "react-icons/fi";
 
@@ -32,41 +33,47 @@ const socials = [
 
 export default function Footer() {
   return (
-    <footer className="relative pb-2 pt-8 w-full bg-dark-900 border-t border-white/[0.08]">
-      <div className="max-w-7xl mx-auto px-8 lg:px-12 pb-0 pt-14">
-        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-12">
+    <footer className="relative w-full border-t border-[var(--border)] bg-[var(--bg)] pb-2 pt-8 text-[var(--text)]">
+      <div className="mx-auto max-w-7xl px-8 pb-0 pt-14 lg:px-12">
+        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-5">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <Link href="/" className="flex items-center gap-3 mb-5">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center font-bold text-dark-900 text-lg shadow-[0_0_20px_rgba(77,208,225,0.2)]">
+            <Link href="/" className="mb-5 flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-accent text-lg font-bold text-dark-900 shadow-[0_0_20px_rgba(77,208,225,0.2)]">
                 H
               </div>
-              <span className="text-xl font-bold">
+              <span className="text-xl font-bold text-[var(--text)]">
                 HNX<span className="text-primary"> Technologies</span>
               </span>
             </Link>
-            <p className="text-sm text-light-300 leading-relaxed max-w-sm mb-6">
+
+            <p className="mb-6 max-w-sm text-sm leading-relaxed text-[var(--text-soft)]">
               Crafting next-generation web platforms, mobile apps, and
               AI-powered systems that drive real business results. Based in
-              Mohali, Punjab, serving clients globally.<br />
-              We blend creativity with technology to deliver scalable, secure, and innovative solutions.<br />
-              Partner with us for digital transformation, automation, and growth in a rapidly evolving world.
+              Mohali, Punjab, serving clients globally.
+              <br />
+              We blend creativity with technology to deliver scalable, secure,
+              and innovative solutions.
+              <br />
+              Partner with us for digital transformation, automation, and growth
+              in a rapidly evolving world.
             </p>
           </div>
 
           {/* Links */}
           {Object.entries(footerLinks).map(([title, links]) => (
             <div key={title}>
-              <h4 className="text-sm font-semibold uppercase tracking-wider text-light-100 mb-5 flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_8px_rgba(77,208,225,0.5)]" />
+              <h4 className="mb-5 flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-[var(--text)]">
+                <span className="h-1.5 w-1.5 rounded-full bg-primary shadow-[0_0_8px_rgba(77,208,225,0.5)]" />
                 {title}
               </h4>
+
               <ul className="space-y-3">
                 {links.map((link) => (
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="text-sm text-light-300 hover:text-primary hover:translate-x-1 transition-all duration-200 inline-block"
+                      className="inline-block text-sm text-[var(--text-soft)] transition-all duration-200 hover:translate-x-1 hover:text-primary"
                     >
                       {link.name}
                     </Link>
@@ -78,21 +85,28 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-white/[0.06] flex flex-col items-center gap-4">
-          <div className="flex justify-center mb-2 gap-4">
+        <div className="mt-12 flex flex-col items-center gap-4 border-t border-[var(--border)] pt-8">
+          <div className="mb-2 flex justify-center gap-4">
             {socials.map((s) => (
               <a
                 key={s.label}
                 href={s.href}
                 aria-label={s.label}
-                className="group relative w-10 h-10 rounded-xl flex items-center justify-center bg-white/5 text-white transition-all duration-300 hover:-translate-y-1 hover:scale-110"
-                style={{ boxShadow: '0 0 12px 1px rgba(255,255,255,0.25)' }}
+                className="group relative flex h-10 w-10 items-center justify-center rounded-xl border border-[var(--border)] bg-white/50 text-[var(--text)] transition-all duration-300 hover:-translate-y-1 hover:scale-110 hover:text-primary dark:bg-white/5"
+                style={{
+                  boxShadow:
+                    "0 0 12px 1px rgba(255,255,255,0.12)",
+                }}
               >
-                <s.icon size={20} className="transition-transform duration-300 group-hover:scale-110 text-white" />
+                <s.icon
+                  size={20}
+                  className="transition-transform duration-300 group-hover:scale-110"
+                />
               </a>
             ))}
           </div>
-          <p className="text-sm text-light-300 text-center">
+
+          <p className="text-center text-sm text-[var(--text-soft)]">
             © 2026 HNX Technologies. All rights reserved.
           </p>
         </div>

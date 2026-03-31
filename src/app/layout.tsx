@@ -1,58 +1,34 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { ThemeProvider } from "next-themes";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import ChatWidget from "@/components/chat/ChatWidget"; // ✅ ADD THIS
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import MouseGlowProvider from "@/components/MouseGlowProvider";
+import MouseSpotlight from "@/components/MouseSpotlight";
 
 export const metadata: Metadata = {
-  title: "HNX Technologies | Next-Gen Software & Mobile App Development",
-  description:
-    "HNX Technologies delivers cutting-edge web applications, mobile apps, AI automation, and cloud solutions for businesses worldwide.",
-  metadataBase: new URL("https://hnx.services"),
-  openGraph: {
-    title: "HNX Technologies | Next-Gen Software & Mobile App Development",
-    description:
-      "HNX Technologies delivers cutting-edge web applications, mobile apps, AI automation, and cloud solutions for businesses worldwide.",
-    url: "https://hnx.services",
-    siteName: "HNX Technologies",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "HNX Technologies | Next-Gen Software & Mobile App Development",
-    description:
-      "HNX Technologies delivers cutting-edge web applications, mobile apps, AI automation, and cloud solutions for businesses worldwide.",
-  },
+  title: "HNX Technologies",
+  description: "IT Services & Digital Solutions",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-    >
-      <body className="min-h-screen bg-dark-900 text-light-100">
-        <Navbar />
-        {children}
-        <Footer />
+    <html lang="en" suppressHydrationWarning>
+      <body>
+        <ThemeProvider attribute="class" defaultTheme="dark">
+          <MouseGlowProvider />
+          <MouseSpotlight />
 
-        {/* ✅ AI Chat Widget */}
-        <ChatWidget />
+          <div className="page-transition">
+            <Navbar />
+            {children}
+            <Footer />
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );
