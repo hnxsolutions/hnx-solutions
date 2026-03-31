@@ -33,21 +33,21 @@ const socials = [
 
 export default function Footer() {
   return (
-    <footer className="relative w-full border-t border-[var(--border)] bg-[var(--bg)] pb-2 pt-8 text-[var(--text)]">
+    <footer className="relative w-full border-t border-(--border) bg-(--bg) pb-2 pt-8 text-(--text)">
       <div className="mx-auto max-w-7xl px-8 pb-0 pt-14 lg:px-12">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-5">
           {/* Brand */}
           <div className="lg:col-span-2">
             <Link href="/" className="mb-5 flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-accent text-lg font-bold text-dark-900 shadow-[0_0_20px_rgba(77,208,225,0.2)]">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-linear-to-br from-primary to-accent text-lg font-bold text-dark-900 shadow-[0_0_20px_rgba(77,208,225,0.2)]">
                 H
               </div>
-              <span className="text-xl font-bold text-[var(--text)]">
+              <span className="text-xl font-bold text-(--text)">
                 HNX<span className="text-primary"> Technologies</span>
               </span>
             </Link>
 
-            <p className="mb-6 max-w-sm text-sm leading-relaxed text-[var(--text-soft)]">
+            <p className="mb-6 max-w-sm text-sm leading-relaxed text-(--text-soft)">
               Crafting next-generation web platforms, mobile apps, and
               AI-powered systems that drive real business results. Based in
               Mohali, Punjab, serving clients globally.
@@ -63,7 +63,7 @@ export default function Footer() {
           {/* Links */}
           {Object.entries(footerLinks).map(([title, links]) => (
             <div key={title}>
-              <h4 className="mb-5 flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-[var(--text)]">
+              <h4 className="mb-5 flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-(--text)">
                 <span className="h-1.5 w-1.5 rounded-full bg-primary shadow-[0_0_8px_rgba(77,208,225,0.5)]" />
                 {title}
               </h4>
@@ -73,7 +73,7 @@ export default function Footer() {
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="inline-block text-sm text-[var(--text-soft)] transition-all duration-200 hover:translate-x-1 hover:text-primary"
+                      className="inline-block text-sm text-(--text-soft) transition-all duration-200 hover:translate-x-1 hover:text-primary"
                     >
                       {link.name}
                     </Link>
@@ -85,17 +85,16 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 flex flex-col items-center gap-4 border-t border-[var(--border)] pt-8">
+        <div className="mt-12 flex flex-col items-center gap-4 border-t border-(--border) pt-8">
           <div className="mb-2 flex justify-center gap-4">
             {socials.map((s) => (
               <a
                 key={s.label}
                 href={s.href}
                 aria-label={s.label}
-                className="group relative flex h-10 w-10 items-center justify-center rounded-xl border border-[var(--border)] bg-white/50 text-[var(--text)] transition-all duration-300 hover:-translate-y-1 hover:scale-110 hover:text-primary dark:bg-white/5"
+                className="group relative flex h-10 w-10 items-center justify-center rounded-xl border border-(--border) bg-white/50 text-(--text) transition-all duration-300 hover:-translate-y-1 hover:scale-110 hover:text-primary dark:bg-white/5"
                 style={{
-                  boxShadow:
-                    "0 0 12px 1px rgba(255,255,255,0.12)",
+                  boxShadow: "0 0 12px 1px rgba(255,255,255,0.12)",
                 }}
               >
                 <s.icon
@@ -106,7 +105,7 @@ export default function Footer() {
             ))}
           </div>
 
-          <p className="text-center text-sm text-[var(--text-soft)]">
+          <p className="text-center text-sm text-(--text-soft)">
             © 2026 HNX Technologies. All rights reserved.
           </p>
         </div>

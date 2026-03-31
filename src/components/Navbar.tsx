@@ -49,28 +49,32 @@ export default function Navbar() {
   return (
     <nav className="fixed inset-x-0 top-0 z-50 px-4 sm:px-6">
       <div
-        className={`mx-auto max-w-7xl rounded-full border border-[var(--border)] bg-white/70 shadow-black/10 backdrop-blur-xl dark:bg-dark-800/80 ${
+        className={`mx-auto max-w-7xl rounded-full border border-(--border) bg-white/70 shadow-black/10 backdrop-blur-xl dark:bg-dark-800/80 ${
           scrolled ? "shadow-xl" : "shadow-lg"
         }`}
       >
         <div className="px-4 sm:px-6 lg:px-8">
           <div className="flex h-18 items-center justify-between sm:h-20">
-            <Link href="/" className="group flex min-w-0 items-center gap-2 sm:gap-3">
-              <div className="relative h-11 w-11 flex-shrink-0 overflow-hidden rounded-xl border border-[var(--border)] bg-white/5 shadow-md transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-primary/20 sm:h-12 sm:w-12 md:h-14 md:w-14">
+            <Link
+              href="/"
+              className="group flex min-w-0 items-center gap-2 sm:gap-3"
+            >
+              <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-xl border border-(--border) bg-white/5 shadow-md transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-primary/20 sm:h-12 sm:w-12 md:h-14 md:w-14">
                 <Image
                   src="/hnxlogo.png"
                   alt="HNX Technologies Logo"
                   fill
                   priority
+                  sizes="(max-width: 640px) 44px, (max-width: 768px) 48px, 56px"
                   className="object-contain p-1"
                 />
               </div>
 
               <div className="min-w-0 leading-tight">
-                <span className="block truncate text-base font-bold tracking-tight text-[var(--text)] sm:text-lg md:text-xl">
+                <span className="block truncate text-base font-bold tracking-tight text-(--text) sm:text-lg md:text-xl">
                   HNX<span className="text-primary"> Technologies</span>
                 </span>
-                <span className="hidden text-xs text-[var(--text-soft)] sm:block">
+                <span className="hidden text-xs text-(--text-soft) sm:block">
                   IT Services & Digital Solutions
                 </span>
               </div>
@@ -84,7 +88,7 @@ export default function Navbar() {
                   className={`rounded-lg px-4 py-2 text-sm transition-colors hover:bg-white/5 ${
                     pathname === link.href
                       ? "font-medium text-primary"
-                      : "text-[var(--text-soft)] hover:text-primary"
+                      : "text-(--text-soft) hover:text-primary"
                   }`}
                 >
                   {link.name}
@@ -100,7 +104,7 @@ export default function Navbar() {
                   className={`inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm transition-colors hover:bg-white/5 ${
                     isServicesActive
                       ? "font-medium text-primary"
-                      : "text-[var(--text-soft)] hover:text-primary"
+                      : "text-(--text-soft) hover:text-primary"
                   }`}
                 >
                   Services
@@ -121,25 +125,25 @@ export default function Navbar() {
                         duration: 0.25,
                         ease: [0.25, 0.46, 0.45, 0.94],
                       }}
-                      className="absolute left-1/2 top-full mt-4 w-[320px] -translate-x-1/2 overflow-hidden rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-3 shadow-2xl shadow-black/15 backdrop-blur-2xl"
+                      className="absolute left-1/2 top-full mt-4 w-[320px] -translate-x-1/2 overflow-hidden rounded-3xl border border-(--border) bg-(--surface) p-3 shadow-2xl shadow-black/15 backdrop-blur-2xl"
                     >
                       <div className="mb-2 px-3 pt-2">
-                        <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--text-soft)]">
+                        <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-(--text-soft)">
                           Our Services
                         </p>
                       </div>
 
-                      <div className="max-h-[420px] overflow-y-auto pr-1">
+                      <div className="max-h-105 overflow-y-auto pr-1">
                         <Link
                           href="/services"
                           className={`mb-1 block rounded-2xl px-4 py-3 transition-all duration-200 ${
                             pathname === "/services"
                               ? "bg-white/8 text-primary"
-                              : "text-[var(--text-muted)] hover:bg-white/5 hover:text-primary"
+                              : "text-(--text-muted) hover:bg-white/5 hover:text-primary"
                           }`}
                         >
                           <p className="text-sm font-semibold">All Services</p>
-                          <p className="mt-1 text-xs leading-5 text-[var(--text-soft)]">
+                          <p className="mt-1 text-xs leading-5 text-(--text-soft)">
                             Explore all service categories and offerings.
                           </p>
                         </Link>
@@ -154,11 +158,13 @@ export default function Navbar() {
                               className={`block rounded-2xl px-4 py-3 transition-all duration-200 ${
                                 active
                                   ? "bg-white/8 text-primary"
-                                  : "text-[var(--text-muted)] hover:bg-white/5 hover:text-primary"
+                                  : "text-(--text-muted) hover:bg-white/5 hover:text-primary"
                               }`}
                             >
-                              <p className="text-sm font-semibold">{service.title}</p>
-                              <p className="mt-1 text-xs leading-5 text-[var(--text-soft)]">
+                              <p className="text-sm font-semibold">
+                                {service.title}
+                              </p>
+                              <p className="mt-1 text-xs leading-5 text-(--text-soft)">
                                 {service.shortDescription}
                               </p>
                             </Link>
@@ -177,7 +183,7 @@ export default function Navbar() {
                   className={`rounded-lg px-4 py-2 text-sm transition-colors hover:bg-white/5 ${
                     pathname === link.href
                       ? "font-medium text-primary"
-                      : "text-[var(--text-soft)] hover:text-primary"
+                      : "text-(--text-soft) hover:text-primary"
                   }`}
                 >
                   {link.name}
@@ -190,7 +196,7 @@ export default function Navbar() {
                 <button
                   onClick={() => setTheme(isDark ? "light" : "dark")}
                   aria-label="Toggle theme"
-                  className="relative inline-flex h-11 w-11 items-center justify-center rounded-xl border border-[var(--border)] bg-white/5 backdrop-blur-sm transition-all duration-300 hover:border-cyan-300/40 hover:bg-white/10"
+                  className="relative inline-flex h-11 w-11 items-center justify-center rounded-xl border border-(--border) bg-white/5 backdrop-blur-sm transition-all duration-300 hover:border-cyan-300/40 hover:bg-white/10"
                 >
                   <span className="absolute inset-0 rounded-xl bg-[radial-gradient(circle,rgba(56,189,248,0.12),transparent_60%)] opacity-0 transition hover:opacity-100" />
                   {isDark ? (
@@ -203,7 +209,7 @@ export default function Navbar() {
 
               <Link
                 href="/contact"
-                className="btn-shine inline-flex rounded-lg bg-gradient-to-r from-primary to-accent px-6 py-2.5 text-sm font-semibold text-dark-900 transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/25"
+                className="btn-shine inline-flex rounded-lg bg-linear-to-r from-primary to-accent px-6 py-2.5 text-sm font-semibold text-dark-900 transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/25"
               >
                 Get a Quote
               </Link>
@@ -214,7 +220,7 @@ export default function Navbar() {
                 <button
                   onClick={() => setTheme(isDark ? "light" : "dark")}
                   aria-label="Toggle theme"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-[var(--border)] bg-white/5 text-[var(--text-muted)] transition-all duration-300 hover:border-cyan-300/40 hover:bg-white/10"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-(--border) bg-white/5 text-(--text-muted) transition-all duration-300 hover:border-cyan-300/40 hover:bg-white/10"
                 >
                   {isDark ? (
                     <HiSun className="text-xl text-yellow-300" />
@@ -226,7 +232,7 @@ export default function Navbar() {
 
               <button
                 onClick={() => setMobileOpen(!mobileOpen)}
-                className="p-2 text-[var(--text-muted)] transition-colors hover:text-primary"
+                className="p-2 text-(--text-muted) transition-colors hover:text-primary"
                 aria-label="Toggle menu"
               >
                 {mobileOpen ? <HiX size={28} /> : <HiMenuAlt3 size={28} />}
@@ -246,7 +252,7 @@ export default function Navbar() {
               duration: 0.25,
               ease: [0.25, 0.46, 0.45, 0.94],
             }}
-            className="mx-auto mt-3 max-w-7xl overflow-hidden rounded-3xl border border-[var(--border)] bg-[var(--surface)] backdrop-blur-xl lg:hidden"
+            className="mx-auto mt-3 max-w-7xl overflow-hidden rounded-3xl border border-(--border) bg-(--surface) backdrop-blur-xl lg:hidden"
           >
             <div className="space-y-1 px-6 py-6">
               <Link
@@ -255,7 +261,7 @@ export default function Navbar() {
                 className={`block rounded-lg px-4 py-3 transition-colors ${
                   pathname === "/"
                     ? "bg-white/5 text-primary"
-                    : "text-[var(--text-muted)] hover:bg-white/5 hover:text-primary"
+                    : "text-(--text-muted) hover:bg-white/5 hover:text-primary"
                 }`}
               >
                 Home
@@ -266,7 +272,7 @@ export default function Navbar() {
                 className={`flex w-full items-center justify-between rounded-lg px-4 py-3 transition-colors ${
                   isServicesActive
                     ? "bg-white/5 text-primary"
-                    : "text-[var(--text-muted)] hover:bg-white/5 hover:text-primary"
+                    : "text-(--text-muted) hover:bg-white/5 hover:text-primary"
                 }`}
               >
                 <span>Services</span>
@@ -283,7 +289,7 @@ export default function Navbar() {
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: "auto" }}
                     exit={{ opacity: 0, height: 0 }}
-                    className="ml-2 mt-1 overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--surface-2)]"
+                    className="ml-2 mt-1 overflow-hidden rounded-2xl border border-(--border) bg-(--surface-2)"
                   >
                     <div className="p-2">
                       <Link
@@ -295,7 +301,7 @@ export default function Navbar() {
                         className={`block rounded-xl px-3 py-2.5 text-sm transition-colors ${
                           pathname === "/services"
                             ? "bg-white/5 text-primary"
-                            : "text-[var(--text-muted)] hover:bg-white/5 hover:text-primary"
+                            : "text-(--text-muted) hover:bg-white/5 hover:text-primary"
                         }`}
                       >
                         All Services
@@ -312,7 +318,7 @@ export default function Navbar() {
                           className={`block rounded-xl px-3 py-2.5 text-sm transition-colors ${
                             pathname === `/services/${service.id}`
                               ? "bg-white/5 text-primary"
-                              : "text-[var(--text-muted)] hover:bg-white/5 hover:text-primary"
+                              : "text-(--text-muted) hover:bg-white/5 hover:text-primary"
                           }`}
                         >
                           {service.title}
@@ -331,7 +337,7 @@ export default function Navbar() {
                   className={`block rounded-lg px-4 py-3 transition-colors ${
                     pathname === link.href
                       ? "bg-white/5 text-primary"
-                      : "text-[var(--text-muted)] hover:bg-white/5 hover:text-primary"
+                      : "text-(--text-muted) hover:bg-white/5 hover:text-primary"
                   }`}
                 >
                   {link.name}
@@ -341,7 +347,7 @@ export default function Navbar() {
               <Link
                 href="/contact"
                 onClick={() => setMobileOpen(false)}
-                className="btn-shine mt-4 block rounded-lg bg-gradient-to-r from-primary to-accent px-6 py-3 text-center font-semibold text-dark-900"
+                className="btn-shine mt-4 block rounded-lg bg-linear-to-r from-primary to-accent px-6 py-3 text-center font-semibold text-dark-900"
               >
                 Get a Quote
               </Link>

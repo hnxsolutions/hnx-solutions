@@ -47,14 +47,14 @@ function PortfolioCard({
                   sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                   className="object-cover transition-transform duration-500 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent dark:from-dark-900/65" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/55 to-transparent dark:from-dark-900/65" />
               </>
             ) : project.liveUrl ? (
               <div className="absolute inset-0 overflow-hidden">
                 <iframe
                   src={project.liveUrl}
                   title={`Preview of ${project.title}`}
-                  className="h-[720px] w-[1280px] origin-top-left pointer-events-none"
+                  className="pointer-events-none h-180 w-7xl origin-top-left"
                   style={{
                     transform: "scale(0.25)",
                     transformOrigin: "top left",
@@ -65,7 +65,7 @@ function PortfolioCard({
                 />
               </div>
             ) : (
-              <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-primary/20 to-accent/20">
+              <div className="flex h-full w-full items-center justify-center bg-linear-to-br from-primary/20 to-accent/20">
                 <span className="text-6xl font-black text-white/20 dark:text-white/15">
                   {project.title[0]}
                 </span>
@@ -86,7 +86,7 @@ function PortfolioCard({
               {project.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-md border border-[var(--border)] bg-white/50 px-2.5 py-1 text-xs dark:bg-white/5"
+                  className="rounded-md border border-(--border) bg-white/50 px-2.5 py-1 text-xs dark:bg-white/5"
                 >
                   {tag}
                 </span>
@@ -101,7 +101,7 @@ function PortfolioCard({
 
 export default function HomePortfolio() {
   return (
-    <section className="relative grid-bg bg-[var(--bg)] py-16 text-[var(--text)]">
+    <section className="relative grid-bg bg-(--bg) py-16 text-(--text)">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -118,7 +118,7 @@ export default function HomePortfolio() {
             Featured <span className="gradient-text">Projects</span>
           </h2>
 
-          <p className="mx-auto max-w-2xl text-lg text-[var(--text-soft)]">
+          <p className="mx-auto max-w-2xl text-lg text-(--text-soft)">
             Real-world products crafted with precision and scale.
           </p>
         </motion.div>
@@ -132,7 +132,7 @@ export default function HomePortfolio() {
         <div className="mt-10 text-center">
           <Link
             href="/portfolio"
-            className="btn-shine gradient-border inline-flex items-center gap-2 rounded-xl border border-[var(--border)] bg-white/50 px-8 py-3.5 font-semibold transition-all hover:bg-white/80 dark:bg-white/[0.03]"
+            className="btn-shine gradient-border inline-flex items-center gap-2 rounded-xl border border-(--border) bg-white/50 px-8 py-3.5 font-semibold transition-all hover:bg-white/80 dark:bg-white/3"
           >
             View All Projects
             <HiArrowRight />
