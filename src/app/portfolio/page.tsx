@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
@@ -14,17 +15,21 @@ const portfolioHeroBgImage =
 export default function PortfolioPage() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [expandedProject, setExpandedProject] = useState<string | null>(null);
-  const [previewProject, setPreviewProject] = useState<{ url: string; title: string } | null>(null);
+  const [previewProject, setPreviewProject] = useState<{
+    url: string;
+    title: string;
+  } | null>(null);
 
-  const filtered =
-    activeCategory === "All"
+  const filtered = useMemo(() => {
+    return activeCategory === "All"
       ? portfolioProjects
       : portfolioProjects.filter((p) => p.category === activeCategory);
+  }, [activeCategory]);
 
   return (
-    <main>
-      {/* Page Hero */}
-      <section className="relative min-h-[52vh] pt-34 pb-16 overflow-hidden">
+    <main className="relative overflow-hidden bg-(--bg) text-(--text)">
+      {/* HERO */}
+      <section className="hero-light relative isolate min-h-[88vh] overflow-hidden pt-20 pb-20 sm:pt-28 lg:flex lg:items-center">
         <div className="absolute inset-0 z-0">
           <Image
             src={portfolioHeroBgImage}
@@ -32,71 +37,171 @@ export default function PortfolioPage() {
             fill
             priority
             sizes="100vw"
-            className="object-cover object-[70%_center] md:object-center scale-[1.06] opacity-28 contrast-105 saturate-95"
+            className="object-cover object-[72%_center] scale-[1.08] opacity-80 brightness-[0.52] contrast-110 saturate-[0.9] md:object-center dark:opacity-38 dark:brightness-[0.4] dark:contrast-110 dark:saturate-90"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-dark-900/97 via-dark-900/84 to-dark-900/52" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_22%,rgba(56,189,248,0.18),transparent_33%),radial-gradient(circle_at_84%_78%,rgba(139,92,246,0.13),transparent_28%)]" />
-          <div className="absolute right-0 top-1/2 hidden h-[32rem] w-[36rem] -translate-y-1/2 bg-[radial-gradient(circle,rgba(6,10,18,0.66)_0%,rgba(6,10,18,0.4)_44%,rgba(6,10,18,0)_74%)] blur-2xl lg:block" />
+
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(248,250,252,0.93)_0%,rgba(248,250,252,0.84)_24%,rgba(248,250,252,0.5)_52%,rgba(248,250,252,0.12)_78%,rgba(248,250,252,0.03)_100%)] dark:bg-[linear-gradient(to_right,rgba(24,24,24,0.98)_0%,rgba(24,24,24,0.94)_28%,rgba(24,24,24,0.78)_54%,rgba(24,24,24,0.38)_76%,rgba(24,24,24,0.14)_100%)]" />
+
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_24%,rgba(14,165,233,0.12),transparent_28%),radial-gradient(circle_at_82%_76%,rgba(99,102,241,0.12),transparent_24%)] dark:bg-[radial-gradient(circle_at_16%_24%,rgba(77,208,225,0.16),transparent_30%),radial-gradient(circle_at_84%_74%,rgba(149,117,205,0.14),transparent_26%)]" />
+
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom,rgba(15,23,42,0.12),transparent_45%)] dark:bg-[radial-gradient(circle_at_bottom,rgba(0,0,0,0.38),transparent_48%)]" />
+
+          <div className="absolute left-0 top-1/2 hidden h-[34rem] w-[30rem] -translate-y-1/2 bg-[radial-gradient(circle,rgba(255,255,255,0.35)_0%,rgba(255,255,255,0.14)_46%,rgba(255,255,255,0)_74%)] blur-2xl lg:block dark:hidden" />
+          <div className="absolute right-0 top-1/2 hidden h-[34rem] w-[38rem] -translate-y-1/2 bg-[radial-gradient(circle,rgba(6,10,18,0.68)_0%,rgba(6,10,18,0.42)_44%,rgba(6,10,18,0)_76%)] blur-2xl dark:lg:block" />
         </div>
 
-        <div className="absolute top-20 left-10 z-[1] h-96 w-96 rounded-full bg-primary/3 blur-3xl" />
-        <div className="absolute bottom-20 right-10 z-[1] h-80 w-80 rounded-full bg-accent/4 blur-3xl" />
+        <div className="absolute left-10 top-24 z-1 h-72 w-72 rounded-full bg-primary/6 blur-3xl dark:bg-primary/4" />
+        <div className="absolute bottom-16 right-10 z-1 h-72 w-72 rounded-full bg-accent/6 blur-3xl dark:bg-accent/4" />
+        <div className="absolute left-1/2 top-1/2 z-1 h-[36rem] w-[36rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/4 blur-[120px] dark:bg-primary/2" />
 
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="max-w-3xl"
-          >
-            <span className="inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/10 px-4 py-2 text-xs font-semibold tracking-[0.24em] text-primary uppercase">
-              <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-              Our Work
-            </span>
-            <h1 className="mt-5 text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.08] tracking-tight mb-6">
-              Featured{" "}
-              <span className="gradient-text">Case Studies</span>
-            </h1>
-            <p className="text-light-200 text-base sm:text-lg md:text-xl max-w-2xl leading-relaxed">
-              Real-world solutions we&apos;ve built for clients across industries.
-              Each project designed to deliver measurable impact. Click any project
-              to explore the full case study.
-            </p>
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-8">
+          <div className="grid items-center gap-14 lg:grid-cols-[1.08fr_0.92fr]">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{
+                duration: 0.65,
+                ease: [0.25, 0.46, 0.45, 0.94],
+              }}
+              className="relative"
+            >
+              <div className="absolute -inset-x-4 -inset-y-6 -z-10 rounded-4xl bg-[radial-gradient(circle,rgba(255,255,255,0.86)_0%,rgba(255,255,255,0.48)_52%,rgba(255,255,255,0)_100%)] blur-xl md:hidden dark:bg-[radial-gradient(circle,rgba(6,10,18,0.82)_0%,rgba(6,10,18,0.56)_52%,rgba(6,10,18,0)_100%)]" />
 
-            <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-4">
-              <Link
-                href="#portfolio-grid"
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-primary to-accent px-8 py-4 text-base font-bold text-dark-900 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/25"
+              <motion.div
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.08, duration: 0.55 }}
+                className="mb-7 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-2 text-sm font-medium text-primary backdrop-blur-sm"
               >
-                Explore Projects
-                <HiArrowRight className="text-lg" />
-              </Link>
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center gap-2 rounded-xl border border-light-300/20 px-8 py-4 text-base font-semibold text-light-100 transition-all hover:bg-white/5 hover:border-primary/30"
-              >
-                Get a Quote
-              </Link>
-            </div>
+                <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
+                Our Work
+              </motion.div>
 
-            <div className="mt-7 sm:mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-light-300/80 sm:gap-x-5">
-              {["Web Platforms", "Mobile Apps", "AI Systems", "Cloud Delivery"].map((item, index) => (
-                <span key={item} className="inline-flex items-center gap-4">
-                  <span className="font-medium tracking-wide">{item}</span>
-                  {index < 3 ? <span className="h-1 w-1 rounded-full bg-primary/70" /> : null}
-                </span>
-              ))}
-            </div>
-          </motion.div>
+              <motion.h1
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.14, duration: 0.6 }}
+                className="mb-6 text-5xl font-bold leading-[1.04] tracking-tight md:text-6xl lg:text-7xl"
+              >
+                Featured
+                <br />
+                <span className="gradient-text">Case Studies</span>
+              </motion.h1>
+
+              <motion.p
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.22, duration: 0.6 }}
+                className="max-w-2xl text-lg leading-relaxed text-(--text-muted) md:text-xl"
+              >
+                Real digital products we’ve designed and engineered across web,
+                mobile, AI, healthcare, and commerce. Each project is built to
+                create measurable business impact.
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.28, duration: 0.6 }}
+                className="mt-9 flex flex-col gap-4 sm:flex-row"
+              >
+                <Link
+                  href="#portfolio-grid"
+                  className="btn-shine inline-flex items-center justify-center gap-2 rounded-xl bg-linear-to-r from-primary to-accent px-8 py-4 text-base font-bold text-dark-900 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/25"
+                >
+                  Explore Projects
+                  <HiArrowRight className="text-lg" />
+                </Link>
+
+                <Link
+                  href="/contact"
+                  className="gradient-border inline-flex items-center justify-center gap-2 rounded-xl border border-(--border) bg-white/55 px-8 py-4 text-base font-semibold text-(--text) transition-all hover:border-primary/30 hover:bg-white/80 dark:bg-white/4"
+                >
+                  Start a Project
+                </Link>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.34, duration: 0.6 }}
+                className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-(--text-muted) sm:gap-x-5"
+              >
+                {["Web Platforms", "Mobile Apps", "AI Systems", "Cloud Delivery"].map(
+                  (item, index) => (
+                    <span key={item} className="inline-flex items-center gap-4">
+                      <span className="font-medium tracking-wide">{item}</span>
+                      {index < 3 ? (
+                        <span className="h-1 w-1 rounded-full bg-primary/70" />
+                      ) : null}
+                    </span>
+                  )
+                )}
+              </motion.div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{
+                delay: 0.18,
+                duration: 0.65,
+                ease: [0.25, 0.46, 0.45, 0.94],
+              }}
+              className="relative"
+            >
+              <div className="glass-card depth-card rounded-4xl border border-(--border) p-6 sm:p-8">
+                <div className="grid grid-cols-2 gap-4">
+                  {[
+                    { value: `${portfolioProjects.length}+`, label: "Projects" },
+                    { value: `${portfolioCategories.length - 1}`, label: "Sectors" },
+                    { value: "UI+", label: "Premium Delivery" },
+                    { value: "ROI", label: "Business Focus" },
+                  ].map((stat) => (
+                    <div
+                      key={stat.label}
+                      className="premium-card rounded-2xl border border-(--border) bg-white/55 p-5 text-center dark:bg-white/3"
+                    >
+                      <p className="gradient-text text-3xl font-bold md:text-4xl">
+                        {stat.value}
+                      </p>
+                      <p className="mt-2 text-sm font-medium text-(--text-muted)">
+                        {stat.label}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-6 rounded-[1.75rem] border border-(--border) bg-[linear-gradient(180deg,rgba(255,255,255,0.65),rgba(255,255,255,0.38))] p-6 dark:bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))]">
+                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">
+                    Portfolio Snapshot
+                  </p>
+                  <h3 className="mt-3 text-2xl font-bold">
+                    Strategy, design, engineering, and measurable outcomes.
+                  </h3>
+                  <p className="mt-3 text-sm leading-7 text-(--text-muted)">
+                    From healthcare platforms to AI systems and mobile products,
+                    our work is built to look premium, perform reliably, and solve
+                    practical business challenges.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
-      {/* Filter + Projects */}
-      <section id="portfolio-grid" className="py-24 relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-dark-900 via-dark-800/50 to-dark-900" />
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
-          {/* Filter Tabs */}
-          <div className="flex flex-wrap justify-center gap-3 mb-14">
+      {/* FILTER + PROJECTS */}
+      <section id="portfolio-grid" className="relative py-24">
+        <div className="absolute inset-0 bg-linear-to-b from-transparent via-black/2 to-transparent dark:via-white/1" />
+
+        <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-14 flex flex-wrap justify-center gap-3"
+          >
             {portfolioCategories.map((cat) => (
               <button
                 key={cat}
@@ -104,18 +209,17 @@ export default function PortfolioPage() {
                   setActiveCategory(cat);
                   setExpandedProject(null);
                 }}
-                className={`px-5 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                className={`rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-300 ${
                   activeCategory === cat
-                    ? "bg-gradient-to-r from-primary to-accent text-dark-900"
-                    : "bg-dark-700/50 text-light-300 hover:text-light-100 hover:bg-dark-600"
+                    ? "bg-linear-to-r from-primary to-accent text-dark-900 shadow-lg shadow-primary/20"
+                    : "border border-(--border) bg-white/55 text-(--text-muted) hover:-translate-y-0.5 hover:border-primary/30 hover:bg-white/80 hover:text-(--text) dark:bg-white/4"
                 }`}
               >
                 {cat}
               </button>
             ))}
-          </div>
+          </motion.div>
 
-          {/* Projects */}
           <motion.div layout className="space-y-8">
             <AnimatePresence mode="popLayout">
               {filtered.map((project) => {
@@ -125,19 +229,25 @@ export default function PortfolioPage() {
                   <motion.div
                     key={project.title}
                     layout
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 22 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.4 }}
-                    className="glass-card rounded-2xl overflow-hidden glow-border cursor-pointer"
+                    exit={{ opacity: 0, y: -18 }}
+                    transition={{ duration: 0.38 }}
+                    className="premium-card glass-card cursor-glow overflow-hidden rounded-4xl"
                     onClick={() =>
                       setExpandedProject(isExpanded ? null : project.title)
                     }
                   >
-                    <div className={`grid lg:grid-cols-3 gap-0 ${isExpanded ? "items-stretch" : ""}`}>
-                      {/* Project Image / Header */}
+                    <div
+                      className={`grid lg:grid-cols-[0.95fr_1.05fr] ${
+                        isExpanded ? "items-stretch" : ""
+                      }`}
+                    >
+                      {/* VISUAL */}
                       <div
-                        className={`${isExpanded ? "h-64 lg:h-full" : "h-48 lg:h-auto"} min-h-[200px] bg-gradient-to-br ${project.color} flex items-center justify-center relative overflow-hidden transition-all duration-500`}
+                        className={`relative overflow-hidden ${
+                          isExpanded ? "h-72 lg:h-full" : "h-60 lg:h-auto"
+                        } min-h-[220px] bg-linear-to-br ${project.color} transition-all duration-500`}
                       >
                         {project.imageUrl ? (
                           <>
@@ -145,222 +255,245 @@ export default function PortfolioPage() {
                               src={project.imageUrl}
                               alt={`${project.title} preview`}
                               fill
-                              sizes="(min-width: 1024px) 33vw, 100vw"
+                              sizes="(min-width: 1024px) 40vw, 100vw"
                               className="object-cover"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-dark-900/70 via-dark-900/15 to-transparent" />
+                            <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
                           </>
                         ) : project.liveUrl ? (
                           <div className="absolute inset-0 overflow-hidden">
                             <iframe
                               src={project.liveUrl}
                               title={`Preview of ${project.title}`}
-                              className="w-[1280px] h-[900px] origin-top-left pointer-events-none"
-                              style={{ transform: "scale(0.35)", transformOrigin: "top left" }}
+                              className="pointer-events-none h-[900px] w-[1280px] origin-top-left"
+                              style={{
+                                transform: "scale(0.35)",
+                                transformOrigin: "top left",
+                              }}
                               tabIndex={-1}
                               loading="lazy"
                               sandbox="allow-scripts allow-same-origin"
                             />
+                            <div className="absolute inset-0 bg-linear-to-t from-black/75 via-black/12 to-transparent" />
                           </div>
                         ) : (
-                          <div className="text-8xl font-black text-white/10">
+                          <div className="flex h-full items-center justify-center text-8xl font-black text-white/10">
                             {project.title[0]}
                           </div>
                         )}
-                        <div className="absolute top-4 left-4">
-                          <span className="px-3 py-1 text-xs rounded-full bg-dark-900/60 text-light-200 backdrop-blur-sm">
+
+                        <div className="absolute left-4 top-4">
+                          <span className="rounded-full border border-white/15 bg-black/45 px-3 py-1 text-xs text-white/85 backdrop-blur-md">
                             {project.category}
                           </span>
                         </div>
+
                         <div className="absolute bottom-4 right-4 flex gap-2">
-                          {project.liveUrl || project.githubUrl ? (
-                            <>
-                              {project.liveUrl ? (
-                              <button
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  setPreviewProject({ url: project.liveUrl!, title: project.title });
-                                }}
-                                className="w-10 h-10 rounded-full bg-dark-900/40 backdrop-blur-sm border border-white/20 flex items-center justify-center text-light-200 hover:text-primary transition-colors"
-                                title="Preview site"
-                              >
-                                <HiEye size={18} />
-                              </button>
-                              ) : null}
-                              {project.liveUrl ? (
-                                <a
-                                  href={project.liveUrl}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  onClick={(e) => e.stopPropagation()}
-                                  className="w-10 h-10 rounded-full bg-dark-900/40 backdrop-blur-sm border border-white/20 flex items-center justify-center text-light-200 hover:text-primary transition-colors"
-                                  title="Visit site"
-                                >
-                                  <HiExternalLink size={18} />
-                                </a>
-                              ) : null}
-                              {project.githubUrl ? (
-                                <a
-                                  href={project.githubUrl}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  onClick={(e) => e.stopPropagation()}
-                                  className="w-10 h-10 rounded-full bg-dark-900/40 backdrop-blur-sm border border-white/20 flex items-center justify-center text-light-200 hover:text-primary transition-colors"
-                                  title="Open GitHub repository"
-                                >
-                                  <FiGithub size={18} />
-                                </a>
-                              ) : null}
-                            </>
-                          ) : (
-                            <>
-                              <button className="w-10 h-10 rounded-full bg-dark-900/40 backdrop-blur-sm border border-white/20 flex items-center justify-center text-light-200 hover:text-primary transition-colors">
-                                <HiEye size={18} />
-                              </button>
-                              <button className="w-10 h-10 rounded-full bg-dark-900/40 backdrop-blur-sm border border-white/20 flex items-center justify-center text-light-200 hover:text-primary transition-colors">
-                                <FiGithub size={18} />
-                              </button>
-                            </>
-                          )}
+                          {project.liveUrl ? (
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setPreviewProject({
+                                  url: project.liveUrl!,
+                                  title: project.title,
+                                });
+                              }}
+                              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-black/40 text-white/85 backdrop-blur-md transition-all hover:-translate-y-0.5 hover:text-primary"
+                              title="Preview site"
+                            >
+                              <HiEye size={18} />
+                            </button>
+                          ) : null}
+
+                          {project.liveUrl ? (
+                            <a
+                              href={project.liveUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              onClick={(e) => e.stopPropagation()}
+                              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-black/40 text-white/85 backdrop-blur-md transition-all hover:-translate-y-0.5 hover:text-primary"
+                              title="Visit site"
+                            >
+                              <HiExternalLink size={18} />
+                            </a>
+                          ) : null}
+
+                          {project.githubUrl ? (
+                            <a
+                              href={project.githubUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              onClick={(e) => e.stopPropagation()}
+                              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-black/40 text-white/85 backdrop-blur-md transition-all hover:-translate-y-0.5 hover:text-primary"
+                              title="Open GitHub repository"
+                            >
+                              <FiGithub size={18} />
+                            </a>
+                          ) : null}
                         </div>
                       </div>
 
-                      {/* Project Info */}
-                      <div className="lg:col-span-2 p-8">
-                        <div className="flex items-center justify-between mb-3">
-                          <h2 className="text-2xl font-bold">{project.title}</h2>
+                      {/* CONTENT */}
+                      <div className="p-7 sm:p-8 lg:p-9">
+                        <div className="flex items-start justify-between gap-4">
+                          <div>
+                            <h2 className="text-2xl font-bold md:text-3xl">
+                              {project.title}
+                            </h2>
+                            <p className="mt-2 text-sm text-primary">
+                              Premium build · {project.category}
+                            </p>
+                          </div>
+
                           {project.liveUrl ? (
-                            <HiExternalLink className="text-light-300" />
+                            <HiExternalLink className="mt-1 shrink-0 text-(--text-soft)" />
                           ) : project.githubUrl ? (
-                            <FiGithub className="text-light-300" />
+                            <FiGithub className="mt-1 shrink-0 text-(--text-soft)" />
                           ) : null}
                         </div>
 
-                        <p className="text-light-300 leading-relaxed mb-6">
-                          {isExpanded ? project.longDescription : project.description}
+                        <p className="mt-5 leading-8 text-(--text-muted)">
+                          {isExpanded
+                            ? project.longDescription ?? project.description
+                            : project.description}
                         </p>
 
-                        <div className="flex flex-wrap gap-2 mb-6">
+                        <div className="mt-6 flex flex-wrap gap-2.5">
                           {project.tags.map((tag) => (
                             <span
                               key={tag}
-                              className="px-3 py-1 text-xs rounded-md bg-white/5 text-light-200 border border-white/10"
+                              className="rounded-xl border border-(--border) bg-white/55 px-3 py-2 text-xs font-medium text-(--text-muted) dark:bg-white/3"
                             >
                               {tag}
                             </span>
                           ))}
                         </div>
 
-                        <div className="flex items-center gap-8 mb-6">
+                        <div className="mt-7 grid grid-cols-3 gap-4 rounded-[1.6rem] border border-(--border) bg-white/45 p-4 dark:bg-white/3">
                           <div>
                             <p className="text-lg font-bold text-primary">
                               {project.stats.users}
                             </p>
-                            <p className="text-xs text-light-300">{project.stats.usersLabel ?? "Users"}</p>
+                            <p className="mt-1 text-xs text-(--text-soft)">
+                              {project.stats.usersLabel ?? "Users"}
+                            </p>
                           </div>
                           <div>
                             <p className="text-lg font-bold text-accent-light">
                               {project.stats.metric}
                             </p>
-                            <p className="text-xs text-light-300">{project.stats.metricLabel ?? "Status"}</p>
+                            <p className="mt-1 text-xs text-(--text-soft)">
+                              {project.stats.metricLabel ?? "Status"}
+                            </p>
                           </div>
                           <div>
                             <p className="text-lg font-bold text-emerald-400">
-                              {project.stats.timeline}
+                              {project.stats.timeline ?? "Fast"}
                             </p>
-                            <p className="text-xs text-light-300">{project.stats.timelineLabel ?? "Timeline"}</p>
+                            <p className="mt-1 text-xs text-(--text-soft)">
+                              {project.stats.timelineLabel ?? "Timeline"}
+                            </p>
                           </div>
                         </div>
 
-                        {/* Expanded Details */}
                         <AnimatePresence>
                           {isExpanded && (
                             <motion.div
                               initial={{ opacity: 0, height: 0 }}
                               animate={{ opacity: 1, height: "auto" }}
                               exit={{ opacity: 0, height: 0 }}
-                              transition={{ duration: 0.3 }}
+                              transition={{ duration: 0.28 }}
                               className="overflow-hidden"
                             >
-                              <div className="grid md:grid-cols-2 gap-8 pt-6 border-t border-white/5">
+                              <div className="mt-8 grid gap-8 border-t border-white/8 pt-8 md:grid-cols-2">
                                 <div>
-                                  <h3 className="text-sm font-semibold uppercase tracking-wider text-primary mb-3">
+                                  <h3 className="mb-4 text-sm font-semibold uppercase tracking-[0.22em] text-primary">
                                     Challenges Solved
                                   </h3>
-                                  <ul className="space-y-2">
-                                    {(project.challenges ?? []).map((c) => (
+                                  <ul className="space-y-3">
+                                    {(project.challenges ?? []).map((item) => (
                                       <li
-                                        key={c}
-                                        className="flex items-start gap-2 text-sm text-light-300"
+                                        key={item}
+                                        className="flex items-start gap-3 text-sm leading-7 text-(--text-muted)"
                                       >
-                                        <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 flex-shrink-0" />
-                                        {c}
+                                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-400" />
+                                        {item}
                                       </li>
                                     ))}
                                   </ul>
                                 </div>
+
                                 <div>
-                                  <h3 className="text-sm font-semibold uppercase tracking-wider text-emerald-400 mb-3">
+                                  <h3 className="mb-4 text-sm font-semibold uppercase tracking-[0.22em] text-emerald-400">
                                     Results Achieved
                                   </h3>
-                                  <ul className="space-y-2">
-                                    {(project.results ?? []).map((r) => (
+                                  <ul className="space-y-3">
+                                    {(project.results ?? []).map((item) => (
                                       <li
-                                        key={r}
-                                        className="flex items-start gap-2 text-sm text-light-300"
+                                        key={item}
+                                        className="flex items-start gap-3 text-sm leading-7 text-(--text-muted)"
                                       >
-                                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-1.5 flex-shrink-0" />
-                                        {r}
+                                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400" />
+                                        {item}
                                       </li>
                                     ))}
                                   </ul>
                                 </div>
                               </div>
+
+                              {(project.liveUrl || project.githubUrl) && (
+                                <div className="mt-6 flex flex-wrap items-center gap-3">
+                                  {project.liveUrl ? (
+                                    <button
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        setPreviewProject({
+                                          url: project.liveUrl!,
+                                          title: project.title,
+                                        });
+                                      }}
+                                      className="inline-flex items-center gap-2 rounded-xl border border-primary/30 bg-primary/10 px-4 py-2.5 text-sm font-medium text-primary transition-all hover:bg-primary/20"
+                                    >
+                                      <HiEye size={16} />
+                                      Preview Site
+                                    </button>
+                                  ) : null}
+
+                                  {project.liveUrl ? (
+                                    <a
+                                      href={project.liveUrl}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      onClick={(e) => e.stopPropagation()}
+                                      className="inline-flex items-center gap-2 rounded-xl border border-(--border) bg-white/50 px-4 py-2.5 text-sm font-medium text-(--text-muted) transition-all hover:border-primary/30 hover:text-primary dark:bg-white/3"
+                                    >
+                                      <HiExternalLink size={16} />
+                                      Visit Live Site
+                                    </a>
+                                  ) : null}
+
+                                  {project.githubUrl ? (
+                                    <a
+                                      href={project.githubUrl}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      onClick={(e) => e.stopPropagation()}
+                                      className="inline-flex items-center gap-2 rounded-xl border border-(--border) bg-white/50 px-4 py-2.5 text-sm font-medium text-(--text-muted) transition-all hover:border-primary/30 hover:text-primary dark:bg-white/3"
+                                    >
+                                      <FiGithub size={16} />
+                                      View Repository
+                                    </a>
+                                  ) : null}
+                                </div>
+                              )}
                             </motion.div>
                           )}
                         </AnimatePresence>
 
-                        {/* Live site buttons */}
-                        {(project.liveUrl || project.githubUrl) && isExpanded && (
-                          <div className="flex items-center gap-3 mt-4">
-                            {project.liveUrl ? (
-                              <button
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  setPreviewProject({ url: project.liveUrl!, title: project.title });
-                                }}
-                                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary/10 border border-primary/30 text-sm text-primary hover:bg-primary/20 transition-all"
-                              >
-                                <HiEye size={16} /> Preview Site
-                              </button>
-                            ) : null}
-                            {project.liveUrl ? (
-                              <a
-                                href={project.liveUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                onClick={(e) => e.stopPropagation()}
-                                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-light-200 hover:text-primary hover:border-primary/30 transition-all"
-                              >
-                                <HiExternalLink size={16} /> Visit Live Site
-                              </a>
-                            ) : null}
-                            {project.githubUrl ? (
-                              <a
-                                href={project.githubUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                onClick={(e) => e.stopPropagation()}
-                                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-light-200 hover:text-primary hover:border-primary/30 transition-all"
-                              >
-                                <FiGithub size={16} /> View Repository
-                              </a>
-                            ) : null}
-                          </div>
-                        )}
-
-                        <p className="text-xs text-primary mt-4">
-                          {isExpanded ? "Click to collapse" : "Click to view full case study →"}
+                        <p className="mt-5 text-xs font-medium text-primary">
+                          {isExpanded
+                            ? "Click anywhere on the card to collapse"
+                            : "Click to view full case study →"}
                         </p>
                       </div>
                     </div>
@@ -373,33 +506,43 @@ export default function PortfolioPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-24 relative grid-bg">
-        <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
+      <section className="relative py-24 grid-bg">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(14,165,233,0.04),transparent_28%)] dark:bg-[radial-gradient(circle_at_top,rgba(77,208,225,0.06),transparent_28%)]" />
+
+        <div className="relative mx-auto max-w-5xl px-6 lg:px-8">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 26 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="glass-card rounded-2xl p-12 glow-border"
+            className="glass-card depth-card cursor-glow rounded-4xl p-10 text-center md:p-14"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-primary">
+              Let’s Build
+            </span>
+
+            <h2 className="mt-6 text-3xl font-bold md:text-5xl">
               Want Results Like <span className="gradient-text">These?</span>
             </h2>
-            <p className="text-light-300 text-lg max-w-xl mx-auto mb-8">
-              Let&apos;s discuss how we can build a solution that delivers
-              measurable impact for your business.
+
+            <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-(--text-muted)">
+              Let’s design and build a premium product for your business with the
+              same focus on quality, clarity, and measurable growth.
             </p>
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-primary to-accent text-dark-900 font-bold rounded-xl hover:shadow-xl hover:shadow-primary/25 transition-all hover:-translate-y-1"
-            >
-              Start Your Project
-              <HiArrowRight />
-            </Link>
+
+            <div className="mt-10">
+              <Link
+                href="/contact"
+                className="btn-shine inline-flex items-center gap-2 rounded-xl bg-linear-to-r from-primary to-accent px-8 py-4 text-base font-bold text-dark-900 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/25"
+              >
+                Start Your Project
+                <HiArrowRight />
+              </Link>
+            </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Site Preview Modal */}
+      {/* PREVIEW MODAL */}
       {previewProject && (
         <SitePreview
           url={previewProject.url}

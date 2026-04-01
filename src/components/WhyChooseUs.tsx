@@ -1,77 +1,105 @@
+"use client";
+
 import { motion } from "framer-motion";
 import { FaAward, FaUsers, FaRocket } from "react-icons/fa";
 
 const stats = [
-  { icon: <FaRocket className="text-accent text-2xl mb-2" />, value: "20+", label: "Projects Delivered" },
-  { icon: <FaUsers className="text-accent text-2xl mb-2" />, value: "15+", label: "Happy Clients" },
-  { icon: <FaAward className="text-accent text-2xl mb-2" />, value: "2+", label: "Years Experience" },
+  {
+    icon: <FaRocket className="text-accent text-2xl" />,
+    value: "20+",
+    label: "Projects Delivered",
+  },
+  {
+    icon: <FaUsers className="text-accent text-2xl" />,
+    value: "15+",
+    label: "Happy Clients",
+  },
+  {
+    icon: <FaAward className="text-accent text-2xl" />,
+    value: "2+",
+    label: "Years Experience",
+  },
 ];
 
 const reasons = [
   {
-    icon: <FaAward className="text-primary text-2xl mb-2" />,
+    icon: <FaAward className="text-primary text-2xl" />,
     title: "Proven Expertise",
-    desc: "Seasoned engineers & designers with deep domain knowledge."
+    desc: "Seasoned engineers and designers with practical product experience across web, mobile, and AI delivery.",
   },
   {
-    icon: <FaUsers className="text-primary text-2xl mb-2" />,
+    icon: <FaUsers className="text-primary text-2xl" />,
     title: "Client-First Approach",
-    desc: "We prioritize your goals, timelines, and success."
+    desc: "We align with your business goals, maintain transparent communication, and focus on measurable outcomes.",
   },
   {
-    icon: <FaRocket className="text-primary text-2xl mb-2" />,
+    icon: <FaRocket className="text-primary text-2xl" />,
     title: "Agile & Reliable",
-    desc: "Rapid delivery, transparent process, and ongoing support."
+    desc: "Fast-moving execution, strong technical discipline, and ongoing support that keeps projects growing after launch.",
   },
 ];
 
 export default function WhyChooseUs() {
   return (
-    <section className="py-20 relative z-10">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <section className="relative z-10 py-24">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="text-center mb-14"
+          transition={{ duration: 0.65 }}
+          className="mx-auto mb-16 max-w-3xl text-center"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 gradient-text animate-gradient">
-            Why Choose Us
+          <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-primary">
+            Why HNX
+          </span>
+          <h2 className="mt-6 text-4xl font-bold md:text-5xl">
+            Why Choose <span className="gradient-text">Us</span>
           </h2>
-          <p className="text-light-300 text-lg max-w-2xl mx-auto">
-            We deliver more than just code. Our team partners with you to create real business impact.
+          <p className="mt-4 text-lg leading-8 text-[var(--text-muted)]">
+            We deliver more than features. We build refined digital products with
+            strong engineering, clear thinking, and reliable execution.
           </p>
         </motion.div>
-        <div className="grid md:grid-cols-3 gap-8 mb-14">
+
+        <div className="mb-14 grid gap-6 md:grid-cols-3">
           {reasons.map((r, i) => (
             <motion.div
               key={r.title}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.6 }}
-              className="glass-card rounded-2xl p-8 text-center glow-border hover:scale-105 hover:shadow-accent/40 transition-all duration-500"
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ delay: i * 0.08, duration: 0.55 }}
+              className="premium-card glass-card cursor-glow rounded-[1.75rem] p-8 text-center"
             >
-              <div className="flex flex-col items-center mb-3">{r.icon}</div>
-              <h3 className="text-xl font-bold mb-2 gradient-text">{r.title}</h3>
-              <p className="text-light-200 text-sm">{r.desc}</p>
+              <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/15 to-accent/15">
+                {r.icon}
+              </div>
+              <h3 className="text-xl font-bold">{r.title}</h3>
+              <p className="mt-3 text-sm leading-7 text-[var(--text-muted)]">
+                {r.desc}
+              </p>
             </motion.div>
           ))}
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl mx-auto">
+
+        <div className="mx-auto grid max-w-4xl gap-6 sm:grid-cols-3">
           {stats.map((stat, i) => (
             <motion.div
               key={stat.label}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.6 }}
-              className="glass-card rounded-2xl p-8 text-center glow-border"
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ delay: i * 0.08, duration: 0.55 }}
+              className="premium-card glass-card rounded-[1.75rem] p-8 text-center"
             >
-              <div className="flex flex-col items-center mb-2">{stat.icon}</div>
-              <p className="text-3xl md:text-4xl font-bold gradient-text">{stat.value}</p>
-              <p className="text-sm text-light-300 mt-1">{stat.label}</p>
+              <div className="mb-4 flex justify-center">{stat.icon}</div>
+              <p className="gradient-text text-3xl font-bold md:text-4xl">
+                {stat.value}
+              </p>
+              <p className="mt-2 text-sm font-medium text-[var(--text-muted)]">
+                {stat.label}
+              </p>
             </motion.div>
           ))}
         </div>
