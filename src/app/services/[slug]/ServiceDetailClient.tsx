@@ -486,7 +486,7 @@ export default function ServiceDetailClient({
                             <h3 className="text-xl font-bold text-(--text) sm:text-2xl">
                               {pkg.name}
                             </h3>
-                            <p className="mt-3 text-sm leading-7 text-(--text-soft) sm:text-base">
+                            <p className="mt-3 text-sm leading-6 text-(--text-soft)">
                               {pkg.description}
                             </p>
                           </div>
@@ -500,13 +500,16 @@ export default function ServiceDetailClient({
                             </p>
                           </div>
 
-                          <div className="mt-6 space-y-3">
+                          <div className="mt-6 grid grid-cols-2 gap-x-5 gap-y-3">
                             {pkg.features.map((feature) => (
-                              <div key={feature} className="flex items-start gap-3">
-                                <span className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-400/10 text-emerald-500 dark:text-emerald-300">
-                                  <HiCheck size={14} />
+                              <div
+                                key={feature}
+                                className="grid grid-cols-[18px_minmax(0,1fr)] items-start gap-2"
+                              >
+                                <span className="mt-1 inline-flex h-[18px] w-[18px] items-center justify-center rounded-full bg-emerald-400/10 text-emerald-500 dark:text-emerald-300">
+                                  <HiCheck size={12} />
                                 </span>
-                                <p className="text-sm leading-6 text-(--text-muted) sm:text-base">
+                                <p className="text-sm leading-5 text-(--text-muted)">
                                   {feature}
                                 </p>
                               </div>
@@ -612,7 +615,7 @@ export default function ServiceDetailClient({
                       <h3 className="text-xl font-bold text-(--text) sm:text-2xl">
                         {pkg.name}
                       </h3>
-                      <p className="mt-3 text-sm leading-7 text-(--text-soft) sm:text-base">
+                      <p className="mt-3 text-sm leading-6 text-(--text-soft)">
                         {pkg.description}
                       </p>
                     </div>
@@ -626,13 +629,16 @@ export default function ServiceDetailClient({
                       </p>
                     </div>
 
-                    <div className="mt-6 space-y-3">
+                    <div className="mt-6 grid grid-cols-2 gap-x-5 gap-y-3">
                       {pkg.features.map((feature) => (
-                        <div key={feature} className="flex items-start gap-3">
-                          <span className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-400/10 text-emerald-500 dark:text-emerald-300">
-                            <HiCheck size={14} />
+                        <div
+                          key={feature}
+                          className="grid grid-cols-[18px_minmax(0,1fr)] items-start gap-2"
+                        >
+                          <span className="mt-1 inline-flex h-[18px] w-[18px] items-center justify-center rounded-full bg-emerald-400/10 text-emerald-500 dark:text-emerald-300">
+                            <HiCheck size={12} />
                           </span>
-                          <p className="text-sm leading-6 text-(--text-muted) sm:text-base">
+                          <p className="text-sm leading-5 text-(--text-muted)">
                             {feature}
                           </p>
                         </div>
