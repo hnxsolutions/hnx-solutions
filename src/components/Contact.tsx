@@ -117,7 +117,7 @@ export default function Contact() {
                 href={info.href}
                 className="flex items-start gap-4 group"
               >
-                <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors">
                   <info.icon className="text-xl text-primary" />
                 </div>
                 <div>
@@ -131,9 +131,9 @@ export default function Contact() {
 
             {/* Socials */}
             <div className="pt-6">
-              <div className="inline-flex items-center gap-4 px-4 py-2.5 rounded-2xl bg-white/[0.04] border border-white/[0.08] shadow-[0_0_30px_rgba(77,208,225,0.06)]">
+              <div className="inline-flex items-center gap-4 px-4 py-2.5 rounded-2xl bg-white/4 border border-white/8 shadow-[0_0_30px_rgba(77,208,225,0.06)]">
                 <span className="text-xs text-primary font-bold tracking-widest uppercase">Follow us</span>
-                <div className="w-px h-5 bg-gradient-to-b from-transparent via-primary/30 to-transparent" />
+                <div className="w-px h-5 bg-linear-to-b from-transparent via-primary/30 to-transparent" />
                 {socials.map((s) => (
                   <a
                     key={s.label}
@@ -163,7 +163,7 @@ export default function Contact() {
                   "Post-launch support included",
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0" />
                     {item}
                   </li>
                 ))}
@@ -274,7 +274,7 @@ export default function Contact() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full flex items-center justify-center gap-2 py-4 bg-gradient-to-r from-primary to-accent text-dark-900 font-bold rounded-xl text-base hover:shadow-lg hover:shadow-primary/25 transition-all hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full flex items-center justify-center gap-2 py-4 bg-linear-to-r from-primary to-accent text-dark-900 font-bold rounded-xl text-base hover:shadow-lg hover:shadow-primary/25 transition-all hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? "Sending..." : submitted ? "Message Sent! ✓" : "Send Message"}
                 {!submitted && !loading && <HiArrowRight />}

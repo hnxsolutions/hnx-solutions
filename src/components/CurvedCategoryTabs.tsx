@@ -140,7 +140,7 @@ export default function CurvedCategoryTabs({
           disabled={!canScrollLeft}
           whileHover={canScrollLeft ? { scale: 1.12, x: -2 } : {}}
           whileTap={canScrollLeft ? { scale: 0.92 } : {}}
-          className={`flex-shrink-0 p-1.5 max-[374px]:p-1 md:p-2.5 rounded-lg transition-all duration-200 ${
+          className={`shrink-0 p-1.5 max-[374px]:p-1 md:p-2.5 rounded-lg transition-all duration-200 ${
             canScrollLeft
               ? `${arrowColor} ${arrowBg} cursor-pointer`
               : "text-gray-400 cursor-not-allowed opacity-30"
@@ -155,7 +155,7 @@ export default function CurvedCategoryTabs({
           onClick={() => onCategoryChange(null)}
           whileHover={{ scale: 1.06 }}
           whileTap={{ scale: 0.96 }}
-          className={`flex-shrink-0 px-3 max-[374px]:px-2.5 md:px-6 py-1.5 max-[374px]:py-1 md:py-2.5 rounded-3xl font-medium text-xs md:text-sm whitespace-nowrap transition-all duration-200 ${
+          className={`shrink-0 px-3 max-[374px]:px-2.5 md:px-6 py-1.5 max-[374px]:py-1 md:py-2.5 rounded-3xl font-medium text-xs md:text-sm whitespace-nowrap transition-all duration-200 ${
             activeCategory === null
               ? `${activeTabBg} ${activeTabText} shadow-lg shadow-cyan-500/25`
               : `border-2 ${inactiveTabBorder} ${inactiveTabHover}`
@@ -171,7 +171,7 @@ export default function CurvedCategoryTabs({
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.08 }}
-              className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-black to-transparent pointer-events-none z-20"
+              className="absolute left-0 top-0 bottom-0 w-12 bg-linear-to-r from-black to-transparent pointer-events-none z-20"
             />
           )}
 
@@ -199,7 +199,7 @@ export default function CurvedCategoryTabs({
                 whileHover={!isDragging ? { scale: 1.06, y: -1 } : {}}
                 whileTap={{ scale: 0.96 }}
                 transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                className={`flex-shrink-0 px-3 max-[374px]:px-2.5 md:px-6 py-1.5 max-[374px]:py-1 md:py-2.5 rounded-3xl font-medium text-xs md:text-sm whitespace-nowrap transition-all duration-200 ${
+                className={`shrink-0 px-3 max-[374px]:px-2.5 md:px-6 py-1.5 max-[374px]:py-1 md:py-2.5 rounded-3xl font-medium text-xs md:text-sm whitespace-nowrap transition-all duration-200 ${
                   activeCategory === category.id
                     ? `${activeTabBg} ${activeTabText} shadow-lg shadow-cyan-500/25`
                     : `border-2 ${inactiveTabBorder} ${inactiveTabHover}`
@@ -215,7 +215,7 @@ export default function CurvedCategoryTabs({
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.08 }}
-              className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-black to-transparent pointer-events-none z-20"
+              className="absolute right-0 top-0 bottom-0 w-12 bg-linear-to-l from-black to-transparent pointer-events-none z-20"
             />
           )}
         </div>
@@ -226,7 +226,7 @@ export default function CurvedCategoryTabs({
           disabled={!canScrollRight}
           whileHover={canScrollRight ? { scale: 1.12, x: 2 } : {}}
           whileTap={canScrollRight ? { scale: 0.92 } : {}}
-          className={`flex-shrink-0 p-1.5 max-[374px]:p-1 md:p-2.5 rounded-lg transition-all duration-200 ${
+          className={`shrink-0 p-1.5 max-[374px]:p-1 md:p-2.5 rounded-lg transition-all duration-200 ${
             canScrollRight
               ? `${arrowColor} ${arrowBg} cursor-pointer`
               : "text-gray-400 cursor-not-allowed opacity-30"

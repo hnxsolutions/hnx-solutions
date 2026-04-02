@@ -66,7 +66,7 @@ const plans = [
 export default function Pricing() {
   return (
     <section id="pricing" className="py-32 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-dark-900 via-dark-800/40 to-dark-900" />
+      <div className="absolute inset-0 bg-linear-to-b from-dark-900 via-dark-800/40 to-dark-900" />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
         {/* Header */}
@@ -102,7 +102,7 @@ export default function Pricing() {
               }`}
             >
               {plan.popular && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-primary to-accent text-dark-900 text-xs font-bold rounded-full">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-linear-to-r from-primary to-accent text-dark-900 text-xs font-bold rounded-full">
                   MOST POPULAR
                 </div>
               )}
@@ -118,7 +118,7 @@ export default function Pricing() {
               <ul className="space-y-3 mb-8">
                 {plan.features.map((feature) => (
                   <li key={feature} className="flex items-start gap-3 text-sm text-light-200">
-                    <HiCheck className="text-primary flex-shrink-0 mt-0.5" />
+                    <HiCheck className="text-primary shrink-0 mt-0.5" />
                     {feature}
                   </li>
                 ))}
@@ -128,7 +128,7 @@ export default function Pricing() {
                 href="/contact"
                 className={`flex items-center justify-center gap-2 w-full py-3.5 rounded-xl font-semibold text-sm transition-all hover:-translate-y-0.5 ${
                   plan.popular
-                    ? "bg-gradient-to-r from-primary to-accent text-dark-900 hover:shadow-lg hover:shadow-primary/25"
+                    ? "bg-linear-to-r from-primary to-accent text-dark-900 hover:shadow-lg hover:shadow-primary/25"
                     : "border border-white/15 text-light-100 hover:bg-white/5 hover:border-primary/30"
                 }`}
               >
@@ -153,7 +153,7 @@ export default function Pricing() {
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 px-8 py-3.5 bg-gradient-to-r from-primary to-accent text-dark-900 font-bold rounded-xl hover:shadow-lg hover:shadow-primary/25 transition-all hover:-translate-y-0.5"
+            className="inline-flex items-center gap-2 px-8 py-3.5 bg-linear-to-r from-primary to-accent text-dark-900 font-bold rounded-xl hover:shadow-lg hover:shadow-primary/25 transition-all hover:-translate-y-0.5"
           >
             Get Custom Quote
             <HiArrowRight />

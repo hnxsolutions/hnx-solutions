@@ -24,11 +24,11 @@ export default function BlogList({
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className={`text-center py-20 ${isDarkTheme ? "text-light-300" : "text-blog-text-muted"}`}
+        className={`py-20 text-center ${
+          isDarkTheme ? "text-light-300" : "text-blog-text-muted"
+        }`}
       >
-        <p className="text-lg">
-          No blogs found in this category. Check back soon!
-        </p>
+        <p className="text-lg">No blogs found in this category. Check back soon!</p>
       </motion.div>
     );
   }

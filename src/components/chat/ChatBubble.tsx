@@ -15,7 +15,7 @@ export default function ChatBubble({ role, content }: ChatBubbleProps) {
             : "rounded-bl-md border border-gray-200 bg-white text-gray-800"
         }`}
       >
-        <p className="whitespace-pre-wrap break-words">{content}</p>
+        <p className="whitespace-pre-wrap wrap-break-word">{content}</p>
       </div>
     </div>
   );

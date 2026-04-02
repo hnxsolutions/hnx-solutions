@@ -39,6 +39,21 @@
   --scroll-thumb: #cbd5e1;
 
   --grid-line: rgba(15, 23, 42, 0.04);
+
+  /* global layout spacing */
+  --nav-offset: 4.5rem;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --nav-offset: 5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --nav-offset: 5.5rem;
+  }
 }
 
 /* DARK THEME */
@@ -81,9 +96,76 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-sans), system-ui, sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
   transition:
     background-color 0.3s ease,
     color 0.3s ease;
+}
+
+main,
+section,
+div {
+  min-width: 0;
+}
+
+img,
+svg,
+video,
+canvas,
+iframe {
+  max-width: 100%;
+}
+
+/* global page shell */
+.page-shell {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.page-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding-top: calc(var(--nav-offset) + 0.5rem);
+  padding-bottom: 5rem;
+}
+
+@media (min-width: 640px) {
+  .page-hero {
+    padding-top: calc(var(--nav-offset) + 0.75rem);
+    padding-bottom: 5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .page-hero {
+    padding-top: calc(var(--nav-offset) + 1rem);
+    padding-bottom: 5rem;
+  }
+}
+
+.section-shell {
+  position: relative;
+  padding-top: 4.5rem;
+  padding-bottom: 4.5rem;
+}
+
+@media (min-width: 640px) {
+  .section-shell {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-shell {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
 }
 
 /* mouse spotlight */
@@ -188,6 +270,22 @@ html:not(.dark) ::selection {
   }
 }
 
+@keyframes border-glow {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 1px rgba(14, 165, 233, 0.08),
+      0 0 22px rgba(14, 165, 233, 0.1);
+    opacity: 0.7;
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px rgba(99, 102, 241, 0.18),
+      0 0 28px rgba(99, 102, 241, 0.18);
+    opacity: 1;
+  }
+}
+
 .animate-float {
   animation: float 6s ease-in-out infinite;
 }
@@ -202,6 +300,10 @@ html:not(.dark) ::selection {
 
 .page-transition {
   animation: pageFade 0.6s ease;
+}
+
+.group-hover\:animate-border-glow {
+  animation: border-glow 2.4s ease-in-out infinite;
 }
 
 .gradient-text {

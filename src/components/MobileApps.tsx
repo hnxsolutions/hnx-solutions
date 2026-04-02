@@ -88,7 +88,7 @@ export default function MobileApps() {
                     <div className="w-12 h-1.5 rounded-full bg-white/20" />
                   </div>
                   {/* Screen content */}
-                  <div className={`h-64 md:h-80 bg-gradient-to-b ${screen.gradient} flex flex-col items-center justify-center gap-4 p-4`}>
+                  <div className={`h-64 md:h-80 bg-linear-to-b ${screen.gradient} flex flex-col items-center justify-center gap-4 p-4`}>
                     <div className="w-12 h-12 rounded-xl bg-white/10 border border-white/20" />
                     <div className="w-full space-y-2">
                       <div className="h-2 rounded-full bg-white/15 w-3/4 mx-auto" />
@@ -121,7 +121,7 @@ export default function MobileApps() {
           >
             {features.map((feat) => (
               <div key={feat.title} className="flex gap-5 group">
-                <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                <div className="shrink-0 w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                   <feat.icon className="text-xl text-primary" />
                 </div>
                 <div>

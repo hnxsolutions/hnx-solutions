@@ -27,9 +27,8 @@ export default function PortfolioPage() {
   }, [activeCategory]);
 
   return (
-    <main className="relative overflow-hidden bg-(--bg) text-(--text)">
-      {/* HERO */}
-      <section className="hero-light relative isolate min-h-[88vh] overflow-hidden pt-20 pb-20 sm:pt-28 lg:flex lg:items-center">
+    <main className="page-shell relative">
+      <section className="page-hero hero-light relative isolate min-h-[78svh] md:min-h-[88vh] lg:flex lg:items-center">
         <div className="absolute inset-0 z-0">
           <Image
             src={portfolioHeroBgImage}
@@ -46,16 +45,16 @@ export default function PortfolioPage() {
 
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom,rgba(15,23,42,0.12),transparent_45%)] dark:bg-[radial-gradient(circle_at_bottom,rgba(0,0,0,0.38),transparent_48%)]" />
 
-          <div className="absolute left-0 top-1/2 hidden h-[34rem] w-[30rem] -translate-y-1/2 bg-[radial-gradient(circle,rgba(255,255,255,0.35)_0%,rgba(255,255,255,0.14)_46%,rgba(255,255,255,0)_74%)] blur-2xl lg:block dark:hidden" />
-          <div className="absolute right-0 top-1/2 hidden h-[34rem] w-[38rem] -translate-y-1/2 bg-[radial-gradient(circle,rgba(6,10,18,0.68)_0%,rgba(6,10,18,0.42)_44%,rgba(6,10,18,0)_76%)] blur-2xl dark:lg:block" />
+          <div className="absolute left-0 top-1/2 hidden h-136 w-120 -translate-y-1/2 bg-[radial-gradient(circle,rgba(255,255,255,0.35)_0%,rgba(255,255,255,0.14)_46%,rgba(255,255,255,0)_74%)] blur-2xl lg:block dark:hidden" />
+          <div className="absolute right-0 top-1/2 hidden h-136 w-152 -translate-y-1/2 bg-[radial-gradient(circle,rgba(6,10,18,0.68)_0%,rgba(6,10,18,0.42)_44%,rgba(6,10,18,0)_76%)] blur-2xl dark:lg:block" />
         </div>
 
         <div className="absolute left-10 top-24 z-1 h-72 w-72 rounded-full bg-primary/6 blur-3xl dark:bg-primary/4" />
         <div className="absolute bottom-16 right-10 z-1 h-72 w-72 rounded-full bg-accent/6 blur-3xl dark:bg-accent/4" />
-        <div className="absolute left-1/2 top-1/2 z-1 h-[36rem] w-[36rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/4 blur-[120px] dark:bg-primary/2" />
+        <div className="absolute left-1/2 top-1/2 z-1 h-144 w-xl -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/4 blur-[120px] dark:bg-primary/2" />
 
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-8">
-          <div className="grid items-center gap-14 lg:grid-cols-[1.08fr_0.92fr]">
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid items-center gap-10 md:gap-14 lg:grid-cols-[1.08fr_0.92fr]">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
@@ -81,7 +80,7 @@ export default function PortfolioPage() {
                 initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.14, duration: 0.6 }}
-                className="mb-6 text-5xl font-bold leading-[1.04] tracking-tight md:text-6xl lg:text-7xl"
+                className="mb-6 text-4xl font-bold leading-[1.04] tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
               >
                 Featured
                 <br />
@@ -92,7 +91,7 @@ export default function PortfolioPage() {
                 initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.22, duration: 0.6 }}
-                className="max-w-2xl text-lg leading-relaxed text-(--text-muted) md:text-xl"
+                className="max-w-2xl text-base leading-relaxed text-(--text-muted) sm:text-lg md:text-xl"
               >
                 Real digital products we’ve designed and engineered across web,
                 mobile, AI, healthcare, and commerce. Each project is built to
@@ -150,7 +149,7 @@ export default function PortfolioPage() {
               }}
               className="relative"
             >
-              <div className="glass-card depth-card rounded-4xl border border-(--border) p-6 sm:p-8">
+              <div className="glass-card depth-card rounded-4xl border border-(--border) p-5 sm:p-6 md:p-8">
                 <div className="grid grid-cols-2 gap-4">
                   {[
                     { value: `${portfolioProjects.length}+`, label: "Projects" },
@@ -160,7 +159,7 @@ export default function PortfolioPage() {
                   ].map((stat) => (
                     <div
                       key={stat.label}
-                      className="premium-card rounded-2xl border border-(--border) bg-white/55 p-5 text-center dark:bg-white/3"
+                      className="premium-card rounded-2xl border border-(--border) bg-white/55 p-4 text-center dark:bg-white/3 sm:p-5"
                     >
                       <p className="gradient-text text-3xl font-bold md:text-4xl">
                         {stat.value}
@@ -172,11 +171,11 @@ export default function PortfolioPage() {
                   ))}
                 </div>
 
-                <div className="mt-6 rounded-[1.75rem] border border-(--border) bg-[linear-gradient(180deg,rgba(255,255,255,0.65),rgba(255,255,255,0.38))] p-6 dark:bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))]">
+                <div className="mt-6 rounded-[1.75rem] border border-(--border) bg-[linear-gradient(180deg,rgba(255,255,255,0.65),rgba(255,255,255,0.38))] p-5 dark:bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] sm:p-6">
                   <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">
                     Portfolio Snapshot
                   </p>
-                  <h3 className="mt-3 text-2xl font-bold">
+                  <h3 className="mt-3 text-xl font-bold sm:text-2xl">
                     Strategy, design, engineering, and measurable outcomes.
                   </h3>
                   <p className="mt-3 text-sm leading-7 text-(--text-muted)">
@@ -191,11 +190,10 @@ export default function PortfolioPage() {
         </div>
       </section>
 
-      {/* FILTER + PROJECTS */}
-      <section id="portfolio-grid" className="relative py-24">
+      <section id="portfolio-grid" className="section-shell relative">
         <div className="absolute inset-0 bg-linear-to-b from-transparent via-black/2 to-transparent dark:via-white/1" />
 
-        <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -233,7 +231,7 @@ export default function PortfolioPage() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -18 }}
                     transition={{ duration: 0.38 }}
-                    className="premium-card glass-card cursor-glow overflow-hidden rounded-4xl"
+                    className="premium-card glass-card cursor-glow overflow-hidden rounded-3xl sm:rounded-4xl"
                     onClick={() =>
                       setExpandedProject(isExpanded ? null : project.title)
                     }
@@ -243,11 +241,10 @@ export default function PortfolioPage() {
                         isExpanded ? "items-stretch" : ""
                       }`}
                     >
-                      {/* VISUAL */}
                       <div
                         className={`relative overflow-hidden ${
                           isExpanded ? "h-72 lg:h-full" : "h-60 lg:h-auto"
-                        } min-h-[220px] bg-linear-to-br ${project.color} transition-all duration-500`}
+                        } min-h-55 bg-linear-to-br ${project.color} transition-all duration-500`}
                       >
                         {project.imageUrl ? (
                           <>
@@ -265,7 +262,7 @@ export default function PortfolioPage() {
                             <iframe
                               src={project.liveUrl}
                               title={`Preview of ${project.title}`}
-                              className="pointer-events-none h-[900px] w-[1280px] origin-top-left"
+                              className="pointer-events-none hidden h-225 w-7xl origin-top-left lg:block"
                               style={{
                                 transform: "scale(0.35)",
                                 transformOrigin: "top left",
@@ -333,8 +330,7 @@ export default function PortfolioPage() {
                         </div>
                       </div>
 
-                      {/* CONTENT */}
-                      <div className="p-7 sm:p-8 lg:p-9">
+                      <div className="p-5 sm:p-7 lg:p-9">
                         <div className="flex items-start justify-between gap-4">
                           <div>
                             <h2 className="text-2xl font-bold md:text-3xl">
@@ -369,7 +365,7 @@ export default function PortfolioPage() {
                           ))}
                         </div>
 
-                        <div className="mt-7 grid grid-cols-3 gap-4 rounded-[1.6rem] border border-(--border) bg-white/45 p-4 dark:bg-white/3">
+                        <div className="mt-7 grid grid-cols-1 gap-4 rounded-[1.6rem] border border-(--border) bg-white/45 p-4 dark:bg-white/3 sm:grid-cols-3">
                           <div>
                             <p className="text-lg font-bold text-primary">
                               {project.stats.users}
@@ -505,16 +501,15 @@ export default function PortfolioPage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="relative py-24 grid-bg">
+      <section className="section-shell relative grid-bg">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(14,165,233,0.04),transparent_28%)] dark:bg-[radial-gradient(circle_at_top,rgba(77,208,225,0.06),transparent_28%)]" />
 
-        <div className="relative mx-auto max-w-5xl px-6 lg:px-8">
+        <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 26 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="glass-card depth-card cursor-glow rounded-4xl p-10 text-center md:p-14"
+            className="glass-card depth-card cursor-glow rounded-4xl p-8 text-center md:p-10 lg:p-14"
           >
             <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-primary">
               Let’s Build
@@ -542,7 +537,6 @@ export default function PortfolioPage() {
         </div>
       </section>
 
-      {/* PREVIEW MODAL */}
       {previewProject && (
         <SitePreview
           url={previewProject.url}

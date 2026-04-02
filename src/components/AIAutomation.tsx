@@ -74,7 +74,7 @@ const techStack = [
 export default function AIAutomation() {
   return (
     <section id="ai" className="py-32 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-dark-900 via-dark-800/30 to-dark-900" />
+      <div className="absolute inset-0 bg-linear-to-b from-dark-900 via-dark-800/30 to-dark-900" />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
         {/* Header */}

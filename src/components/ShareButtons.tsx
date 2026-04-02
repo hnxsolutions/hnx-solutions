@@ -1,12 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import {
-  HiOutlineShare,
-  HiX as XIcon,
-} from "react-icons/hi";
+import { HiOutlineShare, HiX as XIcon } from "react-icons/hi";
 import { FaLinkedin, FaFacebook } from "react-icons/fa";
-import { useState, useEffect } from "react";
+import { useMemo, useState } from "react";
 
 interface ShareButtonsProps {
   slug: string;
@@ -22,31 +19,34 @@ export default function ShareButtons({
   isDarkTheme = true,
 }: ShareButtonsProps) {
   const [copied, setCopied] = useState(false);
-  const [shareLinks, setShareLinks] = useState({
-    twitter: "",
-    linkedin: "",
-    facebook: "",
-  });
 
-  // Construct share URLs only on client side to avoid hydration mismatch
-  useEffect(() => {
+  const shareLinks = useMemo(() => {
+    if (typeof window === "undefined") {
+      return {
+        twitter: "",
+        linkedin: "",
+        facebook: "",
+        baseUrl: "",
+      };
+    }
+
     const baseUrl = `${window.location.origin}/blog/${slug}`;
     const shareText = `${title} - ${description}`;
     const encodedUrl = encodeURIComponent(baseUrl);
     const encodedText = encodeURIComponent(shareText);
 
-    setShareLinks({
+    return {
       twitter: `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedText}`,
       linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
       facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+      baseUrl,
+    };
   }, [slug, title, description]);
 
   const handleCopyLink = async () => {
     try {
-      const baseUrl = `${window.location.origin}/blog/${slug}`;
-      await navigator.clipboard.writeText(baseUrl);
+      if (!shareLinks.baseUrl) return;
+      await navigator.clipboard.writeText(shareLinks.baseUrl);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
@@ -77,61 +77,68 @@ export default function ShareButtons({
 
   return (
     <div className="flex flex-col gap-3">
-      <p className={`text-xs uppercase tracking-wider font-medium ${
-        isDarkTheme ? "text-light-400" : "text-blog-text-light"
-      }`}>
+      <p
+        className={`text-xs font-medium uppercase tracking-wider ${
+          isDarkTheme ? "text-light-400" : "text-blog-text-light"
+        }`}
+      >
         Share
       </p>
 
-      {/* Desktop layout - vertical */}
-      <div className="hidden md:flex flex-col gap-2">
+      <div className="hidden flex-col gap-2 md:flex">
         {buttons.map((button) => {
           const Icon = button.icon;
-          const borderColor = isDarkTheme ? "border-white/10" : "border-blog-divider";
+          const borderColor = isDarkTheme
+            ? "border-white/10"
+            : "border-blog-divider";
+
           return (
             <motion.a
               key={button.name}
-              href={button.href}
+              href={button.href || "#"}
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ x: 4 }}
-              className={`flex items-center gap-3 p-2.5 rounded-lg border transition-all ${borderColor} ${button.color}`}
+              className={`flex items-center gap-3 rounded-lg border p-2.5 transition-all ${borderColor} ${button.color} ${
+                button.href ? "" : "pointer-events-none opacity-60"
+              }`}
               title={`Share on ${button.name}`}
             >
-              <Icon className="text-lg flex-shrink-0" />
-              <span className="text-sm font-medium hidden lg:inline">
+              <Icon className="shrink-0 text-lg" />
+              <span className="hidden text-sm font-medium lg:inline">
                 {button.name}
               </span>
             </motion.a>
           );
         })}
 
-        {/* Copy Link button */}
         <motion.button
           onClick={handleCopyLink}
           whileHover={{ x: 4 }}
-          className="flex items-center gap-3 p-2.5 rounded-lg border border-white/10 transition-all hover:text-white hover:bg-white/10"
+          className="flex items-center gap-3 rounded-lg border border-white/10 p-2.5 transition-all hover:bg-white/10 hover:text-white"
           title="Copy link"
+          type="button"
         >
-          <HiOutlineShare className="text-lg flex-shrink-0" />
-          <span className="text-sm font-medium hidden lg:inline">
+          <HiOutlineShare className="shrink-0 text-lg" />
+          <span className="hidden text-sm font-medium lg:inline">
             {copied ? "Copied!" : "Copy"}
           </span>
         </motion.button>
       </div>
 
-      {/* Mobile layout - horizontal */}
-      <div className="md:hidden flex gap-2">
+      <div className="flex gap-2 md:hidden">
         {buttons.map((button) => {
           const Icon = button.icon;
           return (
             <motion.a
               key={button.name}
-              href={button.href}
+              href={button.href || "#"}
               target="_blank"
               rel="noopener noreferrer"
               whileTap={{ scale: 0.95 }}
-              className={`flex items-center justify-center p-2.5 rounded-lg border border-white/10 transition-all ${button.color}`}
+              className={`flex items-center justify-center rounded-lg border border-white/10 p-2.5 transition-all ${button.color} ${
+                button.href ? "" : "pointer-events-none opacity-60"
+              }`}
               title={`Share on ${button.name}`}
             >
               <Icon className="text-lg" />
@@ -139,12 +146,12 @@ export default function ShareButtons({
           );
         })}
 
-        {/* Copy Link button */}
         <motion.button
           onClick={handleCopyLink}
           whileTap={{ scale: 0.95 }}
-          className="flex items-center justify-center p-2.5 rounded-lg border border-white/10 transition-all hover:text-white hover:bg-white/10"
+          className="flex items-center justify-center rounded-lg border border-white/10 p-2.5 transition-all hover:bg-white/10 hover:text-white"
           title="Copy link"
+          type="button"
         >
           <HiOutlineShare className="text-lg" />
         </motion.button>

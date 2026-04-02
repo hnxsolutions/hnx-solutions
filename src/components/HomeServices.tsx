@@ -24,7 +24,7 @@ const highlights = [
     title: "Mobile Apps",
     description:
       "Cross-platform mobile apps with native performance for iOS and Android.",
-    href: "/mobile-apps",
+    href: "/services", // ✅ changed
     color: "from-violet-400 to-purple-500",
   },
   {
@@ -32,7 +32,7 @@ const highlights = [
     title: "AI & Automation",
     description:
       "Custom AI chatbots, workflow automation, and intelligent business systems.",
-    href: "/ai-automation",
+    href: "/services", // ✅ changed
     color: "from-amber-400 to-orange-500",
   },
 ];

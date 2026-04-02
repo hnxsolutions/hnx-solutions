@@ -351,12 +351,12 @@ export default function ChatWidget() {
             flex flex-col overflow-hidden
             rounded-2xl border border-white/20 bg-white
             shadow-[0_20px_60px_rgba(0,0,0,0.20)]
-            w-[350px] max-w-[calc(100vw-24px)]
+            w-87.5 max-w-[calc(100vw-24px)]
             h-[min(600px,calc(100vh-120px))]
-            sm:w-[380px]
+            sm:w-95
           "
         >
-          <div className="relative overflow-hidden border-b border-gray-200 bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-800 px-4 pb-4 pt-4 text-white sm:px-5 sm:pb-5 sm:pt-5">
+          <div className="relative overflow-hidden border-b border-gray-200 bg-linear-to-br from-zinc-950 via-zinc-900 to-zinc-800 px-4 pb-4 pt-4 text-white sm:px-5 sm:pb-5 sm:pt-5">
             <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-white/10 blur-2xl" />
             <div className="absolute -left-8 bottom-0 h-24 w-24 rounded-full bg-white/5 blur-2xl" />
 

@@ -243,7 +243,7 @@ export default function BlogPage() {
     <main id="blog-page-top" className="bg-blog-cream-50 text-blog-text pt-26 md:pt-24 lg:pt-6 xl:pt-8 w-full max-w-full overflow-x-hidden">
       {/* Hero Section - Lighter, centered, smaller */}
       <section className="relative py-6 max-[374px]:py-4 md:py-12 lg:py-18">
-        <div className="absolute inset-0 bg-gradient-to-b from-blog-tan-400/5 to-blog-cream-50" />
+        <div className="absolute inset-0 bg-linear-to-b from-blog-tan-400/5 to-blog-cream-50" />
         <div className="max-w-4xl mx-auto px-6 lg:px-8 relative">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

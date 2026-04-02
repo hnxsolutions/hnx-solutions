@@ -96,6 +96,12 @@ const initialFormData: ContactFormData = {
   message: "",
 };
 
+const inputClassName =
+  "w-full rounded-xl border border-(--border) bg-white/70 px-4 py-3 text-(--text) placeholder:text-(--text-soft) transition-all focus:border-primary/50 focus:outline-none focus:ring-1 focus:ring-primary/20 dark:border-white/10 dark:bg-dark-700/50 dark:text-light-100 dark:placeholder:text-light-300/50";
+
+const selectClassName =
+  "w-full rounded-xl border border-(--border) bg-white/70 px-4 py-3 text-(--text) transition-all focus:border-primary/50 focus:outline-none focus:ring-1 focus:ring-primary/20 dark:border-white/10 dark:bg-dark-700/50 dark:text-light-100";
+
 export default function ContactPage() {
   const shouldReduceMotion = useReducedMotion();
 
@@ -196,9 +202,9 @@ export default function ContactPage() {
     : { duration: 0.35, ease: [0.22, 1, 0.36, 1] };
 
   return (
-    <main className="relative overflow-hidden bg-(--bg) text-(--text)">
+    <main className="page-shell relative">
       {/* HERO */}
-      <section className="hero-light relative isolate min-h-[82vh] overflow-hidden pt-20 pb-20 sm:pt-24 lg:flex lg:items-center">
+      <section className="page-hero hero-light relative isolate min-h-[76svh] md:min-h-[82vh] lg:flex lg:items-center">
         <div className="absolute inset-0 z-0">
           <Image
             src={contactHeroBgImage}
@@ -215,15 +221,15 @@ export default function ContactPage() {
 
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom,rgba(15,23,42,0.12),transparent_45%)] dark:bg-[radial-gradient(circle_at_bottom,rgba(0,0,0,0.38),transparent_48%)]" />
 
-          <div className="absolute left-0 top-1/2 hidden h-[34rem] w-[30rem] -translate-y-1/2 bg-[radial-gradient(circle,rgba(255,255,255,0.35)_0%,rgba(255,255,255,0.14)_46%,rgba(255,255,255,0)_74%)] blur-2xl lg:block dark:hidden" />
-          <div className="absolute right-0 top-1/2 hidden h-[34rem] w-[38rem] -translate-y-1/2 bg-[radial-gradient(circle,rgba(6,10,18,0.68)_0%,rgba(6,10,18,0.42)_44%,rgba(6,10,18,0)_76%)] blur-2xl dark:lg:block" />
+          <div className="absolute left-0 top-1/2 hidden h-136 w-120 -translate-y-1/2 bg-[radial-gradient(circle,rgba(255,255,255,0.35)_0%,rgba(255,255,255,0.14)_46%,rgba(255,255,255,0)_74%)] blur-2xl lg:block dark:hidden" />
+          <div className="absolute right-0 top-1/2 hidden h-136 w-152 -translate-y-1/2 bg-[radial-gradient(circle,rgba(6,10,18,0.68)_0%,rgba(6,10,18,0.42)_44%,rgba(6,10,18,0)_76%)] blur-2xl dark:lg:block" />
         </div>
 
         <div className="absolute left-10 top-24 z-1 h-72 w-72 rounded-full bg-primary/6 blur-3xl dark:bg-primary/4" />
         <div className="absolute bottom-16 right-10 z-1 h-72 w-72 rounded-full bg-accent/6 blur-3xl dark:bg-accent/4" />
-        <div className="absolute left-1/2 top-1/2 z-1 h-[36rem] w-[36rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/4 blur-[120px] dark:bg-primary/2" />
+        <div className="absolute left-1/2 top-1/2 z-1 h-144 w-xl -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/4 blur-[120px] dark:bg-primary/2" />
 
-        <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={shouldReduceMotion ? false : { opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
@@ -236,7 +242,7 @@ export default function ContactPage() {
               initial={shouldReduceMotion ? false : { opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.08, duration: 0.55 }}
-              className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-2 text-sm font-medium text-primary backdrop-blur-sm"
+              className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-2 text-xs font-medium text-primary backdrop-blur-sm sm:text-sm"
             >
               <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
               Contact HNX
@@ -246,7 +252,7 @@ export default function ContactPage() {
               initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.14, duration: 0.6 }}
-              className="mt-6 text-5xl font-bold leading-[1.04] tracking-tight md:text-6xl lg:text-7xl"
+              className="mt-6 text-4xl font-bold leading-[1.04] tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
             >
               Let’s Build Something
               <span className="mt-2 block gradient-text">
@@ -258,7 +264,7 @@ export default function ContactPage() {
               initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.22, duration: 0.6 }}
-              className="mt-6 max-w-2xl text-lg leading-relaxed text-(--text-muted) md:text-xl"
+              className="mt-6 max-w-2xl text-base leading-relaxed text-(--text-muted) sm:text-lg md:text-xl"
             >
               From web apps and mobile experiences to AI automation and scalable
               cloud solutions, we help brands launch faster and grow smarter.
@@ -268,11 +274,11 @@ export default function ContactPage() {
               initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.28, duration: 0.6 }}
-              className="mt-8 flex flex-wrap gap-4"
+              className="mt-8 flex flex-col gap-4 sm:flex-row sm:flex-wrap"
             >
               <Link
                 href="#quote-form"
-                className="btn-shine inline-flex items-center justify-center gap-2 rounded-xl bg-linear-to-r from-primary to-accent px-8 py-4 text-base font-bold text-dark-900 shadow-[0_0_30px_rgba(56,189,248,0.28)] transition-all hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(56,189,248,0.4)]"
+                className="btn-shine inline-flex items-center justify-center gap-2 rounded-xl bg-linear-to-r from-primary to-accent px-6 py-4 text-sm font-bold text-dark-900 shadow-[0_0_30px_rgba(56,189,248,0.28)] transition-all hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(56,189,248,0.4)] sm:px-8 sm:text-base"
               >
                 Start Your Project
                 <HiArrowRight />
@@ -280,7 +286,7 @@ export default function ContactPage() {
 
               <a
                 href="mailto:hnxtechnologies@gmail.com"
-                className="gradient-border inline-flex items-center justify-center gap-2 rounded-xl border border-(--border) bg-white/55 px-8 py-4 text-base font-semibold text-(--text) transition-all hover:border-primary/30 hover:bg-white/80 dark:bg-white/4"
+                className="gradient-border inline-flex items-center justify-center gap-2 rounded-xl border border-(--border) bg-white/55 px-6 py-4 text-sm font-semibold text-(--text) transition-all hover:border-primary/30 hover:bg-white/80 dark:bg-white/4 sm:px-8 sm:text-base"
               >
                 Email Us Directly
               </a>
@@ -290,7 +296,7 @@ export default function ContactPage() {
               initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.34, duration: 0.6 }}
-              className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-(--text-muted) sm:gap-x-5"
+              className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-(--text-muted) sm:gap-x-5 sm:text-sm"
             >
               {[
                 "Fast Response",
@@ -298,7 +304,7 @@ export default function ContactPage() {
                 "Transparent Pricing",
                 "Production Delivery",
               ].map((item, index) => (
-                <span key={item} className="inline-flex items-center gap-4">
+                <span key={item} className="inline-flex items-center gap-3 sm:gap-4">
                   <span className="font-medium tracking-wide">{item}</span>
                   {index < 3 ? (
                     <span className="h-1 w-1 rounded-full bg-primary/70" />
@@ -311,18 +317,18 @@ export default function ContactPage() {
       </section>
 
       {/* CONTACT CONTENT */}
-      <section className="relative py-24">
+      <section className="section-shell relative">
         <div className="absolute inset-0 bg-linear-to-b from-transparent via-black/2 to-transparent dark:via-white/1" />
 
-        <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="grid gap-10 lg:grid-cols-5">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-8 lg:grid-cols-5 lg:gap-10">
             {/* CONTACT INFO */}
             <motion.div
               initial={shouldReduceMotion ? false : { opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="space-y-8 lg:col-span-2"
+              className="space-y-6 sm:space-y-8 lg:col-span-2"
             >
               {contactInfo.map((info) => (
                 <a
@@ -330,12 +336,12 @@ export default function ContactPage() {
                   href={info.href}
                   className="group flex items-start gap-4"
                 >
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-primary/20 bg-primary/10 transition-colors group-hover:bg-primary/20">
-                    <info.icon className="text-xl text-primary" />
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-primary/20 bg-primary/10 transition-colors group-hover:bg-primary/20 sm:h-12 sm:w-12">
+                    <info.icon className="text-lg text-primary sm:text-xl" />
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <p className="text-sm text-(--text-soft)">{info.label}</p>
-                    <p className="font-semibold transition-colors group-hover:text-primary">
+                    <p className="wrap-break-word font-semibold transition-colors group-hover:text-primary">
                       {info.value}
                     </p>
                   </div>
@@ -343,23 +349,23 @@ export default function ContactPage() {
               ))}
 
               <div className="pt-2">
-                <div className="inline-flex items-center gap-4 rounded-2xl border border-white/[0.08] bg-white/[0.04] px-4 py-2.5 shadow-[0_0_30px_rgba(77,208,225,0.06)]">
+                <div className="inline-flex flex-wrap items-center gap-3 rounded-2xl border border-white/8 bg-white/4 px-4 py-3 shadow-[0_0_30px_rgba(77,208,225,0.06)] sm:gap-4 sm:py-2.5">
                   <span className="text-xs font-bold uppercase tracking-widest text-primary">
                     Follow us
                   </span>
-                  <div className="h-5 w-px bg-gradient-to-b from-transparent via-primary/30 to-transparent" />
+                  <div className="hidden h-5 w-px bg-linear-to-b from-transparent via-primary/30 to-transparent sm:block" />
                   {socials.map((s) => (
                     <a
                       key={s.label}
                       href={s.href}
                       aria-label={s.label}
-                      className={`group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-300 hover:-translate-y-1 hover:scale-110 ${s.bg} ${s.hoverBg}`}
+                      className={`group relative flex h-10 w-10 items-center justify-center rounded-xl transition-all duration-300 hover:-translate-y-1 hover:scale-110 sm:h-11 sm:w-11 ${s.bg} ${s.hoverBg}`}
                     >
                       <s.icon
                         size={18}
                         className="transition-transform duration-300 group-hover:scale-110"
                       />
-                      <span className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-lg bg-white px-3 py-1.5 text-xs font-semibold text-dark-900 opacity-0 scale-90 shadow-lg transition-all duration-200 group-hover:opacity-100 group-hover:scale-100">
+                      <span className="pointer-events-none absolute -top-10 left-1/2 hidden -translate-x-1/2 whitespace-nowrap rounded-lg bg-white px-3 py-1.5 text-xs font-semibold text-dark-900 opacity-0 scale-90 shadow-lg transition-all duration-200 group-hover:opacity-100 group-hover:scale-100 sm:block">
                         {s.tooltip}
                         <span className="absolute left-1/2 top-full -translate-x-1/2 border-4 border-transparent border-t-white" />
                       </span>
@@ -368,7 +374,7 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              <div className="glass-card rounded-3xl p-6">
+              <div className="glass-card rounded-3xl p-5 sm:p-6">
                 <h4 className="mb-4 text-lg font-bold">Why Work With HNX?</h4>
                 <ul className="space-y-2.5 text-sm text-(--text-muted)">
                   {[
@@ -386,7 +392,7 @@ export default function ContactPage() {
                 </ul>
               </div>
 
-              <div className="glass-card rounded-3xl p-6 text-center">
+              <div className="glass-card rounded-3xl p-5 text-center sm:p-6">
                 <p className="mb-2 text-3xl font-bold gradient-text">&lt;24h</p>
                 <p className="text-sm text-(--text-muted)">Average response time</p>
               </div>
@@ -404,7 +410,7 @@ export default function ContactPage() {
               <motion.div
                 layout
                 transition={primaryTransition}
-                className="relative [perspective:1400px]"
+                className="relative perspective-[1400px]"
               >
                 <AnimatePresence>
                   {showSuccessOverlay && (
@@ -436,7 +442,7 @@ export default function ContactPage() {
                           delay: shouldReduceMotion ? 0 : 0.08,
                           ...softTransition,
                         }}
-                        className="pointer-events-auto relative z-10 mx-3 flex min-h-[520px] w-[min(94vw,720px)] flex-col items-center justify-center overflow-hidden rounded-[2rem] border border-emerald-300/20 bg-[rgba(255,255,255,0.88)] px-6 py-8 text-center shadow-[0_28px_100px_rgba(16,185,129,0.18)] backdrop-blur-2xl sm:px-10 dark:bg-white/[0.08] dark:shadow-[0_28px_100px_rgba(16,185,129,0.22)]"
+                        className="pointer-events-auto relative z-10 mx-3 flex min-h-105 w-[min(94vw,720px)] flex-col items-center justify-center overflow-hidden rounded-4xl border border-emerald-300/20 bg-[rgba(255,255,255,0.88)] px-5 py-8 text-center shadow-[0_28px_100px_rgba(16,185,129,0.18)] backdrop-blur-2xl sm:min-h-130 sm:px-10 dark:bg-white/8 dark:shadow-[0_28px_100px_rgba(16,185,129,0.22)]"
                         style={{ transformStyle: "preserve-3d" }}
                       >
                         <button
@@ -513,7 +519,7 @@ export default function ContactPage() {
                                 repeat: Infinity,
                                 ease: "easeInOut",
                               }}
-                              className="select-none text-[5.5rem] drop-shadow-[0_18px_40px_rgba(16,185,129,0.22)] sm:text-[6.5rem]"
+                              className="select-none text-[4.2rem] drop-shadow-[0_18px_40px_rgba(16,185,129,0.22)] sm:text-[6.5rem]"
                               style={{ transform: "translateZ(52px)" }}
                             >
                               🤖
@@ -543,7 +549,7 @@ export default function ContactPage() {
                                 duration: shouldReduceMotion ? 0.01 : 0.85,
                                 ease: [0.22, 1, 0.36, 1],
                               }}
-                              className="relative mt-[-20px] overflow-hidden rounded-[2rem] border border-black/8 bg-white/90 px-7 py-5 backdrop-blur-2xl dark:border-white/10 dark:bg-white/[0.08]"
+                              className="relative -mt-4 overflow-hidden rounded-4xl border border-black/8 bg-white/90 px-5 py-5 backdrop-blur-2xl sm:-mt-5 sm:px-7 dark:border-white/10 dark:bg-white/8"
                               style={{
                                 transformStyle: "preserve-3d",
                                 transform: "translateZ(110px)",
@@ -551,14 +557,14 @@ export default function ContactPage() {
                                   "0 35px 120px rgba(16,185,129,0.22), 0 18px 40px rgba(56,189,248,0.10), inset 0 1px 0 rgba(255,255,255,0.08)",
                               }}
                             >
-                              <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-emerald-300/70 to-transparent" />
+                              <div className="absolute inset-x-0 top-0 h-0.5 bg-linear-to-r from-transparent via-emerald-300/70 to-transparent" />
                               <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(52,211,153,0.10),transparent_40%),radial-gradient(circle_at_bottom_right,rgba(56,189,248,0.10),transparent_35%)]" />
 
                               <p className="relative text-center text-[11px] font-bold uppercase tracking-[0.32em] text-emerald-600 dark:text-emerald-300/95">
                                 MESSAGE SENT
                               </p>
 
-                              <h3 className="relative mt-3 text-center text-2xl font-black leading-tight text-slate-950 sm:text-3xl dark:text-white">
+                              <h3 className="relative mt-3 text-center text-xl font-black leading-tight text-slate-950 sm:text-3xl dark:text-white">
                                 Your request has been received 🚀
                               </h3>
 
@@ -582,7 +588,7 @@ export default function ContactPage() {
                   layout
                   onSubmit={handleSubmit}
                   transition={primaryTransition}
-                  className={`glass-card relative overflow-hidden rounded-3xl px-8 py-6 md:px-10 md:py-8 ${
+                  className={`glass-card relative overflow-hidden rounded-3xl px-5 py-5 sm:px-6 md:px-10 md:py-8 ${
                     isSubmitting
                       ? "shadow-[0_0_0_1px_rgba(56,189,248,0.18)]"
                       : ""
@@ -621,7 +627,7 @@ export default function ContactPage() {
                   >
                     <div className="mb-6 flex items-start justify-between gap-4">
                       <div>
-                        <h3 className="text-2xl font-bold">Send Us a Message</h3>
+                        <h3 className="text-xl font-bold sm:text-2xl">Send Us a Message</h3>
                         <p className="mt-1 text-sm text-(--text-soft)">
                           Tell us what you’re building and we’ll suggest the best next step.
                         </p>
@@ -666,7 +672,7 @@ export default function ContactPage() {
                           value={formData.name}
                           onChange={handleChange}
                           required
-                          className="w-full rounded-xl border border-white/10 bg-dark-700/50 px-4 py-3 text-light-100 placeholder:text-light-300/50 transition-all focus:border-primary/50 focus:outline-none focus:ring-1 focus:ring-primary/20"
+                          className={inputClassName}
                           placeholder="John Doe"
                         />
                       </div>
@@ -681,7 +687,7 @@ export default function ContactPage() {
                           value={formData.email}
                           onChange={handleChange}
                           required
-                          className="w-full rounded-xl border border-white/10 bg-dark-700/50 px-4 py-3 text-light-100 placeholder:text-light-300/50 transition-all focus:border-primary/50 focus:outline-none focus:ring-1 focus:ring-primary/20"
+                          className={inputClassName}
                           placeholder="john@company.com"
                         />
                       </div>
@@ -696,7 +702,7 @@ export default function ContactPage() {
                         value={formData.projectType}
                         onChange={handleChange}
                         required
-                        className="w-full rounded-xl border border-white/10 bg-dark-700/50 px-4 py-3 text-light-100 transition-all focus:border-primary/50 focus:outline-none focus:ring-1 focus:ring-primary/20"
+                        className={selectClassName}
                       >
                         <option value="" disabled>
                           Select a service
@@ -719,7 +725,7 @@ export default function ContactPage() {
                         name="budget"
                         value={formData.budget}
                         onChange={handleChange}
-                        className="w-full rounded-xl border border-white/10 bg-dark-700/50 px-4 py-3 text-light-100 transition-all focus:border-primary/50 focus:outline-none focus:ring-1 focus:ring-primary/20"
+                        className={selectClassName}
                       >
                         <option value="" disabled>
                           Select budget range
@@ -742,7 +748,7 @@ export default function ContactPage() {
                         onChange={handleChange}
                         required
                         rows={4}
-                        className="w-full resize-none rounded-xl border border-white/10 bg-dark-700/50 px-4 py-3 text-light-100 placeholder:text-light-300/50 transition-all focus:border-primary/50 focus:outline-none focus:ring-1 focus:ring-primary/20"
+                        className={`${inputClassName} resize-none`}
                         placeholder="Tell us about your project, goals, and timeline."
                       />
                     </div>

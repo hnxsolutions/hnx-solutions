@@ -103,7 +103,7 @@ export default function Portfolio() {
                       <iframe
                         src={project.liveUrl}
                         title={`Preview of ${project.title}`}
-                        className="pointer-events-none h-[720px] w-[1280px] origin-top-left"
+                        className="pointer-events-none h-180 w-7xl origin-top-left"
                         style={{
                           transform: "scale(0.28)",
                           transformOrigin: "top left",

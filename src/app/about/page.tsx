@@ -142,7 +142,7 @@ export default function AboutPage() {
   return (
     <main className="relative overflow-hidden bg-(--bg) text-(--text)">
       {/* HERO */}
-      <section className="hero-light relative isolate min-h-[88vh] overflow-hidden pt-20 pb-20 sm:pt-35 lg:flex lg:items-center">
+      <section className="hero-light relative isolate min-h-[88vh] overflow-hidden pt-20 pb-20 sm:pt-26 lg:flex lg:items-center">
         <div className="absolute inset-0 z-0">
           <Image
             src={aboutHeroBgImage}
@@ -159,13 +159,13 @@ export default function AboutPage() {
 
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom,rgba(15,23,42,0.12),transparent_45%)] dark:bg-[radial-gradient(circle_at_bottom,rgba(0,0,0,0.38),transparent_48%)]" />
 
-          <div className="absolute left-0 top-1/2 hidden h-[34rem] w-[30rem] -translate-y-1/2 bg-[radial-gradient(circle,rgba(255,255,255,0.35)_0%,rgba(255,255,255,0.14)_46%,rgba(255,255,255,0)_74%)] blur-2xl lg:block dark:hidden" />
-          <div className="absolute right-0 top-1/2 hidden h-[34rem] w-[38rem] -translate-y-1/2 bg-[radial-gradient(circle,rgba(6,10,18,0.68)_0%,rgba(6,10,18,0.42)_44%,rgba(6,10,18,0)_76%)] blur-2xl dark:lg:block" />
+          <div className="absolute left-0 top-1/2 hidden h-136 w-120 -translate-y-1/2 bg-[radial-gradient(circle,rgba(255,255,255,0.35)_0%,rgba(255,255,255,0.14)_46%,rgba(255,255,255,0)_74%)] blur-2xl lg:block dark:hidden" />
+          <div className="absolute right-0 top-1/2 hidden h-136 w-152 -translate-y-1/2 bg-[radial-gradient(circle,rgba(6,10,18,0.68)_0%,rgba(6,10,18,0.42)_44%,rgba(6,10,18,0)_76%)] blur-2xl dark:lg:block" />
         </div>
 
         <div className="absolute left-10 top-24 z-1 h-72 w-72 rounded-full bg-primary/6 blur-3xl dark:bg-primary/4" />
         <div className="absolute bottom-16 right-10 z-1 h-72 w-72 rounded-full bg-accent/6 blur-3xl dark:bg-accent/4" />
-        <div className="absolute left-1/2 top-1/2 z-1 h-[36rem] w-[36rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/4 blur-[120px] dark:bg-primary/2" />
+        <div className="absolute left-1/2 top-1/2 z-1 h-144 w-xl -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/4 blur-[120px] dark:bg-primary/2" />
 
         <div className="relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-8">
           <div className="grid items-center gap-14 lg:grid-cols-[1.1fr_0.9fr]">

@@ -62,7 +62,7 @@ export default function SitePreview({
               </div>
 
               {/* URL bar */}
-              <div className="hidden sm:flex items-center gap-2 px-4 py-1.5 rounded-lg bg-dark-700/80 border border-white/10 text-sm text-light-300 min-w-[200px] max-w-md">
+              <div className="hidden sm:flex items-center gap-2 px-4 py-1.5 rounded-lg bg-dark-700/80 border border-white/10 text-sm text-light-300 min-w-50 max-w-md">
                 <span className="text-emerald-400 text-xs">🔒</span>
                 <span className="truncate">{url}</span>
               </div>

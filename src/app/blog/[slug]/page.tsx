@@ -184,7 +184,7 @@ export default function BlogPage({ params }: PageProps) {
             {/* Meta Info */}
             <div className="flex flex-wrap items-center gap-4 text-sm text-blog-text-light mb-4">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blog-tan-400 to-blog-tan-600 flex items-center justify-center text-white font-semibold text-sm">
+                <div className="w-10 h-10 rounded-full bg-linear-to-br from-blog-tan-400 to-blog-tan-600 flex items-center justify-center text-white font-semibold text-sm">
                   {blog.author.charAt(0)}
                 </div>
                 <span>{blog.author}</span>

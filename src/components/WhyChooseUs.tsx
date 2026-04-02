@@ -56,7 +56,7 @@ export default function WhyChooseUs() {
           <h2 className="mt-6 text-4xl font-bold md:text-5xl">
             Why Choose <span className="gradient-text">Us</span>
           </h2>
-          <p className="mt-4 text-lg leading-8 text-[var(--text-muted)]">
+          <p className="mt-4 text-lg leading-8 text-(--text-muted)">
             We deliver more than features. We build refined digital products with
             strong engineering, clear thinking, and reliable execution.
           </p>
@@ -72,11 +72,11 @@ export default function WhyChooseUs() {
               transition={{ delay: i * 0.08, duration: 0.55 }}
               className="premium-card glass-card cursor-glow rounded-[1.75rem] p-8 text-center"
             >
-              <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/15 to-accent/15">
+              <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br from-primary/15 to-accent/15">
                 {r.icon}
               </div>
               <h3 className="text-xl font-bold">{r.title}</h3>
-              <p className="mt-3 text-sm leading-7 text-[var(--text-muted)]">
+              <p className="mt-3 text-sm leading-7 text-(--text-muted)">
                 {r.desc}
               </p>
             </motion.div>
@@ -97,7 +97,7 @@ export default function WhyChooseUs() {
               <p className="gradient-text text-3xl font-bold md:text-4xl">
                 {stat.value}
               </p>
-              <p className="mt-2 text-sm font-medium text-[var(--text-muted)]">
+              <p className="mt-2 text-sm font-medium text-(--text-muted)">
                 {stat.label}
               </p>
             </motion.div>
