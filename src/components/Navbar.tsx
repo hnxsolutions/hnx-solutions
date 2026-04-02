@@ -475,7 +475,7 @@ export default function Navbar() {
                 <Link
                   href="/contact"
                   onClick={() => setMobileOpen(false)}
-                  className="btn-shine mt-4 block rounded-lg bg-linear-to-r from-primary to-accent px-6 py-3 text-center font-semibold text-dark-900"
+                  className="btn-shine mt-4 block rounded-lg bg-linear-to-r from-red-300 to-gray-500 px-6 py-3 text-center font-semibold text-dark-900"
                 >
                   Get a Quote
                 </Link>

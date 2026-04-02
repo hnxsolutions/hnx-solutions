@@ -237,9 +237,9 @@ export default function HomePortfolio() {
   return (
     <section className="relative overflow-hidden grid-bg bg-(--bg) py-16 text-(--text) md:py-18">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute left-[-7rem] top-12 h-80 w-80 rounded-full bg-primary/8 blur-3xl" />
-        <div className="absolute right-[-7rem] top-24 h-80 w-80 rounded-full bg-accent/8 blur-3xl" />
-        <div className="absolute bottom-[-4rem] left-1/2 h-80 w-[30rem] -translate-x-1/2 rounded-full bg-primary/6 blur-3xl" />
+        <div className="absolute -left-28 top-12 h-80 w-80 rounded-full bg-primary/8 blur-3xl" />
+        <div className="absolute -right-28 top-24 h-80 w-80 rounded-full bg-accent/8 blur-3xl" />
+        <div className="absolute -bottom-16 left-1/2 h-80 w-120 -translate-x-1/2 rounded-full bg-primary/6 blur-3xl" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.06),transparent_28%)] dark:bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.08),transparent_28%)]" />
       </div>
 

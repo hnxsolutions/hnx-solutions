@@ -48,27 +48,31 @@ const team = [
     initials: "K",
     color: "from-primary to-cyan-600",
     bio: "Full-stack engineer and entrepreneur leading product vision, engineering direction, and strategic delivery across modern web, mobile, and AI solutions.",
+    expertise: ["Leadership", "Product Strategy", "Full-Stack"],
   },
   {
-    name: "Dev Lead",
-    role: "CTO & Full-Stack",
-    initials: "DL",
+    name: "Ritik Chouhan",
+    role: "Backend Specialist",
+    initials: "RC",
     color: "from-accent to-violet-600",
-    bio: "Architects robust backend systems, cloud infrastructure, and scalable application foundations with strong focus on performance and code quality.",
+    bio: "Backend Specialist skilled in building scalable APIs, secure server-side systems, and high-performance databases. Focused on delivering reliable backend architectures that power seamless, efficient digital experiences.",
+    expertise: ["APIs", "Backend", "Databases"],
   },
   {
-    name: "Design Head",
-    role: "UI/UX Lead",
-    initials: "DH",
+    name: "Jatin Kapoor",
+    role: "MVP & Product Design",
+    initials: "JK",
     color: "from-pink-500 to-rose-600",
-    bio: "Transforms product ideas into polished digital experiences with strong visual systems, intuitive flows, and conversion-focused interfaces.",
+    bio: "Specialized in building MVPs that transform ideas into real, market-ready products. Focused on rapid execution, validation, and scalable architecture for startup success.",
+    expertise: ["UI/UX", "MVP Design", "Product Flow"],
   },
   {
-    name: "AI Engineer",
+    name: "Ananya Mehta",
     role: "ML & Automation",
-    initials: "AI",
+    initials: "AM",
     color: "from-amber-500 to-orange-600",
     bio: "Designs intelligent automation systems, AI workflows, and LLM-powered experiences that help businesses scale with less manual effort.",
+    expertise: ["Automation", "AI Workflows", "LLMs"],
   },
 ];
 
@@ -90,7 +94,14 @@ const techCategories = [
   },
   {
     label: "Databases",
-    techs: ["PostgreSQL", "MongoDB", "Redis", "Supabase", "Firebase", "Vector DBs"],
+    techs: [
+      "PostgreSQL",
+      "MongoDB",
+      "Redis",
+      "Supabase",
+      "Firebase",
+      "Vector DBs",
+    ],
   },
   {
     label: "Cloud & DevOps",
@@ -98,37 +109,13 @@ const techCategories = [
   },
 ];
 
-const milestones = [
-  {
-    year: "2020",
-    title: "Founded",
-    description:
-      "HNX Technologies started with a clear mission: make high-quality, modern digital solutions accessible to ambitious businesses.",
-  },
-  {
-    year: "2021",
-    title: "First Major Deliveries",
-    description:
-      "We shipped our first impactful client platforms and built a reputation for fast execution, clean engineering, and business-first thinking.",
-  },
-  {
-    year: "2023",
-    title: "AI Division Launched",
-    description:
-      "We expanded into AI and automation, building smart workflows, AI assistants, custom chat systems, and process acceleration tools.",
-  },
-  {
-    year: "2024",
-    title: "50+ Project Milestone",
-    description:
-      "Our portfolio crossed 50+ completed engagements across multiple industries, with strong retention and consistently positive client outcomes.",
-  },
-  {
-    year: "2025",
-    title: "Global Expansion",
-    description:
-      "We scaled our delivery capacity and began supporting clients across broader international markets with more advanced product and automation work.",
-  },
+const industries: string[] = [
+  "Startups",
+  "E-commerce",
+  "Healthcare",
+  "EdTech",
+  "SaaS Products",
+  "Enterprise Solutions",
 ];
 
 const stats = [
@@ -216,10 +203,10 @@ export default function AboutPage() {
                 className="mt-8 flex flex-col gap-4 sm:flex-row"
               >
                 <Link
-                  href="#our-journey"
+                  href="#industries-section"
                   className="btn-shine inline-flex items-center justify-center gap-2 rounded-xl bg-linear-to-r from-primary to-accent px-6 py-4 text-base font-bold text-dark-900 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/25"
                 >
-                  Explore Our Journey
+                  Explore Our Expertise
                   <HiArrowRight className="text-lg" />
                 </Link>
 
@@ -361,8 +348,11 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section id="our-journey" className="section-shell relative overflow-hidden grid-bg">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(14,165,233,0.04),transparent_28%)] dark:bg-[radial-gradient(circle_at_top,rgba(77,208,225,0.06),transparent_28%)]" />
+      <section
+        id="industries-section"
+        className="section-shell relative overflow-hidden grid-bg"
+      >
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(14,165,233,0.05),transparent_28%)] dark:bg-[radial-gradient(circle_at_top,rgba(77,208,225,0.08),transparent_28%)]" />
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -372,50 +362,43 @@ export default function AboutPage() {
             className="mx-auto mb-14 max-w-3xl text-center md:mb-16"
           >
             <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-primary">
-              Milestones
+              Industries
             </span>
+
             <h2 className="mt-6 text-4xl font-bold md:text-5xl">
-              Our <span className="gradient-text">Journey</span>
+              Industries We <span className="gradient-text">Serve</span>
             </h2>
+
             <p className="mt-4 text-lg leading-8 text-(--text-muted)">
-              A growth story shaped by execution, experimentation, and a constant
-              focus on delivering meaningful digital products.
+              We build tailored digital solutions across multiple industries,
+              helping businesses scale with modern technology and smart execution.
             </p>
           </motion.div>
 
-          <div className="relative">
-            <div className="absolute left-5 top-0 bottom-0 w-px bg-linear-to-b from-primary/50 via-accent/50 to-primary/50 md:left-1/2" />
+          <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
+            {industries.map((industry, i) => (
+              <motion.div
+                key={industry}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ delay: i * 0.08, duration: 0.5 }}
+                className="group premium-card glass-card cursor-glow rounded-[1.75rem] p-6 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(0,0,0,0.12)] dark:hover:shadow-[0_20px_50px_rgba(0,0,0,0.3)]"
+              >
+                <div className="mb-4 flex items-center justify-center">
+                  <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-linear-to-br from-primary/20 to-accent/20 text-xl font-bold text-primary transition-all duration-300 group-hover:scale-110">
+                    {industry.charAt(0)}
+                  </span>
+                </div>
 
-            <div className="space-y-10">
-              {milestones.map((ms, i) => (
-                <motion.div
-                  key={ms.year}
-                  initial={{ opacity: 0, y: 26 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-80px" }}
-                  transition={{ delay: i * 0.08, duration: 0.55 }}
-                  className={`relative flex ${
-                    i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-                  }`}
-                >
-                  <div className="absolute left-5 top-7 h-4 w-4 -translate-x-1/2 rounded-full border-4 border-(--bg) bg-linear-to-br from-primary to-accent md:left-1/2" />
+                <h3 className="text-lg font-bold text-(--text)">{industry}</h3>
 
-                  <div
-                    className={`ml-12 md:ml-0 md:w-1/2 ${
-                      i % 2 === 0 ? "md:pr-14" : "md:pl-14"
-                    }`}
-                  >
-                    <div className="glass-card premium-card rounded-[1.75rem] p-6 md:p-7">
-                      <p className="gradient-text text-2xl font-black">{ms.year}</p>
-                      <h3 className="mt-2 text-xl font-bold">{ms.title}</h3>
-                      <p className="mt-3 text-sm leading-7 text-(--text-muted)">
-                        {ms.description}
-                      </p>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+                <p className="mt-2 text-sm text-(--text-muted)">
+                  Custom solutions designed for modern{" "}
+                  {industry.toLowerCase()} needs.
+                </p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
@@ -437,8 +420,9 @@ export default function AboutPage() {
               Meet Our <span className="gradient-text">Team</span>
             </h2>
             <p className="mt-4 text-lg leading-8 text-(--text-muted)">
-              A focused, high-output team with strong technical depth and a sharp
-              eye for product quality.
+              A focused, high-output team with strong technical depth, premium
+              product thinking, and an execution mindset built for modern digital
+              delivery.
             </p>
           </motion.div>
 
@@ -450,18 +434,53 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-80px" }}
                 transition={{ delay: i * 0.08, duration: 0.55 }}
-                className="premium-card glass-card cursor-glow rounded-[1.75rem] p-6 text-center sm:p-7"
+                className="group premium-card glass-card cursor-glow relative overflow-hidden rounded-[1.9rem] border border-(--border) p-6 text-center sm:p-7"
               >
-                <div
-                  className={`mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-[1.4rem] bg-linear-to-br ${member.color} shadow-[0_14px_30px_rgba(0,0,0,0.18)]`}
-                >
-                  <span className="text-xl font-bold text-white">{member.initials}</span>
+                <div className="pointer-events-none absolute inset-0 opacity-100">
+                  <div className="absolute -left-16 top-0 h-32 w-32 rounded-full bg-primary/8 blur-3xl transition-all duration-500 group-hover:bg-primary/12" />
+                  <div className="absolute -right-16 bottom-0 h-32 w-32 rounded-full bg-accent/8 blur-3xl transition-all duration-500 group-hover:bg-accent/12" />
                 </div>
-                <h3 className="text-xl font-bold">{member.name}</h3>
-                <p className="mt-1 text-sm font-medium text-primary">{member.role}</p>
-                <p className="mt-4 text-sm leading-7 text-(--text-muted)">
-                  {member.bio}
-                </p>
+
+                <div className="relative z-10">
+                  <div
+                    className={`mx-auto mb-5 flex h-22 w-22 items-center justify-center rounded-[1.5rem] bg-linear-to-br ${member.color} shadow-[0_18px_35px_rgba(0,0,0,0.18)] transition-all duration-500 group-hover:scale-105 group-hover:-translate-y-1`}
+                  >
+                    <span className="text-2xl font-bold text-white">
+                      {member.initials}
+                    </span>
+                  </div>
+
+                  <h3 className="text-xl font-bold text-(--text)">
+                    {member.name}
+                  </h3>
+
+                  <p className="mt-1 text-sm font-semibold text-primary">
+                    {member.role}
+                  </p>
+
+                  <p className="mt-4 min-h-[120px] text-sm leading-7 text-(--text-muted)">
+                    {member.bio}
+                  </p>
+
+                  <div className="mt-5 flex flex-wrap justify-center gap-2">
+                    {member.expertise.map((item) => (
+                      <span
+                        key={item}
+                        className="rounded-full border border-(--border) bg-white/55 px-3 py-1.5 text-[11px] font-medium text-(--text-soft) transition-all duration-300 group-hover:border-primary/20 group-hover:text-(--text) dark:bg-white/4"
+                      >
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="mt-6 border-t border-white/10 pt-4">
+                    <span className="text-xs font-semibold uppercase tracking-[0.18em] text-(--text-soft)">
+                      HNX Core Team
+                    </span>
+                  </div>
+                </div>
+
+                <div className="pointer-events-none absolute inset-0 rounded-[1.9rem] ring-1 ring-white/5 transition-all duration-500 group-hover:ring-primary/20" />
               </motion.div>
             ))}
           </div>

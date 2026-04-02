@@ -93,7 +93,7 @@ export const services: ServiceItem[] = [
     fullDescription:
       "We build secure and scalable SaaS products for startups and growing businesses. From MVP architecture to subscription billing, user roles, dashboards, and cloud deployment, we help transform product ideas into production-ready SaaS platforms.",
     startingPrice: "Starting from $300",
-    timeline: "2 to 5 weeks",
+    timeline: "3 to 6 weeks",
     bestFor:
       "Startup MVPs, SaaS platforms, subscription systems, B2B products, and cloud-based software.",
     tags: ["Next.js", "React", "Node.js", "PostgreSQL", "Stripe", "AWS/Vercel"],
@@ -158,7 +158,7 @@ export const services: ServiceItem[] = [
     fullDescription:
       "We create mobile apps using modern cross-platform technologies like React Native and Flutter. Our focus is on smooth user experience, strong performance, backend integration, and store-ready delivery for both Android and iOS.",
     startingPrice: "Starting from $650",
-    timeline: "2 to 6 weeks",
+    timeline: "4 to 8 weeks",
     bestFor:
       "Startup MVPs, booking apps, business apps, service platforms, and customer-facing mobile products.",
     tags: ["React Native", "Flutter", "Expo", "iOS", "Android", "Firebase"],
@@ -222,8 +222,8 @@ export const services: ServiceItem[] = [
       "CRM systems, Salesforce customization, process automation, and workflow optimization.",
     fullDescription:
       "We help businesses improve operations using CRM systems and Salesforce-based solutions. From implementation and customization to automation, reporting, integrations, and team enablement, we build systems that improve visibility and productivity.",
-    startingPrice: "Starting from $250",
-    timeline: "1 to 4 weeks",
+    startingPrice: "Starting from $15/hour",
+    timeline: "4 to 8 weeks",
     bestFor:
       "Sales teams, lead tracking, pipeline management, internal operations, and process automation.",
     tags: ["Salesforce", "CRM", "Business Automation", "Integration", "Apex", "LWC"],
@@ -237,7 +237,7 @@ export const services: ServiceItem[] = [
     packages: [
       {
         name: "CRM Starter",
-        price: "$250 - $500",
+        price: "$15/hour",
         description:
           "For businesses needing setup, visibility, and core CRM process improvement.",
         features: [
@@ -251,7 +251,7 @@ export const services: ServiceItem[] = [
       },
       {
         name: "Salesforce Growth",
-        price: "$500 - $1,000",
+        price: "$35/hour",
         description:
           "For teams that need stronger automation, visibility, and operational structure.",
         features: [
@@ -266,7 +266,7 @@ export const services: ServiceItem[] = [
       },
       {
         name: "Advanced CRM System",
-        price: "$1,000+",
+        price: "$55/hour",
         description:
           "For larger or more custom CRM environments with deep workflows and integrations.",
         features: [
@@ -287,8 +287,8 @@ export const services: ServiceItem[] = [
       "Deployment automation, CI/CD, infrastructure setup, monitoring, and reliability engineering.",
     fullDescription:
       "We design and implement DevOps systems that improve deployment speed, system reliability, and operational confidence. From CI/CD pipelines to monitoring, backups, infrastructure automation, and disaster recovery, we help teams ship and scale safely.",
-    startingPrice: "Starting from $200",
-    timeline: "5 days to 3 weeks",
+    startingPrice: "Starting from $18/hour",
+    timeline: "2 weeks to 4 weeks",
     bestFor:
       "CI/CD pipelines, deployments, server setup, infrastructure reliability, and automation.",
     tags: ["Kubernetes", "Jenkins", "AWS", "Docker", "Terraform", "Ansible"],
@@ -302,7 +302,7 @@ export const services: ServiceItem[] = [
     packages: [
       {
         name: "DevOps Starter",
-        price: "$200 - $450",
+        price: "$18/hour",
         description:
           "For small teams needing reliable deployment and clean environment setup.",
         features: [
@@ -316,7 +316,7 @@ export const services: ServiceItem[] = [
       },
       {
         name: "DevOps Growth",
-        price: "$450 - $900",
+        price: "$25/hour",
         description:
           "For stronger automation, monitoring, deployment quality, and system confidence.",
         features: [
@@ -331,7 +331,7 @@ export const services: ServiceItem[] = [
       },
       {
         name: "Advanced DevOps",
-        price: "$900+",
+        price: "$30/hour",
         description:
           "For larger systems requiring scale, orchestration, and resilient infrastructure.",
         features: [
@@ -352,8 +352,8 @@ export const services: ServiceItem[] = [
       "AI chatbots, smart assistants, workflow automation, and business process intelligence.",
     fullDescription:
       "We build custom AI and automation systems that help businesses reduce manual work, improve response times, and streamline operations. This includes chatbots, workflow agents, document processing, data extraction, and tailored AI-assisted tools.",
-    startingPrice: "Starting from $180",
-    timeline: "1 to 4 weeks",
+    startingPrice: "Starting from $350",
+    timeline: "2 to 4 weeks",
     bestFor:
       "AI chatbots, customer support automation, internal workflows, lead handling, and smart operations.",
     tags: ["GPT", "Claude", "LangChain", "Python", "Automation", "Vector DBs"],
@@ -367,7 +367,7 @@ export const services: ServiceItem[] = [
     packages: [
       {
         name: "AI Starter",
-        price: "$180 - $400",
+        price: "$350 - $500",
         description:
           "For simple AI use cases, lightweight assistants, and basic automation.",
         features: [
@@ -381,7 +381,7 @@ export const services: ServiceItem[] = [
       },
       {
         name: "AI Business Automation",
-        price: "$400 - $900",
+        price: "$500 - $1000",
         description:
           "For useful AI systems connected to actual business operations.",
         features: [
@@ -396,7 +396,7 @@ export const services: ServiceItem[] = [
       },
       {
         name: "Advanced AI System",
-        price: "$900+",
+        price: "$1000+",
         description:
           "For advanced AI products with deeper workflows, logic, and integrations.",
         features: [
@@ -417,7 +417,7 @@ export const services: ServiceItem[] = [
       "Cloud deployment, migration, optimization, architecture planning, and infrastructure modernization.",
     fullDescription:
       "We help businesses move, optimize, and manage their systems in the cloud. Whether you need a fresh cloud setup, migration support, deployment architecture, or reliability improvements, we design practical cloud solutions around performance and scale.",
-    startingPrice: "Starting from $220",
+    startingPrice: "Starting from $50",
     timeline: "5 days to 3 weeks",
     bestFor:
       "Cloud migration, deployment setup, infrastructure optimization, and hosting modernization.",
@@ -432,7 +432,7 @@ export const services: ServiceItem[] = [
     packages: [
       {
         name: "Cloud Starter",
-        price: "$220 - $450",
+        price: "$50/month",
         description:
           "For businesses needing stable hosting, deployment, or migration basics.",
         features: [
@@ -446,7 +446,7 @@ export const services: ServiceItem[] = [
       },
       {
         name: "Cloud Growth",
-        price: "$450 - $900",
+        price: "$100/month",
         description:
           "For apps needing stronger architecture, performance, and monitoring.",
         features: [
@@ -461,7 +461,7 @@ export const services: ServiceItem[] = [
       },
       {
         name: "Advanced Cloud Infrastructure",
-        price: "$900+",
+        price: "$250+/month",
         description:
           "For high-reliability environments needing resilience and scale planning.",
         features: [
@@ -482,7 +482,7 @@ export const services: ServiceItem[] = [
       "User-centered interface design, wireframes, product flows, and polished digital experiences.",
     fullDescription:
       "We create user-focused interfaces that are clean, modern, and effective. From wireframes and prototypes to design systems and production-ready screens, our work is aimed at clarity, usability, and stronger user engagement.",
-    startingPrice: "Starting from $120",
+    startingPrice: "Starting from $50",
     timeline: "3 days to 2 weeks",
     bestFor:
       "Landing pages, dashboards, product UI, app design, redesigns, and UX improvements.",
@@ -497,7 +497,7 @@ export const services: ServiceItem[] = [
     packages: [
       {
         name: "Design Starter",
-        price: "$120 - $250",
+        price: "$50 - $120",
         description:
           "For quick design work, wireframes, and launch-ready landing page design.",
         features: [
@@ -511,7 +511,7 @@ export const services: ServiceItem[] = [
       },
       {
         name: "UI/UX Growth",
-        price: "$250 - $500",
+        price: "$120 - $250",
         description:
           "For more complete interface systems with better usability and consistency.",
         features: [
@@ -526,7 +526,7 @@ export const services: ServiceItem[] = [
       },
       {
         name: "Advanced Product Design",
-        price: "$500+",
+        price: "$250+",
         description:
           "For full product design systems and multi-screen digital products.",
         features: [
@@ -547,7 +547,7 @@ export const services: ServiceItem[] = [
       "SEO, analytics, conversion optimization, and performance improvement for online growth.",
     fullDescription:
       "We help businesses improve visibility, traffic, and conversion through digital growth services. This includes technical SEO, analytics setup, performance optimization, and ongoing search-focused improvements that support long-term online growth.",
-    startingPrice: "Starting from $150/month",
+    startingPrice: "Starting from $100/month",
     timeline: "3 to 6 months for strong momentum",
     bestFor:
       "SEO growth, visibility improvement, traffic scaling, analytics, and conversion optimization.",
@@ -562,7 +562,7 @@ export const services: ServiceItem[] = [
     packages: [
       {
         name: "SEO Starter",
-        price: "$150/month",
+        price: "$100/month",
         description:
           "For foundational SEO setup and monthly performance tracking.",
         features: [
@@ -576,7 +576,7 @@ export const services: ServiceItem[] = [
       },
       {
         name: "Growth SEO",
-        price: "$300/month",
+        price: "$200/month",
         description:
           "For businesses wanting stronger ranking improvements and organic growth.",
         features: [
@@ -591,7 +591,7 @@ export const services: ServiceItem[] = [
       },
       {
         name: "Advanced SEO",
-        price: "$500+/month",
+        price: "$300+/month",
         description:
           "For more aggressive SEO execution and strategic long-term growth.",
         features: [

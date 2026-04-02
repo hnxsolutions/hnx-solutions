@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   HiLightningBolt,
   HiShieldCheck,
@@ -45,30 +46,34 @@ const team = [
   {
     name: "Karandeep Singh",
     role: "Founder & CEO",
-    initials: "K",
+    image: "/images/team/karan.jpg",
     color: "from-primary to-cyan-600",
     bio: "Full-stack engineer and entrepreneur leading product vision, engineering direction, and strategic delivery across modern web, mobile, and AI solutions.",
+    expertise: ["Leadership", "Product Strategy", "Full-Stack"],
   },
   {
-    name: "Dev Lead",
-    role: "CTO & Full-Stack",
-    initials: "DL",
+    name: "Ritik Chouhan",
+    role: "Backend Specialist",
+    image: "/images/team/ritik.jpg",
     color: "from-accent to-violet-600",
-    bio: "Architects robust backend systems, cloud infrastructure, and scalable application foundations with strong focus on performance and code quality.",
+    bio: "Backend Specialist skilled in building scalable APIs, secure server-side systems, and high-performance databases. Focused on delivering reliable backend architectures that power seamless, efficient digital experiences.",
+    expertise: ["APIs", "Backend", "Databases"],
   },
   {
-    name: "Design Head",
-    role: "UI/UX Lead",
-    initials: "DH",
+    name: "Jatin Kapoor",
+    role: "MVP & Product Design",
+    image: "/images/team/jatin.jpg",
     color: "from-pink-500 to-rose-600",
-    bio: "Transforms product ideas into polished digital experiences with strong visual systems, intuitive flows, and conversion-focused interfaces.",
+    bio: "Specialized in building MVPs that transform ideas into real, market-ready products. Focused on rapid execution, validation, and scalable architecture for startup success.",
+    expertise: ["UI/UX", "MVP Design", "Product Flow"],
   },
   {
-    name: "AI Engineer",
+    name: "Ananya Mehta",
     role: "ML & Automation",
-    initials: "AI",
+    image: "/images/team/ananya.jpg",
     color: "from-amber-500 to-orange-600",
     bio: "Designs intelligent automation systems, AI workflows, and LLM-powered experiences that help businesses scale with less manual effort.",
+    expertise: ["Automation", "AI Workflows", "LLMs"],
   },
 ];
 
@@ -90,7 +95,14 @@ const techCategories = [
   },
   {
     label: "Databases",
-    techs: ["PostgreSQL", "MongoDB", "Redis", "Supabase", "Firebase", "Vector DBs"],
+    techs: [
+      "PostgreSQL",
+      "MongoDB",
+      "Redis",
+      "Supabase",
+      "Firebase",
+      "Vector DBs",
+    ],
   },
   {
     label: "Cloud & DevOps",
@@ -98,37 +110,13 @@ const techCategories = [
   },
 ];
 
-const milestones = [
-  {
-    year: "2020",
-    title: "Founded",
-    description:
-      "HNX Technologies started with a clear mission: make high-quality, modern digital solutions accessible to ambitious businesses.",
-  },
-  {
-    year: "2021",
-    title: "First Major Deliveries",
-    description:
-      "We shipped our first impactful client platforms and built a reputation for fast execution, clean engineering, and business-first thinking.",
-  },
-  {
-    year: "2023",
-    title: "AI Division Launched",
-    description:
-      "We expanded into AI and automation, building smart workflows, AI assistants, custom chat systems, and process acceleration tools.",
-  },
-  {
-    year: "2024",
-    title: "50+ Project Milestone",
-    description:
-      "Our portfolio crossed 50+ completed engagements across multiple industries, with strong retention and consistently positive client outcomes.",
-  },
-  {
-    year: "2025",
-    title: "Global Expansion",
-    description:
-      "We scaled our delivery capacity and began supporting clients across broader international markets with more advanced product and automation work.",
-  },
+const industries: string[] = [
+  "Startups",
+  "E-commerce",
+  "Healthcare",
+  "EdTech",
+  "SaaS Products",
+  "Enterprise Solutions",
 ];
 
 const stats = [
@@ -138,7 +126,381 @@ const stats = [
   { value: "24/7", label: "Execution Mindset" },
 ];
 
+function TeamCard({
+  member,
+  index,
+  isMobile = false,
+  isActive = false,
+}: {
+  member: (typeof team)[number];
+  index: number;
+  isMobile?: boolean;
+  isActive?: boolean;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 22 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ delay: index * 0.08, duration: 0.5 }}
+      animate={
+        isMobile
+          ? {
+              opacity: isActive ? 1 : 0.82,
+              scale: isActive ? 1 : 0.97,
+              y: isActive ? 0 : 4,
+            }
+          : undefined
+      }
+      className="h-full"
+    >
+      <div className="group premium-card glass-card cursor-glow relative h-full overflow-hidden rounded-[1.7rem] border border-(--border) p-4 sm:p-6">
+        <div className="pointer-events-none absolute inset-0 opacity-100">
+          <div className="absolute -left-14 top-0 h-28 w-28 rounded-full bg-primary/8 blur-3xl transition-all duration-500 group-hover:bg-primary/12" />
+          <div className="absolute -right-14 bottom-0 h-28 w-28 rounded-full bg-accent/8 blur-3xl transition-all duration-500 group-hover:bg-accent/12" />
+        </div>
+
+        <div className="relative z-10">
+          <div className="flex items-center gap-4">
+            <div className="relative h-24 w-24 shrink-0 sm:h-28 sm:w-28">
+              <div
+                className={`absolute -inset-1 rounded-[1.2rem] bg-linear-to-br ${member.color} opacity-90 blur-sm`}
+              />
+              <div className="relative h-full w-full overflow-hidden rounded-[1.1rem] border border-white/20">
+                <Image
+                  src={member.image}
+                  alt={member.name}
+                  fill
+                  sizes="(max-width: 640px) 96px, 112px"
+                  className="object-cover"
+                />
+              </div>
+            </div>
+
+            <div className="min-w-0 text-left">
+              <h3 className="text-lg font-bold leading-tight sm:text-xl">
+                {member.name}
+              </h3>
+              <p className="mt-1 text-sm font-medium text-primary">
+                {member.role}
+              </p>
+            </div>
+          </div>
+
+          <p
+            className={`mt-4 text-(--text-muted) ${
+              isMobile
+                ? "line-clamp-3 text-[13px] leading-6"
+                : "text-sm leading-7"
+            }`}
+          >
+            {member.bio}
+          </p>
+
+          <div className="mt-4 flex flex-wrap gap-2">
+            {member.expertise
+              .slice(0, isMobile ? 3 : member.expertise.length)
+              .map((item) => (
+                <span
+                  key={item}
+                  className="rounded-full border border-(--border) bg-white/55 px-3 py-1.5 text-[11px] font-medium text-(--text-soft) transition-all duration-300 group-hover:border-primary/20 group-hover:text-(--text) dark:bg-white/4"
+                >
+                  {item}
+                </span>
+              ))}
+          </div>
+        </div>
+
+        <div className="pointer-events-none absolute inset-0 rounded-[1.7rem] ring-1 ring-white/5 transition-all duration-500 group-hover:ring-primary/20" />
+      </div>
+    </motion.div>
+  );
+}
+
+function IndustryCard({
+  industry,
+  index,
+  isMobile = false,
+  isActive = false,
+}: {
+  industry: string;
+  index: number;
+  isMobile?: boolean;
+  isActive?: boolean;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ delay: index * 0.08, duration: 0.5 }}
+      animate={
+        isMobile
+          ? {
+              opacity: isActive ? 1 : 0.85,
+              scale: isActive ? 1 : 0.97,
+              y: isActive ? 0 : 4,
+            }
+          : undefined
+      }
+      className="h-full"
+    >
+      <div className="group premium-card glass-card cursor-glow rounded-[1.75rem] p-6 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(0,0,0,0.12)] dark:hover:shadow-[0_20px_50px_rgba(0,0,0,0.3)]">
+        <div className="mb-4 flex items-center justify-center">
+          <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-linear-to-br from-primary/20 to-accent/20 text-xl font-bold text-primary transition-all duration-300 group-hover:scale-110">
+            {industry.charAt(0)}
+          </span>
+        </div>
+
+        <h3 className="text-lg font-bold">{industry}</h3>
+        <p className="mt-2 text-sm text-(--text-muted)">
+          Solutions tailored for modern {industry.toLowerCase()} businesses.
+        </p>
+      </div>
+    </motion.div>
+  );
+}
+
+function buildLoopedItems<T>(items: T[]): T[] {
+  if (items.length <= 1) return items;
+  return [items[items.length - 1], ...items, items[0]];
+}
+
 export default function AboutPage() {
+  const loopedTeam = useMemo(() => buildLoopedItems(team), []);
+  const loopedIndustries = useMemo(() => buildLoopedItems(industries), []);
+
+  const [teamSlideIndex, setTeamSlideIndex] = useState(team.length > 1 ? 1 : 0);
+  const [industrySlideIndex, setIndustrySlideIndex] = useState(
+    industries.length > 1 ? 1 : 0
+  );
+
+  const [isTeamPaused, setIsTeamPaused] = useState(false);
+  const [isIndustryPaused, setIsIndustryPaused] = useState(false);
+
+  const [isTeamAnimating, setIsTeamAnimating] = useState(true);
+  const [isIndustryAnimating, setIsIndustryAnimating] = useState(true);
+
+  const [teamTouchStartX, setTeamTouchStartX] = useState<number | null>(null);
+  const [teamTouchCurrentX, setTeamTouchCurrentX] = useState<number | null>(null);
+  const [teamDragOffset, setTeamDragOffset] = useState(0);
+
+  const [industryTouchStartX, setIndustryTouchStartX] = useState<number | null>(
+    null
+  );
+  const [industryTouchCurrentX, setIndustryTouchCurrentX] = useState<number | null>(
+    null
+  );
+  const [industryDragOffset, setIndustryDragOffset] = useState(0);
+
+  const teamSliderRef = useRef<HTMLDivElement | null>(null);
+  const industrySliderRef = useRef<HTMLDivElement | null>(null);
+
+  const teamResumeTimeoutRef = useRef<number | null>(null);
+  const industryResumeTimeoutRef = useRef<number | null>(null);
+
+  const realTeamIndex =
+    team.length <= 1 ? 0 : (teamSlideIndex - 1 + team.length) % team.length;
+  const realIndustryIndex =
+    industries.length <= 1
+      ? 0
+      : (industrySlideIndex - 1 + industries.length) % industries.length;
+
+  useEffect(() => {
+    if (isTeamPaused || team.length <= 1) return;
+
+    const interval = window.setInterval(() => {
+      setIsTeamAnimating(true);
+      setTeamSlideIndex((prev) => prev + 1);
+    }, 2800);
+
+    return () => window.clearInterval(interval);
+  }, [isTeamPaused]);
+
+  useEffect(() => {
+    if (isIndustryPaused || industries.length <= 1) return;
+
+    const interval = window.setInterval(() => {
+      setIsIndustryAnimating(true);
+      setIndustrySlideIndex((prev) => prev + 1);
+    }, 2600);
+
+    return () => window.clearInterval(interval);
+  }, [isIndustryPaused]);
+
+  useEffect(() => {
+    return () => {
+      if (teamResumeTimeoutRef.current) {
+        window.clearTimeout(teamResumeTimeoutRef.current);
+      }
+      if (industryResumeTimeoutRef.current) {
+        window.clearTimeout(industryResumeTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  const pauseTeamTemporarily = () => {
+    setIsTeamPaused(true);
+    if (teamResumeTimeoutRef.current) {
+      window.clearTimeout(teamResumeTimeoutRef.current);
+    }
+    teamResumeTimeoutRef.current = window.setTimeout(() => {
+      setIsTeamPaused(false);
+    }, 1500);
+  };
+
+  const pauseIndustryTemporarily = () => {
+    setIsIndustryPaused(true);
+    if (industryResumeTimeoutRef.current) {
+      window.clearTimeout(industryResumeTimeoutRef.current);
+    }
+    industryResumeTimeoutRef.current = window.setTimeout(() => {
+      setIsIndustryPaused(false);
+    }, 1500);
+  };
+
+  const handleTeamTransitionEnd = () => {
+    if (team.length <= 1) return;
+
+    if (teamSlideIndex === loopedTeam.length - 1) {
+      setIsTeamAnimating(false);
+      setTeamSlideIndex(1);
+    } else if (teamSlideIndex === 0) {
+      setIsTeamAnimating(false);
+      setTeamSlideIndex(team.length);
+    }
+  };
+
+  const handleIndustryTransitionEnd = () => {
+    if (industries.length <= 1) return;
+
+    if (industrySlideIndex === loopedIndustries.length - 1) {
+      setIsIndustryAnimating(false);
+      setIndustrySlideIndex(1);
+    } else if (industrySlideIndex === 0) {
+      setIsIndustryAnimating(false);
+      setIndustrySlideIndex(industries.length);
+    }
+  };
+
+  useEffect(() => {
+    if (!isTeamAnimating) {
+      const raf = requestAnimationFrame(() => {
+        setIsTeamAnimating(true);
+      });
+      return () => cancelAnimationFrame(raf);
+    }
+  }, [isTeamAnimating]);
+
+  useEffect(() => {
+    if (!isIndustryAnimating) {
+      const raf = requestAnimationFrame(() => {
+        setIsIndustryAnimating(true);
+      });
+      return () => cancelAnimationFrame(raf);
+    }
+  }, [isIndustryAnimating]);
+
+  const goToNextTeam = () => {
+    setIsTeamAnimating(true);
+    setTeamSlideIndex((prev) => prev + 1);
+  };
+
+  const goToPrevTeam = () => {
+    setIsTeamAnimating(true);
+    setTeamSlideIndex((prev) => prev - 1);
+  };
+
+  const goToNextIndustry = () => {
+    setIsIndustryAnimating(true);
+    setIndustrySlideIndex((prev) => prev + 1);
+  };
+
+  const goToPrevIndustry = () => {
+    setIsIndustryAnimating(true);
+    setIndustrySlideIndex((prev) => prev - 1);
+  };
+
+  const handleTeamTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    setIsTeamPaused(true);
+    const x = e.targetTouches[0].clientX;
+    setTeamTouchStartX(x);
+    setTeamTouchCurrentX(x);
+    setTeamDragOffset(0);
+  };
+
+  const handleTeamTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (teamTouchStartX === null) return;
+    const currentX = e.targetTouches[0].clientX;
+    setTeamTouchCurrentX(currentX);
+    setTeamDragOffset(currentX - teamTouchStartX);
+  };
+
+  const handleTeamTouchEnd = () => {
+    if (teamTouchStartX === null || teamTouchCurrentX === null) {
+      setTeamDragOffset(0);
+      setTeamTouchStartX(null);
+      setTeamTouchCurrentX(null);
+      pauseTeamTemporarily();
+      return;
+    }
+
+    const sliderWidth = teamSliderRef.current?.clientWidth ?? 1;
+    const distance = teamTouchStartX - teamTouchCurrentX;
+    const threshold = Math.min(80, sliderWidth * 0.18);
+
+    if (distance > threshold) {
+      goToNextTeam();
+    } else if (distance < -threshold) {
+      goToPrevTeam();
+    }
+
+    setTeamTouchStartX(null);
+    setTeamTouchCurrentX(null);
+    setTeamDragOffset(0);
+    pauseTeamTemporarily();
+  };
+
+  const handleIndustryTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    setIsIndustryPaused(true);
+    const x = e.targetTouches[0].clientX;
+    setIndustryTouchStartX(x);
+    setIndustryTouchCurrentX(x);
+    setIndustryDragOffset(0);
+  };
+
+  const handleIndustryTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (industryTouchStartX === null) return;
+    const currentX = e.targetTouches[0].clientX;
+    setIndustryTouchCurrentX(currentX);
+    setIndustryDragOffset(currentX - industryTouchStartX);
+  };
+
+  const handleIndustryTouchEnd = () => {
+    if (industryTouchStartX === null || industryTouchCurrentX === null) {
+      setIndustryDragOffset(0);
+      setIndustryTouchStartX(null);
+      setIndustryTouchCurrentX(null);
+      pauseIndustryTemporarily();
+      return;
+    }
+
+    const sliderWidth = industrySliderRef.current?.clientWidth ?? 1;
+    const distance = industryTouchStartX - industryTouchCurrentX;
+    const threshold = Math.min(80, sliderWidth * 0.18);
+
+    if (distance > threshold) {
+      goToNextIndustry();
+    } else if (distance < -threshold) {
+      goToPrevIndustry();
+    }
+
+    setIndustryTouchStartX(null);
+    setIndustryTouchCurrentX(null);
+    setIndustryDragOffset(0);
+    pauseIndustryTemporarily();
+  };
+
   return (
     <main className="relative overflow-hidden bg-(--bg) text-(--text)">
       {/* HERO */}
@@ -154,11 +516,8 @@ export default function AboutPage() {
           />
 
           <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(248,250,252,0.92)_0%,rgba(248,250,252,0.82)_24%,rgba(248,250,252,0.48)_52%,rgba(248,250,252,0.12)_78%,rgba(248,250,252,0.03)_100%)] dark:bg-[linear-gradient(to_right,rgba(24,24,24,0.98)_0%,rgba(24,24,24,0.94)_28%,rgba(24,24,24,0.78)_54%,rgba(24,24,24,0.38)_76%,rgba(24,24,24,0.14)_100%)]" />
-
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_24%,rgba(14,165,233,0.12),transparent_28%),radial-gradient(circle_at_82%_76%,rgba(99,102,241,0.12),transparent_24%)] dark:bg-[radial-gradient(circle_at_16%_24%,rgba(77,208,225,0.16),transparent_30%),radial-gradient(circle_at_84%_74%,rgba(149,117,205,0.14),transparent_26%)]" />
-
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom,rgba(15,23,42,0.12),transparent_45%)] dark:bg-[radial-gradient(circle_at_bottom,rgba(0,0,0,0.38),transparent_48%)]" />
-
           <div className="absolute left-0 top-1/2 hidden h-136 w-120 -translate-y-1/2 bg-[radial-gradient(circle,rgba(255,255,255,0.35)_0%,rgba(255,255,255,0.14)_46%,rgba(255,255,255,0)_74%)] blur-2xl lg:block dark:hidden" />
           <div className="absolute right-0 top-1/2 hidden h-136 w-152 -translate-y-1/2 bg-[radial-gradient(circle,rgba(6,10,18,0.68)_0%,rgba(6,10,18,0.42)_44%,rgba(6,10,18,0)_76%)] blur-2xl dark:lg:block" />
         </div>
@@ -219,10 +578,10 @@ export default function AboutPage() {
                 className="mt-9 flex flex-col gap-4 sm:flex-row"
               >
                 <Link
-                  href="#our-journey"
+                  href="#industries-section"
                   className="btn-shine inline-flex items-center justify-center gap-2 rounded-xl bg-linear-to-r from-primary to-accent px-8 py-4 text-base font-bold text-dark-900 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/25"
                 >
-                  Explore Our Journey
+                  Explore Our Expertise
                   <HiArrowRight className="text-lg" />
                 </Link>
 
@@ -365,9 +724,12 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* JOURNEY */}
-      <section id="our-journey" className="relative overflow-hidden py-24 grid-bg">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(14,165,233,0.04),transparent_28%)] dark:bg-[radial-gradient(circle_at_top,rgba(77,208,225,0.06),transparent_28%)]" />
+      {/* INDUSTRIES */}
+      <section
+        id="industries-section"
+        className="relative overflow-hidden py-24 grid-bg"
+      >
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(14,165,233,0.05),transparent_28%)] dark:bg-[radial-gradient(circle_at_top,rgba(77,208,225,0.08),transparent_28%)]" />
 
         <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
           <motion.div
@@ -377,50 +739,91 @@ export default function AboutPage() {
             className="mx-auto mb-16 max-w-3xl text-center"
           >
             <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-primary">
-              Milestones
+              Industries
             </span>
             <h2 className="mt-6 text-4xl font-bold md:text-5xl">
-              Our <span className="gradient-text">Journey</span>
+              Industries We <span className="gradient-text">Serve</span>
             </h2>
             <p className="mt-4 text-lg leading-8 text-(--text-muted)">
-              A growth story shaped by execution, experimentation, and a constant
-              focus on delivering meaningful digital products.
+              We build tailored digital solutions across multiple industries,
+              helping businesses scale with modern technology and smart execution.
             </p>
           </motion.div>
 
-          <div className="relative">
-            <div className="absolute left-5 top-0 bottom-0 w-px bg-linear-to-b from-primary/50 via-accent/50 to-primary/50 md:left-1/2" />
+          <div
+            className="md:hidden select-none"
+            style={{ touchAction: "none" }}
+            onMouseEnter={() => setIsIndustryPaused(true)}
+            onMouseLeave={() => setIsIndustryPaused(false)}
+            onTouchStart={handleIndustryTouchStart}
+            onTouchMove={handleIndustryTouchMove}
+            onTouchEnd={handleIndustryTouchEnd}
+          >
+            <div ref={industrySliderRef} className="relative overflow-hidden">
+              <div
+                className={`flex ${
+                  industryTouchStartX !== null
+                    ? ""
+                    : isIndustryAnimating
+                    ? "transition-transform duration-500 ease-out"
+                    : ""
+                }`}
+                style={{
+                  transform: `translate3d(calc(-${industrySlideIndex * 100}% + ${industryDragOffset}px), 0, 0)`,
+                }}
+                onTransitionEnd={handleIndustryTransitionEnd}
+              >
+                {loopedIndustries.map((industry, i) => {
+                  const logicalIndex =
+                    industries.length <= 1
+                      ? i
+                      : i === 0
+                      ? industries.length - 1
+                      : i === loopedIndustries.length - 1
+                      ? 0
+                      : i - 1;
 
-            <div className="space-y-10">
-              {milestones.map((ms, i) => (
-                <motion.div
-                  key={ms.year}
-                  initial={{ opacity: 0, y: 26 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-80px" }}
-                  transition={{ delay: i * 0.08, duration: 0.55 }}
-                  className={`relative flex ${
-                    i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-                  }`}
-                >
-                  <div className="absolute left-5 top-7 h-4 w-4 -translate-x-1/2 rounded-full border-4 border-(--bg) bg-linear-to-br from-primary to-accent md:left-1/2" />
-
-                  <div
-                    className={`ml-12 md:ml-0 md:w-1/2 ${
-                      i % 2 === 0 ? "md:pr-14" : "md:pl-14"
-                    }`}
-                  >
-                    <div className="glass-card premium-card rounded-[1.75rem] p-6 md:p-7">
-                      <p className="gradient-text text-2xl font-black">{ms.year}</p>
-                      <h3 className="mt-2 text-xl font-bold">{ms.title}</h3>
-                      <p className="mt-3 text-sm leading-7 text-(--text-muted)">
-                        {ms.description}
-                      </p>
+                  return (
+                    <div key={`${industry}-${i}`} className="w-full shrink-0 px-1">
+                      <IndustryCard
+                        industry={industry}
+                        index={logicalIndex}
+                        isMobile
+                        isActive={realIndustryIndex === logicalIndex}
+                      />
                     </div>
-                  </div>
-                </motion.div>
+                  );
+                })}
+              </div>
+
+              <div className="pointer-events-none absolute inset-y-0 left-0 w-4 bg-linear-to-r from-(--bg) to-transparent" />
+              <div className="pointer-events-none absolute inset-y-0 right-0 w-4 bg-linear-to-l from-(--bg) to-transparent" />
+            </div>
+
+            <div className="mt-5 flex items-center justify-center gap-2">
+              {industries.map((_, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  aria-label={`Go to industry slide ${i + 1}`}
+                  onClick={() => {
+                    setIsIndustryAnimating(true);
+                    setIndustrySlideIndex(i + 1);
+                    setIndustryDragOffset(0);
+                    pauseIndustryTemporarily();
+                  }}
+                  className={`h-2.5 rounded-full transition-all duration-300 ${
+                    realIndustryIndex === i ? "w-7 bg-primary" : "w-2.5 bg-primary/25"
+                  }`}
+                />
               ))}
             </div>
+          </div>
+
+          <div className="hidden gap-6 sm:grid sm:grid-cols-2 md:grid-cols-3">
+            {industries.map((industry, i) => (
+              <IndustryCard key={industry} industry={industry} index={i} />
+            ))}
           </div>
         </div>
       </section>
@@ -443,33 +846,86 @@ export default function AboutPage() {
               Meet Our <span className="gradient-text">Team</span>
             </h2>
             <p className="mt-4 text-lg leading-8 text-(--text-muted)">
-              A focused, high-output team with strong technical depth and a sharp
-              eye for product quality.
+              A focused, high-output team with strong technical depth, premium
+              product thinking, and an execution mindset built for modern digital
+              delivery.
             </p>
           </motion.div>
 
-          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+          <div className="hidden gap-6 md:grid md:grid-cols-2 xl:grid-cols-4">
             {team.map((member, i) => (
-              <motion.div
-                key={member.name}
-                initial={{ opacity: 0, y: 26 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ delay: i * 0.08, duration: 0.55 }}
-                className="premium-card glass-card cursor-glow rounded-[1.75rem] p-7 text-center"
-              >
-                <div
-                  className={`mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-[1.4rem] bg-linear-to-br ${member.color} shadow-[0_14px_30px_rgba(0,0,0,0.18)]`}
-                >
-                  <span className="text-xl font-bold text-white">{member.initials}</span>
-                </div>
-                <h3 className="text-xl font-bold">{member.name}</h3>
-                <p className="mt-1 text-sm font-medium text-primary">{member.role}</p>
-                <p className="mt-4 text-sm leading-7 text-(--text-muted)">
-                  {member.bio}
-                </p>
-              </motion.div>
+              <TeamCard key={member.name} member={member} index={i} />
             ))}
+          </div>
+
+          <div
+            className="md:hidden select-none"
+            style={{ touchAction: "none" }}
+            onMouseEnter={() => setIsTeamPaused(true)}
+            onMouseLeave={() => setIsTeamPaused(false)}
+            onTouchStart={handleTeamTouchStart}
+            onTouchMove={handleTeamTouchMove}
+            onTouchEnd={handleTeamTouchEnd}
+          >
+            <div ref={teamSliderRef} className="relative overflow-hidden">
+              <div
+                className={`flex ${
+                  teamTouchStartX !== null
+                    ? ""
+                    : isTeamAnimating
+                    ? "transition-transform duration-500 ease-out"
+                    : ""
+                }`}
+                style={{
+                  transform: `translate3d(calc(-${teamSlideIndex * 100}% + ${teamDragOffset}px), 0, 0)`,
+                }}
+                onTransitionEnd={handleTeamTransitionEnd}
+              >
+                {loopedTeam.map((member, i) => {
+                  const logicalIndex =
+                    team.length <= 1
+                      ? i
+                      : i === 0
+                      ? team.length - 1
+                      : i === loopedTeam.length - 1
+                      ? 0
+                      : i - 1;
+
+                  return (
+                    <div key={`${member.name}-${i}`} className="w-full shrink-0 px-1">
+                      <TeamCard
+                        member={member}
+                        index={logicalIndex}
+                        isMobile
+                        isActive={realTeamIndex === logicalIndex}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div className="pointer-events-none absolute inset-y-0 left-0 w-4 bg-linear-to-r from-(--bg) to-transparent" />
+              <div className="pointer-events-none absolute inset-y-0 right-0 w-4 bg-linear-to-l from-(--bg) to-transparent" />
+            </div>
+
+            <div className="mt-5 flex items-center justify-center gap-2">
+              {team.map((_, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  aria-label={`Go to team slide ${i + 1}`}
+                  onClick={() => {
+                    setIsTeamAnimating(true);
+                    setTeamSlideIndex(i + 1);
+                    setTeamDragOffset(0);
+                    pauseTeamTemporarily();
+                  }}
+                  className={`h-2.5 rounded-full transition-all duration-300 ${
+                    realTeamIndex === i ? "w-7 bg-primary" : "w-2.5 bg-primary/25"
+                  }`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>
