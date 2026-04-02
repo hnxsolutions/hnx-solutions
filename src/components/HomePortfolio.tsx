@@ -23,20 +23,20 @@ function PortfolioCard({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
+      initial={{ opacity: 0, y: 32 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{
-        delay: index * 0.12,
-        duration: 0.7,
+        delay: index * 0.1,
+        duration: 0.65,
         ease: [0.25, 0.46, 0.45, 0.94],
       }}
       viewport={{ once: true }}
       animate={
         isMobile
           ? {
-              opacity: isActive ? 1 : 0.62,
-              scale: isActive ? 1 : 0.935,
-              y: isActive ? 0 : 12,
+              opacity: isActive ? 1 : 0.68,
+              scale: isActive ? 1 : 0.955,
+              y: isActive ? 0 : 8,
             }
           : undefined
       }
@@ -50,22 +50,26 @@ function PortfolioCard({
       >
         <Link
           href="/portfolio"
-          className="group glass-card depth-card premium-card cursor-glow relative block h-full overflow-hidden rounded-[1.9rem] border border-white/10 bg-white/60 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(0,0,0,0.14)] dark:bg-white/4 dark:hover:shadow-[0_24px_70px_rgba(0,0,0,0.38)]"
+          className="group glass-card depth-card premium-card cursor-glow relative block h-full overflow-hidden rounded-[1.7rem] border border-white/10 bg-white/60 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(0,0,0,0.14)] dark:bg-white/4 dark:hover:shadow-[0_24px_70px_rgba(0,0,0,0.38)]"
         >
           <div className="pointer-events-none absolute inset-0 opacity-100">
-            <div className="absolute -left-20 top-0 h-44 w-44 rounded-full bg-primary/10 blur-3xl transition-all duration-500 group-hover:bg-primary/15" />
-            <div className="absolute -right-20 bottom-0 h-44 w-44 rounded-full bg-accent/10 blur-3xl transition-all duration-500 group-hover:bg-accent/15" />
+            <div className="absolute -left-16 top-0 h-36 w-36 rounded-full bg-primary/10 blur-3xl transition-all duration-500 group-hover:bg-primary/15" />
+            <div className="absolute -right-16 bottom-0 h-36 w-36 rounded-full bg-accent/10 blur-3xl transition-all duration-500 group-hover:bg-accent/15" />
           </div>
 
           <div
-            className={`pointer-events-none absolute inset-0 rounded-[1.9rem] ring-1 transition-all duration-500 ${
+            className={`pointer-events-none absolute inset-0 rounded-[1.7rem] ring-1 transition-all duration-500 ${
               isActive
                 ? "ring-primary/25 shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_0_0_1px_rgba(59,130,246,0.05)]"
                 : "ring-white/5"
             }`}
           />
 
-          <div className="relative h-52 overflow-hidden">
+          <div
+            className={`relative overflow-hidden ${
+              isMobile ? "h-40" : "h-48"
+            }`}
+          >
             {project.imageUrl ? (
               <>
                 <Image
@@ -75,7 +79,7 @@ function PortfolioCard({
                   sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(4,8,15,0.88)_0%,rgba(4,8,15,0.26)_42%,rgba(4,8,15,0.04)_100%)]" />
+                <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(4,8,15,0.84)_0%,rgba(4,8,15,0.22)_42%,rgba(4,8,15,0.04)_100%)]" />
               </>
             ) : project.liveUrl ? (
               <div className="absolute inset-0 overflow-hidden bg-black">
@@ -95,53 +99,75 @@ function PortfolioCard({
               </div>
             ) : (
               <div className="flex h-full w-full items-center justify-center bg-linear-to-br from-primary/20 via-accent/10 to-primary/10">
-                <span className="text-6xl font-black text-white/20 dark:text-white/15">
+                <span className="text-5xl font-black text-white/20 dark:text-white/15">
                   {project.title[0]}
                 </span>
               </div>
             )}
 
-            <div className="absolute left-4 top-4">
-              <span className="rounded-full border border-white/15 bg-black/35 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-white/90 backdrop-blur-md">
+            <div className="absolute left-3 top-3">
+              <span className="rounded-full border border-white/15 bg-black/35 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-white/90 backdrop-blur-md">
                 {project.category}
               </span>
             </div>
 
-            <div className="absolute inset-x-0 bottom-0 h-28 bg-[linear-gradient(to_top,rgba(10,14,22,0.8),transparent)]" />
+            <div className="absolute inset-x-0 bottom-0 h-20 bg-[linear-gradient(to_top,rgba(10,14,22,0.78),transparent)]" />
           </div>
 
-          <div className="relative p-6">
-            <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-primary/15 bg-primary/8 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
+          <div className={isMobile ? "relative p-4" : "relative p-6"}>
+            <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-primary/15 bg-primary/8 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-primary">
               Featured Project
             </div>
 
-            <h3 className="text-xl font-bold leading-tight transition-colors duration-300 group-hover:text-primary">
+            <h3
+              className={`font-bold leading-tight transition-colors duration-300 group-hover:text-primary ${
+                isMobile ? "text-lg" : "text-xl"
+              }`}
+            >
               {project.title}
             </h3>
 
-            <p className="mt-3 line-clamp-2 text-sm leading-7 text-(--text-soft)">
+            <p
+              className={`mt-2 text-(--text-soft) ${
+                isMobile
+                  ? "line-clamp-2 text-[13px] leading-6"
+                  : "line-clamp-2 text-sm leading-7"
+              }`}
+            >
               Premium digital product crafted for clarity, performance, and
               modern user experience.
             </p>
 
-            <div className="mt-5 flex flex-wrap gap-2">
-              {project.tags.map((tag) => (
+            <div className="mt-3 flex flex-wrap gap-1.5">
+              {project.tags.slice(0, isMobile ? 3 : project.tags.length).map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-full border border-(--border) bg-white/60 px-3 py-1.5 text-[11px] font-medium text-(--text-soft) transition-all duration-300 group-hover:border-primary/20 group-hover:text-(--text) dark:bg-white/6"
+                  className={`rounded-full border border-(--border) bg-white/60 font-medium text-(--text-soft) transition-all duration-300 group-hover:border-primary/20 group-hover:text-(--text) dark:bg-white/6 ${
+                    isMobile
+                      ? "px-2.5 py-1 text-[10px]"
+                      : "px-3 py-1.5 text-[11px]"
+                  }`}
                 >
                   {tag}
                 </span>
               ))}
             </div>
 
-            <div className="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
-              <span className="text-sm font-medium text-(--text-soft)">
+            <div className="mt-4 flex items-center justify-between border-t border-white/10 pt-3">
+              <span
+                className={`font-medium text-(--text-soft) ${
+                  isMobile ? "text-[13px]" : "text-sm"
+                }`}
+              >
                 Explore Case Study
               </span>
 
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-primary/20 bg-primary/10 text-primary transition-all duration-300 group-hover:translate-x-1 group-hover:scale-105">
-                <HiArrowRight className="text-lg" />
+              <span
+                className={`inline-flex items-center justify-center rounded-full border border-primary/20 bg-primary/10 text-primary transition-all duration-300 group-hover:translate-x-1 group-hover:scale-105 ${
+                  isMobile ? "h-9 w-9" : "h-10 w-10"
+                }`}
+              >
+                <HiArrowRight className={isMobile ? "text-base" : "text-lg"} />
               </span>
             </div>
           </div>
@@ -209,7 +235,7 @@ export default function HomePortfolio() {
   }, [activeIndex, isUserInteracting]);
 
   return (
-    <section className="relative overflow-hidden grid-bg bg-(--bg) py-18 text-(--text)">
+    <section className="relative overflow-hidden grid-bg bg-(--bg) py-16 text-(--text) md:py-18">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute left-[-7rem] top-12 h-80 w-80 rounded-full bg-primary/8 blur-3xl" />
         <div className="absolute right-[-7rem] top-24 h-80 w-80 rounded-full bg-accent/8 blur-3xl" />
@@ -217,37 +243,35 @@ export default function HomePortfolio() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.06),transparent_28%)] dark:bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.08),transparent_28%)]" />
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 26 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
           viewport={{ once: true }}
-          className="mb-14 text-center md:mb-16"
+          className="mb-12 text-center md:mb-16"
         >
           <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-primary">
             <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
             Our Work
           </span>
 
-          <h2 className="mt-5 text-4xl font-bold md:text-5xl lg:text-6xl">
+          <h2 className="mt-4 text-3xl font-bold md:mt-5 md:text-5xl lg:text-6xl">
             Featured <span className="gradient-text">Projects</span>
           </h2>
 
-          <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-(--text-soft) md:text-lg">
+          <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-(--text-soft) md:mt-5 md:text-lg md:leading-8">
             Real-world products crafted with premium design, performance, and
             scalable engineering.
           </p>
         </motion.div>
 
-        {/* Desktop unchanged */}
         <div className="hidden gap-8 md:grid md:grid-cols-3">
           {homePortfolioProjects.map((project, i) => (
             <PortfolioCard key={project.title} project={project} index={i} />
           ))}
         </div>
 
-        {/* Mobile premium native swipe slider */}
         <div className="md:hidden">
           <div className="relative overflow-hidden">
             <div
@@ -261,7 +285,7 @@ export default function HomePortfolio() {
               {homePortfolioProjects.map((project, i) => (
                 <div
                   key={project.title}
-                  className="w-[85%] shrink-0 snap-center"
+                  className="w-[88%] shrink-0 snap-center"
                 >
                   <PortfolioCard
                     project={project}
@@ -273,11 +297,11 @@ export default function HomePortfolio() {
               ))}
             </div>
 
-            <div className="pointer-events-none absolute inset-y-0 left-0 w-6 bg-linear-to-r from-(--bg) via-(--bg)/80 to-transparent" />
-            <div className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-linear-to-l from-(--bg) via-(--bg)/85 to-transparent" />
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-4 bg-linear-to-r from-(--bg) via-(--bg)/80 to-transparent" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-8 bg-linear-to-l from-(--bg) via-(--bg)/85 to-transparent" />
           </div>
 
-          <div className="mt-6 flex items-center justify-center gap-2.5">
+          <div className="mt-5 flex items-center justify-center gap-2">
             {homePortfolioProjects.map((project, i) => (
               <button
                 key={`${project.title}-dot`}
@@ -286,18 +310,18 @@ export default function HomePortfolio() {
                 aria-label={`Go to project ${i + 1}`}
                 className={`relative transition-all duration-300 ${
                   activeIndex === i
-                    ? "h-2.5 w-8 rounded-full bg-linear-to-r from-primary to-accent shadow-[0_0_22px_rgba(59,130,246,0.26)]"
-                    : "h-2.5 w-2.5 rounded-full bg-primary/25"
+                    ? "h-2 w-7 rounded-full bg-linear-to-r from-primary to-accent shadow-[0_0_20px_rgba(59,130,246,0.22)]"
+                    : "h-2 w-2 rounded-full bg-primary/25"
                 }`}
               />
             ))}
           </div>
         </div>
 
-        <div className="mt-12 text-center">
+        <div className="mt-10 text-center md:mt-12">
           <Link
             href="/portfolio"
-            className="btn-shine gradient-border inline-flex items-center gap-2 rounded-2xl border border-(--border) bg-white/60 px-8 py-4 font-semibold transition-all duration-300 hover:-translate-y-1 hover:bg-white/85 dark:bg-white/4"
+            className="btn-shine gradient-border inline-flex items-center gap-2 rounded-2xl border border-(--border) bg-white/60 px-7 py-3.5 text-sm font-semibold transition-all duration-300 hover:-translate-y-1 hover:bg-white/85 dark:bg-white/4 md:px-8 md:py-4 md:text-base"
           >
             View All Projects
             <HiArrowRight />
