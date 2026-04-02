@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   HiArrowRight,
   HiCheck,
@@ -39,6 +40,126 @@ const stagger = {
 export default function ServiceDetailClient({
   service,
 }: ServiceDetailClientProps) {
+  const pricingSliderRef = useRef<HTMLDivElement | null>(null);
+  const autoSlideRef = useRef<NodeJS.Timeout | null>(null);
+  const resumeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const [activePackageIndex, setActivePackageIndex] = useState(0);
+  const [isAutoSlidingPaused, setIsAutoSlidingPaused] = useState(false);
+
+  const updateActivePackage = useCallback(() => {
+    const container = pricingSliderRef.current;
+    if (!container) return;
+
+    const children = Array.from(container.children) as HTMLElement[];
+    if (!children.length) return;
+
+    const containerCenter = container.scrollLeft + container.clientWidth / 2;
+
+    let closestIndex = 0;
+    let closestDistance = Number.POSITIVE_INFINITY;
+
+    children.forEach((child, index) => {
+      const childCenter = child.offsetLeft + child.clientWidth / 2;
+      const distance = Math.abs(containerCenter - childCenter);
+
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestIndex = index;
+      }
+    });
+
+    setActivePackageIndex((prev) =>
+      prev === closestIndex ? prev : closestIndex
+    );
+  }, []);
+
+  const scrollToPackage = useCallback((index: number) => {
+    const container = pricingSliderRef.current;
+    if (!container) return;
+
+    const children = Array.from(container.children) as HTMLElement[];
+    const target = children[index];
+    if (!target) return;
+
+    container.scrollTo({
+      left: target.offsetLeft - 8,
+      behavior: "smooth",
+    });
+  }, []);
+
+  const pauseAutoSlideTemporarily = useCallback(() => {
+    setIsAutoSlidingPaused(true);
+
+    if (resumeTimeoutRef.current) {
+      clearTimeout(resumeTimeoutRef.current);
+    }
+
+    resumeTimeoutRef.current = setTimeout(() => {
+      setIsAutoSlidingPaused(false);
+    }, 5000);
+  }, []);
+
+  useEffect(() => {
+    const container = pricingSliderRef.current;
+    if (!container) return;
+
+    const onScroll = () => {
+      updateActivePackage();
+    };
+
+    const onPointerDown = () => {
+      pauseAutoSlideTemporarily();
+    };
+
+    const onTouchStart = () => {
+      pauseAutoSlideTemporarily();
+    };
+
+    container.addEventListener("scroll", onScroll, { passive: true });
+    container.addEventListener("pointerdown", onPointerDown, { passive: true });
+    container.addEventListener("touchstart", onTouchStart, { passive: true });
+    window.addEventListener("resize", onScroll);
+
+    const raf = requestAnimationFrame(() => {
+      onScroll();
+    });
+
+    return () => {
+      cancelAnimationFrame(raf);
+      container.removeEventListener("scroll", onScroll);
+      container.removeEventListener("pointerdown", onPointerDown);
+      container.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [pauseAutoSlideTemporarily, updateActivePackage]);
+
+  useEffect(() => {
+    if (service.packages.length <= 1) return;
+    if (isAutoSlidingPaused) return;
+
+    autoSlideRef.current = setInterval(() => {
+      setActivePackageIndex((prev) => {
+        const nextIndex = (prev + 1) % service.packages.length;
+        scrollToPackage(nextIndex);
+        return nextIndex;
+      });
+    }, 3500);
+
+    return () => {
+      if (autoSlideRef.current) {
+        clearInterval(autoSlideRef.current);
+      }
+    };
+  }, [isAutoSlidingPaused, scrollToPackage, service.packages.length]);
+
+  useEffect(() => {
+    return () => {
+      if (autoSlideRef.current) clearInterval(autoSlideRef.current);
+      if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
+    };
+  }, []);
+
   return (
     <main className="relative min-h-screen overflow-x-hidden bg-(--bg) text-(--text)">
       {/* Background */}
@@ -128,7 +249,6 @@ export default function ServiceDetailClient({
               </motion.div>
             </div>
 
-            {/* Hero side card */}
             <motion.div variants={fadeUp} className="relative">
               <div className="absolute -inset-1 rounded-4xl bg-[linear-gradient(135deg,rgba(56,189,248,0.12),rgba(139,92,246,0.08),rgba(16,185,129,0.08))] blur-xl dark:bg-[linear-gradient(135deg,rgba(56,189,248,0.18),rgba(139,92,246,0.14),rgba(16,185,129,0.12))]" />
               <div className="glass-card relative rounded-4xl border border-(--border) p-5 shadow-[0_20px_60px_rgba(0,0,0,0.08)] backdrop-blur-2xl sm:p-6 md:p-7 dark:shadow-[0_20px_60px_rgba(0,0,0,0.22)]">
@@ -322,7 +442,151 @@ export default function ServiceDetailClient({
               </p>
             </motion.div>
 
-            <motion.div variants={stagger} className="grid gap-6 xl:grid-cols-3">
+            {/* Mobile pricing slider with auto slide */}
+            <div className="relative xl:hidden">
+              <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-8 bg-linear-to-r from-(--bg) to-transparent" />
+              <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-8 bg-linear-to-l from-(--bg) to-transparent" />
+
+              <div
+                ref={pricingSliderRef}
+                className="flex snap-x snap-mandatory gap-4 overflow-x-auto px-1 pb-4 pt-2 scroll-smooth touch-pan-x [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+              >
+                {service.packages.map((pkg, index) => {
+                  const isActive = index === activePackageIndex;
+
+                  return (
+                    <motion.div
+                      key={pkg.name}
+                      variants={fadeUp}
+                      animate={{
+                        scale: isActive ? 1 : 0.97,
+                        opacity: isActive ? 1 : 0.86,
+                        y: isActive ? -4 : 0,
+                      }}
+                      transition={{ duration: 0.3, ease: "easeOut" }}
+                      className="basis-[86%] shrink-0 snap-center"
+                    >
+                      <div
+                        className={`group relative h-full overflow-hidden rounded-[1.8rem] border p-5 backdrop-blur-2xl transition-all duration-500 sm:p-6 ${
+                          pkg.popular
+                            ? "border-primary/30 bg-[linear-gradient(180deg,rgba(56,189,248,0.08),rgba(255,255,255,0.55))] shadow-[0_20px_60px_rgba(56,189,248,0.10)] dark:bg-[linear-gradient(180deg,rgba(56,189,248,0.12),rgba(255,255,255,0.04))] dark:shadow-[0_20px_60px_rgba(56,189,248,0.16)]"
+                            : "glass-card border-(--border)"
+                        }`}
+                      >
+                        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(56,189,248,0.12),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(139,92,246,0.08),transparent_26%)] opacity-70" />
+
+                        {pkg.popular ? (
+                          <div className="absolute right-4 top-4 rounded-full border border-primary/25 bg-primary/15 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-primary sm:text-[11px]">
+                            Most Popular
+                          </div>
+                        ) : null}
+
+                        <div className="relative z-10">
+                          <div className="pr-24">
+                            <h3 className="text-xl font-bold text-(--text) sm:text-2xl">
+                              {pkg.name}
+                            </h3>
+                            <p className="mt-3 text-sm leading-7 text-(--text-soft) sm:text-base">
+                              {pkg.description}
+                            </p>
+                          </div>
+
+                          <div className="mt-6 rounded-2xl border border-(--border) bg-white/35 p-4 sm:p-5 dark:bg-dark-900/35">
+                            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-(--text-soft)">
+                              Package Price
+                            </p>
+                            <p className="mt-2 text-2xl font-extrabold text-cyan-500 sm:text-3xl dark:text-cyan-300">
+                              {pkg.price}
+                            </p>
+                          </div>
+
+                          <div className="mt-6 space-y-3">
+                            {pkg.features.map((feature) => (
+                              <div key={feature} className="flex items-start gap-3">
+                                <span className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-400/10 text-emerald-500 dark:text-emerald-300">
+                                  <HiCheck size={14} />
+                                </span>
+                                <p className="text-sm leading-6 text-(--text-muted) sm:text-base">
+                                  {feature}
+                                </p>
+                              </div>
+                            ))}
+                          </div>
+
+                          <div className="mt-7 flex flex-col gap-3">
+                            <Link
+                              href="/contact"
+                              className={`inline-flex w-full items-center justify-center gap-2 rounded-2xl px-5 py-3.5 text-sm font-bold transition-all duration-300 hover:-translate-y-0.5 ${
+                                pkg.popular
+                                  ? "bg-linear-to-r from-primary to-accent text-dark-900 shadow-[0_12px_30px_rgba(56,189,248,0.22)]"
+                                  : "border border-(--border) bg-white/35 text-(--text) hover:border-cyan-300/30 hover:bg-white/60 dark:bg-white/3"
+                              }`}
+                            >
+                              Get This Package
+                              <HiArrowRight className="text-base" />
+                            </Link>
+                          </div>
+                        </div>
+
+                        <div
+                          className={`pointer-events-none absolute -bottom-10 right-[-18px] h-28 w-28 rounded-full blur-3xl transition-all duration-500 ${
+                            pkg.popular
+                              ? "bg-primary/25 opacity-80"
+                              : "bg-violet-400/15 opacity-55"
+                          }`}
+                        />
+                        <div
+                          className={`pointer-events-none absolute -inset-px rounded-[1.8rem] border transition-opacity duration-300 ${
+                            isActive
+                              ? "border-primary/20 opacity-100"
+                              : "border-transparent opacity-0"
+                          }`}
+                        />
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+
+              <div className="mt-6 flex items-center justify-center gap-2.5">
+                {service.packages.map((pkg, index) => {
+                  const isActive = index === activePackageIndex;
+
+                  return (
+                    <button
+                      key={pkg.name}
+                      type="button"
+                      aria-label={`Go to ${pkg.name}`}
+                      onClick={() => {
+                        pauseAutoSlideTemporarily();
+                        scrollToPackage(index);
+                        setActivePackageIndex(index);
+                      }}
+                      className="group relative flex h-3 items-center justify-center"
+                    >
+                      <motion.span
+                        animate={{
+                          width: isActive ? 28 : 8,
+                          opacity: isActive ? 1 : 0.45,
+                        }}
+                        transition={{ duration: 0.28, ease: "easeOut" }}
+                        className={`block h-2 rounded-full ${
+                          isActive
+                            ? "bg-linear-to-r from-primary to-accent shadow-[0_0_18px_rgba(59,130,246,0.35)]"
+                            : "bg-(--border)"
+                        }`}
+                      />
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Desktop pricing grid */}
+            <motion.div
+              variants={stagger}
+              className="hidden gap-6 xl:grid xl:grid-cols-3"
+            >
               {service.packages.map((pkg) => (
                 <motion.div
                   key={pkg.name}
