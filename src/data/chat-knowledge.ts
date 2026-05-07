@@ -22,12 +22,12 @@ export const CHAT_KNOWLEDGE = {
       "hiya","ahoy","what up","sup bot","yo bot","aye"
     ],
     response:
-      "Hi! I'm the HNX AI assistant. I can help with web development, SaaS, mobile apps, CRM & Salesforce, DevOps, AI & automation, cloud solutions, UI/UX design, and digital growth.\n\nTell me what you want to build, improve, or automate.",
+      "Hi! I'm the HNX AI assistant. I can help with web development, SaaS, mobile apps, custom CRM systems, DevOps, AI & automation, cloud solutions, UI/UX design, and digital growth.\n\nTell me what you want to build, improve, or automate.",
     quickReplies: [
       "Web Development",
       "SaaS Development",
       "Mobile App Development",
-      "CRM & Salesforce",
+      "Custom CRM Systems",
       "DevOps",
       "AI & Automation",
       "Cloud Solutions",
@@ -102,19 +102,19 @@ export const CHAT_KNOWLEDGE = {
       "Start again",
       "Web Development",
       "Mobile App Development",
-      "CRM & Salesforce",
+      "Custom CRM Systems",
       "AI & Automation"
     ]
   },
 
   fallback: {
     response:
-      "I can help with web development, SaaS, mobile apps, CRM & Salesforce, DevOps, AI & automation, cloud solutions, UI/UX design, and digital growth. Tell me what you want to build or improve, and I'll guide you.",
+      "I can help with web development, SaaS, mobile apps, custom CRM systems, DevOps, AI & automation, cloud solutions, UI/UX design, and digital growth. Tell me what you want to build or improve, and I'll guide you.",
     quickReplies: [
       "Web Development",
       "SaaS Development",
       "Mobile App Development",
-      "CRM & Salesforce",
+      "Custom CRM Systems",
       "DevOps",
       "AI & Automation",
       "Cloud Solutions",
@@ -330,7 +330,7 @@ export const CHAT_KNOWLEDGE = {
       pricingQuickReplies: ["Under 50k", "50k–1L", "1L–2L", "Above 2L"]
     },
 
-    "CRM & Salesforce": {
+    "Custom CRM Systems": {
       keywords: [
         "crm","crm software","crm system","crm platform","salesforce","salesforce development",
         "salesforce customization","salesforce admin","salesforce setup","salesforce automation",
@@ -390,13 +390,13 @@ export const CHAT_KNOWLEDGE = {
         "Sales pipeline",
         "Customer support",
         "Workflow automation",
-        "Salesforce customization",
+        "Custom CRM workflows",
         "Need suggestion"
       ],
       suggestionMessage:
-        "Sure — here's a simple guide for CRM & Salesforce:\n\n• Lead management → capture and track leads.\n• Sales pipeline → deals, stages, and forecasting.\n• Customer support → ticketing and service workflows.\n• Workflow automation → approvals and follow-ups.\n• Salesforce customization → tailored Salesforce setup and development.\n\nWhich one sounds closest to your requirement?",
+        "Sure — here's a simple guide for custom CRM systems:\n\n• Lead management → capture and track leads.\n• Sales pipeline → deals, stages, and forecasting.\n• Customer support → ticketing and service workflows.\n• Workflow automation → approvals and follow-ups.\n• Custom CRM workflows → CRM modules built around your exact process.\n\nWhich one sounds closest to your requirement?",
       pricingMessage:
-        "No problem — here's a rough idea for CRM & Salesforce pricing:\n\n• Basic CRM setup → ₹25k – ₹50k\n• Standard CRM / Salesforce customization → ₹50k – ₹1L\n• Advanced CRM solution → ₹1L+\n\nThe final cost depends on workflows, automations, integrations, users, and reporting needs. Our team will review your exact requirement and suggest the final quotation.\n\nWhich range fits you best?",
+        "No problem — here's a rough idea for custom CRM system pricing:\n\n• Basic CRM setup → ₹25k – ₹50k\n• Standard custom CRM system → ₹50k – ₹1L\n• Advanced CRM with automation and AI insights → ₹1L+\n\nThe final cost depends on workflows, automations, integrations, users, and reporting needs. Our team will review your exact requirement and suggest the final quotation.\n\nWhich range fits you best?",
       pricingQuickReplies: ["Under 50k", "50k–1L", "1L–2L", "Above 2L"]
     },
 

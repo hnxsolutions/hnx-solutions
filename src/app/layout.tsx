@@ -16,8 +16,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://hnx.services"),
   title: "HNX Technologies",
-  description: "Web, Mobile, AI, Cloud and SaaS solutions by HNX Technologies.",
+  description:
+    "Web, mobile, SaaS, custom CRM systems, AI automation, cloud, DevOps, and UI/UX solutions by HNX Technologies.",
 };
 
 export default function RootLayout({

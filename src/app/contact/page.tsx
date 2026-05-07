@@ -229,7 +229,7 @@ export default function ContactPage() {
         <div className="absolute bottom-16 right-10 z-1 h-72 w-72 rounded-full bg-accent/6 blur-3xl dark:bg-accent/4" />
         <div className="absolute left-1/2 top-1/2 z-1 h-144 w-xl -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/4 blur-[120px] dark:bg-primary/2" />
 
-        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 mx-auto max-w-[min(95vw,1600px)] px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={shouldReduceMotion ? false : { opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
@@ -320,7 +320,7 @@ export default function ContactPage() {
       <section className="section-shell relative">
         <div className="absolute inset-0 bg-linear-to-b from-transparent via-black/2 to-transparent dark:via-white/1" />
 
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="relative mx-auto max-w-[min(95vw,1600px)] px-4 sm:px-6 lg:px-8">
           <div className="grid gap-8 lg:grid-cols-5 lg:gap-10">
             {/* CONTACT INFO */}
             <motion.div
@@ -708,8 +708,12 @@ export default function ContactPage() {
                           Select a service
                         </option>
                         <option value="Web Application">Web Application</option>
+                        <option value="SaaS Platform">SaaS Platform</option>
                         <option value="Mobile App">Mobile App</option>
+                        <option value="Custom CRM Systems">Custom CRM Systems</option>
                         <option value="AI & Automation">AI & Automation</option>
+                        <option value="Workflow Automation">Workflow Automation</option>
+                        <option value="Industry CRM Systems">Industry CRM Systems</option>
                         <option value="Cloud Solutions">Cloud Solutions</option>
                         <option value="UI/UX Design">UI/UX Design</option>
                         <option value="Full-Stack Solution">Full-Stack Solution</option>

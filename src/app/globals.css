@@ -527,3 +527,153 @@ html:not(.dark) .premium-card:hover {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* HNX CRM source utilities migrated from the CRM project */
+.text-gradient {
+  background: linear-gradient(90deg, #17aab8 0%, #1591b3 48%, #1c66c7 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.brand-gradient {
+  background: linear-gradient(90deg, #19b7c5 0%, #145cb7 100%);
+}
+
+.brand-gradient:hover {
+  background: linear-gradient(90deg, #15a6b3 0%, #0f4fa4 100%);
+}
+
+.frosted-white {
+  border: 1px solid rgba(215, 225, 242, 0.95);
+  background: rgba(255, 255, 255, 0.88);
+  color: #20365e;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+}
+
+.hero-pill {
+  border: 1px solid #c8e2ea;
+  background: rgba(255, 255, 255, 0.8);
+  color: #1f8ea1;
+  box-shadow: 0 10px 30px rgba(24, 94, 120, 0.08);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+}
+
+.glass-panel {
+  border: 1px solid rgba(215, 225, 242, 0.9);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.94), rgba(238, 246, 255, 0.74)),
+    rgba(255, 255, 255, 0.86);
+  box-shadow: 0 24px 80px rgba(15, 23, 42, 0.1);
+  -webkit-backdrop-filter: blur(22px);
+  backdrop-filter: blur(22px);
+}
+
+.hairline-glow {
+  position: relative;
+}
+
+.hairline-glow::before {
+  pointer-events: none;
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(25, 183, 197, 0.52),
+    rgba(20, 92, 183, 0.32),
+    rgba(255, 255, 255, 0.12)
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.grid-fade {
+  background-image:
+    linear-gradient(rgba(25, 183, 197, 0.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(25, 183, 197, 0.09) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(circle, #000 0%, transparent 68%);
+  mask-image: radial-gradient(circle, #000 0%, transparent 68%);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.brand-primary-text {
+  color: #0f214f;
+}
+
+.brand-body-text {
+  color: #465374;
+}
+
+.brand-muted-text {
+  color: #66728f;
+}
+
+.brand-link {
+  color: #334766;
+  transition: color 180ms ease;
+}
+
+.brand-link:hover {
+  color: #145cb7;
+}
+
+.brand-link-active {
+  color: #0f214f;
+}
+
+.brand-primary-button {
+  border: 1px solid transparent;
+  background: linear-gradient(90deg, #19b7c5 0%, #145cb7 100%);
+  color: #ffffff;
+  box-shadow: 0 18px 40px rgba(20, 92, 183, 0.24);
+}
+
+.brand-primary-button:hover {
+  background: linear-gradient(90deg, #15a6b3 0%, #0f4fa4 100%);
+}
+
+.brand-secondary-button {
+  border: 1px solid #d7e1f2;
+  background: rgba(255, 255, 255, 0.9);
+  color: #20365e;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+}
+
+.brand-secondary-button:hover {
+  border-color: #c2d0ea;
+  background: #ffffff;
+}
+
+.brand-pill {
+  border: 1px solid #c8e2ea;
+  background: rgba(255, 255, 255, 0.8);
+  color: #1f8ea1;
+  box-shadow: 0 10px 30px rgba(24, 94, 120, 0.08);
+}
+
+.brand-card {
+  border: 1px solid #d7e1f2;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.08);
+}

@@ -253,7 +253,7 @@ function getServiceQuickReplies() {
     "Web Development",
     "SaaS Development",
     "Mobile App Development",
-    "CRM & Salesforce",
+    "Custom CRM Systems",
     "DevOps",
     "AI & Automation",
     "Cloud Solutions",
@@ -587,12 +587,12 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({
           mode: "text",
           message:
-            "Sure — here’s a simple guide:\n\n• Web Development → best for websites, ecommerce, portals, and custom web platforms.\n• SaaS Development → best for subscription-based software products.\n• Mobile App Development → best when users need a phone app or notifications.\n• CRM & Salesforce → best for lead management, pipelines, customer workflows, and Salesforce work.\n• DevOps → best for CI/CD, deployment, infrastructure automation, and reliability.\n• AI & Automation → best for chatbots, intelligent agents, workflow automation, and document processing.\n• Cloud Solutions → best for architecture, migration, scaling, and hosting.\n• UI/UX Design → best for research, interface design, wireframes, prototypes, and design systems.\n• Digital Growth → best for SEO, analytics, performance, and conversion improvement.\n\nWhat sounds closest to your requirement?",
+            "Sure — here’s a simple guide:\n\n• Web Development → best for websites, ecommerce, portals, and custom web platforms.\n• SaaS Development → best for subscription-based software products.\n• Mobile App Development → best when users need a phone app or notifications.\n• Custom CRM Systems → best for lead management, pipelines, customer workflows, owned dashboards, and automation.\n• DevOps → best for CI/CD, deployment, infrastructure automation, and reliability.\n• AI & Automation → best for chatbots, intelligent agents, workflow automation, and document processing.\n• Cloud Solutions → best for architecture, migration, scaling, and hosting.\n• UI/UX Design → best for research, interface design, wireframes, prototypes, and design systems.\n• Digital Growth → best for SEO, analytics, performance, and conversion improvement.\n\nWhat sounds closest to your requirement?",
           quickReplies: [
             "Web Development",
             "SaaS Development",
             "Mobile App Development",
-            "CRM & Salesforce",
+            "Custom CRM Systems",
             "DevOps",
             "AI & Automation",
             "Cloud Solutions",

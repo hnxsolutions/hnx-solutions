@@ -6,23 +6,23 @@
     {
       "id": "crm-salesforce",
       "slug": "crm-salesforce-implementation",
-      "title": "CRM & Salesforce: Transforming Business Operations",
+      "title": "Custom CRM Systems: Building Owned Business Operations",
       "category": "crm-salesforce",
-      "description": "Optimize business processes with Salesforce implementation. Streamline sales, marketing, and customer service with automation and data-driven insights.",
+      "description": "Build custom CRM systems that streamline leads, deals, customer workflows, dashboards, and automation under HNX branding.",
       "author": "HNX Technologies",
       "createdAt": "2026-02-01",
       "readTime": 13,
       "image": "/images/blog/crm-salesforce.svg",
       "tags": [
-        "Salesforce",
-        "CRM",
+        "Custom CRM",
+        "Workflow Automation",
         "Business Automation",
-        "Integration",
-        "Einstein AI"
+        "Dashboards",
+        "AI Insights"
       ],
-      "seoTitle": "Salesforce CRM Implementation: Business Automation Guide",
-      "seoDescription": "Complete Salesforce implementation guide. Streamline sales, marketing, and customer service operations with CRM automation.",
-      "content": "In today's competitive business landscape, customer relationship management (CRM) is essential for success. Salesforce is the industry-leading platform that helps organizations manage customer interactions, streamline sales processes, and drive business growth.\n\n## Why Salesforce Matters\n\nSalesforce provides comprehensive solutions for:\n\n- 📊 Sales team productivity\n- 🎯 Customer retention\n- 📈 Revenue growth\n- 🤝 Better customer relationships\n\n## Key Salesforce Features\n\n### Sales Cloud\nManage your entire sales process:\n- Lead management and scoring\n- Opportunity tracking\n- Forecasting and analytics\n- Mobile sales access\n\n### Service Cloud\nDeliver exceptional customer service:\n- Support ticket management\n- Knowledge base integration\n- Live chat and messaging\n- Community support\n\n### Marketing Cloud\nRun targeted marketing campaigns:\n- Email marketing automation\n- Customer journey mapping\n- Lead nurturing workflows\n- Campaign analytics\n\n## Implementation Strategy\n\n### Phase 1: Assessment\n- Understand current business processes\n- Define requirements\n- Plan customizations\n\n### Phase 2: Configuration\n- Setup Salesforce org\n- Configure modules\n- Integrate with existing systems\n\n### Phase 3: Customization\n- Develop custom components with Apex\n- Build Lightning Web Components (LWC)\n- Create automation rules\n\n### Phase 4: Training & Launch\n- Train users\n- Go-live preparation\n- Post-launch support\n\n## Technologies We Use\n\n- Apex programming language\n- Lightning Web Components (LWC)\n- Salesforce Flow automation\n- SOQL and SOSL queries\n- REST/SOAP APIs"
+      "seoTitle": "Custom CRM Systems: Business Automation Guide",
+      "seoDescription": "Complete guide to custom CRM systems with workflow automation, dashboards, AI insights, secure roles, and business operations modules.",
+      "content": "Modern teams do not always need another rented CRM subscription. Many need an owned business system designed around how their leads, deals, customers, tasks, approvals, and reports actually move.\n\n## Why Custom CRM Ownership Matters\n\nA custom CRM system gives businesses more control over:\n\n- Lead and customer visibility\n- Workflow automation\n- Revenue and operations dashboards\n- Team roles and permissions\n- Long-term process ownership\n\n## Key HNX CRM System Modules\n\n### CRM Core\nManage daily business operations:\n- Lead capture and assignment\n- Deal stages and pipeline tracking\n- Customer records and activity history\n- Tasks, reminders, and follow-ups\n\n### Workflow Engine\nReduce repetitive manual work:\n- Missed follow-up alerts\n- Invoice and payment reminders\n- Approval routing\n- Task escalation\n\n### AI Intelligence Layer\nAdd smarter operational visibility:\n- Lead prioritization\n- Customer summaries\n- Document processing\n- Dashboard insights and recommendations\n\n## Implementation Strategy\n\n### Phase 1: Process Mapping\n- Understand current operations\n- Define CRM modules and roles\n- Identify automation opportunities\n\n### Phase 2: CRM Foundation\n- Build core modules\n- Configure fields and permissions\n- Create dashboards and activity views\n\n### Phase 3: Automation Layer\n- Add workflow rules\n- Integrate websites, forms, messaging, and payment systems\n- Set reporting and alert flows\n\n### Phase 4: Launch and Growth\n- Train users\n- Launch with clean data flows\n- Add workflow modules as the business grows\n\n## Technologies We Use\n\n- Next.js and React dashboards\n- Node.js APIs\n- Secure database architecture\n- Role-based access control\n- AI and automation integrations"
     }
   ]
 }

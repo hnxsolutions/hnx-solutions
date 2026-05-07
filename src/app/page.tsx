@@ -5,6 +5,20 @@ const HomeServices = dynamic(() => import("@/components/HomeServices"), {
   loading: () => <div className="h-75" />,
 });
 
+const HNXSystemEcosystem = dynamic(
+  () => import("@/components/sections/HNXSystemEcosystem"),
+  {
+    loading: () => <div className="h-75" />,
+  }
+);
+
+const CRMPreviewShowcase = dynamic(
+  () => import("@/components/sections/CRMPreviewShowcase"),
+  {
+    loading: () => <div className="h-75" />,
+  }
+);
+
 const HomePortfolio = dynamic(() => import("@/components/HomePortfolio"), {
   loading: () => <div className="h-75" />,
 });
@@ -21,6 +35,8 @@ export default function HomePage() {
   return (
     <main className="page-shell">
       <Hero />
+      <HNXSystemEcosystem />
+      <CRMPreviewShowcase />
       <HomeServices />
       <HomePortfolio />
       <Testimonials />

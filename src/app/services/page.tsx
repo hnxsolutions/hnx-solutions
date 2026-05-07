@@ -84,7 +84,7 @@ export default function ServicesPage() {
         <div className="absolute bottom-16 right-10 z-1 h-72 w-72 rounded-full bg-accent/6 blur-3xl dark:bg-accent/4" />
         <div className="absolute left-1/2 top-1/2 z-1 h-144 w-xl -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/4 blur-[120px] dark:bg-primary/2" />
 
-        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 mx-auto max-w-[min(95vw,1600px)] px-4 sm:px-6 lg:px-8">
           <div
             aria-hidden
             className="absolute left-[24%] top-1/2 h-85 w-full max-w-3xl -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.9)_0%,rgba(255,255,255,0.58)_40%,rgba(255,255,255,0.14)_68%,rgba(255,255,255,0)_100%)] blur-2xl dark:bg-[radial-gradient(circle,rgba(5,10,18,0.82)_0%,rgba(5,10,18,0.58)_40%,rgba(5,10,18,0.14)_68%,rgba(5,10,18,0)_100%)]"
@@ -171,7 +171,7 @@ export default function ServicesPage() {
 
       <section id="services-grid" className="section-shell relative z-10">
         <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-transparent via-black/1 to-transparent dark:from-(--bg) dark:via-[rgba(255,255,255,0.01)] dark:to-(--bg)" />
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="relative mx-auto max-w-[min(95vw,1600px)] px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}

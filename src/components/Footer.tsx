@@ -5,16 +5,22 @@ import { FiGithub, FiLinkedin, FiInstagram } from "react-icons/fi";
 
 const footerLinks = {
   Services: [
-    { name: "Web Development", href: "/services" },
-    { name: "Mobile Apps", href: "/mobile-apps" },
-    { name: "AI & Automation", href: "/ai-automation" },
-    { name: "Cloud Solutions", href: "/services" },
-    { name: "UI/UX Design", href: "/services" },
+    { name: "Custom CRM Systems", href: "/crm-systems" },
+    { name: "Workflow Automation", href: "/workflow-lab" },
+    { name: "AI Automation", href: "/services/ai-automation" },
+    { name: "SaaS Development", href: "/services/saas-development" },
+    { name: "Web Development", href: "/services/web-development" },
+    { name: "Mobile App Development", href: "/services/mobile-apps" },
+  ],
+  "Products/Solutions": [
+    { name: "HNX CRM Systems", href: "/crm-systems" },
+    { name: "HNX Workflow Lab", href: "/workflow-lab" },
+    { name: "Industry CRM Systems", href: "/industries" },
+    { name: "AI Automation", href: "/services/ai-automation" },
   ],
   Company: [
     { name: "About Us", href: "/about" },
     { name: "Portfolio", href: "/portfolio" },
-    { name: "Pricing", href: "/pricing" },
     { name: "Contact", href: "/contact" },
   ],
   Resources: [
@@ -34,8 +40,8 @@ const socials = [
 export default function Footer() {
   return (
     <footer className="relative w-full border-t border-(--border) bg-(--bg) pb-2 pt-8 text-(--text)">
-      <div className="mx-auto max-w-7xl px-8 pb-0 pt-14 lg:px-12">
-        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-5">
+      <div className="mx-auto max-w-[min(95vw,1600px)] px-4 pb-0 pt-14 sm:px-6 lg:px-8">
+        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-6">
           {/* Brand */}
           <div className="lg:col-span-2">
             <Link href="/" className="mb-5 flex items-center gap-3">
@@ -106,7 +112,7 @@ export default function Footer() {
           </div>
 
           <p className="text-center text-sm text-(--text-soft)">
-            © 2026 HNX Technologies. All rights reserved.
+            &copy; 2026 HNX Technologies. All rights reserved.
           </p>
         </div>
       </div>

@@ -172,7 +172,7 @@ export default function ServiceDetailClient({
 
       {/* Hero */}
       <section className="relative pb-14 pt-28 sm:pb-16 sm:pt-32 md:pb-20 md:pt-36">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-[min(95vw,1600px)] px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
             animate="show"
@@ -320,7 +320,7 @@ export default function ServiceDetailClient({
 
       {/* Overview + Deliverables */}
       <section className="relative pb-16 sm:pb-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-[min(95vw,1600px)] px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
             whileInView="show"
@@ -417,7 +417,7 @@ export default function ServiceDetailClient({
       {/* Pricing */}
       {packages.length > 0 && (
         <section id="pricing-section" className="relative pb-20 sm:pb-24">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-[min(95vw,1600px)] px-4 sm:px-6 lg:px-8">
             <motion.div
               initial="hidden"
               whileInView="show"

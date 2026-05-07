@@ -104,7 +104,7 @@ function TestimonialCard({
 export default function Testimonials() {
   return (
     <section className="relative grid-bg bg-(--bg) py-16 text-(--text)">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <div className="mx-auto max-w-[min(95vw,1600px)] px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

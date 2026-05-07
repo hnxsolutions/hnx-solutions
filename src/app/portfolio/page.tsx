@@ -53,7 +53,7 @@ export default function PortfolioPage() {
         <div className="absolute bottom-16 right-10 z-1 h-72 w-72 rounded-full bg-accent/6 blur-3xl dark:bg-accent/4" />
         <div className="absolute left-1/2 top-1/2 z-1 h-144 w-xl -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/4 blur-[120px] dark:bg-primary/2" />
 
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 mx-auto w-full max-w-[min(95vw,1600px)] px-4 sm:px-6 lg:px-8">
           <div className="grid items-center gap-10 md:gap-14 lg:grid-cols-[1.08fr_0.92fr]">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -193,7 +193,7 @@ export default function PortfolioPage() {
       <section id="portfolio-grid" className="section-shell relative">
         <div className="absolute inset-0 bg-linear-to-b from-transparent via-black/2 to-transparent dark:via-white/1" />
 
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="relative mx-auto max-w-[min(95vw,1600px)] px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}

@@ -4,7 +4,7 @@ import type { BlogPost, BlogCategoryFile } from './blogs/types';
 import webDevelopmentData from './blogs/content/web-development.json';
 import saasDevelopmentData from './blogs/content/saas-development.json';
 import mobileAppsData from './blogs/content/mobile-apps.json';
-import crmSalesforceData from './blogs/content/crm-salesforce.json';
+import crmSystemsData from './blogs/content/crm-salesforce.json';
 import devopsData from './blogs/content/devops.json';
 import aiAutomationData from './blogs/content/ai-automation.json';
 import cloudSolutionsData from './blogs/content/cloud-solutions.json';
@@ -16,7 +16,7 @@ const categoryFiles: Record<string, BlogCategoryFile> = {
   'web-development': webDevelopmentData as BlogCategoryFile,
   'saas-development': saasDevelopmentData as BlogCategoryFile,
   'mobile-apps': mobileAppsData as BlogCategoryFile,
-  'crm-salesforce': crmSalesforceData as BlogCategoryFile,
+  'crm-salesforce': crmSystemsData as BlogCategoryFile,
   'devops': devopsData as BlogCategoryFile,
   'ai-automation': aiAutomationData as BlogCategoryFile,
   'cloud-solutions': cloudSolutionsData as BlogCategoryFile,
