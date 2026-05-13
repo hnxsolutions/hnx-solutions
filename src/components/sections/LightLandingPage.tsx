@@ -744,7 +744,7 @@ function HeroSection() {
     <>
       <section
   id="home"
-  className="relative overflow-hidden px-4 pb-10 pt-28 sm:px-6 sm:pt-28 lg:px-8 lg:pt-32"
+  className="relative overflow-hidden pb-10 pt-28 sm:pt-28 lg:pt-32"
 >
   <div className="absolute inset-0 bg-[linear-gradient(135deg,#f8fbff_0%,#ffffff_34%,#eef6ff_100%)]" />
 
@@ -768,7 +768,7 @@ function HeroSection() {
 
   <div className="grid-fade pointer-events-none absolute left-[-10rem] top-0 z-[1] h-[36rem] w-[46rem] opacity-25" />
 
-  <div className="relative z-10 mx-auto max-w-[min(95vw,1600px)]">
+  <div className="relative z-10 mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
     <div className="flex min-h-[calc(100vh-8rem)] items-start">
       <Reveal>
         <div className="max-w-[34rem] text-left">
@@ -823,12 +823,12 @@ function HeroSection() {
     </div>
   </div>
 </section>
-      <section className="relative overflow-hidden px-4 py-14 sm:px-6 lg:px-8 lg:py-18">
+      <section className="relative overflow-hidden py-14 lg:py-18">
         <div className="absolute inset-0 bg-[linear-gradient(135deg,#f8fbff_0%,#ffffff_42%,#eef6ff_100%)]" />
         <div className="pointer-events-none absolute right-[-10rem] top-0 h-[34rem] w-[34rem] rounded-full bg-blue-200/45 blur-3xl" />
         <div className="pointer-events-none absolute left-[-12rem] bottom-[-14rem] h-[32rem] w-[32rem] rounded-full bg-cyan-200/45 blur-3xl" />
 
-        <div className="relative mx-auto max-w-[min(95vw,1600px)]">
+        <div className="relative mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <Reveal>
             <div className="mb-10 grid items-start gap-10 lg:grid-cols-[0.42fr_0.58fr]">
               <div>
@@ -967,11 +967,11 @@ function ProblemSection() {
   ];
 
   return (
-    <section id="problem" className="relative overflow-hidden bg-white px-4 py-20 sm:px-6 lg:px-8">
+    <section id="problem" className="relative overflow-hidden bg-white py-20">
       <div className="pointer-events-none absolute left-[-14rem] top-10 h-[28rem] w-[28rem] rounded-full bg-[#9de3ee]/25 blur-3xl" />
       <div className="pointer-events-none absolute right-[-12rem] bottom-[-8rem] h-[30rem] w-[30rem] rounded-full bg-[#dbeafe]/70 blur-3xl" />
 
-      <div className="relative mx-auto grid max-w-[min(95vw,1600px)] gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+      <div className="relative mx-auto grid w-full max-w-[min(92vw,1440px)] gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <Reveal>
           <SectionIntro
             eyebrow="The Problem"
@@ -1027,7 +1027,7 @@ function WhatWeProvideSection() {
       description:
         "Leads, deals, customers, tickets, notes, tasks, and team activity in one clean daily workspace.",
       icon: Briefcase,
-      href: "/solutions/crmcore",
+      href: "/solutions/crm-core",
       cta: "Explore CRM Core",
     },
     {
@@ -1057,10 +1057,10 @@ function WhatWeProvideSection() {
   ];
 
   return (
-    <section id="custom-crm" className="relative overflow-hidden px-4 py-20 sm:px-6 lg:px-8">
+    <section id="custom-crm" className="relative overflow-hidden py-20">
       <div className="absolute right-0 top-16 h-80 w-80 rounded-full bg-[#9de3ee]/45 blur-3xl" />
       <div className="absolute left-[-12rem] bottom-[-10rem] h-80 w-80 rounded-full bg-blue-100/70 blur-3xl" />
-      <div className="relative mx-auto max-w-[min(95vw,1600px)]">
+      <div className="relative mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <Reveal>
           <SectionIntro
             eyebrow="What We Provide"
@@ -1116,8 +1116,8 @@ function OwnershipSection() {
   ];
 
   return (
-    <section id="ownership" className="relative overflow-hidden bg-white px-4 py-20 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-[min(95vw,1600px)]">
+    <section id="ownership" className="relative overflow-hidden bg-white py-20">
+      <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <Reveal>
           <SectionIntro
             eyebrow="CRM Ownership"
@@ -1176,9 +1176,9 @@ function HowItWorksBehindScenesSection() {
   const flow = ["User Action", "API", "Event Trigger", "Workflow Engine", "AI Analysis", "Action Execution", "Realtime Update"];
 
   return (
-    <section id="how-it-works" className="relative overflow-hidden px-4 py-20 sm:px-6 lg:px-8">
+    <section id="how-it-works" className="relative overflow-hidden py-20">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#d7e1f2] to-transparent" />
-      <div className="mx-auto max-w-[min(95vw,1600px)]">
+      <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <Reveal>
           <SectionIntro
             eyebrow="How It Works"
@@ -1225,8 +1225,8 @@ function HowItWorksBehindScenesSection() {
 
 function RolePermissionSection() {
   return (
-    <section id="roles" className="bg-white px-4 py-20 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-[min(95vw,1600px)]">
+    <section id="roles" className="bg-white py-20">
+      <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <Reveal>
           <SectionIntro
             eyebrow="Admin Control Room"
@@ -1272,9 +1272,9 @@ function AutomationRulesSection() {
   ];
 
   return (
-    <section id="automation" className="relative overflow-hidden px-4 py-20 sm:px-6 lg:px-8">
+    <section id="automation" className="relative overflow-hidden py-20">
       <div className="absolute right-[-12rem] top-8 h-80 w-80 rounded-full bg-[#9de3ee]/35 blur-3xl" />
-      <div className="mx-auto max-w-[min(95vw,1600px)]">
+      <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <Reveal>
           <SectionIntro
             eyebrow="Workflow Engine"
@@ -1310,8 +1310,8 @@ function AutomationRulesSection() {
 
 function AiCrmSection() {
   return (
-    <section id="ai-crm" className="bg-white px-4 py-20 sm:px-6 lg:px-8">
-      <div className="mx-auto grid max-w-[min(95vw,1600px)] gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+    <section id="ai-crm" className="bg-white py-20">
+      <div className="mx-auto grid w-full max-w-[min(92vw,1440px)] gap-10 lg:grid-cols-[0.9fr_1.1fr] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <Reveal>
           <SectionIntro
             eyebrow="AI Intelligence Layer"
@@ -1345,9 +1345,9 @@ function AiCrmSection() {
 
 function IndustriesSection() {
   return (
-    <section id="industries" className="relative overflow-hidden px-4 py-20 sm:px-6 lg:px-8">
+    <section id="industries" className="relative overflow-hidden py-20">
       <div className="pointer-events-none absolute left-[-10rem] top-12 h-80 w-80 rounded-full bg-blue-100/70 blur-3xl" />
-      <div className="mx-auto max-w-[min(95vw,1600px)]">
+      <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <Reveal>
           <SectionIntro
             eyebrow="Industries"
@@ -1367,7 +1367,7 @@ function IndustriesSection() {
 
 function ExploreDemoCrmSection() {
   return (
-    <section id="demo-crm-preview" className="relative overflow-hidden bg-white px-4 py-20 sm:px-6 lg:px-8">
+    <section id="demo-crm-preview" className="relative overflow-hidden bg-white py-20">
       <motion.div
         animate={{ scale: [1, 1.08, 1], opacity: [0.36, 0.58, 0.36] }}
         transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
@@ -1375,7 +1375,7 @@ function ExploreDemoCrmSection() {
       />
       <div className="absolute right-0 top-0 h-full w-1/2 bg-[radial-gradient(circle_at_80%_20%,rgba(20,92,183,0.10),transparent_32%),radial-gradient(circle_at_40%_70%,rgba(25,183,197,0.12),transparent_30%)]" />
 
-      <div className="relative mx-auto grid max-w-[min(95vw,1600px)] gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+      <div className="relative mx-auto grid w-full max-w-[min(92vw,1440px)] gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-center px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <Reveal>
           <div className="rounded-[34px] border border-[#c8e2ea] bg-gradient-to-br from-[#f5fbff] via-white to-[#eefcff] p-7 shadow-[0_26px_90px_rgba(20,92,183,0.10)] sm:p-9">
             <p className="text-xs font-bold uppercase tracking-[0.28em] text-[#1b7f93]">Interactive demo</p>
@@ -1443,9 +1443,9 @@ function ExploreDemoCrmSection() {
 
 function RoiCalculatorPreviewSection() {
   return (
-    <section id="roi-preview" className="relative overflow-hidden px-4 py-20 sm:px-6 lg:px-8">
+    <section id="roi-preview" className="relative overflow-hidden py-20">
       <div className="absolute left-0 top-10 h-80 w-80 rounded-full bg-blue-100/70 blur-3xl" />
-      <div className="relative mx-auto grid max-w-[min(95vw,1600px)] gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+      <div className="relative mx-auto grid w-full max-w-[min(92vw,1440px)] gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <Reveal>
           <div className="rounded-[34px] border border-[#d7e1f2] bg-white p-5 shadow-[0_34px_100px_rgba(15,23,42,0.10)]">
             <div className="rounded-[28px] border border-[#145cb7]/20 bg-gradient-to-br from-[#145cb7] to-[#19b7c5] p-6 text-white">
@@ -1496,8 +1496,8 @@ function RoiCalculatorPreviewSection() {
 
 function BuildPlansSection() {
   return (
-    <section id="pricing" className="bg-white px-4 py-20 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-[min(95vw,1600px)]">
+    <section id="pricing" className="bg-white py-20">
+      <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <Reveal>
           <SectionIntro
             eyebrow="Build Plans"
@@ -1537,8 +1537,8 @@ function BuildPlansSection() {
 
 function ContactSection() {
   return (
-    <section id="contact" className="bg-white px-4 py-20 sm:px-6 lg:px-8">
-      <div className="mx-auto grid max-w-[min(95vw,1600px)] gap-8 lg:grid-cols-[1.08fr_0.92fr]">
+    <section id="contact" className="bg-white py-20">
+      <div className="mx-auto grid w-full max-w-[min(92vw,1440px)] gap-8 lg:grid-cols-[1.08fr_0.92fr] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <Reveal>
           <div className="rounded-[34px] border border-[#c8e2ea] bg-gradient-to-br from-[#f5fbff] via-white to-[#eefcff] p-6 shadow-[0_24px_80px_rgba(15,23,42,0.10)] sm:p-8">
             <SectionIntro
@@ -1611,22 +1611,24 @@ function ContactSection() {
 
 function FinalCtaSection() {
   return (
-    <section className="relative overflow-hidden px-4 py-20 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-[min(95vw,1600px)] rounded-[38px] border border-[#145cb7]/20 bg-gradient-to-br from-[#06142f] via-[#0f214f] to-[#145cb7] p-8 text-center text-white shadow-[0_30px_110px_rgba(15,23,42,0.18)] sm:p-12">
-        <p className="text-xs font-bold uppercase tracking-[0.28em] text-[#9de3ee]">Final pitch</p>
-        <h2 className="mx-auto mt-4 max-w-4xl text-balance text-3xl font-bold tracking-normal sm:text-4xl lg:text-6xl">
-          Stop renting your CRM. Start owning your system.
-        </h2>
-        <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-[#d8fbff]">
-          HNX combines automation, AI intelligence, dashboards, permissions, and full ownership into one custom CRM built around your business.
-        </p>
-        <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-          <Button href="/contact" size="lg" showArrow className="!bg-white !text-[#0f214f] hover:!bg-[#f5fbff]">
-            Book a CRM Strategy Call
-          </Button>
-          <Button href="/crm-demo" variant="secondary" size="lg" className="!border-white/20 !bg-white/10 !text-white hover:!bg-white/15">
-            View CRM Systems
-          </Button>
+    <section className="relative overflow-hidden py-20">
+      <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
+        <div className="rounded-[38px] border border-[#145cb7]/20 bg-gradient-to-br from-[#06142f] via-[#0f214f] to-[#145cb7] p-8 text-center text-white shadow-[0_30px_110px_rgba(15,23,42,0.18)] sm:p-12">
+          <p className="text-xs font-bold uppercase tracking-[0.28em] text-[#9de3ee]">Final pitch</p>
+          <h2 className="mx-auto mt-4 max-w-4xl text-balance text-3xl font-bold tracking-normal sm:text-4xl lg:text-6xl">
+            Stop renting your CRM. Start owning your system.
+          </h2>
+          <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-[#d8fbff]">
+            HNX combines automation, AI intelligence, dashboards, permissions, and full ownership into one custom CRM built around your business.
+          </p>
+          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+            <Button href="/contact" size="lg" showArrow className="!bg-white !text-[#0f214f] hover:!bg-[#f5fbff]">
+              Book a CRM Strategy Call
+            </Button>
+            <Button href="/crm-demo" variant="secondary" size="lg" className="!border-white/20 !bg-white/10 !text-white hover:!bg-white/15">
+              View CRM Systems
+            </Button>
+          </div>
         </div>
       </div>
     </section>
@@ -1637,8 +1639,8 @@ function FaqSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="bg-white px-4 py-20 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-4xl">
+    <section id="faq" className="bg-white py-20">
+      <div className="mx-auto w-full max-w-4xl px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <Reveal>
           <SectionIntro
             eyebrow="FAQ"

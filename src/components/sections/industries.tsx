@@ -28,10 +28,10 @@ const highlights = [
 export function IndustriesPageContent() {
   return (
     <main className="overflow-hidden bg-[#f7fbff] text-[#0f214f]">
-      <section className="relative px-4 pb-16 pt-28 sm:px-6 lg:px-8 lg:pt-32">
+      <section className="relative px-5 pb-16 pt-28 sm:px-6 lg:px-8 xl:px-10 2xl:px-12 lg:pt-32">
         <div className="absolute inset-x-0 top-0 h-80 bg-gradient-to-b from-[#e9fbff] to-transparent" aria-hidden="true" />
 
-        <div className="relative mx-auto max-w-[min(95vw,1600px)]">
+        <div className="relative mx-auto max-w-[min(92vw,1440px)]">
           <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
               <p className="text-sm font-extrabold uppercase tracking-[0.22em] text-[#1593b5]">Industries</p>
@@ -72,8 +72,8 @@ export function IndustriesPageContent() {
         </div>
       </section>
 
-      <section className="px-4 pb-20 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-[min(95vw,1600px)]">
+      <section className="px-5 pb-20 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
+        <div className="mx-auto max-w-[min(92vw,1440px)]">
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {industryCards.map((item, index) => {
               const Icon = item.icon;

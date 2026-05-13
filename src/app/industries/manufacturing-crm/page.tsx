@@ -1,19 +1,15 @@
-import type { Metadata } from "next";
 import ManufacturingCRMPage from "@/components/industries/ManufacturingCRMPage";
+import { createIndustryMetadata, IndustrySeoJsonLd } from "@/components/seo/IndustrySeo";
 
-export const metadata: Metadata = {
-  title: "Manufacturing CRM Software | HNX CRM Systems",
-  description:
-    "Manufacturing CRM for RFQs, quotations, dealers, distributors, orders, production follow-ups, dispatches, service requests, and B2B sales.",
-  alternates: {
-    canonical: "/industries/manufacturing-crm",
-  },
-  openGraph: {
-    title: "Manufacturing CRM Software | HNX CRM Systems",
-    description: "Manage B2B sales, quotations, orders, dealers, production coordination, and dispatch workflows.",
-  },
-};
+const slug = "manufacturing-crm";
+
+export const metadata = createIndustryMetadata(slug);
 
 export default function Page() {
-  return <ManufacturingCRMPage />;
+  return (
+    <>
+      <IndustrySeoJsonLd slug={slug} />
+      <ManufacturingCRMPage />
+    </>
+  );
 }

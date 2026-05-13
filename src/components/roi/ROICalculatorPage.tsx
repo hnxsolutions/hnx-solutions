@@ -69,7 +69,7 @@ export function ROICalculatorPage() {
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#f8fbff] text-slate-950">
-      <section className="relative px-4 pb-16 pt-28 sm:px-6 lg:px-8 lg:pb-24 lg:pt-32">
+      <section className="relative pb-16 pt-28 lg:pb-24 lg:pt-32">
         <motion.div
           animate={{ scale: [1, 1.08, 1], opacity: [0.45, 0.7, 0.45] }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
@@ -77,7 +77,7 @@ export function ROICalculatorPage() {
         />
         <div className="grid-fade absolute left-1/2 top-0 h-[38rem] w-[56rem] -translate-x-1/2 opacity-60" />
 
-        <div className="relative mx-auto max-w-[min(95vw,1600px)]">
+        <div className="relative mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <div className="mx-auto max-w-4xl text-center">
             <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white/[0.86] px-4 py-2 text-sm font-bold text-blue-700 shadow-sm">
               <Sparkles className="h-4 w-4 text-cyan-500" aria-hidden="true" />

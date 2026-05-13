@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { HiArrowRight } from "react-icons/hi";
@@ -13,6 +14,14 @@ import {
   FaBriefcase,
   FaCog,
   FaServer,
+  FaCode,
+  FaShieldAlt,
+  FaBullhorn,
+  FaSearch,
+  FaPaintBrush,
+  FaTools,
+  FaProjectDiagram,
+  FaPlug,
 } from "react-icons/fa";
 import AnimatedGridBG from "@/components/AnimatedGridBG";
 import { heroDashboardSvg } from "@/components/heroDashboardSvg";
@@ -84,7 +93,7 @@ export default function ServicesPage() {
         <div className="absolute bottom-16 right-10 z-1 h-72 w-72 rounded-full bg-accent/6 blur-3xl dark:bg-accent/4" />
         <div className="absolute left-1/2 top-1/2 z-1 h-144 w-xl -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/4 blur-[120px] dark:bg-primary/2" />
 
-        <div className="relative z-10 mx-auto max-w-[min(95vw,1600px)] px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 mx-auto max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <div
             aria-hidden
             className="absolute left-[24%] top-1/2 h-85 w-full max-w-3xl -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.9)_0%,rgba(255,255,255,0.58)_40%,rgba(255,255,255,0.14)_68%,rgba(255,255,255,0)_100%)] blur-2xl dark:bg-[radial-gradient(circle,rgba(5,10,18,0.82)_0%,rgba(5,10,18,0.58)_40%,rgba(5,10,18,0.14)_68%,rgba(5,10,18,0)_100%)]"
@@ -171,7 +180,7 @@ export default function ServicesPage() {
 
       <section id="services-grid" className="section-shell relative z-10">
         <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-transparent via-black/1 to-transparent dark:from-(--bg) dark:via-[rgba(255,255,255,0.01)] dark:to-(--bg)" />
-        <div className="relative mx-auto max-w-[min(95vw,1600px)] px-4 sm:px-6 lg:px-8">
+        <div className="relative mx-auto max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -201,45 +210,26 @@ export default function ServicesPage() {
             whileInView={isMobile ? undefined : "show"}
             viewport={isMobile ? undefined : { once: true, amount: 0.2 }}
           >
-            {services.map((service, i) => {
-              const icons = [
-                <FaCloud
-                  key="web"
-                  className="text-3xl text-accent drop-shadow-glow"
-                />,
-                <FaServer
-                  key="saas"
-                  className="text-3xl text-accent drop-shadow-glow"
-                />,
-                <FaMobileAlt
-                  key="mobile"
-                  className="text-3xl text-accent drop-shadow-glow"
-                />,
-                <FaBriefcase
-                  key="crm"
-                  className="text-3xl text-accent drop-shadow-glow"
-                />,
-                <FaCog
-                  key="devops"
-                  className="text-3xl text-accent drop-shadow-glow"
-                />,
-                <FaRobot
-                  key="ai"
-                  className="text-3xl text-accent drop-shadow-glow"
-                />,
-                <FaCloud
-                  key="cloud"
-                  className="text-3xl text-accent drop-shadow-glow"
-                />,
-                <FaPalette
-                  key="uiux"
-                  className="text-3xl text-accent drop-shadow-glow"
-                />,
-                <FaChartLine
-                  key="growth"
-                  className="text-3xl text-accent drop-shadow-glow"
-                />,
-              ];
+            {services.map((service) => {
+              const iconClassName = "text-3xl text-accent drop-shadow-glow";
+              const icons: Record<string, ReactNode> = {
+                "web-development": <FaCode className={iconClassName} />,
+                "saas-development": <FaServer className={iconClassName} />,
+                "mobile-app-development": <FaMobileAlt className={iconClassName} />,
+                "custom-crm-systems": <FaBriefcase className={iconClassName} />,
+                "ai-automation": <FaRobot className={iconClassName} />,
+                "workflow-automation": <FaProjectDiagram className={iconClassName} />,
+                "api-development": <FaPlug className={iconClassName} />,
+                "integration-services": <FaCog className={iconClassName} />,
+                "devops-deployment": <FaTools className={iconClassName} />,
+                "cloud-infrastructure": <FaCloud className={iconClassName} />,
+                "maintenance-support": <FaTools className={iconClassName} />,
+                "security-compliance": <FaShieldAlt className={iconClassName} />,
+                "ui-ux-design": <FaPalette className={iconClassName} />,
+                "landing-pages-campaigns": <FaBullhorn className={iconClassName} />,
+                "seo-analytics": <FaSearch className={iconClassName} />,
+                "brand-identity": <FaPaintBrush className={iconClassName} />,
+              };
 
               return (
                 <motion.div
@@ -258,7 +248,7 @@ export default function ServicesPage() {
                   <div className="relative z-10">
                     <div className="mb-5 flex items-center justify-between gap-4">
                       <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl border border-(--border) bg-white/35 dark:bg-white/4">
-                        {icons[i]}
+                        {icons[service.id] ?? <FaChartLine className={iconClassName} />}
                       </span>
 
                       <span className="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-emerald-500 dark:text-emerald-300">
@@ -324,7 +314,7 @@ export default function ServicesPage() {
 
       <section className="section-shell relative z-10">
         <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-transparent via-black/1 to-transparent dark:from-transparent dark:via-white/1 dark:to-transparent" />
-        <div className="relative mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+        <div className="relative mx-auto max-w-4xl px-5 text-center sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}

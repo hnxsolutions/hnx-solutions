@@ -1,20 +1,15 @@
-import type { Metadata } from "next";
 import HealthcareCRMPage from "@/components/industries/HealthcareCRMPage";
+import { createIndustryMetadata, IndustrySeoJsonLd } from "@/components/seo/IndustrySeo";
 
-export const metadata: Metadata = {
-  title: "Healthcare CRM Software | HNX CRM Systems",
-  description:
-    "Healthcare CRM by HNX for patient inquiries, appointments, follow-ups, staff workflows, reports, integrations, and patient communication automation.",
-  alternates: {
-    canonical: "/industries/healthcare-crm",
-  },
-  openGraph: {
-    title: "Healthcare CRM Software | HNX CRM Systems",
-    description:
-      "Manage patients, appointments, staff, communication, follow-ups, and healthcare workflows in one CRM.",
-  },
-};
+const slug = "healthcare";
+
+export const metadata = createIndustryMetadata(slug);
 
 export default function Page() {
-  return <HealthcareCRMPage />;
+  return (
+    <>
+      <IndustrySeoJsonLd slug={slug} />
+      <HealthcareCRMPage />
+    </>
+  );
 }

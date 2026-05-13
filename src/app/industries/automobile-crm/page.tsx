@@ -1,19 +1,15 @@
-import type { Metadata } from "next";
 import AutomobileCRMPage from "@/components/industries/AutomobileCRMPage";
+import { createIndustryMetadata, IndustrySeoJsonLd } from "@/components/seo/IndustrySeo";
 
-export const metadata: Metadata = {
-  title: "Automobile CRM Software | HNX CRM Systems",
-  description:
-    "Automobile CRM for vehicle inquiries, test drives, bookings, service reminders, finance follow-ups, customer records, and showroom performance.",
-  alternates: {
-    canonical: "/industries/automobile-crm",
-  },
-  openGraph: {
-    title: "Automobile CRM Software | HNX CRM Systems",
-    description: "Manage automobile sales, test drives, bookings, service reminders, finance follow-ups, and showroom reports.",
-  },
-};
+const slug = "automobile-crm";
+
+export const metadata = createIndustryMetadata(slug);
 
 export default function Page() {
-  return <AutomobileCRMPage />;
+  return (
+    <>
+      <IndustrySeoJsonLd slug={slug} />
+      <AutomobileCRMPage />
+    </>
+  );
 }

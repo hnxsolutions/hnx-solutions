@@ -414,7 +414,7 @@ export default function CRMPreviewShowcase() {
       <div className="pointer-events-none absolute inset-x-0 top-10 mx-auto h-72 w-[86%] max-w-5xl rounded-full bg-primary/8 blur-3xl" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 mx-auto h-60 w-[78%] max-w-4xl rounded-full bg-accent/8 blur-3xl" />
 
-      <div className="relative mx-auto max-w-[min(95vw,1600px)] px-4 sm:px-6 lg:px-8">
+      <div className="relative mx-auto max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <div className="mb-10 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl">
             <motion.span

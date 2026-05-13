@@ -57,7 +57,7 @@ export default function IndustryCRMGrid({
     <section className="relative overflow-hidden bg-(--bg) py-18 text-(--text) sm:py-22 lg:py-24">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_14%_24%,rgba(56,189,248,0.08),transparent_26%),radial-gradient(circle_at_86%_78%,rgba(139,92,246,0.08),transparent_28%)]" />
 
-      <div className="relative mx-auto max-w-[min(95vw,1600px)] px-4 sm:px-6 lg:px-8">
+      <div className="relative mx-auto max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         {showHeader ? (
           <motion.div
             initial={{ opacity: 0, y: 24 }}

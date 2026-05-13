@@ -272,7 +272,7 @@ function Reveal({
 
 function HeroVisual() {
   return (
-    <div className="relative min-h-[560px] overflow-visible lg:min-h-[760px]">
+    <div className="relative min-h-[560px] w-full max-w-full overflow-x-hidden lg:min-h-[760px] lg:overflow-x-visible">
       {/* right-side visual box only */}
       <div className="absolute inset-y-[30px] right-0 z-0 w-[78%] overflow-hidden rounded-[46px] bg-white shadow-[0_18px_50px_rgba(15,23,42,0.06)]">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_42%,rgba(224,247,245,0.98),rgba(255,255,255,0.92)_38%,rgba(255,255,255,0.7)_58%,rgba(15,159,145,0.05)_100%)]" />
@@ -284,17 +284,17 @@ function HeroVisual() {
       <img
         src={doctorImage}
         alt="Healthcare doctor standing with arms crossed"
-        className="absolute bottom-[-0.45rem] left-[-8%] z-20 h-[100%] w-auto max-w-none object-contain object-bottom drop-shadow-[0_28px_55px_rgba(15,23,42,0.14)]"
+        className="absolute bottom-[-0.45rem] left-0 z-20 h-[100%] w-auto max-w-none object-contain object-bottom drop-shadow-[0_28px_55px_rgba(15,23,42,0.14)] lg:left-[-8%]"
       />
 
       {/* fade only under the doctor, outside visual cards */}
-      <div className="absolute bottom-0 left-[-10%] z-[21] h-[13%] w-[52%] bg-gradient-to-t from-white via-white/74 to-transparent" />
+      <div className="absolute bottom-0 left-0 z-[21] h-[13%] w-[52%] bg-gradient-to-t from-white via-white/74 to-transparent lg:left-[-10%]" />
 
       {/* top overview card - separate on right */}
       <motion.div
         animate={{ y: [0, -6, 0] }}
         transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute right-[3.2rem] top-[6.05rem] z-30 w-[420px] rounded-[30px] bg-white p-7 shadow-[0_24px_50px_rgba(0,0,0,0.10)]"
+        className="absolute right-4 top-[6.05rem] z-30 w-[420px] max-w-[calc(100%_-_2rem)] rounded-[30px] bg-white p-7 shadow-[0_24px_50px_rgba(0,0,0,0.10)] sm:right-[3.2rem]"
       >
         <h3 className="text-[23px] font-black leading-none text-[#071b4c]">
           Today&apos;s Overview
@@ -347,7 +347,7 @@ function HeroVisual() {
       <motion.div
         animate={{ y: [0, 7, 0] }}
         transition={{ duration: 6.5, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-[5.6rem] right-[2.9rem] z-30 w-[440px] rounded-[30px] bg-white p-7 shadow-[0_24px_50px_rgba(0,0,0,0.10)]"
+        className="absolute bottom-[5.6rem] right-4 z-30 w-[440px] max-w-[calc(100%_-_2rem)] rounded-[30px] bg-white p-7 shadow-[0_24px_50px_rgba(0,0,0,0.10)] sm:right-[2.9rem]"
       >
         <div className="text-[17px] font-bold text-[#64748b]">
           Next Appointment
@@ -396,8 +396,8 @@ function DashboardMetric({ label, value, delta }: { label: string; value: string
 
 function DashboardSection() {
   return (
-    <section className="bg-[#f3f7fb] px-4 py-16 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-[min(95vw,1600px)]">
+    <section className="bg-[#f3f7fb] py-16">
+      <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <Reveal>
           <div className="rounded-[34px] border border-[#dce7f7] bg-white p-5 shadow-[0_26px_90px_rgba(15,23,42,0.08)]">
             <h2 className="mb-6 text-center text-2xl font-black tracking-[-0.02em] text-[#081633]">
@@ -562,8 +562,8 @@ function DashboardSection() {
 
 function PatientJourney() {
   return (
-    <section className="bg-gradient-to-br from-[#effcff] to-white px-4 py-16 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-[min(95vw,1600px)]">
+    <section className="bg-gradient-to-br from-[#effcff] to-white py-16">
+      <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <Reveal>
           <div className="text-center">
             <h2 className="text-3xl font-black tracking-[-0.03em] text-[#081633]">
@@ -602,8 +602,8 @@ function PatientJourney() {
 
 function PhoneFeatureBlock() {
   return (
-    <section className="bg-[#f8fbff] px-4 py-16 sm:px-6 lg:px-8">
-      <div className="mx-auto grid max-w-[min(95vw,1600px)] items-center gap-8 lg:grid-cols-[0.95fr_0.55fr_0.95fr]">
+    <section className="bg-[#f8fbff] py-16">
+      <div className="mx-auto grid w-full max-w-[min(92vw,1440px)] items-center gap-8 lg:grid-cols-[0.95fr_0.55fr_0.95fr] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <Reveal>
           <div className="rounded-[30px] border border-[#dce7f7] bg-white p-7 shadow-[0_20px_70px_rgba(15,23,42,0.065)]">
             <h2 className="text-center text-lg font-black text-[#081633]">Powerful Features for</h2>
@@ -669,8 +669,8 @@ function PhoneFeatureBlock() {
 
 function DoctorUseCasesSection() {
   return (
-    <section className="bg-white px-4 py-14 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-[min(95vw,1600px)]">
+    <section className="bg-white py-14">
+      <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <Reveal>
           <div className="mx-auto max-w-4xl text-center">
             <h2 className="text-3xl font-black tracking-[-0.03em] text-[#081633]">
@@ -722,8 +722,8 @@ function PricingCarousel() {
   );
 
   return (
-    <section className="bg-white px-4 py-12 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-[min(95vw,1600px)]">
+    <section className="bg-white py-12">
+      <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <Reveal>
           <div className="mx-auto max-w-5xl text-center">
             <p className="text-xl leading-[1.45] text-[#3f5379] sm:text-2xl lg:text-[1.9rem]">
@@ -813,8 +813,8 @@ function PricingCarousel() {
 function HealthcareCRMContent() {
   return (
     <main className="overflow-hidden bg-[#f8fbff] text-[#081633]">
-      <section className="relative border-b border-[#e5edf8] bg-gradient-to-br from-white via-[#fbfdff] to-[#eefbff] px-4 pb-0 pt-28 sm:px-6 lg:px-8 lg:pt-32">
-        <div className="mx-auto grid max-w-[1660px] gap-8 lg:grid-cols-[0.96fr_1.04fr] lg:items-start xl:gap-10">
+      <section className="relative border-b border-[#e5edf8] bg-gradient-to-br from-white via-[#fbfdff] to-[#eefbff] pb-0 pt-28 lg:pt-32">
+        <div className="mx-auto grid w-full max-w-[min(92vw,1440px)] gap-8 lg:grid-cols-[0.96fr_1.04fr] lg:items-start xl:gap-10 px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <Reveal>
             <div className="relative z-20 pb-12 pt-2 lg:pb-14 lg:pt-8">
               <div className="inline-flex items-center gap-3 rounded-full bg-[#e0f8f5] px-5 py-3 text-base font-black uppercase text-[#0b9a8d]">
@@ -868,8 +868,8 @@ function HealthcareCRMContent() {
         </div>
       </section>
 
-      <section className="bg-white px-4 py-14 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-[min(95vw,1600px)]">
+      <section className="bg-white py-14">
+        <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <Reveal>
             <div className="rounded-[34px] bg-gradient-to-br from-[#06142f] to-[#075e61] p-8 text-white shadow-[0_24px_80px_rgba(15,23,42,0.12)]">
               <div className="text-center">
@@ -896,8 +896,8 @@ function HealthcareCRMContent() {
         </div>
       </section>
 
-      <section className="bg-white px-4 pb-14 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-[min(95vw,1600px)]">
+      <section className="bg-white pb-14">
+        <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <Reveal>
             <h2 className="text-center text-2xl font-black text-[#081633]">Built for Every Healthcare Specialty</h2>
           </Reveal>
@@ -946,8 +946,8 @@ function HealthcareCRMContent() {
 
 
 
-      <section className="bg-[#f8fbff] px-4 py-14 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-[min(95vw,1600px)]">
+      <section className="bg-[#f8fbff] py-14">
+        <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <Reveal>
             <h2 className="text-center text-3xl font-black text-[#081633]">Seamless Integrations</h2>
           </Reveal>

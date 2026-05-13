@@ -94,7 +94,7 @@ function ServiceCard({
 export default function HomeServices() {
   return (
     <section className="relative bg-(--bg) py-16 text-(--text)">
-      <div className="relative mx-auto max-w-[min(95vw,1600px)] px-4 sm:px-6 lg:px-8">
+      <div className="relative mx-auto max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

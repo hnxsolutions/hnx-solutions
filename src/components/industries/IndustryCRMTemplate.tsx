@@ -214,8 +214,8 @@ function DashboardMetric({ item }: { item: IndustryMetric }) {
 
 function WhySection({ config }: { config: IndustryCRMConfig }) {
   return (
-    <section className="bg-white px-4 py-14 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-[min(95vw,1600px)]">
+    <section className="bg-white py-14">
+      <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <Reveal>
           <div
             className="rounded-[34px] p-8 text-white shadow-[0_24px_80px_rgba(15,23,42,0.12)]"
@@ -251,8 +251,8 @@ function WhySection({ config }: { config: IndustryCRMConfig }) {
 
 function SpecialtyCarousel({ config }: { config: IndustryCRMConfig }) {
   return (
-    <section className="bg-white px-4 pb-14 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-[min(95vw,1600px)]">
+    <section className="bg-white pb-14">
+      <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <Reveal>
           <h2 className="text-center text-2xl font-black text-[#081633]">{config.specialtyTitle}</h2>
         </Reveal>
@@ -296,8 +296,8 @@ function SpecialtyCarousel({ config }: { config: IndustryCRMConfig }) {
 
 function DashboardSection({ config }: { config: IndustryCRMConfig }) {
   return (
-    <section className="bg-[#f3f7fb] px-4 py-16 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-[min(95vw,1600px)]">
+    <section className="bg-[#f3f7fb] py-16">
+      <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <Reveal>
           <div className="rounded-[34px] border border-[#dce7f7] bg-white p-5 shadow-[0_26px_90px_rgba(15,23,42,0.08)]">
             <h2 className="mb-6 text-center text-2xl font-black tracking-[-0.02em] text-[#081633]">{config.dashboard.title}</h2>
@@ -452,8 +452,8 @@ function DashboardSection({ config }: { config: IndustryCRMConfig }) {
 
 function JourneySection({ config }: { config: IndustryCRMConfig }) {
   return (
-    <section className="bg-gradient-to-br from-[#effcff] to-white px-4 py-16 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-[min(95vw,1600px)]">
+    <section className="bg-gradient-to-br from-[#effcff] to-white py-16">
+      <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <Reveal>
           <div className="text-center">
             <h2 className="text-3xl font-black tracking-[-0.03em] text-[#081633]">{config.journeyTitle}</h2>
@@ -490,8 +490,8 @@ function JourneySection({ config }: { config: IndustryCRMConfig }) {
 
 function FeatureBlock({ config }: { config: IndustryCRMConfig }) {
   return (
-    <section className="bg-[#f8fbff] px-4 py-16 sm:px-6 lg:px-8">
-      <div className="mx-auto grid max-w-[min(95vw,1600px)] items-center gap-8 lg:grid-cols-[0.95fr_0.6fr_0.95fr]">
+    <section className="bg-[#f8fbff] py-16">
+      <div className="mx-auto w-full grid max-w-[min(92vw,1440px)] items-center gap-8 lg:grid-cols-[0.95fr_0.6fr_0.95fr] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <Reveal>
           <div className="rounded-[30px] border border-[#dce7f7] bg-white p-7 shadow-[0_20px_70px_rgba(15,23,42,0.065)]">
             <h2 className="text-center text-lg font-black text-[#081633]">{config.featureTitle}</h2>
@@ -556,8 +556,8 @@ function FeatureBlock({ config }: { config: IndustryCRMConfig }) {
 
 function OperationsSection({ config }: { config: IndustryCRMConfig }) {
   return (
-    <section className="bg-white px-4 py-14 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-[min(95vw,1600px)]">
+    <section className="bg-white py-14">
+      <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <Reveal>
           <div className="mx-auto max-w-4xl text-center">
             <h2 className="text-3xl font-black tracking-[-0.03em] text-[#081633]">{config.operationsTitle}</h2>
@@ -603,8 +603,8 @@ function PricingCarousel({ config }: { config: IndustryCRMConfig }) {
   );
 
   return (
-    <section className="bg-white px-4 py-12 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-[min(95vw,1600px)]">
+    <section className="bg-white py-12">
+      <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <Reveal>
           <div className="mx-auto max-w-5xl text-center">
             <p className="text-xl leading-[1.45] text-[#3f5379] sm:text-2xl lg:text-[1.9rem]">{config.pricingIntro}</p>
@@ -690,8 +690,8 @@ function PricingCarousel({ config }: { config: IndustryCRMConfig }) {
 
 function IntegrationsSection({ config }: { config: IndustryCRMConfig }) {
   return (
-    <section className="bg-[#f8fbff] px-4 py-14 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-[min(95vw,1600px)]">
+    <section className="bg-[#f8fbff] py-14">
+      <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <Reveal>
           <h2 className="text-center text-3xl font-black text-[#081633]">Seamless Integrations</h2>
         </Reveal>
@@ -718,8 +718,8 @@ function IntegrationsSection({ config }: { config: IndustryCRMConfig }) {
 function IndustryCRMContent({ config }: { config: IndustryCRMConfig }) {
   return (
     <main style={themeStyle(config)} className="overflow-hidden bg-[#f8fbff] text-[#081633]">
-      <section className="relative border-b border-[#e5edf8] bg-gradient-to-br from-white via-[#fbfdff] to-[#eefbff] px-4 pb-10 pt-28 sm:px-6 lg:px-8 lg:pt-32">
-        <div className="mx-auto grid max-w-[min(95vw,1600px)] gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
+      <section className="relative border-b border-[#e5edf8] bg-gradient-to-br from-white via-[#fbfdff] to-[#eefbff] pb-10 pt-28 lg:pt-32">
+        <div className="mx-auto w-full grid max-w-[min(92vw,1440px)] gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-center px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <Reveal>
             <div className="relative z-20">
               <div className="inline-flex items-center gap-3 rounded-full bg-[var(--industry-accent-soft)] px-5 py-3 text-sm font-black uppercase text-[var(--industry-accent)]">

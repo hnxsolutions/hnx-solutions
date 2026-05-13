@@ -8,7 +8,9 @@ import {
   HiSparkles,
 } from "react-icons/hi";
 import CRMDashboardMockup from "@/components/sections/CRMDashboardMockup";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { featuredIndustryDetails } from "@/data/hnx-crm";
+import { createBreadcrumbJsonLd, createMetadata, createServiceJsonLd } from "@/lib/seo";
 
 type IndustryDetailPageProps = {
   params: Promise<{
@@ -27,16 +29,19 @@ export async function generateMetadata({
   const industry = featuredIndustryDetails[slug];
 
   if (!industry) {
-    return {
-      title: "Industry CRM Not Found | HNX Technologies",
+    return createMetadata({
+      title: "Industry CRM Not Found | HNX Solutions",
       description: "The requested HNX industry CRM page could not be found.",
-    };
+      path: `/industries/${slug}`,
+    });
   }
 
-  return {
+  return createMetadata({
     title: `${industry.title} by HNX | Custom Industry CRM System`,
     description: industry.subheading,
-  };
+    path: `/industries/${slug}`,
+    keywords: [industry.title, "industry CRM", "custom CRM", "CRM automation", "HNX Solutions"],
+  });
 }
 
 export default async function IndustryDetailPage({
@@ -51,9 +56,24 @@ export default async function IndustryDetailPage({
 
   return (
     <main className="page-shell">
+      <JsonLd
+        data={[
+          createBreadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "Industries", path: "/industries" },
+            { name: industry.title, path: `/industries/${slug}` },
+          ]),
+          createServiceJsonLd({
+            name: industry.title,
+            description: industry.subheading,
+            path: `/industries/${slug}`,
+            serviceType: "Industry CRM System",
+          }),
+        ]}
+      />
       <section className="page-hero hero-light relative isolate overflow-hidden">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_16%_18%,rgba(56,189,248,0.12),transparent_28%),radial-gradient(circle_at_82%_72%,rgba(139,92,246,0.12),transparent_28%)]" />
-        <div className="relative z-10 mx-auto max-w-[min(95vw,1600px)] px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 mx-auto max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <div className="grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr]">
             <div>
               <Link
@@ -101,7 +121,7 @@ export default async function IndustryDetailPage({
       </section>
 
       <section className="relative py-18 sm:py-22 lg:py-24">
-        <div className="mx-auto max-w-[min(95vw,1600px)] px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <div className="grid gap-6 lg:grid-cols-2">
             <div className="rounded-[1.75rem] border border-(--border) bg-white/68 p-6 backdrop-blur-2xl dark:bg-white/5">
               <h2 className="text-2xl font-black tracking-tight text-(--text) sm:text-3xl">

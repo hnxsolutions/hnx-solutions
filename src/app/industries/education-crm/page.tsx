@@ -1,19 +1,15 @@
-import type { Metadata } from "next";
 import EducationCRMPage from "@/components/industries/EducationCRMPage";
+import { createIndustryMetadata, IndustrySeoJsonLd } from "@/components/seo/IndustrySeo";
 
-export const metadata: Metadata = {
-  title: "Education CRM Software | HNX CRM Systems",
-  description:
-    "Education CRM for admissions, student enquiries, counselors, demo classes, batches, fee follow-ups, parent communication, and growth.",
-  alternates: {
-    canonical: "/industries/education-crm",
-  },
-  openGraph: {
-    title: "Education CRM Software | HNX CRM Systems",
-    description: "Manage admissions, counselors, demo classes, batches, student records, and fee follow-ups in one CRM.",
-  },
-};
+const slug = "education-crm";
+
+export const metadata = createIndustryMetadata(slug);
 
 export default function Page() {
-  return <EducationCRMPage />;
+  return (
+    <>
+      <IndustrySeoJsonLd slug={slug} />
+      <EducationCRMPage />
+    </>
+  );
 }

@@ -320,15 +320,15 @@ function EnhancedDemoContent() {
         scrollToIndustry={() => industryRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })}
         isDarkMode={isDarkMode}
       />
-      <section ref={industryRef} className="relative px-4 py-10 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-[min(95vw,1600px)]">
+      <section ref={industryRef} className="relative py-10">
+        <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <IndustrySelector />
           <GoalSelector scrollToDashboard={() => scrollToDashboard()} />
           <TestimonialStrip />
         </div>
       </section>
-      <section ref={dashboardRef} className="relative px-4 pb-16 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-[1500px]">
+      <section ref={dashboardRef} className="relative pb-16">
+        <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <DashboardShell
             showToast={showToast}
             openScorePanel={openScorePanel}
@@ -392,7 +392,7 @@ function HeroSection({
   const steps = ["Choose Industry", "Set Your Goal", "Explore Your CRM"];
 
   return (
-    <section className="relative overflow-hidden px-4 pb-12 pt-28 sm:px-6 lg:px-8 lg:pb-16 lg:pt-32">
+    <section className="relative overflow-hidden pb-12 pt-28 lg:pb-16 lg:pt-32">
       <div
         className={cn(
           "absolute inset-0",
@@ -412,7 +412,7 @@ function HeroSection({
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
         className="absolute right-[12%] top-36 h-20 w-20 rounded-full border border-cyan-200/80 bg-blue-100/40 blur-sm"
       />
-      <div className="relative mx-auto max-w-5xl text-center">
+      <div className="relative mx-auto w-full max-w-5xl px-5 text-center sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white/90 px-4 py-2 text-sm font-bold text-blue-700 shadow-sm">
           <Sparkles className="h-4 w-4 text-blue-600" aria-hidden="true" />
           Interactive CRM demo for Indian businesses
@@ -2050,29 +2050,31 @@ function FormInput({
 
 function CompareSaasSection() {
   return (
-    <section className="px-4 pb-12 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-[min(95vw,1600px)] rounded-[18px] border border-slate-200 bg-white p-6 shadow-sm">
-        <h2 className="text-2xl font-extrabold text-slate-950">Compare with generic SaaS CRM</h2>
-        <div className="mt-5 overflow-x-auto">
-          <table className="w-full min-w-[720px] text-left text-sm">
-            <thead className="text-xs uppercase tracking-[0.16em] text-slate-500">
-              <tr><th className="py-3">Feature</th><th>Generic SaaS</th><th>HNX Custom CRM</th></tr>
-            </thead>
-            <tbody>
-              {[
-                ["Workflow fit", "You adjust to fixed modules", "Built around your exact workflow"],
-                ["Ownership", "Monthly rental", "You own the CRM build"],
-                ["Automation", "Limited templates", "Your triggers, conditions, and actions"],
-                ["Reports", "Generic dashboards", "Your KPIs, roles, and industry metrics"],
-              ].map(([feature, generic, custom]) => (
-                <tr key={feature} className="border-t border-slate-100">
-                  <td className="py-4 font-extrabold text-slate-950">{feature}</td>
-                  <td className="text-slate-600">{generic}</td>
-                  <td className="font-bold text-blue-700">{custom}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+    <section className="pb-12">
+      <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
+        <div className="rounded-[18px] border border-slate-200 bg-white p-6 shadow-sm">
+          <h2 className="text-2xl font-extrabold text-slate-950">Compare with generic SaaS CRM</h2>
+          <div className="mt-5 overflow-x-auto">
+            <table className="w-full min-w-[720px] text-left text-sm">
+              <thead className="text-xs uppercase tracking-[0.16em] text-slate-500">
+                <tr><th className="py-3">Feature</th><th>Generic SaaS</th><th>HNX Custom CRM</th></tr>
+              </thead>
+              <tbody>
+                {[
+                  ["Workflow fit", "You adjust to fixed modules", "Built around your exact workflow"],
+                  ["Ownership", "Monthly rental", "You own the CRM build"],
+                  ["Automation", "Limited templates", "Your triggers, conditions, and actions"],
+                  ["Reports", "Generic dashboards", "Your KPIs, roles, and industry metrics"],
+                ].map(([feature, generic, custom]) => (
+                  <tr key={feature} className="border-t border-slate-100">
+                    <td className="py-4 font-extrabold text-slate-950">{feature}</td>
+                    <td className="text-slate-600">{generic}</td>
+                    <td className="font-bold text-blue-700">{custom}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </section>
@@ -2231,8 +2233,8 @@ function RoiStrip({ visible, onDismiss, onCalculate }: { visible: boolean; onDis
   const recovered = demoData.roiDefaults.lostDeals * demoData.roiDefaults.avgDealValue * 0.4;
   if (!visible) return null;
   return (
-    <div className="fixed inset-x-0 bottom-0 z-50 border-t border-blue-200 bg-blue-950 px-4 py-3 text-white lg:bottom-0">
-      <div className="mx-auto flex max-w-[min(95vw,1600px)] flex-col gap-3 md:flex-row md:items-center md:justify-between">
+    <div className="fixed inset-x-0 bottom-0 z-50 border-t border-blue-200 bg-blue-950 py-3 text-white lg:bottom-0">
+      <div className="mx-auto flex w-full max-w-[min(92vw,1440px)] flex-col gap-3 md:flex-row md:items-center md:justify-between px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <p className="text-sm font-bold">Businesses like yours save 12+ hours/week and recover {formatInr(recovered)}/month with HNX.</p>
         <div className="flex gap-3">
           <button type="button" onClick={onCalculate} className="rounded-full bg-white px-4 py-2 text-xs font-extrabold text-blue-700">Calculate your savings</button>

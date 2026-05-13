@@ -23,13 +23,13 @@ export function Section({
   contentClassName = "",
 }: SectionProps) {
   return (
-    <section id={id} className={`relative px-4 py-20 sm:px-6 lg:px-8 ${className}`}>
+    <section id={id} className={`relative px-5 py-20 sm:px-6 lg:px-8 xl:px-10 2xl:px-12 ${className}`}>
       <motion.div
         initial={{ opacity: 0, y: 22 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-120px" }}
         transition={{ duration: 0.65, ease: "easeOut" }}
-        className={`mx-auto max-w-[min(95vw,1600px)] ${contentClassName}`}
+        className={`mx-auto max-w-[min(92vw,1440px)] ${contentClassName}`}
       >
         <div className="mx-auto mb-12 max-w-3xl text-center">
           {eyebrow ? (

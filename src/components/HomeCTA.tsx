@@ -7,7 +7,7 @@ import { HiArrowRight } from "react-icons/hi";
 export default function HomeCTA() {
   return (
     <section className="relative py-24 text-(--text)">
-      <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <div className="relative mx-auto max-w-5xl px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <motion.div
           initial={{ opacity: 0, y: 32, scale: 0.985 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}

@@ -68,10 +68,10 @@ function PageHero({
   description: string;
 }) {
   return (
-    <section className="relative px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+    <section className="relative py-16 lg:py-24">
       <div className="absolute left-[-10rem] top-0 h-[30rem] w-[30rem] rounded-full bg-cyan-200/60 blur-3xl" />
       <div className="absolute right-[-12rem] top-10 h-[32rem] w-[32rem] rounded-full bg-blue-200/55 blur-3xl" />
-      <Reveal className="relative mx-auto max-w-5xl text-center">
+      <Reveal className="relative mx-auto w-full max-w-5xl px-5 text-center sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <p className="mb-4 text-xs font-bold uppercase tracking-[0.28em] text-blue-600">{eyebrow}</p>
         <h1 className="text-balance text-4xl font-bold leading-tight tracking-normal text-slate-950 sm:text-5xl lg:text-6xl">
           {title}
@@ -139,8 +139,8 @@ export function ServiceTopicPage({ topicKey }: { topicKey: ServiceTopicKey }) {
   return (
     <PageShell>
       <PageHero eyebrow={topic.eyebrow} title={topic.title} description={topic.description} />
-      <section className="bg-white px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-[min(95vw,1600px)]">
+      <section className="bg-white py-16">
+        <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <SectionHeading
             title="What this can include"
             description="HNX scopes each CRM system around your real modules, users, permission rules, workflow triggers, reporting needs, and integration points."
@@ -148,8 +148,8 @@ export function ServiceTopicPage({ topicKey }: { topicKey: ServiceTopicKey }) {
           <IconGrid items={topic.cards} columns={topicKey === "industries" ? "xl:grid-cols-4" : "xl:grid-cols-3"} />
         </div>
       </section>
-      <section className="px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mx-auto grid max-w-[min(95vw,1600px)] gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+      <section className="py-16">
+        <div className="mx-auto w-full grid max-w-[min(92vw,1440px)] gap-6 lg:grid-cols-[0.9fr_1.1fr] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <div className="rounded-[34px] border border-blue-100 bg-gradient-to-br from-cyan-50 to-blue-50 p-8 shadow-sm">
             <Sparkles className="h-8 w-8 text-blue-700" aria-hidden="true" />
             <h2 className="mt-4 text-3xl font-bold text-slate-950">Built around ownership, not subscription dependency.</h2>
@@ -190,8 +190,8 @@ export function ProductPage() {
         title="A workflow-first CRM product built for sales and operations."
         description="Explore the HNX system across lead capture, automation, integrations, dashboards, admin controls, and AI-ready growth layers."
       />
-      <section id="product" className="bg-white px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-[min(95vw,1600px)]">
+      <section id="product" className="bg-white py-16">
+        <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <SectionHeading
             eyebrow="Overview"
             title="From lead source to business report in one operating system."
@@ -200,14 +200,14 @@ export function ProductPage() {
           <IconGrid items={overviewCards} columns="xl:grid-cols-4" />
         </div>
       </section>
-      <section id="features" className="px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-[min(95vw,1600px)]">
+      <section id="features" className="py-16">
+        <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <SectionHeading title="Product features" description="Detailed modules for leads, teams, automations, dashboards, messaging, and AI support." />
           <IconGrid items={featureCards} />
         </div>
       </section>
-      <section id="workflows" className="bg-white px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-[min(95vw,1600px)]">
+      <section id="workflows" className="bg-white py-16">
+        <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <SectionHeading title="Workflow automation examples" description="Practical CRM flows for routing, SLA follow-ups, proposal movement, payments, support escalation, and onboarding." />
           <div className="grid gap-5 lg:grid-cols-3">
             {workflowScenarios.map((workflow) => (
@@ -223,8 +223,8 @@ export function ProductPage() {
           </div>
         </div>
       </section>
-      <section id="integrations" className="bg-white px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-[min(95vw,1600px)]">
+      <section id="integrations" className="bg-white py-16">
+        <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <SectionHeading title="Integration options" description="Connect HNX with lead sources, communication channels, payments, spreadsheets, APIs, and reports." />
           <IconGrid items={integrations} columns="xl:grid-cols-5" />
           <div className="mt-10 grid gap-5 lg:grid-cols-3">
@@ -244,8 +244,8 @@ export function ProductPage() {
           </div>
         </div>
       </section>
-      <section id="updates" className="px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-[min(95vw,1600px)]">
+      <section id="updates" className="py-16">
+        <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <SectionHeading title="Updates and roadmap" description="The CRM can grow from core modules into admin power, automation, and AI layers." />
           <IconGrid items={roadmap} columns="xl:grid-cols-4" />
         </div>
@@ -262,32 +262,34 @@ export function CompanyPage() {
         title="HNX exists for businesses that have outgrown scattered tools."
         description="We help teams move from spreadsheets, WhatsApp follow-ups, and generic CRM templates to a custom system built around how they actually operate."
       />
-      <section id="company" className="bg-white px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-[min(95vw,1600px)]">
+      <section id="company" className="bg-white py-16">
+        <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <SectionHeading title="About HNX" description="Service-provider built CRM, custom workflow-first implementation, practical automation, and scalable sales operations." />
           <IconGrid items={companyCards} />
         </div>
       </section>
-      <section id="careers" className="px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-[min(95vw,1600px)]">
+      <section id="careers" className="py-16">
+        <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <SectionHeading title="Careers and future teams" description="Build the future of custom CRM, workflow automation, and AI-enabled business systems." />
           <IconGrid items={careerAreas} />
         </div>
       </section>
-      <section id="blog" className="bg-white px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-[min(95vw,1600px)]">
+      <section id="blog" className="bg-white py-16">
+        <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <SectionHeading title="CRM blog library" description="20 practical posts on CRM strategy, automation, reporting, AI, integrations, and team accountability." />
           <BlogGrid />
         </div>
       </section>
-      <section id="contact" className="px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-4xl rounded-[34px] border border-blue-100 bg-gradient-to-br from-cyan-50 to-blue-50 p-8 text-center shadow-[0_22px_70px_rgba(15,23,42,0.1)]">
-          <Sparkles className="mx-auto h-8 w-8 text-blue-700" aria-hidden="true" />
-          <h2 className="mt-4 text-3xl font-bold text-slate-950">Want to talk through your CRM workflow?</h2>
-          <p className="mx-auto mt-3 max-w-2xl leading-7 text-slate-600">Share your current process and we will recommend the right package, timeline, and roadmap.</p>
-          <Button href="/contact" className="mt-6" showArrow>
-            Contact Us
-          </Button>
+      <section id="contact" className="py-16">
+        <div className="mx-auto w-full max-w-4xl px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
+          <div className="rounded-[34px] border border-blue-100 bg-gradient-to-br from-cyan-50 to-blue-50 p-8 text-center shadow-[0_22px_70px_rgba(15,23,42,0.1)]">
+            <Sparkles className="mx-auto h-8 w-8 text-blue-700" aria-hidden="true" />
+            <h2 className="mt-4 text-3xl font-bold text-slate-950">Want to talk through your CRM workflow?</h2>
+            <p className="mx-auto mt-3 max-w-2xl leading-7 text-slate-600">Share your current process and we will recommend the right package, timeline, and roadmap.</p>
+            <Button href="/contact" className="mt-6" showArrow>
+              Contact Us
+            </Button>
+          </div>
         </div>
       </section>
     </PageShell>
@@ -322,14 +324,14 @@ export function ResourcesPage() {
         title="Guides, webinars, help content, use cases, and CRM thinking."
         description="Use these resources to plan CRM adoption, prepare workflows, train users, and understand where automation can help."
       />
-      <section id="help-center" className="bg-white px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-[min(95vw,1600px)]">
+      <section id="help-center" className="bg-white py-16">
+        <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <SectionHeading title="Help Center" description="Setup guidance, usage help, dashboard instructions, workflow support, and support request paths." />
           <IconGrid items={helpCenterItems} />
         </div>
       </section>
-      <section id="crm-guide" className="px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-5xl">
+      <section id="crm-guide" className="py-16">
+        <div className="mx-auto w-full max-w-5xl px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <SectionHeading title="CRM Guide" description="Plan your CRM before you build it with this implementation checklist." />
           <div className="grid gap-3">
             {crmGuideChecklist.map((item, index) => (
@@ -341,8 +343,8 @@ export function ResourcesPage() {
           </div>
         </div>
       </section>
-      <section id="webinars" className="bg-white px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-[min(95vw,1600px)]">
+      <section id="webinars" className="bg-white py-16">
+        <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <SectionHeading title="Webinars" description="Live and recorded learning sessions for CRM automation, AI, reporting, and implementation planning." />
           <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
             {webinars.map((webinar) => (
@@ -364,14 +366,14 @@ export function ResourcesPage() {
           </div>
         </div>
       </section>
-      <section id="use-cases" className="px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-[min(95vw,1600px)]">
+      <section id="use-cases" className="py-16">
+        <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <SectionHeading title="Use Cases" description="Business-specific CRM workflows for sales, services, operations, and customer follow-ups." />
           <IconGrid items={useCases} columns="xl:grid-cols-4" />
         </div>
       </section>
-      <section className="bg-white px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-[min(95vw,1600px)]">
+      <section className="bg-white py-16">
+        <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <SectionHeading title="CRM blog resources" description="A larger library of practical CRM and automation topics." />
           <BlogGrid />
         </div>
@@ -388,8 +390,8 @@ export function PricingDetailPage() {
         title="Build-and-own CRM packages with clear scopes and optional add-ons."
         description="Pricing is based on the package structure from your OrgoCRM and VisionCRM pricing documents, adapted for HNX."
       />
-      <section id="pricing" className="bg-white px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-[min(95vw,1600px)]">
+      <section id="pricing" className="bg-white py-16">
+        <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <SectionHeading title="Base packages" description="Choose the build scope that matches your team size, automation depth, integrations, and reporting needs." />
           <div className="grid gap-5 lg:grid-cols-4">
             {pricingPlans.map((plan) => (
@@ -419,8 +421,8 @@ export function PricingDetailPage() {
           </div>
         </div>
       </section>
-      <section id="addons" className="px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-[min(95vw,1600px)]">
+      <section id="addons" className="py-16">
+        <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <SectionHeading title="Add-ons and annual maintenance" description="Extend the CRM with automation, lead scoring, support workflows, payments, email sequences, and maintenance support." />
           <div className="grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
             <div className="grid gap-4 md:grid-cols-2">
@@ -449,8 +451,8 @@ export function PricingDetailPage() {
           </div>
         </div>
       </section>
-      <section id="integration-pricing" className="bg-white px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-[min(95vw,1600px)]">
+      <section id="integration-pricing" className="bg-white py-16">
+        <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <SectionHeading title="Integration pricing context" description="Integration effort depends on data flow, API readiness, automation rules, dashboards, and maintenance needs." />
           <div className="grid gap-3">
             {integrationPricingRows.map((row) => (
@@ -475,8 +477,8 @@ export function ContactPage() {
         title="Book your free CRM workflow discussion."
         description="Tell us how you currently manage leads, clients, follow-ups, and team work. We will map how HNX can fit your process."
       />
-      <section id="contact" className="bg-white px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mx-auto grid max-w-[min(95vw,1600px)] gap-8 lg:grid-cols-[1.05fr_0.95fr]">
+      <section id="contact" className="bg-white py-16">
+        <div className="mx-auto w-full grid max-w-[min(92vw,1440px)] gap-8 lg:grid-cols-[1.05fr_0.95fr] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <div id="workflow-audit" className="rounded-[34px] border border-blue-100 bg-gradient-to-br from-cyan-50 via-white to-blue-50 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.1)] sm:p-8">
             <form className="grid gap-4 sm:grid-cols-2">
               {["Full Name", "Business Email", "Phone / WhatsApp", "Company Name", "Business Type"].map((label) => (
@@ -575,8 +577,8 @@ export function SolutionsPage() {
         title="Custom CRM solutions for sales, support, operations, automation, and AI assistance."
         description="HNX builds business CRM systems around the way your team works, so leads, customers, tickets, tasks, permissions, workflows, reports, and AI insights stay connected."
       />
-      <section className="bg-white px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-[min(95vw,1600px)]">
+      <section className="bg-white py-16">
+        <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <SectionHeading title="Solution areas" description="Use HNX as a sales CRM, support CRM, operations CRM, AI CRM layer, or complete custom CRM development partner." />
           <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-5">
             {solutions.map((solution) => (
@@ -589,22 +591,24 @@ export function SolutionsPage() {
           </div>
         </div>
       </section>
-      <section className="px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-[min(95vw,1600px)]">
+      <section className="py-16">
+        <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <SectionHeading title="Industry use cases" description="Each solution combines lead capture, assignment, follow-up automation, dashboards, permissions, and manager visibility." />
           <IconGrid items={useCases} columns="xl:grid-cols-4" />
         </div>
       </section>
-      <section className="px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-5xl rounded-[34px] border border-blue-100 bg-gradient-to-br from-cyan-50 to-blue-50 p-8 shadow-sm">
-          <ShieldCheck className="h-8 w-8 text-blue-700" aria-hidden="true" />
-          <h2 className="mt-4 text-3xl font-bold text-slate-950">The solution starts with workflow mapping.</h2>
-          <p className="mt-3 leading-7 text-slate-600">
-            We identify where leads come from, who owns each stage, what needs to happen next, where delays happen, and which dashboards leadership needs. Then the CRM is built around that process.
-          </p>
-          <Button href="/contact" className="mt-6" showArrow>
-            Map My Workflow
-          </Button>
+      <section className="py-16">
+        <div className="mx-auto w-full max-w-5xl px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
+          <div className="rounded-[34px] border border-blue-100 bg-gradient-to-br from-cyan-50 to-blue-50 p-8 shadow-sm">
+            <ShieldCheck className="h-8 w-8 text-blue-700" aria-hidden="true" />
+            <h2 className="mt-4 text-3xl font-bold text-slate-950">The solution starts with workflow mapping.</h2>
+            <p className="mt-3 leading-7 text-slate-600">
+              We identify where leads come from, who owns each stage, what needs to happen next, where delays happen, and which dashboards leadership needs. Then the CRM is built around that process.
+            </p>
+            <Button href="/contact" className="mt-6" showArrow>
+              Map My Workflow
+            </Button>
+          </div>
         </div>
       </section>
     </PageShell>

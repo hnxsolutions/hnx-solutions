@@ -25,7 +25,7 @@ export default function Portfolio() {
     <section id="portfolio" className="relative overflow-hidden py-28 grid-bg">
       <div className="absolute inset-0 bg-linear-to-b from-transparent via-black/2 to-transparent dark:via-white/1" />
 
-      <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
+      <div className="relative mx-auto max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         {/* HEADER */}
         <motion.div
           initial={{ opacity: 0, y: 22 }}

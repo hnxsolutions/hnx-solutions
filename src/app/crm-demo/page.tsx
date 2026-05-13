@@ -1,18 +1,16 @@
-import type { Metadata } from "next";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { DemoCRMPage } from "@/components/crm-demo/DemoCRMPage";
 import { EnhancedDemoCRMPage } from "@/components/crm-demo/enhanced/EnhancedDemoCRMPage";
+import { absoluteUrl, createMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = createMetadata({
   title: "HNX CRM Demo - Try Your Industry CRM Live | Custom CRM India",
   description:
     "Experience a live custom CRM demo for your industry. Real Estate, Education, Healthcare, Agency, IT/SaaS and more. See how HNX builds CRMs around your workflow, team, and automation needs.",
-  openGraph: {
-    title: "HNX CRM Demo - Try Your Industry CRM Live",
-    description:
-      "Choose your industry, set your goal, and explore a live CRM dashboard built around your workflow.",
-    images: ["/images/heroimage.png"],
-  },
-};
+  path: "/crm-demo",
+  image: "/images/heroimage.png",
+  keywords: ["CRM demo", "custom CRM India", "industry CRM demo", "live CRM dashboard"],
+});
 
 export default function DemoCrmRoute() {
   const enhancedDemo = process.env.NEXT_PUBLIC_ENHANCED_DEMO !== "false";
@@ -23,7 +21,7 @@ export default function DemoCrmRoute() {
     name: "HNX CRM Demo",
     applicationCategory: "BusinessApplication",
     operatingSystem: "Web",
-    url: "https://hnx.services/crm-demo",
+    url: absoluteUrl("/crm-demo"),
     description:
       "Interactive custom CRM demo for Real Estate, Education, Healthcare, Agency, IT/SaaS, Pharma, Events, and Local Services teams.",
     audience: {
@@ -34,10 +32,7 @@ export default function DemoCrmRoute() {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-      />
+      <JsonLd data={structuredData} />
       {enhancedDemo ? <EnhancedDemoCRMPage /> : <DemoCRMPage />}
     </>
   );

@@ -104,7 +104,7 @@ export default function CRMSystemsContent() {
     <>
       <section id="live-crm-preview" className="relative py-18 sm:py-22 lg:py-24">
         <div className="pointer-events-none absolute inset-x-0 top-10 mx-auto h-72 w-[86%] max-w-5xl rounded-full bg-primary/8 blur-3xl" />
-        <div className="relative mx-auto max-w-[min(95vw,1600px)] px-4 sm:px-6 lg:px-8">
+        <div className="relative mx-auto max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -138,7 +138,7 @@ export default function CRMSystemsContent() {
       </section>
 
       <section className="relative py-18 sm:py-22 lg:py-24">
-        <div className="relative mx-auto max-w-[min(95vw,1600px)] px-4 sm:px-6 lg:px-8">
+        <div className="relative mx-auto max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
             <motion.div
               initial={{ opacity: 0, y: 24 }}
@@ -187,7 +187,7 @@ export default function CRMSystemsContent() {
 
       <section className="relative py-18 sm:py-22 lg:py-24">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_14%_24%,rgba(56,189,248,0.08),transparent_28%),radial-gradient(circle_at_86%_74%,rgba(139,92,246,0.08),transparent_28%)]" />
-        <div className="relative mx-auto max-w-[min(95vw,1600px)] px-4 sm:px-6 lg:px-8">
+        <div className="relative mx-auto max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -232,7 +232,7 @@ export default function CRMSystemsContent() {
       </section>
 
       <section className="relative py-18 sm:py-22 lg:py-24">
-        <div className="relative mx-auto max-w-[min(95vw,1600px)] px-4 sm:px-6 lg:px-8">
+        <div className="relative mx-auto max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -298,7 +298,7 @@ export default function CRMSystemsContent() {
       </section>
 
       <div className="relative">
-        <div className="mx-auto max-w-[min(95vw,1600px)] px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -321,7 +321,7 @@ export default function CRMSystemsContent() {
       </div>
 
       <section className="relative py-18 sm:py-22 lg:py-24">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-5xl px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <motion.div
             initial={{ opacity: 0, y: 28, scale: 0.98 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}

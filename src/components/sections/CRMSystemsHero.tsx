@@ -11,7 +11,7 @@ export default function CRMSystemsHero() {
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(56,189,248,0.12),transparent_28%),radial-gradient(circle_at_82%_72%,rgba(139,92,246,0.12),transparent_28%)] dark:bg-[radial-gradient(circle_at_18%_18%,rgba(77,208,225,0.16),transparent_28%),radial-gradient(circle_at_82%_72%,rgba(149,117,205,0.14),transparent_28%)]" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-linear-to-t from-(--bg) to-transparent" />
 
-      <div className="relative z-10 mx-auto max-w-[min(95vw,1600px)] px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 mx-auto max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <div className="grid items-center gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:gap-12">
           <motion.div
             initial={{ opacity: 0, y: 28 }}

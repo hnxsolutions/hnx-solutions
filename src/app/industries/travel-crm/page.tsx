@@ -1,19 +1,15 @@
-import type { Metadata } from "next";
 import TravelCRMPage from "@/components/industries/TravelCRMPage";
+import { createIndustryMetadata, IndustrySeoJsonLd } from "@/components/seo/IndustrySeo";
 
-export const metadata: Metadata = {
-  title: "Travel CRM Software | HNX CRM Systems",
-  description:
-    "Travel CRM for travel enquiries, package quotes, itineraries, visa documents, bookings, payment follow-ups, and customer communication.",
-  alternates: {
-    canonical: "/industries/travel-crm",
-  },
-  openGraph: {
-    title: "Travel CRM Software | HNX CRM Systems",
-    description: "Manage travel packages, itineraries, visa documents, bookings, payments, and follow-ups in one CRM.",
-  },
-};
+const slug = "travel-crm";
+
+export const metadata = createIndustryMetadata(slug);
 
 export default function Page() {
-  return <TravelCRMPage />;
+  return (
+    <>
+      <IndustrySeoJsonLd slug={slug} />
+      <TravelCRMPage />
+    </>
+  );
 }

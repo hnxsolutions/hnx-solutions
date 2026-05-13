@@ -25,9 +25,9 @@ const serviceSlides = [
       "HNX builds high-performance websites, landing pages, business portals, and web platforms with premium UI, SEO structure, responsive layouts, and conversion-focused sections.",
     primaryCta: "Explore Web Solutions",
     secondaryCta: "View Our Work",
-    primaryHref: "/services/web-solutions",
+    primaryHref: "/services/web-development",
     secondaryHref: "/portfolio",
-    image: "/webhero.jpg",
+    image: "/webhero (2).png",
     visualTitle: "Web Solutions",
     visualSubtitle:
       "Modern websites, portals, SEO pages, dashboards, and conversion-ready interfaces.",
@@ -49,9 +49,9 @@ const serviceSlides = [
       "We design and build mobile applications with onboarding, authentication, payments, notifications, real-time flows, and smooth app-like user experiences.",
     primaryCta: "Explore Mobile Apps",
     secondaryCta: "Book App Call",
-    primaryHref: "/services/mobile-apps",
+    primaryHref: "/services/mobile-app-development",
     secondaryHref: "/contact",
-    image: "/mobilehero.jpg",
+    image: "/Mobilehero.png",
     visualTitle: "Mobile Apps",
     visualSubtitle:
       "Android, iOS, Flutter, React Native, payments, notifications, and live app experiences.",
@@ -70,7 +70,7 @@ const serviceSlides = [
     secondaryCta: "Calculate ROI",
     primaryHref: "/demo-crm",
     secondaryHref: "/roi-calculator",
-    image: "/CRMhero.png",
+    image: "/CRMhero (2).png",
     visualTitle: "Custom CRM Systems",
     visualSubtitle:
       "Leads, pipelines, dashboards, role-based access, reports, workflow rules, and AI insights.",
@@ -89,7 +89,7 @@ const serviceSlides = [
     secondaryCta: "Workflow Lab",
     primaryHref: "/services/ai-automation",
     secondaryHref: "/workflow-lab",
-    image: "/aihero.jpg",
+    image: "/AI hero.png",
     visualTitle: "AI Automation",
     visualSubtitle:
       "AI agents, workflow triggers, smart replies, task routing, and decision support systems.",
@@ -106,9 +106,9 @@ const serviceSlides = [
       "We build backend APIs, cloud deployment pipelines, database architecture, admin dashboards, integrations, and secure SaaS foundations for long-term growth.",
     primaryCta: "Explore Cloud Systems",
     secondaryCta: "Start Project",
-    primaryHref: "/services/cloud-systems",
+    primaryHref: "/services/cloud-infrastructure",
     secondaryHref: "/contact",
-    image: "/cloudhero.png",
+    image: "/Cloudhero (2).png",
     visualTitle: "Cloud Systems",
     visualSubtitle:
       "APIs, databases, cloud deployment, security, admin panels, monitoring, and integrations.",
@@ -125,9 +125,9 @@ const serviceSlides = [
       "HNX creates premium UI/UX systems, brand visuals, SEO-ready landing pages, analytics setups, and campaign experiences that help businesses look better and convert faster.",
     primaryCta: "Explore Design & Growth",
     secondaryCta: "See Portfolio",
-    primaryHref: "/services/design-growth",
+    primaryHref: "/services/ui-ux-design",
     secondaryHref: "/portfolio",
-    image: "/designhero.jpg",
+    image: "/Designhero.png",
     visualTitle: "Design & Growth",
     visualSubtitle:
       "UI/UX, design systems, branding, SEO growth, analytics, and campaign pages.",
@@ -197,7 +197,7 @@ export default function Hero() {
       <div className="absolute bottom-20 right-10 z-1 h-80 w-80 rounded-full bg-accent/5 blur-3xl dark:bg-accent/3" />
       <div className="absolute left-1/2 top-1/2 z-1 h-150 w-150 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/2.5 blur-[120px] dark:bg-primary/1" />
 
-      <div className="relative z-10 mx-auto w-full max-w-[min(95vw,1600px)] px-4 pb-12 pt-24 sm:px-6 sm:pt-24 md:pt-24 lg:px-8 lg:pt-24">
+      <div className="relative z-10 mx-auto w-full max-w-[min(92vw,1440px)] px-5 pb-12 pt-24 sm:px-6 sm:pt-24 md:pt-24 lg:px-8 lg:pt-24 xl:px-10 2xl:px-12">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <motion.div
             initial={{ opacity: 0, x: -40 }}

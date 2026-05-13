@@ -68,7 +68,7 @@ export default function Pricing() {
     <section id="pricing" className="py-32 relative">
       <div className="absolute inset-0 bg-linear-to-b from-dark-900 via-dark-800/40 to-dark-900" />
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
+      <div className="max-w-[min(92vw,1440px)] mx-auto px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12 relative">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

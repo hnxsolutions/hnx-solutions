@@ -13,13 +13,13 @@ const stats = [
 
 export function Consultation() {
   return (
-    <section id="consultation" className="relative px-4 pb-20 pt-8 sm:px-6 lg:px-8">
+    <section id="consultation" className="relative px-5 pb-20 pt-8 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-90px" }}
         transition={{ duration: 0.62, ease: "easeOut" }}
-        className="mx-auto grid max-w-[min(95vw,1600px)] gap-6 lg:grid-cols-[1.08fr_0.92fr]"
+        className="mx-auto grid max-w-[min(92vw,1440px)] gap-6 lg:grid-cols-[1.08fr_0.92fr]"
       >
         <div className="glass-panel relative overflow-hidden rounded-[34px] p-6 sm:p-8 lg:p-10">
           <div className="absolute -left-20 -top-20 h-72 w-72 rounded-full bg-cyanGlow/12 blur-3xl" />

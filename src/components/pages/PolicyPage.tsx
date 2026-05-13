@@ -11,7 +11,7 @@ type PolicyPageProps = {
 export function PolicyPage({ title, description, sections }: PolicyPageProps) {
   return (
     <main className="min-h-screen overflow-hidden bg-[#f8fbff] text-slate-950">
-      <section className="relative px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+      <section className="relative px-5 py-16 sm:px-6 lg:px-8 xl:px-10 2xl:px-12 lg:py-24">
         <div className="absolute left-0 top-20 h-96 w-96 rounded-full bg-cyan-200/60 blur-3xl" />
         <div className="mx-auto max-w-4xl">
           <p className="mb-4 text-xs font-semibold uppercase tracking-[0.28em] text-blue-600">HNX</p>

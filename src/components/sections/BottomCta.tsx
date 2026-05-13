@@ -7,13 +7,13 @@ import { Button } from "@/components/ui/Button";
 
 export function BottomCta() {
   return (
-    <section className="px-4 py-14 sm:px-6 lg:px-8">
+    <section className="px-5 py-14 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-90px" }}
         transition={{ duration: 0.62, ease: "easeOut" }}
-        className="mx-auto max-w-[min(95vw,1600px)] overflow-hidden rounded-[34px] border border-cyanGlow/28 bg-[radial-gradient(circle_at_12%_20%,rgba(20,241,217,0.24),transparent_24%),radial-gradient(circle_at_88%_14%,rgba(124,58,237,0.26),transparent_26%),linear-gradient(135deg,rgba(37,208,255,0.18),rgba(12,22,44,0.95)_52%,rgba(124,58,237,0.2))] p-6 shadow-glow sm:p-8 lg:p-10"
+        className="mx-auto max-w-[min(92vw,1440px)] overflow-hidden rounded-[34px] border border-cyanGlow/28 bg-[radial-gradient(circle_at_12%_20%,rgba(20,241,217,0.24),transparent_24%),radial-gradient(circle_at_88%_14%,rgba(124,58,237,0.26),transparent_26%),linear-gradient(135deg,rgba(37,208,255,0.18),rgba(12,22,44,0.95)_52%,rgba(124,58,237,0.2))] p-6 shadow-glow sm:p-8 lg:p-10"
       >
         <div className="grid items-center gap-8 lg:grid-cols-[auto_1fr_auto]">
           <motion.div

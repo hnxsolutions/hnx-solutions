@@ -244,7 +244,7 @@ export default function BlogPage() {
       {/* Hero Section - Lighter, centered, smaller */}
       <section className="relative py-6 max-[374px]:py-4 md:py-12 lg:py-18">
         <div className="absolute inset-0 bg-linear-to-b from-blog-tan-400/5 to-blog-cream-50" />
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div className="max-w-4xl mx-auto px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12 relative">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -263,7 +263,7 @@ export default function BlogPage() {
 
       {/* Category Tabs */}
       <section className="relative pt-0 pb-2 max-[374px]:pb-1 md:pb-4">
-        <div className="max-w-[min(90vw,1600px)] mx-auto">
+        <div className="max-w-[min(92vw,1440px)] mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -280,7 +280,7 @@ export default function BlogPage() {
 
       {/* Blog List */}
       <section className="relative py-4 max-[374px]:py-3 md:py-6 lg:py-8">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           {isLoading ? (
             <div className="flex justify-center items-center py-20">
               <motion.div
@@ -312,7 +312,7 @@ export default function BlogPage() {
       {/* Pagination */}
       {totalPages > 1 && (
         <section className="relative py-8 md:py-12 border-t border-blog-divider">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-5xl mx-auto px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
             <Pagination
               currentPage={currentPage}
               totalPages={totalPages}

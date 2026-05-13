@@ -1,16 +1,17 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { FiGithub, FiLinkedin, FiInstagram } from "react-icons/fi";
 
 const footerLinks = {
   Services: [
-    { name: "Custom CRM Systems", href: "/crm-systems" },
-    { name: "Workflow Automation", href: "/workflow-lab" },
+    { name: "Custom CRM Systems", href: "/services/custom-crm-systems" },
+    { name: "Workflow Automation", href: "/services/workflow-automation" },
     { name: "AI Automation", href: "/services/ai-automation" },
     { name: "SaaS Development", href: "/services/saas-development" },
     { name: "Web Development", href: "/services/web-development" },
-    { name: "Mobile App Development", href: "/services/mobile-apps" },
+    { name: "Mobile App Development", href: "/services/mobile-app-development" },
   ],
   "Products/Solutions": [
     { name: "HNX CRM Systems", href: "/crm-systems" },
@@ -40,16 +41,23 @@ const socials = [
 export default function Footer() {
   return (
     <footer className="relative w-full border-t border-(--border) bg-(--bg) pb-2 pt-8 text-(--text)">
-      <div className="mx-auto max-w-[min(95vw,1600px)] px-4 pb-0 pt-14 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[min(92vw,1440px)] px-5 pb-0 pt-14 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-6">
           {/* Brand */}
           <div className="lg:col-span-2">
             <Link href="/" className="mb-5 flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-linear-to-br from-primary to-accent text-lg font-bold text-dark-900 shadow-[0_0_20px_rgba(77,208,225,0.2)]">
-                H
+              <div className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full border border-slate-200/70 bg-[#f8efe0] shadow-[0_6px_18px_rgba(15,23,42,0.12)] ring-1 ring-slate-200/70 transition-all duration-300 hover:scale-105 dark:border-white/10 dark:bg-white/8 dark:ring-white/10 sm:h-10 sm:w-10">
+                <Image
+                  src="/HNXlogo.png"
+                  alt="HNX Solutions Logo"
+                  fill
+                  sizes="40px"
+                  className="object-cover scale-[1.35]"
+                />
               </div>
-              <span className="text-xl font-bold text-(--text)">
-                HNX<span className="text-primary"> Technologies</span>
+
+              <span className="text-lg font-bold text-(--text) sm:text-xl">
+                HNX<span className="text-primary"> Solutions</span>
               </span>
             </Link>
 
@@ -112,7 +120,7 @@ export default function Footer() {
           </div>
 
           <p className="text-center text-sm text-(--text-soft)">
-            &copy; 2026 HNX Technologies. All rights reserved.
+            &copy; 2026 HNX Solutions. All rights reserved.
           </p>
         </div>
       </div>

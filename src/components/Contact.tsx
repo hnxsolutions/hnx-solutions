@@ -82,7 +82,7 @@ export default function Contact() {
 
   return (
     <section id="contact" className="py-32 relative grid-bg">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      <div className="max-w-[min(92vw,1440px)] mx-auto px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

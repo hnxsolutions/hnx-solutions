@@ -4,6 +4,19 @@ import { ThemeProvider } from "next-themes";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { JsonLd } from "@/components/seo/JsonLd";
+import {
+  DEFAULT_DESCRIPTION,
+  DEFAULT_OG_IMAGE,
+  DEFAULT_TITLE,
+  SITE_NAME,
+  SITE_URL,
+  defaultKeywords,
+  openGraphDefaults,
+  organizationJsonLd,
+  professionalServiceJsonLd,
+  websiteJsonLd,
+} from "@/lib/seo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,10 +29,41 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://hnx.services"),
-  title: "HNX Technologies",
-  description:
-    "Web, mobile, SaaS, custom CRM systems, AI automation, cloud, DevOps, and UI/UX solutions by HNX Technologies.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: DEFAULT_TITLE,
+    template: `%s | ${SITE_NAME}`,
+  },
+  description: DEFAULT_DESCRIPTION,
+  applicationName: SITE_NAME,
+  authors: [{ name: SITE_NAME, url: SITE_URL }],
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
+  keywords: defaultKeywords,
+  openGraph: {
+    ...openGraphDefaults,
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESCRIPTION,
+    url: SITE_URL,
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESCRIPTION,
+    images: [DEFAULT_OG_IMAGE],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
 };
 
 export default function RootLayout({
@@ -38,6 +82,7 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
+          <JsonLd data={[organizationJsonLd, websiteJsonLd, professionalServiceJsonLd]} />
           <Navbar />
           {children}
           <Footer />

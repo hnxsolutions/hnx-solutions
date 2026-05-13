@@ -75,7 +75,7 @@ export function Hero() {
       <div className="absolute left-0 top-12 h-96 w-[34rem] rounded-full bg-cyanGlow/12 blur-3xl" />
       <div className="absolute right-0 top-20 h-[30rem] w-[34rem] rounded-full bg-violetGlow/18 blur-3xl" />
       <div className="grid-fade absolute left-[-8rem] top-12 h-[32rem] w-[42rem] opacity-70" />
-      <div className="mx-auto grid max-w-[min(95vw,1600px)] items-center gap-12 lg:grid-cols-[0.92fr_1.08fr]">
+      <div className="mx-auto grid max-w-[min(92vw,1440px)] items-center gap-12 lg:grid-cols-[0.92fr_1.08fr]">
         <motion.div
           initial={{ opacity: 0, x: -28 }}
           animate={{ opacity: 1, x: 0 }}

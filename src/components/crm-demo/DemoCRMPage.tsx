@@ -265,7 +265,7 @@ function DemoCRMPageContent() {
 
   return (
     <main className={`relative min-h-screen overflow-hidden text-slate-950 transition-colors ${isWorkspaceMode ? "bg-[#f0f7ff]" : "bg-[#f8fbff]"}`}>
-      <section className="relative px-4 pb-10 pt-28 sm:px-6 lg:px-8 lg:pb-14 lg:pt-32">
+      <section className="relative pb-10 pt-28 lg:pb-14 lg:pt-32">
         <motion.div
           animate={{ scale: [1, 1.08, 1], opacity: [0.45, 0.72, 0.45] }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
@@ -278,7 +278,7 @@ function DemoCRMPageContent() {
         />
         <div className="grid-fade absolute left-1/2 top-0 h-[38rem] w-[56rem] -translate-x-1/2 opacity-60" />
 
-        <div className="relative mx-auto max-w-[min(95vw,1600px)]">
+        <div className="relative mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}

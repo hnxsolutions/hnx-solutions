@@ -1,19 +1,15 @@
-import type { Metadata } from "next";
 import RealEstateCRMPage from "@/components/industries/RealEstateCRMPage";
+import { createIndustryMetadata, IndustrySeoJsonLd } from "@/components/seo/IndustrySeo";
 
-export const metadata: Metadata = {
-  title: "Real Estate CRM Software | HNX CRM Systems",
-  description:
-    "Real estate CRM for property leads, site visits, brokers, inventory, follow-ups, documents, payment stages, and deal management.",
-  alternates: {
-    canonical: "/industries/real-estate-crm",
-  },
-  openGraph: {
-    title: "Real Estate CRM Software | HNX CRM Systems",
-    description: "Close more property deals with CRM workflows for leads, site visits, brokers, inventory, and payments.",
-  },
-};
+const slug = "real-estate-crm";
+
+export const metadata = createIndustryMetadata(slug);
 
 export default function Page() {
-  return <RealEstateCRMPage />;
+  return (
+    <>
+      <IndustrySeoJsonLd slug={slug} />
+      <RealEstateCRMPage />
+    </>
+  );
 }

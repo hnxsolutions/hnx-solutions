@@ -1,0 +1,73 @@
+"use client";
+
+import type { LucideIcon } from "lucide-react";
+import {
+  Activity,
+  BarChart3,
+  Bell,
+  Bot,
+  Boxes,
+  CheckCircle2,
+  Cloud,
+  Code2,
+  CreditCard,
+  Database,
+  FileText,
+  GitBranch,
+  Headphones,
+  Layers3,
+  LayoutDashboard,
+  LockKeyhole,
+  Mail,
+  MessageCircle,
+  Network,
+  Palette,
+  Rocket,
+  SearchCheck,
+  Send,
+  ServerCog,
+  ShieldCheck,
+  Smartphone,
+  Sparkles,
+  Store,
+  Users,
+  Workflow,
+} from "lucide-react";
+import type { SolutionIconName } from "@/data/solutions/types";
+
+export const solutionIcons: Record<SolutionIconName, LucideIcon> = {
+  Activity,
+  BarChart3,
+  Bell,
+  Bot,
+  Boxes,
+  CheckCircle2,
+  Cloud,
+  Code2,
+  CreditCard,
+  Database,
+  FileText,
+  GitBranch,
+  Headphones,
+  Layers3,
+  LayoutDashboard,
+  LockKeyhole,
+  Mail,
+  MessageCircle,
+  Network,
+  Palette,
+  Rocket,
+  SearchCheck,
+  Send,
+  ServerCog,
+  ShieldCheck,
+  Smartphone,
+  Sparkles,
+  Store,
+  Users,
+  Workflow,
+};
+
+export function getSolutionIcon(name: SolutionIconName) {
+  return solutionIcons[name] ?? Sparkles;
+}
