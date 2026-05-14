@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/Button";
 
 const industryRoutes: Record<string, string> = {
   "Real Estate": "/industries/real-estate-crm",
-  Healthcare: "/industries/healthcare-crm",
+  Healthcare: "/industries/healthcare",
   Education: "/industries/education-crm",
   Manufacturing: "/industries/manufacturing-crm",
   Retail: "/industries/retail-crm",

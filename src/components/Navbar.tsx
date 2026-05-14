@@ -562,12 +562,13 @@ const industryViewTabs: { id: IndustryView; label: string; helper: string; icon:
 const industryViewFilters: Record<IndustryView, (solution: IndustrySolution) => boolean> = {
   overview: () => true,
   engage: (solution) =>
-    ["Website", "App", "Portal", "Marketing"].includes(solution.tag),
+    ["Website", "App", "Portal", "Marketing", "Suite"].includes(solution.tag),
   operate: (solution) =>
     [
       "CRM",
       "Automation",
       "Dashboard",
+      "Suite",
       "Policy",
       "Loans",
       "POS",
@@ -578,7 +579,7 @@ const industryViewFilters: Record<IndustryView, (solution: IndustrySolution) => 
       "Listings",
     ].includes(solution.tag),
   growth: (solution) =>
-    ["Website", "Marketing", "Dashboard", "CRM", "Automation"].includes(
+    ["Website", "Marketing", "Dashboard", "CRM", "Automation", "Suite"].includes(
       solution.tag
     ),
 };
@@ -647,6 +648,7 @@ const tagStyles = {
   portal: "bg-orange-50 text-orange-700 dark:bg-orange-400/10 dark:text-orange-300",
   automation: "bg-amber-50 text-amber-700 dark:bg-amber-400/10 dark:text-amber-300",
   dashboard: "bg-sky-50 text-sky-700 dark:bg-sky-400/10 dark:text-sky-300",
+  suite: "bg-indigo-50 text-indigo-700 dark:bg-indigo-400/10 dark:text-indigo-300",
   specialist: "bg-rose-50 text-rose-700 dark:bg-rose-400/10 dark:text-rose-300",
   marketing: "bg-teal-50 text-teal-700 dark:bg-teal-400/10 dark:text-teal-300",
 };
@@ -672,28 +674,28 @@ const industryMenus: IndustryMenu[] = [
     ctaLabel: "Explore Healthcare Solutions",
     solutions: [
       {
+        label: "Website",
+        description: "Modern healthcare websites that build trust and convert visitors into patients.",
+        href: "/industries/healthcare/website",
+        icon: Code2,
+        tag: "Website",
+        tagClass: tagStyles.website,
+      },
+      {
+        label: "Mobile App",
+        description: "Patient apps for booking, reminders, records, teleconsultation, and updates.",
+        href: "/industries/healthcare/mobile-app",
+        icon: Smartphone,
+        tag: "App",
+        tagClass: tagStyles.app,
+      },
+      {
         label: "Healthcare CRM",
         description: "Manage patient leads, appointments, follow-ups, and care workflows in one place.",
         href: "/industries/healthcare/crm",
         icon: Network,
         tag: "CRM",
         tagClass: tagStyles.crm,
-      },
-      {
-        label: "Website Development",
-        description: "Modern, HIPAA-ready websites that build trust and convert visitors into patients.",
-        href: "/industries/healthcare/website-development",
-        icon: Code2,
-        tag: "Website",
-        tagClass: tagStyles.website,
-      },
-      {
-        label: "Mobile App Development",
-        description: "Patient apps for booking, reminders, teleconsultation, records, and updates.",
-        href: "/industries/healthcare/mobile-app-development",
-        icon: Smartphone,
-        tag: "App",
-        tagClass: tagStyles.app,
       },
       {
         label: "Patient Portal",
@@ -704,9 +706,9 @@ const industryMenus: IndustryMenu[] = [
         tagClass: tagStyles.portal,
       },
       {
-        label: "Automation Workflows",
+        label: "Automation Workflow",
         description: "Automate reminders, follow-ups, billing, appointment updates, and admin tasks.",
-        href: "/industries/healthcare/automation-workflows",
+        href: "/industries/healthcare/automation-workflow",
         icon: Workflow,
         tag: "Automation",
         tagClass: tagStyles.automation,
@@ -720,20 +722,12 @@ const industryMenus: IndustryMenu[] = [
         tagClass: tagStyles.dashboard,
       },
       {
-        label: "Telemedicine",
-        description: "Secure virtual consultations with video, chat, documents, and prescriptions.",
-        href: "/industries/healthcare/telemedicine",
-        icon: Smartphone,
-        tag: "Telemedicine",
-        tagClass: tagStyles.specialist,
-      },
-      {
-        label: "Marketing Automation",
-        description: "Run targeted campaigns, nurture patient relationships, and grow your practice.",
-        href: "/industries/healthcare/marketing-automation",
-        icon: Bot,
-        tag: "Marketing",
-        tagClass: tagStyles.marketing,
+        label: "Full Digital Suite",
+        description: "Connect website, app, CRM, portal, automation, and reporting into one package.",
+        href: "/industries/healthcare/full-suite",
+        icon: Rocket,
+        tag: "Suite",
+        tagClass: tagStyles.suite,
       },
     ],
   },
@@ -3294,7 +3288,7 @@ export default function Navbar() {
                                 </Link>
 
                                 <div className="mt-2 grid grid-cols-2 gap-1">
-                                  {industry.solutions.slice(0, 6).map((solution) => (
+                                  {industry.solutions.slice(0, 7).map((solution) => (
                                     <Link
                                       key={solution.href}
                                       href={solution.href}

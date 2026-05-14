@@ -21,7 +21,7 @@ export const industrySeo: Record<string, IndustrySeoItem> = {
   },
   healthcare: {
     label: "Healthcare",
-    canonicalPath: "/industries/healthcare-crm",
+    canonicalPath: "/industries/healthcare",
     title: "Healthcare Digital Solutions | CRM, Patient Portal, Apps & Automation",
     description:
       "HNX Solutions builds healthcare CRM systems, patient portals, appointment automation, mobile apps, websites, dashboards, and secure digital workflows for clinics, hospitals, and healthcare providers.",

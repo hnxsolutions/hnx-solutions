@@ -1,1 +1,1 @@
-export { default } from "./healthcareCRM";
+export { default } from "./healthcare/crm";
