@@ -1,9 +1,7 @@
 import type { ComponentType } from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import HealthcareAutomationWorkflowPreview from "@/components/industries/healthcare/automation-workflow";
 import HealthcareCrmPreview from "@/components/industries/healthcare/crm";
-import HealthcareDashboardReportingPreview from "@/components/industries/healthcare/dashboard-reporting";
 import HealthcareFullSuitePreview from "@/components/industries/healthcare/full-suite";
 import {
   getHealthcareSolution,
@@ -27,8 +25,6 @@ const previewComponents: Record<HealthcareSolutionSlug, ComponentType> = {
   "mobile-app": HealthcareMobileAppPreview,
   crm: HealthcareCrmPreview,
   "patient-portal": HealthcarePatientPortalPreview,
-  "automation-workflow": HealthcareAutomationWorkflowPreview,
-  "dashboard-reporting": HealthcareDashboardReportingPreview,
   "full-suite": HealthcareFullSuitePreview,
 };
 

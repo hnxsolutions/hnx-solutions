@@ -18,7 +18,6 @@ import {
   LayoutDashboard,
   LineChart,
   LockKeyhole,
-  Mail,
   MessageSquare,
   MonitorSmartphone,
   Network,
@@ -36,7 +35,6 @@ import {
   Video,
   Wallet,
   Workflow,
-  Zap,
 } from "lucide-react";
 
 export const healthcareSolutionSlugs = [
@@ -44,9 +42,14 @@ export const healthcareSolutionSlugs = [
   "mobile-app",
   "crm",
   "patient-portal",
-  "automation-workflow",
-  "dashboard-reporting",
   "full-suite",
+] as const;
+
+const healthcareSelectableSolutionSlugs = [
+  "website",
+  "mobile-app",
+  "crm",
+  "patient-portal",
 ] as const;
 
 export type HealthcareSolutionSlug = (typeof healthcareSolutionSlugs)[number];
@@ -810,362 +813,6 @@ export const healthcareSolutions: Record<
     ctaDescription:
       "Launch a secure patient portal that reduces support load and gives patients confident self-service access.",
   },
-  "automation-workflow": {
-    slug: "automation-workflow",
-    href: "/industries/healthcare/automation-workflow",
-    eyebrow: "Healthcare Automation",
-    title: "Healthcare Automation Workflows",
-    highlight: "Automation Workflows",
-    description:
-      "Automate reminders, follow-ups, billing updates, patient communication, and internal workflows.",
-    selectorTitle: "Automation Workflow",
-    selectorDescription:
-      "Automate appointment reminders, follow-ups, billing notifications, internal tasks, and message triggers.",
-    icon: Workflow,
-    visualType: "automation",
-    imageUrl:
-      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1400&q=82",
-    problems: [
-      {
-        title: "Manual appointment reminders",
-        description:
-          "Staff manually send reminders, leading to missed appointments and inconsistent patient updates.",
-        icon: Calendar,
-      },
-      {
-        title: "Slow follow-up process",
-        description:
-          "Post-visit follow-ups are delayed or forgotten, affecting patient response and care continuity.",
-        icon: Clock,
-      },
-      {
-        title: "Repetitive admin work",
-        description:
-          "Teams repeat the same reminders, routing, billing, and update tasks every day.",
-        icon: ClipboardList,
-      },
-    ],
-    features: [
-      {
-        title: "Appointment Reminders",
-        description:
-          "Send automated SMS, email, WhatsApp, or app reminders before visits.",
-        icon: CalendarCheck,
-      },
-      {
-        title: "Follow-up Automation",
-        description:
-          "Trigger follow-ups after appointments, tests, consultations, or missed visits.",
-        icon: UserCheck,
-      },
-      {
-        title: "Billing Notifications",
-        description:
-          "Send payment reminders, invoice updates, and billing status messages.",
-        icon: Wallet,
-      },
-      {
-        title: "Internal Task Routing",
-        description:
-          "Assign tasks to staff, doctors, billing teams, and front desk automatically.",
-        icon: Workflow,
-      },
-      {
-        title: "WhatsApp / Email Triggers",
-        description:
-          "Connect preferred patient channels for fast and familiar communication.",
-        icon: Mail,
-      },
-      {
-        title: "Workflow Logs",
-        description:
-          "Track every automated action, outcome, timestamp, and pending exception.",
-        icon: ClipboardCheck,
-      },
-    ],
-    flowTitle: "Automation Flow",
-    flowSteps: [
-      {
-        title: "Appointment Booked",
-        description: "A new appointment is created in the system.",
-        icon: CalendarCheck,
-      },
-      {
-        title: "Reminder Sent",
-        description: "Automated reminders go through SMS, email, or WhatsApp.",
-        icon: Mail,
-      },
-      {
-        title: "Follow-up Triggered",
-        description: "The system schedules post-visit follow-up actions.",
-        icon: UserCheck,
-      },
-      {
-        title: "Billing Update",
-        description: "Invoices and payment updates are delivered automatically.",
-        icon: Wallet,
-      },
-      {
-        title: "Dashboard Logged",
-        description: "Every action is tracked for visibility and reporting.",
-        icon: BarChart3,
-      },
-    ],
-    metrics: [
-      {
-        label: "Tasks Automated",
-        title: "Tasks Automated",
-        value: "1,247",
-        change: "+24.6%",
-        description: "Manual admin actions replaced by automation.",
-        icon: CheckCircle2,
-        tone: "blue",
-      },
-      {
-        label: "Messages Sent",
-        title: "Messages Sent",
-        value: "8,932",
-        change: "+32.8%",
-        description: "Reminders, updates, and follow-ups delivered.",
-        icon: MessageSquare,
-        tone: "violet",
-      },
-      {
-        label: "Hours Saved",
-        title: "Hours Saved",
-        value: "312",
-        change: "+28.1%",
-        description: "Time saved across front desk and operations teams.",
-        icon: Clock,
-        tone: "cyan",
-      },
-      {
-        label: "Pending Follow-ups",
-        title: "Pending Follow-ups",
-        value: "156",
-        change: "-12.4%",
-        description: "Open follow-up tasks requiring attention.",
-        icon: Bell,
-        tone: "amber",
-      },
-    ],
-    benefits: [
-      {
-        title: "Less admin work",
-        description: "Reduce manual tasks and save staff time.",
-        icon: ShieldCheck,
-      },
-      {
-        title: "Faster communication",
-        description: "Reach patients quickly with timely updates.",
-        icon: Zap,
-      },
-      {
-        title: "Better patient response",
-        description: "Consistent messages improve follow-through.",
-        icon: User,
-      },
-      {
-        title: "More efficient operations",
-        description: "Automate handoffs and scale with less friction.",
-        icon: BarChart3,
-      },
-    ],
-    featureTitle: "What This Automation Includes",
-    dashboardTitle: "Automation overview",
-    dashboardDescription:
-      "Monitor automated tasks, messages sent, hours saved, pending follow-ups, and workflow performance in real time.",
-    ctaLabel: "Automate Healthcare Workflow",
-    ctaDescription:
-      "Streamline healthcare operations with reminders, follow-ups, billing triggers, and internal task automation.",
-  },
-  "dashboard-reporting": {
-    slug: "dashboard-reporting",
-    href: "/industries/healthcare/dashboard-reporting",
-    eyebrow: "Healthcare Reporting",
-    title: "Healthcare Dashboard & Reporting",
-    highlight: "Dashboard & Reporting",
-    description:
-      "Track patient leads, appointments, billing, operations, and performance through one connected reporting system.",
-    selectorTitle: "Dashboard & Reporting",
-    selectorDescription:
-      "A reporting layer for appointments, revenue, leads, follow-ups, staff productivity, trends, and growth insights.",
-    icon: LayoutDashboard,
-    visualType: "dashboard",
-    imageUrl:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1400&q=82",
-    problems: [
-      {
-        title: "No clear data visibility",
-        description:
-          "Important data is scattered across systems, making a full operational picture hard to see.",
-        icon: ShieldCheck,
-      },
-      {
-        title: "Difficult reporting",
-        description:
-          "Manual reports take too long to create and are prone to errors, delays, and missed context.",
-        icon: FileText,
-      },
-      {
-        title: "Teams cannot track performance clearly",
-        description:
-          "Without shared KPIs, teams struggle to understand what is improving and what needs attention.",
-        icon: Users,
-      },
-    ],
-    features: [
-      {
-        title: "KPI Tracking",
-        description:
-          "Monitor appointment, revenue, lead, retention, and follow-up performance.",
-        icon: Activity,
-      },
-      {
-        title: "Appointment Reporting",
-        description:
-          "Track bookings, confirmations, cancellations, no-shows, and utilization.",
-        icon: CalendarCheck,
-      },
-      {
-        title: "Revenue Overview",
-        description:
-          "Analyze revenue, collections, invoices, outstanding balances, and service performance.",
-        icon: Wallet,
-      },
-      {
-        title: "Follow-up Status",
-        description:
-          "Track patient follow-ups, pending tasks, response rates, and engagement.",
-        icon: Bell,
-      },
-      {
-        title: "Staff Performance",
-        description:
-          "Measure workload, response speed, completion rate, and productivity.",
-        icon: UserCheck,
-      },
-      {
-        title: "Trend Analytics",
-        description:
-          "Identify service demand, channel performance, and operational growth trends.",
-        icon: TrendingUp,
-      },
-    ],
-    flowTitle: "Reporting Workflow",
-    flowSteps: [
-      {
-        title: "Capture Data",
-        description: "Leads, appointments, billing, and follow-ups sync in.",
-        icon: Database,
-      },
-      {
-        title: "Clean Metrics",
-        description: "KPIs are structured into useful views.",
-        icon: ClipboardCheck,
-      },
-      {
-        title: "Visualize Trends",
-        description: "Charts reveal performance across teams and services.",
-        icon: LineChart,
-      },
-      {
-        title: "Review Performance",
-        description: "Leadership compares results and bottlenecks.",
-        icon: BarChart3,
-      },
-      {
-        title: "Improve Growth",
-        description: "Insights guide staffing, services, marketing, and care.",
-        icon: TrendingUp,
-      },
-    ],
-    metrics: [
-      {
-        label: "Appointments This Month",
-        title: "Appointments This Month",
-        value: "2,478",
-        change: "+18.6%",
-        description: "Total appointments tracked this month.",
-        icon: CalendarCheck,
-        tone: "blue",
-      },
-      {
-        label: "Revenue",
-        title: "Revenue",
-        value: "$265,430",
-        change: "+21.3%",
-        description: "Monthly revenue across services.",
-        icon: Wallet,
-        tone: "emerald",
-      },
-      {
-        label: "New Patient Leads",
-        title: "New Patient Leads",
-        value: "1,842",
-        change: "+24.7%",
-        description: "New patient demand from digital channels.",
-        icon: Users,
-        tone: "cyan",
-      },
-      {
-        label: "Follow-up Completion Rate",
-        title: "Follow-up Completion Rate",
-        value: "76.4%",
-        change: "+9.8%",
-        description: "Completed follow-ups against assigned tasks.",
-        icon: CheckCircle2,
-        tone: "violet",
-      },
-      {
-        label: "Conversion Funnel",
-        title: "Conversion Funnel",
-        value: "14.6%",
-        change: "+11.2%",
-        description: "Lead to booked appointment conversion.",
-        icon: PieChart,
-        tone: "blue",
-      },
-      {
-        label: "Top-performing Services",
-        title: "Top-performing Services",
-        value: "Cardiology",
-        change: "+18.2%",
-        description: "Services generating the strongest demand.",
-        icon: TrendingUp,
-        tone: "cyan",
-      },
-    ],
-    benefits: [
-      {
-        title: "Better decision-making",
-        description: "Make informed decisions with real-time data.",
-        icon: ShieldCheck,
-      },
-      {
-        title: "Centralized visibility",
-        description: "All your data in one place across departments.",
-        icon: Database,
-      },
-      {
-        title: "Performance tracking",
-        description: "Track KPIs and team performance with accuracy.",
-        icon: ClipboardCheck,
-      },
-      {
-        title: "Growth insights",
-        description: "Discover opportunities and drive growth.",
-        icon: TrendingUp,
-      },
-    ],
-    featureTitle: "What This Dashboard Includes",
-    dashboardTitle: "Reporting command center",
-    dashboardDescription:
-      "Track appointments, revenue, new patient leads, follow-up completion, conversion funnels, and top service performance.",
-    ctaLabel: "Build Healthcare Dashboard",
-    ctaDescription:
-      "Get a powerful healthcare dashboard that brings operational clarity to patient growth, finance, and team performance.",
-  },
   "full-suite": {
     slug: "full-suite",
     href: "/industries/healthcare/full-suite",
@@ -1358,7 +1005,7 @@ export const healthcareSolutions: Record<
   },
 };
 
-export const healthcareSolutionList = healthcareSolutionSlugs.map(
+export const healthcareSolutionList = healthcareSelectableSolutionSlugs.map(
   (slug) => healthcareSolutions[slug],
 );
 
