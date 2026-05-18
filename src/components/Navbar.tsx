@@ -86,9 +86,7 @@ type IndustryMenu = {
   solutions: IndustrySolution[];
 };
 
-type IndustryView = "overview" | "engage" | "operate" | "growth";
-
-type DesktopDropdown = "services" | "solutions" | "industries";
+type DesktopDropdown = "services" | "solutions" | "industries" | "showcase";
 
 const serviceColumns: ServiceColumn[] = [
   {
@@ -552,37 +550,26 @@ const solutionLinks: DropdownLink[] = solutionMenuColumns.flatMap(
   (column) => column.items
 );
 
-const industryViewTabs: { id: IndustryView; label: string; helper: string; icon: LucideIcon }[] = [
-  { id: "overview", label: "Overview", helper: "Full suite", icon: LayoutDashboard },
-  { id: "engage", label: "Engage", helper: "Customers", icon: Sparkles },
-  { id: "operate", label: "Operate", helper: "Workflow", icon: Workflow },
-  { id: "growth", label: "Growth", helper: "Revenue", icon: BarChart3 },
+const showcaseLinks: DropdownLink[] = [
+  {
+    label: "CRM Demo",
+    description: "Explore leads, tickets, workflows, reports, and team dashboards.",
+    href: "/demo-crm",
+    icon: LayoutDashboard,
+  },
+  {
+    label: "ROI Calculator",
+    description: "Estimate time saved, cost reduction, and automation value.",
+    href: "/roi-calculator",
+    icon: BarChart3,
+  },
+  {
+    label: "Workflow Lab",
+    description: "Browse ready-to-use automation flows for business operations.",
+    href: "/workflow-lab",
+    icon: Workflow,
+  },
 ];
-
-const industryViewFilters: Record<IndustryView, (solution: IndustrySolution) => boolean> = {
-  overview: () => true,
-  engage: (solution) =>
-    ["Website", "App", "Portal", "Marketing", "Suite"].includes(solution.tag),
-  operate: (solution) =>
-    [
-      "CRM",
-      "Automation",
-      "Dashboard",
-      "Suite",
-      "Policy",
-      "Loans",
-      "POS",
-      "Inventory",
-      "LMS",
-      "Itinerary",
-      "Tickets",
-      "Listings",
-    ].includes(solution.tag),
-  growth: (solution) =>
-    ["Website", "Marketing", "Dashboard", "CRM", "Automation", "Suite"].includes(
-      solution.tag
-    ),
-};
 
 const industryPhotoById: Record<string, { src: string; alt: string; credit: string }> = {
   healthcare: {
@@ -639,6 +626,270 @@ const industryPhotoById: Record<string, { src: string; alt: string; credit: stri
 
 function getIndustryPhoto(industry: IndustryMenu) {
   return industryPhotoById[industry.id] ?? industryPhotoById.healthcare;
+}
+
+
+type IndustryPreviewPhoto = {
+  src: string;
+  alt: string;
+  credit: string;
+};
+
+const solutionPreviewPhotosByTag: Record<string, IndustryPreviewPhoto> = {
+  Website: {
+    src: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=80",
+    alt: "Modern website interface and analytics dashboard preview",
+    credit: "Website preview",
+  },
+  App: {
+    src: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=900&q=80",
+    alt: "Mobile app screens and smartphone interface preview",
+    credit: "Mobile app preview",
+  },
+  CRM: {
+    src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=80",
+    alt: "CRM dashboard with charts and business analytics preview",
+    credit: "CRM preview",
+  },
+  Portal: {
+    src: "https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=900&q=80",
+    alt: "Client portal and team workflow interface preview",
+    credit: "Portal preview",
+  },
+};
+
+const solutionPreviewPhotosByIndustry: Record<
+  string,
+  Partial<Record<string, IndustryPreviewPhoto>>
+> = {
+  healthcare: {
+    Website: {
+      src: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=900&q=80",
+      alt: "Healthcare website preview with doctor patient care and clinic trust visuals",
+      credit: "Healthcare website",
+    },
+    App: {
+      src: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=900&q=80",
+      alt: "Healthcare mobile app preview for appointments reminders and patient updates",
+      credit: "Healthcare app",
+    },
+    CRM: {
+      src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=80",
+      alt: "Healthcare CRM preview for patient leads appointments and reporting dashboards",
+      credit: "Healthcare CRM",
+    },
+    Portal: {
+      src: "https://images.unsplash.com/photo-1584982751601-97dcc096659c?auto=format&fit=crop&w=900&q=80",
+      alt: "Patient portal preview for records reports prescriptions and secure access",
+      credit: "Patient portal",
+    },
+  },
+  "real-estate": {
+    Website: {
+      src: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=900&q=80",
+      alt: "Real estate website preview with property listing and premium home visuals",
+      credit: "Real estate website",
+    },
+    App: {
+      src: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=900&q=80",
+      alt: "Real estate mobile app preview for property search and site visit booking",
+      credit: "Property app",
+    },
+    CRM: {
+      src: "https://images.unsplash.com/photo-1554224154-26032fced8bd?auto=format&fit=crop&w=900&q=80",
+      alt: "Real estate CRM preview for leads brokers site visits and sales pipeline",
+      credit: "Real estate CRM",
+    },
+    Portal: {
+      src: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=80",
+      alt: "Real estate client portal preview for documents bookings and property status",
+      credit: "Property portal",
+    },
+  },
+  education: {
+    Website: {
+      src: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=900&q=80",
+      alt: "Education website preview for schools colleges courses and admissions",
+      credit: "Education website",
+    },
+    App: {
+      src: "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=900&q=80",
+      alt: "Education mobile app preview for students classes notices and assignments",
+      credit: "Education app",
+    },
+    CRM: {
+      src: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=900&q=80",
+      alt: "Education CRM preview for admissions inquiries counselors and student journeys",
+      credit: "Admissions CRM",
+    },
+    Portal: {
+      src: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=80",
+      alt: "Student portal preview for reports resources schedules and learning access",
+      credit: "Student portal",
+    },
+  },
+  manufacturing: {
+    Website: {
+      src: "https://images.unsplash.com/photo-1565008447742-97f6f38c985c?auto=format&fit=crop&w=900&q=80",
+      alt: "Manufacturing website preview for factory credibility catalog and B2B inquiries",
+      credit: "Manufacturing website",
+    },
+    App: {
+      src: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=900&q=80",
+      alt: "Manufacturing mobile app preview for approvals inventory and team coordination",
+      credit: "Factory app",
+    },
+    CRM: {
+      src: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80",
+      alt: "Manufacturing CRM preview for RFQs dealers quotations orders and dispatches",
+      credit: "Manufacturing CRM",
+    },
+    Portal: {
+      src: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=900&q=80",
+      alt: "Vendor portal preview for procurement purchase requests and production updates",
+      credit: "Vendor portal",
+    },
+  },
+  retail: {
+    Website: {
+      src: "https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=900&q=80",
+      alt: "Retail ecommerce website preview for catalog checkout offers and conversion",
+      credit: "Retail website",
+    },
+    App: {
+      src: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=900&q=80",
+      alt: "Retail mobile app preview for shopping orders loyalty and push notifications",
+      credit: "Retail app",
+    },
+    CRM: {
+      src: "https://images.unsplash.com/photo-1556742393-d75f468bfcb0?auto=format&fit=crop&w=900&q=80",
+      alt: "Retail CRM preview for customers loyalty campaigns and repeat sales",
+      credit: "Retail CRM",
+    },
+    Portal: {
+      src: "https://images.unsplash.com/photo-1556742111-a301076d9d18?auto=format&fit=crop&w=900&q=80",
+      alt: "Retail customer portal preview for orders returns service requests and accounts",
+      credit: "Customer portal",
+    },
+  },
+  finance: {
+    Website: {
+      src: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=900&q=80",
+      alt: "Finance website preview for trust compliance financial services and lead capture",
+      credit: "Finance website",
+    },
+    App: {
+      src: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=900&q=80",
+      alt: "Finance mobile app preview for secure banking payments and customer access",
+      credit: "Finance app",
+    },
+    CRM: {
+      src: "https://images.unsplash.com/photo-1554224154-22dec7ec8818?auto=format&fit=crop&w=900&q=80",
+      alt: "Finance CRM preview for leads approvals advisors and revenue reporting",
+      credit: "Finance CRM",
+    },
+    Portal: {
+      src: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=900&q=80",
+      alt: "Finance client portal preview for statements onboarding documents and approvals",
+      credit: "Finance portal",
+    },
+  },
+  insurance: {
+    Website: {
+      src: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=900&q=80",
+      alt: "Insurance website preview for policies claims renewal and inquiry flows",
+      credit: "Insurance website",
+    },
+    App: {
+      src: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80",
+      alt: "Insurance mobile app preview for policyholders claims and renewal reminders",
+      credit: "Insurance app",
+    },
+    CRM: {
+      src: "https://images.unsplash.com/photo-1554224154-26032fced8bd?auto=format&fit=crop&w=900&q=80",
+      alt: "Insurance CRM preview for agents policies renewals claims and follow ups",
+      credit: "Insurance CRM",
+    },
+    Portal: {
+      src: "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=900&q=80",
+      alt: "Policyholder portal preview for claims documents renewals and service requests",
+      credit: "Policyholder portal",
+    },
+  },
+  travel: {
+    Website: {
+      src: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80",
+      alt: "Travel website preview for destinations packages bookings and inquiries",
+      credit: "Travel website",
+    },
+    App: {
+      src: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=900&q=80",
+      alt: "Travel mobile app preview for bookings itineraries vouchers and alerts",
+      credit: "Travel app",
+    },
+    CRM: {
+      src: "https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?auto=format&fit=crop&w=900&q=80",
+      alt: "Travel CRM preview for packages leads bookings destinations and revenue tracking",
+      credit: "Travel CRM",
+    },
+    Portal: {
+      src: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=900&q=80",
+      alt: "Traveler portal preview for vouchers documents itinerary and support updates",
+      credit: "Traveler portal",
+    },
+  },
+  automobile: {
+    Website: {
+      src: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=900&q=80",
+      alt: "Automobile dealership website preview for inventory offers and service booking",
+      credit: "Automobile website",
+    },
+    App: {
+      src: "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=900&q=80",
+      alt: "Automobile mobile app preview for vehicle service booking offers and alerts",
+      credit: "Automobile app",
+    },
+    CRM: {
+      src: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=900&q=80",
+      alt: "Automotive CRM preview for dealership leads test drives service and sales analytics",
+      credit: "Automotive CRM",
+    },
+    Portal: {
+      src: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=900&q=80",
+      alt: "Automobile customer portal preview for service history documents and updates",
+      credit: "Auto portal",
+    },
+  },
+  "service-business": {
+    Website: {
+      src: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=900&q=80",
+      alt: "Service business website preview for offers trust inquiry and lead capture",
+      credit: "Service website",
+    },
+    App: {
+      src: "https://images.unsplash.com/photo-1521791055366-0d553872125f?auto=format&fit=crop&w=900&q=80",
+      alt: "Field service mobile app preview for jobs checklists schedules and updates",
+      credit: "Service app",
+    },
+    CRM: {
+      src: "https://images.unsplash.com/photo-1552581234-26160f608093?auto=format&fit=crop&w=900&q=80",
+      alt: "Service CRM preview for clients jobs quotes tickets and team performance",
+      credit: "Service CRM",
+    },
+    Portal: {
+      src: "https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=900&q=80",
+      alt: "Client portal preview for projects invoices files updates and communication",
+      credit: "Client portal",
+    },
+  },
+};
+
+function getSolutionPreviewPhoto(solution: IndustrySolution, industryId: string) {
+  return (
+    solutionPreviewPhotosByIndustry[industryId]?.[solution.tag] ??
+    solutionPreviewPhotosByTag[solution.tag] ??
+    solutionPreviewPhotosByTag.Website
+  );
 }
 
 const tagStyles = {
@@ -1474,383 +1725,6 @@ const industryMenus: IndustryMenu[] = [
   },
 ];
 
-type IndustryInsightPoint = {
-  label: string;
-  description: string;
-  icon: LucideIcon;
-};
-
-type IndustryInsightCopy = {
-  overview: IndustryInsightPoint[];
-  engage: IndustryInsightPoint[];
-  operate: IndustryInsightPoint[];
-  growth: IndustryInsightPoint[];
-  solutionStack: string[];
-};
-
-const defaultIndustryInsight: IndustryInsightCopy = {
-  overview: [
-    {
-      label: "Scattered customer data",
-      description: "Leads, requests, documents, and follow-ups live in separate tools.",
-      icon: Layers3,
-    },
-    {
-      label: "Manual follow-ups",
-      description: "Teams lose time on repeated calls, messages, reminders, and updates.",
-      icon: Workflow,
-    },
-    {
-      label: "Low visibility",
-      description: "Owners cannot clearly track pipeline, revenue, team output, and bottlenecks.",
-      icon: BarChart3,
-    },
-  ],
-  engage: [
-    {
-      label: "Weak online journey",
-      description: "Customers struggle to discover, inquire, book, or request service online.",
-      icon: SearchCheck,
-    },
-    {
-      label: "Slow communication",
-      description: "Important updates depend on manual WhatsApp, calls, and scattered messages.",
-      icon: Bot,
-    },
-    {
-      label: "No self-service",
-      description: "Customers need a simple portal or app to check status, files, and updates.",
-      icon: Smartphone,
-    },
-  ],
-  operate: [
-    {
-      label: "Process leakage",
-      description: "Tasks, approvals, assignments, and handoffs are not tracked end-to-end.",
-      icon: Workflow,
-    },
-    {
-      label: "Team dependency",
-      description: "Operations depend on individuals instead of a controlled business system.",
-      icon: Network,
-    },
-    {
-      label: "No live control room",
-      description: "Managers lack dashboards for workload, performance, SLA, and revenue trends.",
-      icon: LayoutDashboard,
-    },
-  ],
-  growth: [
-    {
-      label: "No conversion engine",
-      description: "Leads are generated but not nurtured, scored, followed up, or measured properly.",
-      icon: SearchCheck,
-    },
-    {
-      label: "Campaign gaps",
-      description: "Ads, SEO, email, and WhatsApp campaigns are not connected to CRM outcomes.",
-      icon: Bot,
-    },
-    {
-      label: "Poor decision data",
-      description: "Growth decisions happen without clean analytics, source tracking, and reports.",
-      icon: BarChart3,
-    },
-  ],
-  solutionStack: ["CRM", "Portal", "Automation", "Dashboard"],
-};
-
-const industryInsightCopy: Record<string, IndustryInsightCopy> = {
-  healthcare: {
-    ...defaultIndustryInsight,
-    overview: [
-      {
-        label: "Missed appointments",
-        description: "Patients forget bookings and clinics lose productive time and revenue.",
-        icon: CheckCircle2,
-      },
-      {
-        label: "Manual patient follow-ups",
-        description: "Staff spends hours calling, messaging, and updating patients manually.",
-        icon: Workflow,
-      },
-      {
-        label: "Scattered patient data",
-        description: "Leads, appointments, records, reports, and billing are not connected.",
-        icon: Layers3,
-      },
-    ],
-    engage: [
-      {
-        label: "Low online booking",
-        description: "Patients cannot easily book appointments from website, app, or portal.",
-        icon: SearchCheck,
-      },
-      {
-        label: "Poor patient communication",
-        description: "Reminders, reports, prescriptions, and updates are sent manually.",
-        icon: Bot,
-      },
-      {
-        label: "No digital patient access",
-        description: "Patients need secure self-service for records, appointments, and reports.",
-        icon: Smartphone,
-      },
-    ],
-    operate: [
-      {
-        label: "Appointment chaos",
-        description: "Slots, walk-ins, follow-ups, and staff tasks are difficult to manage.",
-        icon: Workflow,
-      },
-      {
-        label: "Admin workload",
-        description: "Billing, reminders, reports, and patient lifecycle tasks consume staff time.",
-        icon: Network,
-      },
-      {
-        label: "No clinic control room",
-        description: "Owners lack live insight into patients, revenue, doctors, and follow-ups.",
-        icon: LayoutDashboard,
-      },
-    ],
-    growth: [
-      {
-        label: "Low patient acquisition",
-        description: "Clinic websites and campaigns do not convert visitors into booked patients.",
-        icon: SearchCheck,
-      },
-      {
-        label: "No retention engine",
-        description: "Patients are not nurtured with reminders, health checks, and reactivation flows.",
-        icon: Bot,
-      },
-      {
-        label: "Unclear marketing ROI",
-        description: "Campaigns are not connected to appointments, revenue, and patient sources.",
-        icon: BarChart3,
-      },
-    ],
-    solutionStack: ["CRM", "Patient Portal", "Automation", "Dashboard"],
-  },
-  "real-estate": {
-    ...defaultIndustryInsight,
-    overview: [
-      {
-        label: "Lead leakage",
-        description: "Property inquiries from calls, ads, portals, and WhatsApp are not unified.",
-        icon: SearchCheck,
-      },
-      {
-        label: "Site visit follow-up gaps",
-        description: "Brokers miss reminders, buyer updates, and post-visit follow-ups.",
-        icon: Workflow,
-      },
-      {
-        label: "Listing confusion",
-        description: "Availability, pricing, media, and documents change but teams lack one source.",
-        icon: Store,
-      },
-    ],
-    solutionStack: ["CRM", "Listings", "Portal", "Automation"],
-  },
-  education: {
-    ...defaultIndustryInsight,
-    overview: [
-      {
-        label: "Admission inquiry leakage",
-        description: "Leads from forms, calls, ads, and counselors are not tracked cleanly.",
-        icon: SearchCheck,
-      },
-      {
-        label: "Manual counselor follow-ups",
-        description: "Counselors handle reminders, batches, calls, and admission updates manually.",
-        icon: Workflow,
-      },
-      {
-        label: "Student journey gaps",
-        description: "Admissions, fees, notices, records, LMS, and parent updates are disconnected.",
-        icon: Layers3,
-      },
-    ],
-    solutionStack: ["CRM", "Student Portal", "LMS", "Automation"],
-  },
-  manufacturing: {
-    ...defaultIndustryInsight,
-    overview: [
-      {
-        label: "RFQs scattered across channels",
-        description: "Dealer inquiries, quotations, orders, and follow-ups are hard to track.",
-        icon: Network,
-      },
-      {
-        label: "Manual approval workflows",
-        description: "Pricing, quotation, dispatch, and procurement approvals move slowly.",
-        icon: Workflow,
-      },
-      {
-        label: "Low supply-chain visibility",
-        description: "Inventory, orders, dealers, production, and dispatch KPIs are not unified.",
-        icon: Boxes,
-      },
-    ],
-    solutionStack: ["CRM", "Inventory", "Automation", "Dashboard"],
-  },
-  retail: {
-    ...defaultIndustryInsight,
-    overview: [
-      {
-        label: "Customers do not repeat",
-        description: "Purchase history, loyalty, offers, and support are not connected.",
-        icon: Store,
-      },
-      {
-        label: "Online and offline gaps",
-        description: "Website, POS, app, inventory, orders, and campaigns work separately.",
-        icon: Layers3,
-      },
-      {
-        label: "No customer behavior insight",
-        description: "Teams cannot clearly see sales trends, repeat buyers, and product demand.",
-        icon: BarChart3,
-      },
-    ],
-    solutionStack: ["CRM", "E-commerce", "POS", "Marketing"],
-  },
-  finance: {
-    ...defaultIndustryInsight,
-    overview: [
-      {
-        label: "Slow lead qualification",
-        description: "Loan, advisory, and finance inquiries need faster routing and follow-up.",
-        icon: SearchCheck,
-      },
-      {
-        label: "Document and KYC delays",
-        description: "Approvals slow down when documents, checks, and status are scattered.",
-        icon: ShieldCheck,
-      },
-      {
-        label: "Pipeline visibility gaps",
-        description: "Teams need clear visibility into stages, approvals, revenue, and advisors.",
-        icon: BarChart3,
-      },
-    ],
-    solutionStack: ["CRM", "KYC", "Portal", "Dashboard"],
-  },
-  insurance: {
-    ...defaultIndustryInsight,
-    overview: [
-      {
-        label: "Renewals get missed",
-        description: "Policyholders are not reminded at the right time with the right context.",
-        icon: CheckCircle2,
-      },
-      {
-        label: "Claims are hard to track",
-        description: "Claim intake, documents, agent updates, and status tracking are fragmented.",
-        icon: ShieldCheck,
-      },
-      {
-        label: "Agent performance is unclear",
-        description: "Leads, policies, renewals, claims, and follow-ups need measurable reporting.",
-        icon: BarChart3,
-      },
-    ],
-    solutionStack: ["CRM", "Policy Portal", "Claims", "Automation"],
-  },
-  travel: {
-    ...defaultIndustryInsight,
-    overview: [
-      {
-        label: "Booking communication gaps",
-        description: "Travelers need timely confirmations, itinerary updates, and document reminders.",
-        icon: Plane,
-      },
-      {
-        label: "Manual itinerary handling",
-        description: "Packages, vendors, vouchers, visa docs, and support are hard to coordinate.",
-        icon: Workflow,
-      },
-      {
-        label: "Weak traveler retention",
-        description: "Past customers are not nurtured with offers, campaigns, and seasonal journeys.",
-        icon: Sparkles,
-      },
-    ],
-    solutionStack: ["CRM", "Booking Portal", "Itinerary", "Automation"],
-  },
-  automobile: {
-    ...defaultIndustryInsight,
-    overview: [
-      {
-        label: "Lead and test-drive leakage",
-        description: "Inquiries, test drives, vehicle interest, and sales follow-ups are scattered.",
-        icon: Car,
-      },
-      {
-        label: "Service reminders are manual",
-        description: "Workshops need automated bookings, reminders, and service lifecycle updates.",
-        icon: Wrench,
-      },
-      {
-        label: "Inventory visibility gaps",
-        description: "Vehicle stock, variants, offers, and availability need one live system.",
-        icon: Boxes,
-      },
-    ],
-    solutionStack: ["CRM", "Inventory", "Service App", "Automation"],
-  },
-  "service-business": {
-    ...defaultIndustryInsight,
-    overview: [
-      {
-        label: "Jobs and tickets scatter",
-        description: "Client requests, tasks, quotes, tickets, and updates need one workflow.",
-        icon: Headphones,
-      },
-      {
-        label: "Scheduling is manual",
-        description: "Teams lose time assigning jobs, reminders, follow-ups, and field updates.",
-        icon: Workflow,
-      },
-      {
-        label: "Client communication gaps",
-        description: "Clients need transparent access to files, invoices, projects, and status.",
-        icon: Network,
-      },
-    ],
-    solutionStack: ["CRM", "Client Portal", "Tickets", "Dashboard"],
-  },
-};
-
-function getIndustryInsight(industry: IndustryMenu, view: IndustryView) {
-  const copy = industryInsightCopy[industry.id] ?? defaultIndustryInsight;
-  const points = copy[view] ?? copy.overview;
-
-  const titles: Record<IndustryView, string> = {
-    overview: `Common ${industry.label} Challenges`,
-    engage: `Engagement Problems`,
-    operate: `Operational Problems`,
-    growth: `Growth Problems`,
-  };
-
-  const descriptions: Record<IndustryView, string> = {
-    overview: `What ${industry.label.toLowerCase()} businesses usually struggle with before a proper digital system.`,
-    engage: `Customer-facing gaps where websites, apps, portals, and communication systems create impact.`,
-    operate: `Internal workflow gaps where CRM, dashboards, automation, and role-based systems improve control.`,
-    growth: `Revenue and visibility gaps where SEO, campaigns, analytics, and nurturing create measurable growth.`,
-  };
-
-  return {
-    title: titles[view],
-    description: descriptions[view],
-    points,
-    solutionStack: copy.solutionStack,
-  };
-}
-
-
 const dropdownVariants: Variants = {
   hidden: {
     opacity: 0,
@@ -1921,12 +1795,12 @@ export default function Navbar() {
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const [mobileSolutionsOpen, setMobileSolutionsOpen] = useState(false);
   const [mobileIndustriesOpen, setMobileIndustriesOpen] = useState(false);
+  const [mobileShowcaseOpen, setMobileShowcaseOpen] = useState(false);
   const [desktopServicesOpen, setDesktopServicesOpen] = useState(false);
   const [desktopSolutionsOpen, setDesktopSolutionsOpen] = useState(false);
   const [desktopIndustriesOpen, setDesktopIndustriesOpen] = useState(false);
+  const [desktopShowcaseOpen, setDesktopShowcaseOpen] = useState(false);
   const [selectedIndustryId, setSelectedIndustryId] = useState("healthcare");
-  const [selectedIndustryView, setSelectedIndustryView] =
-    useState<IndustryView>("overview");
   const [scrolled, setScrolled] = useState(false);
 
   const pathname = usePathname();
@@ -1953,6 +1827,7 @@ export default function Navbar() {
     setDesktopServicesOpen(false);
     setDesktopSolutionsOpen(false);
     setDesktopIndustriesOpen(false);
+    setDesktopShowcaseOpen(false);
   }
 
   function scheduleDesktopDropdownClose() {
@@ -1961,6 +1836,7 @@ export default function Navbar() {
       setDesktopServicesOpen(false);
       setDesktopSolutionsOpen(false);
       setDesktopIndustriesOpen(false);
+      setDesktopShowcaseOpen(false);
     }, 140);
   }
 
@@ -1969,6 +1845,7 @@ export default function Navbar() {
     setDesktopServicesOpen(type === "services");
     setDesktopSolutionsOpen(type === "solutions");
     setDesktopIndustriesOpen(type === "industries");
+    setDesktopShowcaseOpen(type === "showcase");
   }
 
   function closeMobileMenu() {
@@ -1976,6 +1853,7 @@ export default function Navbar() {
     setMobileServicesOpen(false);
     setMobileSolutionsOpen(false);
     setMobileIndustriesOpen(false);
+    setMobileShowcaseOpen(false);
   }
 
   useEffect(() => {
@@ -1995,17 +1873,28 @@ export default function Navbar() {
         setDesktopServicesOpen(false);
         setDesktopSolutionsOpen(false);
         setDesktopIndustriesOpen(false);
+        setDesktopShowcaseOpen(false);
       }
     };
 
-    if (desktopServicesOpen || desktopSolutionsOpen || desktopIndustriesOpen) {
+    if (
+      desktopServicesOpen ||
+      desktopSolutionsOpen ||
+      desktopIndustriesOpen ||
+      desktopShowcaseOpen
+    ) {
       document.addEventListener("mousedown", handleOutsideClick);
     }
 
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
-  }, [desktopServicesOpen, desktopSolutionsOpen, desktopIndustriesOpen]);
+  }, [
+    desktopServicesOpen,
+    desktopSolutionsOpen,
+    desktopIndustriesOpen,
+    desktopShowcaseOpen,
+  ]);
 
   useEffect(() => {
     return () => clearDesktopCloseTimer();
@@ -2052,34 +1941,32 @@ export default function Navbar() {
   }, [mobileOpen]);
 
   const isDark = theme === "dark";
-  const isServicesActive =
-    pathname === "/services" || pathname.startsWith("/services/");
-  const isSolutionsActive = pathname.startsWith("/solutions/");
-  const isIndustriesActive =
-    pathname === "/industries" || pathname.startsWith("/industries/");
-  const isDesktopDropdownOpen =
-    desktopServicesOpen || desktopSolutionsOpen || desktopIndustriesOpen;
-  const selectedIndustry =
-    industryMenus.find((industry) => industry.id === selectedIndustryId) ??
-    industryMenus[0];
-  const filteredIndustrySolutions = selectedIndustry.solutions.filter(
-    industryViewFilters[selectedIndustryView]
-  );
-  const visibleIndustrySolutions = (
-    filteredIndustrySolutions.length > 0
-      ? filteredIndustrySolutions
-      : selectedIndustry.solutions
-  ).slice(0, 6);
-  const selectedIndustryInsight = getIndustryInsight(
-    selectedIndustry,
-    selectedIndustryView
-  );
 
   const isLinkActive = (href: string) =>
     href === "/"
       ? pathname === href
       : pathname === href || pathname.startsWith(`${href}/`);
 
+  const isServicesActive =
+    pathname === "/services" || pathname.startsWith("/services/");
+  const isSolutionsActive = pathname.startsWith("/solutions/");
+  const isIndustriesActive =
+    pathname === "/industries" || pathname.startsWith("/industries/");
+  const isShowcaseActive =
+    pathname === "/demo-crm" ||
+    pathname.startsWith("/demo-crm/") ||
+    pathname === "/roi-calculator" ||
+    pathname.startsWith("/roi-calculator/") ||
+    pathname === "/workflow-lab" ||
+    pathname.startsWith("/workflow-lab/");
+  const isDesktopDropdownOpen =
+    desktopServicesOpen ||
+    desktopSolutionsOpen ||
+    desktopIndustriesOpen ||
+    desktopShowcaseOpen;
+  const selectedIndustry =
+    industryMenus.find((industry) => industry.id === selectedIndustryId) ??
+    industryMenus[0];
   function desktopNavClass(active: boolean) {
     return `rounded-2xl px-3.5 py-2 text-sm font-medium transition-all duration-200 2xl:px-4 ${
       active
@@ -2165,9 +2052,9 @@ export default function Navbar() {
                 <span className="block truncate text-lg font-extrabold tracking-tight text-(--text) sm:text-xl md:text-2xl">
                   HNX<span className="text-primary"> Solutions</span>
                 </span>
-                <span className="hidden text-sm font-medium tracking-tight text-(--text-soft) sm:block">
+                {/* <span className="hidden text-sm font-medium tracking-tight text-(--text-soft) sm:block">
                   IT Services & Digital Solutions
-                </span>
+                </span> */}
               </div>
             </Link>
 
@@ -2295,7 +2182,7 @@ export default function Navbar() {
                           </div>
 
                           <div className="relative p-6">
-                            <div className="mb-5">
+                            <div className="mb-2">
                               <p className="text-xs font-bold uppercase tracking-[0.3em] text-primary dark:text-cyan-300">
                                 Our Services
                               </p>
@@ -2312,7 +2199,7 @@ export default function Navbar() {
                                     {column.title}
                                   </h4>
 
-                                  <div className="space-y-3">
+                                  <div className="space-y-2">
                                     {column.items.map((item) => {
                                       const active = isLinkActive(item.href);
 
@@ -2511,23 +2398,126 @@ export default function Navbar() {
                 </AnimatePresence>
               </div>
 
-              <Link
-                href="/demo-crm"
-                className={desktopNavClass(isLinkActive("/demo-crm"))}
-                aria-current={isLinkActive("/demo-crm") ? "page" : undefined}
+              <div
+                data-desktop-dropdown
+                className="relative"
+                onMouseEnter={() => openDesktopDropdown("showcase")}
+                onMouseLeave={scheduleDesktopDropdownClose}
+                onFocus={() => openDesktopDropdown("showcase")}
+                onBlur={(event) => {
+                  const nextFocus = event.relatedTarget;
+                  if (
+                    !(nextFocus instanceof Node) ||
+                    !event.currentTarget.contains(nextFocus)
+                  ) {
+                    scheduleDesktopDropdownClose();
+                  }
+                }}
               >
-                Demo CRM
-              </Link>
+                <button
+                  type="button"
+                  className={desktopDropdownNavClass(
+                    isShowcaseActive,
+                    desktopShowcaseOpen
+                  )}
+                  aria-haspopup="menu"
+                  aria-expanded={desktopShowcaseOpen ? "true" : "false"}
+                >
+                  Explore
+                  <HiChevronDown
+                    className={`text-base transition-transform duration-200 ${
+                      desktopShowcaseOpen ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
 
-              <Link
-                href="/roi-calculator"
-                className={desktopNavClass(isLinkActive("/roi-calculator"))}
-                aria-current={
-                  isLinkActive("/roi-calculator") ? "page" : undefined
-                }
-              >
-                ROI Calculator
-              </Link>
+                <DropdownAnchor open={desktopShowcaseOpen} />
+                <div className="absolute left-1/2 top-full h-5 w-44 -translate-x-1/2" />
+
+                <AnimatePresence>
+                  {desktopShowcaseOpen && (
+                    <motion.div
+                      variants={dropdownVariants}
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
+                      className="absolute left-1/2 top-[calc(100%+18px)] z-60 w-[min(88vw,330px)] -translate-x-1/2 overflow-hidden rounded-2xl border border-slate-200/80 bg-white/96 p-2 shadow-[0_22px_60px_rgba(15,23,42,0.14)] backdrop-blur-2xl dark:border-white/10 dark:bg-[#0b1220]/96"
+                      onMouseEnter={clearDesktopCloseTimer}
+                      onMouseLeave={scheduleDesktopDropdownClose}
+                    >
+                      <div className="pointer-events-none absolute inset-x-4 top-0 h-px bg-linear-to-r from-transparent via-primary/70 to-transparent" />
+                      <div className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-cyan-400/15 blur-2xl" />
+                      <div className="pointer-events-none absolute -left-10 bottom-0 h-28 w-28 rounded-full bg-violet-500/15 blur-2xl" />
+
+                      <div className="relative px-3 pb-2 pt-3">
+                        <p className="text-[10px] font-extrabold uppercase tracking-[0.28em] text-primary dark:text-cyan-300">
+                          Explore HNX
+                        </p>
+                        <h3 className="mt-1 text-base font-extrabold tracking-tight text-(--text)">
+                          Try tools before you book
+                        </h3>
+                        <p className="mt-1 text-[11px] leading-4 text-(--text-soft)">
+                          Preview CRM, savings, and automation workflows.
+                        </p>
+                      </div>
+
+                      <motion.div
+                        variants={gridVariants}
+                        initial="hidden"
+                        animate="visible"
+                        className="relative space-y-1"
+                      >
+                        {showcaseLinks.map((item) => {
+                          const Icon = item.icon;
+                          const active = isLinkActive(item.href);
+
+                          return (
+                            <motion.div
+                              key={item.href}
+                              variants={itemVariants}
+                              whileHover={{ x: 3 }}
+                              whileTap={{ scale: 0.985 }}
+                            >
+                              <Link
+                                href={item.href}
+                                onClick={closeDesktopDropdowns}
+                                aria-current={active ? "page" : undefined}
+                                className={`group flex items-center justify-between gap-3 rounded-xl px-3.5 py-3 text-sm font-bold transition-all duration-200 ${
+                                  active
+                                    ? "bg-primary/10 text-primary"
+                                    : "text-(--text) hover:bg-slate-50 hover:text-primary dark:hover:bg-white/6"
+                                }`}
+                              >
+                                <span className="flex min-w-0 items-center gap-3">
+                                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-xl bg-slate-50 text-primary shadow-sm ring-1 ring-slate-200/80 transition duration-300 group-hover:scale-105 group-hover:bg-primary/8 dark:bg-white/8 dark:ring-white/10 dark:text-cyan-300">
+                                    <Icon className="h-4 w-4" aria-hidden="true" />
+                                  </span>
+                                  <span className="relative min-w-0">
+                                    <span className="block truncate font-extrabold">
+                                      {item.label}
+                                    </span>
+                                    <span
+                                      className={`mt-1 block h-[1.5px] rounded-full bg-linear-to-r from-cyan-400 to-violet-500 transition-all duration-300 ease-out ${
+                                        active ? "w-full" : "w-0 group-hover:w-full"
+                                      }`}
+                                    />
+                                  </span>
+                                </span>
+
+                                <ChevronRight
+                                  size={15}
+                                  className="text-(--text-soft) transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-primary"
+                                  aria-hidden="true"
+                                />
+                              </Link>
+                            </motion.div>
+                          );
+                        })}
+                      </motion.div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
 
               <div
                 data-desktop-dropdown
@@ -2569,7 +2559,7 @@ export default function Navbar() {
                 <AnimatePresence>
                   {desktopIndustriesOpen && (
                     <div
-                      className="fixed left-1/2 top-[4.55rem] z-60 w-[min(98vw,1540px)] -translate-x-1/2"
+                      className="fixed left-1/2 top-[4.35rem] z-60 w-[min(92vw,1000px)] -translate-x-1/2"
                       onMouseEnter={clearDesktopCloseTimer}
                       onMouseLeave={scheduleDesktopDropdownClose}
                     >
@@ -2579,80 +2569,62 @@ export default function Navbar() {
                         exit="exit"
                         variants={dropdownVariants}
                         style={{ transformOrigin: "top center" }}
-                        className="relative max-h-[calc(100vh-6rem)] overflow-hidden rounded-3xl border border-slate-200/80 bg-white/96 shadow-[0_28px_80px_rgba(15,23,42,0.18)] ring-1 ring-white/70 backdrop-blur-2xl dark:border-white/10 dark:bg-[#0b1220]/96 dark:ring-white/5 dark:shadow-[0_28px_90px_rgba(0,0,0,0.62)]"
+                        className="relative overflow-hidden rounded-3xl border border-slate-200/80 bg-white/97 shadow-[0_24px_70px_rgba(15,23,42,0.16)] ring-1 ring-white/70 backdrop-blur-2xl dark:border-white/10 dark:bg-[#0b1220]/96 dark:ring-white/5 dark:shadow-[0_28px_90px_rgba(0,0,0,0.62)]"
                         aria-label="Industries"
                       >
-                        <div className="pointer-events-none absolute inset-x-12 top-0 h-px bg-linear-to-r from-transparent via-primary/70 to-transparent" />
-                        <div className="pointer-events-none absolute -left-24 -top-16 h-64 w-64 rounded-full bg-cyan-400/12 blur-3xl" />
-                        <div className="pointer-events-none absolute -right-24 bottom-0 h-64 w-64 rounded-full bg-violet-500/12 blur-3xl" />
-                        <motion.div
-                          className="pointer-events-none absolute left-[46%] top-4 h-16 w-16 rounded-full bg-linear-to-br from-cyan-300/20 to-violet-500/20 blur-xl"
-                          animate={{ y: [0, 10, 0], opacity: [0.45, 0.8, 0.45] }}
-                          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                          aria-hidden="true"
-                        />
+                        <div className="pointer-events-none absolute inset-x-10 top-0 h-px bg-linear-to-r from-transparent via-primary/70 to-transparent" />
+                        <div className="pointer-events-none absolute -left-20 -top-16 h-56 w-56 rounded-full bg-cyan-400/10 blur-3xl" />
+                        <div className="pointer-events-none absolute -right-20 bottom-0 h-56 w-56 rounded-full bg-violet-500/10 blur-3xl" />
 
-                        <div className="relative grid max-h-[calc(100vh-5.4rem)] grid-cols-[250px_minmax(0,1fr)_300px] overflow-hidden">
-                          <aside className="border-r border-slate-200/75 bg-slate-50/75 p-3.5 dark:border-white/10 dark:bg-white/3">
+                        <div className="relative grid grid-cols-[300px_minmax(0,1fr)] overflow-hidden">
+                          <aside className="border-r border-slate-200/75 bg-slate-50/75 p-4 dark:border-white/10 dark:bg-white/3">
                             <div className="mb-3">
-                              <p className="text-[10px] font-extrabold uppercase tracking-[0.3em] text-primary dark:text-cyan-300">
+                              <p className="text-[11px] font-extrabold uppercase tracking-[0.32em] text-primary dark:text-cyan-300">
                                 Browse Industries
                               </p>
                               <p className="mt-1 text-[11px] leading-4 text-(--text-soft)">
-                                Select one industry, then choose the right service.
+                                Select an industry.
                               </p>
                             </div>
 
-                            <div className="max-h-[390px] space-y-1.5 overflow-y-auto pr-1">
+                            <div className="space-y-0.5 pr-0">
                               {industryMenus.map((industry) => {
                                 const active = selectedIndustry.id === industry.id;
-                                const industryPhoto = getIndustryPhoto(industry);
+                                const Icon = industry.icon;
 
                                 return (
                                   <motion.button
                                     key={industry.id}
                                     type="button"
-                                    whileHover={{ x: 4, scale: 1.012 }}
+                                    whileHover={{ x: 3 }}
                                     whileTap={{ scale: 0.985 }}
                                     onClick={() => {
                                       setSelectedIndustryId(industry.id);
-                                      setSelectedIndustryView("overview");
                                     }}
-                                    className={`group/industry flex w-full items-center gap-3 rounded-2xl border px-3 py-2.5 text-left transition duration-200 ease-out ${
+                                    className={`group/industry flex w-full items-center gap-2 rounded-lg px-6 py-1.5 text-left transition duration-200 ease-out ${
                                       active
-                                        ? "border-primary/20 bg-white text-primary shadow-[0_14px_32px_rgba(14,165,233,0.12)] ring-1 ring-primary/12 dark:border-cyan-300/20 dark:bg-white/10 dark:text-cyan-300 dark:ring-cyan-300/15"
-                                        : "border-transparent bg-transparent text-(--text) hover:border-slate-200/90 hover:bg-white/85 hover:text-primary hover:shadow-sm dark:hover:border-white/10 dark:hover:bg-white/6"
+                                        ? "bg-primary/8 text-primary shadow-sm ring-1 ring-primary/10 dark:bg-cyan-300/10 dark:text-cyan-300 dark:ring-cyan-300/15"
+                                        : "text-(--text) hover:bg-white/80 hover:text-primary hover:shadow-sm dark:hover:bg-white/6"
                                     }`}
                                   >
                                     <span
-                                      className={`relative h-10 w-12 shrink-0 overflow-hidden rounded-xl border bg-slate-100 shadow-sm transition ${
+                                      className={`grid h-7 w-10 shrink-0 place-items-center rounded-lg transition ${
                                         active
-                                          ? "border-primary/30 ring-2 ring-primary/15 dark:border-cyan-300/25 dark:ring-cyan-300/15"
-                                          : "border-slate-200/80 group-hover/industry:border-primary/25 dark:border-white/10"
+                                          ? "bg-white text-primary shadow-sm ring-1 ring-primary/15 dark:bg-white/8 dark:text-cyan-300"
+                                          : "bg-transparent text-(--text-soft) group-hover/industry:bg-white group-hover/industry:text-primary dark:group-hover/industry:bg-white/8"
                                       }`}
                                     >
-                                      <img
-                                        src={industryPhoto.src}
-                                        alt=""
-                                        className="h-full w-full object-cover transition duration-300 group-hover/industry:scale-105"
-                                        loading="lazy"
-                                        referrerPolicy="no-referrer"
-                                        aria-hidden="true"
-                                      />
-                                      <span className="absolute inset-0 bg-linear-to-tr from-slate-950/10 via-transparent to-primary/10" aria-hidden="true" />
+                                      <Icon className="h-3.5 w-3.5" aria-hidden="true" />
                                     </span>
 
                                     <span className="min-w-0 flex-1">
-                                      <span className="block truncate text-[13px] font-extrabold leading-4">
+                                      <span className="block truncate text-[11px] font-extrabold leading-4">
                                         {industry.label}
-                                      </span>
-                                      <span className="mt-1 block truncate text-[11px] leading-4 text-(--text-soft)">
-                                        {industry.short}
                                       </span>
                                     </span>
 
                                     <ChevronRight
-                                      className={`h-4 w-4 shrink-0 transition ${
+                                      className={`h-3.5 w-3.5 shrink-0 transition ${
                                         active
                                           ? "translate-x-0 opacity-100"
                                           : "-translate-x-1 opacity-0 group-hover/industry:translate-x-0 group-hover/industry:opacity-100"
@@ -2667,7 +2639,7 @@ export default function Navbar() {
                             <Link
                               href="/industries"
                               onClick={closeDesktopDropdowns}
-                              className="group/all mt-3 flex items-center justify-center gap-2 rounded-2xl border border-primary/20 bg-linear-to-r from-primary/10 to-accent/10 px-4 py-3 text-xs font-extrabold text-primary transition hover:border-primary/30 hover:bg-primary/15 dark:border-cyan-300/20 dark:bg-cyan-300/10 dark:text-cyan-300"
+                              className="group/all mt-2 flex items-center justify-center gap-2 border-t border-slate-200/80 pt-2 text-[11px] font-extrabold text-primary transition hover:text-accent dark:border-white/10 dark:text-cyan-300"
                             >
                               View All Industries
                               <ArrowRight
@@ -2677,229 +2649,124 @@ export default function Navbar() {
                             </Link>
                           </aside>
 
-                          <section className="min-w-0 overflow-y-auto p-4">
-                            <div className="flex items-start gap-4">
-                              <div className="relative h-24 w-36 shrink-0 overflow-hidden rounded-3xl border border-slate-200/80 bg-slate-100 shadow-[0_18px_42px_rgba(15,23,42,0.12)] dark:border-white/10 dark:bg-white/6">
-                                <img
-                                  src={getIndustryPhoto(selectedIndustry).src}
-                                  alt={getIndustryPhoto(selectedIndustry).alt}
-                                  className="h-full w-full object-cover"
-                                  loading="lazy"
-                                  referrerPolicy="no-referrer"
-                                />
-                                <div className="absolute inset-0 bg-linear-to-br from-slate-950/10 via-transparent to-primary/20" />
-                              </div>
-
+                          <section className="min-w-0 p-7">
+                            <div className="mb-3 flex items-start justify-between gap-4">
                               <div className="min-w-0 flex-1">
-                                <p className="text-[10px] font-extrabold uppercase tracking-[0.36em] text-primary dark:text-cyan-300">
+                                <p className="text-[10px] font-extrabold uppercase tracking-[0.34em] text-primary dark:text-cyan-300">
                                   {selectedIndustry.eyebrow} Solutions
                                 </p>
-                                <h3 className="mt-2 text-2xl font-extrabold tracking-tight text-(--text)">
+                                <h3 className="mt-1 text-lg font-extrabold tracking-tight text-(--text)">
                                   {selectedIndustry.label} Solutions
                                 </h3>
-                                <p className="mt-2 max-w-175 text-sm leading-6 text-(--text-soft)">
+                                <p className="mt-1 max-w-[500px] text-[12px] leading-5 text-(--text-soft)">
                                   {selectedIndustry.description}
                                 </p>
                               </div>
-                            </div>
 
-                            <div className="mt-4 flex flex-wrap items-center gap-2">
-                              {selectedIndustry.traits.slice(0, 3).map((trait) => {
-                                const TraitIcon = trait.icon;
-
-                                return (
+                              <div className="hidden shrink-0 items-center gap-3 md:flex">
+                                <span
+                                  title={getIndustryPhoto(selectedIndustry).credit}
+                                  className="relative h-16 w-32 overflow-hidden rounded-2xl border border-slate-200/80 bg-slate-100 shadow-sm dark:border-white/10 dark:bg-white/5"
+                                >
                                   <span
-                                    key={trait.label}
-                                    className="inline-flex items-center gap-2 rounded-full border border-slate-200/80 bg-slate-50/90 px-3 py-1.5 text-[11px] font-bold text-primary dark:border-white/10 dark:bg-white/4 dark:text-cyan-300"
-                                  >
-                                    <TraitIcon size={13} aria-hidden="true" />
-                                    {trait.label}
-                                  </span>
-                                );
-                              })}
-                            </div>
-
-                            <div className="mt-4 grid grid-cols-4 gap-2 rounded-3xl border border-slate-200/80 bg-white/75 p-1.5 shadow-[0_12px_30px_rgba(15,23,42,0.055)] dark:border-white/10 dark:bg-white/3.5">
-                              {industryViewTabs.map((tab) => {
-                                const active = selectedIndustryView === tab.id;
-                                const TabIcon = tab.icon;
-
-                                return (
-                                  <motion.button
-                                    key={tab.id}
-                                    type="button"
-                                    whileHover={{ y: -2 }}
-                                    whileTap={{ scale: 0.985 }}
-                                    onClick={() => setSelectedIndustryView(tab.id)}
-                                    className={`group/tab relative flex items-center justify-center gap-2 overflow-hidden rounded-[18px] px-3 py-2.5 text-left transition duration-200 ease-out ${
-                                      active
-                                        ? "bg-linear-to-r from-cyan-500 to-violet-600 text-white shadow-[0_12px_26px_rgba(14,165,233,0.22)]"
-                                        : "text-slate-600 hover:bg-slate-50 hover:text-primary dark:text-slate-300 dark:hover:bg-white/6"
-                                    }`}
-                                  >
-                                    <span
-                                      className={`grid h-7 w-7 shrink-0 place-items-center rounded-xl transition ${
-                                        active
-                                          ? "bg-white/18 text-white"
-                                          : "bg-slate-50 text-primary group-hover/tab:bg-primary/10 dark:bg-white/6"
-                                      }`}
-                                    >
-                                      <TabIcon size={15} aria-hidden="true" />
-                                    </span>
-                                    <span className="min-w-0">
-                                      <span className="block text-xs font-extrabold leading-4">
-                                        {tab.label}
-                                      </span>
-                                      <span className="block text-[10px] font-semibold leading-3 opacity-75">
-                                        {tab.helper}
-                                      </span>
-                                    </span>
-                                  </motion.button>
-                                );
-                              })}
-                            </div>
-
-                            <motion.div
-                              key={`${selectedIndustry.id}-${selectedIndustryView}`}
-                              initial="hidden"
-                              animate="visible"
-                              variants={gridVariants}
-                              className="mt-4 grid grid-cols-2 gap-3"
-                            >
-                              {visibleIndustrySolutions.map((solution) => {
-                                const Icon = solution.icon;
-                                const active = isLinkActive(solution.href);
-
-                                return (
-                                  <motion.div
-                                    key={solution.href}
-                                    variants={itemVariants}
-                                    whileHover={{ y: -3, scale: 1.01 }}
-                                    transition={{ duration: 0.18 }}
-                                  >
-                                    <Link
-                                      href={solution.href}
-                                      onClick={closeDesktopDropdowns}
-                                      aria-current={active ? "page" : undefined}
-                                      className={`group/solution flex min-h-20.5 items-center gap-3 rounded-2xl border bg-white/86 p-3 shadow-[0_10px_26px_rgba(15,23,42,0.055)] transition duration-200 ease-out hover:-translate-y-0.5 hover:border-primary/25 hover:shadow-[0_18px_40px_rgba(15,23,42,0.11)] dark:bg-white/4 ${
-                                        active
-                                          ? "border-primary/30 ring-1 ring-primary/20"
-                                          : "border-slate-200/80 dark:border-white/10"
-                                      }`}
-                                    >
-                                      <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-slate-50 text-primary shadow-sm transition group-hover/solution:scale-105 dark:bg-white/8">
-                                        <Icon className="h-5 w-5" aria-hidden="true" />
-                                      </span>
-
-                                      <span className="min-w-0 flex-1">
-                                        <span className="flex items-center gap-2">
-                                          <span className="truncate text-[13px] font-extrabold text-(--text)">
-                                            {solution.label}
-                                          </span>
-                                          <span
-                                            className={`shrink-0 rounded-full px-2 py-0.5 text-[9px] font-extrabold uppercase tracking-wide ${solution.tagClass}`}
-                                          >
-                                            {solution.tag}
-                                          </span>
-                                        </span>
-                                        <span className="mt-1 line-clamp-2 block text-[11px] leading-4 text-(--text-soft)">
-                                          {solution.description}
-                                        </span>
-                                      </span>
-
-                                      <ChevronRight
-                                        className="h-4 w-4 shrink-0 text-primary transition group-hover/solution:translate-x-0.5"
-                                        aria-hidden="true"
-                                      />
-                                    </Link>
-                                  </motion.div>
-                                );
-                              })}
-                            </motion.div>
-                          </section>
-
-                          <aside className="min-w-0 border-l border-slate-200/70 bg-linear-to-b from-slate-50/95 via-white/95 to-cyan-50/35 p-3 dark:border-white/10 dark:from-white/4 dark:via-white/3 dark:to-cyan-400/8">
-                            <motion.div
-                              key={`${selectedIndustry.id}-${selectedIndustryView}-insight`}
-                              initial={{ opacity: 0, x: 12, filter: "blur(8px)" }}
-                              animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-                              transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
-                              className="relative flex h-full min-h-0 flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white/96 p-4 shadow-[0_18px_46px_rgba(15,23,42,0.10)] ring-1 ring-white/70 backdrop-blur-xl dark:border-white/10 dark:bg-[#0b1220]/94 dark:ring-white/5"
-                            >
-                              <div className="pointer-events-none absolute -right-12 -top-12 h-36 w-36 rounded-full bg-cyan-400/12 blur-3xl" aria-hidden="true" />
-                              <div className="pointer-events-none absolute -bottom-16 left-0 h-36 w-36 rounded-full bg-violet-500/10 blur-3xl" aria-hidden="true" />
-
-                              <div className="relative flex min-h-0 flex-1 flex-col">
-                                <div className="flex shrink-0 items-start justify-between gap-3">
-                                  <div className="min-w-0">
-                                    <p className="text-[10px] font-black uppercase tracking-[0.24em] text-primary dark:text-cyan-300">
-                                      Problems We Solve
-                                    </p>
-                                    <h4 className="mt-1 text-base font-black leading-5 text-(--text)">
-                                      {selectedIndustry.label} pain points
-                                    </h4>
-                                  </div>
-                                  <span className="shrink-0 rounded-full bg-cyan-50 px-3 py-1 text-[10px] font-extrabold capitalize text-primary ring-1 ring-cyan-100 dark:bg-cyan-300/10 dark:text-cyan-300 dark:ring-cyan-300/15">
-                                    {selectedIndustryView}
-                                  </span>
-                                </div>
-
-                                <div className="mt-4 space-y-2.5">
-                                  {selectedIndustryInsight.points.slice(0, 3).map((point, index) => {
-                                    const PointIcon = point.icon;
-
-                                    return (
-                                      <motion.div
-                                        key={point.label}
-                                        initial={{ opacity: 0, y: 8 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ duration: 0.2, delay: index * 0.04 }}
-                                        whileHover={{ x: 3 }}
-                                        className="group/problem flex items-center gap-3 rounded-2xl border border-slate-200/75 bg-white/88 px-3 py-3 transition hover:border-primary/25 hover:bg-white hover:shadow-[0_10px_24px_rgba(15,23,42,0.07)] dark:border-white/10 dark:bg-white/4 dark:hover:bg-white/6"
-                                      >
-                                        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-2xl bg-cyan-50 text-primary shadow-sm ring-1 ring-cyan-100 transition group-hover/problem:scale-105 dark:bg-cyan-300/10 dark:text-cyan-300 dark:ring-cyan-300/15">
-                                          <PointIcon size={15} aria-hidden="true" />
-                                        </span>
-                                        <div className="min-w-0 flex-1">
-                                          <p className="flex items-center gap-2 text-[12px] font-black leading-4 text-(--text)">
-                                            <span className="text-[9px] font-black text-primary dark:text-cyan-300">
-                                              0{index + 1}
-                                            </span>
-                                            <span className="truncate">{point.label}</span>
-                                          </p>
-                                          <p className="mt-1 line-clamp-1 text-[10.5px] leading-4 text-(--text-soft)">
-                                            {point.description}
-                                          </p>
-                                        </div>
-                                      </motion.div>
-                                    );
-                                  })}
-                                </div>
-
-                                <div className="mt-4 shrink-0 rounded-2xl border border-cyan-200/70 bg-linear-to-br from-cyan-50 via-white to-violet-50 px-4 py-3 dark:border-cyan-300/15 dark:from-cyan-300/10 dark:via-white/4 dark:to-violet-400/10">
-                                  <p className="text-[10px] font-black uppercase tracking-[0.22em] text-primary dark:text-cyan-300">
-                                    HNX Solves It
-                                  </p>
-                                  <p className="mt-1.5 text-[12px] font-semibold leading-5 text-(--text)">
-                                    One connected system for leads, customers, workflows, automation, and reports.
-                                  </p>
-                                </div>
+                                    className="absolute inset-0 bg-cover bg-center transition duration-300"
+                                    style={{ backgroundImage: `url(${getIndustryPhoto(selectedIndustry).src})` }}
+                                    aria-hidden="true"
+                                  />
+                                  <span className="absolute inset-0 bg-linear-to-r from-white/25 via-transparent to-[#eef8ff]/65 dark:to-[#0b1220]/60" aria-hidden="true" />
+                                </span>
 
                                 <Link
                                   href={selectedIndustry.href}
                                   onClick={closeDesktopDropdowns}
-                                  className="group/cta mt-4 inline-flex w-full shrink-0 items-center justify-center gap-2 rounded-2xl bg-linear-to-r from-cyan-500 to-violet-600 px-4 py-3 text-[12px] font-extrabold text-white shadow-lg shadow-primary/20 transition hover:-translate-y-0.5 hover:shadow-xl hover:shadow-primary/30"
+                                  className="group/page inline-flex shrink-0 items-center gap-2 rounded-xl border border-slate-200/80 bg-white/80 px-3.5 py-2 text-[11px] font-extrabold text-primary shadow-sm transition hover:border-primary/30 hover:bg-primary/8 dark:border-white/10 dark:bg-white/5 dark:text-cyan-300"
                                 >
-                                  Build {selectedIndustry.label} System
+                                  View Industry Page
                                   <ArrowRight
-                                    size={15}
-                                    className="transition group-hover/cta:translate-x-1"
+                                    className="h-3.5 w-3.5 transition group-hover/page:translate-x-0.5"
                                     aria-hidden="true"
                                   />
                                 </Link>
                               </div>
+                            </div>
+
+                            <motion.div
+                              key={selectedIndustry.id}
+                              initial="hidden"
+                              animate="visible"
+                              variants={gridVariants}
+                              className="space-y-2"
+                            >
+                              {selectedIndustry.solutions
+                                .filter((solution) =>
+                                  ["Website", "App", "CRM", "Portal"].includes(solution.tag)
+                                )
+                                .sort(
+                                  (a, b) =>
+                                    ["Website", "App", "CRM", "Portal"].indexOf(a.tag) -
+                                    ["Website", "App", "CRM", "Portal"].indexOf(b.tag)
+                                )
+                                .slice(0, 4)
+                                .map((solution) => {
+                                  const Icon = solution.icon;
+                                  const active = isLinkActive(solution.href);
+                                  const previewPhoto = getSolutionPreviewPhoto(solution, selectedIndustry.id);
+
+                                  return (
+                                    <motion.div
+                                      key={solution.href}
+                                      variants={itemVariants}
+                                      whileHover={{ y: -2, scale: 1.006 }}
+                                      transition={{ duration: 0.18 }}
+                                    >
+                                      <Link
+                                        href={solution.href}
+                                        onClick={closeDesktopDropdowns}
+                                        aria-current={active ? "page" : undefined}
+                                        className={`group/solution grid min-h-[78px] grid-cols-[150px_42px_minmax(0,1fr)_18px] items-center gap-3 rounded-2xl border bg-white/88 p-2.5 shadow-[0_8px_22px_rgba(15,23,42,0.05)] transition duration-200 ease-out hover:border-primary/25 hover:bg-white hover:shadow-[0_14px_32px_rgba(15,23,42,0.10)] dark:bg-white/4 ${
+                                          active
+                                            ? "border-primary/30 ring-1 ring-primary/20"
+                                            : "border-slate-200/80 dark:border-white/10"
+                                        }`}
+                                      >
+                                        <span
+                                          title={previewPhoto.credit}
+                                          className="relative hidden h-15 overflow-hidden rounded-xl border border-slate-200/80 bg-slate-100 shadow-sm dark:border-white/10 dark:bg-white/5 sm:block"
+                                        >
+                                          <span
+                                            className="absolute inset-0 bg-cover bg-center opacity-85 transition duration-300 group-hover/solution:scale-105 group-hover/solution:opacity-100"
+                                            style={{ backgroundImage: `url(${previewPhoto.src})` }}
+                                            aria-hidden="true"
+                                          />
+                                          <span className="absolute inset-0 bg-linear-to-r from-white/70 via-white/25 to-transparent dark:from-[#0b1220]/65 dark:via-[#0b1220]/25" aria-hidden="true" />
+                                          <span className="absolute bottom-1.5 left-1.5 rounded-full bg-white/95 px-2 py-0.5 text-[8px] font-black uppercase tracking-wide text-primary shadow-sm dark:bg-[#0b1220]/90 dark:text-cyan-300">
+                                            {solution.tag}
+                                          </span>
+                                        </span>
+
+                                        <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-slate-50 text-primary shadow-sm ring-1 ring-slate-200/70 transition group-hover/solution:scale-105 group-hover/solution:bg-primary/8 dark:bg-white/8 dark:ring-white/10 dark:text-cyan-300">
+                                          <Icon className="h-4.5 w-4.5" aria-hidden="true" />
+                                        </span>
+
+                                        <span className="min-w-0">
+                                          <span className="block truncate text-[14px] font-extrabold text-(--text)">
+                                            {solution.label}
+                                          </span>
+                                          <span className="mt-0.5 line-clamp-2 block text-[12px] leading-5 text-(--text-soft)">
+                                            {solution.description}
+                                          </span>
+                                        </span>
+
+                                        <ChevronRight
+                                          className="h-4 w-4 shrink-0 text-primary transition group-hover/solution:translate-x-0.5 dark:text-cyan-300"
+                                          aria-hidden="true"
+                                        />
+                                      </Link>
+                                    </motion.div>
+                                  );
+                                })}
                             </motion.div>
-                          </aside>
+                          </section>
                         </div>
                       </motion.div>
                     </div>
@@ -2907,13 +2774,6 @@ export default function Navbar() {
                 </AnimatePresence>
               </div>
 
-              <Link
-                href="/workflow-lab"
-                className={desktopNavClass(isLinkActive("/workflow-lab"))}
-                aria-current={isLinkActive("/workflow-lab") ? "page" : undefined}
-              >
-                Workflow Lab
-              </Link>
             </div>
 
             <div className="hidden shrink-0 items-center gap-3 xl:flex">
@@ -3016,6 +2876,7 @@ export default function Navbar() {
                       setMobileServicesOpen(!mobileServicesOpen);
                       setMobileSolutionsOpen(false);
                       setMobileIndustriesOpen(false);
+                      setMobileShowcaseOpen(false);
                     }}
                     aria-expanded={mobileServicesOpen ? "true" : "false"}
                     className={`flex w-full items-center justify-between rounded-lg px-4 py-3 transition-colors ${
@@ -3116,6 +2977,7 @@ export default function Navbar() {
                       setMobileSolutionsOpen(!mobileSolutionsOpen);
                       setMobileServicesOpen(false);
                       setMobileIndustriesOpen(false);
+                      setMobileShowcaseOpen(false);
                     }}
                     aria-expanded={mobileSolutionsOpen ? "true" : "false"}
                     className={`flex w-full items-center justify-between rounded-lg px-4 py-3 transition-colors ${
@@ -3150,29 +3012,46 @@ export default function Navbar() {
                   </AnimatePresence>
                 </div>
 
-                <Link
-                  href="/demo-crm"
-                  onClick={closeMobileMenu}
-                  className={`block rounded-lg px-4 py-3 transition-colors ${
-                    isLinkActive("/demo-crm")
-                      ? "bg-white/5 text-primary"
-                      : "text-(--text-muted) hover:bg-white/5 hover:text-primary"
-                  }`}
-                >
-                  Demo CRM
-                </Link>
+                <div className="relative">
+                  <button
+                    onClick={() => {
+                      setMobileShowcaseOpen(!mobileShowcaseOpen);
+                      setMobileServicesOpen(false);
+                      setMobileSolutionsOpen(false);
+                      setMobileIndustriesOpen(false);
+                    }}
+                    aria-expanded={mobileShowcaseOpen ? "true" : "false"}
+                    className={`flex w-full items-center justify-between rounded-lg px-4 py-3 transition-colors ${
+                      isShowcaseActive || mobileShowcaseOpen
+                        ? "bg-white/5 text-primary"
+                        : "text-(--text-muted) hover:bg-white/5 hover:text-primary"
+                    }`}
+                  >
+                    <span>Explore</span>
+                    <HiChevronDown
+                      className={`transition-transform duration-300 ${
+                        mobileShowcaseOpen ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
 
-                <Link
-                  href="/roi-calculator"
-                  onClick={closeMobileMenu}
-                  className={`block rounded-lg px-4 py-3 transition-colors ${
-                    isLinkActive("/roi-calculator")
-                      ? "bg-white/5 text-primary"
-                      : "text-(--text-muted) hover:bg-white/5 hover:text-primary"
-                  }`}
-                >
-                  ROI Calculator
-                </Link>
+                  <AnimatePresence>
+                    {mobileShowcaseOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -8, scale: 0.98 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -8, scale: 0.98 }}
+                        transition={{
+                          duration: 0.22,
+                          ease: [0.22, 1, 0.36, 1],
+                        }}
+                        className="mt-2 overflow-hidden rounded-2xl border border-(--border) bg-(--surface-2) p-2 shadow-[0_18px_40px_rgba(15,23,42,0.14)]"
+                      >
+                        {showcaseLinks.map(renderMobileDropdownItem)}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
 
                 <div className="relative">
                   <button
@@ -3180,6 +3059,7 @@ export default function Navbar() {
                       setMobileIndustriesOpen(!mobileIndustriesOpen);
                       setMobileServicesOpen(false);
                       setMobileSolutionsOpen(false);
+                      setMobileShowcaseOpen(false);
                     }}
                     aria-expanded={mobileIndustriesOpen ? "true" : "false"}
                     className={`flex w-full items-center justify-between rounded-lg px-4 py-3 transition-colors ${
@@ -3283,18 +3163,6 @@ export default function Navbar() {
                     )}
                   </AnimatePresence>
                 </div>
-
-                <Link
-                  href="/workflow-lab"
-                  onClick={closeMobileMenu}
-                  className={`block rounded-lg px-4 py-3 transition-colors ${
-                    isLinkActive("/workflow-lab")
-                      ? "bg-white/5 text-primary"
-                      : "text-(--text-muted) hover:bg-white/5 hover:text-primary"
-                  }`}
-                >
-                  Workflow Lab
-                </Link>
 
                 <div className="pt-3">
                   <Link
