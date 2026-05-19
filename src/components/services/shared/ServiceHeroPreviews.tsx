@@ -1,12 +1,12 @@
 "use client";
 
+import type { ReactNode } from "react";
 import type { LucideIcon } from "lucide-react";
 import {
   ArrowRight,
   BarChart3,
   Bot,
   Building2,
-  Calendar,
   CheckCircle2,
   ClipboardCheck,
   Database,
@@ -59,8 +59,8 @@ function PreviewShell({
   children,
   footer,
 }: {
-  children: React.ReactNode;
-  footer?: React.ReactNode;
+  children: ReactNode;
+  footer?: ReactNode;
 }) {
   return (
     <div className="relative mx-auto w-full max-w-[860px]">
@@ -128,7 +128,12 @@ function IconTile({
   return (
     <div className="rounded-2xl border border-slate-200/90 bg-white/82 p-4 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-white/7">
       <div className="flex items-start gap-3">
-        <span className={cn("grid h-10 w-10 shrink-0 place-items-center rounded-xl ring-1", toneClass)}>
+        <span
+          className={cn(
+            "grid h-10 w-10 shrink-0 place-items-center rounded-xl ring-1",
+            toneClass
+          )}
+        >
           <Icon className="h-4 w-4" aria-hidden="true" />
         </span>
         <div>
@@ -199,16 +204,24 @@ export function WebsiteHeroPreview({ accentClass, stats }: PreviewProps) {
               </span>
             </h3>
             <p className="mt-4 max-w-sm text-sm font-semibold leading-6 text-slate-500 dark:text-slate-400">
-              High-performance websites that attract, engage, and convert ideal customers.
+              High-performance websites that attract, engage, and convert ideal
+              customers.
             </p>
 
             <div className="mt-5 flex flex-wrap gap-3">
-              {["Conversion focused", "SEO optimized", "Mobile responsive"].map((item) => (
+              {[
+                "Conversion focused",
+                "SEO optimized",
+                "Mobile responsive",
+              ].map((item) => (
                 <span
                   key={item}
                   className="inline-flex items-center gap-2 text-[11px] font-black text-slate-600 dark:text-slate-300"
                 >
-                  <CheckCircle2 className="h-3.5 w-3.5 text-sky-500" aria-hidden="true" />
+                  <CheckCircle2
+                    className="h-3.5 w-3.5 text-sky-500"
+                    aria-hidden="true"
+                  />
                   {item}
                 </span>
               ))}
@@ -228,8 +241,12 @@ export function WebsiteHeroPreview({ accentClass, stats }: PreviewProps) {
             <div className="absolute -right-10 top-0 h-64 w-64 rounded-[3rem] bg-gradient-to-br from-sky-200 via-cyan-100 to-violet-100 opacity-80 dark:from-sky-500/20 dark:via-cyan-400/10 dark:to-violet-500/20" />
 
             <div className="absolute right-8 top-10 rounded-2xl border border-slate-200 bg-white/94 p-4 shadow-[0_18px_45px_rgba(15,23,42,0.12)] dark:border-white/10 dark:bg-slate-900/90">
-              <p className="text-[10px] font-black text-slate-400">Leads This Month</p>
-              <p className="mt-1 text-2xl font-black text-slate-950 dark:text-white">248</p>
+              <p className="text-[10px] font-black text-slate-400">
+                Leads This Month
+              </p>
+              <p className="mt-1 text-2xl font-black text-slate-950 dark:text-white">
+                248
+              </p>
               <div className="mt-3 h-10 w-28 rounded-xl bg-[linear-gradient(135deg,rgba(14,165,233,0.18),rgba(124,58,237,0.12))]" />
             </div>
 
@@ -241,14 +258,16 @@ export function WebsiteHeroPreview({ accentClass, stats }: PreviewProps) {
                 Tell us about your project.
               </p>
               <div className="mt-4 space-y-2">
-                {["Your Name", "Work Email", "What do you need?"].map((field) => (
-                  <div
-                    key={field}
-                    className="rounded-xl bg-slate-50 px-3 py-2 text-[11px] font-semibold text-slate-400 dark:bg-white/7"
-                  >
-                    {field}
-                  </div>
-                ))}
+                {["Your Name", "Work Email", "What do you need?"].map(
+                  (field) => (
+                    <div
+                      key={field}
+                      className="rounded-xl bg-slate-50 px-3 py-2 text-[11px] font-semibold text-slate-400 dark:bg-white/7"
+                    >
+                      {field}
+                    </div>
+                  )
+                )}
               </div>
               <div
                 className={cn(
@@ -264,28 +283,11 @@ export function WebsiteHeroPreview({ accentClass, stats }: PreviewProps) {
               <div className="grid h-16 w-16 place-items-center rounded-full border-[7px] border-cyan-400 text-lg font-black text-slate-950 dark:text-white">
                 98
               </div>
-              <p className="mt-2 text-[10px] font-black text-slate-400">Page Speed</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-4 border-t border-slate-100 bg-slate-50/70 dark:border-white/10 dark:bg-white/5">
-          {[
-            ["120+", "Websites Delivered"],
-            ["98%", "Client Satisfaction"],
-            ["2x+", "Lead Increase"],
-            ["24/7", "Launch Support"],
-          ].map(([value, label]) => (
-            <div
-              key={label}
-              className="border-r border-slate-100 p-4 text-center last:border-r-0 dark:border-white/10"
-            >
-              <p className="text-lg font-black text-slate-950 dark:text-white">{value}</p>
-              <p className="mt-1 text-[10px] font-bold text-slate-500 dark:text-slate-400">
-                {label}
+              <p className="mt-2 text-[10px] font-black text-slate-400">
+                Page Speed
               </p>
             </div>
-          ))}
+          </div>
         </div>
       </div>
     </PreviewShell>
@@ -305,9 +307,19 @@ export function CrmHeroPreview({ accentClass }: PreviewProps) {
     <PreviewShell
       footer={
         <div className="grid gap-3 sm:grid-cols-4">
-          <IconTile icon={ShieldCheck} title="100% Custom Built" detail="Your workflow" tone="green" />
+          <IconTile
+            icon={ShieldCheck}
+            title="100% Custom Built"
+            detail="Your workflow"
+            tone="green"
+          />
           <IconTile icon={Lock} title="Your Data" detail="Full control" tone="green" />
-          <IconTile icon={BarChart3} title="Smart Reports" detail="Realtime view" tone="blue" />
+          <IconTile
+            icon={BarChart3}
+            title="Smart Reports"
+            detail="Realtime view"
+            tone="blue"
+          />
           <IconTile icon={Rocket} title="Built to Scale" detail="No limits" tone="violet" />
         </div>
       }
@@ -324,21 +336,27 @@ export function CrmHeroPreview({ accentClass }: PreviewProps) {
               >
                 H
               </span>
-              <span className="text-xs font-black text-slate-900 dark:text-white">HNX CRM</span>
+              <span className="text-xs font-black text-slate-900 dark:text-white">
+                HNX CRM
+              </span>
             </div>
 
-            {["Dashboard", "Leads", "Deals", "Contacts", "Companies"].map((item, index) => (
-              <div
-                key={item}
-                className={cn(
-                  "mb-2 flex items-center gap-2 rounded-xl px-3 py-2 text-[11px] font-black",
-                  index === 0 ? "bg-blue-600 text-white" : "text-slate-500 dark:text-slate-400"
-                )}
-              >
-                <LayoutDashboard className="h-3.5 w-3.5" aria-hidden="true" />
-                {item}
-              </div>
-            ))}
+            {["Dashboard", "Leads", "Deals", "Contacts", "Companies"].map(
+              (item, index) => (
+                <div
+                  key={item}
+                  className={cn(
+                    "mb-2 flex items-center gap-2 rounded-xl px-3 py-2 text-[11px] font-black",
+                    index === 0
+                      ? "bg-blue-600 text-white"
+                      : "text-slate-500 dark:text-slate-400"
+                  )}
+                >
+                  <LayoutDashboard className="h-3.5 w-3.5" aria-hidden="true" />
+                  {item}
+                </div>
+              )
+            )}
           </aside>
 
           <div className="p-5">
@@ -367,10 +385,16 @@ export function CrmHeroPreview({ accentClass }: PreviewProps) {
                   key={label}
                   className="rounded-2xl border border-slate-200 bg-white p-3 shadow-sm dark:border-white/10 dark:bg-white/7"
                 >
-                  <p className="text-[10px] font-black text-slate-400">{label}</p>
+                  <p className="text-[10px] font-black text-slate-400">
+                    {label}
+                  </p>
                   <div className="mt-2 flex items-end justify-between gap-1">
-                    <p className="text-lg font-black text-slate-950 dark:text-white">{value}</p>
-                    <p className="text-[10px] font-black text-emerald-500">{change}</p>
+                    <p className="text-lg font-black text-slate-950 dark:text-white">
+                      {value}
+                    </p>
+                    <p className="text-[10px] font-black text-emerald-500">
+                      {change}
+                    </p>
                   </div>
                 </div>
               ))}
@@ -378,7 +402,9 @@ export function CrmHeroPreview({ accentClass }: PreviewProps) {
 
             <div className="rounded-2xl border border-slate-200 bg-white p-4 dark:border-white/10 dark:bg-white/7">
               <div className="mb-3 flex items-center justify-between">
-                <p className="text-sm font-black text-slate-950 dark:text-white">Sales Pipeline</p>
+                <p className="text-sm font-black text-slate-950 dark:text-white">
+                  Sales Pipeline
+                </p>
                 <p className="text-[10px] font-black uppercase tracking-[0.14em] text-slate-400">
                   Live board
                 </p>
@@ -391,22 +417,30 @@ export function CrmHeroPreview({ accentClass }: PreviewProps) {
                     className="rounded-xl border border-slate-200 bg-slate-50/80 p-2 dark:border-white/10 dark:bg-white/5"
                   >
                     <div className="mb-2 flex justify-between text-[10px] font-black text-slate-500 dark:text-slate-400">
-                      <span>{title}</span>
-                      <span>{count}</span>
+                      <span>{title as string}</span>
+                      <span>{count as string}</span>
                     </div>
 
                     <div className="space-y-2">
                       {(names as string[]).map((name, index) => (
-                        <div key={name} className="rounded-lg bg-white p-2 shadow-sm dark:bg-slate-950/60">
+                        <div
+                          key={name}
+                          className="rounded-lg bg-white p-2 shadow-sm dark:bg-slate-950/60"
+                        >
                           <div className="flex items-center gap-1.5">
-                            <Building2 className="h-3 w-3 text-blue-500" aria-hidden="true" />
+                            <Building2
+                              className="h-3 w-3 text-blue-500"
+                              aria-hidden="true"
+                            />
                             <span className="truncate text-[10px] font-black text-slate-700 dark:text-slate-200">
                               {name}
                             </span>
                           </div>
                           <div className="mt-1 flex justify-between text-[9px] font-bold text-slate-400">
                             <span>{index + 1}d ago</span>
-                            <span>₹{index + 2}.{index + 4}L</span>
+                            <span>
+                              ₹{index + 2}.{index + 4}L
+                            </span>
                           </div>
                         </div>
                       ))}
@@ -418,7 +452,9 @@ export function CrmHeroPreview({ accentClass }: PreviewProps) {
 
             <div className="mt-4 grid grid-cols-3 gap-3">
               <div className="rounded-2xl border border-slate-200 bg-white p-4 dark:border-white/10 dark:bg-white/7">
-                <p className="text-xs font-black text-slate-900 dark:text-white">Revenue</p>
+                <p className="text-xs font-black text-slate-900 dark:text-white">
+                  Revenue
+                </p>
                 <p
                   className={cn(
                     "mt-3 bg-gradient-to-r bg-clip-text text-2xl font-black text-transparent",
@@ -431,10 +467,15 @@ export function CrmHeroPreview({ accentClass }: PreviewProps) {
               </div>
 
               <div className="rounded-2xl border border-slate-200 bg-white p-4 dark:border-white/10 dark:bg-white/7">
-                <p className="text-xs font-black text-slate-900 dark:text-white">Tasks Due</p>
+                <p className="text-xs font-black text-slate-900 dark:text-white">
+                  Tasks Due
+                </p>
                 <div className="mt-3 space-y-2">
                   {["Follow up", "Demo", "Proposal"].map((task) => (
-                    <div key={task} className="flex justify-between text-[10px] font-bold text-slate-500">
+                    <div
+                      key={task}
+                      className="flex justify-between text-[10px] font-bold text-slate-500"
+                    >
                       <span>{task}</span>
                       <span className="text-rose-500">High</span>
                     </div>
@@ -443,7 +484,9 @@ export function CrmHeroPreview({ accentClass }: PreviewProps) {
               </div>
 
               <div className="rounded-2xl border border-slate-200 bg-white p-4 dark:border-white/10 dark:bg-white/7">
-                <p className="text-xs font-black text-slate-900 dark:text-white">Activities</p>
+                <p className="text-xs font-black text-slate-900 dark:text-white">
+                  Activities
+                </p>
                 <div className="mt-3 grid h-16 w-16 place-items-center rounded-full border-[8px] border-violet-400 text-sm font-black text-slate-950 dark:text-white">
                   236
                 </div>
@@ -460,18 +503,20 @@ function PhoneMockup({
   children,
   className,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
 }) {
   return (
     <div
       className={cn(
-        "relative h-[405px] w-[205px] rounded-[2.5rem] border-[7px] border-slate-950 bg-slate-950 p-2 shadow-[0_30px_70px_rgba(15,23,42,0.25)]",
+        "relative h-[405px] w-[205px] rounded-[2.5rem] border-[7px] border-slate-950 bg-slate-950 p-2 shadow-[0_30px_70px_rgba(15,23,42,0.25)] dark:border-slate-900 dark:bg-slate-900 dark:shadow-[0_30px_90px_rgba(14,165,233,0.16)]",
         className
       )}
     >
-      <div className="absolute left-1/2 top-3 z-10 h-5 w-20 -translate-x-1/2 rounded-full bg-slate-950" />
-      <div className="h-full overflow-hidden rounded-[1.9rem] bg-white dark:bg-slate-950">{children}</div>
+      <div className="absolute left-1/2 top-3 z-10 h-5 w-20 -translate-x-1/2 rounded-full bg-slate-950 dark:bg-slate-900" />
+      <div className="h-full overflow-hidden rounded-[1.9rem] bg-white text-slate-950 shadow-inner dark:bg-[#f8fbff] dark:text-slate-950">
+        {children}
+      </div>
     </div>
   );
 }
@@ -481,23 +526,50 @@ export function MobileHeroPreview({ accentClass }: PreviewProps) {
     <PreviewShell
       footer={
         <div className="grid gap-3 sm:grid-cols-4">
-          <IconTile icon={ShieldCheck} title="Secure & Scalable" detail="Enterprise-ready" tone="green" />
-          <IconTile icon={Zap} title="High Performance" detail="Fast and stable" tone="blue" />
-          <IconTile icon={Smartphone} title="Modern UI" detail="Users love it" tone="violet" />
-          <IconTile icon={Rocket} title="Store Ready" detail="Launch support" tone="orange" />
+          <IconTile
+            icon={ShieldCheck}
+            title="Secure & Scalable"
+            detail="Enterprise-ready"
+            tone="green"
+          />
+          <IconTile
+            icon={Zap}
+            title="High Performance"
+            detail="Fast and stable"
+            tone="blue"
+          />
+          <IconTile
+            icon={Smartphone}
+            title="Modern UI"
+            detail="Users love it"
+            tone="violet"
+          />
+          <IconTile
+            icon={Rocket}
+            title="Store Ready"
+            detail="Launch support"
+            tone="orange"
+          />
         </div>
       }
     >
-      <div className="relative min-h-[545px] overflow-hidden rounded-[1.75rem] border border-slate-200 bg-[linear-gradient(135deg,#ffffff_0%,#f7fbff_52%,#f3f0ff_100%)] p-6 dark:border-white/10 dark:bg-[linear-gradient(135deg,#070b16_0%,#0b1220_55%,#111027_100%)]">
-        <div className="absolute left-1/2 top-16 h-96 w-96 -translate-x-1/2 rounded-full border border-sky-200 dark:border-sky-300/10" />
-        <div className="absolute right-6 top-24 h-72 w-72 rounded-full bg-violet-200/20 blur-2xl dark:bg-violet-500/10" />
+      <div className="relative min-h-[545px] overflow-hidden rounded-[1.75rem] border border-slate-200 bg-[linear-gradient(135deg,#ffffff_0%,#f7fbff_52%,#f3f0ff_100%)] p-6 dark:border-white/10 dark:bg-[linear-gradient(135deg,#101827_0%,#132033_48%,#211a42_100%)]">
+        <div className="absolute inset-0 opacity-80 dark:opacity-100">
+          <div className="absolute left-10 top-8 h-72 w-72 rounded-full bg-sky-200/35 blur-3xl dark:bg-sky-400/20" />
+          <div className="absolute right-10 top-14 h-80 w-80 rounded-full bg-violet-200/35 blur-3xl dark:bg-violet-400/20" />
+          <div className="absolute bottom-8 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full bg-cyan-100/50 blur-3xl dark:bg-cyan-300/10" />
+        </div>
+
+        <div className="absolute left-1/2 top-16 h-96 w-96 -translate-x-1/2 rounded-full border border-sky-200 dark:border-sky-300/18" />
+        <div className="absolute left-1/2 top-28 h-72 w-72 -translate-x-1/2 rounded-full border border-violet-200 dark:border-violet-300/18" />
 
         <div className="relative flex min-h-[470px] items-center justify-center gap-4">
-          <PhoneMockup className="-rotate-6 scale-[0.92]">
+          <PhoneMockup className="-rotate-6 scale-[0.92] dark:opacity-95">
             <div className="p-5">
               <p className="mt-10 text-xs font-black text-blue-600">Pulse</p>
               <h3 className="mt-8 text-2xl font-black leading-tight text-slate-950">
-                Better habits. <span className="text-blue-600">Stronger you.</span>
+                Better habits.{" "}
+                <span className="text-blue-600">Stronger you.</span>
               </h3>
               <p className="mt-3 text-xs font-semibold leading-5 text-slate-500">
                 Track, improve, and achieve your daily wellness goals.
@@ -514,44 +586,66 @@ export function MobileHeroPreview({ accentClass }: PreviewProps) {
             </div>
           </PhoneMockup>
 
-          <PhoneMockup className="z-10 scale-105">
+          <PhoneMockup className="z-10 scale-105 dark:opacity-100">
             <div className="p-5">
-              <p className="mt-8 text-sm font-black text-slate-950 dark:text-white">
+              <p className="mt-8 text-sm font-black text-slate-950">
                 Good morning, Alex 👋
               </p>
-              <p className="text-xs font-semibold text-slate-500">Here is your progress for today</p>
-              <div className={cn("mt-5 rounded-3xl bg-gradient-to-r p-4 text-white", accentClass)}>
-                <p className="text-[10px] font-black uppercase tracking-wider opacity-80">Daily Steps</p>
+              <p className="text-xs font-semibold text-slate-500">
+                Here is your progress for today
+              </p>
+
+              <div
+                className={cn(
+                  "mt-5 rounded-3xl bg-gradient-to-r p-4 text-white shadow-[0_18px_45px_rgba(37,99,235,0.20)]",
+                  accentClass
+                )}
+              >
+                <p className="text-[10px] font-black uppercase tracking-wider opacity-80">
+                  Daily Steps
+                </p>
                 <p className="mt-2 text-3xl font-black">8,432</p>
                 <div className="mt-4 h-16 rounded-2xl bg-white/18" />
               </div>
+
               <div className="mt-4 grid grid-cols-2 gap-3">
-                <div className="rounded-2xl bg-slate-50 p-3 dark:bg-white/7">
-                  <p className="text-[10px] font-black text-slate-400">Calories</p>
-                  <p className="text-xl font-black text-slate-950 dark:text-white">540</p>
+                <div className="rounded-2xl bg-slate-50 p-3">
+                  <p className="text-[10px] font-black text-slate-400">
+                    Calories
+                  </p>
+                  <p className="text-xl font-black text-slate-950">540</p>
                 </div>
-                <div className="rounded-2xl bg-slate-50 p-3 dark:bg-white/7">
-                  <p className="text-[10px] font-black text-slate-400">Sleep</p>
-                  <p className="text-xl font-black text-slate-950 dark:text-white">7h</p>
+                <div className="rounded-2xl bg-slate-50 p-3">
+                  <p className="text-[10px] font-black text-slate-400">
+                    Sleep
+                  </p>
+                  <p className="text-xl font-black text-slate-950">7h</p>
                 </div>
               </div>
             </div>
           </PhoneMockup>
 
-          <PhoneMockup className="rotate-6 scale-[0.92]">
+          <PhoneMockup className="rotate-6 scale-[0.92] dark:opacity-95">
             <div className="p-5">
               <div className="mt-8 flex items-center justify-between">
-                <p className="text-sm font-black text-slate-950 dark:text-white">Book Appointment</p>
+                <p className="text-sm font-black text-slate-950">
+                  Book Appointment
+                </p>
                 <Search className="h-4 w-4 text-slate-400" />
               </div>
-              <div className="mt-5 rounded-2xl bg-slate-50 px-3 py-2 text-[10px] font-semibold text-slate-400 dark:bg-white/7">
+              <div className="mt-5 rounded-2xl bg-slate-50 px-3 py-2 text-[10px] font-semibold text-slate-400">
                 Search services
               </div>
-              <p className="mt-5 text-xs font-black text-slate-900 dark:text-white">Top Experts</p>
+              <p className="mt-5 text-xs font-black text-slate-900">
+                Top Experts
+              </p>
               <div className="mt-3 space-y-3">
                 {["Dr. Sarah", "Jacob Lee", "Emily Clark"].map((person) => (
-                  <div key={person} className="flex items-center justify-between rounded-2xl bg-slate-50 p-2 dark:bg-white/7">
-                    <span className="text-[10px] font-black text-slate-700 dark:text-slate-200">
+                  <div
+                    key={person}
+                    className="flex items-center justify-between rounded-2xl bg-slate-50 p-2"
+                  >
+                    <span className="text-[10px] font-black text-slate-700">
                       {person}
                     </span>
                     <span className="rounded-full bg-blue-50 px-2 py-1 text-[9px] font-black text-blue-600">
@@ -564,15 +658,34 @@ export function MobileHeroPreview({ accentClass }: PreviewProps) {
           </PhoneMockup>
         </div>
 
-        <div className="absolute bottom-7 right-8 w-72 rounded-3xl border border-slate-200 bg-white/92 p-5 shadow-[0_22px_60px_rgba(15,23,42,0.14)] backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/90">
+        <div className="absolute bottom-7 right-8 w-72 rounded-3xl border border-slate-200 bg-white/94 p-5 shadow-[0_22px_60px_rgba(15,23,42,0.14)] backdrop-blur-xl dark:border-white/10 dark:bg-white/92 dark:shadow-[0_22px_70px_rgba(14,165,233,0.16)]">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-xs font-black text-slate-900 dark:text-white">App Performance</p>
+              <p className="text-xs font-black text-slate-900">
+                App Performance
+              </p>
               <p className="text-[10px] font-bold text-slate-500">Excellent</p>
             </div>
-            <div className="grid h-16 w-16 place-items-center rounded-full border-[8px] border-cyan-400 text-sm font-black text-slate-950 dark:text-white">
+            <div className="grid h-16 w-16 place-items-center rounded-full border-[8px] border-cyan-400 text-sm font-black text-slate-950">
               98%
             </div>
+          </div>
+
+          <div className="mt-4 space-y-2">
+            {[
+              ["Users", "12.4K", "+18%"],
+              ["Sessions", "45.7K", "+22%"],
+              ["Retention", "64%", "+12%"],
+            ].map(([label, value, change]) => (
+              <div
+                key={label}
+                className="flex items-center justify-between text-[11px] font-black"
+              >
+                <span className="text-slate-500">{label}</span>
+                <span className="text-slate-950">{value}</span>
+                <span className="text-cyan-600">{change}</span>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -581,7 +694,9 @@ export function MobileHeroPreview({ accentClass }: PreviewProps) {
 }
 
 export function AiAutomationHeroPreview({ accentClass }: PreviewProps) {
-  const steps: Array<[string, string, LucideIcon, "blue" | "green" | "violet"]> = [
+  const steps: Array<
+    [string, string, LucideIcon, "blue" | "green" | "violet"]
+  > = [
     ["New Lead Captured", "Website form submission", Users, "blue"],
     ["AI Lead Qualifier", "Scores and qualifies lead", Bot, "violet"],
     ["Route to Right Owner", "Assigns based on rules", Workflow, "blue"],
@@ -619,14 +734,22 @@ export function AiAutomationHeroPreview({ accentClass }: PreviewProps) {
                     <span
                       className={cn(
                         "grid h-12 w-12 shrink-0 place-items-center rounded-2xl text-white",
-                        tone === "green" ? "bg-emerald-500" : tone === "violet" ? "bg-violet-600" : "bg-blue-600"
+                        tone === "green"
+                          ? "bg-emerald-500"
+                          : tone === "violet"
+                            ? "bg-violet-600"
+                            : "bg-blue-600"
                       )}
                     >
                       <Icon className="h-5 w-5" aria-hidden="true" />
                     </span>
                     <div>
-                      <p className="text-sm font-black text-slate-900 dark:text-white">{stepTitle}</p>
-                      <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">{detail}</p>
+                      <p className="text-sm font-black text-slate-900 dark:text-white">
+                        {stepTitle}
+                      </p>
+                      <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">
+                        {detail}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -637,11 +760,18 @@ export function AiAutomationHeroPreview({ accentClass }: PreviewProps) {
           <div className="space-y-5">
             <div className="rounded-3xl border border-slate-200 bg-white/94 p-5 shadow-[0_20px_60px_rgba(15,23,42,0.10)] dark:border-white/10 dark:bg-slate-900/92">
               <div className="flex items-center gap-4">
-                <span className={cn("grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-r text-white", accentClass)}>
+                <span
+                  className={cn(
+                    "grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-r text-white",
+                    accentClass
+                  )}
+                >
                   <Bot className="h-7 w-7" aria-hidden="true" />
                 </span>
                 <div>
-                  <p className="text-xl font-black text-slate-950 dark:text-white">AI Assistant</p>
+                  <p className="text-xl font-black text-slate-950 dark:text-white">
+                    AI Assistant
+                  </p>
                   <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">
                     How can I help you today?
                   </p>
@@ -649,7 +779,11 @@ export function AiAutomationHeroPreview({ accentClass }: PreviewProps) {
               </div>
 
               <div className="mt-5 space-y-3">
-                {["Summarize today's leads", "Draft a follow-up email", "Show pipeline summary"].map((action) => (
+                {[
+                  "Summarize today's leads",
+                  "Draft a follow-up email",
+                  "Show pipeline summary",
+                ].map((action) => (
                   <div
                     key={action}
                     className="inline-flex w-full items-center gap-2 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold text-blue-700 dark:border-white/10 dark:bg-white/7 dark:text-cyan-200"
@@ -661,8 +795,15 @@ export function AiAutomationHeroPreview({ accentClass }: PreviewProps) {
               </div>
 
               <div className="mt-5 flex items-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 dark:border-white/10 dark:bg-slate-950">
-                <span className="flex-1 text-sm font-semibold text-slate-400">Ask anything...</span>
-                <span className={cn("grid h-10 w-10 place-items-center rounded-full bg-gradient-to-r text-white", accentClass)}>
+                <span className="flex-1 text-sm font-semibold text-slate-400">
+                  Ask anything...
+                </span>
+                <span
+                  className={cn(
+                    "grid h-10 w-10 place-items-center rounded-full bg-gradient-to-r text-white",
+                    accentClass
+                  )}
+                >
                   <Send className="h-4 w-4" aria-hidden="true" />
                 </span>
               </div>
@@ -670,7 +811,9 @@ export function AiAutomationHeroPreview({ accentClass }: PreviewProps) {
 
             <div className="grid grid-cols-2 gap-4">
               <div className="rounded-3xl border border-slate-200 bg-white/94 p-5 shadow-sm dark:border-white/10 dark:bg-slate-900/92">
-                <p className="text-sm font-black text-slate-900 dark:text-white">Automation Impact</p>
+                <p className="text-sm font-black text-slate-900 dark:text-white">
+                  Automation Impact
+                </p>
                 <p
                   className={cn(
                     "mt-4 bg-gradient-to-r bg-clip-text text-3xl font-black text-transparent",
@@ -679,19 +822,27 @@ export function AiAutomationHeroPreview({ accentClass }: PreviewProps) {
                 >
                   1,246
                 </p>
-                <p className="mt-1 text-xs font-black text-emerald-500">↑ 28% this month</p>
+                <p className="mt-1 text-xs font-black text-emerald-500">
+                  ↑ 28% this month
+                </p>
                 <div className="mt-4 h-14 rounded-2xl bg-[linear-gradient(135deg,rgba(14,165,233,0.16),rgba(124,58,237,0.10))]" />
               </div>
 
               <div className="rounded-3xl border border-slate-200 bg-white/94 p-5 shadow-sm dark:border-white/10 dark:bg-slate-900/92">
-                <p className="text-sm font-black text-slate-900 dark:text-white">Lead Score</p>
+                <p className="text-sm font-black text-slate-900 dark:text-white">
+                  Lead Score
+                </p>
                 <div className="mt-4 flex items-center gap-4">
                   <div className="grid h-20 w-20 place-items-center rounded-full border-[10px] border-violet-500 text-xl font-black text-slate-950 dark:text-white">
                     82%
                   </div>
                   <div>
-                    <p className="text-sm font-black text-slate-900 dark:text-white">High Quality</p>
-                    <p className="mt-1 text-xs font-black text-emerald-500">↑ 18% vs last month</p>
+                    <p className="text-sm font-black text-slate-900 dark:text-white">
+                      High Quality
+                    </p>
+                    <p className="mt-1 text-xs font-black text-emerald-500">
+                      ↑ 18% vs last month
+                    </p>
                   </div>
                 </div>
               </div>
@@ -711,7 +862,14 @@ export function GenericServiceHeroPreview({
   stats,
   accentClass,
 }: PreviewProps) {
-  const featureIcons = [Globe2, Target, LineChart, ShieldCheck, Gauge, MessageSquareText];
+  const featureIcons = [
+    Globe2,
+    Target,
+    LineChart,
+    ShieldCheck,
+    Gauge,
+    MessageSquareText,
+  ];
 
   return (
     <PreviewShell
@@ -756,16 +914,25 @@ export function GenericServiceHeroPreview({
               <span className="rounded-full bg-white/10 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-slate-300">
                 Production ready
               </span>
-              <h3 className="mt-7 text-4xl font-black leading-tight tracking-[-0.05em]">{title}</h3>
-              <p className="mt-4 text-sm font-semibold leading-6 text-slate-300">{subtitle}</p>
+              <h3 className="mt-7 text-4xl font-black leading-tight tracking-[-0.05em]">
+                {title}
+              </h3>
+              <p className="mt-4 text-sm font-semibold leading-6 text-slate-300">
+                {subtitle}
+              </p>
 
               <div className="mt-8 grid grid-cols-2 gap-3">
                 {labels.slice(0, 4).map((label) => (
-                  <div key={`${label.label}-${label.value}`} className="rounded-2xl border border-white/10 bg-white/8 p-4">
+                  <div
+                    key={`${label.label}-${label.value}`}
+                    className="rounded-2xl border border-white/10 bg-white/8 p-4"
+                  >
                     <p className="text-[10px] font-black uppercase tracking-[0.16em] text-slate-400">
                       {label.label}
                     </p>
-                    <p className="mt-2 text-sm font-black text-white">{label.value}</p>
+                    <p className="mt-2 text-sm font-black text-white">
+                      {label.value}
+                    </p>
                   </div>
                 ))}
               </div>
@@ -774,6 +941,7 @@ export function GenericServiceHeroPreview({
             <div className="grid grid-cols-2 gap-4">
               {service.features.slice(0, 6).map((feature, index) => {
                 const Icon = featureIcons[index % featureIcons.length];
+
                 return (
                   <div
                     key={feature}
