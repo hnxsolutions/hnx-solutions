@@ -14,8 +14,8 @@ export default function ServiceProcess({ service }: ServiceProcessProps) {
   const details = getServicePageDetails(service);
 
   return (
-    <section className="relative px-5 py-14 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
-      <div className="mx-auto w-full max-w-[min(92vw,1440px)]">
+    <section className="relative py-14">
+      <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <ServiceSectionHeading
           eyebrow="Process"
           title={details.processTitle}

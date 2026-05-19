@@ -13,7 +13,7 @@ type ServicePricingProps = {
 export default function ServicePricing({ service }: ServicePricingProps) {
   return (
     <section id="pricing" className="relative px-5 py-14 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
-      <div className="mx-auto w-full max-w-[min(92vw,1440px)]">
+      <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <div className="grid gap-6 lg:grid-cols-[0.8fr_1fr] lg:items-end">
           <ServiceSectionHeading
             eyebrow="Packages"

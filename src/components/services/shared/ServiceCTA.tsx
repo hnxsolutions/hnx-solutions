@@ -11,8 +11,8 @@ type ServiceCTAProps = {
 
 export default function ServiceCTA({ service }: ServiceCTAProps) {
   return (
-    <section className="relative px-5 pb-20 pt-8 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
-      <div className="mx-auto w-full max-w-[min(92vw,1180px)]">
+    <section className="relative pb-20 pt-8">
+      <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <motion.div
           initial={{ opacity: 0, y: 26 }}
           whileInView={{ opacity: 1, y: 0 }}

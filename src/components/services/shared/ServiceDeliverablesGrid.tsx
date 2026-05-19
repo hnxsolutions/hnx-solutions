@@ -16,9 +16,9 @@ export default function ServiceDeliverablesGrid({ service }: ServiceDeliverables
   const deliverables = details.deliverables.slice(0, 8);
 
   return (
-    <section id="what-we-build" className="relative px-5 py-14 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
+    <section id="what-we-build" className="relative py-14">
       <div className="pointer-events-none absolute inset-x-0 top-1/2 h-72 -translate-y-1/2 bg-[radial-gradient(circle_at_center,rgba(14,165,233,0.08),transparent_55%)]" />
-      <div className="relative mx-auto w-full max-w-[min(92vw,1440px)]">
+      <div className="relative mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <div className="grid gap-6 lg:grid-cols-[0.72fr_1fr] lg:items-end">
           <ServiceSectionHeading
             eyebrow="What You Get"

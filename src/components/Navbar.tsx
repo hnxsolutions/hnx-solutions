@@ -2085,7 +2085,7 @@ export default function Navbar() {
               >
                 <button
                   type="button"
-                  aria-expanded={desktopServicesOpen ? "true" : "false"}
+                  aria-expanded={desktopServicesOpen}
                   className={desktopDropdownNavClass(
                     isServicesActive,
                     desktopServicesOpen
@@ -2301,7 +2301,7 @@ export default function Navbar() {
                   )}
                   aria-current={isSolutionsActive ? "page" : undefined}
                   aria-haspopup="menu"
-                  aria-expanded={desktopSolutionsOpen ? "true" : "false"}
+                  aria-expanded={desktopSolutionsOpen}
                 >
                   Solutions
                   <HiChevronDown
@@ -2421,7 +2421,7 @@ export default function Navbar() {
                     desktopShowcaseOpen
                   )}
                   aria-haspopup="menu"
-                  aria-expanded={desktopShowcaseOpen ? "true" : "false"}
+                  aria-expanded={desktopShowcaseOpen}
                 >
                   Explore
                   <HiChevronDown
@@ -2543,7 +2543,7 @@ export default function Navbar() {
                   )}
                   aria-current={isIndustriesActive ? "page" : undefined}
                   aria-haspopup="menu"
-                  aria-expanded={desktopIndustriesOpen ? "true" : "false"}
+                  aria-expanded={desktopIndustriesOpen}
                 >
                   Industries
                   <HiChevronDown
@@ -2878,7 +2878,7 @@ export default function Navbar() {
                       setMobileIndustriesOpen(false);
                       setMobileShowcaseOpen(false);
                     }}
-                    aria-expanded={mobileServicesOpen ? "true" : "false"}
+                    aria-expanded={mobileServicesOpen}
                     className={`flex w-full items-center justify-between rounded-lg px-4 py-3 transition-colors ${
                       isServicesActive || mobileServicesOpen
                         ? "bg-white/5 text-primary"
@@ -2979,7 +2979,7 @@ export default function Navbar() {
                       setMobileIndustriesOpen(false);
                       setMobileShowcaseOpen(false);
                     }}
-                    aria-expanded={mobileSolutionsOpen ? "true" : "false"}
+                    aria-expanded={mobileSolutionsOpen}
                     className={`flex w-full items-center justify-between rounded-lg px-4 py-3 transition-colors ${
                       isSolutionsActive || mobileSolutionsOpen
                         ? "bg-white/5 text-primary"
@@ -3020,7 +3020,7 @@ export default function Navbar() {
                       setMobileSolutionsOpen(false);
                       setMobileIndustriesOpen(false);
                     }}
-                    aria-expanded={mobileShowcaseOpen ? "true" : "false"}
+                    aria-expanded={mobileShowcaseOpen}
                     className={`flex w-full items-center justify-between rounded-lg px-4 py-3 transition-colors ${
                       isShowcaseActive || mobileShowcaseOpen
                         ? "bg-white/5 text-primary"
@@ -3061,7 +3061,7 @@ export default function Navbar() {
                       setMobileSolutionsOpen(false);
                       setMobileShowcaseOpen(false);
                     }}
-                    aria-expanded={mobileIndustriesOpen ? "true" : "false"}
+                    aria-expanded={mobileIndustriesOpen}
                     className={`flex w-full items-center justify-between rounded-lg px-4 py-3 transition-colors ${
                       isIndustriesActive || mobileIndustriesOpen
                         ? "bg-white/5 text-primary"

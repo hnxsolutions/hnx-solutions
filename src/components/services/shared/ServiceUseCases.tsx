@@ -15,8 +15,8 @@ export default function ServiceUseCases({ service }: ServiceUseCasesProps) {
   const details = getServicePageDetails(service);
 
   return (
-    <section className="relative px-5 py-14 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
-      <div className="mx-auto w-full max-w-[min(92vw,1440px)]">
+    <section className="relative py-14">
+      <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <div className="grid gap-6 lg:grid-cols-[1fr_0.72fr] lg:items-end">
           <ServiceSectionHeading
             eyebrow="Use Cases"
