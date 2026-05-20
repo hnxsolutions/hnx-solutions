@@ -8,7 +8,7 @@ type AiAutomationDetailPageProps = {
 
 const content = {
   eyebrow: "AI Automation",
-  headline: "AI workflows that reduce manual work and speed up operations.",
+  headline: "AI workflows that reduce manual work & speed up operations.",
   description:
     "Use practical AI assistants, scoring, summaries, replies, and workflow triggers to help your team respond faster without losing control.",
   imageUrl: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1600&q=85",

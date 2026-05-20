@@ -8,7 +8,7 @@ type IntegrationServicesDetailPageProps = {
 
 const content = {
   eyebrow: "Integration Services",
-  headline: "Connected tools, synced data, and cleaner business workflows.",
+  headline: "Connected tools, synced data & cleaner business workflows.",
   description:
     "Connect CRMs, payments, WhatsApp, email, analytics, spreadsheets, APIs, and business tools so data moves automatically across your workflow.",
   imageUrl: "https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=1600&q=85",

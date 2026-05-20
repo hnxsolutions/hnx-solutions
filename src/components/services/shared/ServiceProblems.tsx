@@ -23,10 +23,343 @@ type FriendlySolution = {
   points: string[];
 };
 
+const serviceProblemSolutions: Record<string, FriendlySolution[]> = {
+  "web-development": [
+    {
+      label: "Performance-first pages",
+      detail:
+        "We reduce page weight, clean section structure, and tune frontend behavior so visitors stay longer.",
+      points: ["Faster key pages", "Cleaner asset loading", "Better mobile feel"],
+    },
+    {
+      label: "Premium first impression",
+      detail:
+        "We rebuild visual hierarchy, proof sections, and copy flow so the brand feels credible quickly.",
+      points: ["Stronger hero flow", "Trust signals", "Clearer value message"],
+    },
+    {
+      label: "Lead capture journey",
+      detail:
+        "We place CTAs, forms, tracking, and follow-up handoffs around the visitor’s decision path.",
+      points: ["Clear CTAs", "Form handoff", "Conversion tracking"],
+    },
+    {
+      label: "SEO-ready structure",
+      detail:
+        "We organize metadata, headings, schema, internal links, and content blocks for better discovery.",
+      points: ["Clean metadata", "Schema basics", "Internal links"],
+    },
+  ],
+
+  "mobile-app-development": [
+    {
+      label: "Usable mobile flows",
+      detail:
+        "We turn the app idea into onboarding, core journeys, empty states, and edge-case screens.",
+      points: ["Onboarding flow", "Core actions", "Edge cases"],
+    },
+    {
+      label: "App-ready backend",
+      detail:
+        "We plan APIs, auth, records, media, payments, and admin actions around mobile usage.",
+      points: ["Secure APIs", "Mobile auth", "Admin sync"],
+    },
+    {
+      label: "Return-user triggers",
+      detail:
+        "We design useful push notifications, reminders, and status updates that bring users back.",
+      points: ["Push logic", "Reminder triggers", "Status alerts"],
+    },
+    {
+      label: "Store launch readiness",
+      detail:
+        "We prepare release checks, privacy requirements, QA passes, and store assets before launch.",
+      points: ["Store assets", "QA checks", "Privacy notes"],
+    },
+  ],
+
+  "custom-crm-systems": [
+    {
+      label: "Centralized lead intake",
+      detail:
+        "We bring website, WhatsApp, campaign, and manual leads into one visible pipeline.",
+      points: ["Lead sources", "Pipeline stages", "Ownership rules"],
+    },
+    {
+      label: "Follow-up engine",
+      detail:
+        "We add tasks, reminders, ownership, and escalation rules so actions stop depending on memory.",
+      points: ["Task reminders", "Owner alerts", "Escalations"],
+    },
+    {
+      label: "Live manager visibility",
+      detail:
+        "We create dashboards for pipeline stages, activity, conversions, and team performance.",
+      points: ["Pipeline view", "Team activity", "Reports"],
+    },
+    {
+      label: "Custom workflow fit",
+      detail:
+        "We shape modules, roles, fields, and automations around your actual business process.",
+      points: ["Custom modules", "Role control", "Workflow rules"],
+    },
+  ],
+
+  "saas-development": [
+    {
+      label: "MVP boundary control",
+      detail:
+        "We separate launch-critical features from later product depth so the first release stays realistic.",
+      points: ["MVP scope", "Feature priority", "Launch boundary"],
+    },
+    {
+      label: "Billing and access map",
+      detail:
+        "We define plans, payment states, trials, upgrades, permissions, and gated features before build.",
+      points: ["Plans", "Permissions", "Upgrade paths"],
+    },
+    {
+      label: "Admin operating layer",
+      detail:
+        "We build dashboards and controls for managing users, records, subscriptions, and support.",
+      points: ["Admin panel", "User controls", "Support view"],
+    },
+    {
+      label: "Scalable product base",
+      detail:
+        "We plan data models, APIs, auth, and deployment choices for maintainable product growth.",
+      points: ["Data model", "API layer", "Cloud-ready base"],
+    },
+  ],
+
+  "ai-automation": [
+    {
+      label: "AI lead handling",
+      detail:
+        "We qualify, summarize, score, and prepare the next action before the team opens the lead.",
+      points: ["Lead summary", "Fit score", "Next action"],
+    },
+    {
+      label: "Document intelligence",
+      detail:
+        "We extract fields, summaries, risks, and action items from uploaded files and messages.",
+      points: ["Field extraction", "Risk notes", "Action items"],
+    },
+    {
+      label: "Contextual reply drafts",
+      detail:
+        "We draft useful support replies from templates, customer context, and knowledge sources.",
+      points: ["Draft replies", "Context match", "Review control"],
+    },
+    {
+      label: "CRM insight layer",
+      detail:
+        "We turn activity history into priority signals, next-best actions, and manager insights.",
+      points: ["Priority signals", "Deal insights", "Manager view"],
+    },
+  ],
+
+  "workflow-automation": [
+    {
+      label: "Automatic task routing",
+      detail:
+        "We assign work by source, priority, category, location, capacity, or ownership rules.",
+      points: ["Routing rules", "Owner logic", "Auto assignment"],
+    },
+    {
+      label: "Approval movement",
+      detail:
+        "We automate approval requests, reminders, escalations, and status updates.",
+      points: ["Approval steps", "Escalation rules", "Status updates"],
+    },
+    {
+      label: "Follow-up protection",
+      detail:
+        "We add reminders and notifications so leads, tasks, and customers do not go cold.",
+      points: ["Timed reminders", "Missed-action alerts", "Follow-up flow"],
+    },
+    {
+      label: "Flow health reporting",
+      detail:
+        "We show stuck items, overdue work, completion trends, and workflow bottlenecks.",
+      points: ["SLA risks", "Overdue work", "Throughput reports"],
+    },
+  ],
+
+  "api-development": [
+    {
+      label: "Clear API contracts",
+      detail:
+        "We define request and response shapes so frontend, mobile, and partner teams can build confidently.",
+      points: ["Endpoint contracts", "Response models", "Error states"],
+    },
+    {
+      label: "Consistent auth layer",
+      detail:
+        "We design JWT, OAuth, API keys, roles, and access rules around real usage.",
+      points: ["Auth flow", "Role checks", "Secure access"],
+    },
+    {
+      label: "Traceable integrations",
+      detail:
+        "We add webhooks, retries, logs, and status responses so integrations are easier to debug.",
+      points: ["Webhook logs", "Retries", "Status tracking"],
+    },
+    {
+      label: "Usable API docs",
+      detail:
+        "We prepare endpoint references, examples, auth notes, and clear error responses.",
+      points: ["Docs", "Examples", "Integration notes"],
+    },
+  ],
+
+  "integration-services": [
+    {
+      label: "Automated data sync",
+      detail:
+        "We sync leads, payments, customers, and status updates between tools automatically.",
+      points: ["Lead sync", "Payment sync", "Record updates"],
+    },
+    {
+      label: "Shared tool context",
+      detail:
+        "We connect CRM, sheets, WhatsApp, email, forms, dashboards, and internal tools.",
+      points: ["Tool mapping", "Context sharing", "Connected records"],
+    },
+    {
+      label: "Traceable sync errors",
+      detail:
+        "We add logs, retries, alerts, and ownership for failed integration events.",
+      points: ["Error logs", "Retry rules", "Failure alerts"],
+    },
+    {
+      label: "Fresher reporting data",
+      detail:
+        "We move data into reporting views faster so managers see updated numbers.",
+      points: ["Live reports", "Fresh metrics", "Data pipeline"],
+    },
+  ],
+
+  "devops-deployment": [
+    {
+      label: "Automated CI/CD pipeline",
+      detail:
+        "We replace manual release steps with a tracked build, test, deploy, and verification flow.",
+      points: ["Git-based releases", "Build checks", "Safer deployments"],
+    },
+    {
+      label: "Rollback-ready release plan",
+      detail:
+        "We define safer release patterns so your team can recover quickly when production issues appear.",
+      points: ["Rollback path", "Release checkpoints", "Recovery steps"],
+    },
+    {
+      label: "Centralized logs and monitoring",
+      detail:
+        "We make production issues easier to detect with readable logs, health checks, and alert visibility.",
+      points: ["Readable logs", "Health checks", "Issue alerts"],
+    },
+    {
+      label: "Environment control system",
+      detail:
+        "We organize environments, secrets, build variables, and deployment targets so releases stay consistent.",
+      points: ["Env documentation", "Secret handling", "Staging parity"],
+    },
+  ],
+
+  "cloud-infrastructure": [
+    {
+      label: "Cloud architecture blueprint",
+      detail:
+        "We map hosting, databases, storage, CDN, environments, and scaling needs before production setup.",
+      points: ["Hosting map", "Database plan", "Scalable structure"],
+    },
+    {
+      label: "Cost-aware cloud setup",
+      detail:
+        "We choose practical infrastructure so you avoid overbuilding early while keeping room to scale later.",
+      points: ["Right-sized resources", "Cost visibility", "Growth planning"],
+    },
+    {
+      label: "Backup and recovery plan",
+      detail:
+        "We define backup frequency, recovery steps, and storage safety so critical data is protected.",
+      points: ["Backup schedule", "Recovery path", "Data protection"],
+    },
+    {
+      label: "Monitoring and alerting layer",
+      detail:
+        "We add uptime checks, service health visibility, and alerts so cloud issues are caught early.",
+      points: ["Uptime checks", "Health metrics", "Alert rules"],
+    },
+  ],
+
+  "maintenance-support": [
+    {
+      label: "Structured support desk",
+      detail:
+        "We turn scattered support requests into a clear ticket flow with priorities, ownership, and status tracking.",
+      points: ["Ticket queue", "Priority rules", "Status visibility"],
+    },
+    {
+      label: "Uptime monitoring routine",
+      detail:
+        "We add uptime checks and review points so website, app, CRM, or SaaS issues are noticed early.",
+      points: ["Uptime checks", "Health review", "Issue alerts"],
+    },
+    {
+      label: "Bug and update workflow",
+      detail:
+        "We track bugs, small changes, and update requests so fixes stay organized and visible after launch.",
+      points: ["Bug tracking", "Update logs", "Fix ownership"],
+    },
+    {
+      label: "Performance care plan",
+      detail:
+        "We keep performance, security basics, dependencies, and improvement tasks under regular technical care.",
+      points: ["Speed checks", "Security basics", "Monthly improvements"],
+    },
+  ],
+
+  "security-compliance": [
+    {
+      label: "Role and access control",
+      detail:
+        "We define who can view, edit, approve, export, and manage sensitive business data inside the system.",
+      points: ["Role matrix", "Permission rules", "Access boundaries"],
+    },
+    {
+      label: "Audit-ready activity logs",
+      detail:
+        "We add traceable logs for important actions so teams can review access, changes, and risky events.",
+      points: ["Action logs", "Access history", "Change tracking"],
+    },
+    {
+      label: "API and deployment hardening",
+      detail:
+        "We strengthen auth, API exposure, environment settings, and production configuration against common risks.",
+      points: ["API protection", "Secure envs", "Production checks"],
+    },
+    {
+      label: "Data protection roadmap",
+      detail:
+        "We map sensitive data, retention needs, safer handling rules, and practical compliance-ready controls.",
+      points: ["Data mapping", "Retention rules", "Control checklist"],
+    },
+  ],
+};
+
 function getFriendlySolution(
+  serviceId: string,
   problemTitle: string,
   index: number
 ): FriendlySolution {
+  const serviceSolutions = serviceProblemSolutions[serviceId];
+
+  if (serviceSolutions?.[index]) {
+    return serviceSolutions[index];
+  }
+
   const title = problemTitle.toLowerCase();
 
   if (
@@ -49,7 +382,7 @@ function getFriendlySolution(
     title.includes("connection")
   ) {
     return {
-      label: "Stable app foundation",
+      label: "Stable technical foundation",
       detail: "We plan APIs, data, auth, and admin actions for real usage.",
       points: ["Secure APIs", "Clean data flow", "Admin-ready logic"],
     };
@@ -76,14 +409,14 @@ function getFriendlySolution(
   ) {
     return {
       label: "Launch confidence",
-      detail: "We prepare release checks, assets, QA, and store readiness.",
-      points: ["Store assets", "QA passes", "Release support"],
+      detail: "We prepare release checks, assets, QA, and readiness steps.",
+      points: ["Launch assets", "QA passes", "Release support"],
     };
   }
 
   return {
-    label: `Solution path ${index + 1}`,
-    detail: "We convert this gap into a clear, build-ready product decision.",
+    label: "Mapped solution path",
+    detail: "We convert this gap into a clear, build-ready decision.",
     points: ["Mapped scope", "Cleaner workflow", "Better outcome"],
   };
 }
@@ -345,7 +678,11 @@ export default function ServiceProblems({ service }: ServiceProblemsProps) {
           <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
             {details.problems.map((problem, index) => {
               const Icon = problem.icon;
-              const solution = getFriendlySolution(problem.title, index);
+              const solution = getFriendlySolution(
+                service.id,
+                problem.title,
+                index
+              );
 
               const cardDelay = index * 0.32;
               const scanDelay = cardDelay + 0.64;

@@ -10,7 +10,7 @@ const content = {
   eyebrow: "Maintenance & Support",
   headline: "Reliable support that keeps your digital products healthy.",
   description:
-    "Keep websites, apps, CRM, SaaS, and dashboards stable with bug fixes, updates, uptime checks, performance improvements, and priority technical care.",
+    "Keep websites, apps, CRM, SaaS, and dashboards stable with bug fixes, updates, uptime checks, and performance improvements.",
   imageUrl: "https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1600&q=85",
   primaryCta: "Request Support",
   secondaryCta: "See Support Scope",

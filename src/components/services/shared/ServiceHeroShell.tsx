@@ -44,18 +44,25 @@ type ServiceHeroShellProps = {
 };
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 22 },
+  hidden: { opacity: 0, y: 20 },
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.55, ease: "easeOut" as const },
+    transition: { duration: 0.52, ease: "easeOut" as const },
   },
 };
 
 const stagger = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.075 } },
+  show: { transition: { staggerChildren: 0.07 } },
 };
+
+const developmentServiceIds = [
+  "web-development",
+  "saas-development",
+  "mobile-app-development",
+  "custom-crm-systems",
+];
 
 function getTrustChips(content: ServiceHeroContent) {
   return content.highlights.slice(0, 4);
@@ -80,6 +87,18 @@ function getLatestArticleHref(service: ServiceItem) {
 
   if (service.id === "ai-automation") {
     return "/blog?category=ai-automation";
+  }
+
+  if (service.id === "workflow-automation") {
+    return "/blog?category=workflow-automation";
+  }
+
+  if (service.id === "api-development") {
+    return "/blog?category=api-development";
+  }
+
+  if (service.id === "integration-services") {
+    return "/blog?category=integration-services";
   }
 
   return "/blog";
@@ -129,27 +148,30 @@ export default function ServiceHeroShell({
 }: ServiceHeroShellProps) {
   const trustChips = getTrustChips(content);
   const latestArticleHref = getLatestArticleHref(service);
+  const accentClass = developmentServiceIds.includes(service.id)
+    ? content.accentClass
+    : service.accent;
 
   return (
-    <section className="relative isolate overflow-hidden pb-5 pt-24 lg:pt-28">
+    <section className="relative isolate overflow-hidden pb-4 pt-[6.15rem] lg:min-h-[calc(100vh-0px)] lg:pb-3 lg:pt-[6.25rem]">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_8%_18%,rgba(224,242,254,0.74),transparent_34%),radial-gradient(circle_at_58%_14%,rgba(237,233,254,0.48),transparent_36%),radial-gradient(circle_at_90%_20%,rgba(207,250,254,0.36),transparent_34%),linear-gradient(180deg,#ffffff_0%,#f8fbff_52%,#ffffff_100%)] dark:bg-[radial-gradient(circle_at_10%_16%,rgba(56,189,248,0.08),transparent_34%),radial-gradient(circle_at_72%_14%,rgba(139,92,246,0.09),transparent_34%),linear-gradient(180deg,#090d18_0%,#0a1020_56%,#070b16_100%)]" />
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-36 bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(255,255,255,0.76),transparent)] dark:bg-[linear-gradient(180deg,rgba(7,11,22,0.96),rgba(7,11,22,0.72),transparent)]" />
-      <div className="pointer-events-none absolute left-[48%] top-[18%] hidden h-[560px] w-[560px] rounded-full border border-sky-100/90 opacity-70 dark:border-sky-300/10 lg:block" />
-      <div className="pointer-events-none absolute left-[55%] top-[26%] hidden h-[390px] w-[390px] rounded-full border border-violet-100/90 opacity-70 dark:border-violet-300/10 lg:block" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(255,255,255,0.76),transparent)] dark:bg-[linear-gradient(180deg,rgba(7,11,22,0.96),rgba(7,11,22,0.72),transparent)]" />
+      <div className="pointer-events-none absolute left-[48%] top-[18%] hidden h-[540px] w-[540px] rounded-full border border-sky-100/90 opacity-70 dark:border-sky-300/10 lg:block" />
+      <div className="pointer-events-none absolute left-[55%] top-[26%] hidden h-[370px] w-[370px] rounded-full border border-violet-100/90 opacity-70 dark:border-violet-300/10 lg:block" />
 
-      <ServiceFloatingOrbs accentClass={content.accentClass} />
+      <ServiceFloatingOrbs accentClass={accentClass} />
 
       <div className="relative mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <motion.div
           initial="hidden"
           animate="show"
           variants={stagger}
-          className="grid items-start gap-8 lg:grid-cols-[0.9fr_1.1fr] xl:gap-12"
+          className="grid items-start gap-7 lg:grid-cols-[0.92fr_1.08fr] xl:gap-10"
         >
           <div className="max-w-[720px]">
             <motion.div
               variants={fadeUp}
-              className="mb-6 flex flex-wrap items-center gap-3"
+              className="mb-5 flex flex-wrap items-center gap-3"
             >
               <motion.div
                 animate={{ y: [0, -3, 0] }}
@@ -191,7 +213,7 @@ export default function ServiceHeroShell({
                   className={`group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-sky-100 bg-white/90 px-5 py-3 text-xs font-medium uppercase tracking-[0.22em] text-[#145cb7] shadow-[0_14px_36px_rgba(14,165,233,0.12)] backdrop-blur-2xl transition hover:border-sky-200 hover:bg-white hover:shadow-[0_24px_65px_rgba(37,99,235,0.18)] dark:border-cyan-300/20 dark:bg-cyan-300/10 dark:text-cyan-200 dark:hover:border-cyan-300/40`}
                 >
                   <span
-                    className={`absolute inset-0 bg-gradient-to-r ${content.accentClass} opacity-0 transition duration-300 group-hover:opacity-100`}
+                    className={`absolute inset-0 bg-gradient-to-r ${accentClass} opacity-0 transition duration-300 group-hover:opacity-100`}
                   />
                   <span className="absolute inset-0 -translate-x-full bg-[linear-gradient(110deg,transparent,rgba(255,255,255,0.46),transparent)] transition duration-700 group-hover:translate-x-full" />
                   <span className="relative grid h-6 w-6 place-items-center rounded-full bg-sky-50 text-[#145cb7] transition group-hover:bg-white/20 group-hover:text-white dark:bg-cyan-300/10 dark:text-cyan-200">
@@ -212,9 +234,9 @@ export default function ServiceHeroShell({
 
             <motion.h1
               variants={fadeUp}
-              className="max-w-4xl text-[clamp(2.55rem,3.55vw,4rem)] font-medium leading-[1.1] tracking-[-0.035em] text-slate-950 antialiased [font-family:var(--font-geist-sans),Inter,ui-sans-serif,system-ui,sans-serif] dark:text-white"
+              className="max-w-4xl text-[clamp(2.7rem,3.7vw,4.25rem)] font-medium leading-[1.08] tracking-[-0.038em] text-slate-950 antialiased [font-family:var(--font-geist-sans),Inter,ui-sans-serif,system-ui,sans-serif] dark:text-white"
             >
-              {renderGradientHeadline(content.headline, content.accentClass)}
+              {renderGradientHeadline(content.headline, accentClass)}
             </motion.h1>
 
             <motion.p
@@ -226,7 +248,7 @@ export default function ServiceHeroShell({
 
             <motion.div
               variants={fadeUp}
-              className="mt-7 flex flex-col gap-4 sm:flex-row"
+              className="mt-6 flex flex-col gap-4 sm:flex-row"
             >
               <motion.div
                 whileHover={{ y: -3, scale: 1.01 }}
@@ -234,7 +256,7 @@ export default function ServiceHeroShell({
               >
                 <Link
                   href="/contact"
-                  className={`group relative inline-flex min-h-14 items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-r ${content.accentClass} px-7 py-4 text-sm font-medium text-white shadow-[0_16px_38px_rgba(37,99,235,0.22)]`}
+                  className={`group relative inline-flex min-h-14 items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-r ${accentClass} px-7 py-4 text-sm font-medium text-white shadow-[0_16px_38px_rgba(37,99,235,0.22)]`}
                 >
                   <span className="absolute inset-0 -translate-x-full bg-[linear-gradient(110deg,transparent,rgba(255,255,255,0.34),transparent)] transition duration-700 group-hover:translate-x-full" />
                   <span className="relative inline-flex items-center justify-center gap-3">
@@ -267,7 +289,7 @@ export default function ServiceHeroShell({
 
             <motion.div
               variants={fadeUp}
-              className="mt-8 grid max-w-[620px] grid-cols-2 gap-x-8 gap-y-4"
+              className="mt-6 grid max-w-[620px] grid-cols-2 gap-x-8 gap-y-4"
             >
               {trustChips.map((chip) => (
                 <div
@@ -275,7 +297,7 @@ export default function ServiceHeroShell({
                   className="group flex items-center gap-3 text-slate-700 dark:text-slate-200"
                 >
                   <span
-                    className={`relative grid h-8 w-8 shrink-0 place-items-center rounded-full bg-gradient-to-br ${content.accentClass} text-white shadow-[0_10px_22px_rgba(37,99,235,0.18)] transition group-hover:scale-110`}
+                    className={`relative grid h-8 w-8 shrink-0 place-items-center rounded-full bg-gradient-to-br ${accentClass} text-white shadow-[0_10px_22px_rgba(37,99,235,0.18)] transition group-hover:scale-110`}
                   >
                     <span className="absolute inset-0 rounded-full bg-white/20 opacity-0 transition group-hover:opacity-100" />
                     <CheckCircle2
@@ -287,7 +309,7 @@ export default function ServiceHeroShell({
                   <span className="relative text-sm font-normal leading-5">
                     {chip}
                     <span
-                      className={`absolute -bottom-1 left-0 h-0.5 w-0 bg-gradient-to-r ${content.accentClass} transition-all duration-300 group-hover:w-full`}
+                      className={`absolute -bottom-1 left-0 h-0.5 w-0 bg-gradient-to-r ${accentClass} transition-all duration-300 group-hover:w-full`}
                     />
                   </span>
                 </div>
@@ -295,7 +317,10 @@ export default function ServiceHeroShell({
             </motion.div>
           </div>
 
-          <motion.div variants={fadeUp} className="lg:pl-2">
+          <motion.div
+            variants={fadeUp}
+            className="origin-top-right lg:-mt-1 lg:scale-[0.9] lg:pl-2 xl:scale-[0.92] 2xl:scale-[0.94]"
+          >
             <Service3DHeroVisual
               service={service}
               imageUrl={content.imageUrl}
@@ -303,7 +328,7 @@ export default function ServiceHeroShell({
               subtitle={content.mockupSubtitle}
               labels={content.visualLabels}
               stats={content.stats}
-              accentClass={content.accentClass}
+              accentClass={accentClass}
             />
           </motion.div>
         </motion.div>

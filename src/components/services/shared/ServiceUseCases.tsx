@@ -8,25 +8,31 @@ import {
   Activity,
   ArrowRight,
   BarChart3,
-  BedDouble,
   BookOpen,
   CalendarCheck,
   Car,
   CheckCircle2,
   CreditCard,
+  Database,
   Dumbbell,
   Factory,
   FileCheck2,
+  Globe2,
   GraduationCap,
   HeartPulse,
   Home,
   Hotel,
+  LayoutDashboard,
+  LineChart,
+  Lock,
   MapPinned,
   PackageCheck,
   Plane,
+  Rocket,
   Route,
   ShieldCheck,
   ShoppingBag,
+  Smartphone,
   Truck,
   Utensils,
   UsersRound,
@@ -66,10 +72,9 @@ type IndustryItem = {
   features: string[];
 };
 
-type IndustryAppScreen = {
+type IndustryScreen = {
   appTitle: string;
   heroTitle: string;
-  heroSubtext: string;
   primaryStat: string;
   primaryStatLabel: string;
   secondaryStat: string;
@@ -449,11 +454,10 @@ const industries: IndustryItem[] = [
   },
 ];
 
-const industryScreens: Record<ScreenType, IndustryAppScreen> = {
+const industryScreens: Record<ScreenType, IndustryScreen> = {
   healthcare: {
     appTitle: "Health App",
     heroTitle: "Patient care dashboard",
-    heroSubtext: "Appointments, reminders, and reports in one patient app.",
     primaryStat: "18",
     primaryStatLabel: "Bookings",
     secondaryStat: "7",
@@ -472,7 +476,6 @@ const industryScreens: Record<ScreenType, IndustryAppScreen> = {
   manufacturing: {
     appTitle: "Factory App",
     heroTitle: "Production control room",
-    heroSubtext: "Inventory, approvals, and floor updates for production teams.",
     primaryStat: "42",
     primaryStatLabel: "Batches",
     secondaryStat: "11",
@@ -491,7 +494,6 @@ const industryScreens: Record<ScreenType, IndustryAppScreen> = {
   education: {
     appTitle: "School App",
     heroTitle: "Student operations hub",
-    heroSubtext: "Attendance, fees, notices, and parent updates in one app.",
     primaryStat: "86",
     primaryStatLabel: "Present",
     secondaryStat: "12",
@@ -510,7 +512,6 @@ const industryScreens: Record<ScreenType, IndustryAppScreen> = {
   "real-estate": {
     appTitle: "Property App",
     heroTitle: "Property sales pipeline",
-    heroSubtext: "Listings, site visits, saved leads, and deal stages.",
     primaryStat: "24",
     primaryStatLabel: "Leads",
     secondaryStat: "8",
@@ -529,7 +530,6 @@ const industryScreens: Record<ScreenType, IndustryAppScreen> = {
   restaurant: {
     appTitle: "Food App",
     heroTitle: "Orders and reservations",
-    heroSubtext: "Orders, tables, loyalty, delivery, and kitchen updates.",
     primaryStat: "38",
     primaryStatLabel: "Orders",
     secondaryStat: "9",
@@ -548,7 +548,6 @@ const industryScreens: Record<ScreenType, IndustryAppScreen> = {
   retail: {
     appTitle: "Retail App",
     heroTitle: "Store sales dashboard",
-    heroSubtext: "Products, stock, orders, loyalty, and customer insights.",
     primaryStat: "54",
     primaryStatLabel: "Orders",
     secondaryStat: "19",
@@ -567,7 +566,6 @@ const industryScreens: Record<ScreenType, IndustryAppScreen> = {
   logistics: {
     appTitle: "Logistics App",
     heroTitle: "Shipment command center",
-    heroSubtext: "Routes, drivers, proof of delivery, and customer alerts.",
     primaryStat: "31",
     primaryStatLabel: "Shipments",
     secondaryStat: "14",
@@ -586,7 +584,6 @@ const industryScreens: Record<ScreenType, IndustryAppScreen> = {
   fitness: {
     appTitle: "Fitness App",
     heroTitle: "Member training hub",
-    heroSubtext: "Classes, trainers, progress, renewals, and reminders.",
     primaryStat: "26",
     primaryStatLabel: "Classes",
     secondaryStat: "12",
@@ -605,7 +602,6 @@ const industryScreens: Record<ScreenType, IndustryAppScreen> = {
   hospitality: {
     appTitle: "Hotel App",
     heroTitle: "Guest service dashboard",
-    heroSubtext: "Bookings, check-ins, room service, payments, and reviews.",
     primaryStat: "19",
     primaryStatLabel: "Bookings",
     secondaryStat: "11",
@@ -624,7 +620,6 @@ const industryScreens: Record<ScreenType, IndustryAppScreen> = {
   finance: {
     appTitle: "Finance App",
     heroTitle: "Client approval workflow",
-    heroSubtext: "Applications, documents, approvals, payments, and compliance.",
     primaryStat: "17",
     primaryStatLabel: "Applications",
     secondaryStat: "9",
@@ -643,7 +638,6 @@ const industryScreens: Record<ScreenType, IndustryAppScreen> = {
   travel: {
     appTitle: "Travel App",
     heroTitle: "Trip booking manager",
-    heroSubtext: "Packages, bookings, itineraries, reminders, and support.",
     primaryStat: "21",
     primaryStatLabel: "Trips",
     secondaryStat: "6",
@@ -662,7 +656,6 @@ const industryScreens: Record<ScreenType, IndustryAppScreen> = {
   automotive: {
     appTitle: "Auto App",
     heroTitle: "Vehicle sales and service",
-    heroSubtext: "Test drives, service bookings, reminders, and customer records.",
     primaryStat: "15",
     primaryStatLabel: "Leads",
     secondaryStat: "7",
@@ -705,311 +698,207 @@ function getRoute(industry: IndustryItem, type: SolutionType) {
   return `/industries/${industry.slug}/${getRouteSegment(type)}`;
 }
 
-function IndustrySpecificScreen({
+function IndustryDetailPanel({
   industry,
-  screen,
+  title,
+  items,
 }: {
   industry: IndustryItem;
-  screen: IndustryAppScreen;
+  title: string;
+  items: string[];
 }) {
-  const chipClass =
-    "rounded-2xl bg-slate-50 px-3 py-2 text-[11px] font-semibold text-slate-600";
-  const dotClass = `h-2 w-2 rounded-full bg-gradient-to-r ${industry.accent}`;
-
-  if (industry.slug === "healthcare") {
-    return (
-      <div className="mt-3 rounded-[1.35rem] bg-white p-4 shadow-[0_12px_30px_rgba(15,23,42,0.08)]">
-        <div className="flex items-center justify-between">
-          <p className="text-sm font-semibold text-slate-950">
-            Appointment flow
-          </p>
-          <CalendarCheck className="h-4 w-4 text-[#145cb7]" />
-        </div>
-        <div className="mt-3 space-y-2">
-          {["10:30 AM - Consultation", "2:00 PM - Lab report", "4:30 PM - Follow-up"].map(
-            (item) => (
-              <div
-                key={item}
-                className="flex items-center gap-2 rounded-2xl bg-slate-50 px-3 py-2"
-              >
-                <span className={dotClass} />
-                <span className="truncate text-xs font-semibold text-slate-700">
-                  {item}
-                </span>
-              </div>
-            )
-          )}
-        </div>
-      </div>
-    );
-  }
-
-  if (industry.slug === "manufacturing") {
-    return (
-      <div className="mt-3 rounded-[1.35rem] bg-white p-4 shadow-[0_12px_30px_rgba(15,23,42,0.08)]">
-        <div className="flex items-center justify-between">
-          <p className="text-sm font-semibold text-slate-950">
-            Production board
-          </p>
-          <Factory className="h-4 w-4 text-emerald-600" />
-        </div>
-        <div className="mt-3 grid grid-cols-2 gap-2">
-          {[
-            ["Line A", "Running"],
-            ["Line B", "QC"],
-            ["Stock", "74%"],
-            ["Machine", "A7"],
-          ].map(([label, value]) => (
-            <div key={label} className="rounded-2xl bg-slate-50 p-3">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-400">
-                {label}
-              </p>
-              <p className="mt-1 text-xs font-semibold text-slate-800">
-                {value}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  }
-
-  if (industry.slug === "education") {
-    return (
-      <div className="mt-3 rounded-[1.35rem] bg-white p-4 shadow-[0_12px_30px_rgba(15,23,42,0.08)]">
-        <div className="flex items-center justify-between">
-          <p className="text-sm font-semibold text-slate-950">
-            Class dashboard
-          </p>
-          <GraduationCap className="h-4 w-4 text-violet-600" />
-        </div>
-        <div className="mt-3 grid grid-cols-3 gap-2">
-          {[
-            ["Attendance", "86%"],
-            ["Fees", "5 due"],
-            ["Notices", "12"],
-          ].map(([label, value]) => (
-            <div key={label} className="rounded-2xl bg-slate-50 p-3">
-              <p className="text-sm font-semibold text-slate-950">{value}</p>
-              <p className="mt-1 text-[10px] text-slate-500">{label}</p>
-            </div>
-          ))}
-        </div>
-        <div className="mt-3 rounded-2xl bg-slate-50 p-3 text-xs font-semibold text-slate-700">
-          Assignment: Math worksheet due today
-        </div>
-      </div>
-    );
-  }
-
-  if (industry.slug === "real-estate") {
-    return (
-      <div className="mt-3 rounded-[1.35rem] bg-white p-4 shadow-[0_12px_30px_rgba(15,23,42,0.08)]">
-        <div className="flex items-center justify-between">
-          <p className="text-sm font-semibold text-slate-950">
-            Property cards
-          </p>
-          <Home className="h-4 w-4 text-orange-500" />
-        </div>
-        <div className="mt-3 space-y-2">
-          {["3 BHK luxury flat", "Site visit scheduled", "Hot buyer follow-up"].map(
-            (item) => (
-              <div key={item} className="rounded-2xl bg-slate-50 p-3">
-                <p className="truncate text-xs font-semibold text-slate-700">
-                  {item}
-                </p>
-                <div className="mt-2 h-1.5 rounded-full bg-slate-200">
-                  <div
-                    className={`h-full w-[72%] rounded-full bg-gradient-to-r ${industry.accent}`}
-                  />
-                </div>
-              </div>
-            )
-          )}
-        </div>
-      </div>
-    );
-  }
-
-  if (industry.slug === "restaurant") {
-    return (
-      <div className="mt-3 rounded-[1.35rem] bg-white p-4 shadow-[0_12px_30px_rgba(15,23,42,0.08)]">
-        <div className="flex items-center justify-between">
-          <p className="text-sm font-semibold text-slate-950">Kitchen queue</p>
-          <Utensils className="h-4 w-4 text-rose-500" />
-        </div>
-        <div className="mt-3 grid grid-cols-3 gap-2">
-          {["Dine-in", "Delivery", "Pickup"].map((item, index) => (
-            <div key={item} className="rounded-2xl bg-slate-50 p-3">
-              <p className="text-sm font-semibold text-slate-950">
-                {index === 0 ? "12" : index === 1 ? "8" : "5"}
-              </p>
-              <p className="mt-1 text-[10px] text-slate-500">{item}</p>
-            </div>
-          ))}
-        </div>
-        <div className="mt-3 rounded-2xl bg-slate-50 p-3 text-xs font-semibold text-slate-700">
-          Table 06 · Pasta order preparing
-        </div>
-      </div>
-    );
-  }
-
-  if (industry.slug === "retail") {
-    return (
-      <div className="mt-3 rounded-[1.35rem] bg-white p-4 shadow-[0_12px_30px_rgba(15,23,42,0.08)]">
-        <div className="flex items-center justify-between">
-          <p className="text-sm font-semibold text-slate-950">Store shelf</p>
-          <ShoppingBag className="h-4 w-4 text-fuchsia-500" />
-        </div>
-        <div className="mt-3 grid grid-cols-3 gap-2">
-          {["New", "Low", "Sale"].map((item, index) => (
-            <div key={item} className="rounded-2xl bg-slate-50 p-2.5">
-              <div
-                className={`h-8 rounded-xl bg-gradient-to-br ${industry.accent}`}
-              />
-              <p className="mt-2 text-[10px] font-semibold text-slate-600">
-                {item}
-              </p>
-              <p className="text-[10px] text-slate-400">
-                {index === 0 ? "54" : index === 1 ? "19" : "8"} items
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  }
-
-  if (industry.slug === "logistics") {
-    return (
-      <div className="mt-3 rounded-[1.35rem] bg-white p-4 shadow-[0_12px_30px_rgba(15,23,42,0.08)]">
-        <div className="flex items-center justify-between">
-          <p className="text-sm font-semibold text-slate-950">Live route</p>
-          <Route className="h-4 w-4 text-blue-600" />
-        </div>
-        <div className="relative mt-3 h-28 overflow-hidden rounded-2xl bg-sky-50">
-          <div className="absolute left-5 top-8 h-1 w-40 rotate-[-10deg] rounded-full bg-sky-200" />
-          <div className="absolute left-12 top-14 h-1 w-32 rotate-[16deg] rounded-full bg-sky-200" />
-          <span
-            className={`absolute left-10 top-9 h-5 w-5 rounded-full bg-gradient-to-br ${industry.accent} ring-4 ring-white`}
-          />
-          <span className="absolute right-12 top-16 h-5 w-5 rounded-full bg-emerald-500 ring-4 ring-white" />
-          <MapPinned className="absolute bottom-4 left-4 h-4 w-4 text-blue-600" />
-          <p className="absolute bottom-4 left-10 text-xs font-semibold text-slate-700">
-            ETA 22 min
-          </p>
-        </div>
-      </div>
-    );
-  }
-
-  if (industry.slug === "fitness") {
-    return (
-      <div className="mt-3 rounded-[1.35rem] bg-white p-4 shadow-[0_12px_30px_rgba(15,23,42,0.08)]">
-        <div className="flex items-center justify-between">
-          <p className="text-sm font-semibold text-slate-950">Training plan</p>
-          <Dumbbell className="h-4 w-4 text-emerald-500" />
-        </div>
-        <div className="mt-3 grid grid-cols-3 gap-2">
-          {["Cardio", "Strength", "Yoga"].map((item, index) => (
-            <div key={item} className="rounded-2xl bg-slate-50 p-3 text-center">
-              <div
-                className={`mx-auto grid h-9 w-9 place-items-center rounded-full bg-gradient-to-br ${industry.accent} text-xs font-semibold text-white`}
-              >
-                {index === 0 ? "26" : index === 1 ? "12" : "4"}
-              </div>
-              <p className="mt-2 text-[10px] font-semibold text-slate-600">
-                {item}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  }
-
-  if (industry.slug === "hospitality") {
-    return (
-      <div className="mt-3 rounded-[1.35rem] bg-white p-4 shadow-[0_12px_30px_rgba(15,23,42,0.08)]">
-        <div className="flex items-center justify-between">
-          <p className="text-sm font-semibold text-slate-950">Room service</p>
-          <BedDouble className="h-4 w-4 text-cyan-600" />
-        </div>
-        <div className="mt-3 grid grid-cols-2 gap-2">
-          {["Room 204", "Check-in", "Food request", "Review"].map((item) => (
-            <div key={item} className="rounded-2xl bg-slate-50 p-3">
-              <p className="text-xs font-semibold text-slate-700">{item}</p>
-              <p className="mt-1 text-[10px] text-slate-400">Active</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  }
-
-  if (industry.slug === "finance") {
-    return (
-      <div className="mt-3 rounded-[1.35rem] bg-white p-4 shadow-[0_12px_30px_rgba(15,23,42,0.08)]">
-        <div className="flex items-center justify-between">
-          <p className="text-sm font-semibold text-slate-950">Approval desk</p>
-          <FileCheck2 className="h-4 w-4 text-blue-700" />
-        </div>
-        <div className="mt-3 space-y-2">
-          {["KYC verified", "Income proof pending", "Risk score low"].map(
-            (item) => (
-              <div key={item} className="flex items-center gap-2 rounded-2xl bg-slate-50 px-3 py-2">
-                <CheckCircle2 className="h-4 w-4 text-emerald-500" />
-                <span className="truncate text-xs font-semibold text-slate-700">
-                  {item}
-                </span>
-              </div>
-            )
-          )}
-        </div>
-      </div>
-    );
-  }
-
-  if (industry.slug === "travel") {
-    return (
-      <div className="mt-3 rounded-[1.35rem] bg-white p-4 shadow-[0_12px_30px_rgba(15,23,42,0.08)]">
-        <div className="flex items-center justify-between">
-          <p className="text-sm font-semibold text-slate-950">Trip timeline</p>
-          <Plane className="h-4 w-4 text-sky-600" />
-        </div>
-        <div className="mt-3 space-y-2">
-          {["Delhi pickup", "Manali hotel", "Local sightseeing"].map((item) => (
-            <div key={item} className={chipClass}>
-              <span className="mr-2 inline-block h-2 w-2 rounded-full bg-sky-500" />
-              {item}
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="mt-3 rounded-[1.35rem] bg-white p-4 shadow-[0_12px_30px_rgba(15,23,42,0.08)]">
-      <div className="flex items-center justify-between">
-        <p className="text-sm font-semibold text-slate-950">Service desk</p>
-        <Car className="h-4 w-4 text-red-500" />
-      </div>
-      <div className="mt-3 grid grid-cols-2 gap-2">
-        {["Test drive", "Service due", "Hot lead", "Payment"].map((item) => (
-          <div key={item} className="rounded-2xl bg-slate-50 p-3">
-            <p className="text-xs font-semibold text-slate-700">{item}</p>
-            <p className="mt-1 text-[10px] text-slate-400">Live</p>
+    <div className="absolute -right-24 bottom-12 hidden w-[196px] rotate-6 rounded-[1.6rem] border border-slate-200 bg-white/92 p-4 shadow-[0_26px_65px_rgba(15,23,42,0.13)] backdrop-blur-2xl dark:border-white/10 dark:bg-slate-950/55 xl:block">
+      <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#145cb7] dark:text-cyan-200">
+        {title}
+      </p>
+
+      <div className="mt-3 space-y-2">
+        {items.slice(0, 3).map((item, index) => (
+          <div
+            key={item}
+            className="flex items-center gap-2 rounded-xl bg-slate-50 px-2.5 py-2 dark:bg-white/8"
+          >
+            <span
+              className={`grid h-6 w-6 shrink-0 place-items-center rounded-lg bg-gradient-to-br ${industry.accent} text-[10px] font-semibold text-white`}
+            >
+              {index + 1}
+            </span>
+            <p className="truncate text-xs font-medium text-slate-600 dark:text-slate-300">
+              {item}
+            </p>
           </div>
         ))}
+      </div>
+
+      <div className="mt-3 rounded-2xl border border-slate-100 bg-white p-3 dark:border-white/10 dark:bg-white/8">
+        <div className="flex items-center justify-between">
+          <p className="text-xs font-semibold text-slate-700 dark:text-slate-200">
+            Sync status
+          </p>
+          <CheckCircle2 className="h-4 w-4 text-emerald-500" />
+        </div>
+        <div className="mt-3 h-2 rounded-full bg-slate-100 dark:bg-white/10">
+          <div
+            className={`h-full w-[82%] rounded-full bg-gradient-to-r ${industry.accent}`}
+          />
+        </div>
       </div>
     </div>
   );
 }
 
+function IndustryWebsiteMockup({ industry }: { industry: IndustryItem }) {
+  const Icon = industry.icon;
+  const screen = industryScreens[industry.slug];
+
+  return (
+    <div className="relative hidden min-h-[420px] items-center justify-center xl:flex">
+      <div
+        className={`absolute h-[360px] w-[610px] rounded-full bg-gradient-to-br ${industry.accent} opacity-[0.11] blur-3xl`}
+      />
+
+      <motion.div
+        key={`website-${industry.slug}`}
+        initial={{ opacity: 0, y: 18, rotateX: -8 }}
+        animate={{ opacity: 1, y: 0, rotateX: 0 }}
+        transition={{ duration: 0.42, ease: "easeOut" }}
+        className="relative w-full max-w-[570px]"
+      >
+        <div className="overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-[0_32px_95px_rgba(15,23,42,0.16)] dark:border-white/10 dark:bg-slate-950">
+          <div className="flex items-center justify-between border-b border-slate-100 px-5 py-3 dark:border-white/10">
+            <div className="flex items-center gap-2">
+              <span className="h-2.5 w-2.5 rounded-full bg-rose-300" />
+              <span className="h-2.5 w-2.5 rounded-full bg-amber-300" />
+              <span className="h-2.5 w-2.5 rounded-full bg-emerald-300" />
+            </div>
+            <div className="rounded-full bg-slate-100 px-4 py-1.5 text-[10px] font-semibold text-slate-500 dark:bg-white/8 dark:text-slate-300">
+              /{industry.slug}/{getRouteSegment("website")}
+            </div>
+          </div>
+
+          <div className="relative min-h-[380px] overflow-hidden p-5">
+            <div
+              className={`absolute -right-20 -top-20 h-64 w-64 rounded-full bg-gradient-to-br ${industry.accent} opacity-[0.14] blur-3xl`}
+            />
+            <div className="relative grid gap-4 lg:grid-cols-[1fr_0.82fr]">
+              <div>
+                <div className="inline-flex items-center gap-2 rounded-full bg-slate-100 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-500 dark:bg-white/8 dark:text-slate-300">
+                  <Globe2 className="h-3.5 w-3.5" />
+                  {industry.name} Website
+                </div>
+
+                <h4 className="mt-5 text-3xl font-semibold leading-[1.05] tracking-[-0.05em] text-slate-950 dark:text-white">
+                  Industry-ready website for{" "}
+                  <span
+                    className={`bg-gradient-to-r ${industry.accent} bg-clip-text text-transparent`}
+                  >
+                    real enquiries.
+                  </span>
+                </h4>
+
+                <p className="mt-4 text-sm leading-6 text-slate-600 dark:text-slate-300">
+                  {industry.description.website}
+                </p>
+
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {industry.features.slice(0, 4).map((feature) => (
+                    <span
+                      key={feature}
+                      className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-[10px] font-semibold text-slate-600 dark:border-white/10 dark:bg-white/7 dark:text-slate-300"
+                    >
+                      <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
+                      {feature}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="mt-6 flex gap-3">
+                  <span
+                    className={`rounded-2xl bg-gradient-to-r ${industry.accent} px-4 py-3 text-xs font-semibold text-white shadow-[0_16px_34px_rgba(37,99,235,0.18)]`}
+                  >
+                    Request quote
+                  </span>
+                  <span className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-xs font-semibold text-slate-700 dark:border-white/10 dark:bg-white/7 dark:text-slate-200">
+                    View services
+                  </span>
+                </div>
+              </div>
+
+              <div className="relative">
+                <div className="rounded-[1.4rem] border border-slate-200 bg-white p-4 shadow-[0_18px_50px_rgba(15,23,42,0.12)] dark:border-white/10 dark:bg-white/7">
+                  <div className="flex items-center justify-between">
+                    <span
+                      className={`grid h-11 w-11 place-items-center rounded-2xl bg-gradient-to-br ${industry.accent} text-white`}
+                    >
+                      <Icon className="h-5 w-5" />
+                    </span>
+                    <span className="rounded-full bg-emerald-50 px-3 py-1 text-[10px] font-semibold text-emerald-600">
+                      Live leads
+                    </span>
+                  </div>
+
+                  <p className="mt-4 text-lg font-semibold text-slate-950 dark:text-white">
+                    Conversion modules
+                  </p>
+
+                  <div className="mt-4 space-y-2">
+                    {[
+                      screen.actionTitle,
+                      industry.features[0],
+                      industry.features[1],
+                    ].map((item) => (
+                      <div
+                        key={item}
+                        className="rounded-2xl bg-slate-50 p-3 dark:bg-white/7"
+                      >
+                        <p className="text-xs font-semibold text-slate-700 dark:text-slate-200">
+                          {item}
+                        </p>
+                        <div className="mt-2 h-1.5 rounded-full bg-slate-200 dark:bg-white/10">
+                          <div
+                            className={`h-full w-[74%] rounded-full bg-gradient-to-r ${industry.accent}`}
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="mt-3 grid grid-cols-3 gap-2">
+                  {[
+                    [screen.primaryStat, screen.primaryStatLabel],
+                    [screen.secondaryStat, screen.secondaryStatLabel],
+                    [screen.thirdStat, screen.thirdStatLabel],
+                  ].map(([value, label]) => (
+                    <div
+                      key={label}
+                      className="rounded-2xl border border-slate-200 bg-white p-3 text-center dark:border-white/10 dark:bg-white/7"
+                    >
+                      <p className="text-base font-semibold text-slate-950 dark:text-white">
+                        {value}
+                      </p>
+                      <p className="mt-1 text-[10px] text-slate-500">{label}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <IndustryDetailPanel
+          industry={industry}
+          title="Website sections"
+          items={["Hero + CTA", "Service pages", "Lead form"]}
+        />
+      </motion.div>
+    </div>
+  );
+}
+
 function IndustryMobileMockup({ industry }: { industry: IndustryItem }) {
-  const IndustryIcon = industry.icon;
+  const Icon = industry.icon;
   const screen = industryScreens[industry.slug];
 
   return (
@@ -1019,7 +908,7 @@ function IndustryMobileMockup({ industry }: { industry: IndustryItem }) {
       />
 
       <motion.div
-        key={industry.slug}
+        key={`mobile-${industry.slug}`}
         initial={{ opacity: 0, y: 18, rotateX: -8 }}
         animate={{ opacity: 1, y: 0, rotateX: 0 }}
         transition={{ duration: 0.42, ease: "easeOut" }}
@@ -1030,11 +919,11 @@ function IndustryMobileMockup({ industry }: { industry: IndustryItem }) {
             <span
               className={`grid h-9 w-9 place-items-center rounded-2xl bg-gradient-to-br ${industry.accent} text-white`}
             >
-              <IndustryIcon className="h-4 w-4" aria-hidden="true" />
+              <Icon className="h-4 w-4" />
             </span>
             <div>
               <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-400">
-                Mini screen
+                Mobile screen
               </p>
               <p className="text-xs font-semibold text-slate-950 dark:text-white">
                 {screen.workflowTitle}
@@ -1049,63 +938,6 @@ function IndustryMobileMockup({ industry }: { industry: IndustryItem }) {
             <p className="mt-1 text-[11px] leading-4 text-slate-500 dark:text-slate-400">
               {screen.actionSubtitle}
             </p>
-          </div>
-
-          <div className="mt-3 grid grid-cols-2 gap-2">
-            <div className="rounded-xl bg-slate-50 p-2.5 dark:bg-white/8">
-              <p className="text-base font-semibold text-slate-950 dark:text-white">
-                {screen.primaryStat}
-              </p>
-              <p className="text-[10px] text-slate-500">
-                {screen.primaryStatLabel}
-              </p>
-            </div>
-            <div className="rounded-xl bg-slate-50 p-2.5 dark:bg-white/8">
-              <p className="text-base font-semibold text-slate-950 dark:text-white">
-                {screen.secondaryStat}
-              </p>
-              <p className="text-[10px] text-slate-500">
-                {screen.secondaryStatLabel}
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div className="absolute -right-28 bottom-12 w-[198px] rotate-6 rounded-[1.6rem] border border-slate-200 bg-white/92 p-4 shadow-[0_26px_65px_rgba(15,23,42,0.13)] backdrop-blur-2xl dark:border-white/10 dark:bg-slate-950/55">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#145cb7] dark:text-cyan-200">
-            Activity screen
-          </p>
-
-          <div className="mt-3 space-y-2">
-            {industry.features.slice(0, 3).map((feature, index) => (
-              <div
-                key={feature}
-                className="flex items-center gap-2 rounded-xl bg-slate-50 px-2.5 py-2 dark:bg-white/8"
-              >
-                <span
-                  className={`grid h-6 w-6 shrink-0 place-items-center rounded-lg bg-gradient-to-br ${industry.accent} text-[10px] font-semibold text-white`}
-                >
-                  {index + 1}
-                </span>
-                <p className="truncate text-xs font-medium text-slate-600 dark:text-slate-300">
-                  {feature}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-3 rounded-2xl border border-slate-100 bg-white p-3 dark:border-white/10 dark:bg-white/8">
-            <div className="flex items-center justify-between">
-              <p className="text-xs font-semibold text-slate-700 dark:text-slate-200">
-                Sync status
-              </p>
-              <CheckCircle2 className="h-4 w-4 text-emerald-500" />
-            </div>
-            <div className="mt-3 h-2 rounded-full bg-slate-100 dark:bg-white/10">
-              <div
-                className={`h-full w-[82%] rounded-full bg-gradient-to-r ${industry.accent}`}
-              />
-            </div>
           </div>
         </div>
 
@@ -1130,7 +962,7 @@ function IndustryMobileMockup({ industry }: { industry: IndustryItem }) {
                 </div>
 
                 <span className="grid h-11 w-11 place-items-center rounded-2xl bg-white/20 text-white ring-1 ring-white/30 backdrop-blur">
-                  <IndustryIcon className="h-5 w-5" aria-hidden="true" />
+                  <Icon className="h-5 w-5" />
                 </span>
               </div>
 
@@ -1148,56 +980,66 @@ function IndustryMobileMockup({ industry }: { industry: IndustryItem }) {
                 </div>
 
                 <div className="mt-4 grid grid-cols-3 gap-2">
-                  <div
-                    className={`rounded-2xl bg-gradient-to-br ${industry.accent} p-3 text-white`}
-                  >
-                    <p className="text-lg font-semibold">
-                      {screen.primaryStat}
-                    </p>
-                    <p className="mt-1 text-[10px] font-medium text-white/80">
-                      {screen.primaryStatLabel}
-                    </p>
-                  </div>
-
-                  <div className="rounded-2xl bg-slate-50 p-3">
-                    <p className="text-lg font-semibold text-slate-950">
-                      {screen.secondaryStat}
-                    </p>
-                    <p className="mt-1 text-[10px] font-medium text-slate-500">
-                      {screen.secondaryStatLabel}
-                    </p>
-                  </div>
-
-                  <div className="rounded-2xl bg-slate-50 p-3">
-                    <p className="text-lg font-semibold text-slate-950">
-                      {screen.thirdStat}
-                    </p>
-                    <p className="mt-1 text-[10px] font-medium text-slate-500">
-                      {screen.thirdStatLabel}
-                    </p>
-                  </div>
+                  {[
+                    [screen.primaryStat, screen.primaryStatLabel, true],
+                    [screen.secondaryStat, screen.secondaryStatLabel, false],
+                    [screen.thirdStat, screen.thirdStatLabel, false],
+                  ].map(([value, label, active]) => (
+                    <div
+                      key={label as string}
+                      className={
+                        active
+                          ? `rounded-2xl bg-gradient-to-br ${industry.accent} p-3 text-white`
+                          : "rounded-2xl bg-slate-50 p-3"
+                      }
+                    >
+                      <p
+                        className={
+                          active
+                            ? "text-lg font-semibold text-white"
+                            : "text-lg font-semibold text-slate-950"
+                        }
+                      >
+                        {value as string}
+                      </p>
+                      <p
+                        className={
+                          active
+                            ? "mt-1 text-[10px] font-medium text-white/80"
+                            : "mt-1 text-[10px] font-medium text-slate-500"
+                        }
+                      >
+                        {label as string}
+                      </p>
+                    </div>
+                  ))}
                 </div>
               </div>
 
-              <IndustrySpecificScreen industry={industry} screen={screen} />
-
-              <div className="mt-3 grid grid-cols-2 gap-2">
-                <div className="rounded-[1.15rem] bg-white p-3 shadow-[0_10px_24px_rgba(15,23,42,0.07)]">
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400">
-                    {screen.nextCardTitle}
+              <div className="mt-3 rounded-[1.35rem] bg-white p-4 shadow-[0_12px_30px_rgba(15,23,42,0.08)]">
+                <div className="flex items-center justify-between">
+                  <p className="text-sm font-semibold text-slate-950">
+                    {screen.workflowTitle}
                   </p>
-                  <p className="mt-1 truncate text-xs font-semibold text-slate-700">
-                    {screen.nextCardValue}
-                  </p>
+                  <Smartphone className="h-4 w-4 text-[#145cb7]" />
                 </div>
 
-                <div className="rounded-[1.15rem] bg-white p-3 shadow-[0_10px_24px_rgba(15,23,42,0.07)]">
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400">
-                    {screen.reminderTitle}
-                  </p>
-                  <p className="mt-1 truncate text-xs font-semibold text-slate-700">
-                    {screen.reminderValue}
-                  </p>
+                <div className="mt-3 space-y-2">
+                  {industry.features.slice(0, 3).map((feature, index) => (
+                    <div
+                      key={feature}
+                      className="flex items-center gap-2 rounded-2xl bg-slate-50 px-3 py-2"
+                    >
+                      <span
+                        className={`grid h-6 w-6 shrink-0 place-items-center rounded-lg bg-gradient-to-br ${industry.accent} text-[10px] font-semibold text-white`}
+                      >
+                        {index + 1}
+                      </span>
+                      <span className="truncate text-xs font-semibold text-slate-700">
+                        {feature}
+                      </span>
+                    </div>
+                  ))}
                 </div>
               </div>
 
@@ -1226,6 +1068,353 @@ function IndustryMobileMockup({ industry }: { industry: IndustryItem }) {
             </div>
           </div>
         </div>
+
+        <IndustryDetailPanel
+          industry={industry}
+          title="App activity"
+          items={industry.features}
+        />
+      </motion.div>
+    </div>
+  );
+}
+
+function IndustryCrmMockup({ industry }: { industry: IndustryItem }) {
+  const Icon = industry.icon;
+  const screen = industryScreens[industry.slug];
+
+  return (
+    <div className="relative hidden min-h-[420px] items-center justify-center xl:flex">
+      <div
+        className={`absolute h-[360px] w-[610px] rounded-full bg-gradient-to-br ${industry.accent} opacity-[0.11] blur-3xl`}
+      />
+
+      <motion.div
+        key={`crm-${industry.slug}`}
+        initial={{ opacity: 0, y: 18, rotateX: -8 }}
+        animate={{ opacity: 1, y: 0, rotateX: 0 }}
+        transition={{ duration: 0.42, ease: "easeOut" }}
+        className="relative w-full max-w-[575px]"
+      >
+        <div className="overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-[0_32px_95px_rgba(15,23,42,0.16)] dark:border-white/10 dark:bg-slate-950">
+          <div className="grid min-h-[400px] grid-cols-[112px_1fr]">
+            <aside className="border-r border-slate-100 bg-slate-50 p-3 dark:border-white/10 dark:bg-white/5">
+              <div className="mb-4 flex items-center gap-2">
+                <span
+                  className={`grid h-8 w-8 place-items-center rounded-xl bg-gradient-to-r ${industry.accent} text-xs font-bold text-white`}
+                >
+                  C
+                </span>
+                <span className="text-[11px] font-semibold text-slate-950 dark:text-white">
+                  CRM
+                </span>
+              </div>
+
+              {["Leads", "Pipeline", "Tasks", "Reports"].map((item, index) => (
+                <div
+                  key={item}
+                  className={`mb-2 rounded-xl px-2.5 py-2 text-[10px] font-semibold ${
+                    index === 0
+                      ? "bg-blue-600 text-white"
+                      : "text-slate-500 dark:text-slate-400"
+                  }`}
+                >
+                  {item}
+                </div>
+              ))}
+            </aside>
+
+            <div className="p-4">
+              <div className="mb-4 flex items-center justify-between">
+                <div>
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#145cb7] dark:text-cyan-200">
+                    {industry.name} CRM
+                  </p>
+                  <h4 className="mt-1 text-xl font-semibold tracking-[-0.04em] text-slate-950 dark:text-white">
+                    Operating pipeline
+                  </h4>
+                </div>
+
+                <span
+                  className={`grid h-10 w-10 place-items-center rounded-2xl bg-gradient-to-br ${industry.accent} text-white`}
+                >
+                  <Icon className="h-5 w-5" />
+                </span>
+              </div>
+
+              <div className="mb-4 grid grid-cols-4 gap-2">
+                {[
+                  [screen.primaryStat, screen.primaryStatLabel],
+                  [screen.secondaryStat, screen.secondaryStatLabel],
+                  [screen.thirdStat, screen.thirdStatLabel],
+                  ["92%", "Follow-up"],
+                ].map(([value, label]) => (
+                  <div
+                    key={label}
+                    className="rounded-2xl border border-slate-200 bg-white p-3 shadow-sm dark:border-white/10 dark:bg-white/7"
+                  >
+                    <p className="text-base font-semibold text-slate-950 dark:text-white">
+                      {value}
+                    </p>
+                    <p className="mt-1 text-[10px] text-slate-500">{label}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="grid gap-3 lg:grid-cols-[1.08fr_0.92fr]">
+                <div className="rounded-2xl border border-slate-200 bg-white p-3 dark:border-white/10 dark:bg-white/7">
+                  <div className="mb-3 flex items-center justify-between">
+                    <p className="text-sm font-semibold text-slate-950 dark:text-white">
+                      CRM stages
+                    </p>
+                    <LayoutDashboard className="h-4 w-4 text-blue-500" />
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-2">
+                    {["New", "Active", "Closed"].map((stage, index) => (
+                      <div
+                        key={stage}
+                        className="min-h-[150px] rounded-2xl bg-slate-50 p-2 dark:bg-white/6"
+                      >
+                        <div className="mb-2 flex justify-between text-[10px] font-semibold text-slate-500">
+                          <span>{stage}</span>
+                          <span>{index === 0 ? "12" : index === 1 ? "8" : "5"}</span>
+                        </div>
+
+                        <div className="space-y-2">
+                          {industry.features.slice(index, index + 2).map((item) => (
+                            <div
+                              key={item}
+                              className="rounded-xl bg-white p-2 text-[10px] font-semibold text-slate-700 shadow-sm dark:bg-slate-950/60 dark:text-slate-200"
+                            >
+                              {item}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="grid gap-3">
+                  <div className="rounded-2xl border border-slate-200 bg-white p-3 dark:border-white/10 dark:bg-white/7">
+                    <p className="text-xs font-semibold text-slate-950 dark:text-white">
+                      Follow-up tasks
+                    </p>
+                    <div className="mt-3 space-y-2">
+                      {[screen.actionTitle, "Send update", "Manager review"].map(
+                        (task) => (
+                          <div
+                            key={task}
+                            className="flex items-center justify-between rounded-xl bg-slate-50 px-3 py-2 text-[10px] font-semibold text-slate-600 dark:bg-white/6 dark:text-slate-300"
+                          >
+                            <span>{task}</span>
+                            <span className="text-blue-500">Open</span>
+                          </div>
+                        )
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="rounded-2xl border border-slate-200 bg-white p-3 dark:border-white/10 dark:bg-white/7">
+                    <div className="flex items-center justify-between">
+                      <p className="text-xs font-semibold text-slate-950 dark:text-white">
+                        Conversion
+                      </p>
+                      <LineChart className="h-4 w-4 text-emerald-500" />
+                    </div>
+                    <div className="mt-3 flex h-14 items-end gap-1.5 rounded-xl bg-slate-50 p-2 dark:bg-white/6">
+                      {[42, 58, 49, 72, 64, 88].map((height, index) => (
+                        <span
+                          key={index}
+                          className={`flex-1 rounded-t-md bg-gradient-to-t ${industry.accent}`}
+                          style={{ height: `${height}%` }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <IndustryDetailPanel
+          industry={industry}
+          title="CRM modules"
+          items={["Lead capture", "Follow-ups", "Reports"]}
+        />
+      </motion.div>
+    </div>
+  );
+}
+
+function IndustrySaasMockup({ industry }: { industry: IndustryItem }) {
+  const Icon = industry.icon;
+  const screen = industryScreens[industry.slug];
+
+  return (
+    <div className="relative hidden min-h-[420px] items-center justify-center xl:flex">
+      <div
+        className={`absolute h-[360px] w-[610px] rounded-full bg-gradient-to-br ${industry.accent} opacity-[0.11] blur-3xl`}
+      />
+
+      <motion.div
+        key={`saas-${industry.slug}`}
+        initial={{ opacity: 0, y: 18, rotateX: -8 }}
+        animate={{ opacity: 1, y: 0, rotateX: 0 }}
+        transition={{ duration: 0.42, ease: "easeOut" }}
+        className="relative w-full max-w-[575px]"
+      >
+        <div className="overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-[0_32px_95px_rgba(15,23,42,0.16)] dark:border-white/10 dark:bg-slate-950">
+          <div className="grid min-h-[400px] grid-cols-[124px_1fr]">
+            <aside className="border-r border-slate-100 bg-slate-50 p-3 dark:border-white/10 dark:bg-white/5">
+              <div className="mb-4 flex items-center gap-2">
+                <span
+                  className={`grid h-8 w-8 place-items-center rounded-xl bg-gradient-to-r ${industry.accent} text-xs font-bold text-white`}
+                >
+                  S
+                </span>
+                <span className="text-[11px] font-semibold text-slate-950 dark:text-white">
+                  SaaS OS
+                </span>
+              </div>
+
+              {["Overview", "Users", "Workflow", "Billing", "Reports"].map(
+                (item, index) => (
+                  <div
+                    key={item}
+                    className={`mb-2 rounded-xl px-2.5 py-2 text-[10px] font-semibold ${
+                      index === 0
+                        ? "bg-blue-600 text-white"
+                        : "text-slate-500 dark:text-slate-400"
+                    }`}
+                  >
+                    {item}
+                  </div>
+                )
+              )}
+            </aside>
+
+            <div className="p-4">
+              <div className="mb-4 flex items-center justify-between">
+                <div>
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#145cb7] dark:text-cyan-200">
+                    {industry.name} SaaS Platform
+                  </p>
+                  <h4 className="mt-1 text-xl font-semibold tracking-[-0.04em] text-slate-950 dark:text-white">
+                    Multi-user admin system
+                  </h4>
+                </div>
+
+                <span
+                  className={`grid h-10 w-10 place-items-center rounded-2xl bg-gradient-to-br ${industry.accent} text-white`}
+                >
+                  <Icon className="h-5 w-5" />
+                </span>
+              </div>
+
+              <div className="mb-4 grid grid-cols-4 gap-2">
+                {[
+                  [screen.primaryStat, screen.primaryStatLabel],
+                  [screen.secondaryStat, screen.secondaryStatLabel],
+                  [screen.thirdStat, screen.thirdStatLabel],
+                  ["99%", "Uptime"],
+                ].map(([value, label]) => (
+                  <div
+                    key={label}
+                    className="rounded-2xl border border-slate-200 bg-white p-3 shadow-sm dark:border-white/10 dark:bg-white/7"
+                  >
+                    <p className="text-base font-semibold text-slate-950 dark:text-white">
+                      {value}
+                    </p>
+                    <p className="mt-1 text-[10px] text-slate-500">{label}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="grid gap-3 lg:grid-cols-[1fr_0.92fr]">
+                <div className="rounded-2xl border border-slate-200 bg-white p-3 dark:border-white/10 dark:bg-white/7">
+                  <div className="mb-3 flex items-center justify-between">
+                    <p className="text-sm font-semibold text-slate-950 dark:text-white">
+                      Platform modules
+                    </p>
+                    <Database className="h-4 w-4 text-blue-500" />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2">
+                    {industry.features.slice(0, 4).map((feature, index) => (
+                      <div
+                        key={feature}
+                        className="rounded-2xl bg-slate-50 p-3 dark:bg-white/6"
+                      >
+                        <span
+                          className={`grid h-8 w-8 place-items-center rounded-xl bg-gradient-to-br ${industry.accent} text-[10px] font-semibold text-white`}
+                        >
+                          {index + 1}
+                        </span>
+                        <p className="mt-3 text-xs font-semibold text-slate-700 dark:text-slate-200">
+                          {feature}
+                        </p>
+                        <p className="mt-1 text-[10px] text-slate-400">
+                          Admin-ready
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="grid gap-3">
+                  <div className="rounded-2xl border border-slate-200 bg-white p-3 dark:border-white/10 dark:bg-white/7">
+                    <div className="flex items-center justify-between">
+                      <p className="text-xs font-semibold text-slate-950 dark:text-white">
+                        Roles & access
+                      </p>
+                      <Lock className="h-4 w-4 text-emerald-500" />
+                    </div>
+
+                    <div className="mt-3 space-y-2">
+                      {["Owner", "Manager", "User"].map((role, index) => (
+                        <div
+                          key={role}
+                          className="flex items-center justify-between rounded-xl bg-slate-50 px-3 py-2 text-[10px] font-semibold dark:bg-white/6"
+                        >
+                          <span className="text-slate-600 dark:text-slate-300">
+                            {role}
+                          </span>
+                          <span
+                            className={
+                              index === 0 ? "text-violet-500" : "text-blue-500"
+                            }
+                          >
+                            {index === 0 ? "Full" : "Limited"}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="rounded-2xl border border-slate-200 bg-white p-3 dark:border-white/10 dark:bg-white/7">
+                    <div className="flex items-center justify-between">
+                      <p className="text-xs font-semibold text-slate-950 dark:text-white">
+                        Launch state
+                      </p>
+                      <Rocket className="h-4 w-4 text-orange-500" />
+                    </div>
+                    <div className="mt-3 h-2 rounded-full bg-slate-100 dark:bg-white/10">
+                      <div
+                        className={`h-full w-[78%] rounded-full bg-gradient-to-r ${industry.accent}`}
+                      />
+                    </div>
+                    <p className="mt-2 text-[10px] font-semibold text-slate-500">
+                      MVP → scale-ready platform
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </motion.div>
     </div>
   );
@@ -1238,74 +1427,19 @@ function SolutionPreview({
   industry: IndustryItem;
   type: SolutionType;
 }) {
+  if (type === "website") {
+    return <IndustryWebsiteMockup industry={industry} />;
+  }
+
   if (type === "mobile-app") {
     return <IndustryMobileMockup industry={industry} />;
   }
 
-  return (
-    <div className="relative hidden min-h-[330px] items-center justify-center xl:flex">
-      <div className="absolute h-[240px] w-[460px] rounded-full bg-blue-100/70 blur-3xl dark:bg-blue-500/10" />
+  if (type === "crm") {
+    return <IndustryCrmMockup industry={industry} />;
+  }
 
-      <div className="relative w-full max-w-[500px] overflow-hidden rounded-[1.7rem] border border-slate-200 bg-white shadow-[0_26px_80px_rgba(15,23,42,0.13)] dark:border-white/10 dark:bg-slate-950">
-        <div className="flex items-center justify-between border-b border-slate-100 px-5 py-3.5 dark:border-white/10">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#145cb7] dark:text-cyan-200">
-              {getSolutionLabel(type)} Preview
-            </p>
-            <h4 className="mt-1 text-lg font-semibold text-slate-950 dark:text-white">
-              {industry.name} dashboard
-            </h4>
-          </div>
-          <span
-            className={`grid h-10 w-10 place-items-center rounded-2xl bg-gradient-to-br ${industry.accent} text-white`}
-          >
-            <BarChart3 className="h-5 w-5" />
-          </span>
-        </div>
-
-        <div className="grid gap-3 p-4">
-          <div
-            className={`rounded-[1.35rem] bg-gradient-to-br ${industry.accent} p-4 text-white`}
-          >
-            <p className="text-xs font-semibold uppercase tracking-[0.16em]">
-              Primary workflow
-            </p>
-            <h5 className="mt-2 text-xl font-semibold">
-              {industry.features[0]}
-            </h5>
-          </div>
-
-          <div className="grid grid-cols-3 gap-3">
-            {industry.features.slice(1, 4).map((feature) => (
-              <div
-                key={feature}
-                className="rounded-2xl border border-slate-100 bg-slate-50 p-3 dark:border-white/10 dark:bg-white/6"
-              >
-                <p className="text-sm font-semibold text-slate-700 dark:text-slate-200">
-                  {feature}
-                </p>
-                <p className="mt-1 text-xs text-slate-400">Connected</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="rounded-2xl border border-slate-100 bg-white p-3 dark:border-white/10 dark:bg-white/6">
-            <div className="flex items-center justify-between">
-              <p className="text-sm font-semibold text-slate-700 dark:text-slate-200">
-                Outcome tracking
-              </p>
-              <CheckCircle2 className="h-5 w-5 text-emerald-500" />
-            </div>
-            <div className="mt-3 h-2 rounded-full bg-slate-100 dark:bg-white/10">
-              <div
-                className={`h-full w-[74%] rounded-full bg-gradient-to-r ${industry.accent}`}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+  return <IndustrySaasMockup industry={industry} />;
 }
 
 export default function ServiceUseCases({ service }: ServiceUseCasesProps) {
@@ -1369,10 +1503,10 @@ export default function ServiceUseCases({ service }: ServiceUseCasesProps) {
 
                     <span className="min-w-0 flex-1">
                       <span className="block truncate text-sm font-semibold text-slate-950 dark:text-white">
-                        {industry.name} Use Case
+                        {industry.name} {getSolutionLabel(type)}
                       </span>
                       <span className="mt-0.5 line-clamp-1 block text-xs leading-5 text-slate-500 dark:text-slate-400">
-                        {industry.summary}
+                        {industry.description[type]}
                       </span>
                     </span>
 
@@ -1414,7 +1548,7 @@ export default function ServiceUseCases({ service }: ServiceUseCasesProps) {
                     </span>
 
                     <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#145cb7] dark:text-cyan-200">
-                      {activeIndustry.name} Use Case
+                      {activeIndustry.name} {getSolutionLabel(type)} Use Case
                     </p>
                   </div>
 
