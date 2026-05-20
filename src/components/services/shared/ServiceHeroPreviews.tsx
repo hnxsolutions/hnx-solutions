@@ -3,6 +3,10 @@
 import type { ReactNode } from "react";
 import type { LucideIcon } from "lucide-react";
 import {
+  ArrowRight,
+  FileSearch,
+  PenTool,
+  Share2,
   BarChart3,
   Bot,
   Building2,
@@ -14,6 +18,11 @@ import {
   Globe2,
   LayoutDashboard,
   LineChart,
+  Type,
+  TrendingUp,
+  Palette,
+  MousePointerClick,
+  Layers3,
   Lock,
   Mail,
   MessageSquareText,
@@ -1980,6 +1989,58 @@ export function GenericServiceHeroPreview({
     return <SecurityComplianceHeroDashboard accentClass={accentClass} />;
   }
 
+  if (service.id === "ui-ux-design") {
+    return (
+      <UiUxDesignHeroPreview
+        service={service}
+        title={title}
+        subtitle={subtitle}
+        labels={labels}
+        stats={stats}
+        accentClass={accentClass}
+      />
+    );
+  }
+
+  if (service.id === "landing-pages-campaigns") {
+    return (
+      <LandingPagesHeroPreview
+        service={service}
+        title={title}
+        subtitle={subtitle}
+        labels={labels}
+        stats={stats}
+        accentClass={accentClass}
+      />
+    );
+  }
+
+  if (service.id === "seo-analytics") {
+    return (
+      <SeoAnalyticsHeroPreview
+        service={service}
+        title={title}
+        subtitle={subtitle}
+        labels={labels}
+        stats={stats}
+        accentClass={accentClass}
+      />
+    );
+  }
+
+  if (service.id === "brand-identity") {
+    return (
+      <BrandIdentityHeroPreview
+        service={service}
+        title={title}
+        subtitle={subtitle}
+        labels={labels}
+        stats={stats}
+        accentClass={accentClass}
+      />
+    );
+  }
+
   const featureIcons = [
     Globe2,
     Target,
@@ -2066,6 +2127,643 @@ export function GenericServiceHeroPreview({
                   </div>
                 );
               })}
+            </div>
+          </div>
+        </div>
+      </div>
+    </PreviewShell>
+  );
+}
+
+function DesignPreviewShell({
+  children,
+  footer,
+}: {
+  children: ReactNode;
+  footer?: ReactNode;
+}) {
+  return (
+    <div className="relative mx-auto w-full max-w-[860px]">
+      <div className="absolute -inset-5 rounded-[3rem] bg-[radial-gradient(circle_at_20%_20%,rgba(14,165,233,0.14),transparent_36%),radial-gradient(circle_at_80%_72%,rgba(124,58,237,0.12),transparent_35%)] blur-2xl" />
+      <div className="relative overflow-hidden rounded-[2.15rem] border border-slate-200/90 bg-white/86 p-3 shadow-[0_34px_95px_rgba(15,23,42,0.13)] backdrop-blur-2xl dark:border-white/10 dark:bg-white/7 dark:shadow-[0_34px_95px_rgba(0,0,0,0.34)]">
+        {children}
+      </div>
+      {footer ? <div className="relative mt-3">{footer}</div> : null}
+    </div>
+  );
+}
+
+function MiniTile({
+  icon: Icon,
+  title,
+  detail,
+  accentClass,
+}: {
+  icon: LucideIcon;
+  title: string;
+  detail: string;
+  accentClass: string;
+}) {
+  return (
+    <div className="rounded-2xl border border-slate-200/90 bg-white/88 p-3 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-white/7">
+      <div className="flex items-center gap-3">
+        <span
+          className={cn(
+            "grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-gradient-to-r text-white",
+            accentClass
+          )}
+        >
+          <Icon className="h-4 w-4" aria-hidden="true" />
+        </span>
+        <div>
+          <p className="text-sm font-black leading-5 text-slate-800 dark:text-white">
+            {title}
+          </p>
+          <p className="mt-0.5 text-xs font-semibold text-slate-500 dark:text-slate-400">
+            {detail}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Sidebar({
+  title,
+  active,
+  items,
+  accentClass,
+}: {
+  title: string;
+  active: string;
+  items: string[];
+  accentClass: string;
+}) {
+  return (
+    <aside className="border-r border-slate-100 bg-slate-50/90 p-3 dark:border-white/10 dark:bg-white/5">
+      <div className="mb-4 flex items-center gap-2">
+        <span
+          className={cn(
+            "grid h-8 w-8 place-items-center rounded-xl bg-gradient-to-r text-xs font-black text-white",
+            accentClass
+          )}
+        >
+          {title.charAt(0)}
+        </span>
+        <span className="text-[11px] font-black text-slate-900 dark:text-white">
+          {title}
+        </span>
+      </div>
+
+      {items.map((item) => (
+        <div
+          key={item}
+          className={cn(
+            "mb-2 flex items-center gap-2 rounded-xl px-2.5 py-2 text-[10px] font-black",
+            item === active
+              ? "bg-blue-600 text-white"
+              : "text-slate-500 dark:text-slate-400"
+          )}
+        >
+          <LayoutDashboard className="h-3.5 w-3.5" aria-hidden="true" />
+          {item}
+        </div>
+      ))}
+    </aside>
+  );
+}
+
+function FooterTiles({ accentClass }: { accentClass: string }) {
+  return (
+    <div className="grid gap-3 sm:grid-cols-4">
+      <MiniTile icon={Sparkles} title="Premium UI" detail="Modern feel" accentClass={accentClass} />
+      <MiniTile icon={Target} title="Conversion" detail="Clear actions" accentClass={accentClass} />
+      <MiniTile icon={Gauge} title="Performance" detail="Fast screens" accentClass={accentClass} />
+      <MiniTile icon={Rocket} title="Launch Ready" detail="Built to ship" accentClass={accentClass} />
+    </div>
+  );
+}
+
+function RealImagePanel({
+  imageUrl,
+  label,
+  title,
+  description,
+  accentClass,
+}: {
+  imageUrl: string;
+  label: string;
+  title: string;
+  description: string;
+  accentClass: string;
+}) {
+  return (
+    <div className="relative min-h-[330px] overflow-hidden rounded-[1.65rem] border border-slate-200 bg-slate-950 shadow-[0_24px_70px_rgba(15,23,42,0.16)] dark:border-white/10">
+      <img
+        src={imageUrl}
+        alt={title}
+        loading="lazy"
+        className="absolute inset-0 h-full w-full object-cover opacity-88"
+      />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,6,23,0.10),rgba(2,6,23,0.42)_42%,rgba(2,6,23,0.88))]" />
+      <div
+        className={cn(
+          "absolute left-0 top-0 h-1.5 w-full bg-gradient-to-r",
+          accentClass
+        )}
+      />
+      <div className="absolute inset-x-5 bottom-5 rounded-3xl border border-white/15 bg-white/14 p-4 text-white shadow-[0_18px_50px_rgba(2,6,23,0.26)] backdrop-blur-2xl">
+        <p className="text-[10px] font-black uppercase tracking-[0.18em] text-white/70">
+          {label}
+        </p>
+        <h3 className="mt-2 text-2xl font-black leading-tight tracking-[-0.04em]">
+          {title}
+        </h3>
+        <p className="mt-2 text-xs font-semibold leading-5 text-white/72">
+          {description}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function AssetPill({
+  children,
+  accentClass,
+}: {
+  children: ReactNode;
+  accentClass: string;
+}) {
+  return (
+    <span className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white px-3 py-2 text-[10px] font-black text-slate-600 shadow-sm dark:border-white/10 dark:bg-white/7 dark:text-slate-300">
+      <span
+        className={cn(
+          "absolute inset-y-0 left-0 w-1 bg-gradient-to-b",
+          accentClass
+        )}
+      />
+      <span className="relative">{children}</span>
+    </span>
+  );
+}
+
+
+function RealImageFrame({
+  imageUrl,
+  alt,
+  label,
+  accentClass,
+  className,
+}: {
+  imageUrl: string;
+  alt: string;
+  label: string;
+  accentClass: string;
+  className?: string;
+}) {
+  return (
+    <div
+      className={cn(
+        "relative overflow-hidden rounded-[1.55rem] border border-white/80 bg-white shadow-[0_22px_55px_rgba(15,23,42,0.14)] ring-1 ring-slate-200/80 dark:border-white/10 dark:bg-white/10 dark:ring-white/10",
+        className
+      )}
+    >
+      <img
+        src={imageUrl}
+        alt={alt}
+        loading="lazy"
+        className="h-full w-full object-cover"
+      />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,23,42,0.02),rgba(15,23,42,0.34))]" />
+      <div
+        className={cn(
+          "absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r",
+          accentClass
+        )}
+      />
+      <span className="absolute left-3 top-3 rounded-full border border-white/60 bg-white/82 px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-slate-700 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/62 dark:text-white">
+        {label}
+      </span>
+    </div>
+  );
+}
+
+function CreativeChip({
+  icon: Icon,
+  label,
+  accentClass,
+}: {
+  icon: LucideIcon;
+  label: string;
+  accentClass: string;
+}) {
+  return (
+    <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/90 px-3 py-2 text-[10px] font-black text-slate-600 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-white/7 dark:text-slate-300">
+      <span
+        className={cn(
+          "grid h-6 w-6 place-items-center rounded-full bg-gradient-to-r text-white",
+          accentClass
+        )}
+      >
+        <Icon className="h-3.5 w-3.5" aria-hidden="true" />
+      </span>
+      {label}
+    </span>
+  );
+}
+
+function CreativeProofStrip({ accentClass }: { accentClass: string }) {
+  return (
+    <div className="grid gap-3 sm:grid-cols-4">
+      <MiniMetric
+        label="Creative"
+        value="Visual"
+        note="Real preview"
+        accentClass={accentClass}
+      />
+      <MiniMetric
+        label="System"
+        value="Clear"
+        note="Reusable assets"
+        accentClass={accentClass}
+      />
+      <MiniMetric
+        label="Launch"
+        value="Ready"
+        note="Handoff included"
+        accentClass={accentClass}
+      />
+      <MiniMetric
+        label="Quality"
+        value="Premium"
+        note="Modern feel"
+        accentClass={accentClass}
+      />
+    </div>
+  );
+}
+
+export function UiUxDesignHeroPreview({ accentClass }: PreviewProps) {
+  return (
+    <PreviewShell footer={<CreativeProofStrip accentClass={accentClass} />}>
+      <div className="relative min-h-[430px] overflow-hidden rounded-[1.75rem] border border-slate-200 bg-[linear-gradient(135deg,#ffffff_0%,#f7fbff_52%,#f4f0ff_100%)] p-5 dark:border-white/10 dark:bg-[linear-gradient(135deg,#0f172a_0%,#111827_52%,#1e1b4b_100%)]">
+        <div className="pointer-events-none absolute -left-16 top-8 h-72 w-72 rounded-full bg-sky-200/45 blur-3xl dark:bg-sky-400/10" />
+        <div className="pointer-events-none absolute -right-20 bottom-0 h-80 w-80 rounded-full bg-violet-200/45 blur-3xl dark:bg-violet-400/10" />
+
+        <div className="relative grid min-h-[386px] gap-5 lg:grid-cols-[0.98fr_1.02fr]">
+          <div className="relative">
+            <RealImageFrame
+              imageUrl="https://images.unsplash.com/photo-1558655146-9f40138edfeb?auto=format&fit=crop&w=900&q=85"
+              alt="Designer creating a digital product interface"
+              label="UX Workshop"
+              accentClass={accentClass}
+              className="h-[305px]"
+            />
+
+            <div className="absolute -bottom-7 left-6 right-6 rounded-[1.45rem] border border-slate-200 bg-white/92 p-4 shadow-[0_22px_60px_rgba(15,23,42,0.16)] backdrop-blur-2xl dark:border-white/10 dark:bg-slate-950/82">
+              <p className="text-[10px] font-black uppercase tracking-[0.16em] text-slate-400">
+                Design handoff
+              </p>
+              <div className="mt-3 grid grid-cols-3 gap-2">
+                {[
+                  ["Flow", MousePointerClick],
+                  ["States", Layers3],
+                  ["UI Kit", Palette],
+                ].map(([label, Icon]) => (
+                  <div
+                    key={label as string}
+                    className="rounded-2xl bg-slate-50 p-3 text-center dark:bg-white/6"
+                  >
+                    <Icon className="mx-auto h-5 w-5 text-blue-500" />
+                    <p className="mt-2 text-[10px] font-black text-slate-600 dark:text-slate-300">
+                      {label as string}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="relative flex flex-col justify-center">
+            <div className="rounded-[1.7rem] border border-slate-200 bg-white/88 p-5 shadow-[0_22px_70px_rgba(15,23,42,0.10)] backdrop-blur-2xl dark:border-white/10 dark:bg-white/7">
+              <p className="text-[10px] font-black uppercase tracking-[0.18em] text-blue-600 dark:text-cyan-200">
+                UI/UX Design
+              </p>
+              <h3 className="mt-2 max-w-sm text-3xl font-black leading-[1.05] tracking-[-0.05em] text-slate-950 dark:text-white">
+                Real product screens before development starts.
+              </h3>
+              <p className="mt-3 text-sm font-semibold leading-6 text-slate-500 dark:text-slate-400">
+                User journeys, visual direction, components, empty states, and
+                clickable flows shown like a real product concept.
+              </p>
+
+              <div className="mt-5 flex flex-wrap gap-2">
+                <CreativeChip
+                  icon={MousePointerClick}
+                  label="Clickable prototype"
+                  accentClass={accentClass}
+                />
+                <CreativeChip
+                  icon={Layers3}
+                  label="Component system"
+                  accentClass={accentClass}
+                />
+                <CreativeChip
+                  icon={CheckCircle2}
+                  label="Developer handoff"
+                  accentClass={accentClass}
+                />
+              </div>
+            </div>
+
+            <div className="mt-4 grid grid-cols-2 gap-3">
+              <div className="rounded-[1.35rem] border border-slate-200 bg-white/82 p-4 dark:border-white/10 dark:bg-white/7">
+                <p className="text-[10px] font-black uppercase tracking-[0.14em] text-slate-400">
+                  Mobile flow
+                </p>
+                <div className="mt-3 space-y-2">
+                  <div className={cn("h-10 rounded-2xl bg-gradient-to-r", accentClass)} />
+                  <div className="h-9 rounded-2xl bg-slate-100 dark:bg-white/8" />
+                  <div className="h-9 rounded-2xl bg-slate-100 dark:bg-white/8" />
+                </div>
+              </div>
+
+              <div className="rounded-[1.35rem] border border-slate-200 bg-white/82 p-4 dark:border-white/10 dark:bg-white/7">
+                <p className="text-[10px] font-black uppercase tracking-[0.14em] text-slate-400">
+                  Web screen
+                </p>
+                <div className="mt-3 rounded-2xl bg-slate-100 p-2 dark:bg-white/8">
+                  <div className="h-16 rounded-xl bg-white dark:bg-slate-950/60" />
+                  <div className={cn("mt-2 h-2 rounded-full bg-gradient-to-r", accentClass)} />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </PreviewShell>
+  );
+}
+
+export function LandingPagesHeroPreview({ accentClass }: PreviewProps) {
+  return (
+    <PreviewShell footer={<CreativeProofStrip accentClass={accentClass} />}>
+      <div className="relative min-h-[430px] overflow-hidden rounded-[1.75rem] border border-slate-200 bg-[linear-gradient(135deg,#ffffff_0%,#f8fbff_52%,#f4f0ff_100%)] p-5 dark:border-white/10 dark:bg-[linear-gradient(135deg,#0f172a_0%,#111827_52%,#1e1b4b_100%)]">
+        <div className="pointer-events-none absolute -left-16 top-8 h-72 w-72 rounded-full bg-blue-200/45 blur-3xl dark:bg-blue-400/10" />
+        <div className="pointer-events-none absolute -right-20 bottom-0 h-80 w-80 rounded-full bg-violet-200/45 blur-3xl dark:bg-violet-400/10" />
+
+        <div className="relative grid min-h-[386px] gap-5 lg:grid-cols-[1.02fr_0.98fr]">
+          <div className="rounded-[1.65rem] border border-slate-200 bg-white/92 p-3 shadow-[0_22px_70px_rgba(15,23,42,0.11)] backdrop-blur-2xl dark:border-white/10 dark:bg-slate-950/82">
+            <div className="overflow-hidden rounded-[1.35rem] border border-slate-200 bg-white dark:border-white/10 dark:bg-slate-950">
+              <div className="flex items-center justify-between border-b border-slate-100 px-4 py-3 dark:border-white/10">
+                <BrowserDots />
+                <span className="text-[10px] font-black uppercase tracking-[0.14em] text-slate-400">
+                  Live campaign page
+                </span>
+              </div>
+
+              <div className={cn("bg-gradient-to-br p-6 text-white", accentClass)}>
+                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-white/75">
+                  Focused offer
+                </p>
+                <h3 className="mt-3 max-w-xs text-3xl font-black leading-[1.05] tracking-[-0.045em]">
+                  Turn one campaign into one clear conversion path.
+                </h3>
+                <span className="mt-5 inline-flex rounded-2xl bg-white/20 px-4 py-3 text-xs font-black">
+                  Book Strategy Call
+                </span>
+              </div>
+
+              <div className="grid gap-3 p-4">
+                {[
+                  ["Proof block", "Customer trust before CTA"],
+                  ["Benefit stack", "What user gets clearly"],
+                  ["Lead form", "Low friction enquiry"],
+                ].map(([title, detail]) => (
+                  <div
+                    key={title}
+                    className="rounded-2xl border border-slate-200 bg-slate-50 p-3 dark:border-white/10 dark:bg-white/6"
+                  >
+                    <p className="text-xs font-black text-slate-900 dark:text-white">
+                      {title}
+                    </p>
+                    <p className="mt-1 text-[10px] font-semibold text-slate-500 dark:text-slate-400">
+                      {detail}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="relative">
+            <RealImageFrame
+              imageUrl="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=85"
+              alt="Campaign planning and conversion analysis on a laptop"
+              label="Campaign setup"
+              accentClass={accentClass}
+              className="h-[250px]"
+            />
+
+            <div className="mt-4 rounded-[1.55rem] border border-slate-200 bg-white/90 p-4 shadow-[0_18px_50px_rgba(15,23,42,0.10)] backdrop-blur-2xl dark:border-white/10 dark:bg-white/7">
+              <p className="text-sm font-black text-slate-950 dark:text-white">
+                Conversion path
+              </p>
+              <div className="mt-4 grid grid-cols-[1fr_auto_1fr_auto_1fr] items-center gap-2 text-center">
+                {["Ad", "Page", "Lead"].map((item, index) => (
+                  <div key={item} className="contents">
+                    <span className="rounded-2xl bg-slate-50 px-3 py-3 text-[10px] font-black text-slate-600 dark:bg-white/6 dark:text-slate-300">
+                      {item}
+                    </span>
+                    {index < 2 ? (
+                      <ArrowRight
+                        className="h-4 w-4 text-blue-500"
+                        aria-hidden="true"
+                      />
+                    ) : null}
+                  </div>
+                ))}
+              </div>
+              <div className="mt-4 flex flex-wrap gap-2">
+                <CreativeChip icon={Target} label="Single offer" accentClass={accentClass} />
+                <CreativeChip icon={ClipboardCheck} label="Lead form" accentClass={accentClass} />
+                <CreativeChip icon={LineChart} label="Tracked events" accentClass={accentClass} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </PreviewShell>
+  );
+}
+
+export function SeoAnalyticsHeroPreview({ accentClass }: PreviewProps) {
+  return (
+    <PreviewShell footer={<CreativeProofStrip accentClass={accentClass} />}>
+      <div className="relative min-h-[430px] overflow-hidden rounded-[1.75rem] border border-slate-200 bg-[linear-gradient(135deg,#ffffff_0%,#f7fbff_50%,#eef7ff_100%)] p-5 dark:border-white/10 dark:bg-[linear-gradient(135deg,#0f172a_0%,#082f49_48%,#111827_100%)]">
+        <div className="pointer-events-none absolute -left-16 top-8 h-72 w-72 rounded-full bg-sky-200/45 blur-3xl dark:bg-sky-400/10" />
+        <div className="pointer-events-none absolute -right-20 bottom-0 h-80 w-80 rounded-full bg-blue-200/45 blur-3xl dark:bg-blue-400/10" />
+
+        <div className="relative grid min-h-[386px] gap-5 lg:grid-cols-[0.98fr_1.02fr]">
+          <div className="space-y-4">
+            <div className="rounded-[1.55rem] border border-slate-200 bg-white/94 p-4 shadow-[0_20px_55px_rgba(15,23,42,0.10)] backdrop-blur-2xl dark:border-white/10 dark:bg-slate-950/82">
+              <div className="flex items-center gap-2 border-b border-slate-100 pb-3 dark:border-white/10">
+                <Search className="h-4 w-4 text-blue-500" />
+                <span className="text-xs font-black text-slate-800 dark:text-white">
+                  custom crm development agency
+                </span>
+              </div>
+
+              <div className="mt-4 space-y-4">
+                {[
+                  ["HNX Solutions — Custom CRM Systems", "Role-based CRM, automation, dashboards, and ownership."],
+                  ["Build CRM Workflows That Match Your Team", "Lead tracking, permissions, reports, and follow-up systems."],
+                  ["CRM Development Services", "Custom portals, APIs, analytics, and integrations."],
+                ].map(([title, detail], index) => (
+                  <div key={title}>
+                    <p
+                      className={cn(
+                        "text-sm font-black",
+                        index === 0 ? "text-blue-700 dark:text-cyan-200" : "text-slate-700 dark:text-slate-300"
+                      )}
+                    >
+                      {title}
+                    </p>
+                    <p className="mt-1 text-[11px] font-semibold leading-5 text-slate-500 dark:text-slate-400">
+                      {detail}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <RealImageFrame
+              imageUrl="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=85"
+              alt="Search analytics and content performance review"
+              label="Analytics review"
+              accentClass={accentClass}
+              className="h-[145px]"
+            />
+          </div>
+
+          <div className="rounded-[1.65rem] border border-slate-200 bg-white/92 p-5 shadow-[0_22px_70px_rgba(15,23,42,0.11)] backdrop-blur-2xl dark:border-white/10 dark:bg-white/7">
+            <p className="text-[10px] font-black uppercase tracking-[0.18em] text-blue-600 dark:text-cyan-200">
+              SEO & Analytics
+            </p>
+            <h3 className="mt-2 max-w-sm text-3xl font-black leading-[1.05] tracking-[-0.05em] text-slate-950 dark:text-white">
+              Search visibility shown as a real growth workspace.
+            </h3>
+            <p className="mt-3 text-sm font-semibold leading-6 text-slate-500 dark:text-slate-400">
+              Search result previews, technical audit cards, analytics events,
+              and content opportunities in one visual planning board.
+            </p>
+
+            <div className="mt-5 grid gap-3">
+              {[
+                ["Meta preview", FileSearch],
+                ["Schema checks", CheckCircle2],
+                ["Content gaps", Target],
+                ["Event tracking", LineChart],
+              ].map(([label, Icon]) => (
+                <div
+                  key={label as string}
+                  className="flex items-center justify-between rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 dark:border-white/10 dark:bg-white/6"
+                >
+                  <span className="flex items-center gap-3 text-xs font-black text-slate-700 dark:text-slate-200">
+                    <Icon className="h-4 w-4 text-blue-500" />
+                    {label as string}
+                  </span>
+                  <CheckCircle2 className="h-4 w-4 text-emerald-500" />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </PreviewShell>
+  );
+}
+
+export function BrandIdentityHeroPreview({ accentClass }: PreviewProps) {
+  return (
+    <PreviewShell footer={<CreativeProofStrip accentClass={accentClass} />}>
+      <div className="relative min-h-[430px] overflow-hidden rounded-[1.75rem] border border-slate-200 bg-[linear-gradient(135deg,#ffffff_0%,#f9fbff_50%,#f2f7ff_100%)] p-5 dark:border-white/10 dark:bg-[linear-gradient(135deg,#0f172a_0%,#111827_52%,#1e1b4b_100%)]">
+        <div className="pointer-events-none absolute -left-16 top-8 h-72 w-72 rounded-full bg-sky-200/45 blur-3xl dark:bg-sky-400/10" />
+        <div className="pointer-events-none absolute -right-20 bottom-0 h-80 w-80 rounded-full bg-cyan-200/45 blur-3xl dark:bg-cyan-400/10" />
+
+        <div className="relative grid min-h-[386px] gap-5 lg:grid-cols-[1fr_1fr]">
+          <div className="relative rounded-[1.75rem] border border-slate-200 bg-white/92 p-4 shadow-[0_22px_70px_rgba(15,23,42,0.11)] backdrop-blur-2xl dark:border-white/10 dark:bg-slate-950/82">
+            <RealImageFrame
+              imageUrl="https://images.unsplash.com/photo-1559028012-481c04fa702d?auto=format&fit=crop&w=900&q=85"
+              alt="Brand identity moodboard with creative assets"
+              label="Moodboard"
+              accentClass={accentClass}
+              className="h-[190px]"
+            />
+
+            <div className="mt-4 rounded-[1.4rem] bg-slate-950 p-5 text-white">
+              <div
+                className={cn(
+                  "grid h-20 w-20 place-items-center rounded-[1.55rem] bg-gradient-to-br text-3xl font-black",
+                  accentClass
+                )}
+              >
+                H
+              </div>
+              <p className="mt-4 text-[10px] font-black uppercase tracking-[0.18em] text-white/55">
+                Brand direction
+              </p>
+              <h3 className="mt-2 max-w-xs text-2xl font-black leading-tight">
+                Premium identity system for trust and recall.
+              </h3>
+            </div>
+          </div>
+
+          <div className="grid gap-3">
+            <div className="rounded-[1.55rem] border border-slate-200 bg-white/90 p-4 shadow-[0_18px_50px_rgba(15,23,42,0.10)] backdrop-blur-2xl dark:border-white/10 dark:bg-white/7">
+              <p className="text-sm font-black text-slate-950 dark:text-white">
+                Brand kit pieces
+              </p>
+              <div className="mt-4 grid grid-cols-2 gap-3">
+                {[
+                  ["Logo mark", PenTool],
+                  ["Color palette", Palette],
+                  ["Typography", Type],
+                  ["Social assets", Share2],
+                ].map(([label, Icon]) => (
+                  <div
+                    key={label as string}
+                    className="rounded-2xl bg-slate-50 p-4 dark:bg-white/6"
+                  >
+                    <Icon className="h-5 w-5 text-blue-500" />
+                    <p className="mt-3 text-xs font-black text-slate-700 dark:text-slate-200">
+                      {label as string}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="rounded-[1.55rem] border border-slate-200 bg-white/90 p-4 shadow-[0_18px_50px_rgba(15,23,42,0.10)] backdrop-blur-2xl dark:border-white/10 dark:bg-white/7">
+              <p className="text-sm font-black text-slate-950 dark:text-white">
+                Palette and layout direction
+              </p>
+              <div className="mt-4 grid grid-cols-5 gap-2">
+                {["bg-sky-400", "bg-blue-500", "bg-cyan-400", "bg-slate-950", "bg-white"].map((color) => (
+                  <span
+                    key={color}
+                    className={cn(
+                      "h-14 rounded-2xl border border-slate-200 shadow-sm",
+                      color
+                    )}
+                  />
+                ))}
+              </div>
+              <div className="mt-4 space-y-2">
+                <div className="h-3 rounded-full bg-slate-950 dark:bg-white" />
+                <div className="h-2 w-2/3 rounded-full bg-slate-200 dark:bg-white/10" />
+                <div className={cn("h-2 w-1/2 rounded-full bg-gradient-to-r", accentClass)} />
+              </div>
             </div>
           </div>
         </div>

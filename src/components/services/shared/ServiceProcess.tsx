@@ -614,6 +614,199 @@ const serviceJourneyKnowledge: Record<string, JourneyKnowledge[]> = {
     },
   ],
 
+
+  "ui-ux-design": [
+    {
+      label: "Experience Audit",
+      headline: "Find the friction first.",
+      description:
+        "We review user journeys, screen hierarchy, confusing actions, weak states, and conversion friction.",
+      imageUrl: processPhotos.ux,
+      imageAlt: "Designer reviewing product interface and user flow",
+      points: ["User journeys", "Friction points", "Screen gaps"],
+    },
+    {
+      label: "Flow Architecture",
+      headline: "Structure the user path.",
+      description:
+        "We map navigation, core actions, onboarding steps, empty states, and decision points before UI polish.",
+      imageUrl: processPhotos.strategy,
+      imageAlt: "Team mapping a user experience flow",
+      points: ["Navigation map", "Core actions", "User states"],
+    },
+    {
+      label: "Interface System",
+      headline: "Design reusable UI patterns.",
+      description:
+        "We create components, layouts, spacing, typography, buttons, forms, and interaction states.",
+      imageUrl: processPhotos.ux,
+      imageAlt: "UI designer creating reusable product components",
+      points: ["Components", "UI states", "Design rules"],
+    },
+    {
+      label: "Prototype Testing",
+      headline: "Validate before development.",
+      description:
+        "We prepare clickable flows, review edge cases, check mobile behavior, and refine important screens.",
+      imageUrl: processPhotos.dashboard,
+      imageAlt: "Clickable prototype and product screens under review",
+      points: ["Clickable flow", "Edge cases", "Mobile review"],
+    },
+    {
+      label: "Developer Handoff",
+      headline: "Make the design build-ready.",
+      description:
+        "We package screens, component notes, responsive behavior, assets, and implementation guidance.",
+      imageUrl: processPhotos.launch,
+      imageAlt: "Design handoff prepared for product development team",
+      points: ["Screen notes", "Assets", "Build guidance"],
+    },
+  ],
+
+  "landing-pages-campaigns": [
+    {
+      label: "Campaign Goal",
+      headline: "Define the conversion target.",
+      description:
+        "We clarify audience intent, offer angle, traffic source, lead quality, and the primary campaign action.",
+      imageUrl: processPhotos.strategy,
+      imageAlt: "Marketing team planning a landing page campaign",
+      points: ["Audience intent", "Offer angle", "Main CTA"],
+    },
+    {
+      label: "Funnel Structure",
+      headline: "Plan the page story.",
+      description:
+        "We order hero message, proof, benefits, objections, form placement, and follow-up path.",
+      imageUrl: processPhotos.ux,
+      imageAlt: "Landing page wireframe and funnel structure planning",
+      points: ["Hero message", "Proof blocks", "Form path"],
+    },
+    {
+      label: "Page Build",
+      headline: "Build a focused landing page.",
+      description:
+        "We create responsive sections, fast loading assets, form behavior, thank-you state, and trust signals.",
+      imageUrl: processPhotos.code,
+      imageAlt: "Developer building a conversion landing page",
+      points: ["Responsive page", "Lead form", "Trust signals"],
+    },
+    {
+      label: "Tracking Setup",
+      headline: "Measure every important action.",
+      description:
+        "We configure analytics events, CTA clicks, form submissions, campaign parameters, and conversion checks.",
+      imageUrl: processPhotos.dashboard,
+      imageAlt: "Campaign analytics dashboard showing conversion events",
+      points: ["CTA events", "Form tracking", "UTM checks"],
+    },
+    {
+      label: "Launch Review",
+      headline: "Prepare the campaign for traffic.",
+      description:
+        "We test speed, responsiveness, forms, tracking, copy clarity, and post-submit handoff before launch.",
+      imageUrl: processPhotos.launch,
+      imageAlt: "Team launching and reviewing campaign landing page",
+      points: ["Speed test", "Form QA", "Lead handoff"],
+    },
+  ],
+
+  "seo-analytics": [
+    {
+      label: "Search Audit",
+      headline: "Find visibility gaps.",
+      description:
+        "We review pages, keywords, indexing, metadata, content gaps, technical issues, and competitor signals.",
+      imageUrl: processPhotos.dashboard,
+      imageAlt: "SEO audit dashboard with search performance metrics",
+      points: ["Indexing", "Keyword gaps", "Tech issues"],
+    },
+    {
+      label: "Technical Fix Plan",
+      headline: "Prioritize the SEO foundation.",
+      description:
+        "We plan metadata, headings, schema, internal links, canonical rules, page speed, and crawl clarity.",
+      imageUrl: processPhotos.code,
+      imageAlt: "Developer reviewing technical SEO improvements",
+      points: ["Metadata", "Schema", "Internal links"],
+    },
+    {
+      label: "Content Roadmap",
+      headline: "Turn searches into useful pages.",
+      description:
+        "We map service pages, blog topics, answer blocks, local keywords, and refresh opportunities.",
+      imageUrl: processPhotos.strategy,
+      imageAlt: "Content and SEO roadmap planning session",
+      points: ["Page topics", "Answer blocks", "Refresh list"],
+    },
+    {
+      label: "Analytics Events",
+      headline: "Track conversions properly.",
+      description:
+        "We set up important events for forms, calls, CTA clicks, scroll depth, and lead actions.",
+      imageUrl: processPhotos.dashboard,
+      imageAlt: "Analytics event tracking dashboard for website conversions",
+      points: ["Form events", "CTA clicks", "Lead actions"],
+    },
+    {
+      label: "Reporting Handoff",
+      headline: "Make growth measurable.",
+      description:
+        "We provide reporting views, priority recommendations, tracking notes, and a repeatable improvement plan.",
+      imageUrl: processPhotos.launch,
+      imageAlt: "SEO reporting handoff with performance dashboard",
+      points: ["Reports", "Priorities", "Next plan"],
+    },
+  ],
+
+  "brand-identity": [
+    {
+      label: "Brand Discovery",
+      headline: "Define the brand direction.",
+      description:
+        "We clarify audience, positioning, tone, competitors, trust goals, and the visual feeling the brand needs.",
+      imageUrl: processPhotos.strategy,
+      imageAlt: "Brand discovery workshop with visual direction notes",
+      points: ["Positioning", "Audience", "Brand tone"],
+    },
+    {
+      label: "Visual Direction",
+      headline: "Choose the creative route.",
+      description:
+        "We explore moodboards, color directions, typography mood, logo style, and digital-first identity cues.",
+      imageUrl: processPhotos.ux,
+      imageAlt: "Designer exploring brand visual direction and moodboards",
+      points: ["Moodboard", "Color route", "Logo style"],
+    },
+    {
+      label: "Identity Refinement",
+      headline: "Turn ideas into a clear system.",
+      description:
+        "We refine logo usage, spacing, color palette, typography, icon style, and reusable identity elements.",
+      imageUrl: processPhotos.code,
+      imageAlt: "Brand identity system being refined on screen",
+      points: ["Logo usage", "Color palette", "Type rules"],
+    },
+    {
+      label: "Template Creation",
+      headline: "Make the brand usable every day.",
+      description:
+        "We prepare website graphics, social templates, proposal visuals, presentation styles, and brand assets.",
+      imageUrl: processPhotos.dashboard,
+      imageAlt: "Reusable brand templates and marketing assets on dashboard",
+      points: ["Social assets", "Web graphics", "Deck style"],
+    },
+    {
+      label: "Guidelines and Handoff",
+      headline: "Package the brand system.",
+      description:
+        "We hand over guidelines, logo exports, usage examples, color rules, type rules, and asset folders.",
+      imageUrl: processPhotos.launch,
+      imageAlt: "Brand guideline document and exported assets handoff",
+      points: ["Guidelines", "Logo exports", "Asset folder"],
+    },
+  ],
+
 };
 
 function getJourneyKnowledge(

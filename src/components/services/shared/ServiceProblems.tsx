@@ -347,6 +347,114 @@ const serviceProblemSolutions: Record<string, FriendlySolution[]> = {
       points: ["Data mapping", "Retention rules", "Control checklist"],
     },
   ],
+
+  "ui-ux-design": [
+    {
+      label: "User flow simplification",
+      detail:
+        "We convert confusing journeys into clear screen flows so users understand the next action quickly.",
+      points: ["Flow map", "Clear CTAs", "Lower friction"],
+    },
+    {
+      label: "Modern interface refresh",
+      detail:
+        "We rebuild outdated screens with cleaner hierarchy, better spacing, readable typography, and stronger visual trust.",
+      points: ["Visual hierarchy", "Better spacing", "Modern UI"],
+    },
+    {
+      label: "Reusable design system",
+      detail:
+        "We organize colors, buttons, cards, forms, states, and responsive rules into one consistent UI system.",
+      points: ["Component rules", "Consistent states", "Responsive system"],
+    },
+    {
+      label: "Trust-first product polish",
+      detail:
+        "We improve interaction clarity, empty states, microcopy, and premium details so the product feels reliable.",
+      points: ["Better microcopy", "Polished states", "Premium feel"],
+    },
+  ],
+
+  "landing-pages-campaigns": [
+    {
+      label: "Conversion-focused hero",
+      detail:
+        "We sharpen the offer, headline, CTA, proof, and above-the-fold message so campaign visitors understand the value fast.",
+      points: ["Clear offer", "Strong CTA", "Trust proof"],
+    },
+    {
+      label: "Campaign tracking setup",
+      detail:
+        "We add conversion events, form tracking, thank-you paths, and analytics handoff so results are measurable.",
+      points: ["CTA events", "Form tracking", "Thank-you flow"],
+    },
+    {
+      label: "Offer page structure",
+      detail:
+        "We turn weak campaign pages into focused funnels with benefits, objections, social proof, and lead capture sections.",
+      points: ["Benefit blocks", "Objection handling", "Lead capture"],
+    },
+    {
+      label: "Fast launch system",
+      detail:
+        "We create reusable campaign sections and launch-ready templates so new offers can go live faster.",
+      points: ["Reusable sections", "Quick variants", "Launch checklist"],
+    },
+  ],
+
+  "seo-analytics": [
+    {
+      label: "Technical SEO foundation",
+      detail:
+        "We fix metadata, headings, indexability, sitemap signals, page structure, and crawl clarity for better discovery.",
+      points: ["Metadata fixes", "Indexing checks", "Clean structure"],
+    },
+    {
+      label: "Conversion measurement layer",
+      detail:
+        "We track forms, calls, CTA clicks, WhatsApp taps, and key events so traffic quality becomes visible.",
+      points: ["Form events", "CTA tracking", "Lead measurement"],
+    },
+    {
+      label: "Indexing and schema cleanup",
+      detail:
+        "We improve canonical signals, schema markup, robots behavior, internal links, and page-level search eligibility.",
+      points: ["Schema markup", "Canonical checks", "Internal links"],
+    },
+    {
+      label: "Reporting dashboard",
+      detail:
+        "We turn rankings, traffic, impressions, clicks, and conversions into a clear improvement roadmap.",
+      points: ["Traffic reports", "Keyword gaps", "Action roadmap"],
+    },
+  ],
+
+  "brand-identity": [
+    {
+      label: "Unified visual system",
+      detail:
+        "We organize colors, typography, spacing, icon style, and reusable templates into one consistent brand system.",
+      points: ["Color system", "Type rules", "Template kit"],
+    },
+    {
+      label: "Logo usage guidelines",
+      detail:
+        "We define logo variants, spacing, backgrounds, do-not-use rules, and usage examples to reduce brand drift.",
+      points: ["Logo variants", "Spacing rules", "Usage examples"],
+    },
+    {
+      label: "Reusable asset library",
+      detail:
+        "We create repeatable social, website, deck, and campaign assets so marketing work does not start from scratch.",
+      points: ["Social templates", "Deck assets", "Campaign graphics"],
+    },
+    {
+      label: "Premium brand direction",
+      detail:
+        "We refine visual tone, messaging style, and digital presentation so the business feels more credible and intentional.",
+      points: ["Visual tone", "Trust signals", "Premium polish"],
+    },
+  ],
 };
 
 function getFriendlySolution(
@@ -724,11 +832,13 @@ export default function ServiceProblems({ service }: ServiceProblemsProps) {
                     className="relative flex items-start justify-between gap-4"
                     style={{ transform: "translateZ(24px)" }}
                   >
-                    <span className="problem-icon grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-rose-50 text-rose-500 shadow-[0_14px_34px_rgba(244,63,94,0.12)] ring-1 ring-rose-100 transition group-hover:bg-rose-500 group-hover:text-white dark:bg-rose-400/10 dark:text-rose-300 dark:ring-rose-300/10 dark:group-hover:bg-rose-500 dark:group-hover:text-white">
+                    <span
+                      className={`problem-icon grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-gradient-to-br ${service.accent} text-white shadow-[0_14px_34px_rgba(37,99,235,0.16)] ring-1 ring-sky-100/70 transition group-hover:scale-105 dark:ring-cyan-300/15`}
+                    >
                       <Icon className="h-6 w-6" aria-hidden="true" />
                     </span>
 
-                    <span className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-slate-400 transition group-hover:border-rose-200 group-hover:text-rose-500 dark:border-white/10 dark:bg-white/6 dark:text-slate-500 dark:group-hover:border-rose-300/25 dark:group-hover:text-rose-300">
+                    <span className="rounded-full border border-sky-100 bg-sky-50/80 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-[#145cb7] transition group-hover:border-sky-200 group-hover:text-[#145cb7] dark:border-cyan-300/15 dark:bg-cyan-300/10 dark:text-cyan-200 dark:group-hover:border-cyan-300/25 dark:group-hover:text-cyan-200">
                       Problem {index + 1}
                     </span>
                   </div>
@@ -737,7 +847,7 @@ export default function ServiceProblems({ service }: ServiceProblemsProps) {
                     className="relative mt-7"
                     style={{ transform: "translateZ(20px)" }}
                   >
-                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-rose-500/80 dark:text-rose-300">
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#145cb7] dark:text-cyan-200">
                       First, the gap
                     </p>
 
