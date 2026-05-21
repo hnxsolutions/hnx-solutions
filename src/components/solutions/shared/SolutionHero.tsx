@@ -18,9 +18,16 @@ export function SolutionHero({ category, solution }: SolutionHeroProps) {
   const primaryCtaLabel = `Plan ${solution.label}`;
 
   return (
-    <section className="relative overflow-hidden rounded-[2rem] border border-[#d7e1f2] bg-white p-6 shadow-[0_24px_80px_rgba(20,92,183,0.08)] dark:border-white/10 dark:bg-white/6">
-      <div className={`pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-gradient-to-br ${meta.accent} opacity-[0.15] blur-3xl`} />
-      <div className="grid gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
+    <section className="border-b border-[#d7e1f2] bg-white pb-8 dark:border-white/10 dark:bg-[#050b18]">
+      <div className="flex items-center gap-2 text-xs font-bold text-[#1593b5] dark:text-cyan-300">
+        <span>Solutions</span>
+        <span>/</span>
+        <span>{solution.label}</span>
+        <span>/</span>
+        <span className="text-[#0f214f] dark:text-white">Overview</span>
+      </div>
+
+      <div className="mt-5 grid gap-10 lg:grid-cols-[0.9fr_1fr] lg:items-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -31,12 +38,15 @@ export function SolutionHero({ category, solution }: SolutionHeroProps) {
             <Icon className="h-4 w-4" aria-hidden="true" />
             {solution.eyebrow}
           </span>
-          <h1 className="mt-5 max-w-4xl text-[clamp(2.45rem,4vw,4.1rem)] font-black leading-[1.08] tracking-[-0.045em] text-[#0f214f] dark:text-white">
+
+          <h1 className="mt-5 max-w-4xl text-[clamp(2.8rem,5vw,5.05rem)] font-black leading-[1.04] tracking-[-0.055em] text-[#0f214f] dark:text-white">
             {solution.headline}
           </h1>
+
           <p className="mt-5 max-w-2xl text-base font-semibold leading-8 text-[#52627d] dark:text-slate-300">
             {solution.description}
           </p>
+
           <div className="mt-7 flex flex-col gap-3 sm:flex-row">
             <Button href="/contact" size="lg" showArrow>
               {primaryCtaLabel}

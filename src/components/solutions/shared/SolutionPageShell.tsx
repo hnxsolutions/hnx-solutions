@@ -442,11 +442,10 @@ export function SolutionPageShell({ category, activeSlug, solutions }: SolutionP
   }
 
   return (
-    <div className="min-h-screen bg-[#f8fbff] pt-24 text-[#0f214f] dark:bg-[#050b18] dark:text-white">
+    <main className="min-h-screen bg-[#f8fbff] pt-[4.65rem] text-[#0f214f] dark:bg-[#050b18] dark:text-white">
       <SolutionCategoryTabs category={category} solutions={solutions} />
-      <main className="relative overflow-hidden">
-        <div className={`pointer-events-none absolute -right-40 top-16 h-96 w-96 rounded-full bg-gradient-to-br ${meta.accent} opacity-[0.12] blur-3xl`} />
-        <div className="mx-auto flex w-full max-w-[min(92vw,1440px)] gap-6 px-5 py-8 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
+
+      <div className="mx-auto flex w-full max-w-[min(92vw,1440px)] items-start gap-6 px-0">
           <SolutionSidebar
             title={solution.label}
             subtitle={meta.title}
@@ -456,7 +455,7 @@ export function SolutionPageShell({ category, activeSlug, solutions }: SolutionP
             onTabChange={handleTabChange}
           />
 
-          <div id="solution-content-panel" className="min-w-0 scroll-mt-32 flex-1 space-y-8">
+          <div id="solution-content-panel" className="min-w-0 scroll-mt-32 flex-1 bg-white px-5 py-8 sm:px-6 lg:px-8 xl:px-10 2xl:px-12 dark:bg-[#050b18]">
             {activeTab === "overview" ? (
               <>
                 <SolutionHero category={category} solution={solution} />
@@ -548,8 +547,7 @@ export function SolutionPageShell({ category, activeSlug, solutions }: SolutionP
 
             {activeTab === "final-cta" ? <SolutionCTA category={category} solution={solution} /> : null}
           </div>
-        </div>
-      </main>
-    </div>
+      </div>
+    </main>
   );
 }

@@ -31,7 +31,7 @@ export function SolutionSidebar<T extends string = string>({
   onTabChange,
 }: SolutionSidebarProps<T>) {
   return (
-    <aside className="sticky top-[145px] hidden h-[calc(100vh-145px)] w-[245px] shrink-0 overflow-hidden border-r border-[#c9d8ea] bg-[#eef7ff] lg:block dark:border-white/10 dark:bg-[#061225]">
+    <aside className="sticky top-[145px] hidden h-[calc(100vh-145px)] w-[245px] shrink-0 self-start overflow-hidden border-r border-[#c9d8ea] bg-[#eef7ff] lg:block dark:border-white/10 dark:bg-[#061225]">
       {/* Strong visible gradient mesh */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_8%,rgba(14,165,233,0.34),transparent_34%),radial-gradient(circle_at_90%_18%,rgba(124,58,237,0.22),transparent_32%),radial-gradient(circle_at_22%_92%,rgba(20,184,166,0.26),transparent_36%)] dark:bg-[radial-gradient(circle_at_12%_8%,rgba(34,211,238,0.28),transparent_34%),radial-gradient(circle_at_90%_22%,rgba(124,58,237,0.30),transparent_34%),radial-gradient(circle_at_20%_92%,rgba(20,92,183,0.34),transparent_38%)]" />
 
