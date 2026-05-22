@@ -129,47 +129,47 @@ function buildJourneyFlow(solution: SolutionPageData, category: SolutionCategory
   if (category === "web-saas") {
     return [
       { title: "Plan", text: `Map the audience, offer, content, conversion path, and business role of the ${label} before design begins.`, icon: "SearchCheck" },
-      { title: "Build", text: `Create the pages, product screens, portal views, forms, and admin controls that make the system usable.`, icon: "Code2" },
-      { title: "Capture", text: `Connect forms, CTAs, events, source tracking, payments, or account actions so demand becomes structured data.`, icon: "Send" },
-      { title: "Manage", text: `Give teams a dashboard for records, ownership, status, requests, content, and exceptions.`, icon: "LayoutDashboard" },
-      { title: "Monetize", text: `Measure leads, sales handoff, subscriptions, bookings, revenue signals, and growth opportunities.`, icon: "CreditCard" },
+      { title: "Build", text: "Create the pages, product screens, portal views, forms, and admin controls that make the system usable.", icon: "Code2" },
+      { title: "Capture", text: "Connect forms, CTAs, events, source tracking, payments, or account actions so demand becomes structured data.", icon: "Send" },
+      { title: "Manage", text: "Give teams a dashboard for records, ownership, status, requests, content, and exceptions.", icon: "LayoutDashboard" },
+      { title: "Monetize", text: "Measure leads, sales handoff, subscriptions, bookings, revenue signals, and growth opportunities.", icon: "CreditCard" },
     ];
   }
 
   if (category === "mobile-apps") {
     return [
       { title: "Plan", text: `Define the mobile journey, roles, launch scope, backend needs, and customer actions for the ${label}.`, icon: "Rocket" },
-      { title: "Build", text: `Design and develop polished app screens, navigation, states, authentication, and core workflows.`, icon: "Smartphone" },
-      { title: "Connect", text: `Link APIs, admin dashboards, payments, maps, notifications, files, and business records.`, icon: "Network" },
-      { title: "Engage", text: `Use push notifications, reminders, analytics, and lifecycle messages to keep users moving.`, icon: "Bell" },
-      { title: "Launch", text: `Prepare testing, release assets, store submission, rollout checks, and post-launch optimization.`, icon: "Store" },
+      { title: "Build", text: "Design and develop polished app screens, navigation, states, authentication, and core workflows.", icon: "Smartphone" },
+      { title: "Connect", text: "Link APIs, admin dashboards, payments, maps, notifications, files, and business records.", icon: "Network" },
+      { title: "Engage", text: "Use push notifications, reminders, analytics, and lifecycle messages to keep users moving.", icon: "Bell" },
+      { title: "Launch", text: "Prepare testing, release assets, store submission, rollout checks, and post-launch optimization.", icon: "Store" },
     ];
   }
 
   if (category === "ai-automation") {
     return [
       { title: "Audit", text: `Identify the manual tasks, decisions, documents, conversations, and reporting gaps the ${label} should improve.`, icon: "SearchCheck" },
-      { title: "Automate", text: `Create AI logic, workflow triggers, scoring rules, agent actions, and fallback paths around real business rules.`, icon: "Bot" },
-      { title: "Communicate", text: `Connect replies, WhatsApp, email, CRM notes, approvals, and human handoffs so work keeps moving.`, icon: "MessageCircle" },
-      { title: "Analyze", text: `Track saved time, quality, escalations, conversion, usage, and recommendations in a business dashboard.`, icon: "BarChart3" },
+      { title: "Automate", text: "Create AI logic, workflow triggers, scoring rules, agent actions, and fallback paths around real business rules.", icon: "Bot" },
+      { title: "Communicate", text: "Connect replies, WhatsApp, email, CRM notes, approvals, and human handoffs so work keeps moving.", icon: "MessageCircle" },
+      { title: "Analyze", text: "Track saved time, quality, escalations, conversion, usage, and recommendations in a business dashboard.", icon: "BarChart3" },
     ];
   }
 
   if (category === "cloud-devops") {
     return [
-      { title: "Plan", text: `Map hosting, servers, databases, storage, environments, security, monitoring, backups, and cost controls.`, icon: "Cloud" },
-      { title: "Deploy", text: `Set up infrastructure, CI/CD, domains, SSL, environment variables, runtime services, and release routines.`, icon: "Rocket" },
-      { title: "Monitor", text: `Track uptime, logs, errors, performance, deployments, jobs, backup health, and incident signals.`, icon: "Activity" },
-      { title: "Recover", text: `Prepare rollback, restore, access, documentation, and support routines before production issues become urgent.`, icon: "ShieldCheck" },
+      { title: "Plan", text: "Map hosting, servers, databases, storage, environments, security, monitoring, backups, and cost controls.", icon: "Cloud" },
+      { title: "Deploy", text: "Set up infrastructure, CI/CD, domains, SSL, environment variables, runtime services, and release routines.", icon: "Rocket" },
+      { title: "Monitor", text: "Track uptime, logs, errors, performance, deployments, jobs, backup health, and incident signals.", icon: "Activity" },
+      { title: "Recover", text: "Prepare rollback, restore, access, documentation, and support routines before production issues become urgent.", icon: "ShieldCheck" },
     ];
   }
 
   return [
     { title: "Position", text: `Clarify the audience, promise, offer, proof, journey, and measurable goal for the ${label}.`, icon: "Sparkles" },
-    { title: "Design", text: `Create the visual system, page structure, UI patterns, content hierarchy, and conversion flow.`, icon: "Palette" },
-    { title: "Launch", text: `Build or publish the assets, pages, tracking, forms, campaigns, and handoff paths.`, icon: "Rocket" },
-    { title: "Track", text: `Measure events, sources, funnels, search signals, page performance, and lead quality.`, icon: "BarChart3" },
-    { title: "Optimize", text: `Improve copy, layouts, CTAs, campaigns, SEO, analytics, and user journeys from real data.`, icon: "Activity" },
+    { title: "Design", text: "Create the visual system, page structure, UI patterns, content hierarchy, and conversion flow.", icon: "Palette" },
+    { title: "Launch", text: "Build or publish the assets, pages, tracking, forms, campaigns, and handoff paths.", icon: "Rocket" },
+    { title: "Track", text: "Measure events, sources, funnels, search signals, page performance, and lead quality.", icon: "BarChart3" },
+    { title: "Optimize", text: "Improve copy, layouts, CTAs, campaigns, SEO, analytics, and user journeys from real data.", icon: "Activity" },
   ];
 }
 
@@ -389,7 +389,7 @@ function buildImpactCards(solution: SolutionPageData, category: SolutionCategory
     },
     {
       title: "Better visibility",
-      text: `Give leaders and teams a live view of statuses, bottlenecks, source quality, and performance signals.`,
+      text: "Give leaders and teams a live view of statuses, bottlenecks, source quality, and performance signals.",
       icon: "LayoutDashboard",
     },
     {
@@ -404,12 +404,12 @@ function buildImpactCards(solution: SolutionPageData, category: SolutionCategory
     },
     {
       title: "Better customer experience",
-      text: `Create clearer customer journeys, faster updates, better self-service, and fewer moments where people wait for internal coordination.`,
+      text: "Create clearer customer journeys, faster updates, better self-service, and fewer moments where people wait for internal coordination.",
       icon: "Users",
     },
     {
       title: "Scalable growth",
-      text: `Build a foundation that can support more traffic, users, records, campaigns, workflows, and reporting without rebuilding from scratch.`,
+      text: "Build a foundation that can support more traffic, users, records, campaigns, workflows, and reporting without rebuilding from scratch.",
       icon: "Activity",
     },
   ]).slice(0, 6);
@@ -442,111 +442,111 @@ export function SolutionPageShell({ category, activeSlug, solutions }: SolutionP
   }
 
   return (
-    <main className="min-h-screen bg-[#f8fbff] pt-[4.65rem] text-[#0f214f] dark:bg-[#050b18] dark:text-white">
+    <main className="min-h-screen bg-[#f8fbff] pt-[70px] text-[#0f214f] dark:bg-[#050b18] dark:text-white">
       <SolutionCategoryTabs category={category} solutions={solutions} />
 
       <div className="mx-auto flex w-full max-w-[min(92vw,1440px)] items-start gap-6 px-0">
-          <SolutionSidebar
-            title={solution.label}
-            subtitle={meta.title}
-            icon={SidebarIcon}
-            items={sectionItems}
-            activeTab={activeTab}
-            onTabChange={handleTabChange}
-          />
+        <SolutionSidebar
+          title={solution.label}
+          subtitle={meta.title}
+          icon={SidebarIcon}
+          items={sectionItems}
+          activeTab={activeTab}
+          onTabChange={handleTabChange}
+        />
 
-          <div id="solution-content-panel" className="min-w-0 scroll-mt-32 flex-1 bg-white px-5 py-8 sm:px-6 lg:px-8 xl:px-10 2xl:px-12 dark:bg-[#050b18]">
-            {activeTab === "overview" ? (
-              <>
-                <SolutionHero category={category} solution={solution} />
-                <SolutionStatsGrid category={category} stats={solution.stats} />
-                <SolutionOverview
-                  category={category}
-                  solution={solution}
-                  items={buildOverviewCards(solution, category)}
-                />
-              </>
-            ) : null}
+        <div id="solution-content-panel" className="min-w-0 scroll-mt-32 flex-1 bg-white px-5 py-8 sm:px-6 lg:px-8 xl:px-10 2xl:px-12 dark:bg-[#050b18]">
+          {activeTab === "overview" ? (
+            <>
+              <SolutionHero category={category} solution={solution} />
+              <SolutionStatsGrid category={category} stats={solution.stats} />
+              <SolutionOverview
+                category={category}
+                solution={solution}
+                items={buildOverviewCards(solution, category)}
+              />
+            </>
+          ) : null}
 
-            {activeTab === "problems" ? (
-              <>
-                <SectionHeader
-                  eyebrow="Business Problems"
-                  title="The business friction this system is designed to remove."
-                  text={solution.problem}
-                />
-                <SolutionProblems category={category} solution={solution} items={solution.problems} />
-              </>
-            ) : null}
+          {activeTab === "problems" ? (
+            <>
+              <SectionHeader
+                eyebrow="Business Problems"
+                title="The business friction this system is designed to remove."
+                text={solution.problem}
+              />
+              <SolutionProblems category={category} solution={solution} items={solution.problems} />
+            </>
+          ) : null}
 
-            {activeTab === "solution-flow" ? (
-              <>
-                <SectionHeader
-                  eyebrow="Solution Flow"
-                  title="How the system moves from input to outcome."
-                  text={solution.solution}
-                />
-                <SolutionFlow category={category} items={solution.flow} />
-              </>
-            ) : null}
+          {activeTab === "solution-flow" ? (
+            <>
+              <SectionHeader
+                eyebrow="Solution Flow"
+                title="How the system moves from input to outcome."
+                text={solution.solution}
+              />
+              <SolutionFlow category={category} items={solution.flow} />
+            </>
+          ) : null}
 
-            {activeTab === "key-modules" ? (
-              <>
-                <SectionHeader
-                  eyebrow="Key Modules"
-                  title="The practical modules that make the solution usable."
-                  text="Each module is designed as part of the operating system, so teams get visibility, control, and measurable outputs."
-                />
-                <SolutionModules category={category} items={solution.modules} />
-              </>
-            ) : null}
+          {activeTab === "key-modules" ? (
+            <>
+              <SectionHeader
+                eyebrow="Key Modules"
+                title="The practical modules that make the solution usable."
+                text="Each module is designed as part of the operating system, so teams get visibility, control, and measurable outputs."
+              />
+              <SolutionModules category={category} items={solution.modules} />
+            </>
+          ) : null}
 
-            {activeTab === "business-impact" ? (
-              <>
-                <SectionHeader
-                  eyebrow="Business Impact"
-                  title="What improves when this becomes a real operating system."
-                  text={solution.impact}
-                />
-                <SolutionImpact category={category} stats={solution.stats} outcomes={impactCards} />
-              </>
-            ) : null}
+          {activeTab === "business-impact" ? (
+            <>
+              <SectionHeader
+                eyebrow="Business Impact"
+                title="What improves when this becomes a real operating system."
+                text={solution.impact}
+              />
+              <SolutionImpact category={category} stats={solution.stats} outcomes={impactCards} />
+            </>
+          ) : null}
 
-            {activeTab === "preview" ? (
-              <>
-                <SectionHeader
-                  eyebrow="Dashboard Preview"
-                  title="A preview of the operating dashboard this solution can create."
-                  text="The preview shows the kind of business visibility, statuses, records, and metrics this solution can create."
-                />
-                <SolutionPreview category={category} preview={solution.preview} />
-              </>
-            ) : null}
+          {activeTab === "preview" ? (
+            <>
+              <SectionHeader
+                eyebrow="Dashboard Preview"
+                title="A preview of the operating dashboard this solution can create."
+                text="The preview shows the kind of business visibility, statuses, records, and metrics this solution can create."
+              />
+              <SolutionPreview category={category} preview={solution.preview} />
+            </>
+          ) : null}
 
-            {activeTab === "use-cases" ? (
-              <>
-                <SectionHeader
-                  eyebrow="Use Cases"
-                  title="Where this solution creates practical business value."
-                  text="These use cases show how the same system can support real teams, customers, workflows, and growth priorities."
-                />
-                <SolutionModules category={category} items={solution.useCases} eyebrow="Use case" />
-              </>
-            ) : null}
+          {activeTab === "use-cases" ? (
+            <>
+              <SectionHeader
+                eyebrow="Use Cases"
+                title="Where this solution creates practical business value."
+                text="These use cases show how the same system can support real teams, customers, workflows, and growth priorities."
+              />
+              <SolutionModules category={category} items={solution.useCases} eyebrow="Use case" />
+            </>
+          ) : null}
 
-            {activeTab === "process" ? (
-              <>
-                <SectionHeader
-                  eyebrow="Implementation Process"
-                  title="A delivery path designed for clarity and launch confidence."
-                  text="We move from business context to structure, build, validation, launch, and continuous improvement."
-                />
-                <SolutionFlow category={category} items={solution.process} />
-              </>
-            ) : null}
+          {activeTab === "process" ? (
+            <>
+              <SectionHeader
+                eyebrow="Implementation Process"
+                title="A delivery path designed for clarity and launch confidence."
+                text="We move from business context to structure, build, validation, launch, and continuous improvement."
+              />
+              <SolutionFlow category={category} items={solution.process} />
+            </>
+          ) : null}
 
-            {activeTab === "final-cta" ? <SolutionCTA category={category} solution={solution} /> : null}
-          </div>
+          {activeTab === "final-cta" ? <SolutionCTA category={category} solution={solution} /> : null}
+        </div>
       </div>
     </main>
   );

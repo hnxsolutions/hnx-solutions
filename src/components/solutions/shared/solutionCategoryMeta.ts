@@ -13,7 +13,7 @@ export const solutionCategoryMeta: Record<SolutionCategoryId, SolutionCategoryMe
   "web-saas": {
     id: "web-saas",
     title: "Web & SaaS",
-    subtitle: "Plan, build, capture, manage, and monetize your digital platform.",
+    subtitle: "Switch between Web & SaaS modules",
     journey: "Plan -> Build -> Capture -> Manage -> Monetize",
     icon: "Code2",
     accent: "from-[#2378ff] to-[#7c3aed]",
@@ -21,7 +21,7 @@ export const solutionCategoryMeta: Record<SolutionCategoryId, SolutionCategoryMe
   "mobile-apps": {
     id: "mobile-apps",
     title: "Mobile Apps",
-    subtitle: "Plan, build, connect, engage, and launch mobile experiences.",
+    subtitle: "Switch between Mobile App modules",
     journey: "Plan -> Build -> Connect -> Engage -> Launch",
     icon: "Smartphone",
     accent: "from-[#2378ff] to-[#14c8d8]",
@@ -29,7 +29,7 @@ export const solutionCategoryMeta: Record<SolutionCategoryId, SolutionCategoryMe
   "ai-automation": {
     id: "ai-automation",
     title: "AI Automation",
-    subtitle: "Audit, automate, communicate, and analyze business workflows.",
+    subtitle: "Switch between AI Automation modules",
     journey: "Audit -> Automate -> Communicate -> Analyze",
     icon: "Bot",
     accent: "from-[#7c3aed] to-[#14c8d8]",
@@ -37,7 +37,7 @@ export const solutionCategoryMeta: Record<SolutionCategoryId, SolutionCategoryMe
   "cloud-devops": {
     id: "cloud-devops",
     title: "Cloud & DevOps",
-    subtitle: "Plan, deploy, monitor, recover, and maintain stable systems.",
+    subtitle: "Switch between Cloud & DevOps modules",
     journey: "Plan -> Deploy -> Monitor -> Recover",
     icon: "Cloud",
     accent: "from-[#2378ff] to-[#fb923c]",
@@ -45,7 +45,7 @@ export const solutionCategoryMeta: Record<SolutionCategoryId, SolutionCategoryMe
   "design-growth": {
     id: "design-growth",
     title: "Design & Growth",
-    subtitle: "Position, design, launch, track, and optimize growth systems.",
+    subtitle: "Switch between Design & Growth modules",
     journey: "Position -> Design -> Launch -> Track -> Optimize",
     icon: "Palette",
     accent: "from-[#7c3aed] to-[#ec4899]",

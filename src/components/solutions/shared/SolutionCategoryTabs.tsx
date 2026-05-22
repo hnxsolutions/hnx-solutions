@@ -2,7 +2,17 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useMemo, useRef } from "react";
+import {
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import type { SolutionCategoryId, SolutionPageData } from "@/data/solutions/types";
 import { getSolutionIcon } from "@/components/solutions/shared/solutionIcons";
 import { solutionCategoryMeta } from "@/components/solutions/shared/solutionCategoryMeta";
@@ -18,8 +28,10 @@ export function SolutionCategoryTabs({
 }: SolutionCategoryTabsProps) {
   const pathname = usePathname();
   const meta = solutionCategoryMeta[category];
-  const HeaderIcon = getSolutionIcon(meta.icon);
+  const scrollRef = useRef<HTMLDivElement | null>(null);
   const activeTabRef = useRef<HTMLAnchorElement | null>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
 
   const activeIndex = useMemo(() => {
     const index = solutions.findIndex(
@@ -29,40 +41,80 @@ export function SolutionCategoryTabs({
     return index >= 0 ? index : 0;
   }, [pathname, solutions]);
 
+  const updateScrollState = useCallback(() => {
+    const node = scrollRef.current;
+
+    if (!node) {
+      return;
+    }
+
+    const maxScrollLeft = Math.max(0, node.scrollWidth - node.clientWidth);
+    setCanScrollLeft(node.scrollLeft > 6);
+    setCanScrollRight(node.scrollLeft < maxScrollLeft - 6);
+  }, []);
+
+  useEffect(() => {
+    const node = scrollRef.current;
+
+    if (!node) {
+      return;
+    }
+
+    updateScrollState();
+
+    node.addEventListener("scroll", updateScrollState, { passive: true });
+    window.addEventListener("resize", updateScrollState);
+
+    return () => {
+      node.removeEventListener("scroll", updateScrollState);
+      window.removeEventListener("resize", updateScrollState);
+    };
+  }, [solutions.length, updateScrollState]);
+
   useEffect(() => {
     activeTabRef.current?.scrollIntoView({
       behavior: "smooth",
       block: "nearest",
       inline: "center",
     });
-  }, [activeIndex]);
+
+    window.requestAnimationFrame(updateScrollState);
+  }, [activeIndex, updateScrollState]);
+
+  const scrollTabs = (direction: "left" | "right") => {
+    const node = scrollRef.current;
+
+    if (!node) {
+      return;
+    }
+
+    node.scrollBy({
+      left:
+        direction === "right"
+          ? Math.round(node.clientWidth * 0.75)
+          : -Math.round(node.clientWidth * 0.75),
+      behavior: "smooth",
+    });
+  };
 
   return (
-    <div className="sticky top-[4.65rem] z-40 border-b border-[#d7e1f2] bg-white shadow-[0_8px_24px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-[#061225]">
-      <div className="mx-auto flex max-w-[min(92vw,1440px)] items-stretch">
-        <div className="hidden min-w-[245px] shrink-0 border-r border-[#d7e1f2] px-4 py-3 lg:flex lg:items-center dark:border-white/10">
-          <div className="flex min-w-0 items-center gap-3">
-            <span
-              className={`grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gradient-to-br ${meta.accent} text-white shadow-[0_10px_24px_rgba(20,92,183,0.16)]`}
-            >
-              <HeaderIcon className="h-4 w-4" aria-hidden="true" />
-            </span>
-
-            <div className="min-w-0">
-              <p className="truncate text-sm font-black tracking-[-0.01em] text-[#0f214f] dark:text-white">
-                {meta.title}
-              </p>
-              <p className="mt-1 truncate text-xs font-semibold text-[#66728f] dark:text-slate-300">
-                {meta.journey}
-              </p>
-            </div>
-          </div>
+    <div className="sticky top-[70px] z-40 border-b border-[#d7e1f2] bg-white/92 shadow-[0_10px_28px_rgba(15,23,42,0.06)] backdrop-blur-xl dark:border-white/10 dark:bg-[#061225]/92">
+      <div className="mx-auto flex max-w-[min(92vw,1440px)] items-stretch px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
+        <div className="hidden min-w-[210px] shrink-0 border-r border-[#d7e1f2] py-4 pr-6 lg:block dark:border-white/10">
+          <p className="truncate text-sm font-extrabold text-[#0f214f] dark:text-white">
+            {meta.title}
+          </p>
+          <p className="mt-1 truncate text-xs font-semibold text-[#66728f] dark:text-slate-300">
+            {meta.subtitle}
+          </p>
         </div>
 
         <div className="relative min-w-0 flex-1">
-          <nav
+          <div
+            ref={scrollRef}
+            className="flex h-full items-center gap-5 overflow-x-auto scroll-smooth px-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
             aria-label={`${meta.title} solution pages`}
-            className="flex h-full items-stretch overflow-x-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            role="navigation"
           >
             {solutions.map((item, index) => {
               const Icon = getSolutionIcon(item.icon);
@@ -74,28 +126,60 @@ export function SolutionCategoryTabs({
                   ref={isActive ? activeTabRef : undefined}
                   href={item.href}
                   aria-current={isActive ? "page" : undefined}
-                  className={`group relative flex shrink-0 items-center gap-2.5 border-b-2 px-5 py-4 text-sm font-extrabold transition-colors duration-200 ${
+                  className={`flex shrink-0 items-center gap-2 border-b-2 px-3 py-5 text-xs font-extrabold transition-colors ${
                     isActive
                       ? "border-[#2378ff] bg-[#eef6ff] text-[#145cb7] dark:border-cyan-300 dark:bg-cyan-300/10 dark:text-cyan-300"
-                      : "border-transparent text-[#465374] hover:bg-[#f8fbff] hover:text-[#145cb7] dark:text-slate-300 dark:hover:bg-white/6 dark:hover:text-cyan-300"
+                      : "border-transparent text-[#465374] hover:bg-[#f4f8ff] hover:text-[#145cb7] dark:text-slate-300 dark:hover:bg-white/6 dark:hover:text-cyan-300"
                   }`}
                 >
-                  <Icon
-                    className={`h-4 w-4 shrink-0 transition-colors duration-200 ${
-                      isActive
-                        ? "text-[#145cb7] dark:text-cyan-300"
-                        : "text-[#52627d] group-hover:text-[#145cb7] dark:text-slate-400 dark:group-hover:text-cyan-300"
-                    }`}
-                    aria-hidden="true"
-                  />
-
-                  <span className="whitespace-nowrap">{item.label}</span>
+                  <Icon className="h-4 w-4" aria-hidden="true" />
+                  <span>{item.label}</span>
                 </Link>
               );
             })}
-          </nav>
+          </div>
 
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-14 bg-gradient-to-l from-white via-white/90 to-transparent dark:from-[#061225] dark:via-[#061225]/90" />
+          <div
+            className={`pointer-events-none absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-white via-white/90 to-transparent transition-opacity duration-200 dark:from-[#061225] dark:via-[#061225]/90 ${
+              canScrollLeft ? "opacity-100" : "opacity-0"
+            }`}
+          />
+
+          <div
+            className={`pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-white via-white/95 to-transparent transition-opacity duration-200 dark:from-[#061225] dark:via-[#061225]/90 ${
+              canScrollRight ? "opacity-100" : "opacity-0"
+            }`}
+          />
+
+          <button
+            type="button"
+            onClick={() => scrollTabs("left")}
+            aria-label="Show previous solution modules"
+            className={`absolute left-1 top-1/2 hidden h-8 w-8 -translate-y-1/2 place-items-center rounded-full border border-[#d7e1f2] bg-white/95 text-[#145cb7] shadow-[0_8px_20px_rgba(15,23,42,0.12)] transition hover:bg-[#eef6ff] lg:grid dark:border-white/10 dark:bg-[#061225]/95 dark:text-cyan-300 dark:hover:bg-white/8 ${
+              canScrollLeft ? "opacity-100" : "pointer-events-none opacity-0"
+            }`}
+          >
+            <ChevronLeft className="h-4 w-4" aria-hidden="true" />
+          </button>
+
+          <button
+            type="button"
+            onClick={() => scrollTabs("right")}
+            aria-label="Show more solution modules"
+            className={`absolute right-1 top-1/2 hidden h-8 w-8 -translate-y-1/2 place-items-center rounded-full border border-[#d7e1f2] bg-white/95 text-[#145cb7] shadow-[0_8px_20px_rgba(15,23,42,0.12)] transition hover:bg-[#eef6ff] lg:grid dark:border-white/10 dark:bg-[#061225]/95 dark:text-cyan-300 dark:hover:bg-white/8 ${
+              canScrollRight ? "opacity-100" : "pointer-events-none opacity-0"
+            }`}
+          >
+            <ChevronRight className="h-4 w-4" aria-hidden="true" />
+          </button>
+
+          {/* <div
+            className={`pointer-events-none absolute right-11 top-1/2 hidden -translate-y-1/2 rounded-full border border-[#d7e1f2] bg-white/95 px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.12em] text-[#145cb7] shadow-[0_8px_20px_rgba(15,23,42,0.08)] transition-opacity lg:block dark:border-white/10 dark:bg-[#061225]/95 dark:text-cyan-300 ${
+              canScrollRight ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            More
+          </div> */}
         </div>
       </div>
     </div>

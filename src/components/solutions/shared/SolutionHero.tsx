@@ -29,9 +29,9 @@ export function SolutionHero({ category, solution }: SolutionHeroProps) {
 
       <div className="mt-5 grid gap-10 lg:grid-cols-[0.9fr_1fr] lg:items-center">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
+          transition={{ duration: 0.45, ease: "easeOut" }}
           className="relative z-10"
         >
           <span className="inline-flex items-center gap-2 rounded-full border border-[#d7e1f2] bg-[#eef6ff] px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-[#145cb7] dark:border-white/10 dark:bg-cyan-300/10 dark:text-cyan-300">
@@ -58,10 +58,10 @@ export function SolutionHero({ category, solution }: SolutionHeroProps) {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 24, rotateX: -5, rotateY: 6 }}
+          initial={{ opacity: 0, y: 22, rotateX: -4, rotateY: 5 }}
           animate={{ opacity: 1, y: 0, rotateX: 0, rotateY: 0 }}
           whileHover={{ y: -6, rotateX: 2, rotateY: -3 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
+          transition={{ duration: 0.55, ease: "easeOut" }}
           style={{ transformStyle: "preserve-3d" }}
           className="relative z-10 transform-gpu rounded-[1.8rem] border border-[#d7e1f2] bg-[#f8fbff] p-4 shadow-[0_28px_80px_rgba(15,23,42,0.12)] dark:border-white/10 dark:bg-[#061225]"
         >
@@ -81,9 +81,15 @@ export function SolutionHero({ category, solution }: SolutionHeroProps) {
                 className="rounded-2xl border border-[#d7e1f2] bg-white p-4 shadow-[0_12px_30px_rgba(15,23,42,0.06)] dark:border-white/10 dark:bg-white/6"
                 style={{ transform: `translateZ(${12 + index * 2}px)` }}
               >
-                <p className={`bg-gradient-to-r ${meta.accent} bg-clip-text text-2xl font-black text-transparent`}>{stat.value}</p>
-                <p className="mt-1 text-sm font-extrabold text-[#0f214f] dark:text-white">{stat.label}</p>
-                <p className="mt-1 text-xs font-semibold text-[#66728f] dark:text-slate-400">{stat.note}</p>
+                <p className={`bg-gradient-to-r ${meta.accent} bg-clip-text text-2xl font-black text-transparent`}>
+                  {stat.value}
+                </p>
+                <p className="mt-1 text-sm font-extrabold text-[#0f214f] dark:text-white">
+                  {stat.label}
+                </p>
+                <p className="mt-1 text-xs font-semibold text-[#66728f] dark:text-slate-400">
+                  {stat.note}
+                </p>
               </div>
             ))}
           </div>
@@ -95,7 +101,9 @@ export function SolutionHero({ category, solution }: SolutionHeroProps) {
               </span>
               <div className="min-w-0">
                 <p className="text-sm font-black text-[#0f214f] dark:text-white">Business outcome</p>
-                <p className="mt-1 text-xs font-semibold leading-5 text-[#66728f] dark:text-slate-300">{solution.impact}</p>
+                <p className="mt-1 text-xs font-semibold leading-5 text-[#66728f] dark:text-slate-300">
+                  {solution.impact}
+                </p>
               </div>
               <ArrowRight className="ml-auto h-4 w-4 text-[#145cb7] dark:text-cyan-300" aria-hidden="true" />
             </div>
