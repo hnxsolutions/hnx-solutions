@@ -178,6 +178,21 @@ function FeatureCard({ icon, title, text, tone = "blue" }: Feature) {
     );
 }
 
+function scrollToKnowledge() {
+  window.requestAnimationFrame(() => {
+    const element = document.getElementById("knowledge-content");
+    if (!element) return;
+
+    const stickyOffset = window.innerWidth >= 1024 ? 190 : 170;
+    const top = element.getBoundingClientRect().top + window.scrollY - stickyOffset;
+
+    window.scrollTo({
+      top: Math.max(top, 0),
+      behavior: "smooth",
+    });
+  });
+}
+
 function Shell({ activeTab, onTabChange, children }: { activeTab: TabId; onTabChange: (tab: TabId) => void; children: React.ReactNode }) {
     const active = sidebarItems.find((item) => item.id === activeTab) ?? sidebarItems[0];
 
@@ -196,7 +211,7 @@ function Shell({ activeTab, onTabChange, children }: { activeTab: TabId; onTabCh
                     ctaText={active.description}
                     ctaButtonText="Book a CRM Consultation"
                 />
-                <div className="min-w-0 flex-1 bg-white">{children}</div>
+                <div id="knowledge-content" className="min-w-0 flex-1 bg-white">{children}</div>
             </div>
         </main>
     );
@@ -207,13 +222,21 @@ function PageSection({ children }: { children: React.ReactNode }) {
 }
 
 function Breadcrumb({ current }: { current: string }) {
-    return (
-        <div className="flex items-center gap-2 text-xs font-bold text-[#1593b5]">
-            <Link href="/" className="hover:text-[#145cb7]">Solutions</Link><span>/</span>
-            <Link href="/solutions/admin-control-room" className="hover:text-[#145cb7]">Admin Control Room</Link><span>/</span>
-            <span className="text-[#0f214f]">{current}</span>
-        </div>
-    );
+  return (
+    <div className="flex items-center gap-2 text-xs font-bold text-[#145cb7]">
+      <Link href="/solutions" className="hover:text-[#1593b5]">
+        Solutions
+      </Link>
+      <span>/</span>
+      <Link href="/solutions/crm/business-os" className="hover:text-[#1593b5]">
+        CRM
+      </Link>
+      <span>/</span>
+      <span className="text-[#334766]">Admin Control Room</span>
+      <span>/</span>
+      <span className="text-[#0f214f]">{current}</span>
+    </div>
+  );
 }
 
 function HeaderGrid({ current, title, subtitle, features }: { current: string; title: string; subtitle: string; features?: Feature[] }) {
@@ -324,6 +347,12 @@ function FinalCtaPage() { return <PageSection><div className="grid gap-10 lg:gri
 
 export default function AdminControlRoomPage() {
     const [activeTab, setActiveTab] = useState<TabId>("overview");
+
+    const handleTabChange = (tab: TabId) => {
+        setActiveTab(tab);
+        scrollToKnowledge();
+    };
+
     const renderActiveTab = () => {
         switch (activeTab) {
             case "overview": return <OverviewPage />;
@@ -337,5 +366,5 @@ export default function AdminControlRoomPage() {
             default: return <OverviewPage />;
         }
     };
-    return <Shell activeTab={activeTab} onTabChange={setActiveTab}>{renderActiveTab()}</Shell>;
+    return <Shell activeTab={activeTab} onTabChange={handleTabChange}>{renderActiveTab()}</Shell>;
 }

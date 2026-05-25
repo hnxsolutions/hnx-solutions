@@ -69,10 +69,17 @@ function getTabFromHash(hash: string): TabId | null {
   return hashAliases[id] ?? null;
 }
 
-function scrollToTab(tab: TabId, behavior: ScrollBehavior = "auto") {
+function scrollToKnowledge(behavior: ScrollBehavior = "smooth") {
   window.requestAnimationFrame(() => {
-    window.requestAnimationFrame(() => {
-      document.getElementById(tab)?.scrollIntoView({ behavior, block: "start" });
+    const element = document.getElementById("knowledge-content");
+    if (!element) return;
+
+    const stickyOffset = window.innerWidth >= 1024 ? 190 : 170;
+    const top = element.getBoundingClientRect().top + window.scrollY - stickyOffset;
+
+    window.scrollTo({
+      top: Math.max(top, 0),
+      behavior,
     });
   });
 }
@@ -736,9 +743,11 @@ function BusinessChaosSection() {
         <div className="grid gap-10 lg:grid-cols-[0.88fr_1.35fr] lg:items-center">
           <div>
             <div className="flex items-center gap-2 text-xs font-bold text-[#1593b5]">
-              <Link href="/" className="hover:text-[#145cb7]">Solutions</Link>
+              <Link href="/solutions" className="hover:text-[#145cb7]">Solutions</Link>
               <span>/</span>
-              <Link href="/solutions/business-os" className="hover:text-[#145cb7]">Business OS</Link>
+              <Link href="/solutions/crm/business-os" className="hover:text-[#145cb7]">CRM</Link>
+              <span>/</span>
+              <span className="text-[#334766]">Business OS</span>
               <span>/</span>
               <span className="text-[#0f214f]">Business Chaos</span>
             </div>
@@ -904,7 +913,11 @@ function OneSystemSolutionSection() {
         <div className="grid gap-10 lg:grid-cols-[0.85fr_1.25fr] lg:items-center">
           <div>
             <div className="flex items-center gap-2 text-xs font-bold text-[#1593b5]">
-              <Link href="/" className="hover:text-[#145cb7]">Solutions</Link>
+              <Link href="/solutions" className="hover:text-[#145cb7]">Solutions</Link>
+              <span>/</span>
+              <Link href="/solutions/crm/business-os" className="hover:text-[#145cb7]">CRM</Link>
+              <span>/</span>
+              <span className="text-[#334766]">Business OS</span>
               <span>/</span>
               <span className="text-[#0f214f]">One System Solution</span>
             </div>
@@ -1008,7 +1021,11 @@ function CentralWorkspaceSection() {
       <div className="mx-auto max-w-[min(92vw,1440px)] px-5 py-10 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <div className="text-center">
           <div className="flex justify-center gap-2 text-xs font-bold text-[#1593b5]">
-            <Link href="/" className="hover:text-[#145cb7]">Solutions</Link>
+            <Link href="/solutions" className="hover:text-[#145cb7]">Solutions</Link>
+            <span>/</span>
+            <Link href="/solutions/crm/business-os" className="hover:text-[#145cb7]">CRM</Link>
+            <span>/</span>
+            <span className="text-[#334766]">Business OS</span>
             <span>/</span>
             <span className="text-[#0f214f]">Central Workspace</span>
           </div>
@@ -1137,7 +1154,11 @@ function AutomationFlowsSection() {
         <div className="grid gap-8 lg:grid-cols-[1fr_0.7fr] lg:items-start">
           <div>
             <div className="flex items-center gap-2 text-xs font-bold text-[#1593b5]">
-              <Link href="/" className="hover:text-[#145cb7]">Solutions</Link>
+              <Link href="/solutions" className="hover:text-[#145cb7]">Solutions</Link>
+              <span>/</span>
+              <Link href="/solutions/crm/business-os" className="hover:text-[#145cb7]">CRM</Link>
+              <span>/</span>
+              <span className="text-[#334766]">Business OS</span>
               <span>/</span>
               <span className="text-[#0f214f]">Automation Flows</span>
             </div>
@@ -1256,7 +1277,11 @@ function PermissionsControlSection() {
         <div className="grid gap-8 lg:grid-cols-[1fr_1.1fr] lg:items-start">
           <div>
             <div className="flex items-center gap-2 text-xs font-bold text-[#1593b5]">
-              <Link href="/" className="hover:text-[#145cb7]">Solutions</Link>
+              <Link href="/solutions" className="hover:text-[#145cb7]">Solutions</Link>
+              <span>/</span>
+              <Link href="/solutions/crm/business-os" className="hover:text-[#145cb7]">CRM</Link>
+              <span>/</span>
+              <span className="text-[#334766]">Business OS</span>
               <span>/</span>
               <span className="text-[#0f214f]">Permissions & Control</span>
             </div>
@@ -1371,7 +1396,11 @@ function DashboardsReportingSection() {
         <div className="grid gap-8 lg:grid-cols-[1fr_0.9fr] lg:items-start">
           <div>
             <div className="flex items-center gap-2 text-xs font-bold text-[#1593b5]">
-              <Link href="/" className="hover:text-[#145cb7]">Solutions</Link>
+              <Link href="/solutions" className="hover:text-[#145cb7]">Solutions</Link>
+              <span>/</span>
+              <Link href="/solutions/crm/business-os" className="hover:text-[#145cb7]">CRM</Link>
+              <span>/</span>
+              <span className="text-[#334766]">Business OS</span>
               <span>/</span>
               <span className="text-[#0f214f]">Dashboards & Reporting</span>
             </div>
@@ -1493,7 +1522,11 @@ function CustomerStoriesSection() {
         <div className="grid gap-8 lg:grid-cols-[1fr_0.9fr]">
           <div>
             <div className="flex items-center gap-2 text-xs font-bold text-[#1593b5]">
-              <Link href="/" className="hover:text-[#145cb7]">Solutions</Link>
+              <Link href="/solutions" className="hover:text-[#145cb7]">Solutions</Link>
+              <span>/</span>
+              <Link href="/solutions/crm/business-os" className="hover:text-[#145cb7]">CRM</Link>
+              <span>/</span>
+              <span className="text-[#334766]">Business OS</span>
               <span>/</span>
               <span className="text-[#0f214f]">Customer Stories</span>
             </div>
@@ -1606,7 +1639,11 @@ function FinalCtaSection() {
         <div className="grid gap-10 lg:grid-cols-[1fr_0.9fr] lg:items-center">
           <div>
             <div className="flex items-center gap-2 text-xs font-bold text-[#1593b5]">
-              <Link href="/" className="hover:text-[#145cb7]">Solutions</Link>
+              <Link href="/solutions" className="hover:text-[#145cb7]">Solutions</Link>
+              <span>/</span>
+              <Link href="/solutions/crm/business-os" className="hover:text-[#145cb7]">CRM</Link>
+              <span>/</span>
+              <span className="text-[#334766]">Business OS</span>
               <span>/</span>
               <span className="text-[#0f214f]">Final CTA</span>
             </div>
@@ -1717,47 +1754,24 @@ export default function BusinessOSPage() {
 
       if (tab) {
         setActiveTab(tab);
-        scrollToTab(tab);
-      }
-    };
-
-    const handleHashLinkClick = (event: MouseEvent) => {
-      const target = event.target instanceof Element ? event.target.closest("a") : null;
-
-      if (!(target instanceof HTMLAnchorElement)) {
-        return;
-      }
-
-      const url = new URL(target.href);
-
-      if (url.pathname !== window.location.pathname) {
-        return;
-      }
-
-      const tab = getTabFromHash(url.hash);
-
-      if (tab) {
-        setActiveTab(tab);
-        scrollToTab(tab, "smooth");
+        scrollToKnowledge("auto");
       }
     };
 
     syncTabWithHash();
     window.addEventListener("hashchange", syncTabWithHash);
     window.addEventListener("popstate", syncTabWithHash);
-    document.addEventListener("click", handleHashLinkClick);
 
     return () => {
       window.removeEventListener("hashchange", syncTabWithHash);
       window.removeEventListener("popstate", syncTabWithHash);
-      document.removeEventListener("click", handleHashLinkClick);
     };
   }, []);
 
   const handleTabChange = (tab: TabId) => {
     setActiveTab(tab);
-    window.history.pushState(null, "", `#${tab}`);
-    scrollToTab(tab, "smooth");
+    window.history.replaceState(null, "", `#${tab}`);
+    scrollToKnowledge();
   };
 
   return (
@@ -1768,14 +1782,16 @@ export default function BusinessOSPage() {
       <div className="mx-auto flex max-w-[min(92vw,1440px)] pt-14">
         <Sidebar activeTab={activeTab} onTabChange={handleTabChange} />
 
-        <div className="min-w-0 flex-1">
+        <div id="knowledge-content" className="min-w-0 flex-1">
           {activeTab === "overview" ? (
             <section id="overview" className="min-w-0 flex-1 bg-white">
           <div className="mx-auto max-w-[min(92vw,1440px)] px-5 py-10 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
             <div className="flex items-center gap-2 text-xs font-bold text-[#1593b5]">
-              <Link href="/" className="hover:text-[#145cb7]">Solutions</Link>
+              <Link href="/solutions" className="hover:text-[#145cb7]">Solutions</Link>
               <span>/</span>
-              <Link href="/solutions/business-os" className="hover:text-[#145cb7]">Business OS</Link>
+              <Link href="/solutions/crm/business-os" className="hover:text-[#145cb7]">CRM</Link>
+              <span>/</span>
+              <span className="text-[#334766]">Business OS</span>
               <span>/</span>
               <span className="text-[#0f214f]">Overview</span>
             </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { createContext, useContext, useMemo, useState } from "react";
 import {
   Activity,
   ArrowRight,
@@ -18,7 +18,6 @@ import {
   Home,
   Layers3,
   LayoutDashboard,
-  LockKeyhole,
   MessageCircle,
   MousePointerClick,
   Network,
@@ -29,7 +28,6 @@ import {
   ShieldCheck,
   Sparkles,
   Target,
-  TrendingUp,
   Users,
   Workflow,
   XCircle,
@@ -96,24 +94,6 @@ function IconShell({
   );
 }
 
-function PrimaryLink({
-  href,
-  children,
-}: {
-  href: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <Link
-      href={href}
-      className="inline-flex items-center justify-center gap-2 rounded-full bg-[#0b6ffb] px-6 py-3 text-sm font-extrabold text-white shadow-[0_16px_32px_rgba(11,111,251,0.24)] transition hover:-translate-y-0.5 hover:shadow-[0_20px_40px_rgba(11,111,251,0.28)]"
-    >
-      {children}
-      <ArrowRight className="h-4 w-4" />
-    </Link>
-  );
-}
-
 function SecondaryButton({
   children,
   onClick,
@@ -169,6 +149,29 @@ function MobileTabs({
   );
 }
 
+const BREADCRUMB_MODULE = "Digital Presence Strategy";
+const ActiveLabelContext = createContext("Overview");
+
+function Breadcrumb() {
+  const activeLabel = useContext(ActiveLabelContext);
+
+  return (
+    <nav aria-label="Breadcrumb" className="mb-8 flex flex-wrap items-center gap-3 text-sm font-extrabold">
+      <Link href="/solutions" className="text-[#0891b2] transition hover:text-[#145cb7]">
+        Solutions
+      </Link>
+      <span className="text-[#9aa7bd]">/</span>
+      <Link href="/solutions/web-saas" className="text-[#0891b2] transition hover:text-[#145cb7]">
+        Web &amp; SaaS
+      </Link>
+      <span className="text-[#9aa7bd]">/</span>
+      <span className="text-[#334766]">{BREADCRUMB_MODULE}</span>
+      <span className="text-[#9aa7bd]">/</span>
+      <span className="text-[#0f214f]">{activeLabel}</span>
+    </nav>
+  );
+}
+
 function ChapterShell({
   eyebrow,
   title,
@@ -182,6 +185,7 @@ function ChapterShell({
 }) {
   return (
     <section className="border-b border-[#d7e1f2] bg-white px-5 py-10 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
+      <Breadcrumb />
       <div className="max-w-5xl">
         <p className="text-xs font-black uppercase tracking-[0.22em] text-[#145cb7]">{eyebrow}</p>
         <h1 className="mt-5 text-5xl font-black leading-[1.02] tracking-[-0.06em] text-[#0f214f] sm:text-6xl">
@@ -381,6 +385,8 @@ function FunnelVisual() {
     ["Customer", "46"],
   ];
 
+  const stepWidths = ["w-full", "w-[82%]", "w-[64%]", "w-[48%]", "w-[34%]", "w-[22%]"];
+
   return (
     <div className="rounded-[28px] border border-[#d7e1f2] bg-white p-6">
       <p className="text-lg font-black text-[#0f214f]">Conversion Funnel Preview</p>
@@ -389,8 +395,7 @@ function FunnelVisual() {
           <div key={label} className="grid grid-cols-[1fr_76px] items-center gap-3 text-sm">
             <div className="rounded-xl bg-[#eef6ff] p-1">
               <div
-                className="rounded-lg bg-[#0b6ffb] px-4 py-2 font-black text-white"
-                style={{ width: `${100 - index * 13}%` }}
+                className={cx("rounded-lg bg-[#0b6ffb] px-4 py-2 font-black text-white", stepWidths[index])}
               >
                 {label}
               </div>
@@ -820,8 +825,10 @@ function ConversionSystemSection() {
                   <div className="mt-auto pt-5">
                     <div className="h-1.5 rounded-full bg-[#eef6ff]">
                       <div
-                        className="h-1.5 rounded-full bg-[#2378ff]"
-                        style={{ width: `${100 - index * 10}%` }}
+                        className={cx(
+                          "h-1.5 rounded-full bg-[#2378ff]",
+                          ["w-full", "w-[90%]", "w-[80%]", "w-[70%]", "w-[60%]", "w-1/2"][index] ?? "w-1/2"
+                        )}
                       />
                     </div>
                   </div>
@@ -1111,15 +1118,13 @@ function renderSection(activeTab: TabId, setActiveTab: (tab: TabId) => void) {
 }
 
 export default function DigitalPresenceStrategyPage() {
-  const [activeTab, setActiveTab] = useState<TabId>("overview");
-
-  useEffect(() => {
-    const currentTab = getTabFromHash(window.location.hash);
-
-    if (currentTab) {
-      setActiveTab(currentTab);
+  const [activeTab, setActiveTab] = useState<TabId>(() => {
+    if (typeof window === "undefined") {
+      return "overview";
     }
-  }, []);
+
+    return getTabFromHash(window.location.hash) ?? "overview";
+  });
 
   const activeLabel = useMemo(
     () => knowledgeTabs.find((item) => item.id === activeTab)?.label ?? "Overview",
@@ -1130,9 +1135,18 @@ export default function DigitalPresenceStrategyPage() {
     setActiveTab(tab);
     window.history.replaceState(null, "", `#${tab}`);
     window.requestAnimationFrame(() => {
-      document.getElementById("knowledge-content")?.scrollIntoView({
+      const element = document.getElementById("knowledge-content");
+
+      if (!element) {
+        return;
+      }
+
+      const stickyOffset = window.innerWidth >= 1024 ? 190 : 170;
+      const top = element.getBoundingClientRect().top + window.scrollY - stickyOffset;
+
+      window.scrollTo({
+        top: Math.max(top, 0),
         behavior: "smooth",
-        block: "start",
       });
     });
   };
@@ -1162,7 +1176,9 @@ export default function DigitalPresenceStrategyPage() {
             <p className="text-sm font-black text-[#0f214f]">{activeLabel}</p>
           </div>
 
-          {renderSection(activeTab, handleTabChange)}
+          <ActiveLabelContext.Provider value={activeLabel}>
+            {renderSection(activeTab, handleTabChange)}
+          </ActiveLabelContext.Provider>
         </div>
       </div>
     </main>

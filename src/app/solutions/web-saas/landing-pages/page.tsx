@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState, type ReactNode } from "react";
+import { createContext, useContext, useMemo, useState, type ReactNode } from "react";
 import {
   Activity,
   ArrowRight,
@@ -75,11 +75,20 @@ function getTabFromHash(hash: string): TabId | null {
   return knowledgeTabs.find((item) => item.id === id)?.id ?? null;
 }
 
+const BREADCRUMB_MODULE = "Landing Pages";
+const ActiveLabelContext = createContext("Overview");
+
 function scrollToKnowledge() {
   window.requestAnimationFrame(() => {
-    document.getElementById("knowledge-content")?.scrollIntoView({
+    const element = document.getElementById("knowledge-content");
+    if (!element) return;
+
+    const stickyOffset = window.innerWidth >= 1024 ? 190 : 170;
+    const top = element.getBoundingClientRect().top + window.scrollY - stickyOffset;
+
+    window.scrollTo({
+      top: Math.max(top, 0),
       behavior: "smooth",
-      block: "start",
     });
   });
 }
@@ -158,6 +167,26 @@ function MobileTabs({
   );
 }
 
+function Breadcrumb() {
+  const activeLabel = useContext(ActiveLabelContext);
+
+  return (
+    <nav aria-label="Breadcrumb" className="mb-8 flex flex-wrap items-center gap-3 text-sm font-extrabold">
+      <Link href="/solutions" className="text-[#0891b2] transition hover:text-[#145cb7]">
+        Solutions
+      </Link>
+      <span className="text-[#9aa7bd]">/</span>
+      <Link href="/solutions/web-saas" className="text-[#0891b2] transition hover:text-[#145cb7]">
+        Web &amp; SaaS
+      </Link>
+      <span className="text-[#9aa7bd]">/</span>
+      <span className="text-[#334766]">{BREADCRUMB_MODULE}</span>
+      <span className="text-[#9aa7bd]">/</span>
+      <span className="text-[#0f214f]">{activeLabel}</span>
+    </nav>
+  );
+}
+
 function ChapterShell({
   eyebrow,
   title,
@@ -171,6 +200,7 @@ function ChapterShell({
 }) {
   return (
     <section className="border-b border-[#d7e1f2] bg-white px-5 py-10 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
+      <Breadcrumb />
       <div className="max-w-5xl">
         <p className="text-xs font-black uppercase tracking-[0.22em] text-[#145cb7]">{eyebrow}</p>
         <h1 className="mt-5 text-5xl font-black leading-[1.02] tracking-[-0.06em] text-[#0f214f] sm:text-6xl">
@@ -1079,15 +1109,13 @@ function renderSection(activeTab: TabId, setActiveTab: (tab: TabId) => void) {
 }
 
 export default function LandingPagesPage() {
-  const [activeTab, setActiveTab] = useState<TabId>("overview");
-
-  useEffect(() => {
-    const currentTab = getTabFromHash(window.location.hash);
-
-    if (currentTab) {
-      setActiveTab(currentTab);
+  const [activeTab, setActiveTab] = useState<TabId>(() => {
+    if (typeof window === "undefined") {
+      return "overview";
     }
-  }, []);
+
+    return getTabFromHash(window.location.hash) ?? "overview";
+  });
 
   const activeLabel = useMemo(
     () => knowledgeTabs.find((item) => item.id === activeTab)?.label ?? "Overview",
@@ -1125,7 +1153,9 @@ export default function LandingPagesPage() {
             <p className="text-sm font-black text-[#0f214f]">{activeLabel}</p>
           </div>
 
-          {renderSection(activeTab, handleTabChange)}
+          <ActiveLabelContext.Provider value={activeLabel}>
+            {renderSection(activeTab, handleTabChange)}
+          </ActiveLabelContext.Provider>
         </div>
       </div>
     </main>

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState, type ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import type { LucideIcon } from "lucide-react";
 import { CRMSolutionTabs } from "@/components/solutions/CRMSolutionTabs";
 import { SolutionSidebar } from "@/components/solutions/SolutionSidebar";
@@ -207,10 +207,17 @@ function getTabFromHash(hash: string): TabId | null {
   return directMatch ? directMatch.id : null;
 }
 
-function scrollToTab(tab: TabId, behavior: ScrollBehavior = "auto") {
+function scrollToKnowledge() {
   window.requestAnimationFrame(() => {
-    window.requestAnimationFrame(() => {
-      document.getElementById(tab)?.scrollIntoView({ behavior, block: "start" });
+    const element = document.getElementById("knowledge-content");
+    if (!element) return;
+
+    const stickyOffset = window.innerWidth >= 1024 ? 190 : 170;
+    const top = element.getBoundingClientRect().top + window.scrollY - stickyOffset;
+
+    window.scrollTo({
+      top: Math.max(top, 0),
+      behavior: "smooth",
     });
   });
 }
@@ -293,7 +300,7 @@ function SolutionShell({
       <div className="mx-auto flex max-w-[min(92vw,1440px)] pt-14">
         <Sidebar activeTab={activeTab} onTabChange={onTabChange} />
 
-        <div className="min-w-0 flex-1">
+        <div id="knowledge-content" className="min-w-0 flex-1">
           <section id={activeTab} className="min-w-0 flex-1 bg-white scroll-mt-24">
             <div className="mx-auto max-w-[min(92vw,1440px)] px-5 py-10 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
               {children}
@@ -323,9 +330,11 @@ function Header({
     <header className="mb-7">
       <div className="mb-5 flex items-center justify-between gap-4">
         <div className="flex flex-wrap items-center gap-2 text-sm font-bold text-[#0a65d8]">
-          <Link href="/">Solutions</Link>
+          <Link href="/solutions">Solutions</Link>
           <span className="text-[#9aa8c2]">/</span>
-          <Link href="/solutions/ai-intelligence">AI Intelligence</Link>
+          <Link href="/solutions/crm/business-os">CRM</Link>
+          <span className="text-[#9aa8c2]">/</span>
+          <span className="text-[#607096]">AI Intelligence</span>
           <span className="text-[#9aa8c2]">/</span>
           <span className="text-[#061b49]">{crumb}</span>
         </div>
@@ -1182,55 +1191,18 @@ function FinalCtaPage() {
 }
 
 export default function AIIntelligencePage() {
-  const [activeTab, setActiveTab] = useState<TabId>("overview");
+  const [activeTab, setActiveTab] = useState<TabId>(() => {
+    if (typeof window === "undefined") {
+      return "overview";
+    }
 
-  useEffect(() => {
-    const syncTabWithHash = () => {
-      const tab = getTabFromHash(window.location.hash);
-
-      if (tab) {
-        setActiveTab(tab);
-        scrollToTab(tab);
-      }
-    };
-
-    const handleHashLinkClick = (event: MouseEvent) => {
-      const target = event.target instanceof Element ? event.target.closest("a") : null;
-
-      if (!(target instanceof HTMLAnchorElement)) {
-        return;
-      }
-
-      const url = new URL(target.href);
-
-      if (url.pathname !== window.location.pathname) {
-        return;
-      }
-
-      const tab = getTabFromHash(url.hash);
-
-      if (tab) {
-        setActiveTab(tab);
-        scrollToTab(tab, "smooth");
-      }
-    };
-
-    syncTabWithHash();
-    window.addEventListener("hashchange", syncTabWithHash);
-    window.addEventListener("popstate", syncTabWithHash);
-    document.addEventListener("click", handleHashLinkClick);
-
-    return () => {
-      window.removeEventListener("hashchange", syncTabWithHash);
-      window.removeEventListener("popstate", syncTabWithHash);
-      document.removeEventListener("click", handleHashLinkClick);
-    };
-  }, []);
+    return getTabFromHash(window.location.hash) ?? "overview";
+  });
 
   const handleTabChange = (tab: TabId) => {
     setActiveTab(tab);
-    window.history.pushState(null, "", `#${tab}`);
-    scrollToTab(tab, "smooth");
+    window.history.replaceState(null, "", `#${tab}`);
+    scrollToKnowledge();
   };
 
   return (

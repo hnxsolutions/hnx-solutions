@@ -441,6 +441,21 @@ const integrationDestinations = [
   { icon: Network, label: "Webhooks", text: "Send outbound data", tone: "red" },
 ];
 
+function scrollToKnowledge() {
+  window.requestAnimationFrame(() => {
+    const element = document.getElementById("knowledge-content");
+    if (!element) return;
+
+    const stickyOffset = window.innerWidth >= 1024 ? 190 : 170;
+    const top = element.getBoundingClientRect().top + window.scrollY - stickyOffset;
+
+    window.scrollTo({
+      top: Math.max(top, 0),
+      behavior: "smooth",
+    });
+  });
+}
+
 function Shell({
   activeTab,
   onTabChange,
@@ -469,7 +484,7 @@ function Shell({
           ctaButtonText="Book a Demo"
         />
 
-        <div className="min-w-0 flex-1 bg-white">{children}</div>
+        <div id="knowledge-content" className="min-w-0 flex-1 bg-white">{children}</div>
       </div>
     </main>
   );
@@ -486,15 +501,17 @@ function PageSection({ children }: { children: React.ReactNode }) {
 function Breadcrumb({ current }: { current: string }) {
   return (
     <div className="flex items-center gap-2 text-xs font-bold text-[#145cb7]">
-      <Link href="/" className="hover:text-[#1593b5]">
+      <Link href="/solutions" className="hover:text-[#1593b5]">
         Solutions
       </Link>
       <span>/</span>
-      <Link href="/solutions/workflow-engine" className="hover:text-[#1593b5]">
-        Workflow Engine
+      <Link href="/solutions/crm/business-os" className="hover:text-[#1593b5]">
+        CRM
       </Link>
       <span>/</span>
-      <span className="text-[#145cb7]">{current}</span>
+      <span className="text-[#334766]">Workflow Engine</span>
+      <span>/</span>
+      <span className="text-[#0f214f]">{current}</span>
     </div>
   );
 }
@@ -1631,6 +1648,12 @@ function FinalCtaPage() {
 export default function WorkflowEnginePage() {
   const [activeTab, setActiveTab] = useState<TabId>("overview");
 
+  const handleTabChange = (tab: TabId) => {
+    setActiveTab(tab);
+    scrollToKnowledge();
+  };
+
+
   const renderActiveTab = () => {
     switch (activeTab) {
       case "overview":
@@ -1655,7 +1678,7 @@ export default function WorkflowEnginePage() {
   };
 
   return (
-    <Shell activeTab={activeTab} onTabChange={setActiveTab}>
+    <Shell activeTab={activeTab} onTabChange={handleTabChange}>
       {renderActiveTab()}
     </Shell>
   );

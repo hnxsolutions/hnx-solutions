@@ -76,13 +76,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <JsonLd data={[organizationJsonLd, websiteJsonLd, professionalServiceJsonLd]} />
+
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
           enableSystem={false}
           disableTransitionOnChange
         >
-          <JsonLd data={[organizationJsonLd, websiteJsonLd, professionalServiceJsonLd]} />
           <Navbar />
           {children}
           <Footer />
