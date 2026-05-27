@@ -1366,7 +1366,7 @@ const industryMenus: IndustryMenu[] = [
       {
         label: "Mobile App Development",
         description: "Secure apps for customers, advisors, service updates, and financial access.",
-        href: "/industries/finance/mobile-app-development",
+        href: "/industries/finance/mobile-app",
         icon: Smartphone,
         tag: "App",
         tagClass: tagStyles.app,
@@ -1451,7 +1451,7 @@ const industryMenus: IndustryMenu[] = [
       {
         label: "Mobile App Development",
         description: "Apps for policyholders, agents, claims, renewals, and service updates.",
-        href: "/industries/insurance/mobile-app-development",
+        href: "/industries/insurance/mobile-app",
         icon: Smartphone,
         tag: "App",
         tagClass: tagStyles.app,
@@ -1536,7 +1536,7 @@ const industryMenus: IndustryMenu[] = [
       {
         label: "Mobile App Development",
         description: "Apps for bookings, itineraries, alerts, vouchers, documents, and support.",
-        href: "/industries/travel/mobile-app-development",
+        href: "/industries/travel/mobile-app",
         icon: Smartphone,
         tag: "App",
         tagClass: tagStyles.app,
@@ -1621,7 +1621,7 @@ const industryMenus: IndustryMenu[] = [
       {
         label: "Mobile App Development",
         description: "Apps for customers, dealerships, bookings, offers, service updates, and alerts.",
-        href: "/industries/automobile/mobile-app-development",
+        href: "/industries/automobile/mobile-app",
         icon: Smartphone,
         tag: "App",
         tagClass: tagStyles.app,
