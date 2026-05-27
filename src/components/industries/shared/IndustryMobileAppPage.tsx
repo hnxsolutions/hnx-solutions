@@ -82,14 +82,15 @@ export default function IndustryMobileAppPage({
 
 function HeroSection({ data }: { data: IndustryMobileAppPageData }) {
   const [titleStart, titleEnd] = splitHighlightedText(data.title, data.highlight);
+  const trustChips = getHeroTrustChips(data);
 
   return (
-    <section className="relative overflow-hidden px-6 py-7 sm:px-8 lg:px-10 lg:py-9 xl:px-12">
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(239,246,255,0.94),rgba(255,255,255,0.72),rgba(238,242,255,0.82)),radial-gradient(circle_at_18%_16%,rgba(59,130,246,0.10),transparent_28%),radial-gradient(circle_at_78%_16%,rgba(124,58,237,0.08),transparent_28%)] dark:bg-[linear-gradient(135deg,rgba(15,23,42,0.42),rgba(2,6,23,0.18),rgba(30,41,59,0.24)),radial-gradient(circle_at_18%_16%,rgba(59,130,246,0.12),transparent_28%),radial-gradient(circle_at_78%_16%,rgba(124,58,237,0.10),transparent_28%)]" />
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(59,130,246,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.045)_1px,transparent_1px)] bg-[size:42px_42px] opacity-70 [mask-image:linear-gradient(to_bottom,black,transparent_86%)] dark:bg-[linear-gradient(rgba(125,211,252,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(125,211,252,0.045)_1px,transparent_1px)]" />
+    <section className="relative overflow-hidden px-7 py-1 sm:px-10 lg:px-12 xl:px-14">
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(115deg,rgba(255,255,255,0.98),rgba(248,250,252,0.94)_35%,rgba(239,246,255,0.86)_68%,rgba(245,243,255,0.88)),radial-gradient(circle_at_18%_26%,rgba(37,99,235,0.12),transparent_31%),radial-gradient(circle_at_64%_42%,rgba(99,102,241,0.12),transparent_35%)] dark:bg-[linear-gradient(115deg,rgba(15,23,42,0.98),rgba(2,6,23,0.94)_44%,rgba(15,23,42,0.92)),radial-gradient(circle_at_18%_26%,rgba(37,99,235,0.16),transparent_31%),radial-gradient(circle_at_64%_42%,rgba(99,102,241,0.14),transparent_35%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(59,130,246,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.045)_1px,transparent_1px)] bg-[size:48px_48px] opacity-65 [mask-image:linear-gradient(120deg,black,transparent_78%)] dark:bg-[linear-gradient(rgba(125,211,252,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(125,211,252,0.05)_1px,transparent_1px)]" />
 
       <div className="relative">
-        <nav className="mb-6 flex flex-wrap items-center gap-2 text-sm font-bold text-slate-500 dark:text-slate-400">
+        <nav className="mb-5 flex flex-wrap items-center gap-3 text-sm font-semibold text-slate-500 dark:text-slate-400">
           <Link href="/industries" className="transition hover:text-blue-700 dark:hover:text-blue-300">
             Industries
           </Link>
@@ -104,45 +105,50 @@ function HeroSection({ data }: { data: IndustryMobileAppPageData }) {
           <span className="text-slate-900 dark:text-white">Mobile App</span>
         </nav>
 
-        <div className="grid items-center gap-8 xl:grid-cols-[0.96fr_1.04fr]">
-          <div>
+        <div className="relative grid items-center gap-10 xl:grid-cols-[0.78fr_1.22fr]">
+          <div className="relative z-20">
             <Badge>
               <Smartphone className="h-4 w-4" />
               {data.industryName} Mobile App Solution
             </Badge>
 
-            <h1 className="mt-6 max-w-[760px] text-4xl font-black leading-[0.98] text-slate-950 dark:text-white sm:text-5xl lg:text-[3.35rem] xl:text-[3.9rem]">
+            <h1 className="mt-6 max-w-2xl text-[clamp(2.45rem,4.4vw,4.25rem)] font-black leading-[1.02] tracking-[-0.055em] text-slate-950 dark:text-white">
               {titleStart}
               <span className="bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent">
                 {data.highlight}
               </span>
               {titleEnd}
             </h1>
+            <span className="mt-4 block h-1.5 w-24 rounded-full bg-gradient-to-r from-blue-600 to-violet-600" />
 
-            <p className="mt-5 max-w-2xl text-base leading-7 text-slate-600 dark:text-slate-300 lg:text-lg">
+            <p className="mt-5 max-w-xl text-base leading-8 text-slate-600 dark:text-slate-300">
               {data.description}
             </p>
 
-            <div className="mt-6 flex flex-wrap gap-2.5">
+            <div className="mt-7 grid grid-cols-2 gap-3 sm:grid-cols-4">
               {data.heroChips.map((chip) => {
                 const Icon = chip.icon;
 
                 return (
                   <div
                     key={chip.label}
-                    className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white/88 px-3.5 py-2 text-xs font-black text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-200 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-300"
+                    className="rounded-2xl border border-slate-200 bg-white/85 p-3 text-slate-800 shadow-sm backdrop-blur-xl transition hover:-translate-y-1 hover:border-blue-200 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-100"
                   >
-                    <Icon className="h-4 w-4 text-blue-600 dark:text-blue-300" />
-                    {chip.label}
+                    <span className="mb-2 grid h-9 w-9 place-items-center rounded-2xl bg-blue-50 text-blue-600 dark:bg-blue-400/10 dark:text-blue-300">
+                      <Icon className="h-5 w-5" />
+                    </span>
+                    <p className="text-xs font-bold leading-4 text-slate-700 dark:text-slate-300">
+                      {chip.label}
+                    </p>
                   </div>
                 );
               })}
             </div>
 
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 px-7 py-4 text-sm font-black text-white shadow-[0_18px_50px_rgba(37,99,235,0.25)] transition hover:-translate-y-0.5"
+                className="inline-flex items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-blue-600 to-violet-600 px-8 py-4 text-sm font-black text-white shadow-[0_22px_50px_rgba(37,99,235,0.30)] transition hover:-translate-y-0.5"
               >
                 Build My {data.industryName} App
                 <ArrowRight className="h-4 w-4" />
@@ -150,19 +156,22 @@ function HeroSection({ data }: { data: IndustryMobileAppPageData }) {
 
               <Link
                 href="#mobile-app-use-cases"
-                className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-7 py-4 text-sm font-black text-blue-700 shadow-sm transition hover:-translate-y-0.5 dark:border-white/10 dark:bg-white/[0.06] dark:text-blue-300"
+                className="inline-flex items-center justify-center gap-3 rounded-2xl border border-slate-200 bg-white/92 px-8 py-4 text-sm font-black text-blue-700 shadow-[0_16px_36px_rgba(15,23,42,0.08)] transition hover:-translate-y-0.5 hover:border-blue-200 dark:border-white/10 dark:bg-white/[0.06] dark:text-blue-300"
               >
                 View App Use Cases
+                <span className="grid h-8 w-8 place-items-center rounded-full border border-blue-200 bg-white text-blue-600 dark:border-blue-300/20 dark:bg-white/10 dark:text-blue-300">
+                  <Play className="h-3.5 w-3.5 fill-current" />
+                </span>
               </Link>
             </div>
 
-            <div className="mt-5 flex flex-wrap gap-2">
-              {["Secure roles", "Admin connected", "Analytics ready"].map((chip) => (
+            <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2">
+              {trustChips.map((chip) => (
                 <span
                   key={chip}
-                  className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-3.5 py-2 text-xs font-black text-slate-600 shadow-sm dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-300"
+                  className="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 dark:text-slate-300"
                 >
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
+                  <CheckCircle2 className="h-4 w-4 text-blue-600 dark:text-blue-300" />
                   {chip}
                 </span>
               ))}
@@ -176,190 +185,506 @@ function HeroSection({ data }: { data: IndustryMobileAppPageData }) {
   );
 }
 
+type HeroShowcaseMetric = {
+  label: string;
+  value: string;
+  change: string;
+  tone: "positive" | "negative";
+};
+
+type HeroShowcaseListItem = {
+  title: string;
+  subtitle: string;
+  meta?: string;
+  status?: string;
+};
+
+type HeroShowcaseContent = {
+  overviewTitle: string;
+  overviewUpdated: string;
+  metrics: HeroShowcaseMetric[];
+  activities: Array<{ title: string; time: string }>;
+  catalogTitle: string;
+  catalogItems: HeroShowcaseListItem[];
+  approvalsTitle: string;
+  approvalsItems: HeroShowcaseListItem[];
+  dispatchTitle: string;
+  dispatchCode: string;
+  dispatchDealer: string;
+  dispatchStatus: string;
+  dispatchSteps: string[];
+  notificationTitle: string;
+  notificationDescription: string;
+  notificationTime: string;
+  resultTitle: string;
+  resultSubtitle: string;
+  phoneIntro: string;
+  phoneAction: string;
+  phoneRows: Array<{ label: string; value: string; icon: IndustryMobileAppCard["icon"] }>;
+  phoneNav: string[];
+};
+
 function PhoneHeroMockup({ data }: { data: IndustryMobileAppPageData }) {
-  const visual = data.heroVisual;
-  const appRows = visual.cards.slice(0, 4);
-  const navItems = visual.navItems.slice(0, 4);
+  const showcase = getHeroShowcaseContent(data);
 
   return (
-    <div className="relative mx-auto w-full max-w-[660px]" style={{ perspective: "1500px" }}>
-      <div className="relative h-[410px] overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-4 shadow-[0_30px_90px_rgba(15,23,42,0.13)] dark:border-white/10 dark:bg-slate-950/82 sm:h-[440px] lg:h-[455px]">
-        <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.96),rgba(239,246,255,0.88),rgba(238,242,255,0.94)),radial-gradient(circle_at_28%_30%,rgba(37,99,235,0.20),transparent_33%),radial-gradient(circle_at_78%_16%,rgba(14,165,233,0.16),transparent_32%),radial-gradient(circle_at_76%_78%,rgba(124,58,237,0.18),transparent_32%)] dark:bg-[linear-gradient(135deg,rgba(15,23,42,0.98),rgba(2,6,23,0.90),rgba(15,23,42,0.95)),radial-gradient(circle_at_28%_30%,rgba(37,99,235,0.26),transparent_33%),radial-gradient(circle_at_78%_16%,rgba(14,165,233,0.16),transparent_32%),radial-gradient(circle_at_76%_78%,rgba(124,58,237,0.20),transparent_32%)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(37,99,235,0.055)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.055)_1px,transparent_1px)] bg-[size:34px_34px] opacity-70 [mask-image:linear-gradient(135deg,black,transparent_82%)] dark:bg-[linear-gradient(rgba(125,211,252,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(125,211,252,0.06)_1px,transparent_1px)]" />
-        <div
-          className="absolute right-0 top-0 h-full w-[42%] bg-cover bg-center opacity-[0.09] mix-blend-multiply dark:opacity-[0.08] dark:mix-blend-screen"
-          style={{ backgroundImage: `url(${data.heroImage})` }}
-        />
-        <div className="absolute left-1/2 top-[53%] h-28 w-[24rem] -translate-x-1/2 rounded-[100%] bg-slate-950/14 blur-2xl dark:bg-blue-400/10" />
+    <div className="relative mx-auto h-[430px] w-full max-w-[760px] overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-3 shadow-[0_28px_90px_rgba(15,23,42,0.12)] dark:border-white/10 dark:bg-white/[0.06] sm:h-[455px] lg:h-[485px] xl:h-[500px]" style={{ perspective: "1500px" }}>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_24%_28%,rgba(59,130,246,0.16),transparent_30%),radial-gradient(circle_at_80%_22%,rgba(124,58,237,0.13),transparent_30%),linear-gradient(135deg,rgba(239,246,255,0.92),rgba(255,255,255,0.82),rgba(224,242,254,0.82))] dark:bg-[radial-gradient(circle_at_24%_28%,rgba(59,130,246,0.18),transparent_30%),radial-gradient(circle_at_80%_22%,rgba(124,58,237,0.16),transparent_30%),linear-gradient(135deg,rgba(15,23,42,0.94),rgba(2,6,23,0.86),rgba(15,23,42,0.94))]" />
+      <div
+        className="absolute right-0 top-0 h-full w-[52%] bg-cover bg-center opacity-[0.13] saturate-50 [mask-image:linear-gradient(to_left,black_12%,rgba(0,0,0,0.68)_54%,transparent_94%)] dark:opacity-[0.09]"
+        style={{ backgroundImage: `url(${data.heroImage})` }}
+      />
+      <div className="absolute left-[12%] top-[18%] h-[18rem] w-[18rem] rounded-full bg-gradient-to-br from-blue-300/24 via-cyan-200/12 to-violet-300/18 blur-3xl dark:from-blue-500/16 dark:via-cyan-400/8 dark:to-violet-500/12" />
+      <div className="absolute bottom-[8%] left-[10%] h-14 w-[32rem] rounded-[100%] bg-blue-950/10 blur-2xl dark:bg-blue-300/10" />
 
-        <div
-          className="absolute left-7 top-12 hidden w-[230px] rounded-[1.8rem] border border-white/75 bg-white/78 p-3 shadow-[0_28px_76px_rgba(15,23,42,0.16)] backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.08] lg:block"
-          style={{ transform: "rotateY(27deg) rotateZ(-10deg) translateZ(-80px)", transformStyle: "preserve-3d" }}
-        >
-          <div className="overflow-hidden rounded-[1.45rem] border border-slate-200 bg-slate-950 text-white dark:border-white/10">
-            <div
-              className="h-20 bg-cover bg-center opacity-80"
-              style={{ backgroundImage: `linear-gradient(rgba(15,23,42,0.10),rgba(15,23,42,0.72)),url(${data.heroImage})` }}
-            />
-            <div className="p-3">
+      <div className="absolute left-1/2 top-1/2 z-30 w-[220px] -translate-x-1/2 -translate-y-1/2 rotate-[-5deg] sm:w-[235px] lg:left-[9%] lg:w-[245px] lg:translate-x-0 xl:w-[255px]" style={{ transformStyle: "preserve-3d" }}>
+        <HeroPhoneFrame data={data} showcase={showcase} />
+      </div>
+
+      <div className="absolute right-[4%] top-[9%] z-10 hidden w-[310px] rounded-[1.5rem] border border-white/80 bg-white/84 p-3.5 shadow-[0_22px_58px_rgba(59,73,108,0.14)] backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/74 lg:block xl:w-[335px]">
+        <OverviewPanel showcase={showcase} />
+      </div>
+
+      <div className="absolute right-[4%] top-[35%] z-30 hidden w-[235px] rounded-[1.35rem] border border-white/80 bg-white/90 p-3 shadow-[0_18px_48px_rgba(59,73,108,0.12)] backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/78 xl:block">
+        <CatalogPanel showcase={showcase} image={data.heroImage} />
+      </div>
+
+      <div className="absolute right-[4%] top-[51%] z-30 hidden w-[250px] rounded-[1.35rem] border border-white/80 bg-white/90 p-3 shadow-[0_18px_48px_rgba(59,73,108,0.12)] backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/78 2xl:block">
+        <ApprovalsPanel showcase={showcase} />
+      </div>
+
+      <div className="absolute bottom-[6%] right-[8%] z-30 hidden w-[310px] rounded-[1.35rem] border border-white/80 bg-white/90 p-3 shadow-[0_18px_48px_rgba(59,73,108,0.12)] backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/78 xl:block">
+        <DispatchPanel showcase={showcase} />
+      </div>
+
+      <div className="absolute bottom-[7%] left-[31%] z-40 hidden w-[230px] rounded-[1.2rem] border border-white/80 bg-white/92 p-3 shadow-[0_18px_42px_rgba(59,73,108,0.12)] backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/80 lg:block">
+        <NotificationPanel showcase={showcase} />
+      </div>
+
+      <div className="absolute bottom-[3%] right-[3%] z-20 hidden w-[225px] rounded-full border border-white/80 bg-white/86 p-3.5 shadow-[0_18px_42px_rgba(59,73,108,0.10)] backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/78 2xl:flex">
+        <ResultPanel showcase={showcase} />
+      </div>
+    </div>
+  );
+}
+
+function HeroPhoneFrame({
+  data,
+  showcase,
+}: {
+  data: IndustryMobileAppPageData;
+  showcase: HeroShowcaseContent;
+}) {
+  const visual = data.heroVisual;
+
+  return (
+    <div className="relative rounded-[2.65rem] border-[8px] border-slate-950 bg-slate-950 p-1.5 shadow-[0_38px_86px_rgba(15,23,42,0.40)] dark:border-slate-800">
+      <div className="absolute left-1/2 top-2.5 z-20 h-5 w-24 -translate-x-1/2 rounded-full bg-slate-950 dark:bg-slate-800" />
+      <div className="overflow-hidden rounded-[2rem] bg-white dark:bg-slate-950">
+        <div className="bg-[#08132d] px-4 pb-3 pt-3 text-white">
+          <div className="flex items-center justify-start text-[0px] font-black text-white/90">
+            <span className="text-[10px]">9:41</span>
+            <span className="ml-auto text-[10px] tracking-[0.18em]">5G</span>
+          </div>
+
+          <div className="mt-5 flex items-start justify-between">
+            <div>
+              <p className="text-xs font-medium text-slate-300">Welcome back,</p>
+              <p className="mt-1 text-base font-black leading-tight">
+                Team{" "}
+                <span className="text-blue-400">{visual.appName}</span>
+              </p>
+            </div>
+            <span className="grid h-8 w-8 place-items-center rounded-2xl bg-white/10 text-blue-200">
+              <MonitorSmartphone className="h-4 w-4" />
+            </span>
+          </div>
+
+          <div className="mt-4 rounded-[1.25rem] bg-gradient-to-br from-blue-600 to-violet-600 p-3.5 shadow-[0_18px_40px_rgba(37,99,235,0.30)]">
             <div className="flex items-center justify-between">
-              <div>
-                <p className="text-[10px] font-black uppercase text-blue-200">Team view</p>
-                <p className="mt-1 text-sm font-black">{visual.appName}</p>
-              </div>
-              <span className="grid h-8 w-8 place-items-center rounded-2xl bg-white/10">
-                <MonitorSmartphone className="h-4 w-4 text-cyan-200" />
+              <h3 className="text-base font-black leading-tight">{visual.screenTitle}</h3>
+              <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-white/15">
+                <ArrowRight className="h-3.5 w-3.5" />
               </span>
             </div>
-            <div className="mt-3 rounded-2xl bg-white/10 p-3">
-              <p className="text-[10px] font-black uppercase text-slate-300">Operations</p>
-              <p className="mt-1 text-xs font-black leading-4">{data.demoContent.adminTitle}</p>
-            </div>
-            <div className="mt-3 flex h-16 items-end gap-2">
-              {[68, 42, 82, 58, 92].map((height, index) => (
-                <span
-                  key={`${height}-${index}`}
-                  className="flex-1 rounded-t-xl bg-gradient-to-t from-blue-500 to-cyan-300"
-                  style={{ height: `${height}%` }}
-                />
-              ))}
-            </div>
-            </div>
+            <p className="mt-2 text-xs leading-5 text-blue-50/90">{showcase.phoneIntro}</p>
+            <button className="mt-3 flex w-full items-center justify-between rounded-2xl bg-white/14 px-3 py-2.5 text-xs font-black text-white">
+              <span>{showcase.phoneAction}</span>
+              <ChevronRight className="h-4 w-4" />
+            </button>
           </div>
         </div>
 
-        <div className="absolute right-6 top-7 z-20 hidden w-[205px] rounded-[1.35rem] border border-white/80 bg-white/92 p-4 shadow-[0_22px_60px_rgba(15,23,42,0.14)] backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/80 md:block">
-          <div className="flex items-start gap-3">
-            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-emerald-50 text-emerald-600 dark:bg-emerald-400/10 dark:text-emerald-300">
-              <BarChart3 className="h-5 w-5" />
-            </span>
-            <div>
-              <p className="text-[10px] font-black uppercase tracking-wide text-slate-400">Live app metric</p>
-              <p className="mt-1 text-base font-black leading-tight text-slate-950 dark:text-white">
-                {visual.floatingMetric}
-              </p>
-            </div>
-          </div>
-        </div>
+        <div className="bg-gradient-to-b from-slate-50 to-white p-3.5 dark:from-slate-900 dark:to-slate-950">
+          <p className="text-xs font-black text-slate-950 dark:text-white">Quick Access</p>
+          <div className="mt-2.5 space-y-1.5">
+            {showcase.phoneRows.map((row, index) => {
+              const Icon = row.icon;
 
-        <div className="absolute bottom-6 left-6 z-20 hidden max-w-[245px] rounded-[1.35rem] border border-white/80 bg-white/92 p-3.5 shadow-[0_22px_60px_rgba(37,99,235,0.15)] backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/80 sm:block">
-          <div className="flex items-start gap-3">
-            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-2xl bg-blue-50 text-blue-600 dark:bg-blue-400/10 dark:text-blue-300">
-              <Bell className="h-5 w-5" />
-            </span>
-            <div>
-              <p className="text-xs font-black text-slate-950 dark:text-white">Push notification</p>
-              <p className="mt-1 text-xs leading-5 text-slate-500 dark:text-slate-400">
-                {visual.notification}
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div className="absolute bottom-8 right-7 z-20 hidden max-w-[210px] rounded-[1.35rem] border border-white/80 bg-white/92 p-3.5 shadow-[0_22px_60px_rgba(15,23,42,0.15)] backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/80 lg:block">
-          <p className="text-[10px] font-black uppercase tracking-wide text-violet-600 dark:text-violet-300">
-            Next action
-          </p>
-          <p className="mt-1 text-sm font-black leading-5 text-slate-950 dark:text-white">
-            {visual.actionCard}
-          </p>
-        </div>
-
-        <div className="relative z-10 flex h-full items-center justify-center">
-          <div
-            className="relative w-[min(268px,74vw)] sm:w-[278px]"
-            style={{ transform: "rotateX(5deg) rotateY(-12deg) rotateZ(1deg)", transformStyle: "preserve-3d" }}
-          >
-            <div className="absolute -inset-4 rounded-[3rem] bg-gradient-to-br from-white/90 via-blue-200/40 to-violet-200/45 blur-xl dark:from-blue-500/15 dark:via-cyan-400/10 dark:to-violet-500/15" />
-            <div className="relative rounded-[2.7rem] border-[9px] border-slate-950 bg-slate-950 p-2 shadow-[0_42px_105px_rgba(15,23,42,0.42)] dark:border-slate-800">
-              <div className="absolute left-1/2 top-3 z-20 h-4 w-24 -translate-x-1/2 rounded-full bg-slate-950 dark:bg-slate-800" />
-              <div className="overflow-hidden rounded-[2rem] bg-white dark:bg-slate-950">
-                <div className="flex items-center justify-between border-b border-slate-100 px-4 py-3 dark:border-white/10">
-                  <div>
-                    <p className="text-sm font-black text-slate-950 dark:text-white">{visual.appName}</p>
-                    <p className="mt-0.5 text-[10px] font-bold text-slate-500 dark:text-slate-400">
-                      Secure mobile workspace
-                    </p>
-                  </div>
-                  <span className="grid h-9 w-9 place-items-center rounded-2xl bg-blue-50 text-blue-600 dark:bg-blue-400/10 dark:text-blue-300">
-                    <Smartphone className="h-4 w-4" />
+              return (
+                <div
+                  key={row.label}
+                  className="flex items-center gap-3 rounded-2xl border border-slate-200/80 bg-white px-3 py-2.5 shadow-sm dark:border-white/10 dark:bg-white/[0.06]"
+                >
+                  <span
+                    className={`grid h-9 w-9 shrink-0 place-items-center rounded-2xl ${
+                      index === 0
+                        ? "bg-blue-600 text-white"
+                        : "bg-slate-100 text-slate-600 dark:bg-white/10 dark:text-slate-300"
+                    }`}
+                  >
+                    <Icon className="h-4 w-4" />
                   </span>
-                </div>
-
-                <div className="bg-gradient-to-b from-blue-50 via-white to-slate-50 p-3.5 dark:from-blue-950/35 dark:via-slate-950 dark:to-slate-950">
-                  <div className="rounded-[1.35rem] bg-[linear-gradient(135deg,#0f172a,#1d4ed8_55%,#6d28d9)] p-3.5 text-white shadow-[0_18px_46px_rgba(37,99,235,0.30)]">
-                    <div className="flex items-center justify-between">
-                      <p className="text-[10px] font-black uppercase tracking-wide text-blue-100">
-                        {data.industryName} app
-                      </p>
-                      <span className="rounded-full bg-white/15 px-2.5 py-1 text-[9px] font-black">
-                        Live
-                      </span>
-                    </div>
-                    <h3 className="mt-2 text-lg font-black leading-tight">{visual.screenTitle}</h3>
-                    <p className="mt-1.5 line-clamp-2 text-xs leading-5 text-blue-50/85">
-                      {visual.screenSubtitle}
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate text-xs font-black text-slate-950 dark:text-white">{row.label}</p>
+                    <p className="mt-0.5 truncate text-[10px] font-semibold text-slate-500 dark:text-slate-400">
+                      {row.value}
                     </p>
-                    <div className="mt-3 flex items-center gap-2 rounded-2xl bg-white/12 p-2">
-                      <span className="h-2.5 w-2.5 rounded-full bg-emerald-300" />
-                      <span className="text-[10px] font-black text-white">{visual.actionLabel}</span>
-                    </div>
                   </div>
-
-                  <div className="mt-2.5 space-y-1.5">
-                    {appRows.map((card, index) => {
-                      const Icon = card.icon;
-
-                      return (
-                        <div
-                          key={card.label}
-                          className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white/92 p-2.5 shadow-[0_10px_28px_rgba(15,23,42,0.06)] dark:border-white/10 dark:bg-white/[0.06]"
-                        >
-                          <span
-                            className={`grid h-9 w-9 shrink-0 place-items-center rounded-2xl ${
-                              index === 0
-                                ? "bg-blue-600 text-white shadow-[0_12px_28px_rgba(37,99,235,0.24)]"
-                                : "bg-slate-100 text-slate-600 dark:bg-white/10 dark:text-slate-300"
-                            }`}
-                          >
-                            <Icon className="h-4 w-4" />
-                          </span>
-                          <div className="min-w-0 flex-1">
-                            <p className="truncate text-xs font-black text-slate-950 dark:text-white">
-                              {card.label}
-                            </p>
-                            <p className="mt-0.5 truncate text-[10px] font-bold text-slate-500 dark:text-slate-400">
-                              {card.value}
-                            </p>
-                          </div>
-                          <ChevronRight className="h-4 w-4 text-slate-300" />
-                        </div>
-                      );
-                    })}
-                  </div>
-
-                  <div className="mt-2.5 grid grid-cols-4 gap-1.5 rounded-2xl border border-slate-200 bg-white/80 p-1.5 dark:border-white/10 dark:bg-white/[0.05]">
-                    {navItems.map((item, index) => (
-                      <div
-                        key={item}
-                        className={`rounded-xl px-1 py-2 text-center text-[9px] font-black ${
-                          index === 0
-                            ? "bg-slate-950 text-white dark:bg-white dark:text-slate-950"
-                            : "text-slate-500 dark:text-slate-300"
-                        }`}
-                      >
-                        {item}
-                      </div>
-                    ))}
-                  </div>
+                  <ChevronRight className="h-4 w-4 text-slate-300" />
                 </div>
+              );
+            })}
+          </div>
+
+          <div className="mt-3 grid grid-cols-4 gap-1.5 border-t border-slate-100 pt-2.5 dark:border-white/10">
+            {showcase.phoneNav.map((item, index) => (
+              <div
+                key={item}
+                className={`rounded-xl px-1 py-2 text-center text-[9px] font-black ${
+                  index === 0 ? "bg-blue-50 text-blue-700 dark:bg-blue-400/10 dark:text-blue-300" : "text-slate-500 dark:text-slate-400"
+                }`}
+              >
+                {item}
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
     </div>
   );
+}
+
+function OverviewPanel({ showcase }: { showcase: HeroShowcaseContent }) {
+  return (
+    <>
+      <div className="flex items-start justify-between">
+        <div>
+          <h3 className="text-sm font-black text-slate-950 dark:text-white">{showcase.overviewTitle}</h3>
+          <p className="mt-1 text-[10px] font-semibold text-slate-400">{showcase.overviewUpdated}</p>
+        </div>
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-white px-2.5 py-1 text-[10px] font-black text-slate-700 shadow-sm dark:bg-white/10 dark:text-slate-200">
+          <span className="h-2 w-2 rounded-full bg-emerald-400" />
+          Live
+        </span>
+      </div>
+
+      <div className="mt-4 grid grid-cols-2 gap-2">
+        {showcase.metrics.map((metric) => (
+          <MetricCard key={metric.label} metric={metric} />
+        ))}
+      </div>
+
+      <div className="mt-4 rounded-2xl border border-slate-200/70 bg-white/78 p-3 dark:border-white/10 dark:bg-white/[0.06]">
+        <div className="flex items-center justify-between">
+          <p className="text-xs font-black text-slate-950 dark:text-white">Recent Activity</p>
+          <ChevronRight className="h-4 w-4 text-slate-300" />
+        </div>
+        <div className="mt-3 space-y-2.5">
+          {showcase.activities.slice(0, 3).map((activity, index) => (
+            <div key={activity.title} className="flex items-center gap-3">
+              <span
+                className={`grid h-7 w-7 shrink-0 place-items-center rounded-xl ${
+                  index === 0
+                    ? "bg-blue-50 text-blue-600 dark:bg-blue-400/10 dark:text-blue-300"
+                    : index === 1
+                      ? "bg-emerald-50 text-emerald-600 dark:bg-emerald-400/10 dark:text-emerald-300"
+                      : "bg-orange-50 text-orange-600 dark:bg-orange-400/10 dark:text-orange-300"
+                }`}
+              >
+                <CheckCircle2 className="h-3.5 w-3.5" />
+              </span>
+              <p className="min-w-0 flex-1 truncate text-[11px] font-bold text-slate-700 dark:text-slate-300">
+                {activity.title}
+              </p>
+              <span className="text-[10px] font-semibold text-slate-400">{activity.time}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </>
+  );
+}
+
+function MetricCard({ metric }: { metric: HeroShowcaseMetric }) {
+  return (
+    <div className="rounded-2xl border border-slate-200/70 bg-white/80 p-3 shadow-sm dark:border-white/10 dark:bg-white/[0.06]">
+      <p className="text-[10px] font-semibold text-slate-500 dark:text-slate-400">{metric.label}</p>
+      <div className="mt-2 flex items-end justify-between">
+        <p className="text-xl font-black text-slate-950 dark:text-white">{metric.value}</p>
+        <span
+          className={`text-[10px] font-black ${
+            metric.tone === "positive" ? "text-emerald-500" : "text-rose-500"
+          }`}
+        >
+          {metric.change}
+        </span>
+      </div>
+    </div>
+  );
+}
+
+function CatalogPanel({
+  showcase,
+  image,
+}: {
+  showcase: HeroShowcaseContent;
+  image: string;
+}) {
+  return (
+    <>
+      <PanelHeader title={showcase.catalogTitle} action="View all" />
+      <div className="mt-3 space-y-2">
+        {showcase.catalogItems.map((item) => (
+          <div key={item.title} className="flex items-center gap-3 rounded-2xl bg-white/74 p-2 shadow-sm dark:bg-white/[0.06]">
+            <span
+              className="h-10 w-10 shrink-0 rounded-xl bg-cover bg-center"
+              style={{ backgroundImage: `linear-gradient(rgba(248,250,252,0.30),rgba(248,250,252,0.72)),url(${image})` }}
+            />
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-xs font-black text-slate-950 dark:text-white">{item.title}</p>
+              <p className="mt-0.5 text-[10px] font-semibold text-slate-500 dark:text-slate-400">{item.subtitle}</p>
+            </div>
+            <ChevronRight className="h-4 w-4 text-slate-300" />
+          </div>
+        ))}
+      </div>
+    </>
+  );
+}
+
+function ApprovalsPanel({ showcase }: { showcase: HeroShowcaseContent }) {
+  return (
+    <>
+      <PanelHeader title={showcase.approvalsTitle} action="View all" />
+      <div className="mt-3 space-y-2.5">
+        {showcase.approvalsItems.map((item) => (
+          <div key={item.title} className="flex items-center gap-3">
+            <span className="grid h-7 w-7 shrink-0 place-items-center rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-400/10 dark:text-blue-300">
+              <CheckCircle2 className="h-4 w-4" />
+            </span>
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-[11px] font-black text-slate-950 dark:text-white">{item.title}</p>
+              <p className="mt-0.5 text-[10px] font-semibold text-slate-500 dark:text-slate-400">{item.subtitle}</p>
+            </div>
+            {item.status ? <StatusBadge status={item.status} /> : null}
+          </div>
+        ))}
+      </div>
+    </>
+  );
+}
+
+function DispatchPanel({ showcase }: { showcase: HeroShowcaseContent }) {
+  return (
+    <>
+      <div className="flex items-start justify-between">
+        <div>
+          <h3 className="text-sm font-black text-slate-950 dark:text-white">{showcase.dispatchTitle}</h3>
+          <p className="mt-2 text-lg font-black text-slate-950 dark:text-white">{showcase.dispatchCode}</p>
+          <p className="mt-1 text-[10px] font-semibold text-slate-500 dark:text-slate-400">{showcase.dispatchDealer}</p>
+        </div>
+        <StatusBadge status={showcase.dispatchStatus} />
+      </div>
+      <div className="mt-4">
+        <div className="relative h-2 rounded-full bg-slate-200 dark:bg-white/10">
+          <div className="absolute inset-y-0 left-0 w-[38%] rounded-full bg-blue-600" />
+          {showcase.dispatchSteps.map((step, index) => (
+            <span
+              key={step}
+              className={`absolute top-1/2 h-4 w-4 -translate-y-1/2 rounded-full border-4 ${
+                index < 2 ? "border-blue-600 bg-white" : "border-slate-200 bg-white dark:border-white/20 dark:bg-slate-950"
+              }`}
+              style={{ left: `${index * 33}%` }}
+            />
+          ))}
+        </div>
+        <div className="mt-3 grid grid-cols-4 gap-2">
+          {showcase.dispatchSteps.map((step) => (
+            <p key={step} className="text-center text-[9px] font-bold text-slate-500 dark:text-slate-400">
+              {step}
+            </p>
+          ))}
+        </div>
+      </div>
+    </>
+  );
+}
+
+function NotificationPanel({ showcase }: { showcase: HeroShowcaseContent }) {
+  return (
+    <div className="flex items-center gap-3">
+      <span className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-blue-50 text-blue-600 dark:bg-blue-400/10 dark:text-blue-300">
+        <Bell className="h-5 w-5" />
+      </span>
+      <div className="min-w-0 flex-1">
+        <div className="flex items-center justify-between gap-3">
+          <p className="text-xs font-black text-slate-950 dark:text-white">{showcase.notificationTitle}</p>
+          <span className="text-[10px] font-semibold text-slate-400">{showcase.notificationTime}</span>
+        </div>
+        <p className="mt-1 truncate text-xs font-semibold text-slate-500 dark:text-slate-400">
+          {showcase.notificationDescription}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function ResultPanel({ showcase }: { showcase: HeroShowcaseContent }) {
+  return (
+    <div className="flex items-center gap-4">
+      <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-gradient-to-br from-blue-600 to-violet-600 text-white shadow-[0_14px_32px_rgba(37,99,235,0.24)]">
+        <BarChart3 className="h-6 w-6" />
+      </span>
+      <div>
+        <p className="text-base font-black leading-5 text-slate-950 dark:text-white">{showcase.resultTitle}</p>
+        <p className="mt-1 text-sm font-semibold text-slate-500 dark:text-slate-400">{showcase.resultSubtitle}</p>
+      </div>
+    </div>
+  );
+}
+
+function PanelHeader({ title, action }: { title: string; action: string }) {
+  return (
+    <div className="flex items-center justify-between">
+      <h3 className="text-sm font-black text-slate-950 dark:text-white">{title}</h3>
+      <span className="text-[10px] font-black text-blue-500 dark:text-blue-300">{action}</span>
+    </div>
+  );
+}
+
+function StatusBadge({ status }: { status: string }) {
+  const isApproved = status.toLowerCase().includes("approved");
+  const isTransit = status.toLowerCase().includes("transit");
+
+  return (
+    <span
+      className={`rounded-full px-2.5 py-1 text-[10px] font-black ${
+        isApproved
+          ? "bg-emerald-50 text-emerald-600 dark:bg-emerald-400/10 dark:text-emerald-300"
+          : isTransit
+            ? "bg-blue-50 text-blue-600 dark:bg-blue-400/10 dark:text-blue-300"
+            : "bg-orange-50 text-orange-600 dark:bg-orange-400/10 dark:text-orange-300"
+      }`}
+    >
+      {status}
+    </span>
+  );
+}
+
+function getHeroShowcaseContent(data: IndustryMobileAppPageData): HeroShowcaseContent {
+  const visual = data.heroVisual;
+  const isManufacturing = data.industrySlug === "manufacturing";
+
+  if (isManufacturing) {
+    return {
+      overviewTitle: "Manufacturing Overview",
+      overviewUpdated: "Updated just now",
+      metrics: [
+        { label: "Active RFQs", value: "18", change: "+12%", tone: "positive" },
+        { label: "Open Orders", value: "24", change: "+8%", tone: "positive" },
+        { label: "Pending Approvals", value: "7", change: "-5%", tone: "negative" },
+        { label: "In Dispatch", value: "11", change: "+15%", tone: "positive" },
+      ],
+      activities: [
+        { title: "New RFQ from Dealer One", time: "2m ago" },
+        { title: "Order #ORD-2451 approved", time: "15m ago" },
+        { title: "Dispatch #DS-7781 in transit", time: "1h ago" },
+        { title: "Catalog updated", time: "2h ago" },
+      ],
+      catalogTitle: "Product Catalog",
+      catalogItems: [
+        { title: "Industrial Motors", subtitle: "248 Products" },
+        { title: "Gear Systems", subtitle: "132 Products" },
+        { title: "Conveyor Systems", subtitle: "86 Products" },
+      ],
+      approvalsTitle: "Approvals",
+      approvalsItems: [
+        { title: "PO #PO-8842", subtitle: "Dealer One", status: "Approved" },
+        { title: "PO #PO-8841", subtitle: "Dealer Two", status: "Pending" },
+        { title: "PO #PO-8840", subtitle: "Dealer Three", status: "Pending" },
+      ],
+      dispatchTitle: "Dispatch Tracking",
+      dispatchCode: "DS-7781",
+      dispatchDealer: "Dealer One",
+      dispatchStatus: "In Transit",
+      dispatchSteps: ["Dispatched", "In Transit", "Out for Delivery", "Delivered"],
+      notificationTitle: "Push notification",
+      notificationDescription: "RFQ approved by admin",
+      notificationTime: "2m ago",
+      resultTitle: "Smarter Operations.",
+      resultSubtitle: "Stronger Results.",
+      phoneIntro: "Give dealers and internal teams a connected app for catalogs, orders and more.",
+      phoneAction: "Request Quote",
+      phoneRows: visual.cards.slice(0, 4).map((card, index) => ({
+        ...card,
+        value: ["Products", "Requests", "Tracking", "Sync & Track"][index] ?? card.value,
+      })),
+      phoneNav: ["Home", "Orders", "Alerts", "Profile"],
+    };
+  }
+
+  const rows = visual.cards.slice(0, 4);
+
+  return {
+    overviewTitle: `${data.industryName} Overview`,
+    overviewUpdated: "Updated just now",
+    metrics: [
+      { label: rows[0]?.label ?? "Active Requests", value: "18", change: "+12%", tone: "positive" },
+      { label: rows[1]?.label ?? "Open Tasks", value: "24", change: "+8%", tone: "positive" },
+      { label: rows[2]?.label ?? "Pending Actions", value: "7", change: "-5%", tone: "negative" },
+      { label: rows[3]?.label ?? "Completed", value: "11", change: "+15%", tone: "positive" },
+    ],
+    activities: [
+      { title: visual.notification, time: "2m ago" },
+      { title: `${rows[0]?.label ?? "Request"} updated`, time: "15m ago" },
+      { title: visual.actionCard, time: "1h ago" },
+      { title: `${data.industryName} app synced`, time: "2h ago" },
+    ],
+    catalogTitle: rows[0]?.label ?? data.demoContent.catalogTabLabel,
+    catalogItems: rows.slice(0, 3).map((row, index) => ({
+      title: row.label,
+      subtitle: index === 0 ? row.value : `${row.value} active`,
+    })),
+    approvalsTitle: rows[2]?.label ?? "Approvals",
+    approvalsItems: [
+      { title: `${data.industryName} request #01`, subtitle: rows[1]?.label ?? "Team", status: "Approved" },
+      { title: `${data.industryName} request #02`, subtitle: rows[2]?.label ?? "Admin", status: "Pending" },
+      { title: `${data.industryName} request #03`, subtitle: rows[3]?.label ?? "Support", status: "Pending" },
+    ],
+    dispatchTitle: rows[3]?.label ?? "Tracking",
+    dispatchCode: data.heroVisual.floatingMetric,
+    dispatchDealer: data.demoContent.catalogTabLabel,
+    dispatchStatus: "In Transit",
+    dispatchSteps: ["Requested", "Reviewed", "In Progress", "Done"],
+    notificationTitle: "Push notification",
+    notificationDescription: visual.notification,
+    notificationTime: "2m ago",
+    resultTitle: "Smarter Operations.",
+    resultSubtitle: "Stronger Results.",
+    phoneIntro: visual.screenSubtitle,
+    phoneAction: visual.actionLabel,
+    phoneRows: rows,
+    phoneNav: ["Home", rows[1]?.label ?? "Tasks", "Alerts", "Profile"],
+  };
+}
+
+function getHeroTrustChips(data: IndustryMobileAppPageData) {
+  if (data.industrySlug === "manufacturing") {
+    return ["Enterprise-grade security", "Scalable & secure", "Built for manufacturers"];
+  }
+
+  return ["Enterprise-grade security", "Scalable & secure", `Built for ${data.industryName.toLowerCase()}`];
 }
 
 function ProblemsSection({
