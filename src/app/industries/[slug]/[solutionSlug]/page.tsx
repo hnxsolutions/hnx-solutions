@@ -1,10 +1,20 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import IndustryCrmPage from "@/components/industries/shared/IndustryCrmPage";
+import {
+  getIndustryCrmPage,
+  industryCrmStaticParams,
+} from "@/components/industries/shared/industryCrmData";
 import IndustryMobileAppPage from "@/components/industries/shared/IndustryMobileAppPage";
 import {
   getIndustryMobileAppPage,
   industryMobileAppStaticParams,
 } from "@/components/industries/shared/industryMobileAppData";
+import IndustryPortalPage from "@/components/industries/shared/IndustryPortalPage";
+import {
+  getIndustryPortalPage,
+  industryPortalStaticParams,
+} from "@/components/industries/shared/industryPortalData";
 import IndustryWebsitePage from "@/components/industries/shared/IndustryWebsitePage";
 import {
   getIndustryWebsitePage,
@@ -30,6 +40,14 @@ export function generateStaticParams() {
       slug: industrySlug,
       solutionSlug,
     })),
+    ...industryPortalStaticParams.map(({ industrySlug, solutionSlug }) => ({
+      slug: industrySlug,
+      solutionSlug,
+    })),
+    ...industryCrmStaticParams.map(({ industrySlug, solutionSlug }) => ({
+      slug: industrySlug,
+      solutionSlug,
+    })),
   ];
 }
 
@@ -52,10 +70,33 @@ export async function generateMetadata({
   const mobileAppPage = getIndustryMobileAppPage(slug, solutionSlug);
 
   if (!mobileAppPage) {
+    const portalPage = getIndustryPortalPage(slug, solutionSlug);
+
+    if (portalPage) {
+      return createMetadata({
+        title: `${portalPage.industryName} Portal Development Services | HNX Solutions`,
+        description: `Build a secure ${portalPage.industryName.toLowerCase()} portal for role-based access, requests, documents, approvals, status tracking and admin visibility.`,
+        path: portalPage.primaryRoute,
+        image: portalPage.heroImage,
+        keywords: portalPage.keywords,
+      });
+    }
+
+    const crmPage = getIndustryCrmPage(slug, solutionSlug);
+
+    if (!crmPage) {
+      return createMetadata({
+        title: "Industry Solution Not Found | HNX Solutions",
+        description: "The requested industry solution page could not be found.",
+        path: `/industries/${slug}/${solutionSlug}`,
+      });
+    }
+
     return createMetadata({
-      title: "Industry Solution Not Found | HNX Solutions",
-      description: "The requested industry solution page could not be found.",
-      path: `/industries/${slug}/${solutionSlug}`,
+      title: `${crmPage.industryName} CRM Development Services | HNX Solutions`,
+      description: `Build a custom ${crmPage.industryName.toLowerCase()} CRM for lead management, customer timelines, pipeline tracking, follow-up automation, reporting and role-based dashboards.`,
+      path: crmPage.primaryRoute,
+      keywords: crmPage.keywords,
     });
   }
 
@@ -101,7 +142,59 @@ export default async function IndustrySolutionRoutePage({
   const mobileAppPage = getIndustryMobileAppPage(slug, solutionSlug);
 
   if (!mobileAppPage) {
-    notFound();
+    const portalPage = getIndustryPortalPage(slug, solutionSlug);
+
+    if (portalPage) {
+      return (
+        <>
+          <JsonLd
+            data={[
+              createBreadcrumbJsonLd([
+                { name: "Home", path: "/" },
+                { name: "Industries", path: "/industries" },
+                { name: portalPage.industryName, path: `/industries/${portalPage.industrySlug}` },
+                { name: "Portal", path: portalPage.primaryRoute },
+              ]),
+              createServiceJsonLd({
+                name: `${portalPage.eyebrow} Development`,
+                description: portalPage.description,
+                path: portalPage.primaryRoute,
+                serviceType: portalPage.serviceType,
+              }),
+            ]}
+          />
+          <IndustryPortalPage industrySlug={slug} solutionSlug={solutionSlug} />
+        </>
+      );
+    }
+
+    const crmPage = getIndustryCrmPage(slug, solutionSlug);
+
+    if (!crmPage) {
+      notFound();
+    }
+
+    return (
+      <>
+        <JsonLd
+          data={[
+            createBreadcrumbJsonLd([
+              { name: "Home", path: "/" },
+              { name: "Industries", path: "/industries" },
+              { name: crmPage.industryName, path: `/industries/${crmPage.industrySlug}` },
+              { name: "CRM", path: crmPage.primaryRoute },
+            ]),
+            createServiceJsonLd({
+              name: `${crmPage.eyebrow} Development`,
+              description: crmPage.description,
+              path: crmPage.primaryRoute,
+              serviceType: crmPage.serviceType,
+            }),
+          ]}
+        />
+        <IndustryCrmPage industrySlug={slug} solutionSlug={solutionSlug} />
+      </>
+    );
   }
 
   return (

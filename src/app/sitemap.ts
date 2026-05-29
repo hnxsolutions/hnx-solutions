@@ -6,6 +6,8 @@ import { mobileAppSolutions } from "@/data/solutions/mobileAppSolutions";
 import { aiAutomationSolutions } from "@/data/solutions/aiAutomationSolutions";
 import { cloudDevopsSolutions } from "@/data/solutions/cloudDevopsSolutions";
 import { designGrowthSolutions } from "@/data/solutions/designGrowthSolutions";
+import { industryCrmPages } from "@/components/industries/shared/industryCrmData";
+import { industryPortalPages } from "@/components/industries/shared/industryPortalData";
 
 type ChangeFrequency = NonNullable<MetadataRoute.Sitemap[number]["changeFrequency"]>;
 
@@ -83,6 +85,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   const industryEntries = industryPaths.map((path) => entry(path, 0.9, "monthly"));
+  const industryPortalEntries = Object.values(industryPortalPages).map((page) =>
+    entry(page.primaryRoute, 0.88, "monthly"),
+  );
+  const industryCrmEntries = Object.values(industryCrmPages).map((page) =>
+    entry(page.primaryRoute, 0.9, "monthly"),
+  );
 
-  return [...staticEntries, ...serviceEntries, ...solutionEntries, ...industryEntries];
+  return [
+    ...staticEntries,
+    ...serviceEntries,
+    ...solutionEntries,
+    ...industryEntries,
+    ...industryPortalEntries,
+    ...industryCrmEntries,
+  ];
 }

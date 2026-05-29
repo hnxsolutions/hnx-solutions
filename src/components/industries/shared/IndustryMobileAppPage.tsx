@@ -4,7 +4,6 @@ import { useState, type ReactNode } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
-  BarChart3,
   Bell,
   CheckCircle2,
   ChevronRight,
@@ -56,15 +55,15 @@ export default function IndustryMobileAppPage({
               <IncludesSection title={data.includesTitle} items={data.includes} />
             </div>
 
-            <JourneySection data={data} />
             <ModulesSection data={data} />
             <RoleExperienceSection data={data} />
+            <JourneySection data={data} />
             <DemoGallerySection data={data} onOpenDemo={setActiveDemo} />
             <WhyChooseAndCTASection data={data} />
             <PricingSection data={data} />
+            <FinalCTASection />
             <TestimonialsSection title={data.testimonialsTitle} items={data.testimonials} />
             <TrustSection data={data} />
-            <FinalCTASection data={data} />
           </div>
         </div>
       </section>
@@ -249,10 +248,6 @@ function PhoneHeroMockup({ data }: { data: IndustryMobileAppPageData }) {
         <CatalogPanel showcase={showcase} image={data.heroImage} />
       </div>
 
-      <div className="absolute right-[4%] top-[51%] z-30 hidden w-[250px] rounded-[1.35rem] border border-white/80 bg-white/90 p-3 shadow-[0_18px_48px_rgba(59,73,108,0.12)] backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/78 2xl:block">
-        <ApprovalsPanel showcase={showcase} />
-      </div>
-
       <div className="absolute bottom-[6%] right-[8%] z-30 hidden w-[310px] rounded-[1.35rem] border border-white/80 bg-white/90 p-3 shadow-[0_18px_48px_rgba(59,73,108,0.12)] backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/78 xl:block">
         <DispatchPanel showcase={showcase} />
       </div>
@@ -261,9 +256,6 @@ function PhoneHeroMockup({ data }: { data: IndustryMobileAppPageData }) {
         <NotificationPanel showcase={showcase} />
       </div>
 
-      <div className="absolute bottom-[3%] right-[3%] z-20 hidden w-[225px] rounded-full border border-white/80 bg-white/86 p-3.5 shadow-[0_18px_42px_rgba(59,73,108,0.10)] backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/78 2xl:flex">
-        <ResultPanel showcase={showcase} />
-      </div>
     </div>
   );
 }
@@ -463,28 +455,6 @@ function CatalogPanel({
   );
 }
 
-function ApprovalsPanel({ showcase }: { showcase: HeroShowcaseContent }) {
-  return (
-    <>
-      <PanelHeader title={showcase.approvalsTitle} action="View all" />
-      <div className="mt-3 space-y-2.5">
-        {showcase.approvalsItems.map((item) => (
-          <div key={item.title} className="flex items-center gap-3">
-            <span className="grid h-7 w-7 shrink-0 place-items-center rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-400/10 dark:text-blue-300">
-              <CheckCircle2 className="h-4 w-4" />
-            </span>
-            <div className="min-w-0 flex-1">
-              <p className="truncate text-[11px] font-black text-slate-950 dark:text-white">{item.title}</p>
-              <p className="mt-0.5 text-[10px] font-semibold text-slate-500 dark:text-slate-400">{item.subtitle}</p>
-            </div>
-            {item.status ? <StatusBadge status={item.status} /> : null}
-          </div>
-        ))}
-      </div>
-    </>
-  );
-}
-
 function DispatchPanel({ showcase }: { showcase: HeroShowcaseContent }) {
   return (
     <>
@@ -535,20 +505,6 @@ function NotificationPanel({ showcase }: { showcase: HeroShowcaseContent }) {
         <p className="mt-1 truncate text-xs font-semibold text-slate-500 dark:text-slate-400">
           {showcase.notificationDescription}
         </p>
-      </div>
-    </div>
-  );
-}
-
-function ResultPanel({ showcase }: { showcase: HeroShowcaseContent }) {
-  return (
-    <div className="flex items-center gap-4">
-      <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-gradient-to-br from-blue-600 to-violet-600 text-white shadow-[0_14px_32px_rgba(37,99,235,0.24)]">
-        <BarChart3 className="h-6 w-6" />
-      </span>
-      <div>
-        <p className="text-base font-black leading-5 text-slate-950 dark:text-white">{showcase.resultTitle}</p>
-        <p className="mt-1 text-sm font-semibold text-slate-500 dark:text-slate-400">{showcase.resultSubtitle}</p>
       </div>
     </div>
   );
@@ -766,92 +722,88 @@ function IncludesSection({
 function JourneySection({ data }: { data: IndustryMobileAppPageData }) {
   return (
     <section className="border-t border-slate-200 bg-gradient-to-b from-white to-blue-50/35 px-7 py-12 dark:border-white/10 dark:from-white/[0.04] dark:to-blue-950/10 sm:px-10 lg:px-12">
-      <div className="grid gap-8 xl:grid-cols-[0.88fr_1.12fr] xl:items-center">
-        <div>
-          <SectionEyebrow>App Journey</SectionEyebrow>
-          <h2 className="mt-3 text-3xl font-black leading-tight text-slate-950 dark:text-white sm:text-4xl">
-            {data.flowTitle}
-          </h2>
-          <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-600 dark:text-slate-300">
-            A clear mobile journey keeps every user action connected to staff follow-up, status updates, and reporting.
-          </p>
+      <SectionTitle
+        title={data.flowTitle}
+        description="A clear app journey moves work from the first request to completion with status visibility, notifications, and reporting."
+        center
+      />
 
-          <div className="mt-7 grid gap-3">
-            {data.flowSteps.map((step, index) => {
-              const Icon = step.icon;
+      <div className="relative mt-10">
+        <div className="pointer-events-none absolute left-0 right-0 top-10 hidden h-px bg-gradient-to-r from-transparent via-blue-200 to-transparent dark:via-blue-300/20 lg:block" />
+
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          {data.flowSteps.map((step, index) => (
+            <WorkflowJourneyStep
+              key={step.title}
+              step={step}
+              index={index}
+            />
+          ))}
+        </div>
+
+        <div className="mt-8 grid gap-4 rounded-[1.75rem] border border-slate-200 bg-white/82 p-5 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.05] lg:grid-cols-[1fr_1.2fr] lg:items-center">
+          <div>
+            <p className="text-xs font-black uppercase text-blue-700 dark:text-blue-300">
+              Connected owner view
+            </p>
+            <h3 className="mt-2 text-2xl font-black text-slate-950 dark:text-white">
+              {data.demoContent.adminTitle}
+            </h3>
+            <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
+              {data.demoContent.adminDescription}
+            </p>
+          </div>
+
+          <div className="grid gap-3 sm:grid-cols-3">
+            {data.demoContent.analyticsMetrics.slice(0, 3).map((metric) => {
+              const Icon = metric.icon;
 
               return (
-                <article
-                  key={step.title}
-                  className="flex items-start gap-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-1 dark:border-white/10 dark:bg-white/[0.05]"
+                <div
+                  key={metric.label}
+                  className="rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-white/10 dark:bg-white/[0.06]"
                 >
-                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-blue-600 to-violet-600 text-sm font-black text-white">
-                    {index + 1}
-                  </span>
-                  <div className="min-w-0 flex-1">
-                    <div className="flex items-center gap-2">
-                      <Icon className="h-4 w-4 text-blue-600 dark:text-blue-300" />
-                      <h3 className="font-black text-slate-950 dark:text-white">
-                        {step.title}
-                      </h3>
-                    </div>
-                    <p className="mt-1 text-sm leading-6 text-slate-600 dark:text-slate-300">
-                      {step.description}
-                    </p>
-                  </div>
-                </article>
+                  <Icon className="h-5 w-5 text-blue-600 dark:text-blue-300" />
+                  <p className="mt-3 text-xs font-bold text-slate-500 dark:text-slate-400">
+                    {metric.label}
+                  </p>
+                  <p className="mt-1 text-xl font-black text-slate-950 dark:text-white">
+                    {metric.value}
+                  </p>
+                </div>
               );
             })}
           </div>
         </div>
-
-        <div className="relative">
-          <div className="overflow-hidden rounded-[2rem] border border-slate-200 bg-slate-950 p-5 text-white shadow-[0_28px_80px_rgba(15,23,42,0.22)] dark:border-white/10">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-xs font-black uppercase text-blue-300">
-                  Live mobile journey
-                </p>
-                <h3 className="mt-2 text-2xl font-black">
-                  {data.demoContent.primaryAction}
-                </h3>
-              </div>
-              <Smartphone className="h-7 w-7 text-cyan-300" />
-            </div>
-
-            <div className="mt-7 grid gap-3 sm:grid-cols-5">
-              {data.flowSteps.map((step, index) => (
-                <div key={`${step.title}-visual`} className="rounded-2xl bg-white/10 p-3 ring-1 ring-white/10">
-                  <p className="text-2xl font-black text-cyan-200">
-                    0{index + 1}
-                  </p>
-                  <p className="mt-3 text-xs font-black leading-5">
-                    {step.title}
-                  </p>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-7 rounded-2xl bg-white p-4 text-slate-950">
-              <div className="flex items-center justify-between">
-                <p className="text-sm font-black">{data.demoContent.adminTitle}</p>
-                <span className="rounded-full bg-emerald-50 px-3 py-1 text-[10px] font-black text-emerald-700">
-                  Connected
-                </span>
-              </div>
-              <div className="mt-4 grid gap-3 sm:grid-cols-3">
-                {data.demoContent.analyticsMetrics.slice(0, 3).map((metric) => (
-                  <div key={metric.label} className="rounded-xl bg-slate-50 p-3">
-                    <p className="text-xs font-bold text-slate-500">{metric.label}</p>
-                    <p className="mt-1 text-lg font-black">{metric.value}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
+  );
+}
+
+function WorkflowJourneyStep({
+  step,
+  index,
+}: {
+  step: IndustryMobileAppCard;
+  index: number;
+}) {
+  const Icon = step.icon;
+
+  return (
+    <article className="relative rounded-[1.35rem] border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-[0_18px_50px_rgba(15,23,42,0.08)] dark:border-white/10 dark:bg-white/[0.05]">
+      <span className="relative z-10 grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br from-blue-600 to-violet-600 text-white shadow-[0_14px_30px_rgba(37,99,235,0.22)]">
+        <Icon className="h-5 w-5" />
+      </span>
+      <p className="mt-5 text-xs font-black uppercase text-blue-700 dark:text-blue-300">
+        Step {index + 1}
+      </p>
+      <h3 className="mt-2 text-base font-black text-slate-950 dark:text-white">
+        {step.title}
+      </h3>
+      <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
+        {step.description}
+      </p>
+    </article>
   );
 }
 
@@ -877,31 +829,53 @@ function ModuleCard({ module }: { module: IndustryMobileAppModule }) {
   const Icon = module.icon;
 
   return (
-    <article className="group min-h-[255px] rounded-[1.45rem] border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(15,23,42,0.10)] dark:border-white/10 dark:bg-white/[0.05]">
-      <div className="flex items-start justify-between gap-4">
-        <span className="grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br from-blue-50 to-cyan-50 text-blue-600 ring-1 ring-blue-100 dark:from-blue-400/10 dark:to-cyan-400/10 dark:text-blue-300 dark:ring-blue-300/10">
+    <article className="group overflow-hidden rounded-[1.45rem] border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(15,23,42,0.10)] dark:border-white/10 dark:bg-white/[0.05]">
+      <div className="relative min-h-[140px] overflow-hidden bg-gradient-to-br from-blue-50 via-white to-violet-50 p-4 dark:from-blue-950/30 dark:via-slate-950 dark:to-violet-950/20">
+        <div className="absolute right-4 top-4 grid h-10 w-10 place-items-center rounded-2xl bg-white text-blue-600 shadow-sm dark:bg-white/10 dark:text-blue-300">
           <Icon className="h-5 w-5" />
-        </span>
-        <Layers3 className="h-5 w-5 text-slate-300 transition group-hover:text-blue-400" />
+        </div>
+        <div className="w-[138px] rounded-[1.7rem] border-[7px] border-slate-950 bg-slate-950 p-1.5 shadow-[0_18px_42px_rgba(15,23,42,0.20)] dark:border-slate-800">
+          <div className="overflow-hidden rounded-[1.2rem] bg-white dark:bg-slate-950">
+            <div className="bg-slate-950 p-3 text-white">
+              <div className="h-1.5 w-10 rounded-full bg-white/20" />
+              <p className="mt-4 text-[10px] font-black leading-3">
+                {module.title}
+              </p>
+            </div>
+            <div className="space-y-1.5 p-2">
+              {[0, 1, 2].map((item) => (
+                <div key={item} className="flex items-center gap-1.5 rounded-lg bg-slate-50 p-1.5 dark:bg-white/10">
+                  <span className="h-4 w-4 rounded-md bg-blue-100 dark:bg-blue-400/20" />
+                  <span className="h-1.5 flex-1 rounded-full bg-slate-200 dark:bg-white/15" />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
 
-      <h3 className="mt-5 text-lg font-black leading-6 text-slate-950 dark:text-white">
-        {module.title}
-      </h3>
-      <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
-        {module.description}
-      </p>
+      <div className="p-5">
+        <div className="flex items-start justify-between gap-4">
+          <h3 className="text-lg font-black leading-6 text-slate-950 dark:text-white">
+            {module.title}
+          </h3>
+          <Layers3 className="h-5 w-5 shrink-0 text-slate-300 transition group-hover:text-blue-400" />
+        </div>
+        <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
+          {module.description}
+        </p>
 
-      <div className="mt-4 space-y-2">
-        {module.points.slice(0, 3).map((point) => (
-          <div
-            key={point}
-            className="flex items-start gap-2 text-xs font-semibold leading-5 text-slate-600 dark:text-slate-300"
-          >
-            <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-500" />
-            {point}
-          </div>
-        ))}
+        <div className="mt-4 space-y-2">
+          {module.points.slice(0, 3).map((point) => (
+            <div
+              key={point}
+              className="flex items-start gap-2 text-xs font-semibold leading-5 text-slate-600 dark:text-slate-300"
+            >
+              <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-500" />
+              {point}
+            </div>
+          ))}
+        </div>
       </div>
     </article>
   );
@@ -928,7 +902,7 @@ function RoleExperienceSection({ data }: { data: IndustryMobileAppPageData }) {
       <div className="mx-auto max-w-3xl text-center">
         <SectionEyebrow>Mobile App Use Cases</SectionEyebrow>
         <h2 className="mt-3 text-3xl font-black leading-tight text-slate-950 dark:text-white sm:text-4xl">
-          Mobile App Use Cases for {data.industryName}
+          Role-Based Mobile App Experience for {data.industryName}
         </h2>
         <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
           {data.roleExperiencesDescription}
@@ -1016,7 +990,7 @@ function RoleExperienceSection({ data }: { data: IndustryMobileAppPageData }) {
                 ))}
               </div>
 
-              <div className="mt-7 rounded-[1.35rem] border border-slate-200 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-white/[0.06]">
+              <div className="mt-7 rounded-[1.35rem] border border-slate-200 bg-slate-50 p-4 shadow-sm dark:border-white/10 dark:bg-white/[0.06]">
                 <div className="mb-4 flex items-center justify-between gap-3">
                   <p className="text-xs font-black uppercase text-slate-400">
                     Workflow line
@@ -1303,7 +1277,7 @@ function DemoCard({
         onClick={() => onOpenDemo(demo)}
         className={`mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3 text-xs font-black text-white shadow-sm transition hover:-translate-y-0.5 ${accentClasses.button}`}
       >
-        View App Demo
+        View Full Demo
         <ArrowRight className="h-4 w-4" />
       </button>
     </article>
@@ -1363,7 +1337,7 @@ function WhyChooseAndCTASection({ data }: { data: IndustryMobileAppPageData }) {
 
 function PricingSection({ data }: { data: IndustryMobileAppPageData }) {
   return (
-    <section className="border-t border-slate-200 px-7 py-12 dark:border-white/10 sm:px-10 lg:px-12">
+    <section className="border-t border-slate-200 bg-gradient-to-b from-white to-slate-50/80 px-7 py-12 dark:border-white/10 dark:from-white/[0.04] dark:to-white/[0.025] sm:px-10 lg:px-12">
       <SectionTitle
         title={`Mobile app pricing for ${data.industryName}`}
         description={data.pricingDescription}
@@ -1518,20 +1492,20 @@ function TrustCard({ item }: { item: IndustryMobileAppTrustItem }) {
   );
 }
 
-function FinalCTASection({ data }: { data: IndustryMobileAppPageData }) {
+function FinalCTASection() {
   return (
     <section className="border-t border-slate-200 px-7 py-10 dark:border-white/10 sm:px-10 lg:px-12">
-      <div className="overflow-hidden rounded-[2rem] border border-slate-800 bg-slate-950 p-6 text-white shadow-[0_24px_70px_rgba(15,23,42,0.20)] sm:p-8 lg:p-10">
+      <div className="overflow-hidden rounded-[2rem] border border-slate-800 bg-[linear-gradient(135deg,#020617,#0f172a_48%,#1d4ed8)] p-6 text-white shadow-[0_24px_70px_rgba(15,23,42,0.20)] sm:p-8 lg:p-10">
         <div className="grid gap-7 lg:grid-cols-[1fr_auto] lg:items-center">
           <div>
             <p className="text-xs font-black uppercase text-blue-300">
               Build a mobile app your customers actually use
             </p>
             <h2 className="mt-3 max-w-3xl text-3xl font-black leading-tight sm:text-4xl">
-              Create an industry-specific app for booking, tracking, communication, and growth.
+              Build a mobile app experience your teams and customers actually use.
             </h2>
             <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-300">
-              {data.ctaDescription}
+              Turn scattered workflows into a connected mobile app with role-based access, admin visibility, and industry-specific screens.
             </p>
           </div>
 
@@ -1540,7 +1514,7 @@ function FinalCTASection({ data }: { data: IndustryMobileAppPageData }) {
               href="/contact"
               className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 px-7 py-4 text-sm font-black text-white shadow-[0_18px_50px_rgba(37,99,235,0.25)] transition hover:-translate-y-0.5"
             >
-              Build My App
+              Start My Mobile App Build
               <ArrowRight className="h-4 w-4" />
             </Link>
             <Link

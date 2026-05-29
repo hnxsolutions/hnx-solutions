@@ -1034,7 +1034,7 @@ const industryMenus: IndustryMenu[] = [
       {
         label: "Client Portal",
         description: "Secure access for inquiries, documents, booking status, and property tracking.",
-        href: "/industries/real-estate/client-portal",
+        href: "/industries/real-estate/portal",
         icon: Network,
         tag: "Portal",
         tagClass: tagStyles.portal,
@@ -1119,7 +1119,7 @@ const industryMenus: IndustryMenu[] = [
       {
         label: "Student Portal",
         description: "Secure portals for schedules, notices, reports, fees, records, and resources.",
-        href: "/industries/education/student-portal",
+        href: "/industries/education/portal",
         icon: Network,
         tag: "Portal",
         tagClass: tagStyles.portal,
@@ -1204,7 +1204,7 @@ const industryMenus: IndustryMenu[] = [
       {
         label: "Vendor Portal",
         description: "Portals for vendors, procurement, purchase requests, documents, and updates.",
-        href: "/industries/manufacturing/vendor-portal",
+        href: "/industries/manufacturing/portal",
         icon: Network,
         tag: "Portal",
         tagClass: tagStyles.portal,
@@ -1289,7 +1289,7 @@ const industryMenus: IndustryMenu[] = [
       {
         label: "Customer Portal",
         description: "Customer accounts, order tracking, service requests, returns, and support access.",
-        href: "/industries/retail/customer-portal",
+        href: "/industries/retail/portal",
         icon: Network,
         tag: "Portal",
         tagClass: tagStyles.portal,
@@ -1374,7 +1374,7 @@ const industryMenus: IndustryMenu[] = [
       {
         label: "Client Portal",
         description: "Portals for statements, onboarding, documents, approvals, and service access.",
-        href: "/industries/finance/client-portal",
+        href: "/industries/finance/portal",
         icon: Network,
         tag: "Portal",
         tagClass: tagStyles.portal,
@@ -1459,7 +1459,7 @@ const industryMenus: IndustryMenu[] = [
       {
         label: "Policyholder Portal",
         description: "Access claims, documents, policies, renewals, requests, and service updates.",
-        href: "/industries/insurance/policyholder-portal",
+        href: "/industries/insurance/portal",
         icon: Network,
         tag: "Portal",
         tagClass: tagStyles.portal,
@@ -1544,7 +1544,7 @@ const industryMenus: IndustryMenu[] = [
       {
         label: "Traveler Portal",
         description: "Secure traveler access for bookings, vouchers, visa documents, and updates.",
-        href: "/industries/travel/traveler-portal",
+        href: "/industries/travel/portal",
         icon: Network,
         tag: "Portal",
         tagClass: tagStyles.portal,
@@ -1629,7 +1629,7 @@ const industryMenus: IndustryMenu[] = [
       {
         label: "Customer Portal",
         description: "Access bookings, service history, offers, documents, and vehicle updates.",
-        href: "/industries/automobile/customer-portal",
+        href: "/industries/automobile/portal",
         icon: Network,
         tag: "Portal",
         tagClass: tagStyles.portal,
@@ -1714,7 +1714,7 @@ const industryMenus: IndustryMenu[] = [
       {
         label: "Client Portal",
         description: "Secure client access for projects, invoices, files, updates, and communication.",
-        href: "/industries/service-business/client-portal",
+        href: "/industries/service-business/portal",
         icon: Network,
         tag: "Portal",
         tagClass: tagStyles.portal,
