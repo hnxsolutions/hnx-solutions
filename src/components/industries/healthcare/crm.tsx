@@ -397,7 +397,7 @@ function DashboardMetric({ label, value, delta }: { label: string; value: string
 function DashboardSection() {
   return (
     <section className="bg-[#f3f7fb] py-16">
-      <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
+      <div className="mx-auto w-full max-w-full px-3 sm:max-w-[min(92vw,1440px)] sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <Reveal>
           <div className="rounded-[34px] border border-[#dce7f7] bg-white p-5 shadow-[0_26px_90px_rgba(15,23,42,0.08)]">
             <h2 className="mb-6 text-center text-2xl font-black tracking-[-0.02em] text-[#081633]">
@@ -563,7 +563,7 @@ function DashboardSection() {
 function PatientJourney() {
   return (
     <section className="bg-gradient-to-br from-[#effcff] to-white py-16">
-      <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
+      <div className="mx-auto w-full max-w-full px-3 sm:max-w-[min(92vw,1440px)] sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <Reveal>
           <div className="text-center">
             <h2 className="text-3xl font-black tracking-[-0.03em] text-[#081633]">
@@ -603,7 +603,7 @@ function PatientJourney() {
 function PhoneFeatureBlock() {
   return (
     <section className="bg-[#f8fbff] py-16">
-      <div className="mx-auto grid w-full max-w-[min(92vw,1440px)] items-center gap-8 lg:grid-cols-[0.95fr_0.55fr_0.95fr] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
+      <div className="mx-auto grid w-full max-w-full items-center gap-8 px-3 sm:max-w-[min(92vw,1440px)] sm:px-6 lg:grid-cols-[0.95fr_0.55fr_0.95fr] lg:px-8 xl:px-10 2xl:px-12">
         <Reveal>
           <div className="rounded-[30px] border border-[#dce7f7] bg-white p-7 shadow-[0_20px_70px_rgba(15,23,42,0.065)]">
             <h2 className="text-center text-lg font-black text-[#081633]">Powerful Features for</h2>
@@ -670,7 +670,7 @@ function PhoneFeatureBlock() {
 function DoctorUseCasesSection() {
   return (
     <section className="bg-white py-14">
-      <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
+      <div className="mx-auto w-full max-w-full px-3 sm:max-w-[min(92vw,1440px)] sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <Reveal>
           <div className="mx-auto max-w-4xl text-center">
             <h2 className="text-3xl font-black tracking-[-0.03em] text-[#081633]">
@@ -723,7 +723,7 @@ function PricingCarousel() {
 
   return (
     <section className="bg-white py-12">
-      <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
+      <div className="mx-auto w-full max-w-full px-3 sm:max-w-[min(92vw,1440px)] sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <Reveal>
           <div className="mx-auto max-w-5xl text-center">
             <p className="text-xl leading-[1.45] text-[#3f5379] sm:text-2xl lg:text-[1.9rem]">
@@ -814,7 +814,7 @@ function HealthcareCRMContent() {
   return (
     <main className="overflow-hidden bg-[#f8fbff] text-[#081633]">
       <section className="relative border-b border-[#e5edf8] bg-gradient-to-br from-white via-[#fbfdff] to-[#eefbff] pb-0 pt-28 lg:pt-32">
-        <div className="mx-auto grid w-full max-w-[min(92vw,1440px)] gap-8 lg:grid-cols-[0.96fr_1.04fr] lg:items-start xl:gap-10 px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
+        <div className="mx-auto grid w-full max-w-full gap-8 px-3 sm:max-w-[min(92vw,1440px)] sm:px-6 lg:grid-cols-[0.96fr_1.04fr] lg:items-start lg:px-8 xl:gap-10 xl:px-10 2xl:px-12">
           <Reveal>
             <div className="relative z-20 pb-12 pt-2 lg:pb-14 lg:pt-8">
               <div className="inline-flex items-center gap-3 rounded-full bg-[#e0f8f5] px-5 py-3 text-base font-black uppercase text-[#0b9a8d]">
@@ -869,7 +869,7 @@ function HealthcareCRMContent() {
       </section>
 
       <section className="bg-white py-14">
-        <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
+        <div className="mx-auto w-full max-w-full px-3 sm:max-w-[min(92vw,1440px)] sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <Reveal>
             <div className="rounded-[34px] bg-gradient-to-br from-[#06142f] to-[#075e61] p-8 text-white shadow-[0_24px_80px_rgba(15,23,42,0.12)]">
               <div className="text-center">
@@ -897,7 +897,7 @@ function HealthcareCRMContent() {
       </section>
 
       <section className="bg-white pb-14">
-        <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
+        <div className="mx-auto w-full max-w-full px-3 sm:max-w-[min(92vw,1440px)] sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <Reveal>
             <h2 className="text-center text-2xl font-black text-[#081633]">Built for Every Healthcare Specialty</h2>
           </Reveal>
@@ -947,7 +947,7 @@ function HealthcareCRMContent() {
 
 
       <section className="bg-[#f8fbff] py-14">
-        <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
+        <div className="mx-auto w-full max-w-full px-3 sm:max-w-[min(92vw,1440px)] sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <Reveal>
             <h2 className="text-center text-3xl font-black text-[#081633]">Seamless Integrations</h2>
           </Reveal>

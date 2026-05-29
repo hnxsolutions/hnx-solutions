@@ -435,8 +435,8 @@ export default function IndustryHeroPreview({
   href = "/contact",
 }: IndustryHeroPreviewProps) {
   return (
-    <section className="relative px-5 pb-10 pt-28 sm:px-6 lg:px-8 lg:pb-14 lg:pt-32 xl:px-10 2xl:px-12">
-      <div className="mx-auto max-w-[min(94vw,1540px)]">
+    <section className="relative px-3 pb-10 pt-28 sm:px-6 lg:px-8 lg:pb-14 lg:pt-32 xl:px-10 2xl:px-12">
+      <div className="mx-auto w-full max-w-full sm:max-w-[min(92vw,1440px)]">
         <div className="grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-center">
           <motion.div
             initial={{ opacity: 0, x: -18 }}

@@ -34,8 +34,8 @@ const platformBenefits = [
 export default function HealthcareIndustryPage() {
   return (
     <IndustryPreviewShell>
-      <section className="relative px-5 pb-12 pt-28 sm:px-6 lg:px-8 lg:pt-32 xl:px-10 2xl:px-12">
-        <div className="mx-auto max-w-[min(94vw,1540px)]">
+      <section className="relative px-3 pb-12 pt-28 sm:px-6 lg:px-8 lg:pt-32 xl:px-10 2xl:px-12">
+        <div className="mx-auto w-full max-w-full sm:max-w-[min(92vw,1440px)]">
           <div className="grid gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
             <motion.div
               initial={{ opacity: 0, x: -18 }}
@@ -125,7 +125,7 @@ export default function HealthcareIndustryPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-[min(94vw,1540px)] space-y-8 px-5 pb-18 sm:px-6 lg:px-8 lg:pb-24 xl:px-10 2xl:px-12">
+      <section className="mx-auto w-full max-w-full space-y-8 px-3 pb-18 sm:max-w-[min(92vw,1440px)] sm:px-6 lg:px-8 lg:pb-24 xl:px-10 2xl:px-12">
         <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
           <div>
             <p className="text-xs font-extrabold uppercase tracking-[0.24em] text-blue-700 dark:text-blue-300">

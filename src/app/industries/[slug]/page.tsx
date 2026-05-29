@@ -73,7 +73,7 @@ export default async function IndustryDetailPage({
       />
       <section className="page-hero hero-light relative isolate overflow-hidden">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_16%_18%,rgba(56,189,248,0.12),transparent_28%),radial-gradient(circle_at_82%_72%,rgba(139,92,246,0.12),transparent_28%)]" />
-        <div className="relative z-10 mx-auto max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
+        <div className="relative z-10 mx-auto w-full max-w-full px-3 sm:max-w-[min(92vw,1440px)] sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <div className="grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr]">
             <div>
               <Link
@@ -121,7 +121,7 @@ export default async function IndustryDetailPage({
       </section>
 
       <section className="relative py-18 sm:py-22 lg:py-24">
-        <div className="mx-auto max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
+        <div className="mx-auto w-full max-w-full px-3 sm:max-w-[min(92vw,1440px)] sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <div className="grid gap-6 lg:grid-cols-2">
             <div className="rounded-[1.75rem] border border-(--border) bg-white/68 p-6 backdrop-blur-2xl dark:bg-white/5">
               <h2 className="text-2xl font-black tracking-tight text-(--text) sm:text-3xl">

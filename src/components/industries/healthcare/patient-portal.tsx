@@ -16,7 +16,7 @@ export default function HealthcarePatientPortalPreview() {
   return (
     <IndustryPreviewShell>
       <IndustryHeroPreview {...solution} />
-      <section className="mx-auto max-w-[min(94vw,1540px)] space-y-6 px-5 pb-18 sm:px-6 lg:px-8 lg:pb-24 xl:px-10 2xl:px-12">
+      <section className="mx-auto w-full max-w-full space-y-6 px-3 pb-18 sm:max-w-[min(92vw,1440px)] sm:px-6 lg:px-8 lg:pb-24 xl:px-10 2xl:px-12">
         <div className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
           <IndustryProblemCards
             title="Access problems patients feel"
