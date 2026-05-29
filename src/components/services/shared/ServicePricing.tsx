@@ -14,9 +14,9 @@ export default function ServicePricing({ service }: ServicePricingProps) {
   return (
     <section
       id="pricing"
-      className="relative px-5 py-14 sm:px-6 lg:px-8 xl:px-10 2xl:px-12"
+      className="relative px-3 py-14 sm:px-6 lg:px-8 xl:px-10 2xl:px-12"
     >
-      <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
+      <div className="mx-auto w-full max-w-full sm:max-w-[min(92vw,1440px)]">
         <div className="grid gap-6 lg:grid-cols-[0.8fr_1fr] lg:items-end">
           <ServiceSectionHeading
             eyebrow="Packages"
@@ -53,7 +53,7 @@ export default function ServicePricing({ service }: ServicePricingProps) {
                 scale: 1.01,
               }}
               style={{ transformStyle: "preserve-3d" }}
-              className={`relative transform-gpu overflow-hidden rounded-[2rem] border bg-white p-6 shadow-[0_24px_70px_rgba(15,23,42,0.08)] transition will-change-transform hover:-translate-y-1 dark:bg-white/6 dark:shadow-[0_24px_70px_rgba(0,0,0,0.26)] ${
+              className={`relative transform-gpu overflow-hidden rounded-[2rem] border bg-white p-6 shadow-[0_24px_70px_rgba(15,23,42,0.08)] transition will-change-transform hover:-translate-y-1 dark:bg-[#18181B] dark:shadow-[0_24px_80px_rgba(0,0,0,0.45)] ${
                 pkg.popular
                   ? "border-blue-300 ring-1 ring-blue-100 dark:border-cyan-300/35 dark:ring-cyan-300/10"
                   : "border-slate-200 dark:border-white/10"
@@ -112,7 +112,7 @@ export default function ServicePricing({ service }: ServicePricingProps) {
                 className={`group relative mt-7 inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-2xl px-5 py-3.5 text-sm font-semibold transition hover:-translate-y-0.5 ${
                   pkg.popular
                     ? `bg-gradient-to-r ${service.accent} text-white shadow-[0_14px_34px_rgba(37,99,235,0.2)]`
-                    : "border border-slate-200 bg-white text-slate-950 hover:border-blue-200 hover:bg-blue-50 dark:border-white/10 dark:bg-white/6 dark:text-white dark:hover:border-cyan-300/25 dark:hover:bg-cyan-300/10"
+                    : "border border-slate-200 bg-white text-slate-950 hover:border-blue-200 hover:bg-blue-50 dark:border-white/10 dark:bg-[#202024] dark:text-zinc-50 dark:hover:border-blue-300/25 dark:hover:bg-blue-300/10"
                 }`}
               >
                 <span className="absolute inset-0 -translate-x-full bg-[linear-gradient(110deg,transparent,rgba(255,255,255,0.28),transparent)] transition duration-700 group-hover:translate-x-full" />

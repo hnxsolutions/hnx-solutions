@@ -169,6 +169,14 @@ export default function HealthcareDemoModal({
   const content = useHealthcareDemoContent(demo);
 
   useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 767px)");
+
+    if (mediaQuery.matches) {
+      setActiveTab("mobile");
+    }
+  }, []);
+
+  useEffect(() => {
     function handleEscape(event: KeyboardEvent) {
       if (event.key === "Escape") {
         onClose();
@@ -185,7 +193,7 @@ export default function HealthcareDemoModal({
   }, [onClose]);
 
   return (
-    <div className="fixed inset-0 z-[999] flex items-center justify-center bg-slate-950/70 p-4 backdrop-blur-xl">
+    <div className="fixed inset-0 z-[999] flex items-center justify-center bg-slate-950/70 p-0 backdrop-blur-xl sm:p-4">
       <button
         type="button"
         aria-label="Close demo"
@@ -193,45 +201,48 @@ export default function HealthcareDemoModal({
         onClick={onClose}
       />
 
-      <section className="relative max-h-[92vh] w-full max-w-[1380px] overflow-hidden rounded-[2rem] border border-white/20 bg-white shadow-[0_35px_120px_rgba(0,0,0,0.35)] dark:border-white/10 dark:bg-[#080b16]">
+      <section className="relative h-[100dvh] w-full max-w-none overflow-hidden rounded-none border border-white/20 bg-white shadow-[0_35px_120px_rgba(0,0,0,0.35)] dark:border-white/10 dark:bg-[#080b16] sm:h-auto sm:max-h-[92vh] sm:max-w-[1380px] sm:rounded-[2rem]">
         <button
           type="button"
           aria-label="Close demo"
           onClick={onClose}
-          className="absolute right-5 top-5 z-30 grid h-11 w-11 place-items-center rounded-full border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:scale-105 dark:border-white/10 dark:bg-white/[0.08] dark:text-white"
+          className="absolute right-3 top-3 z-30 grid h-10 w-10 place-items-center rounded-full border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:scale-105 dark:border-white/10 dark:bg-white/[0.08] dark:text-white sm:right-5 sm:top-5 sm:h-11 sm:w-11"
         >
           <X className="h-5 w-5" />
         </button>
 
-        <div className="grid max-h-[92vh] overflow-y-auto lg:grid-cols-[300px_1fr]">
-          <aside className="border-b border-slate-200 bg-slate-50/80 p-6 dark:border-white/10 dark:bg-white/[0.03] lg:sticky lg:top-0 lg:max-h-[92vh] lg:overflow-y-auto lg:border-b-0 lg:border-r">
-            <div className="flex items-center gap-3">
+        <div className="flex h-full min-h-0 flex-col overflow-hidden lg:grid lg:max-h-[92vh] lg:grid-cols-[300px_1fr]">
+          <aside className="border-b border-slate-200 bg-slate-50/80 p-3 dark:border-white/10 dark:bg-white/[0.03] lg:sticky lg:top-0 lg:max-h-[92vh] lg:overflow-y-auto lg:border-b-0 lg:border-r lg:p-6">
+            <div className="flex items-center gap-3 pr-12 lg:pr-0">
               <span
-                className={`grid h-12 w-12 place-items-center rounded-2xl ${accent.iconBg} ${accent.iconText}`}
+                className={`grid h-11 w-11 shrink-0 place-items-center rounded-2xl ${accent.iconBg} ${accent.iconText} lg:h-12 lg:w-12`}
               >
-                <MonitorSmartphone className="h-6 w-6" />
+                <MonitorSmartphone className="h-5 w-5 lg:h-6 lg:w-6" />
               </span>
 
-              <div>
-                <p className="text-lg font-black text-slate-950 dark:text-white">
+              <div className="min-w-0">
+                <p className="truncate text-base font-black text-slate-950 dark:text-white lg:text-lg">
                   HNX Solutions
                 </p>
-                <p className="text-xs font-bold text-slate-500 dark:text-slate-400">
+                <p className="truncate text-xs font-bold text-slate-500 dark:text-slate-400">
                   {content.badge}
                 </p>
               </div>
             </div>
 
-            <div className="mt-7">
-              <h2 className="text-xl font-black leading-tight text-slate-950 dark:text-white">
+            <div className="mt-4 pr-12 lg:mt-7 lg:pr-0">
+              <h2 className="line-clamp-2 text-base font-black leading-tight text-slate-950 dark:text-white lg:line-clamp-none lg:text-xl">
                 {demo.title}
               </h2>
-              <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
+              <p className="mt-1 line-clamp-2 text-xs leading-5 text-slate-600 dark:text-slate-300 lg:mt-2 lg:line-clamp-none lg:text-sm lg:leading-6">
                 {demo.subtitle}
               </p>
             </div>
 
-            <nav className="mt-7 space-y-2" aria-label="Demo preview tabs">
+            <nav
+              className="mt-4 flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden lg:mt-7 lg:block lg:space-y-2 lg:overflow-visible lg:pb-0"
+              aria-label="Demo preview tabs"
+            >
               {tabs.map((tab) => {
                 const Icon = tab.icon;
                 const isActive = activeTab === tab.id;
@@ -241,20 +252,21 @@ export default function HealthcareDemoModal({
                     key={tab.id}
                     type="button"
                     onClick={() => setActiveTab(tab.id)}
-                    className={`flex w-full items-center gap-3 rounded-2xl px-4 py-3 text-left text-sm font-black transition ${
+                    className={`flex shrink-0 items-center gap-2 rounded-full px-4 py-2 text-xs font-black transition lg:w-full lg:gap-3 lg:rounded-2xl lg:py-3 lg:text-left lg:text-sm ${
                       isActive
                         ? `${accent.softBg} ${accent.text}`
                         : "text-slate-600 hover:bg-white hover:text-slate-950 dark:text-slate-300 dark:hover:bg-white/[0.06] dark:hover:text-white"
                     }`}
                   >
-                    <Icon className="h-5 w-5" />
-                    {getTabLabel(tab.id, content)}
+                    <Icon className="h-4 w-4 lg:h-5 lg:w-5" />
+                    <span className="lg:hidden">{getMobileTabLabel(tab.id)}</span>
+                    <span className="hidden lg:inline">{getTabLabel(tab.id, content)}</span>
                   </button>
                 );
               })}
             </nav>
 
-            <div className="mt-7 rounded-2xl border border-slate-200 bg-white p-5 dark:border-white/10 dark:bg-white/[0.05]">
+            <div className="mt-7 hidden rounded-2xl border border-slate-200 bg-white p-5 dark:border-white/10 dark:bg-white/[0.05] lg:block">
               <h3 className="text-sm font-black text-slate-950 dark:text-white">
                 What&apos;s included
               </h3>
@@ -276,19 +288,19 @@ export default function HealthcareDemoModal({
 
             <Link
               href="/contact"
-              className={`mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-4 text-sm font-black text-white shadow-lg transition hover:-translate-y-0.5 ${accent.button}`}
+              className={`mt-6 hidden w-full items-center justify-center gap-2 rounded-xl px-5 py-4 text-sm font-black text-white shadow-lg transition hover:-translate-y-0.5 lg:inline-flex ${accent.button}`}
             >
               Build Similar Website
               <ArrowRight className="h-4 w-4" />
             </Link>
           </aside>
 
-          <div className="bg-white p-5 dark:bg-[#080b16] sm:p-7">
-            <div className="mb-5 pr-14">
+          <div className="min-h-0 flex-1 overflow-y-auto bg-white p-3 dark:bg-[#080b16] sm:p-5 lg:p-7">
+            <div className="mb-4 pr-12 sm:mb-5 sm:pr-14">
               <p className={`text-sm font-black ${accent.text}`}>
                 {activeTabLabel(activeTab, content)}
               </p>
-              <h2 className="mt-1 text-2xl font-black text-slate-950 dark:text-white sm:text-3xl">
+              <h2 className="mt-1 break-words text-xl font-black leading-tight text-slate-950 dark:text-white sm:text-3xl">
                 {demo.title} Website Experience
               </h2>
             </div>
@@ -357,8 +369,9 @@ function DesktopPreview({
   }
 
   return (
-    <div className="rounded-[1.6rem] border border-slate-200 bg-slate-50 p-3 shadow-sm dark:border-white/10 dark:bg-white/[0.04]">
-      <div className="max-h-[74vh] overflow-y-auto rounded-[1.25rem] border border-slate-200 bg-white dark:border-white/10 dark:bg-[#0b1020]">
+    <div className="w-full max-w-full overflow-x-auto rounded-[1.6rem] border border-slate-200 bg-slate-50 p-3 shadow-sm dark:border-white/10 dark:bg-white/[0.04]">
+      <div className="min-w-[760px] md:min-w-0">
+        <div className="max-h-[74vh] overflow-y-auto rounded-[1.25rem] border border-slate-200 bg-white dark:border-white/10 dark:bg-[#0b1020]">
         <div className="sticky top-0 z-20 flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 bg-white/95 px-5 py-4 backdrop-blur-xl dark:border-white/10 dark:bg-[#0b1020]/95">
           <button
             type="button"
@@ -420,6 +433,7 @@ function DesktopPreview({
           accent={accent}
           onOpenPage={openPage}
         />
+        </div>
       </div>
     </div>
   );
@@ -1186,8 +1200,8 @@ function MobilePreview({
   const [callStarted, setCallStarted] = useState(false);
 
   return (
-    <div className="grid items-start gap-6 lg:grid-cols-[0.8fr_1.2fr]">
-      <div className="mx-auto w-[280px] rounded-[2.4rem] border-[10px] border-slate-950 bg-white p-4 shadow-[0_30px_80px_rgba(15,23,42,0.24)] dark:border-slate-800 dark:bg-[#0b1020]">
+    <div className="grid min-w-0 items-start gap-5 lg:grid-cols-[0.8fr_1.2fr] lg:gap-6">
+      <div className="mx-auto w-full max-w-[280px] rounded-[2.4rem] border-[10px] border-slate-950 bg-white p-4 shadow-[0_30px_80px_rgba(15,23,42,0.24)] dark:border-slate-800 dark:bg-[#0b1020]">
         <div className="mx-auto mb-4 h-1.5 w-16 rounded-full bg-slate-300" />
 
         <div className="sticky top-0 z-10 flex items-center justify-between bg-white/95 py-1 backdrop-blur-xl dark:bg-[#0b1020]/95">
@@ -1262,7 +1276,7 @@ function MobilePreview({
         </div>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid min-w-0 gap-4 sm:grid-cols-2">
         {content.overviewCards.map((item, index) => {
           const Icon = item.icon;
 
@@ -1973,6 +1987,14 @@ function getTabLabel(tab: DemoTab, content: DemoContent) {
   if (tab === "flow") return `${content.requestAction} Flow`;
   if (tab === "profile") return content.profileTitle;
   return tabs.find((item) => item.id === tab)?.label ?? "Preview";
+}
+
+function getMobileTabLabel(tab: DemoTab) {
+  if (tab === "desktop") return "Desktop";
+  if (tab === "mobile") return "Mobile";
+  if (tab === "flow") return "Flow";
+  if (tab === "profile") return "Directory";
+  return "Analytics";
 }
 
 function useHealthcareDemoContent(demo: HealthcareDemo) {

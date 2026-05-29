@@ -281,9 +281,9 @@ export default function ServiceUseCases({ service }: ServiceUseCasesProps) {
     >
       <div className="pointer-events-none absolute inset-x-0 top-8 h-[460px] bg-[radial-gradient(circle_at_12%_18%,rgba(14,165,233,0.09),transparent_34%),radial-gradient(circle_at_82%_18%,rgba(124,58,237,0.08),transparent_34%)] dark:bg-[radial-gradient(circle_at_12%_18%,rgba(56,189,248,0.10),transparent_34%),radial-gradient(circle_at_82%_18%,rgba(139,92,246,0.10),transparent_34%)]" />
 
-      <div className="relative mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
+      <div className="relative mx-auto w-full max-w-full px-3 sm:max-w-[min(92vw,1440px)] sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <div className="grid gap-5 lg:grid-cols-[310px_1fr] lg:items-start">
-          <aside className="relative self-start rounded-[1.6rem] border border-slate-200 bg-white/84 p-3.5 shadow-[0_20px_55px_rgba(15,23,42,0.07)] backdrop-blur-2xl dark:border-white/10 dark:bg-white/6 dark:shadow-[0_22px_65px_rgba(0,0,0,0.22)]">
+          <aside className="relative self-start overflow-hidden rounded-[1.6rem] border border-slate-200 bg-white/84 p-3 shadow-[0_20px_55px_rgba(15,23,42,0.07)] backdrop-blur-2xl dark:border-white/10 dark:bg-[#18181B] dark:shadow-[0_24px_80px_rgba(0,0,0,0.45)] lg:p-3.5">
             <div className="mb-3 flex items-start justify-between gap-3 border-b border-slate-100 pb-3 dark:border-white/10">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#145cb7] dark:text-cyan-200">
@@ -294,12 +294,12 @@ export default function ServiceUseCases({ service }: ServiceUseCasesProps) {
                 </p>
               </div>
 
-              <span className="grid h-9 w-9 shrink-0 place-items-center rounded-2xl border border-slate-200 bg-slate-50 text-xs font-semibold text-slate-500 dark:border-white/10 dark:bg-white/6 dark:text-slate-300">
+              <span className="grid h-9 w-9 shrink-0 place-items-center rounded-2xl border border-slate-200 bg-slate-50 text-xs font-semibold text-slate-500 dark:border-white/10 dark:bg-[#202024] dark:text-zinc-300">
                 {websitePreviews.length}
               </span>
             </div>
 
-            <div className="max-h-[460px] space-y-1.5 overflow-y-auto pr-1 [scrollbar-width:thin] [scrollbar-color:rgba(14,165,233,0.35)_transparent]">
+            <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-smooth pb-2 pr-1 [scrollbar-width:none] [scrollbar-color:rgba(14,165,233,0.35)_transparent] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden lg:block lg:max-h-[460px] lg:space-y-1.5 lg:overflow-y-auto lg:pr-1 lg:[scrollbar-width:thin]">
               {websitePreviews.map((preview) => {
                 const Icon = preview.icon;
                 const isActive = preview.slug === activeIndustry;
@@ -310,23 +310,23 @@ export default function ServiceUseCases({ service }: ServiceUseCasesProps) {
                     type="button"
                     onClick={() => setActiveIndustry(preview.slug)}
                     aria-pressed={isActive}
-                    className={`group flex w-full items-center gap-2.5 rounded-[1.1rem] border p-2.5 text-left transition ${
+                    className={`group flex min-w-[148px] shrink-0 snap-start flex-col items-center justify-center gap-2.5 rounded-[1.1rem] border px-3 py-4 text-center transition lg:w-full lg:min-w-0 lg:max-w-none lg:flex-row lg:items-center lg:justify-start lg:p-2.5 lg:text-left ${
                       isActive
-                        ? "border-sky-200 bg-sky-50/80 shadow-[0_12px_28px_rgba(14,165,233,0.11)] dark:border-cyan-300/20 dark:bg-cyan-300/10"
-                        : "border-transparent hover:border-slate-200 hover:bg-slate-50 dark:hover:border-white/10 dark:hover:bg-white/6"
+                        ? "border-sky-200 bg-sky-50/80 shadow-[0_12px_28px_rgba(14,165,233,0.11)] dark:border-blue-300/20 dark:bg-blue-300/10"
+                        : "border-transparent hover:border-slate-200 hover:bg-slate-50 dark:hover:border-white/10 dark:hover:bg-[#202024]"
                     }`}
                   >
                     <span
-                      className={`grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-gradient-to-br ${preview.accent} text-white shadow-[0_12px_26px_rgba(15,23,42,0.12)]`}
+                      className={`grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-gradient-to-br ${preview.accent} text-white shadow-[0_12px_26px_rgba(15,23,42,0.12)] lg:h-10 lg:w-10`}
                     >
                       <Icon className="h-4 w-4" aria-hidden="true" />
                     </span>
 
-                    <span className="min-w-0 flex-1">
-                      <span className="block truncate text-sm font-semibold text-slate-950 dark:text-white">
+                    <span className="min-w-0 lg:flex-1">
+                      <span className="block text-sm font-semibold leading-5 text-slate-950 dark:text-white lg:truncate">
                         {preview.name}
                       </span>
-                      <span className="mt-0.5 line-clamp-1 block text-xs leading-5 text-slate-500 dark:text-slate-400">
+                      <span className="mt-0.5 line-clamp-2 block text-xs leading-5 text-slate-500 dark:text-slate-400 lg:line-clamp-1">
                         {preview.eyebrow}
                       </span>
                     </span>
@@ -336,7 +336,7 @@ export default function ServiceUseCases({ service }: ServiceUseCasesProps) {
                         isActive
                           ? "translate-x-0 text-[#145cb7] dark:text-cyan-200"
                           : "text-slate-400 group-hover:translate-x-1"
-                      }`}
+                      } lg:ml-auto`}
                       aria-hidden="true"
                     />
                   </button>
@@ -345,7 +345,7 @@ export default function ServiceUseCases({ service }: ServiceUseCasesProps) {
             </div>
           </aside>
 
-          <div className="relative overflow-hidden rounded-[1.8rem] border border-slate-200 bg-white/88 p-4 shadow-[0_24px_75px_rgba(15,23,42,0.08)] backdrop-blur-2xl dark:border-white/10 dark:bg-white/6 dark:shadow-[0_28px_90px_rgba(0,0,0,0.24)] sm:p-5 lg:p-6">
+          <div className="relative w-full max-w-full overflow-hidden rounded-[1.8rem] border border-slate-200 bg-white/88 p-4 shadow-[0_24px_75px_rgba(15,23,42,0.08)] backdrop-blur-2xl dark:border-white/10 dark:bg-[#18181B] dark:shadow-[0_24px_80px_rgba(0,0,0,0.45)] sm:p-5 lg:p-6">
             <div
               className={`pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-gradient-to-br ${selectedPreview.accent} opacity-[0.10] blur-3xl`}
             />
@@ -363,16 +363,16 @@ export default function ServiceUseCases({ service }: ServiceUseCasesProps) {
                 <Link
                   href={selectedPreview.href}
                   aria-label={`Open ${selectedPreview.name} website solution`}
-                  className="group block overflow-hidden rounded-[1.55rem] border border-slate-200 bg-white shadow-[0_20px_58px_rgba(15,23,42,0.10)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_80px_rgba(15,23,42,0.16)] focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-4 focus-visible:ring-offset-white dark:border-white/10 dark:bg-slate-950/80 dark:focus-visible:ring-offset-slate-950"
+                  className="group block w-full max-w-full overflow-hidden rounded-[1.55rem] border border-slate-200 bg-white shadow-[0_20px_58px_rgba(15,23,42,0.10)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_80px_rgba(15,23,42,0.16)] focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-4 focus-visible:ring-offset-white dark:border-white/10 dark:bg-slate-950/80 dark:focus-visible:ring-offset-slate-950"
                 >
-                  <div className="relative overflow-hidden p-5 sm:p-6 lg:p-7">
+                  <div className="relative w-full max-w-full overflow-hidden p-4 sm:p-6 lg:p-7">
                     <div
                       className={`pointer-events-none absolute -left-16 -top-20 h-56 w-56 rounded-full bg-gradient-to-br ${selectedPreview.accent} opacity-[0.13] blur-3xl`}
                     />
                     <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_78%_18%,rgba(59,130,246,0.10),transparent_30%)] dark:bg-[radial-gradient(circle_at_78%_18%,rgba(56,189,248,0.08),transparent_32%)]" />
 
-                    <div className="relative grid gap-7 xl:grid-cols-[0.88fr_1.12fr] xl:items-center">
-                      <div>
+                    <div className="relative grid min-w-0 gap-7 xl:grid-cols-[0.88fr_1.12fr] xl:items-center">
+                      <div className="min-w-0">
                         <div className="flex items-center gap-3">
                           <span
                             className={`grid h-11 w-11 place-items-center rounded-2xl bg-gradient-to-br ${selectedPreview.accent} text-white shadow-[0_16px_36px_rgba(14,165,233,0.18)]`}
@@ -385,7 +385,7 @@ export default function ServiceUseCases({ service }: ServiceUseCasesProps) {
                           </p>
                         </div>
 
-                        <h3 className="mt-5 max-w-2xl text-3xl font-semibold leading-[1.08] tracking-[-0.045em] text-slate-950 antialiased dark:text-white lg:text-4xl">
+                        <h3 className="mt-5 max-w-2xl text-balance break-words text-[clamp(2rem,8vw,3rem)] font-semibold leading-[1.05] tracking-[-0.045em] text-slate-950 antialiased dark:text-white lg:text-4xl">
                           {selectedPreview.title}
                         </h3>
 
@@ -393,11 +393,11 @@ export default function ServiceUseCases({ service }: ServiceUseCasesProps) {
                           {selectedPreview.description}
                         </p>
 
-                        <div className="mt-5 flex flex-wrap gap-2">
+                        <div className="mt-5 flex max-w-full flex-wrap gap-2">
                           {selectedPreview.chips.map((chip) => (
                             <span
                               key={chip}
-                              className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-[11px] font-semibold text-slate-600 shadow-sm dark:border-white/10 dark:bg-white/7 dark:text-slate-300"
+                              className="inline-flex max-w-full items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-[11px] font-semibold text-slate-600 shadow-sm dark:border-white/10 dark:bg-white/7 dark:text-slate-300"
                             >
                               <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
                               {chip}
@@ -405,14 +405,14 @@ export default function ServiceUseCases({ service }: ServiceUseCasesProps) {
                           ))}
                         </div>
 
-                        <div className="mt-6 flex flex-wrap items-center gap-3">
+                        <div className="mt-6 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center">
                           <span
-                            className={`inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r ${selectedPreview.accent} px-5 py-3 text-sm font-semibold text-white shadow-[0_18px_38px_rgba(37,99,235,0.18)] transition group-hover:shadow-[0_22px_48px_rgba(37,99,235,0.26)]`}
+                            className={`inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r ${selectedPreview.accent} px-5 py-3 text-sm font-semibold text-white shadow-[0_18px_38px_rgba(37,99,235,0.18)] transition group-hover:shadow-[0_22px_48px_rgba(37,99,235,0.26)] sm:w-auto`}
                           >
                             View Website Solution
                             <ArrowRight className="h-4 w-4" />
                           </span>
-                          <span className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-xs font-semibold text-slate-600 dark:border-white/10 dark:bg-white/7 dark:text-slate-300">
+                          <span className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-xs font-semibold text-slate-600 dark:border-white/10 dark:bg-white/7 dark:text-slate-300 sm:w-auto">
                             <MonitorSmartphone className="h-4 w-4 text-[#145cb7] dark:text-cyan-200" />
                             Website / Lead Flow / SEO / Analytics
                           </span>
@@ -422,7 +422,7 @@ export default function ServiceUseCases({ service }: ServiceUseCasesProps) {
                       <HeroMockup preview={selectedPreview} />
                     </div>
 
-                    <div className="relative mt-5 grid grid-cols-2 gap-2 sm:grid-cols-4">
+                    <div className="relative mt-5 grid max-w-full grid-cols-2 gap-2 sm:grid-cols-4">
                       {selectedPreview.stats.slice(0, 4).map(([value, label]) => (
                         <div
                           key={`${value}-${label}`}
@@ -450,14 +450,14 @@ export default function ServiceUseCases({ service }: ServiceUseCasesProps) {
 
 function HeroMockup({ preview }: { preview: WebsitePreview }) {
   return (
-    <div className="relative">
+    <div className="relative w-full max-w-full overflow-hidden">
       <div
         className={`pointer-events-none absolute -right-6 -top-8 h-44 w-44 rounded-full bg-gradient-to-br ${preview.accent} opacity-[0.16] blur-3xl`}
       />
 
-      <div className="overflow-hidden rounded-[1.45rem] border border-slate-200 bg-white p-3 shadow-[0_22px_65px_rgba(15,23,42,0.14)] dark:border-white/10 dark:bg-white/[0.06]">
-        <div className="overflow-hidden rounded-[1.05rem] bg-slate-50 dark:bg-slate-950">
-          <div className="flex items-center justify-between gap-3 border-b border-slate-100 bg-white px-4 py-3 dark:border-white/10 dark:bg-white/[0.06]">
+      <div className="w-full max-w-full overflow-hidden rounded-[1.45rem] border border-slate-200 bg-white p-3 shadow-[0_22px_65px_rgba(15,23,42,0.14)] dark:border-white/10 dark:bg-white/[0.06]">
+        <div className="w-full max-w-full overflow-hidden rounded-[1.05rem] bg-slate-50 dark:bg-slate-950">
+          <div className="flex min-w-0 items-center justify-between gap-3 border-b border-slate-100 bg-white px-4 py-3 dark:border-white/10 dark:bg-white/[0.06]">
             <div className="flex min-w-0 items-center gap-2">
               <Globe2 className="h-4 w-4 shrink-0 text-[#145cb7] dark:text-cyan-200" />
               <span className="truncate text-xs font-black text-slate-950 dark:text-white">
@@ -478,8 +478,8 @@ function HeroMockup({ preview }: { preview: WebsitePreview }) {
             </span>
           </div>
 
-          <div className="grid min-h-[280px] gap-4 bg-gradient-to-br from-blue-50 to-white p-5 dark:from-blue-950/30 dark:to-slate-950 md:grid-cols-[0.9fr_1.1fr] md:items-center">
-            <div>
+          <div className="grid min-h-[280px] min-w-0 gap-4 bg-gradient-to-br from-blue-50 to-white p-4 dark:from-blue-950/30 dark:to-slate-950 sm:p-5 md:grid-cols-[0.9fr_1.1fr] md:items-center">
+            <div className="min-w-0">
               <p className="text-[10px] font-black uppercase tracking-[0.22em] text-[#145cb7] dark:text-cyan-200">
                 Live website preview
               </p>
@@ -500,11 +500,11 @@ function HeroMockup({ preview }: { preview: WebsitePreview }) {
             </div>
 
             <div
-              className="min-h-[210px] rounded-[1rem] bg-cover bg-center shadow-[inset_0_0_0_1px_rgba(255,255,255,0.45)]"
+              className="min-h-[210px] w-full max-w-full rounded-[1rem] bg-cover bg-center shadow-[inset_0_0_0_1px_rgba(255,255,255,0.45)]"
               style={{ backgroundImage: `url(${preview.heroImage})` }}
             >
               <div className="flex h-full min-h-[210px] items-end rounded-[1rem] bg-gradient-to-t from-slate-950/68 via-slate-950/10 to-transparent p-4">
-                <div className="w-full rounded-2xl bg-white/92 p-3 shadow-lg backdrop-blur dark:bg-slate-950/84">
+                <div className="w-full max-w-full overflow-hidden rounded-2xl bg-white/92 p-3 shadow-lg backdrop-blur dark:bg-slate-950/84">
                   <div className="mb-3 flex items-center justify-between">
                     <span className="text-xs font-black text-slate-950 dark:text-white">
                       Conversion path

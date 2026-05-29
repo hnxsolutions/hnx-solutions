@@ -197,7 +197,7 @@ export default function Hero() {
       <div className="absolute bottom-20 right-10 z-1 h-80 w-80 rounded-full bg-accent/5 blur-3xl dark:bg-accent/3" />
       <div className="absolute left-1/2 top-1/2 z-1 h-150 w-150 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/2.5 blur-[120px] dark:bg-primary/1" />
 
-      <div className="relative z-10 mx-auto w-full max-w-[min(92vw,1440px)] px-5 pb-12 pt-24 sm:px-6 sm:pt-24 md:pt-24 lg:px-8 lg:pt-24 xl:px-10 2xl:px-12">
+      <div className="relative z-10 mx-auto w-full max-w-full px-3 pb-12 pt-24 sm:max-w-[min(92vw,1440px)] sm:px-6 sm:pt-24 md:pt-24 lg:px-8 lg:pt-24 xl:px-10 2xl:px-12">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <motion.div
             initial={{ opacity: 0, x: -40 }}

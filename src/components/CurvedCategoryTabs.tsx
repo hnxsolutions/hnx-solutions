@@ -129,7 +129,7 @@ export default function CurvedCategoryTabs({
     : "hover:bg-blog-tan-400/10 hover:text-blog-tan-600";
 
   return (
-    <div className="w-full flex justify-center py-1 max-[374px]:py-0.5 md:py-2 px-2 max-[374px]:px-1 overflow-x-hidden">
+    <div className="flex w-full justify-center overflow-x-hidden px-2 py-1 max-[374px]:py-0.5 md:py-2">
       <div
         className="flex items-center justify-center gap-2 max-[374px]:gap-1 md:gap-4 w-full md:w-auto min-w-0 max-w-full"
         style={{ maxWidth: `${VISIBLE_WIDTH}px` }}
@@ -155,7 +155,7 @@ export default function CurvedCategoryTabs({
           onClick={() => onCategoryChange(null)}
           whileHover={{ scale: 1.06 }}
           whileTap={{ scale: 0.96 }}
-          className={`shrink-0 px-3 max-[374px]:px-2.5 md:px-6 py-1.5 max-[374px]:py-1 md:py-2.5 rounded-3xl font-medium text-xs md:text-sm whitespace-nowrap transition-all duration-200 ${
+          className={`shrink-0 snap-center whitespace-nowrap rounded-3xl px-3 py-1.5 text-xs font-medium transition-all duration-200 max-[374px]:px-2.5 max-[374px]:py-1 md:px-6 md:py-2.5 md:text-sm ${
             activeCategory === null
               ? `${activeTabBg} ${activeTabText} shadow-lg shadow-cyan-500/25`
               : `border-2 ${inactiveTabBorder} ${inactiveTabHover}`
@@ -183,7 +183,7 @@ export default function CurvedCategoryTabs({
             drag="x"
             dragElastic={0.15}
             dragMomentum={false}
-            className="flex gap-2 max-[374px]:gap-1 md:gap-4 overflow-x-auto scroll-smooth cursor-grab active:cursor-grabbing px-1 max-[374px]:px-0.5"
+            className="flex snap-x snap-mandatory cursor-grab gap-2 overflow-x-auto scroll-smooth px-1 active:cursor-grabbing max-[374px]:gap-1 max-[374px]:px-0.5 md:gap-4"
             style={{
               scrollBehavior: "smooth",
               scrollbarWidth: "none",
@@ -199,7 +199,7 @@ export default function CurvedCategoryTabs({
                 whileHover={!isDragging ? { scale: 1.06, y: -1 } : {}}
                 whileTap={{ scale: 0.96 }}
                 transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                className={`shrink-0 px-3 max-[374px]:px-2.5 md:px-6 py-1.5 max-[374px]:py-1 md:py-2.5 rounded-3xl font-medium text-xs md:text-sm whitespace-nowrap transition-all duration-200 ${
+                className={`shrink-0 snap-center whitespace-nowrap rounded-3xl px-3 py-1.5 text-xs font-medium transition-all duration-200 max-[374px]:px-2.5 max-[374px]:py-1 md:px-6 md:py-2.5 md:text-sm ${
                   activeCategory === category.id
                     ? `${activeTabBg} ${activeTabText} shadow-lg shadow-cyan-500/25`
                     : `border-2 ${inactiveTabBorder} ${inactiveTabHover}`

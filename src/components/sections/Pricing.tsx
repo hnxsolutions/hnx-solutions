@@ -64,25 +64,25 @@ export function Pricing() {
             whileHover={{ y: -8 }}
             className={`relative overflow-hidden rounded-[30px] p-7 shadow-card ${
               plan.featured
-                ? "hairline-glow border border-cyanGlow/30 bg-gradient-to-b from-cyanGlow/16 via-white/[0.065] to-violetGlow/13"
-                : "border border-white/10 bg-white/[0.045]"
+                ? "hairline-glow border border-blue-300/25 bg-[#202024]"
+                : "border border-white/10 bg-[#18181B]"
             }`}
           >
             {plan.featured ? (
               <>
-                <div className="absolute -right-14 -top-14 h-52 w-52 rounded-full bg-cyanGlow/20 blur-3xl" />
-                <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-cyanGlow/35 bg-cyanGlow/12 px-3 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-cyan-100">
+                <div className="absolute -right-14 -top-14 h-52 w-52 rounded-full bg-blue-400/[0.08] blur-3xl" />
+                <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-blue-300/30 bg-blue-400/[0.08] px-3 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-blue-100">
                   <Crown className="h-3.5 w-3.5" aria-hidden="true" />
                   MOST POPULAR
                 </div>
               </>
             ) : null}
             <div className="relative">
-              <h3 className="text-2xl font-bold text-white">{plan.name}</h3>
-              <p className="mt-3 min-h-12 leading-7 text-slate-400">{plan.subtitle}</p>
+              <h3 className="text-2xl font-bold text-zinc-50">{plan.name}</h3>
+              <p className="mt-3 min-h-12 leading-7 text-zinc-400">{plan.subtitle}</p>
               <div className="mt-8 flex items-end gap-2">
-                <span className="text-5xl font-bold tracking-normal text-white">{plan.price}</span>
-                <span className="pb-2 text-slate-400">/month</span>
+                <span className="text-5xl font-bold tracking-normal text-zinc-50">{plan.price}</span>
+                <span className="pb-2 text-zinc-400">/month</span>
               </div>
               <Button
                 href="#consultation"
@@ -95,8 +95,8 @@ export function Pricing() {
               </Button>
               <ul className="mt-8 space-y-4">
                 {plan.features.map((feature) => (
-                  <li key={feature} className="flex items-center gap-3 text-sm text-slate-300">
-                    <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-tealGlow/12 text-tealGlow">
+                  <li key={feature} className="flex items-center gap-3 text-sm text-zinc-300">
+                    <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-blue-400/[0.08] text-blue-300">
                       <Check className="h-3.5 w-3.5" aria-hidden="true" />
                     </span>
                     {feature}

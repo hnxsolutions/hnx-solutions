@@ -1116,7 +1116,7 @@ export default function ServiceProcess({ service }: ServiceProcessProps) {
 
       <div className="pointer-events-none absolute inset-x-0 top-16 h-[620px] bg-[radial-gradient(circle_at_16%_18%,rgba(14,165,233,0.12),transparent_34%),radial-gradient(circle_at_78%_20%,rgba(124,58,237,0.12),transparent_34%),radial-gradient(circle_at_54%_78%,rgba(34,211,238,0.08),transparent_32%)] dark:bg-[radial-gradient(circle_at_16%_18%,rgba(56,189,248,0.11),transparent_34%),radial-gradient(circle_at_78%_20%,rgba(139,92,246,0.14),transparent_34%)]" />
 
-      <div className="relative mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
+      <div className="relative mx-auto w-full max-w-full px-3 sm:max-w-[min(92vw,1440px)] sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <div className="grid gap-6 lg:grid-cols-[0.72fr_1fr] lg:items-end">
           <ServiceSectionHeading
             eyebrow="Process"
@@ -1131,7 +1131,7 @@ export default function ServiceProcess({ service }: ServiceProcessProps) {
             onViewportEnter={() => setHasStarted(true)}
             transition={{ duration: 0.5, ease: "easeOut" }}
             style={{ transformStyle: "preserve-3d" }}
-            className="relative overflow-hidden rounded-[1.8rem] border border-white/70 bg-white/78 p-5 shadow-[0_22px_65px_rgba(15,23,42,0.08)] backdrop-blur-2xl dark:border-white/10 dark:bg-white/6 dark:shadow-[0_22px_65px_rgba(0,0,0,0.22)]"
+            className="relative overflow-hidden rounded-[1.8rem] border border-white/70 bg-white/78 p-5 shadow-[0_22px_65px_rgba(15,23,42,0.08)] backdrop-blur-2xl dark:border-white/10 dark:bg-[#18181B] dark:shadow-[0_24px_80px_rgba(0,0,0,0.45)]"
           >
             <div
               className={`pointer-events-none absolute -right-16 -top-16 h-44 w-44 rounded-full bg-gradient-to-br ${service.accent} opacity-[0.12] blur-3xl`}
@@ -1239,7 +1239,7 @@ export default function ServiceProcess({ service }: ServiceProcessProps) {
                             : ""
                       }`}
                     >
-                      <div className="absolute inset-0 flex h-full flex-col overflow-hidden rounded-[1.9rem] border border-slate-200 bg-white/88 p-4 shadow-[0_24px_70px_rgba(15,23,42,0.08)] backdrop-blur-2xl [backface-visibility:hidden] dark:border-white/10 dark:bg-white/7 dark:shadow-[0_24px_70px_rgba(0,0,0,0.24)]">
+                      <div className="absolute inset-0 flex h-full flex-col overflow-hidden rounded-[1.9rem] border border-slate-200 bg-white/88 p-4 shadow-[0_24px_70px_rgba(15,23,42,0.08)] backdrop-blur-2xl [backface-visibility:hidden] dark:border-white/10 dark:bg-[#18181B] dark:shadow-[0_24px_80px_rgba(0,0,0,0.45)]">
                         <div
                           className={`absolute -right-16 -top-16 h-40 w-40 rounded-full bg-gradient-to-br ${service.accent} opacity-10 blur-3xl`}
                         />
@@ -1353,7 +1353,7 @@ export default function ServiceProcess({ service }: ServiceProcessProps) {
                             {knowledge.points.slice(0, 3).map((point) => (
                               <div
                                 key={point}
-                                className="flex h-8 items-center gap-2 rounded-2xl border border-sky-100 bg-white/76 px-3 text-xs font-medium text-slate-600 shadow-sm dark:border-cyan-300/15 dark:bg-white/7 dark:text-slate-300"
+                                className="flex h-8 items-center gap-2 rounded-2xl border border-sky-100 bg-white/76 px-3 text-xs font-medium text-slate-600 shadow-sm dark:border-blue-300/15 dark:bg-[#202024] dark:text-zinc-300"
                               >
                                 <span
                                   className={`h-2 w-2 shrink-0 rounded-full bg-gradient-to-r ${service.accent}`}

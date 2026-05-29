@@ -12,7 +12,7 @@ type ServiceCTAProps = {
 export default function ServiceCTA({ service }: ServiceCTAProps) {
   return (
     <section className="relative pb-20 pt-8">
-      <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
+      <div className="mx-auto w-full max-w-full px-3 sm:max-w-[min(92vw,1440px)] sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <motion.div
           initial={{ opacity: 0, y: 26 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -20,7 +20,7 @@ export default function ServiceCTA({ service }: ServiceCTAProps) {
           viewport={{ once: true }}
           transition={{ duration: 0.55, ease: "easeOut" }}
           style={{ transformStyle: "preserve-3d" }}
-          className="relative transform-gpu overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-7 text-center shadow-[0_30px_90px_rgba(15,23,42,0.12)] will-change-transform dark:border-white/10 dark:bg-white/6 dark:shadow-[0_30px_90px_rgba(0,0,0,0.32)] sm:p-10 md:p-14"
+          className="relative transform-gpu overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-7 text-center shadow-[0_30px_90px_rgba(15,23,42,0.12)] will-change-transform dark:border-white/10 dark:bg-[#18181B] dark:shadow-[0_24px_80px_rgba(0,0,0,0.45)] sm:p-10 md:p-14"
         >
           <div
             className={`pointer-events-none absolute -left-20 -top-20 h-72 w-72 rounded-full bg-gradient-to-br ${service.accent} opacity-20 blur-3xl`}
@@ -63,7 +63,7 @@ export default function ServiceCTA({ service }: ServiceCTAProps) {
 
               <Link
                 href="/portfolio"
-                className="group inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white px-7 py-4 text-sm font-semibold text-slate-950 transition hover:border-blue-200 hover:bg-blue-50 dark:border-white/10 dark:bg-white/7 dark:text-white dark:hover:border-cyan-300/25 dark:hover:bg-cyan-300/10"
+                className="group inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white px-7 py-4 text-sm font-semibold text-slate-950 transition hover:border-blue-200 hover:bg-blue-50 dark:border-white/10 dark:bg-[#202024] dark:text-zinc-50 dark:hover:border-blue-300/25 dark:hover:bg-blue-300/10"
               >
                 View Portfolio
                 <ArrowRight

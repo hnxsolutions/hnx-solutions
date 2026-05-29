@@ -25,7 +25,7 @@ export default function Portfolio() {
     <section id="portfolio" className="relative overflow-hidden py-28 grid-bg">
       <div className="absolute inset-0 bg-linear-to-b from-transparent via-black/2 to-transparent dark:via-white/1" />
 
-      <div className="relative mx-auto max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
+      <div className="relative mx-auto w-full max-w-full px-3 sm:max-w-[min(92vw,1440px)] sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         {/* HEADER */}
         <motion.div
           initial={{ opacity: 0, y: 22 }}
@@ -52,13 +52,13 @@ export default function Portfolio() {
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-14 flex flex-wrap justify-center gap-3"
+          className="mb-14 flex snap-x snap-mandatory justify-start gap-3 overflow-x-auto scroll-smooth px-0 pb-2 sm:flex-wrap sm:justify-center sm:overflow-visible sm:pb-0"
         >
           {portfolioCategories.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-300 ${
+              className={`shrink-0 snap-center whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-300 ${
                 activeCategory === cat
                   ? "bg-linear-to-r from-primary to-accent text-dark-900 shadow-lg shadow-primary/20"
                   : "border border-(--border) bg-white/55 text-(--text-muted) hover:-translate-y-0.5 hover:border-primary/30 hover:bg-white/80 hover:text-(--text) dark:bg-white/4"

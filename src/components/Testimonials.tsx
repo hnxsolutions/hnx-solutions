@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { HiStar } from "react-icons/hi";
+import MobileAutoSlider from "@/components/shared/MobileAutoSlider";
 import { useTilt } from "@/hooks/useTilt";
 
 const testimonials = [
@@ -64,6 +65,7 @@ function TestimonialCard({
         ease: [0.25, 0.46, 0.45, 0.94],
       }}
       viewport={{ once: true }}
+      className="h-full"
     >
       <div
         ref={ref}
@@ -104,7 +106,7 @@ function TestimonialCard({
 export default function Testimonials() {
   return (
     <section className="relative grid-bg bg-(--bg) py-16 text-(--text)">
-      <div className="mx-auto max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
+      <div className="mx-auto w-full max-w-full px-3 sm:max-w-[min(92vw,1440px)] sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -125,7 +127,18 @@ export default function Testimonials() {
           </p>
         </motion.div>
 
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <MobileAutoSlider hideAt="md" duration="long" className="-mx-3">
+          {testimonials.map((testimonial, index) => (
+            <div
+              key={testimonial.name}
+              className="w-[82vw] max-w-[340px] shrink-0"
+            >
+              <TestimonialCard testimonial={testimonial} index={index} />
+            </div>
+          ))}
+        </MobileAutoSlider>
+
+        <div className="hidden gap-8 md:grid md:grid-cols-2 lg:grid-cols-3">
           {testimonials.map((testimonial, index) => (
             <TestimonialCard
               key={testimonial.name}

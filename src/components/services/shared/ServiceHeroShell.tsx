@@ -161,7 +161,7 @@ export default function ServiceHeroShell({
 
       <ServiceFloatingOrbs accentClass={accentClass} />
 
-      <div className="relative mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
+      <div className="relative mx-auto w-full max-w-full px-3 sm:max-w-[min(92vw,1440px)] sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <motion.div
           initial="hidden"
           animate="show"

@@ -68,7 +68,7 @@ export default function Pricing() {
     <section id="pricing" className="py-32 relative">
       <div className="absolute inset-0 bg-linear-to-b from-dark-900 via-dark-800/40 to-dark-900" />
 
-      <div className="max-w-[min(92vw,1440px)] mx-auto px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12 relative">
+      <div className="relative mx-auto w-full max-w-full px-3 sm:max-w-[min(92vw,1440px)] sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -89,7 +89,7 @@ export default function Pricing() {
         </motion.div>
 
         {/* Plans Grid */}
-        <div className="grid md:grid-cols-3 gap-6 mb-16">
+        <div className="mb-16 grid gap-6 md:grid-cols-3">
           {plans.map((plan, i) => (
             <motion.div
               key={plan.name}
@@ -97,7 +97,7 @@ export default function Pricing() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.15 }}
-              className={`relative glass-card rounded-2xl p-8 ${plan.border} border transition-all hover:-translate-y-2 duration-500 ${
+              className={`relative glass-card rounded-2xl p-8 ${plan.border} border transition-all duration-500 hover:-translate-y-2 ${
                 plan.popular ? "ring-1 ring-primary/30" : ""
               }`}
             >

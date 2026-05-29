@@ -75,8 +75,8 @@ export default function ServiceTechStack({ service }: ServiceTechStackProps) {
 
   return (
     <section className="relative py-14">
-      <div className="mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
-        <div className="relative overflow-hidden rounded-[2.4rem] border border-white/70 bg-slate-950 p-6 text-white shadow-[0_30px_100px_rgba(15,23,42,0.18)] dark:border-white/10 dark:bg-[#070a12] dark:shadow-[0_30px_100px_rgba(0,0,0,0.34)] sm:p-8 lg:p-10">
+      <div className="mx-auto w-full max-w-full px-3 sm:max-w-[min(92vw,1440px)] sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
+        <div className="relative overflow-hidden rounded-[2.4rem] border border-white/70 bg-slate-950 p-6 text-white shadow-[0_30px_100px_rgba(15,23,42,0.18)] dark:border-white/10 dark:bg-[#111111] dark:shadow-[0_30px_100px_rgba(0,0,0,0.45)] sm:p-8 lg:p-10">
           <div
             className={`pointer-events-none absolute -left-24 -top-24 h-80 w-80 rounded-full bg-gradient-to-br ${service.accent} opacity-30 blur-3xl`}
           />
@@ -95,7 +95,7 @@ export default function ServiceTechStack({ service }: ServiceTechStackProps) {
                 tone="dark"
               />
 
-              <div className="mt-7 rounded-[1.6rem] border border-white/10 bg-white/8 p-5 backdrop-blur-xl dark:bg-white/7">
+              <div className="mt-7 rounded-[1.6rem] border border-white/10 bg-white/8 p-5 backdrop-blur-xl dark:bg-[#18181B]">
                 <div className="flex items-center gap-3">
                   <span
                     className={`grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br ${service.accent} text-white`}
@@ -122,7 +122,7 @@ export default function ServiceTechStack({ service }: ServiceTechStackProps) {
                 hidden: {},
                 show: { transition: { staggerChildren: 0.045 } },
               }}
-              className="grid gap-3 sm:grid-cols-2 xl:grid-cols-5"
+              className="flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-smooth px-1 pb-3 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0 xl:grid-cols-5"
             >
               {stack.tools.map((tool, index) => {
                 const Icon = tool.icon;
@@ -138,7 +138,7 @@ export default function ServiceTechStack({ service }: ServiceTechStackProps) {
                       scale: 1.02,
                     }}
                     style={{ transformStyle: "preserve-3d" }}
-                    className="group relative transform-gpu overflow-hidden rounded-[1.35rem] border border-white/10 bg-white/8 p-4 shadow-[0_18px_45px_rgba(0,0,0,0.12)] backdrop-blur-xl transition will-change-transform hover:border-white/25 hover:bg-white/12 dark:bg-white/7 dark:hover:bg-white/12"
+                    className="group relative w-[76vw] max-w-[300px] shrink-0 snap-center transform-gpu overflow-hidden rounded-[1.35rem] border border-white/10 bg-white/8 p-4 shadow-[0_18px_45px_rgba(0,0,0,0.12)] backdrop-blur-xl transition will-change-transform hover:border-white/25 hover:bg-white/12 dark:bg-[#18181B] sm:w-auto sm:max-w-none dark:hover:bg-[#202024]"
                   >
                     <div
                       className={`absolute -right-10 -top-10 h-24 w-24 rounded-full bg-gradient-to-br ${service.accent} opacity-0 blur-2xl transition group-hover:opacity-25`}

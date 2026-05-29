@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { FaAward, FaUsers, FaRocket } from "react-icons/fa";
+import MobileAutoSlider from "@/components/shared/MobileAutoSlider";
 
 const stats = [
   {
@@ -42,7 +43,7 @@ const reasons = [
 export default function WhyChooseUs() {
   return (
     <section className="relative z-10 py-24">
-      <div className="mx-auto max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
+      <div className="mx-auto w-full max-w-full px-3 sm:max-w-[min(92vw,1440px)] sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -62,7 +63,28 @@ export default function WhyChooseUs() {
           </p>
         </motion.div>
 
-        <div className="mb-14 grid gap-6 md:grid-cols-3">
+        <MobileAutoSlider hideAt="md" duration="short" className="-mx-3 mb-14">
+          {reasons.map((r, i) => (
+            <motion.div
+              key={r.title}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ delay: i * 0.08, duration: 0.55 }}
+              className="premium-card glass-card cursor-glow w-[82vw] max-w-[340px] shrink-0 rounded-[1.75rem] p-8 text-center"
+            >
+              <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br from-primary/15 to-accent/15">
+                {r.icon}
+              </div>
+              <h3 className="text-xl font-bold">{r.title}</h3>
+              <p className="mt-3 text-sm leading-7 text-(--text-muted)">
+                {r.desc}
+              </p>
+            </motion.div>
+          ))}
+        </MobileAutoSlider>
+
+        <div className="mb-14 hidden gap-6 md:grid md:grid-cols-3">
           {reasons.map((r, i) => (
             <motion.div
               key={r.title}
@@ -83,7 +105,28 @@ export default function WhyChooseUs() {
           ))}
         </div>
 
-        <div className="mx-auto grid max-w-4xl gap-6 sm:grid-cols-3">
+        <MobileAutoSlider hideAt="sm" duration="short" className="-mx-3 mx-auto max-w-full">
+          {stats.map((stat, i) => (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ delay: i * 0.08, duration: 0.55 }}
+              className="premium-card glass-card w-[76vw] max-w-[300px] shrink-0 rounded-[1.75rem] p-8 text-center"
+            >
+              <div className="mb-4 flex justify-center">{stat.icon}</div>
+              <p className="gradient-text text-3xl font-bold md:text-4xl">
+                {stat.value}
+              </p>
+              <p className="mt-2 text-sm font-medium text-(--text-muted)">
+                {stat.label}
+              </p>
+            </motion.div>
+          ))}
+        </MobileAutoSlider>
+
+        <div className="mx-auto hidden max-w-4xl gap-6 sm:grid sm:grid-cols-3">
           {stats.map((stat, i) => (
             <motion.div
               key={stat.label}

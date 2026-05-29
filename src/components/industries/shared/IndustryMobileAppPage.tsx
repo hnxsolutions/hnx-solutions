@@ -45,8 +45,8 @@ export default function IndustryMobileAppPage({
       <div className="pointer-events-none absolute left-0 top-0 h-[34rem] w-[34rem] rounded-full bg-blue-200/35 blur-3xl dark:bg-blue-500/10" />
       <div className="pointer-events-none absolute right-0 top-20 h-[30rem] w-[30rem] rounded-full bg-violet-200/35 blur-3xl dark:bg-violet-500/10" />
 
-      <section className="relative px-5 pb-20 pt-24 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
-        <div className="mx-auto w-full max-w-[min(92vw,1440px)]">
+      <section className="relative px-0 pb-20 pt-24 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
+        <div className="mx-auto w-full max-w-full sm:max-w-[min(92vw,1440px)]">
           <div className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white/90 shadow-[0_28px_90px_rgba(15,23,42,0.08)] backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.05]">
             <HeroSection data={data} />
 

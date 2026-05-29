@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { industryCards } from "@/components/data/siteContent";
+import MobileAutoSlider from "@/components/shared/MobileAutoSlider";
 import { Button } from "@/components/ui/Button";
 
 const industryRoutes: Record<string, string> = {
@@ -28,10 +29,10 @@ const highlights = [
 export function IndustriesPageContent() {
   return (
     <main className="overflow-hidden bg-[#f7fbff] text-[#0f214f]">
-      <section className="relative px-5 pb-16 pt-28 sm:px-6 lg:px-8 xl:px-10 2xl:px-12 lg:pt-32">
+      <section className="relative px-3 pb-16 pt-28 sm:px-6 lg:px-8 xl:px-10 2xl:px-12 lg:pt-32">
         <div className="absolute inset-x-0 top-0 h-80 bg-gradient-to-b from-[#e9fbff] to-transparent" aria-hidden="true" />
 
-        <div className="relative mx-auto max-w-[min(92vw,1440px)]">
+        <div className="relative mx-auto w-full max-w-full sm:max-w-[min(92vw,1440px)]">
           <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
               <p className="text-sm font-extrabold uppercase tracking-[0.22em] text-[#1593b5]">Industries</p>
@@ -72,9 +73,40 @@ export function IndustriesPageContent() {
         </div>
       </section>
 
-      <section className="px-5 pb-20 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
-        <div className="mx-auto max-w-[min(92vw,1440px)]">
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <section className="px-3 pb-20 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
+        <div className="mx-auto w-full max-w-full sm:max-w-[min(92vw,1440px)]">
+          <MobileAutoSlider hideAt="sm" duration="long" className="-mx-3">
+            {industryCards.map((item, index) => {
+              const Icon = item.icon;
+              const href = industryRoutes[item.title] ?? "/industries";
+
+              return (
+                <motion.article
+                  key={item.title}
+                  initial={{ opacity: 0, y: 14 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-80px" }}
+                  transition={{ duration: 0.32, delay: index * 0.035 }}
+                  className="group w-[82vw] max-w-[340px] shrink-0 rounded-[22px] border border-[#d7e1f2] bg-white p-5 shadow-sm transition duration-200 hover:-translate-y-1 hover:border-[#bfe3ee] hover:shadow-[0_18px_45px_rgba(15,23,42,0.1)]"
+                >
+                  <div className="grid h-11 w-11 place-items-center rounded-2xl border border-[#d7e1f2] bg-[#effcff] text-[#1593b5]">
+                    <Icon className="h-5 w-5" aria-hidden="true" />
+                  </div>
+                  <h2 className="mt-5 text-lg font-black text-[#081633]">{item.title}</h2>
+                  <p className="mt-2 min-h-[72px] text-sm leading-6 text-[#66728f]">{item.description}</p>
+                  <Link
+                    href={href}
+                    className="mt-5 inline-flex items-center gap-2 text-sm font-extrabold text-[#145cb7] transition hover:text-[#1593b5]"
+                  >
+                    View CRM
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                  </Link>
+                </motion.article>
+              );
+            })}
+          </MobileAutoSlider>
+
+          <div className="hidden gap-4 sm:grid sm:grid-cols-2 lg:grid-cols-4">
             {industryCards.map((item, index) => {
               const Icon = item.icon;
               const href = industryRoutes[item.title] ?? "/industries";

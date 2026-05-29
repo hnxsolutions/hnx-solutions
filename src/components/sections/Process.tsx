@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ClipboardList, DraftingCompass, Rocket, Wrench } from "lucide-react";
+import MobileAutoSlider from "@/components/shared/MobileAutoSlider";
 import { Section } from "@/components/ui/Section";
 
 const steps = [
@@ -34,7 +35,30 @@ const steps = [
 export function Process() {
   return (
     <Section id="process" eyebrow="Implementation" title="Our Proven Implementation Process">
-      <div className="relative grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+      <MobileAutoSlider hideAt="md" duration="medium" className="-mx-3">
+        {steps.map((step, index) => {
+          const Icon = step.icon;
+          return (
+            <motion.article
+              key={step.title}
+              initial={{ opacity: 0, y: 22 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-90px" }}
+              transition={{ delay: index * 0.08, duration: 0.55, ease: "easeOut" }}
+              className="relative w-[82vw] max-w-[340px] shrink-0 rounded-[28px] border border-white/10 bg-[#18181B] p-6 shadow-card"
+            >
+              <div className="relative z-10 grid h-20 w-20 place-items-center rounded-3xl border border-blue-300/25 bg-[#111111] text-blue-200 shadow-[0_18px_48px_rgba(96,165,250,0.08)]">
+                <Icon className="h-7 w-7" aria-hidden="true" />
+              </div>
+              <span className="mt-8 block text-5xl font-bold text-white/10">{step.number}</span>
+              <h3 className="-mt-4 text-xl font-bold text-zinc-50">{step.title}</h3>
+              <p className="mt-3 leading-7 text-zinc-400">{step.text}</p>
+            </motion.article>
+          );
+        })}
+      </MobileAutoSlider>
+
+      <div className="relative hidden gap-5 md:grid md:grid-cols-2 xl:grid-cols-4">
         <div className="absolute left-[8%] right-[8%] top-16 hidden border-t border-dashed border-cyanGlow/28 xl:block" />
         {steps.map((step, index) => {
           const Icon = step.icon;
@@ -45,14 +69,14 @@ export function Process() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-90px" }}
               transition={{ delay: index * 0.08, duration: 0.55, ease: "easeOut" }}
-              className="relative rounded-[28px] border border-white/10 bg-white/[0.045] p-6 shadow-card"
+              className="relative rounded-[28px] border border-white/10 bg-[#18181B] p-6 shadow-card"
             >
-              <div className="relative z-10 grid h-20 w-20 place-items-center rounded-3xl border border-cyanGlow/30 bg-slate-950 text-cyan-100 shadow-glow">
+              <div className="relative z-10 grid h-20 w-20 place-items-center rounded-3xl border border-blue-300/25 bg-[#111111] text-blue-200 shadow-[0_18px_48px_rgba(96,165,250,0.08)]">
                 <Icon className="h-7 w-7" aria-hidden="true" />
               </div>
               <span className="mt-8 block text-5xl font-bold text-white/10">{step.number}</span>
-              <h3 className="-mt-4 text-xl font-bold text-white">{step.title}</h3>
-              <p className="mt-3 leading-7 text-slate-400">{step.text}</p>
+              <h3 className="-mt-4 text-xl font-bold text-zinc-50">{step.title}</h3>
+              <p className="mt-3 leading-7 text-zinc-400">{step.text}</p>
             </motion.article>
           );
         })}

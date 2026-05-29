@@ -42,13 +42,13 @@ export default function IndustryCrmPage({
   }
 
   return (
-    <main className="relative overflow-hidden bg-[#f8fbff] text-slate-950 dark:bg-[#050814] dark:text-white">
-      <div className="pointer-events-none absolute left-0 top-0 h-[34rem] w-[34rem] rounded-full bg-blue-200/35 blur-3xl dark:bg-blue-500/10" />
-      <div className="pointer-events-none absolute right-0 top-20 h-[30rem] w-[30rem] rounded-full bg-violet-200/35 blur-3xl dark:bg-violet-500/10" />
+    <main className="relative overflow-hidden bg-[#f8fbff] text-slate-950 dark:bg-[#080808] dark:text-zinc-50">
+      <div className="pointer-events-none absolute left-0 top-0 h-[34rem] w-[34rem] rounded-full bg-blue-200/35 blur-3xl dark:bg-blue-400/[0.05]" />
+      <div className="pointer-events-none absolute right-0 top-20 h-[30rem] w-[30rem] rounded-full bg-violet-200/35 blur-3xl dark:bg-violet-400/[0.05]" />
 
-      <section className="relative px-5 pb-20 pt-24 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
-        <div className="mx-auto w-full max-w-[min(92vw,1440px)]">
-          <div className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white/90 shadow-[0_28px_90px_rgba(15,23,42,0.08)] backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.05]">
+      <section className="relative px-3 pb-20 pt-24 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
+        <div className="mx-auto w-full max-w-full sm:max-w-[min(92vw,1440px)]">
+          <div className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white/90 shadow-[0_28px_90px_rgba(15,23,42,0.08)] backdrop-blur-xl dark:border-white/10 dark:bg-[#111111]">
             <HeroSection data={data} />
             <GenericCrmProblemsSection data={data} />
             <CrmWorkflowMapSection data={data} />
@@ -120,7 +120,7 @@ function HeroSection({ data }: { data: IndustryCrmPageData }) {
                 return (
                   <div
                     key={chip.label}
-                    className="rounded-2xl border border-slate-200 bg-white/85 p-3 shadow-sm backdrop-blur-xl transition hover:-translate-y-1 hover:border-blue-200 dark:border-white/10 dark:bg-white/[0.06]"
+                    className="rounded-2xl border border-slate-200 bg-white/85 p-3 shadow-sm backdrop-blur-xl transition hover:-translate-y-1 hover:border-blue-200 dark:border-white/10 dark:bg-[#202024]"
                   >
                     <span className="mb-2 grid h-9 w-9 place-items-center rounded-2xl bg-blue-50 text-blue-600 dark:bg-blue-400/10 dark:text-blue-300">
                       <Icon className="h-5 w-5" />
@@ -144,7 +144,7 @@ function HeroSection({ data }: { data: IndustryCrmPageData }) {
 
               <Link
                 href={data.crmDemoHref}
-                className="inline-flex items-center justify-center gap-3 rounded-2xl border border-slate-200 bg-white/92 px-8 py-4 text-sm font-black text-blue-700 shadow-[0_16px_36px_rgba(15,23,42,0.08)] transition hover:-translate-y-0.5 hover:border-blue-200 dark:border-white/10 dark:bg-white/[0.06] dark:text-blue-300"
+                className="inline-flex items-center justify-center gap-3 rounded-2xl border border-slate-200 bg-white/92 px-8 py-4 text-sm font-black text-blue-700 shadow-[0_16px_36px_rgba(15,23,42,0.08)] transition hover:-translate-y-0.5 hover:border-blue-200 dark:border-white/10 dark:bg-[#202024] dark:text-blue-300"
               >
                 Explore CRM Demo
                 <span className="grid h-8 w-8 place-items-center rounded-full border border-blue-200 bg-white text-blue-600 dark:border-blue-300/20 dark:bg-white/10 dark:text-blue-300">
@@ -178,7 +178,7 @@ function CrmCommandCenterMockup({ data }: { data: IndustryCrmPageData }) {
   const previewStages = data.pipelineStages.slice(0, 3);
 
   return (
-    <div className="relative mx-auto h-[520px] w-full max-w-[820px] overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-4 shadow-[0_28px_90px_rgba(15,23,42,0.12)] dark:border-white/10 dark:bg-white/[0.06] sm:h-[590px]">
+    <div className="relative mx-auto h-[520px] w-full max-w-[820px] overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-4 shadow-[0_28px_90px_rgba(15,23,42,0.12)] dark:border-white/10 dark:bg-[#18181B] sm:h-[590px]">
       <div className="pointer-events-none absolute -left-16 top-12 h-64 w-64 rounded-full bg-blue-300/25 blur-3xl" />
       <div className="pointer-events-none absolute -right-14 bottom-10 h-72 w-72 rounded-full bg-violet-300/25 blur-3xl" />
 
@@ -206,7 +206,7 @@ function CrmCommandCenterMockup({ data }: { data: IndustryCrmPageData }) {
               {visual.stats.map((stat) => (
                 <div
                   key={stat.label}
-                  className="rounded-2xl border border-slate-200 bg-white/92 p-3 shadow-sm dark:border-white/10 dark:bg-white/[0.06]"
+                  className="rounded-2xl border border-slate-200 bg-white/92 p-3 shadow-sm dark:border-white/10 dark:bg-[#202024]"
                 >
                   <p className="text-[10px] font-bold text-slate-500 dark:text-slate-400">
                     {stat.label}
@@ -224,7 +224,7 @@ function CrmCommandCenterMockup({ data }: { data: IndustryCrmPageData }) {
             </div>
 
             <div className="mt-4 grid gap-4 xl:grid-cols-[1.25fr_0.85fr]">
-              <div className="rounded-[1.35rem] border border-slate-200 bg-white/92 p-3 shadow-sm dark:border-white/10 dark:bg-white/[0.06]">
+              <div className="rounded-[1.35rem] border border-slate-200 bg-white/92 p-3 shadow-sm dark:border-white/10 dark:bg-[#202024]">
                 <div className="mb-3 flex items-center justify-between">
                   <p className="text-sm font-black text-slate-950 dark:text-white">
                     Pipeline Board
@@ -237,7 +237,7 @@ function CrmCommandCenterMockup({ data }: { data: IndustryCrmPageData }) {
                   {previewStages.map((stageItem) => (
                     <div
                       key={stageItem.title}
-                      className="rounded-2xl border border-slate-200 bg-slate-50 p-3 dark:border-white/10 dark:bg-white/[0.06]"
+                      className="rounded-2xl border border-slate-200 bg-slate-50 p-3 dark:border-white/10 dark:bg-[#202024]"
                     >
                       <div className="flex items-center justify-between gap-2">
                         <p className="truncate text-[11px] font-black text-slate-700 dark:text-slate-200">
@@ -271,7 +271,7 @@ function CrmCommandCenterMockup({ data }: { data: IndustryCrmPageData }) {
               </div>
 
               <div className="space-y-4">
-                <div className="rounded-[1.35rem] border border-slate-200 bg-white/92 p-4 shadow-sm dark:border-white/10 dark:bg-white/[0.06]">
+                <div className="rounded-[1.35rem] border border-slate-200 bg-white/92 p-4 shadow-sm dark:border-white/10 dark:bg-[#202024]">
                   <div className="flex items-start justify-between gap-3">
                     <div>
                       <p className="text-[10px] font-black uppercase text-slate-400">
@@ -370,7 +370,7 @@ function CrmSidebarMockup({ crmName, items }: { crmName: string; items: string[]
 
 function TimelineItem({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex gap-3 rounded-xl bg-slate-50 p-3 dark:bg-white/[0.06]">
+    <div className="flex gap-3 rounded-xl bg-slate-50 p-3 dark:bg-[#202024]">
       <span className="mt-1 h-2 w-2 rounded-full bg-blue-600" />
       <div>
         <p className="text-[10px] font-black uppercase text-slate-400">{label}</p>
@@ -416,14 +416,14 @@ function ComparisonColumn({
     <section className="border-slate-200 px-7 py-10 dark:border-white/10 sm:px-10 lg:px-12 xl:first:border-r">
       <SectionTitle title={title} description={description} center />
 
-      <div className="mt-8 grid gap-5 md:grid-cols-2">
+      <div className="mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-3 pb-4 md:grid md:grid-cols-2 md:gap-5 md:overflow-visible md:px-0 md:pb-0">
         {items.map((item) => {
           const Icon = item.icon;
 
           return (
             <article
               key={item.title}
-              className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-[0_22px_60px_rgba(15,23,42,0.08)] dark:border-white/10 dark:bg-white/[0.05]"
+              className="w-[82vw] max-w-[340px] shrink-0 snap-center rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-[0_22px_60px_rgba(15,23,42,0.08)] dark:border-white/10 dark:bg-[#18181B] md:w-auto md:max-w-none"
             >
               <span
                 className={`grid h-12 w-12 place-items-center rounded-2xl ${
@@ -450,7 +450,7 @@ function ComparisonColumn({
 
 function CrmWorkflowMapSection({ data }: { data: IndustryCrmPageData }) {
   return (
-    <section className="border-t border-slate-200 bg-gradient-to-b from-white to-blue-50/35 px-7 py-12 dark:border-white/10 dark:from-white/[0.04] dark:to-blue-950/10 sm:px-10 lg:px-12">
+    <section className="border-t border-slate-200 bg-gradient-to-b from-white to-blue-50/35 px-7 py-12 dark:border-white/10 dark:from-[#111111] dark:to-[#080808] sm:px-10 lg:px-12">
       <SectionTitle
         title={data.workflowTitle}
         description="This is not a generic step timeline. It is the CRM lifecycle your team sees every day, with owners, activity and stage context."
@@ -459,7 +459,7 @@ function CrmWorkflowMapSection({ data }: { data: IndustryCrmPageData }) {
 
       <div className="relative mt-10">
         <div className="pointer-events-none absolute left-0 right-0 top-12 hidden h-px bg-gradient-to-r from-transparent via-blue-200 to-transparent dark:via-blue-300/20 lg:block" />
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-7">
+        <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-3 pb-4 md:grid md:grid-cols-2 md:overflow-visible md:px-0 md:pb-0 xl:grid-cols-7">
           {data.workflowStages.map((stageItem, index) => (
             <WorkflowStageCard key={stageItem.title} stage={stageItem} index={index} />
           ))}
@@ -479,7 +479,7 @@ function WorkflowStageCard({
   const Icon = stage.icon;
 
   return (
-    <article className="relative rounded-[1.35rem] border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-[0_18px_50px_rgba(15,23,42,0.08)] dark:border-white/10 dark:bg-white/[0.05]">
+    <article className="relative w-[76vw] max-w-[300px] shrink-0 snap-center rounded-[1.35rem] border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-[0_18px_50px_rgba(15,23,42,0.08)] dark:border-white/10 dark:bg-[#18181B] md:w-auto md:max-w-none">
       <span className="relative z-10 grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br from-blue-600 to-violet-600 text-white shadow-[0_14px_30px_rgba(37,99,235,0.22)]">
         <Icon className="h-5 w-5" />
       </span>
@@ -528,7 +528,7 @@ function CrmObjectsSection({ data }: { data: IndustryCrmPageData }) {
           </div>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+        <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-3 pb-4 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0 xl:grid-cols-3">
           {data.crmObjects.map((objectItem) => (
             <CrmObjectCard key={objectItem.title} objectItem={objectItem} />
           ))}
@@ -542,7 +542,7 @@ function CrmObjectCard({ objectItem }: { objectItem: IndustryCrmObject }) {
   const Icon = objectItem.icon;
 
   return (
-    <article className="rounded-[1.35rem] border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-[0_18px_50px_rgba(15,23,42,0.08)] dark:border-white/10 dark:bg-white/[0.05]">
+    <article className="w-[82vw] max-w-[340px] shrink-0 snap-center rounded-[1.35rem] border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-[0_18px_50px_rgba(15,23,42,0.08)] dark:border-white/10 dark:bg-[#18181B] sm:w-auto sm:max-w-none">
       <div className="flex items-start gap-3">
         <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-blue-50 text-blue-600 dark:bg-blue-400/10 dark:text-blue-300">
           <Icon className="h-5 w-5" />
@@ -573,7 +573,7 @@ function RoleBasedCrmDesksSection({ data }: { data: IndustryCrmPageData }) {
   }
 
   return (
-    <section className="border-t border-slate-200 bg-gradient-to-b from-slate-50/80 to-white px-7 py-12 dark:border-white/10 dark:from-white/[0.025] dark:to-white/[0.04] sm:px-10 lg:px-12">
+    <section className="border-t border-slate-200 bg-gradient-to-b from-slate-50/80 to-white px-7 py-12 dark:border-white/10 dark:from-[#080808] dark:to-[#111111] sm:px-10 lg:px-12">
       <div className="mx-auto max-w-3xl text-center">
         <SectionEyebrow>CRM Desks</SectionEyebrow>
         <h2 className="mt-3 text-3xl font-black leading-tight text-slate-950 dark:text-white sm:text-4xl">
@@ -620,7 +620,7 @@ function CrmRoleTab({
       className={`min-w-[245px] rounded-[1.35rem] border p-4 text-left shadow-sm transition hover:-translate-y-1 xl:min-w-0 ${
         isActive
           ? "border-blue-200 bg-gradient-to-br from-blue-600 to-violet-600 text-white shadow-[0_22px_58px_rgba(37,99,235,0.22)]"
-          : "border-slate-200 bg-white text-slate-950 hover:border-blue-200 hover:shadow-[0_18px_45px_rgba(15,23,42,0.08)] dark:border-white/10 dark:bg-white/[0.05] dark:text-white"
+          : "border-slate-200 bg-white text-slate-950 hover:border-blue-200 hover:shadow-[0_18px_45px_rgba(15,23,42,0.08)] dark:border-white/10 dark:bg-[#18181B] dark:text-zinc-50"
       }`}
     >
       <div className="flex items-start gap-3">
@@ -660,7 +660,7 @@ function CrmRolePreview({
   const Icon = role.icon;
 
   return (
-    <div className="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-5 shadow-[0_26px_80px_rgba(15,23,42,0.10)] dark:border-white/10 dark:bg-white/[0.05] sm:p-6">
+    <div className="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-5 shadow-[0_26px_80px_rgba(15,23,42,0.10)] dark:border-white/10 dark:bg-[#18181B] sm:p-6">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_16%_12%,rgba(59,130,246,0.12),transparent_28%),radial-gradient(circle_at_82%_14%,rgba(124,58,237,0.12),transparent_30%)]" />
       <div className="relative grid gap-6 lg:grid-cols-[1fr_330px] lg:items-center">
         <div>
@@ -686,7 +686,7 @@ function CrmRolePreview({
             {role.capabilities.map((capability) => (
               <div
                 key={capability}
-                className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-3 dark:border-white/10 dark:bg-white/[0.06]"
+                className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-3 dark:border-white/10 dark:bg-[#202024]"
               >
                 <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-500" />
                 <span className="text-xs font-black text-slate-700 dark:text-slate-300">
@@ -696,7 +696,7 @@ function CrmRolePreview({
             ))}
           </div>
 
-          <div className="mt-7 rounded-[1.35rem] border border-slate-200 bg-slate-50 p-4 shadow-sm dark:border-white/10 dark:bg-white/[0.06]">
+          <div className="mt-7 rounded-[1.35rem] border border-slate-200 bg-slate-50 p-4 shadow-sm dark:border-white/10 dark:bg-[#202024]">
             <div className="mb-4 flex items-center justify-between gap-3">
               <p className="text-xs font-black uppercase text-slate-400">
                 Desk workflow
@@ -767,7 +767,7 @@ function MiniCrmDeskPreview({
           return (
             <div
               key={card.label}
-              className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-3 dark:border-white/10 dark:bg-white/[0.06]"
+              className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-3 dark:border-white/10 dark:bg-[#202024]"
             >
               <span
                 className={`grid h-10 w-10 shrink-0 place-items-center rounded-2xl ${
@@ -818,7 +818,7 @@ function PipelineBoardSection({ data }: { data: IndustryCrmPageData }) {
 
 function PipelineColumn({ stage }: { stage: IndustryCrmPipelineStage }) {
   return (
-    <div className="rounded-[1.35rem] border border-slate-200 bg-white p-3 shadow-sm dark:border-white/10 dark:bg-white/[0.05]">
+    <div className="rounded-[1.35rem] border border-slate-200 bg-white p-3 shadow-sm dark:border-white/10 dark:bg-[#18181B]">
       <div className="flex items-center justify-between gap-3">
         <h3 className="text-sm font-black text-slate-950 dark:text-white">
           {stage.title}
@@ -839,7 +839,7 @@ function PipelineColumn({ stage }: { stage: IndustryCrmPipelineStage }) {
 
 function PipelineDealCard({ deal }: { deal: IndustryCrmPipelineDeal }) {
   return (
-    <article className="rounded-2xl border border-slate-200 bg-slate-50 p-3 shadow-sm dark:border-white/10 dark:bg-white/[0.06]">
+    <article className="rounded-2xl border border-slate-200 bg-slate-50 p-3 shadow-sm dark:border-white/10 dark:bg-[#202024]">
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <p className="truncate text-xs font-black text-slate-950 dark:text-white">
@@ -879,14 +879,14 @@ function StatusBadge({ label }: { label: IndustryCrmPipelineDeal["priority"] }) 
 
 function AutomationEngineSection({ data }: { data: IndustryCrmPageData }) {
   return (
-    <section className="border-t border-slate-200 bg-gradient-to-b from-white to-blue-50/35 px-7 py-12 dark:border-white/10 dark:from-white/[0.04] dark:to-blue-950/10 sm:px-10 lg:px-12">
+    <section className="border-t border-slate-200 bg-gradient-to-b from-white to-blue-50/35 px-7 py-12 dark:border-white/10 dark:from-[#111111] dark:to-[#080808] sm:px-10 lg:px-12">
       <SectionTitle
         title={data.automationTitle}
         description="CRM automations should feel like operational guardrails: when something happens, the right owner gets the right next action."
         center
       />
 
-      <div className="mt-9 grid gap-5 lg:grid-cols-3">
+      <div className="mt-9 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-3 pb-4 lg:grid lg:grid-cols-3 lg:gap-5 lg:overflow-visible lg:px-0 lg:pb-0">
         {data.automationExamples.map((automationItem) => (
           <AutomationFlowCard key={automationItem.title} item={automationItem} />
         ))}
@@ -899,7 +899,7 @@ function AutomationFlowCard({ item }: { item: IndustryCrmAutomationExample }) {
   const Icon = item.icon;
 
   return (
-    <article className="rounded-[1.45rem] border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(15,23,42,0.10)] dark:border-white/10 dark:bg-white/[0.05]">
+    <article className="w-[82vw] max-w-[340px] shrink-0 snap-center rounded-[1.45rem] border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(15,23,42,0.10)] dark:border-white/10 dark:bg-[#18181B] lg:w-auto lg:max-w-none">
       <div className="flex items-center gap-3">
         <span className="grid h-12 w-12 place-items-center rounded-2xl bg-blue-50 text-blue-600 dark:bg-blue-400/10 dark:text-blue-300">
           <Icon className="h-5 w-5" />
@@ -920,7 +920,7 @@ function AutomationFlowCard({ item }: { item: IndustryCrmAutomationExample }) {
 
 function AutomationStep({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-white/10 dark:bg-white/[0.06]">
+    <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-white/10 dark:bg-[#202024]">
       <p className="text-[10px] font-black uppercase text-blue-700 dark:text-blue-300">
         {label}
       </p>
@@ -954,7 +954,7 @@ function CrmDemoExperienceSection({ data }: { data: IndustryCrmPageData }) {
               return (
                 <div
                   key={step.title}
-                  className="flex gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-white/[0.05]"
+                  className="flex gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-[#18181B]"
                 >
                   <span className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-blue-50 text-blue-600 dark:bg-blue-400/10 dark:text-blue-300">
                     <Icon className="h-4 w-4" />
@@ -982,7 +982,7 @@ function CrmDemoExperienceSection({ data }: { data: IndustryCrmPageData }) {
             </Link>
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-6 py-3 text-sm font-black text-blue-700 transition hover:-translate-y-0.5 dark:border-white/10 dark:bg-white/[0.06] dark:text-blue-300"
+              className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-6 py-3 text-sm font-black text-blue-700 transition hover:-translate-y-0.5 dark:border-white/10 dark:bg-[#202024] dark:text-blue-300"
             >
               Book a CRM Walkthrough
             </Link>
@@ -1061,14 +1061,14 @@ function CrmDemoWindow({ data }: { data: IndustryCrmPageData }) {
 
 function CrmIntelligenceReportsSection({ data }: { data: IndustryCrmPageData }) {
   return (
-    <section className="border-t border-slate-200 bg-gradient-to-b from-white to-slate-50/80 px-7 py-12 dark:border-white/10 dark:from-white/[0.04] dark:to-white/[0.025] sm:px-10 lg:px-12">
+    <section className="border-t border-slate-200 bg-gradient-to-b from-white to-slate-50/80 px-7 py-12 dark:border-white/10 dark:from-[#111111] dark:to-[#080808] sm:px-10 lg:px-12">
       <SectionTitle
         title={data.reportsTitle}
         description="A CRM becomes valuable when the team can see which source works, where deals get stuck, who needs support, and what revenue is likely to close."
         center
       />
 
-      <div className="mt-9 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+      <div className="mt-9 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-3 pb-4 md:grid md:grid-cols-2 md:gap-5 md:overflow-visible md:px-0 md:pb-0 xl:grid-cols-3">
         {data.reportCards.map((reportItem) => (
           <ReportMetricCard key={reportItem.title} item={reportItem} />
         ))}
@@ -1081,7 +1081,7 @@ function ReportMetricCard({ item }: { item: IndustryCrmReportCard }) {
   const Icon = item.icon;
 
   return (
-    <article className="rounded-[1.45rem] border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(15,23,42,0.10)] dark:border-white/10 dark:bg-white/[0.05]">
+    <article className="w-[82vw] max-w-[340px] shrink-0 snap-center rounded-[1.45rem] border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(15,23,42,0.10)] dark:border-white/10 dark:bg-[#18181B] md:w-auto md:max-w-none">
       <div className="flex items-start justify-between gap-4">
         <span className="grid h-12 w-12 place-items-center rounded-2xl bg-blue-50 text-blue-600 dark:bg-blue-400/10 dark:text-blue-300">
           <Icon className="h-5 w-5" />
@@ -1096,7 +1096,7 @@ function ReportMetricCard({ item }: { item: IndustryCrmReportCard }) {
       <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
         {item.description}
       </p>
-      <div className="mt-5 rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-white/10 dark:bg-white/[0.06]">
+      <div className="mt-5 rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-white/10 dark:bg-[#202024]">
         <p className="text-2xl font-black text-slate-950 dark:text-white">
           {item.metric}
         </p>
@@ -1123,7 +1123,7 @@ function OwnershipComparisonSection({ data }: { data: IndustryCrmPageData }) {
         center
       />
 
-      <div className="mt-9 grid gap-5 lg:grid-cols-2">
+      <div className="mt-9 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-3 pb-4 lg:grid lg:grid-cols-2 lg:gap-5 lg:overflow-visible lg:px-0 lg:pb-0">
         <OwnershipComparisonCard
           title={data.ownershipComparison.genericTitle}
           items={data.ownershipComparison.genericItems}
@@ -1150,10 +1150,10 @@ function OwnershipComparisonCard({
 }) {
   return (
     <article
-      className={`rounded-[2rem] border p-6 shadow-sm ${
+      className={`w-[82vw] max-w-[340px] shrink-0 snap-center rounded-[2rem] border p-6 shadow-sm lg:w-auto lg:max-w-none ${
         tone === "custom"
           ? "border-blue-200 bg-gradient-to-br from-blue-600 to-violet-600 text-white shadow-[0_22px_58px_rgba(37,99,235,0.22)]"
-          : "border-slate-200 bg-white text-slate-950 dark:border-white/10 dark:bg-white/[0.05] dark:text-white"
+          : "border-slate-200 bg-white text-slate-950 dark:border-white/10 dark:bg-[#18181B] dark:text-zinc-50"
       }`}
     >
       <h3 className="text-2xl font-black">{title}</h3>
@@ -1164,7 +1164,7 @@ function OwnershipComparisonCard({
             className={`flex items-start gap-3 rounded-2xl p-4 ${
               tone === "custom"
                 ? "bg-white/12 text-white ring-1 ring-white/15"
-                : "bg-slate-50 text-slate-700 dark:bg-white/[0.06] dark:text-slate-300"
+                : "bg-slate-50 text-slate-700 dark:bg-[#202024] dark:text-zinc-300"
             }`}
           >
             <CheckCircle2 className={`mt-0.5 h-4 w-4 shrink-0 ${tone === "custom" ? "text-white" : "text-blue-600 dark:text-blue-300"}`} />
@@ -1178,14 +1178,14 @@ function OwnershipComparisonCard({
 
 function IntegrationsSection({ data }: { data: IndustryCrmPageData }) {
   return (
-    <section className="border-t border-slate-200 bg-gradient-to-b from-white to-blue-50/35 px-7 py-12 dark:border-white/10 dark:from-white/[0.04] dark:to-blue-950/10 sm:px-10 lg:px-12">
+    <section className="border-t border-slate-200 bg-gradient-to-b from-white to-blue-50/35 px-7 py-12 dark:border-white/10 dark:from-[#111111] dark:to-[#080808] sm:px-10 lg:px-12">
       <SectionTitle
         title={data.integrationsTitle}
         description="The CRM becomes the center of the business system when forms, communication, payments, portals, apps and reports feed the same operating layer."
         center
       />
 
-      <div className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+      <div className="mt-9 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-3 pb-4 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-5">
         {data.integrations.map((integration) => (
           <IntegrationCard key={integration.title} integration={integration} />
         ))}
@@ -1198,7 +1198,7 @@ function IntegrationCard({ integration }: { integration: IndustryCrmIntegration 
   const Icon = integration.icon;
 
   return (
-    <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 dark:border-white/10 dark:bg-white/[0.05]">
+    <article className="w-[76vw] max-w-[300px] shrink-0 snap-center rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 dark:border-white/10 dark:bg-[#18181B] sm:w-auto sm:max-w-none">
       <Icon className="h-6 w-6 text-blue-600 dark:text-blue-300" />
       <h3 className="mt-4 text-sm font-black leading-5 text-slate-950 dark:text-white">
         {integration.title}
@@ -1212,14 +1212,14 @@ function IntegrationCard({ integration }: { integration: IndustryCrmIntegration 
 
 function PricingSection({ data }: { data: IndustryCrmPageData }) {
   return (
-    <section className="border-t border-slate-200 bg-gradient-to-b from-white to-slate-50/80 px-7 py-12 dark:border-white/10 dark:from-white/[0.04] dark:to-white/[0.025] sm:px-10 lg:px-12">
+    <section className="border-t border-slate-200 bg-gradient-to-b from-white to-slate-50/80 px-7 py-12 dark:border-white/10 dark:from-[#111111] dark:to-[#080808] sm:px-10 lg:px-12">
       <SectionTitle
         title={`CRM pricing for ${data.industryName}`}
         description={data.pricingDescription}
         center
       />
 
-      <div className="mt-8 grid gap-5 lg:grid-cols-3">
+      <div className="mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-3 pb-4 lg:grid lg:grid-cols-3 lg:gap-5 lg:overflow-visible lg:px-0 lg:pb-0">
         {data.pricingPlans.map((plan) => (
           <PricingCard key={plan.name} plan={plan} />
         ))}
@@ -1233,7 +1233,7 @@ function PricingCard({ plan }: { plan: IndustryCrmPricingPlan }) {
 
   return (
     <article
-      className={`relative rounded-[1.5rem] border bg-white p-6 shadow-sm transition hover:-translate-y-1 dark:bg-white/[0.05] ${
+      className={`relative w-[82vw] max-w-[340px] shrink-0 snap-center rounded-[1.5rem] border bg-white p-6 shadow-sm transition hover:-translate-y-1 dark:bg-[#18181B] lg:w-auto lg:max-w-none ${
         plan.popular
           ? "border-violet-400 shadow-[0_18px_48px_rgba(124,58,237,0.14)] dark:border-violet-400/60"
           : "border-slate-200 dark:border-white/10"
@@ -1279,7 +1279,7 @@ function PricingCard({ plan }: { plan: IndustryCrmPricingPlan }) {
         className={`mt-7 inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-black transition hover:-translate-y-0.5 ${
           plan.popular
             ? "bg-gradient-to-r from-blue-600 to-violet-600 text-white shadow-[0_14px_36px_rgba(37,99,235,0.22)]"
-            : "border border-slate-200 bg-slate-50 text-slate-900 dark:border-white/10 dark:bg-white/[0.06] dark:text-white"
+            : "border border-slate-200 bg-slate-50 text-slate-900 dark:border-white/10 dark:bg-[#202024] dark:text-zinc-50"
         }`}
       >
         Discuss CRM Plan
@@ -1297,14 +1297,14 @@ function TestimonialsSection({
   items: IndustryCrmTestimonial[];
 }) {
   return (
-    <section className="border-t border-slate-200 bg-slate-50/60 px-7 py-12 dark:border-white/10 dark:bg-white/[0.025] sm:px-10 lg:px-12">
+    <section className="border-t border-slate-200 bg-slate-50/60 px-7 py-12 dark:border-white/10 dark:bg-[#111111] sm:px-10 lg:px-12">
       <SectionTitle title={title} center />
 
-      <div className="mt-8 grid gap-5 lg:grid-cols-3">
+      <div className="mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-3 pb-4 lg:grid lg:grid-cols-3 lg:gap-5 lg:overflow-visible lg:px-0 lg:pb-0">
         {items.map((item) => (
           <article
             key={item.name}
-            className="rounded-[1.45rem] border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 dark:border-white/10 dark:bg-white/[0.05]"
+            className="w-[82vw] max-w-[340px] shrink-0 snap-center rounded-[1.45rem] border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 dark:border-white/10 dark:bg-[#18181B] lg:w-auto lg:max-w-none"
           >
             <div className="mb-4 flex gap-1 text-amber-400">
               {[0, 1, 2, 3, 4].map((star) => (
@@ -1364,9 +1364,9 @@ function FinalCTASection({ data }: { data: IndustryCrmPageData }) {
           </div>
         </div>
 
-        <div className="mt-8 grid gap-3 sm:grid-cols-3">
+        <div className="mt-8 flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-smooth px-3 pb-3 sm:grid sm:grid-cols-3 sm:overflow-visible sm:px-0 sm:pb-0">
           {["Pipeline mapped", "Automations ready", "Reports built for decisions"].map((item) => (
-            <div key={item} className="rounded-2xl bg-white/10 px-4 py-3 text-sm font-black ring-1 ring-white/10">
+            <div key={item} className="w-[76vw] max-w-[300px] shrink-0 snap-center rounded-2xl bg-white/10 px-4 py-3 text-sm font-black ring-1 ring-white/10 sm:w-auto sm:max-w-none">
               {item}
             </div>
           ))}

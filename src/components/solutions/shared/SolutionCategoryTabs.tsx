@@ -98,8 +98,8 @@ export function SolutionCategoryTabs({
   };
 
   return (
-    <div className="sticky top-[70px] z-40 border-b border-[#d7e1f2] bg-white/92 shadow-[0_10px_28px_rgba(15,23,42,0.06)] backdrop-blur-xl dark:border-white/10 dark:bg-[#061225]/92">
-      <div className="mx-auto flex max-w-[min(92vw,1440px)] items-stretch px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
+    <div className="sticky top-[70px] z-40 border-b border-[#d7e1f2] bg-white/92 shadow-[0_10px_28px_rgba(15,23,42,0.06)] backdrop-blur-xl dark:border-white/10 dark:bg-[#111111]/92">
+      <div className="mx-auto flex w-full max-w-full items-stretch px-3 sm:max-w-[min(92vw,1440px)] sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <div className="hidden min-w-[210px] shrink-0 border-r border-[#d7e1f2] py-4 pr-6 lg:block dark:border-white/10">
           <p className="truncate text-sm font-extrabold text-[#0f214f] dark:text-white">
             {meta.title}
@@ -112,7 +112,7 @@ export function SolutionCategoryTabs({
         <div className="relative min-w-0 flex-1">
           <div
             ref={scrollRef}
-            className="flex h-full items-center gap-5 overflow-x-auto scroll-smooth px-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="flex h-full snap-x snap-mandatory items-center gap-3 overflow-x-auto scroll-smooth px-3 [scrollbar-width:none] sm:gap-5 sm:px-4 [&::-webkit-scrollbar]:hidden"
             aria-label={`${meta.title} solution pages`}
             role="navigation"
           >
@@ -126,10 +126,10 @@ export function SolutionCategoryTabs({
                   ref={isActive ? activeTabRef : undefined}
                   href={item.href}
                   aria-current={isActive ? "page" : undefined}
-                  className={`flex shrink-0 items-center gap-2 border-b-2 px-3 py-5 text-xs font-extrabold transition-colors ${
+                  className={`flex shrink-0 snap-center items-center gap-2 whitespace-nowrap border-b-2 px-3 py-5 text-xs font-extrabold transition-colors ${
                     isActive
-                      ? "border-[#2378ff] bg-[#eef6ff] text-[#145cb7] dark:border-cyan-300 dark:bg-cyan-300/10 dark:text-cyan-300"
-                      : "border-transparent text-[#465374] hover:bg-[#f4f8ff] hover:text-[#145cb7] dark:text-slate-300 dark:hover:bg-white/6 dark:hover:text-cyan-300"
+                      ? "border-[#2378ff] bg-[#eef6ff] text-[#145cb7] dark:border-blue-300 dark:bg-blue-300/10 dark:text-blue-300"
+                      : "border-transparent text-[#465374] hover:bg-[#f4f8ff] hover:text-[#145cb7] dark:text-zinc-300 dark:hover:bg-white/6 dark:hover:text-blue-300"
                   }`}
                 >
                   <Icon className="h-4 w-4" aria-hidden="true" />

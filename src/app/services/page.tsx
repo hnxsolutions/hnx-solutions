@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -24,6 +23,7 @@ import {
   FaPlug,
 } from "react-icons/fa";
 import AnimatedGridBG from "@/components/AnimatedGridBG";
+import MobileAutoSlider from "@/components/shared/MobileAutoSlider";
 import { heroDashboardSvg } from "@/components/heroDashboardSvg";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import { heroBgUrl } from "@/components/heroBgUrl";
@@ -40,24 +40,110 @@ const cardVariants = {
   },
 };
 
+const iconClassName = "text-3xl text-accent drop-shadow-glow";
+
+const serviceIcons: Record<string, ReactNode> = {
+  "web-development": <FaCode className={iconClassName} />,
+  "saas-development": <FaServer className={iconClassName} />,
+  "mobile-app-development": <FaMobileAlt className={iconClassName} />,
+  "custom-crm-systems": <FaBriefcase className={iconClassName} />,
+  "ai-automation": <FaRobot className={iconClassName} />,
+  "workflow-automation": <FaProjectDiagram className={iconClassName} />,
+  "api-development": <FaPlug className={iconClassName} />,
+  "integration-services": <FaCog className={iconClassName} />,
+  "devops-deployment": <FaTools className={iconClassName} />,
+  "cloud-infrastructure": <FaCloud className={iconClassName} />,
+  "maintenance-support": <FaTools className={iconClassName} />,
+  "security-compliance": <FaShieldAlt className={iconClassName} />,
+  "ui-ux-design": <FaPalette className={iconClassName} />,
+  "landing-pages-campaigns": <FaBullhorn className={iconClassName} />,
+  "seo-analytics": <FaSearch className={iconClassName} />,
+  "brand-identity": <FaPaintBrush className={iconClassName} />,
+};
+
+function ServiceGridCard({
+  service,
+  className = "",
+}: {
+  service: (typeof services)[number];
+  className?: string;
+}) {
+  return (
+    <motion.div
+      variants={cardVariants}
+      whileHover={{
+        scale: 1.02,
+        y: -6,
+        boxShadow: "0 20px 50px 0 rgba(91,155,213,0.12)",
+      }}
+      className={`glass-card group relative overflow-hidden rounded-3xl border border-(--border) p-5 shadow-xl transition-all duration-500 hover:border-cyan-300/20 hover:shadow-2xl hover:shadow-accent/20 sm:p-6 md:p-8 ${className}`}
+    >
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.14),transparent_42%),radial-gradient(circle_at_bottom_right,rgba(139,92,246,0.14),transparent_34%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100 dark:bg-[radial-gradient(circle_at_top,rgba(96,165,250,0.08),transparent_42%),radial-gradient(circle_at_bottom_right,rgba(167,139,250,0.08),transparent_34%)]" />
+      <div className="pointer-events-none absolute inset-x-6 top-0 h-px bg-linear-to-r from-transparent via-cyan-300/70 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100 dark:via-blue-300/40" />
+
+      <div className="relative z-10">
+        <div className="mb-5 flex items-center justify-between gap-4">
+          <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl border border-(--border) bg-white/35 dark:bg-white/4">
+            {serviceIcons[service.id] ?? <FaChartLine className={iconClassName} />}
+          </span>
+
+          <span className="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-emerald-500 dark:text-emerald-300">
+            {service.startingPrice}
+          </span>
+        </div>
+
+        <h3 className="gradient-text mb-3 text-xl font-bold md:text-2xl">
+          {service.title}
+        </h3>
+
+        <p className="mb-5 min-h-0 text-sm leading-7 text-(--text-muted) md:min-h-21 md:text-base">
+          {service.shortDescription}
+        </p>
+
+        <div className="mb-6 flex flex-wrap gap-2">
+          {service.tags.slice(0, 4).map((tag) => (
+            <span
+              key={tag}
+              className="rounded-full border border-(--border) bg-white/45 px-3 py-1 text-xs text-(--text-muted) dark:bg-white/3 dark:text-(--text-muted)"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+
+        <div className="mb-6 rounded-2xl border border-(--border) bg-white/40 px-4 py-3 dark:bg-white/3">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-(--text-soft)">
+            Best for
+          </p>
+          <p className="mt-2 text-sm leading-6 text-(--text-muted)">
+            {service.bestFor}
+          </p>
+        </div>
+
+        <div className="flex flex-col items-stretch justify-between gap-3 sm:flex-row">
+          <Link
+            href="/contact"
+            className="inline-flex w-full items-center justify-center rounded-xl border border-(--border) bg-white/35 px-5 py-3 text-sm font-semibold text-(--text) transition-all duration-300 hover:border-cyan-300/30 hover:bg-white/60 dark:bg-white/3"
+          >
+            Get Quote
+          </Link>
+
+          <Link
+            href={`/services/${service.id}`}
+            className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-linear-to-r from-cyan-400 via-sky-400 to-violet-400 px-5 py-3 text-sm font-bold text-slate-950 shadow-[0_10px_30px_rgba(56,189,248,0.18)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_36px_rgba(56,189,248,0.28)] dark:from-[#60A5FA] dark:via-blue-400 dark:to-[#A78BFA] dark:shadow-[0_14px_36px_rgba(96,165,250,0.12)]"
+          >
+            View Details
+            <HiArrowRight className="text-base" />
+          </Link>
+        </div>
+      </div>
+
+      <div className="pointer-events-none absolute -inset-1 rounded-3xl group-hover:animate-border-glow" />
+    </motion.div>
+  );
+}
+
 export default function ServicesPage() {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(max-width: 767px)");
-    const updateIsMobile = () => setIsMobile(mediaQuery.matches);
-
-    updateIsMobile();
-
-    if (typeof mediaQuery.addEventListener === "function") {
-      mediaQuery.addEventListener("change", updateIsMobile);
-      return () => mediaQuery.removeEventListener("change", updateIsMobile);
-    }
-
-    mediaQuery.addListener(updateIsMobile);
-    return () => mediaQuery.removeListener(updateIsMobile);
-  }, []);
-
   return (
     <main className="page-shell">
       <section className="page-hero hero-light relative isolate flex min-h-[78svh] items-center md:min-h-[88vh]">
@@ -93,7 +179,7 @@ export default function ServicesPage() {
         <div className="absolute bottom-16 right-10 z-1 h-72 w-72 rounded-full bg-accent/6 blur-3xl dark:bg-accent/4" />
         <div className="absolute left-1/2 top-1/2 z-1 h-144 w-xl -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/4 blur-[120px] dark:bg-primary/2" />
 
-        <div className="relative z-10 mx-auto max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
+        <div className="relative z-10 mx-auto w-full max-w-full px-3 sm:max-w-[min(92vw,1440px)] sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <div
             aria-hidden
             className="absolute left-[24%] top-1/2 h-85 w-full max-w-3xl -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.9)_0%,rgba(255,255,255,0.58)_40%,rgba(255,255,255,0.14)_68%,rgba(255,255,255,0)_100%)] blur-2xl dark:bg-[radial-gradient(circle,rgba(5,10,18,0.82)_0%,rgba(5,10,18,0.58)_40%,rgba(5,10,18,0.14)_68%,rgba(5,10,18,0)_100%)]"
@@ -180,7 +266,7 @@ export default function ServicesPage() {
 
       <section id="services-grid" className="section-shell relative z-10">
         <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-transparent via-black/1 to-transparent dark:from-(--bg) dark:via-[rgba(255,255,255,0.01)] dark:to-(--bg)" />
-        <div className="relative mx-auto max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
+        <div className="relative mx-auto w-full max-w-full px-3 sm:max-w-[min(92vw,1440px)] sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -203,109 +289,25 @@ export default function ServicesPage() {
             </p>
           </motion.div>
 
+          <MobileAutoSlider hideAt="sm" duration="long" className="-mx-3">
+            {services.map((service) => (
+              <ServiceGridCard
+                key={service.id}
+                service={service}
+                className="w-[82vw] max-w-[340px] shrink-0"
+              />
+            ))}
+          </MobileAutoSlider>
+
           <motion.div
-            className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
-            initial={isMobile ? false : "hidden"}
-            animate={isMobile ? "show" : undefined}
-            whileInView={isMobile ? undefined : "show"}
-            viewport={isMobile ? undefined : { once: true, amount: 0.2 }}
+            className="hidden gap-6 sm:grid sm:grid-cols-2 lg:grid-cols-3"
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.2 }}
           >
-            {services.map((service) => {
-              const iconClassName = "text-3xl text-accent drop-shadow-glow";
-              const icons: Record<string, ReactNode> = {
-                "web-development": <FaCode className={iconClassName} />,
-                "saas-development": <FaServer className={iconClassName} />,
-                "mobile-app-development": <FaMobileAlt className={iconClassName} />,
-                "custom-crm-systems": <FaBriefcase className={iconClassName} />,
-                "ai-automation": <FaRobot className={iconClassName} />,
-                "workflow-automation": <FaProjectDiagram className={iconClassName} />,
-                "api-development": <FaPlug className={iconClassName} />,
-                "integration-services": <FaCog className={iconClassName} />,
-                "devops-deployment": <FaTools className={iconClassName} />,
-                "cloud-infrastructure": <FaCloud className={iconClassName} />,
-                "maintenance-support": <FaTools className={iconClassName} />,
-                "security-compliance": <FaShieldAlt className={iconClassName} />,
-                "ui-ux-design": <FaPalette className={iconClassName} />,
-                "landing-pages-campaigns": <FaBullhorn className={iconClassName} />,
-                "seo-analytics": <FaSearch className={iconClassName} />,
-                "brand-identity": <FaPaintBrush className={iconClassName} />,
-              };
-
-              return (
-                <motion.div
-                  key={service.id}
-                  variants={cardVariants}
-                  whileHover={{
-                    scale: 1.02,
-                    y: -6,
-                    boxShadow: "0 20px 50px 0 rgba(91,155,213,0.12)",
-                  }}
-                  className="glass-card group relative overflow-hidden rounded-3xl border border-(--border) p-5 shadow-xl transition-all duration-500 hover:border-cyan-300/20 hover:shadow-2xl hover:shadow-accent/20 sm:p-6 md:p-8"
-                >
-                  <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.14),transparent_42%),radial-gradient(circle_at_bottom_right,rgba(139,92,246,0.14),transparent_34%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-                  <div className="pointer-events-none absolute inset-x-6 top-0 h-px bg-linear-to-r from-transparent via-cyan-300/70 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-
-                  <div className="relative z-10">
-                    <div className="mb-5 flex items-center justify-between gap-4">
-                      <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl border border-(--border) bg-white/35 dark:bg-white/4">
-                        {icons[service.id] ?? <FaChartLine className={iconClassName} />}
-                      </span>
-
-                      <span className="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-emerald-500 dark:text-emerald-300">
-                        {service.startingPrice}
-                      </span>
-                    </div>
-
-                    <h3 className="gradient-text mb-3 text-xl font-bold md:text-2xl">
-                      {service.title}
-                    </h3>
-
-                    <p className="mb-5 min-h-0 text-sm leading-7 text-(--text-muted) md:min-h-21 md:text-base">
-                      {service.shortDescription}
-                    </p>
-
-                    <div className="mb-6 flex flex-wrap gap-2">
-                      {service.tags.slice(0, 4).map((tag) => (
-                        <span
-                          key={tag}
-                          className="rounded-full border border-(--border) bg-white/45 px-3 py-1 text-xs text-(--text-muted) dark:bg-white/3 dark:text-(--text-muted)"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-
-                    <div className="mb-6 rounded-2xl border border-(--border) bg-white/40 px-4 py-3 dark:bg-white/3">
-                      <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-(--text-soft)">
-                        Best for
-                      </p>
-                      <p className="mt-2 text-sm leading-6 text-(--text-muted)">
-                        {service.bestFor}
-                      </p>
-                    </div>
-
-                    <div className="flex flex-col items-stretch justify-between gap-3 sm:flex-row">
-                      <Link
-                        href="/contact"
-                        className="inline-flex w-full items-center justify-center rounded-xl border border-(--border) bg-white/35 px-5 py-3 text-sm font-semibold text-(--text) transition-all duration-300 hover:border-cyan-300/30 hover:bg-white/60 dark:bg-white/3"
-                      >
-                        Get Quote
-                      </Link>
-
-                      <Link
-                        href={`/services/${service.id}`}
-                        className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-linear-to-r from-cyan-400 via-sky-400 to-violet-400 px-5 py-3 text-sm font-bold text-slate-950 shadow-[0_10px_30px_rgba(56,189,248,0.18)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_36px_rgba(56,189,248,0.28)]"
-                      >
-                        View Details
-                        <HiArrowRight className="text-base" />
-                      </Link>
-                    </div>
-                  </div>
-
-                  <div className="pointer-events-none absolute -inset-1 rounded-3xl group-hover:animate-border-glow" />
-                </motion.div>
-              );
-            })}
+            {services.map((service) => (
+              <ServiceGridCard key={service.id} service={service} />
+            ))}
           </motion.div>
         </div>
       </section>
@@ -314,7 +316,7 @@ export default function ServicesPage() {
 
       <section className="section-shell relative z-10">
         <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-transparent via-black/1 to-transparent dark:from-transparent dark:via-white/1 dark:to-transparent" />
-        <div className="relative mx-auto max-w-4xl px-5 text-center sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
+        <div className="relative mx-auto w-full max-w-full px-3 text-center sm:max-w-4xl sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}

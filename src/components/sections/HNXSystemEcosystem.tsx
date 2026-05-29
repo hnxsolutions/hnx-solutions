@@ -40,7 +40,7 @@ export default function HNXSystemEcosystem() {
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,rgba(56,189,248,0.10),transparent_28%),radial-gradient(circle_at_82%_78%,rgba(139,92,246,0.10),transparent_30%)]" />
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-primary/35 to-transparent" />
 
-      <div className="relative mx-auto max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
+      <div className="relative mx-auto w-full max-w-full px-3 sm:max-w-[min(92vw,1440px)] sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <div className="grid items-center gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-12">
           <motion.div
             initial={{ opacity: 0, y: 26 }}
@@ -64,11 +64,11 @@ export default function HNXSystemEcosystem() {
               your operations.
             </p>
 
-            <div className="mt-8 grid gap-3 sm:grid-cols-2">
+            <div className="mt-8 flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-smooth px-3 pb-3 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0">
               {ecosystemPillars.map((pillar) => (
                 <div
                   key={pillar.title}
-                  className="rounded-2xl border border-(--border) bg-white/52 p-4 backdrop-blur-xl dark:bg-white/4"
+                  className="w-[76vw] max-w-[300px] shrink-0 snap-center rounded-2xl border border-(--border) bg-white/52 p-4 backdrop-blur-xl dark:bg-[#18181B] sm:w-auto sm:max-w-none"
                 >
                   <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
                     <pillar.icon className="text-lg" />

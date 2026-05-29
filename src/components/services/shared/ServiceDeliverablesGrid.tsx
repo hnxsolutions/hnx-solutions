@@ -109,9 +109,9 @@ export default function ServiceDeliverablesGrid({
       `}</style>
 
       <div className="pointer-events-none absolute inset-x-0 top-1/2 h-72 -translate-y-1/2 bg-[radial-gradient(circle_at_center,rgba(14,165,233,0.08),transparent_55%)]" />
-      <div className="pointer-events-none absolute left-1/2 top-20 h-80 w-80 -translate-x-1/2 rounded-full bg-violet-100/40 blur-3xl dark:bg-violet-500/10" />
+      <div className="pointer-events-none absolute left-1/2 top-20 h-80 w-80 -translate-x-1/2 rounded-full bg-violet-100/40 blur-3xl dark:bg-violet-400/[0.06]" />
 
-      <div className="relative mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
+      <div className="relative mx-auto w-full max-w-full px-3 sm:max-w-[min(92vw,1440px)] sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <div className="grid gap-6 lg:grid-cols-[0.72fr_1fr] lg:items-end">
           <ServiceSectionHeading
             eyebrow="What You Get"
@@ -124,7 +124,7 @@ export default function ServiceDeliverablesGrid({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.25 }}
             transition={{ duration: 0.48, ease: "easeOut" }}
-            className="relative overflow-hidden rounded-[1.8rem] border border-white/70 bg-white/76 p-5 shadow-[0_22px_65px_rgba(15,23,42,0.08)] backdrop-blur-2xl dark:border-white/10 dark:bg-white/6 dark:shadow-[0_22px_65px_rgba(0,0,0,0.22)]"
+            className="relative overflow-hidden rounded-[1.8rem] border border-white/70 bg-white/76 p-5 shadow-[0_22px_65px_rgba(15,23,42,0.08)] backdrop-blur-2xl dark:border-white/10 dark:bg-[#18181B] dark:shadow-[0_24px_80px_rgba(0,0,0,0.45)]"
           >
             <div
               className={`pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-gradient-to-br ${service.accent} opacity-10 blur-3xl`}
@@ -146,7 +146,7 @@ export default function ServiceDeliverablesGrid({
               {service.tags.slice(0, 6).map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-medium text-slate-600 transition hover:-translate-y-0.5 hover:border-sky-200 hover:bg-white dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:border-cyan-300/25 dark:hover:bg-white/8"
+                  className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-medium text-slate-600 transition hover:-translate-y-0.5 hover:border-sky-200 hover:bg-white dark:border-white/10 dark:bg-[#202024] dark:text-zinc-300 dark:hover:border-blue-300/25 dark:hover:bg-[#18181B]"
                 >
                   {tag}
                 </span>
@@ -162,8 +162,8 @@ export default function ServiceDeliverablesGrid({
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="deliverables-slider relative mt-10 overflow-hidden py-3"
         >
-          <div className="pointer-events-none absolute inset-y-0 left-0 z-20 w-24 bg-gradient-to-r from-[#f8fbff] via-[#f8fbff]/88 to-transparent dark:from-[#050814] dark:via-[#050814]/88" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 z-20 w-24 bg-gradient-to-l from-[#f8fbff] via-[#f8fbff]/88 to-transparent dark:from-[#050814] dark:via-[#050814]/88" />
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-20 w-24 bg-gradient-to-r from-[#f8fbff] via-[#f8fbff]/88 to-transparent dark:from-[#080808] dark:via-[#080808]/88" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-20 w-24 bg-gradient-to-l from-[#f8fbff] via-[#f8fbff]/88 to-transparent dark:from-[#080808] dark:via-[#080808]/88" />
 
           <div className="deliverables-slider-track flex w-max gap-4 pb-4 pt-2">
             {sliderItems.map((deliverable, index) => {
@@ -173,7 +173,7 @@ export default function ServiceDeliverablesGrid({
               return (
                 <article
                   key={`${deliverable.title}-${index}`}
-                  className="deliverable-card group relative min-h-[260px] w-[360px] shrink-0 overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white/88 p-5 shadow-[0_20px_60px_rgba(15,23,42,0.07)] backdrop-blur-2xl transition duration-300 hover:-translate-y-3 hover:rotate-0 hover:border-sky-200 hover:shadow-[0_30px_90px_rgba(14,165,233,0.16)] dark:border-white/10 dark:bg-white/7 dark:shadow-[0_24px_75px_rgba(0,0,0,0.24)] dark:hover:border-cyan-300/25"
+                  className="deliverable-card group relative min-h-[260px] w-[82vw] max-w-[360px] shrink-0 overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white/88 p-5 shadow-[0_20px_60px_rgba(15,23,42,0.07)] backdrop-blur-2xl transition duration-300 hover:-translate-y-3 hover:rotate-0 hover:border-sky-200 hover:shadow-[0_30px_90px_rgba(14,165,233,0.16)] dark:border-white/10 dark:bg-[#18181B] dark:shadow-[0_24px_80px_rgba(0,0,0,0.45)] sm:w-[360px] dark:hover:border-blue-300/25"
                 >
                   <span className="deliverable-shine pointer-events-none absolute -left-24 top-0 z-20 h-full w-20 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.55),transparent)] opacity-0 transition group-hover:opacity-100 dark:bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.18),transparent)]" />
 

@@ -8,6 +8,7 @@ import {
   HiLightningBolt,
   HiArrowRight,
 } from "react-icons/hi";
+import MobileAutoSlider from "@/components/shared/MobileAutoSlider";
 import { useTilt } from "@/hooks/useTilt";
 
 const highlights = [
@@ -56,6 +57,7 @@ function ServiceCard({
         ease: [0.25, 0.46, 0.45, 0.94],
       }}
       viewport={{ once: true }}
+      className="h-full"
     >
       <div
         ref={ref}
@@ -94,7 +96,7 @@ function ServiceCard({
 export default function HomeServices() {
   return (
     <section className="relative bg-(--bg) py-16 text-(--text)">
-      <div className="relative mx-auto max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
+      <div className="relative mx-auto w-full max-w-full px-3 sm:max-w-[min(92vw,1440px)] sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -115,7 +117,15 @@ export default function HomeServices() {
           </p>
         </motion.div>
 
-        <div className="grid gap-8 md:grid-cols-3">
+        <MobileAutoSlider hideAt="md" duration="short" className="-mx-3 mb-1">
+          {highlights.map((svc, i) => (
+            <div key={svc.title} className="w-[82vw] max-w-[340px] shrink-0">
+              <ServiceCard svc={svc} index={i} />
+            </div>
+          ))}
+        </MobileAutoSlider>
+
+        <div className="hidden gap-8 md:grid md:grid-cols-3">
           {highlights.map((svc, i) => (
             <ServiceCard key={svc.title} svc={svc} index={i} />
           ))}

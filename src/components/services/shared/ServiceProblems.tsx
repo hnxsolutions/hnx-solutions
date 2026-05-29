@@ -3,7 +3,6 @@
 import { useState, type CSSProperties } from "react";
 import type { ServiceItem } from "@/data/services";
 import {
-  AlertTriangle,
   ArrowRight,
   CheckCircle2,
   Sparkles,
@@ -723,7 +722,7 @@ export default function ServiceProblems({ service }: ServiceProblemsProps) {
 
       <div className="pointer-events-none absolute inset-x-0 top-16 h-[540px] bg-[radial-gradient(circle_at_10%_18%,rgba(244,63,94,0.055),transparent_34%),radial-gradient(circle_at_72%_24%,rgba(14,165,233,0.10),transparent_34%),radial-gradient(circle_at_88%_72%,rgba(124,58,237,0.08),transparent_34%)] dark:bg-[radial-gradient(circle_at_10%_18%,rgba(244,63,94,0.08),transparent_34%),radial-gradient(circle_at_72%_24%,rgba(56,189,248,0.10),transparent_34%),radial-gradient(circle_at_88%_72%,rgba(139,92,246,0.12),transparent_34%)]" />
 
-      <div className="relative mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
+      <div className="relative mx-auto w-full max-w-full px-3 sm:max-w-[min(92vw,1440px)] sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <div className="grid gap-6 lg:grid-cols-[0.72fr_1fr] lg:items-end">
           <ServiceSectionHeading
             eyebrow="Problems We Solve"
@@ -739,7 +738,7 @@ export default function ServiceProblems({ service }: ServiceProblemsProps) {
             onViewportEnter={() => setHasStarted(true)}
             transition={{ duration: 0.5, ease: "easeOut" }}
             style={{ transformStyle: "preserve-3d" }}
-            className="relative overflow-hidden rounded-[1.8rem] border border-white/70 bg-white/78 p-5 shadow-[0_22px_65px_rgba(15,23,42,0.08)] backdrop-blur-2xl dark:border-white/10 dark:bg-white/6 dark:shadow-[0_22px_65px_rgba(0,0,0,0.22)]"
+            className="relative overflow-hidden rounded-[1.8rem] border border-white/70 bg-white/78 p-5 shadow-[0_22px_65px_rgba(15,23,42,0.08)] backdrop-blur-2xl dark:border-white/10 dark:bg-[#18181B] dark:shadow-[0_24px_80px_rgba(0,0,0,0.45)]"
           >
             <div
               className={`pointer-events-none absolute -right-16 -top-16 h-44 w-44 rounded-full bg-gradient-to-br ${service.accent} opacity-[0.12] blur-3xl`}
@@ -808,7 +807,7 @@ export default function ServiceProblems({ service }: ServiceProblemsProps) {
                 <article
                   key={problem.title}
                   style={animationVars}
-                  className={`group relative min-h-[420px] transform-gpu overflow-hidden rounded-[1.9rem] border border-slate-200 bg-white/88 p-5 shadow-[0_24px_70px_rgba(15,23,42,0.08)] backdrop-blur-2xl transition duration-300 will-change-transform hover:-translate-y-3 hover:border-sky-200 hover:shadow-[0_34px_100px_rgba(14,165,233,0.16)] dark:border-white/10 dark:bg-white/7 dark:shadow-[0_24px_70px_rgba(0,0,0,0.24)] dark:hover:border-cyan-300/25 ${
+                  className={`group relative min-h-[420px] transform-gpu overflow-hidden rounded-[1.9rem] border border-slate-200 bg-white/88 p-5 shadow-[0_24px_70px_rgba(15,23,42,0.08)] backdrop-blur-2xl transition duration-300 will-change-transform hover:-translate-y-3 hover:border-sky-200 hover:shadow-[0_34px_100px_rgba(14,165,233,0.16)] dark:border-white/10 dark:bg-[#18181B] dark:shadow-[0_24px_80px_rgba(0,0,0,0.45)] dark:hover:border-blue-300/25 ${
                     hasStarted
                       ? "problem-card-start"
                       : "opacity-0 translate-y-10"
@@ -918,7 +917,7 @@ export default function ServiceProblems({ service }: ServiceProblemsProps) {
                       {solution.points.slice(0, 3).map((point) => (
                         <div
                           key={point}
-                          className="flex items-center gap-2 rounded-xl bg-white/68 px-2.5 py-2 text-xs font-medium text-slate-600 shadow-sm dark:bg-white/7 dark:text-slate-300"
+                          className="flex items-center gap-2 rounded-xl bg-white/68 px-2.5 py-2 text-xs font-medium text-slate-600 shadow-sm dark:bg-[#202024] dark:text-zinc-300"
                         >
                           <CheckCircle2
                             className="h-3.5 w-3.5 shrink-0 text-emerald-500"
