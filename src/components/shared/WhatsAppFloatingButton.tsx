@@ -25,7 +25,7 @@ export default function WhatsAppFloatingButton() {
       rel="noopener noreferrer"
       aria-label="Chat with HNX Solutions on WhatsApp"
       title="Chat on WhatsApp"
-      className="group fixed bottom-22 right-3 z-50 grid h-[60px] w-[60px] animate-[whatsappFloat_3s_ease-in-out_infinite] place-items-center rounded-full bg-[#25D366] text-white shadow-[0_18px_45px_rgba(37,211,102,0.35)] transition-all duration-200 ease-out hover:-translate-y-1 hover:scale-105 hover:shadow-[0_22px_55px_rgba(37,211,102,0.45)] active:scale-95 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-green-300/60 motion-reduce:animate-none motion-reduce:transition-none motion-reduce:hover:translate-y-0 motion-reduce:hover:scale-100 dark:shadow-[0_18px_45px_rgba(37,211,102,0.25)] sm:bottom-11 sm:right-3 sm:h-[72px] sm:w-[72px]"
+      className="group fixed bottom-18 right-3 z-50 grid h-[60px] w-[60px] animate-[whatsappFloat_3s_ease-in-out_infinite] place-items-center rounded-full bg-[#25D366] text-white shadow-[0_18px_45px_rgba(37,211,102,0.35)] transition-all duration-200 ease-out hover:-translate-y-1 hover:scale-105 hover:shadow-[0_22px_55px_rgba(37,211,102,0.45)] active:scale-95 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-green-300/60 motion-reduce:animate-none motion-reduce:transition-none motion-reduce:hover:translate-y-0 motion-reduce:hover:scale-100 dark:shadow-[0_18px_45px_rgba(37,211,102,0.25)] sm:bottom-11 sm:right-3 sm:h-[72px] sm:w-[72px]"
     >
       {/* Soft outer pulse glow */}
       <span className="absolute inset-0 -z-20 animate-[whatsappPulse_2.4s_ease-out_infinite] rounded-full bg-[#25D366]/35" />
