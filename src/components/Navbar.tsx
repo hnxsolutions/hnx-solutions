@@ -87,6 +87,13 @@ type IndustryMenu = {
 };
 
 type DesktopDropdown = "services" | "solutions" | "industries" | "showcase";
+type MobileMenuView =
+  | "main"
+  | "services"
+  | "solutions"
+  | "industries"
+  | "industry-detail"
+  | "showcase";
 
 const serviceColumns: ServiceColumn[] = [
   {
@@ -1822,6 +1829,9 @@ function DropdownAnchor({ open }: { open: boolean }) {
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileMenuView, setMobileMenuView] = useState<MobileMenuView>("main");
+  const [mobileSelectedIndustryId, setMobileSelectedIndustryId] =
+    useState("healthcare");
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const [mobileSolutionsOpen, setMobileSolutionsOpen] = useState(false);
   const [mobileIndustriesOpen, setMobileIndustriesOpen] = useState(false);
@@ -1880,6 +1890,8 @@ export default function Navbar() {
 
   function closeMobileMenu() {
     setMobileOpen(false);
+    setMobileMenuView("main");
+    setMobileSelectedIndustryId("healthcare");
     setMobileServicesOpen(false);
     setMobileSolutionsOpen(false);
     setMobileIndustriesOpen(false);
@@ -1931,6 +1943,37 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
+    const activeIndustry = industryMenus.find(
+      (industry) =>
+        pathname === industry.href ||
+        pathname.startsWith(`${industry.href}/`) ||
+        industry.solutions.some(
+          (solution) =>
+            pathname === solution.href ||
+            pathname.startsWith(`${solution.href}/`)
+        )
+    );
+
+    if (activeIndustry) {
+      setMobileSelectedIndustryId(activeIndustry.id);
+    }
+  }, [pathname]);
+
+
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.classList.add("hnx-mobile-nav-open");
+    } else {
+      document.body.classList.remove("hnx-mobile-nav-open");
+    }
+
+    return () => {
+      document.body.classList.remove("hnx-mobile-nav-open");
+    };
+  }, [mobileOpen]);
+
+
+  useEffect(() => {
     const handleMobileOutsideClick = (event: MouseEvent) => {
       if (!mobileServicesOpen) return;
       const target = event.target as Node;
@@ -1954,7 +1997,11 @@ export default function Navbar() {
   useEffect(() => {
     const handleMobileMenuOutsideClick = (event: MouseEvent) => {
       if (!mobileOpen) return;
-      const target = event.target as Node;
+      const target = event.target as HTMLElement;
+
+      if (target.closest("[data-mobile-navbar]")) {
+        return;
+      }
 
       if (mobileMenuRef.current && !mobileMenuRef.current.contains(target)) {
         closeMobileMenu();
@@ -1982,13 +2029,65 @@ export default function Navbar() {
   const isSolutionsActive = pathname.startsWith("/solutions/");
   const isIndustriesActive =
     pathname === "/industries" || pathname.startsWith("/industries/");
-  const isShowcaseActive =
-    pathname === "/demo-crm" ||
-    pathname.startsWith("/demo-crm/") ||
-    pathname === "/roi-calculator" ||
-    pathname.startsWith("/roi-calculator/") ||
-    pathname === "/workflow-lab" ||
-    pathname.startsWith("/workflow-lab/");
+  const isShowcaseLinkActive = (item: DropdownLink) =>
+    pathname === item.href || pathname.startsWith(`${item.href}/`);
+
+  const isShowcaseActive = showcaseLinks.some(isShowcaseLinkActive);
+
+  const isServiceColumnActive = (column: ServiceColumn) =>
+    column.items.some((item) => isLinkActive(item.href));
+
+  const isSolutionMenuColumnActive = (column: SolutionMenuColumn) =>
+    pathname === column.href ||
+    pathname.startsWith(`${column.href}/`) ||
+    column.items.some((item) => isLinkActive(item.href));
+
+  const isIndustryMenuActive = (industry: IndustryMenu) =>
+    pathname === industry.href ||
+    pathname.startsWith(`${industry.href}/`) ||
+    pathname.startsWith(`/industries/${industry.id}/`) ||
+    industry.solutions.some((solution) => isIndustrySolutionActive(solution, industry.id));
+
+  const isIndustrySolutionActive = (
+    solution: IndustrySolution,
+    industryId = mobileSelectedIndustryId
+  ) => {
+    if (pathname === solution.href || pathname.startsWith(`${solution.href}/`)) {
+      return true;
+    }
+
+    if (!pathname.startsWith(`/industries/${industryId}/`)) {
+      return false;
+    }
+
+    if (solution.tag === "Website") {
+      return (
+        pathname.includes("/website") ||
+        pathname.includes("website-development") ||
+        pathname.includes("ecommerce-website") ||
+        pathname.includes("dealership-website") ||
+        pathname.includes("travel-website")
+      );
+    }
+
+    if (solution.tag === "App") {
+      return (
+        pathname.includes("mobile-app") ||
+        pathname.includes("app-development") ||
+        pathname.includes("field-service-app")
+      );
+    }
+
+    if (solution.tag === "CRM") {
+      return pathname.includes("/crm");
+    }
+
+    if (solution.tag === "Portal") {
+      return pathname.includes("portal");
+    }
+
+    return false;
+  };
   const isDesktopDropdownOpen =
     desktopServicesOpen ||
     desktopSolutionsOpen ||
@@ -1996,6 +2095,9 @@ export default function Navbar() {
     desktopShowcaseOpen;
   const selectedIndustry =
     industryMenus.find((industry) => industry.id === selectedIndustryId) ??
+    industryMenus[0];
+  const mobileSelectedIndustry =
+    industryMenus.find((industry) => industry.id === mobileSelectedIndustryId) ??
     industryMenus[0];
   function desktopNavClass(active: boolean) {
     return `rounded-2xl px-3.5 py-2 text-sm font-medium transition-all duration-200 2xl:px-4 ${
@@ -2015,32 +2117,46 @@ export default function Navbar() {
     }`;
   }
 
-  function renderMobileDropdownItem(item: DropdownLink) {
-    const Icon = item.icon;
+  function renderMobileDropdownItem(item: DropdownLink, index = 0) {
     const active = isLinkActive(item.href);
 
     return (
-      <Link
+      <motion.div
         key={item.href}
-        href={item.href}
-        onClick={closeMobileMenu}
-        aria-current={active ? "page" : undefined}
-        className={`flex gap-3 rounded-xl px-3 py-3 text-sm transition ${
-          active
-            ? "bg-white/8 text-primary"
-            : "text-(--text-muted) hover:bg-white/5 hover:text-primary"
-        }`}
+        whileTap={{ scale: 0.985 }}
+        transition={{ duration: 0.16 }}
       >
-        <span className="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-xl border border-(--border) bg-white/5 text-primary">
-          <Icon className="h-3.5 w-3.5" aria-hidden="true" />
-        </span>
-        <span>
-          <span className="block font-bold text-(--text)">{item.label}</span>
-          <span className="mt-0.5 block text-xs leading-5 text-(--text-soft)">
-            {item.description}
+        <Link
+          href={item.href}
+          onClick={closeMobileMenu}
+          aria-current={active ? "page" : undefined}
+          className={`group relative flex gap-4 px-1 py-4 text-sm transition-colors duration-300 ${
+            active ? "text-primary" : "text-(--text) hover:text-primary"
+          }`}
+        >
+          <span className="relative flex w-10 shrink-0 justify-center">
+            <span className="absolute bottom-[-1rem] top-8 w-px bg-(--border) group-last:hidden" />
+            <span
+              className={`relative z-10 mt-1 grid h-8 w-8 place-items-center rounded-full border bg-(--surface) transition-all duration-300 group-hover:scale-105 ${
+                active
+                  ? "border-primary bg-primary text-white shadow-[0_10px_28px_rgba(14,165,233,0.28)]"
+                  : "border-slate-200 text-slate-400 group-hover:border-primary/30 group-hover:text-primary dark:border-white/10 dark:text-slate-500"
+              }`}
+            >
+              <span className={`h-2.5 w-2.5 rounded-full ${active ? "bg-white" : "bg-current"}`} />
+            </span>
           </span>
-        </span>
-      </Link>
+
+          <span className="min-w-0 flex-1 border-b border-(--border)/70 pb-4 group-last:border-b-0">
+            <span className="block font-bold text-(--text)">{item.label}</span>
+            <span className="mt-0.5 line-clamp-2 block text-xs leading-5 text-(--text-soft)">
+              {item.description}
+            </span>
+          </span>
+
+          <ChevronRight className="mt-1 h-4 w-4 shrink-0 text-(--text-soft) transition-transform duration-300 group-hover:translate-x-1 group-hover:text-primary" />
+        </Link>
+      </motion.div>
     );
   }
 
@@ -2059,6 +2175,7 @@ export default function Navbar() {
       </AnimatePresence>
 
       <div
+        data-mobile-navbar
         className={`relative z-50 mx-0 w-full max-w-none rounded-none border border-x-0 border-white/50 bg-white/70 shadow-black/10 backdrop-blur-2xl dark:border-white/10 dark:bg-dark-800/80 sm:mx-auto sm:max-w-[min(94vw,1680px)] sm:rounded-3xl sm:border-x ${
           scrolled ? "shadow-xl" : "shadow-lg"
         }`}
@@ -2070,7 +2187,7 @@ export default function Navbar() {
               className="group flex min-w-0 items-center gap-2.5 sm:gap-3"
             >
                 <div className="relative grid h-12 w-12 shrink-0 place-items-center overflow-hidden rounded-full border border-slate-200/70 bg-[#f8efe0] shadow-[0_8px_22px_rgba(15,23,42,0.14)] transition-all duration-300 group-hover:scale-105 dark:border-white/10 dark:bg-white/8 sm:h-13 sm:w-13">                <Image
-                  src="/hnxlogo.png"
+                  src="/HNXLogo.png"
                   alt="HNX Solutions Logo"
                   fill
                   priority
@@ -2874,346 +2991,475 @@ export default function Navbar() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
               onClick={closeMobileMenu}
-              className="fixed inset-0 z-40 bg-black/20 backdrop-blur-[1px] dark:bg-black/35 xl:hidden"
+              className="fixed inset-x-0 bottom-0 top-[4.25rem] z-40 bg-slate-950/30 backdrop-blur-md dark:bg-black/50 xl:hidden"
             />
 
             <motion.div
               ref={mobileMenuRef}
-              initial={{ opacity: 0, y: -10, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -10, scale: 0.98 }}
-              transition={{
-                duration: 0.28,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              className="relative z-50 mx-0 mt-0 w-full max-w-none overflow-hidden rounded-none border border-x-0 border-(--border) bg-(--surface) backdrop-blur-xl sm:mx-auto sm:mt-3 sm:max-w-[min(96vw,1600px)] sm:rounded-3xl sm:border-x xl:hidden"
+              initial={{ opacity: 0, y: -14 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -14 }}
+              transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+              className="fixed inset-x-0 top-[4.25rem] z-50 flex max-h-[calc(100dvh-4.25rem)] w-full flex-col overflow-hidden border-t border-(--border) bg-(--surface)/95 shadow-[0_24px_80px_rgba(15,23,42,0.26)] backdrop-blur-2xl xl:hidden"
             >
-              <div className="max-h-[78vh] space-y-1 overflow-y-auto px-4 py-5 sm:px-6 sm:py-6">
+              <div className="hidden shrink-0 items-center justify-between border-b border-(--border) px-4 py-4">
                 <Link
                   href="/"
                   onClick={closeMobileMenu}
-                  className={`block rounded-lg px-4 py-3 transition-colors ${
-                    isLinkActive("/")
-                      ? "bg-white/5 text-primary"
-                      : "text-(--text-muted) hover:bg-white/5 hover:text-primary"
-                  }`}
+                  className="flex min-w-0 items-center gap-3"
                 >
-                  Home
+                  <Image
+                    src="/images/logo.png"
+                    alt="HNX Solutions"
+                    width={38}
+                    height={38}
+                    className="h-9 w-auto shrink-0"
+                    priority
+                  />
+                  <span className="min-w-0">
+                    <span className="block truncate text-sm font-black text-(--text)">
+                      HNX Solutions
+                    </span>
+                    <span className="block truncate text-[11px] font-semibold text-(--text-soft)">
+                      {mobileMenuView === "main"
+                        ? "Digital solutions menu"
+                        : mobileMenuView === "industry-detail"
+                          ? mobileSelectedIndustry.label
+                          : mobileMenuView.charAt(0).toUpperCase() +
+                            mobileMenuView.slice(1)}
+                    </span>
+                  </span>
                 </Link>
 
-                <div ref={mobileServicesRef} className="relative">
+                <button
+                  type="button"
+                  onClick={closeMobileMenu}
+                  aria-label="Close mobile menu"
+                  className="grid h-10 w-10 place-items-center rounded-2xl border border-(--border) bg-white/5 text-(--text-muted) transition hover:bg-white/10 hover:text-primary"
+                >
+                  <HiX size={22} />
+                </button>
+              </div>
+
+              {mobileMenuView !== "main" ? (
+                <div className="shrink-0 border-b border-(--border) px-4 py-3">
                   <button
-                    onClick={() => {
-                      setMobileServicesOpen(!mobileServicesOpen);
-                      setMobileSolutionsOpen(false);
-                      setMobileIndustriesOpen(false);
-                      setMobileShowcaseOpen(false);
-                    }}
-                    aria-expanded={mobileServicesOpen}
-                    className={`flex w-full items-center justify-between rounded-lg px-4 py-3 transition-colors ${
-                      isServicesActive || mobileServicesOpen
-                        ? "bg-white/5 text-primary"
-                        : "text-(--text-muted) hover:bg-white/5 hover:text-primary"
-                    }`}
+                    type="button"
+                    onClick={() =>
+                      setMobileMenuView(
+                        mobileMenuView === "industry-detail" ? "industries" : "main"
+                      )
+                    }
+                    className="inline-flex items-center gap-2 rounded-full border border-(--border) bg-white/5 px-3 py-2 text-xs font-black text-(--text-muted) transition hover:bg-white/10 hover:text-primary"
                   >
-                    <span>Services</span>
-                    <HiChevronDown
-                      className={`transition-transform duration-300 ${
-                        mobileServicesOpen ? "rotate-180" : ""
-                      }`}
-                    />
+                    <ArrowRight className="h-3.5 w-3.5 rotate-180" />
+                    Back
                   </button>
-
-                  <AnimatePresence>
-                    {mobileServicesOpen && (
-                      <motion.div
-                        initial={{ opacity: 0, y: -8, scale: 0.98 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: -8, scale: 0.98 }}
-                        transition={{
-                          duration: 0.22,
-                          ease: [0.22, 1, 0.36, 1],
-                        }}
-                        className="relative z-20 mt-2 overflow-hidden"
-                      >
-                        <div className="mx-auto w-full overflow-hidden rounded-2xl border border-(--border) bg-(--surface-2) shadow-[0_18px_40px_rgba(15,23,42,0.14)] backdrop-blur-xl">
-                          <div className="border-b border-(--border) p-3">
-                            <Link
-                              href="/crm-systems"
-                              onClick={closeMobileMenu}
-                              className="block rounded-2xl border border-primary/20 bg-primary/10 p-4"
-                            >
-                              <span className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">
-                                Featured Service
-                              </span>
-                              <span className="mt-2 block text-base font-bold text-(--text)">
-                                HNX CRM Systems
-                              </span>
-                              <span className="mt-1 block text-xs leading-5 text-(--text-soft)">
-                                Owned CRM systems with workflow automation, AI
-                                insights, and industry modules.
-                              </span>
-                              <span className="mt-3 inline-flex items-center gap-2 text-sm font-bold text-primary">
-                                Explore CRM Systems
-                                <ArrowRight size={14} aria-hidden="true" />
-                              </span>
-                            </Link>
-                          </div>
-
-                          <div className="max-h-[42vh] overflow-y-auto p-2">
-                            {serviceColumns.flatMap((column) =>
-                              column.items.map((service) => {
-                                const Icon = service.icon;
-                                const active = isLinkActive(service.href);
-
-                                return (
-                                  <Link
-                                    key={service.href}
-                                    href={service.href}
-                                    onClick={closeMobileMenu}
-                                    className={`mt-1 flex items-center gap-3 rounded-xl px-3 py-3 text-sm transition-all first:mt-0 ${
-                                      active
-                                        ? "bg-white/6 text-primary"
-                                        : "text-(--text-muted) hover:bg-white/5 hover:text-primary"
-                                    }`}
-                                  >
-                                    <span className="grid h-7 w-7 shrink-0 place-items-center rounded-xl border border-(--border) bg-white/5 text-primary">
-                                      <Icon
-                                        className="h-4 w-4"
-                                        aria-hidden="true"
-                                      />
-                                    </span>
-                                    <span>
-                                      <span className="block font-bold text-(--text)">
-                                        {service.label}
-                                      </span>
-                                      <span className="mt-0.5 block text-xs leading-5 text-(--text-soft)">
-                                        {service.description}
-                                      </span>
-                                    </span>
-                                  </Link>
-                                );
-                              })
-                            )}
-                          </div>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
                 </div>
+              ) : null}
 
-                <div className="relative">
-                  <button
-                    onClick={() => {
-                      setMobileSolutionsOpen(!mobileSolutionsOpen);
-                      setMobileServicesOpen(false);
-                      setMobileIndustriesOpen(false);
-                      setMobileShowcaseOpen(false);
-                    }}
-                    aria-expanded={mobileSolutionsOpen}
-                    className={`flex w-full items-center justify-between rounded-lg px-4 py-3 transition-colors ${
-                      isSolutionsActive || mobileSolutionsOpen
-                        ? "bg-white/5 text-primary"
-                        : "text-(--text-muted) hover:bg-white/5 hover:text-primary"
-                    }`}
+              <motion.div
+                key={mobileMenuView}
+                initial={{ opacity: 0, x: 18 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -18 }}
+                transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                className="min-h-0 flex-1 overflow-y-auto overscroll-contain bg-linear-to-b from-(--surface) to-(--surface-soft)/70 px-4 py-5"
+              >
+                {mobileMenuView === "main" ? (
+                  <motion.div
+                    className="space-y-0"
+                    variants={gridVariants}
+                    initial="hidden"
+                    animate="visible"
                   >
-                    <span>Solutions</span>
-                    <HiChevronDown
-                      className={`transition-transform duration-300 ${
-                        mobileSolutionsOpen ? "rotate-180" : ""
-                      }`}
-                    />
-                  </button>
-
-                  <AnimatePresence>
-                    {mobileSolutionsOpen && (
-                      <motion.div
-                        initial={{ opacity: 0, y: -8, scale: 0.98 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: -8, scale: 0.98 }}
-                        transition={{
-                          duration: 0.22,
-                          ease: [0.22, 1, 0.36, 1],
-                        }}
-                        className="mt-2 overflow-hidden rounded-2xl border border-(--border) bg-(--surface-2) p-2 shadow-[0_18px_40px_rgba(15,23,42,0.14)]"
+                    <motion.div variants={itemVariants}>
+                      <Link
+                        href="/"
+                        onClick={closeMobileMenu}
+                        aria-current={isLinkActive("/") ? "page" : undefined}
+                        className={`group relative flex gap-4 px-1 py-4 transition-colors duration-300 ${
+                          isLinkActive("/") ? "text-primary" : "text-(--text) hover:text-primary"
+                        }`}
                       >
-                        {solutionLinks.map(renderMobileDropdownItem)}
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-
-                <div className="relative">
-                  <button
-                    onClick={() => {
-                      setMobileShowcaseOpen(!mobileShowcaseOpen);
-                      setMobileServicesOpen(false);
-                      setMobileSolutionsOpen(false);
-                      setMobileIndustriesOpen(false);
-                    }}
-                    aria-expanded={mobileShowcaseOpen}
-                    className={`flex w-full items-center justify-between rounded-lg px-4 py-3 transition-colors ${
-                      isShowcaseActive || mobileShowcaseOpen
-                        ? "bg-white/5 text-primary"
-                        : "text-(--text-muted) hover:bg-white/5 hover:text-primary"
-                    }`}
-                  >
-                    <span>Explore</span>
-                    <HiChevronDown
-                      className={`transition-transform duration-300 ${
-                        mobileShowcaseOpen ? "rotate-180" : ""
-                      }`}
-                    />
-                  </button>
-
-                  <AnimatePresence>
-                    {mobileShowcaseOpen && (
-                      <motion.div
-                        initial={{ opacity: 0, y: -8, scale: 0.98 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: -8, scale: 0.98 }}
-                        transition={{
-                          duration: 0.22,
-                          ease: [0.22, 1, 0.36, 1],
-                        }}
-                        className="mt-2 overflow-hidden rounded-2xl border border-(--border) bg-(--surface-2) p-2 shadow-[0_18px_40px_rgba(15,23,42,0.14)]"
-                      >
-                        {showcaseLinks.map(renderMobileDropdownItem)}
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-
-                <div className="relative">
-                  <button
-                    onClick={() => {
-                      setMobileIndustriesOpen(!mobileIndustriesOpen);
-                      setMobileServicesOpen(false);
-                      setMobileSolutionsOpen(false);
-                      setMobileShowcaseOpen(false);
-                    }}
-                    aria-expanded={mobileIndustriesOpen}
-                    className={`flex w-full items-center justify-between rounded-lg px-4 py-3 transition-colors ${
-                      isIndustriesActive || mobileIndustriesOpen
-                        ? "bg-white/5 text-primary"
-                        : "text-(--text-muted) hover:bg-white/5 hover:text-primary"
-                    }`}
-                  >
-                    <span>Industries</span>
-                    <HiChevronDown
-                      className={`transition-transform duration-300 ${
-                        mobileIndustriesOpen ? "rotate-180" : ""
-                      }`}
-                    />
-                  </button>
-
-                  <AnimatePresence>
-                    {mobileIndustriesOpen && (
-                      <motion.div
-                        initial={{ opacity: 0, y: -8, scale: 0.98 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: -8, scale: 0.98 }}
-                        transition={{
-                          duration: 0.22,
-                          ease: [0.22, 1, 0.36, 1],
-                        }}
-                        className="mt-2 overflow-hidden rounded-2xl border border-(--border) bg-(--surface-2) shadow-[0_18px_40px_rgba(15,23,42,0.14)]"
-                      >
-                        <div className="border-b border-(--border) p-3">
-                          <Link
-                            href="/industries"
-                            onClick={closeMobileMenu}
-                            className={`block rounded-2xl border border-primary/20 bg-primary/10 p-4 transition ${
-                              pathname === "/industries"
-                                ? "text-primary"
-                                : "hover:bg-primary/15"
+                        <span className="relative flex w-10 shrink-0 justify-center">
+                          <span className="absolute bottom-[-1rem] top-9 w-px bg-(--border)" />
+                          <span
+                            className={`relative z-10 mt-1 grid h-8 w-8 place-items-center rounded-full border bg-(--surface) transition-all duration-300 group-hover:scale-105 ${
+                              isLinkActive("/")
+                                ? "border-primary bg-primary text-white shadow-[0_10px_28px_rgba(14,165,233,0.28)]"
+                                : "border-slate-200 text-slate-400 group-hover:border-primary/30 group-hover:text-primary dark:border-white/10 dark:text-slate-500"
                             }`}
                           >
-                            <span className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">
-                              Industry Solutions
+                            <span className={`h-2.5 w-2.5 rounded-full ${isLinkActive("/") ? "bg-white" : "bg-current"}`} />
+                          </span>
+                        </span>
+
+                        <span className="min-w-0 flex-1 border-b border-(--border)/70 pb-4">
+                          <span className="block font-black">Home</span>
+                          <span className="mt-0.5 line-clamp-2 block text-xs leading-5 text-(--text-soft)">
+                            Return to dashboard and overview.
+                          </span>
+                        </span>
+
+                        {/* <ChevronRight className="mt-1 h-4 w-4 shrink-0 text-(--text-soft) transition-transform duration-300 group-hover:translate-x-1 group-hover:text-primary" /> */}
+                      </Link>
+                    </motion.div>
+
+                    {[
+                      {
+                        label: "Services",
+                        description: "Development, automation, cloud, design and growth.",
+                        view: "services" as MobileMenuView,
+                        active: isServicesActive,
+                      },
+                      {
+                        label: "Solutions",
+                        description: "CRM, Web & SaaS, apps, AI automation, DevOps.",
+                        view: "solutions" as MobileMenuView,
+                        active: isSolutionsActive,
+                      },
+                      {
+                        label: "Explore",
+                        description: "CRM demo, ROI calculator and workflow lab.",
+                        view: "showcase" as MobileMenuView,
+                        active: isShowcaseActive,
+                      },
+                      {
+                        label: "Industries",
+                        description: "Healthcare, education, manufacturing, finance and more.",
+                        view: "industries" as MobileMenuView,
+                        active: isIndustriesActive,
+                      },
+                    ].map((item, index, list) => (
+                      <motion.button
+                        key={item.label}
+                        type="button"
+                        onClick={() => setMobileMenuView(item.view)}
+                        variants={itemVariants}
+                        whileTap={{ scale: 0.985 }}
+                        className={`group relative flex w-full gap-4 px-1 py-4 text-left transition-colors duration-300 ${
+                          item.active ? "text-primary" : "text-(--text) hover:text-primary"
+                        }`}
+                      >
+                        <span className="relative flex w-10 shrink-0 justify-center">
+                          <span className={`absolute bottom-[-1rem] top-9 w-px bg-(--border) ${index === list.length - 1 ? "hidden" : ""}`} />
+                          <span
+                            className={`relative z-10 mt-1 grid h-8 w-8 place-items-center rounded-full border bg-(--surface) transition-all duration-300 group-hover:scale-105 ${
+                              item.active
+                                ? "border-primary bg-primary text-white shadow-[0_10px_28px_rgba(14,165,233,0.28)]"
+                                : "border-slate-200 text-slate-400 group-hover:border-primary/30 group-hover:text-primary dark:border-white/10 dark:text-slate-500"
+                            }`}
+                          >
+                            <span className={`h-2.5 w-2.5 rounded-full ${item.active ? "bg-white" : "bg-current"}`} />
+                          </span>
+                        </span>
+
+                        <span className={`min-w-0 flex-1 pb-4 ${index === list.length - 1 ? "" : "border-b border-(--border)/70"}`}>
+                          <span className="block font-black">{item.label}</span>
+                          <span className="mt-0.5 line-clamp-2 block text-xs leading-5 text-(--text-soft)">
+                            {item.description}
+                          </span>
+                        </span>
+
+                        <ChevronRight className="mt-1 h-4 w-4 shrink-0 text-(--text-soft) transition-transform duration-300 group-hover:translate-x-1 group-hover:text-primary" />
+                      </motion.button>
+                    ))}
+                  </motion.div>
+                ) : null}
+
+                {mobileMenuView === "services" ? (
+                  <div className="space-y-4">
+                    <div>
+                      <p className="text-xs font-black uppercase tracking-[0.22em] text-primary">
+                        Services
+                      </p>
+                      <h2 className="mt-2 text-2xl font-black tracking-[-0.04em] text-(--text)">
+                        End-to-end services
+                      </h2>
+                      <p className="mt-2 text-sm leading-6 text-(--text-soft)">
+                        Browse by category and open the exact service page.
+                      </p>
+                    </div>
+
+                    {serviceColumns.map((column) => {
+                      const active = isServiceColumnActive(column);
+
+                      return (
+                        <div
+                          key={column.title}
+                          className="divide-y divide-(--border)/70"
+                        >
+                          <h3 className={`px-2 pb-2 text-sm font-black ${active ? "text-primary" : "text-(--text)"}`}>
+                            {column.title}
+                          </h3>
+                          <div className="space-y-1">
+                            {column.items.map(renderMobileDropdownItem)}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                ) : null}
+
+                {mobileMenuView === "solutions" ? (
+                  <div className="space-y-4">
+                    <div>
+                      <p className="text-xs font-black uppercase tracking-[0.22em] text-primary">
+                        Solutions
+                      </p>
+                      <h2 className="mt-2 text-2xl font-black tracking-[-0.04em] text-(--text)">
+                        Business solution families
+                      </h2>
+                      <p className="mt-2 text-sm leading-6 text-(--text-soft)">
+                        Choose a family, then open any detailed solution module.
+                      </p>
+                    </div>
+
+                    {solutionMenuColumns.map((column, index) => {
+                      const active = isSolutionMenuColumnActive(column);
+
+                      return (
+                        <div
+                          key={column.title}
+                          className="divide-y divide-(--border)/70"
+                        >
+                          <Link
+                            href={column.href}
+                            onClick={closeMobileMenu}
+                            aria-current={active ? "page" : undefined}
+                            className={`group mb-1 flex items-center gap-4 border-b border-(--border)/70 px-1 py-4 transition-colors duration-300 ${
+                              active ? "text-primary" : "text-(--text) hover:text-primary"
+                            }`}
+                          >
+                            <span
+                              className={`grid h-11 w-13 shrink-0 place-items-center rounded-2xl border text-sm font-black transition-all duration-300 group-hover:translate-x-1 ${
+                                active
+                                  ? "border-primary/25 bg-primary/10 text-primary shadow-sm"
+                                  : "border-slate-200/80 bg-slate-50/80 text-slate-500 dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-400"
+                              }`}
+                            >
+                              {String(index + 1).padStart(2, "0")}
                             </span>
-                            <span className="mt-2 block text-base font-bold text-(--text)">
-                              Explore All Industries
-                            </span>
-                            <span className="mt-1 block text-xs leading-5 text-(--text-soft)">
-                              Choose an industry and open CRM, website, app,
-                              portal, automation, dashboard, and marketing
-                              solutions tailored to that business.
-                            </span>
-                            <span className="mt-3 inline-flex items-center gap-2 text-sm font-bold text-primary">
-                              View All Industries
-                              <ArrowRight size={14} aria-hidden="true" />
-                            </span>
+                            <span className="font-black">{column.title}</span>
+                            <ChevronRight className={`ml-auto h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 ${active ? "text-primary" : "text-(--text-soft) group-hover:text-primary"}`} />
                           </Link>
+
+                          <div className="space-y-1">
+                            {column.items.map(renderMobileDropdownItem)}
+                          </div>
                         </div>
+                      );
+                    })}
+                  </div>
+                ) : null}
 
-                        <div className="max-h-[48vh] space-y-3 overflow-y-auto p-3">
-                          {industryMenus.map((industry) => {
-                            const Icon = industry.icon;
+                {mobileMenuView === "industries" ? (
+                  <div className="space-y-4">
+                    <div>
+                      <p className="text-xs font-black uppercase tracking-[0.22em] text-primary">
+                        Industries
+                      </p>
+                      <h2 className="mt-2 text-2xl font-black tracking-[-0.04em] text-(--text)">
+                        Choose your industry
+                      </h2>
+                      <p className="mt-2 text-sm leading-6 text-(--text-soft)">
+                        Open an industry to view website, app, CRM and portal pages.
+                      </p>
+                    </div>
 
-                            return (
-                              <div
-                                key={industry.id}
-                                className="rounded-2xl border border-(--border) bg-white/5 p-3"
+                    <Link
+                      href="/industries"
+                      onClick={closeMobileMenu}
+                      className="flex items-center gap-3 rounded-2xl border border-primary/20 bg-primary/10 p-4 text-primary"
+                    >
+                      <Layers3 className="h-5 w-5 shrink-0" />
+                      <span className="font-black">View All Industries</span>
+                      <ArrowRight className="ml-auto h-4 w-4" />
+                    </Link>
+
+                    <div className="space-y-3">
+                      {industryMenus.map((industry, index, list) => {
+                        const active = isIndustryMenuActive(industry);
+
+                        return (
+                          <button
+                            key={industry.id}
+                            type="button"
+                            onClick={() => {
+                              setMobileSelectedIndustryId(industry.id);
+                              setMobileMenuView("industry-detail");
+                            }}
+                            className={`group relative flex w-full gap-4 px-1 py-4 text-left transition-colors duration-300 ${
+                              active ? "text-primary" : "hover:text-primary"
+                            }`}
+                          >
+                            <span className="relative flex w-10 shrink-0 justify-center">
+                              <span className={`absolute bottom-[-1rem] top-9 w-px ${active ? "bg-primary/35" : "bg-(--border)"} ${index === list.length - 1 ? "hidden" : ""}`} />
+                              <span
+                                className={`relative z-10 mt-1 grid h-8 w-8 place-items-center rounded-full border transition-all duration-300 group-hover:scale-105 ${
+                                  active
+                                    ? "border-primary bg-primary text-white shadow-[0_10px_28px_rgba(14,165,233,0.28)]"
+                                    : "border-slate-200 bg-(--surface) text-slate-400 group-hover:border-primary/30 group-hover:text-primary dark:border-white/10 dark:text-slate-500"
+                                }`}
                               >
-                                <Link
-                                  href={industry.href}
-                                  onClick={closeMobileMenu}
-                                  className="flex items-start gap-3"
-                                >
-                                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-(--border) bg-white/5 text-primary">
-                                    <Icon className="h-3.5 w-3.5" aria-hidden="true" />
-                                  </span>
-                                  <span className="min-w-0 flex-1">
-                                    <span className="block font-bold text-(--text)">
-                                      {industry.label}
-                                    </span>
-                                    <span className="mt-0.5 block text-xs leading-5 text-(--text-soft)">
-                                      {industry.description}
-                                    </span>
-                                  </span>
-                                </Link>
+                                <span className={`h-2.5 w-2.5 rounded-full ${active ? "bg-white" : "bg-current"}`} />
+                              </span>
+                            </span>
+                            <span className={`min-w-0 flex-1 pb-4 ${index === list.length - 1 ? "" : "border-b border-(--border)/70"}`}>
+                              <span className={`block font-black ${active ? "text-primary" : "text-(--text)"}`}>
+                                {industry.label}
+                              </span>
+                              <span className="mt-0.5 line-clamp-1 block text-xs text-(--text-soft)">
+                                {industry.short}
+                              </span>
+                            </span>
+                            <ChevronRight className={`mt-1 h-4 w-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1 ${active ? "text-primary" : "text-(--text-soft) group-hover:text-primary"}`} />
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ) : null}
 
-                                <div className="mt-2 grid grid-cols-2 gap-1">
-                                  {industry.solutions.slice(0, 7).map((solution) => (
-                                    <Link
-                                      key={solution.href}
-                                      href={solution.href}
-                                      onClick={closeMobileMenu}
-                                      className="rounded-xl border border-(--border) px-3 py-2 text-xs font-semibold text-(--text-muted) transition hover:border-primary/25 hover:bg-primary/10 hover:text-primary"
-                                    >
-                                      {solution.label}
-                                    </Link>
-                                  ))}
-                                </div>
-                              </div>
-                            );
-                          })}
+                {mobileMenuView === "industry-detail" ? (
+                  <div className="space-y-4">
+                    <div className="overflow-hidden rounded-3xl border border-(--border) bg-white/5">
+                      <div className="relative h-32">
+                        <Image
+                          src={getIndustryPhoto(mobileSelectedIndustry).src}
+                          alt={getIndustryPhoto(mobileSelectedIndustry).alt}
+                          fill
+                          className="object-cover"
+                          sizes="100vw"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                        <div className="absolute bottom-3 left-3 right-3">
+                          <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-200">
+                            {mobileSelectedIndustry.eyebrow}
+                          </p>
+                          <h2 className="mt-1 text-xl font-black text-white">
+                            {mobileSelectedIndustry.label}
+                          </h2>
                         </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
+                      </div>
+                      <div className="p-4">
+                        <p className="text-sm leading-6 text-(--text-soft)">
+                          {mobileSelectedIndustry.description}
+                        </p>
+                        <Link
+                          href={mobileSelectedIndustry.href}
+                          onClick={closeMobileMenu}
+                          className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-linear-to-r from-cyan-500 to-violet-600 px-4 py-3 text-sm font-black text-white"
+                        >
+                          {mobileSelectedIndustry.ctaLabel}
+                          <ArrowRight className="h-4 w-4" />
+                        </Link>
+                      </div>
+                    </div>
 
-                <div className="pt-3">
-                  <Link
-                    href="/contact"
-                    onClick={closeMobileMenu}
-                    className="group inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-linear-to-r from-cyan-500 to-violet-600 px-5 py-3.5 text-sm font-bold text-white shadow-lg shadow-primary/20 transition-all duration-300 hover:shadow-xl hover:shadow-primary/30"
-                  >
-                    Book a Consultation
-                    <ArrowRight
-                      size={15}
-                      className="transition-transform duration-300 group-hover:translate-x-1"
-                      aria-hidden="true"
-                    />
-                  </Link>
-                </div>
+                    <div className="grid gap-3">
+                      {mobileSelectedIndustry.solutions.slice(0, 4).map((solution, index, list) => {
+                        const active = isIndustrySolutionActive(solution);
+
+                        return (
+                          <Link
+                            key={solution.href}
+                            href={solution.href}
+                            onClick={closeMobileMenu}
+                            aria-current={active ? "page" : undefined}
+                            className={`group relative flex gap-4 px-1 py-4 transition-colors duration-300 ${
+                              active ? "text-primary" : "hover:text-primary"
+                            }`}
+                          >
+                            <span className="relative flex w-10 shrink-0 justify-center">
+                              <span className={`absolute bottom-[-1rem] top-9 w-px ${active ? "bg-primary/35" : "bg-(--border)"} ${index === list.length - 1 ? "hidden" : ""}`} />
+                              <span
+                                className={`relative z-10 mt-1 grid h-8 w-8 place-items-center rounded-full border transition-all duration-300 group-hover:scale-105 ${
+                                  active
+                                    ? "border-primary bg-primary text-white shadow-[0_10px_28px_rgba(14,165,233,0.28)]"
+                                    : "border-slate-200 bg-(--surface) text-slate-400 group-hover:border-primary/30 group-hover:text-primary dark:border-white/10 dark:text-slate-500"
+                                }`}
+                              >
+                                <span className={`h-2.5 w-2.5 rounded-full ${active ? "bg-white" : "bg-current"}`} />
+                              </span>
+                            </span>
+                            <span className={`min-w-0 flex-1 pb-4 ${index === list.length - 1 ? "" : "border-b border-(--border)/70"}`}>
+                              <span className={`block font-black ${active ? "text-primary" : "text-(--text)"}`}>
+                                {solution.label}
+                              </span>
+                              <span className="mt-0.5 line-clamp-2 block text-xs leading-5 text-(--text-soft)">
+                                {solution.description}
+                              </span>
+                            </span>
+                            <ChevronRight className={`mt-1 h-4 w-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1 ${active ? "text-primary" : "text-(--text-soft) group-hover:text-primary"}`} />
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ) : null}
+
+                {mobileMenuView === "showcase" ? (
+                  <div className="space-y-4">
+                    <div>
+                      <p className="text-xs font-black uppercase tracking-[0.22em] text-primary">
+                        Explore
+                      </p>
+                      <h2 className="mt-2 text-2xl font-black tracking-[-0.04em] text-(--text)">
+                        Interactive tools and demos
+                      </h2>
+                      <p className="mt-2 text-sm leading-6 text-(--text-soft)">
+                        Try the demo pages and planning tools.
+                      </p>
+                    </div>
+
+                    <div className="divide-y divide-(--border)/70">
+                      {showcaseLinks.map(renderMobileDropdownItem)}
+                    </div>
+                  </div>
+                ) : null}
+              </motion.div>
+
+              <div className="shrink-0 border-t border-(--border) bg-(--surface)/95 p-4 backdrop-blur-xl">
+                <Link
+                  href="/contact"
+                  onClick={closeMobileMenu}
+                  className="group inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-linear-to-r from-cyan-500 to-violet-600 px-5 py-3.5 text-sm font-bold text-white shadow-lg shadow-primary/20 transition-all duration-300 hover:shadow-xl hover:shadow-primary/30"
+                >
+                  Book a Free Consultation
+                  <ArrowRight
+                    size={15}
+                    className="transition-transform duration-300 group-hover:translate-x-1"
+                    aria-hidden="true"
+                  />
+                </Link>
+
+                <a
+                  href="https://wa.me/919896324736"
+                  className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-emerald-500/20 bg-emerald-500/10 px-5 py-3 text-sm font-bold text-emerald-600 dark:text-emerald-300"
+                >
+                  Chat on WhatsApp
+                </a>
               </div>
             </motion.div>
           </>
         )}
       </AnimatePresence>
+
+      <style jsx global>{`
+        @media (max-width: 1279px) {
+          body.hnx-mobile-nav-open a.fixed[href*="wa.me"],
+          body.hnx-mobile-nav-open a.fixed[href*="whatsapp"],
+          body.hnx-mobile-nav-open [data-whatsapp-floating],
+          body.hnx-mobile-nav-open .whatsapp-floating {
+            opacity: 0 !important;
+            pointer-events: none !important;
+            transform: scale(0.92) !important;
+          }
+        }
+      `}</style>
+
     </nav>
   );
 }
