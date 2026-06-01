@@ -416,7 +416,7 @@ function defaultMobileScreens(
 
 function createRealEstateDemoContent(): IndustryWebsiteDemoContent {
   return {
-    modalBadge: "Real Estate Website Demo",
+    modalBadge: "Real Estate Website Experience",
     flowTabLabel: "Site Visit Flow",
     catalogTabLabel: "Listings",
     navSections: nav(["Home", "Properties", "Projects", "Locations", "Contact"]),
@@ -485,7 +485,7 @@ function createRealEstateDemoContent(): IndustryWebsiteDemoContent {
 
 function createEducationDemoContent(): IndustryWebsiteDemoContent {
   return {
-    modalBadge: "Education Website Demo",
+    modalBadge: "Education Website Experience",
     flowTabLabel: "Admission Flow",
     catalogTabLabel: "Programs",
     navSections: nav(["Home", "Courses", "Admissions", "Faculty", "Contact"]),
@@ -505,7 +505,7 @@ function createEducationDemoContent(): IndustryWebsiteDemoContent {
     services: [
       demoCard("Primary And Secondary School", "Grade pages with curriculum, activities, fees context, and parent inquiry CTAs.", School, "Parent-first"),
       demoCard("Undergraduate Programs", "Course pages with eligibility, outcomes, departments, and application prompts.", GraduationCap, "Apply now"),
-      demoCard("Coaching Batches", "Batch cards with exam focus, schedule, demo class CTA, and result proof.", BadgeCheck, "Demo class"),
+      demoCard("Coaching Batches", "Batch cards with exam focus, schedule, trial class CTA, and result proof.", BadgeCheck, "Trial class"),
       demoCard("Online Courses", "Digital course pages with instructor info, lesson previews, and enrollment inquiry.", MonitorSmartphone, "Hybrid ready"),
     ],
     overviewCards: [
@@ -554,7 +554,7 @@ function createEducationDemoContent(): IndustryWebsiteDemoContent {
 
 function createManufacturingDemoContent(): IndustryWebsiteDemoContent {
   return {
-    modalBadge: "Manufacturing Website Demo",
+    modalBadge: "Manufacturing Website Experience",
     flowTabLabel: "RFQ Flow",
     catalogTabLabel: "Catalog",
     navSections: nav(["Home", "Products", "Capabilities", "Certifications", "RFQ"]),
@@ -590,7 +590,7 @@ function createManufacturingDemoContent(): IndustryWebsiteDemoContent {
     directoryItems: [
       directoryItem("CNC Machining", "Production capability", "Capacity slots available", "Materials, tolerances, part sizes, inspection process, and turnaround details."),
       directoryItem("Assembly And Packaging", "Value-added service", "Export packaging ready", "Assembly lines, labeling, packaging standards, and dispatch handling."),
-      directoryItem("Custom OEM Supply", "B2B program", "Drawing review first", "Drawing upload, NDA workflow, sample approval, and production planning."),
+      directoryItem("Custom OEM Supply", "B2B program", "Drawing review first", "Drawing upload, NDA workflow, prototype approval, and production planning."),
     ],
     resourceLabel: "Certifications",
     resourceTitle: "Certifications and buyer proof",
@@ -623,7 +623,7 @@ function createManufacturingDemoContent(): IndustryWebsiteDemoContent {
 
 function createRetailDemoContent(): IndustryWebsiteDemoContent {
   return {
-    modalBadge: "Retail Website Demo",
+    modalBadge: "Retail Website Experience",
     flowTabLabel: "Order Flow",
     catalogTabLabel: "Catalog",
     navSections: nav(["Home", "Catalog", "Offers", "Store", "Contact"]),
@@ -692,7 +692,7 @@ function createRetailDemoContent(): IndustryWebsiteDemoContent {
 
 function createFinanceDemoContent(): IndustryWebsiteDemoContent {
   return {
-    modalBadge: "Finance Website Demo",
+    modalBadge: "Finance Website Experience",
     flowTabLabel: "Consultation Flow",
     catalogTabLabel: "Advisors / Services",
     navSections: nav(["Home", "Services", "Advisors", "Insights", "Contact"]),
@@ -761,7 +761,7 @@ function createFinanceDemoContent(): IndustryWebsiteDemoContent {
 
 function createInsuranceDemoContent(): IndustryWebsiteDemoContent {
   return {
-    modalBadge: "Insurance Website Demo",
+    modalBadge: "Insurance Website Experience",
     flowTabLabel: "Policy Flow",
     catalogTabLabel: "Policies",
     navSections: nav(["Home", "Policies", "Claims", "Renewals", "Contact"]),
@@ -830,7 +830,7 @@ function createInsuranceDemoContent(): IndustryWebsiteDemoContent {
 
 function createTravelDemoContent(): IndustryWebsiteDemoContent {
   return {
-    modalBadge: "Travel Website Demo",
+    modalBadge: "Travel Website Experience",
     flowTabLabel: "Booking Flow",
     catalogTabLabel: "Packages",
     navSections: nav(["Home", "Packages", "Destinations", "Itinerary", "Contact"]),
@@ -899,7 +899,7 @@ function createTravelDemoContent(): IndustryWebsiteDemoContent {
 
 function createAutomobileDemoContent(): IndustryWebsiteDemoContent {
   return {
-    modalBadge: "Automobile Website Demo",
+    modalBadge: "Automobile Website Experience",
     flowTabLabel: "Test Drive Flow",
     catalogTabLabel: "Inventory / Services",
     navSections: nav(["Home", "Inventory", "Test Drive", "Service", "Contact"]),
@@ -920,7 +920,7 @@ function createAutomobileDemoContent(): IndustryWebsiteDemoContent {
       demoCard("SUV Inventory", "Vehicle cards with variant, price context, availability, finance, and test drive CTA.", Car, "Top model"),
       demoCard("Bike Models", "Model cards with color options, walk-in CTA, offer notes, and local showroom routing.", Route, "New arrivals"),
       demoCard("Used Cars", "Used inventory with inspection proof, finance forms, and visit booking.", Tags, "Verified stock"),
-      demoCard("EV Models", "EV cards with range, charging FAQs, demo ride, and finance inquiry.", Sparkles, "EV ready"),
+      demoCard("EV Models", "EV cards with range, charging FAQs, test ride, and finance inquiry.", Sparkles, "EV ready"),
     ],
     overviewCards: [
       demoCard("Vehicle inventory", "Buyers compare models, variants, offers, and availability.", Car),
@@ -934,7 +934,7 @@ function createAutomobileDemoContent(): IndustryWebsiteDemoContent {
       "Test drive pages can show model options, available slots, showroom location, finance CTAs, and sales routing.",
     directoryItems: [
       directoryItem("SUV Automatic", "Test drive model", "Slots open today", "Model details, variant selection, finance prompt, and showroom assignment."),
-      directoryItem("Electric Hatchback", "EV demo ride", "Charging demo included", "Range notes, charging FAQ, subsidy context, and demo ride booking."),
+      directoryItem("Electric Hatchback", "EV test ride", "Charging guide included", "Range notes, charging FAQ, subsidy context, and test ride booking."),
       directoryItem("Premium Bike", "Ride request", "Weekend slots open", "Variant interest, color choice, showroom visit, and executive follow-up."),
     ],
     resourceLabel: "Service",
@@ -968,7 +968,7 @@ function createAutomobileDemoContent(): IndustryWebsiteDemoContent {
 
 function createServiceBusinessDemoContent(): IndustryWebsiteDemoContent {
   return {
-    modalBadge: "Service Business Website Demo",
+    modalBadge: "Service Business Website Experience",
     flowTabLabel: "Quote Flow",
     catalogTabLabel: "Services",
     navSections: nav(["Home", "Services", "Projects", "Reviews", "Contact"]),
@@ -1158,20 +1158,20 @@ export const industryWebsitePages: Record<string, IndustryWebsitePageData> = {
     ],
     trustedProvidersTitle: "Trusted By Property Businesses Across The Country",
     trustedProvidersDescription:
-      "Sample provider cards showing how property brands, agencies, builders, and consultants can be presented.",
+      "Property brands, agencies, builders, and consultants can be presented with clear service positioning and trust proof.",
     trustedProviders: [
-      provider("UrbanNest Realty", "Sample provider - Real estate agency", realEstateImages, 0),
-      provider("PrimeSpace Developers", "Sample provider - Property developer", realEstateImages, 1),
-      provider("MetroView Properties", "Sample provider - Property listings", realEstateImages, 2),
-      provider("EstatePro Consultants", "Sample provider - Property consultant", realEstateImages, 3),
-      provider("Skyline Habitat", "Demo brand - Luxury projects", realEstateImages, 0),
-      provider("RentBridge Homes", "Demo brand - Rental business", realEstateImages, 1),
-      provider("NorthGate Realty", "Sample provider - Commercial property", realEstateImages, 2),
-      provider("Avenue Plot Co.", "Demo brand - Land projects", realEstateImages, 3),
+      provider("UrbanNest Realty", "Real estate agency", realEstateImages, 0),
+      provider("PrimeSpace Developers", "Property developer", realEstateImages, 1),
+      provider("MetroView Properties", "Property listings", realEstateImages, 2),
+      provider("EstatePro Consultants", "Property consultant", realEstateImages, 3),
+      provider("Skyline Habitat", "Luxury projects", realEstateImages, 0),
+      provider("RentBridge Homes", "Rental business", realEstateImages, 1),
+      provider("NorthGate Realty", "Commercial property", realEstateImages, 2),
+      provider("Avenue Plot Co.", "Land projects", realEstateImages, 3),
     ],
-    demoGalleryTitle: "Real Estate Website Demos - Built For Every Property Business",
+    demoGalleryTitle: "Real Estate Website Experiences - Built For Every Property Business",
     demoGalleryDescription:
-      "Explore developer, broker, luxury, rental, commercial, and consultant website demos with listing, inquiry, and visit flows.",
+      "Explore developer, broker, luxury, rental, commercial, consultant, land, and co-living website experiences with listing, inquiry, and visit flows.",
     demoGallery: [
       demo("Property Developer Website", "Project launches, towers, plans, approvals, and site visits.", "PrimeSpace", "Launch Projects With Trust And Clarity", realEstateImages, 0, Building2, "emerald", ["12+", "420", "38", "11%"], ["Project Pages", "Floor Plans", "Approvals", "Site Visits"]),
       demo("Broker Agency Website", "Listings, area pages, agent profiles, and WhatsApp inquiries.", "BrokerBridge", "Turn Buyer Searches Into Qualified Leads", realEstateImages, 1, Users, "blue", ["85", "230", "14", "9%"], ["Listing Search", "Area Pages", "Agent Profiles", "Lead Routing"]),
@@ -1179,10 +1179,12 @@ export const industryWebsitePages: Record<string, IndustryWebsitePageData> = {
       demo("Rental Listing Website", "Rental inventory, tenant forms, owner inquiries, and maps.", "RentNest", "Fill Vacancies With Better Rental Discovery", realEstateImages, 3, Home, "teal", ["60", "180", "Map", "Fast"], ["Rental Listings", "Tenant Forms", "Owner Leads", "Map Search"]),
       demo("Commercial Property Website", "Office, retail, warehouse, and lease inquiry pages.", "MetroLease", "Make Commercial Spaces Easier To Compare", realEstateImages, 0, Landmark, "orange", ["B2B", "Lease", "Maps", "ROI"], ["Office Listings", "Lease Forms", "Location Proof", "Broker CTA"]),
       demo("Property Consultant Website", "Advisory pages, investment guides, and consultation flows.", "EstateGuide", "Guide Buyers From Research To Decision", realEstateImages, 1, Handshake, "rose", ["Guide", "Trust", "Calls", "Plans"], ["Buyer Guides", "Investment Forms", "Consultation", "Trust Content"]),
+      demo("Land / Plot Selling Website", "Plot listings, map sections, approvals, pricing notes, and buyer inquiry flows.", "PlotVista", "Present Land Projects With Clear Buyer Trust", realEstateImages, 2, MapPin, "blue", ["Plots", "Maps", "Docs", "Leads"], ["Plot Listings", "Map Sections", "Approval Proof", "Buyer Inquiry"]),
+      demo("PG / Co-Living Website", "Room availability, amenities, location proof, booking inquiries, and tenant trust.", "CoLivePoint", "Fill Rooms With A Better Co-Living Website", realEstateImages, 3, Building2, "emerald", ["Rooms", "Rent", "Area", "Book"], ["Room Listings", "Amenities", "Location Proof", "Booking Inquiry"]),
     ],
-    demoCtaTitle: "100% Customizable Real Estate Website Demos",
+    demoCtaTitle: "100% Customizable Real Estate Website Experiences",
     demoCtaDescription:
-      "Every demo can be customized with your projects, listings, maps, amenities, sales process, lead routing, and brand style.",
+      "Every website experience can be customized with your projects, listings, maps, amenities, sales process, lead routing, and brand style.",
     benefitsTitle: "Why Property Businesses Choose Us",
     benefits: [
       { title: "Better Property Discovery", description: "Buyers can understand listings without calling for every basic detail.", icon: Search },
@@ -1202,9 +1204,9 @@ export const industryWebsitePages: Record<string, IndustryWebsitePageData> = {
     ],
     testimonialsTitle: "Happy Property Teams, Better Buyer Experiences",
     testimonials: [
-      { quote: "The demo structure made our projects easier to explain and our inquiry quality much better.", name: "Rhea Kapoor", role: "Demo testimonial - Property developer" },
-      { quote: "Listings, location pages, and visit forms finally felt connected in one buyer journey.", name: "Arjun Mehta", role: "Demo testimonial - Brokerage team" },
-      { quote: "The site visit flow captured budget and project interest before our sales team called.", name: "Nisha Rao", role: "Demo testimonial - Property consultant" },
+      { quote: "The website structure made our projects easier to explain and our inquiry quality much better.", name: "Rhea Kapoor", role: "Property developer" },
+      { quote: "Listings, location pages, and visit forms finally felt connected in one buyer journey.", name: "Arjun Mehta", role: "Brokerage team" },
+      { quote: "The site visit flow captured budget and project interest before our sales team called.", name: "Nisha Rao", role: "Property consultant" },
     ],
     complianceDescription:
       "We follow secure website practices to protect property inquiries, lead details, and visitor trust.",
@@ -1261,7 +1263,7 @@ export const industryWebsitePages: Record<string, IndustryWebsitePageData> = {
     modules: [
       { title: "Schools", image: image(educationImages, 0), icon: School, points: ["Admissions pages", "Campus proof", "Parent inquiry", "Notices"] },
       { title: "Colleges", image: image(educationImages, 1), icon: Building2, points: ["Department pages", "Faculty profiles", "Placement proof", "Applications"] },
-      { title: "Coaching Institutes", image: image(educationImages, 2), icon: GraduationCap, points: ["Batch pages", "Demo class CTA", "Results proof", "Counselor forms"] },
+      { title: "Coaching Institutes", image: image(educationImages, 2), icon: GraduationCap, points: ["Batch pages", "Trial class CTA", "Results proof", "Counselor forms"] },
       { title: "EdTech Platforms", image: image(educationImages, 3), icon: MonitorSmartphone, points: ["Course catalog", "Trial lessons", "Learner dashboard", "Subscription CTA"] },
       { title: "Training Centers", image: image(educationImages, 0), icon: BadgeCheck, points: ["Program tracks", "Certificate proof", "Brochures", "Counselor flow"] },
       { title: "Online Course Brands", image: image(educationImages, 1), icon: Smartphone, points: ["Course landing pages", "Instructor profiles", "Checkout inquiry", "Student reviews"] },
@@ -1270,31 +1272,33 @@ export const industryWebsitePages: Record<string, IndustryWebsitePageData> = {
     ],
     trustedProvidersTitle: "Trusted By Education Providers Across The Country",
     trustedProvidersDescription:
-      "Sample education provider cards for institutions that need admissions, trust, and program discovery.",
+      "Education providers can be presented with program clarity, admissions trust, and student-focused discovery.",
     trustedProviders: [
-      provider("BrightPath Academy", "Sample provider - School", educationImages, 0),
-      provider("EduRise Institute", "Sample provider - Coaching institute", educationImages, 1),
-      provider("SkillBridge Learning", "Demo brand - Training center", educationImages, 2),
-      provider("CampusNorth College", "Sample provider - College", educationImages, 3),
-      provider("LittleSteps Preschool", "Demo brand - Preschool", educationImages, 0),
-      provider("CourseNest Online", "Demo brand - Online course brand", educationImages, 1),
-      provider("FutureGrade University", "Sample provider - University", educationImages, 2),
-      provider("MentorPeak Classes", "Demo brand - Coaching classes", educationImages, 3),
+      provider("BrightPath Academy", "School", educationImages, 0),
+      provider("EduRise Institute", "Coaching institute", educationImages, 1),
+      provider("SkillBridge Learning", "Training center", educationImages, 2),
+      provider("CampusNorth College", "College", educationImages, 3),
+      provider("LittleSteps Preschool", "Preschool", educationImages, 0),
+      provider("CourseNest Online", "Online course brand", educationImages, 1),
+      provider("FutureGrade University", "University", educationImages, 2),
+      provider("MentorPeak Classes", "Coaching classes", educationImages, 3),
     ],
-    demoGalleryTitle: "Education Website Demos - Built For Every Learning Provider",
+    demoGalleryTitle: "Education Website Experiences - Built For Every Learning Provider",
     demoGalleryDescription:
-      "Explore school, college, coaching, edtech, training center, and online course demos with admissions and inquiry flows.",
+      "Explore school, college, coaching, edtech, training center, and online course website previews with admissions and inquiry flows.",
     demoGallery: [
       demo("School Website", "Admissions, campus proof, notices, and parent inquiry flows.", "BrightPath", "Help Parents Choose With Confidence", educationImages, 0, School, "blue", ["Classes", "Tours", "Forms", "Trust"], ["Admissions", "Campus Gallery", "Notices", "Parent Inquiry"]),
       demo("College Website", "Programs, departments, faculty, placements, and applications.", "CampusBridge", "Show Programs, Outcomes And Campus Life", educationImages, 1, Landmark, "emerald", ["42", "Faculty", "Apply", "Jobs"], ["Departments", "Placements", "Applications", "Faculty Profiles"]),
-      demo("Coaching Institute Website", "Batch pages, results proof, demo class booking, and leads.", "CoachSprint", "Turn Exam Interest Into Batch Inquiries", educationImages, 2, GraduationCap, "orange", ["Batches", "Rank", "Demo", "Calls"], ["Batch Pages", "Results Proof", "Demo Class", "Counselor CTA"]),
+      demo("Coaching Institute Website", "Batch pages, results proof, trial class booking, and leads.", "CoachSprint", "Turn Exam Interest Into Batch Inquiries", educationImages, 2, GraduationCap, "orange", ["Batches", "Rank", "Trial", "Calls"], ["Batch Pages", "Results Proof", "Trial Class", "Counselor CTA"]),
       demo("EdTech Platform Website", "Course catalog, trial lessons, subscriptions, and learner trust.", "EduFlow", "Launch Courses With A Clear Learning Journey", educationImages, 3, MonitorSmartphone, "violet", ["Courses", "Trial", "App", "Learn"], ["Course Catalog", "Trial Lessons", "Learner Dashboard", "Subscriptions"]),
       demo("Training Center Website", "Skill tracks, certificates, outcomes, and counselor inquiries.", "SkillForge", "Present Training Programs That Feel Career Ready", educationImages, 0, BadgeCheck, "teal", ["Skills", "Certs", "Jobs", "Calls"], ["Program Tracks", "Certificates", "Career Outcomes", "Brochure Forms"]),
       demo("Online Course Website", "Instructor pages, course detail pages, and inquiry paths.", "CourseNest", "Sell Online Courses With Better Clarity", educationImages, 1, Smartphone, "rose", ["Video", "Tutor", "Enroll", "Track"], ["Course Pages", "Instructor Profiles", "Enrollment CTA", "Student Reviews"]),
+      demo("Preschool Website", "Parent trust, age group pages, gallery proof, visit booking, and inquiry paths.", "LittleSteps", "Help Parents Feel Confident Before A Visit", educationImages, 2, Sparkles, "blue", ["Kids", "Tours", "Care", "Trust"], ["Age Groups", "Parent Inquiry", "Visit Booking", "Gallery Sections"]),
+      demo("University Website", "Program schools, research pages, admissions content, and international inquiry flows.", "FutureGrade", "Present A Complete University Experience", educationImages, 3, Landmark, "emerald", ["Schools", "Apply", "Global", "Life"], ["Program Schools", "Research Pages", "Admissions", "International Inquiry"]),
     ],
-    demoCtaTitle: "100% Customizable Education Website Demos",
+    demoCtaTitle: "100% Customizable Education Website Experiences",
     demoCtaDescription:
-      "Every demo can be customized with programs, admissions forms, faculty profiles, campus photos, notices, brochures, and counselor flows.",
+      "Every website experience can be customized with programs, admissions forms, faculty profiles, campus photos, notices, brochures, and counselor flows.",
     benefitsTitle: "Why Education Providers Choose Us",
     benefits: [
       { title: "Clear Admission Paths", description: "Parents and students know exactly what to do next.", icon: ClipboardCheck },
@@ -1314,9 +1318,9 @@ export const industryWebsitePages: Record<string, IndustryWebsitePageData> = {
     ],
     testimonialsTitle: "Happy Education Teams, Better Admission Experiences",
     testimonials: [
-      { quote: "Our demo admissions journey became much easier for parents to understand.", name: "Meera Iyer", role: "Demo testimonial - School administrator" },
-      { quote: "The course pages and brochure flow helped us qualify student interest faster.", name: "Kabir Shah", role: "Demo testimonial - Coaching institute" },
-      { quote: "Faculty profiles, outcomes, and campus proof finally worked together in one website.", name: "Ananya Sen", role: "Demo testimonial - College marketing team" },
+      { quote: "Our admissions journey became much easier for parents to understand.", name: "Meera Iyer", role: "School administrator" },
+      { quote: "The course pages and brochure flow helped us qualify student interest faster.", name: "Kabir Shah", role: "Coaching institute" },
+      { quote: "Faculty profiles, outcomes, and campus proof finally worked together in one website.", name: "Ananya Sen", role: "College marketing team" },
     ],
     complianceDescription:
       "We follow secure website practices to protect student inquiries, admission forms, and institution trust.",
@@ -1378,35 +1382,37 @@ export const industryWebsitePages: Record<string, IndustryWebsitePageData> = {
       { title: "OEM Businesses", image: image(manufacturingImages, 0), icon: Handshake, points: ["OEM services", "Drawing upload", "Capacity proof", "NDA inquiry"] },
       { title: "Distributors", image: image(manufacturingImages, 1), icon: Store, points: ["Product lines", "Dealer inquiry", "Territory pages", "Quote routing"] },
       { title: "B2B Traders", image: image(manufacturingImages, 2), icon: Users, points: ["Bulk demand", "Product sourcing", "Lead forms", "Trade proof"] },
-      { title: "Machinery Businesses", image: image(manufacturingImages, 3), icon: Wrench, points: ["Machine pages", "Service support", "Demo booking", "Spare parts"] },
+      { title: "Machinery Businesses", image: image(manufacturingImages, 3), icon: Wrench, points: ["Machine pages", "Service support", "Consultation booking", "Spare parts"] },
     ],
     trustedProvidersTitle: "Trusted By Industrial Businesses Across The Country",
     trustedProvidersDescription:
-      "Sample industrial provider cards for manufacturers, exporters, suppliers, and B2B teams.",
+      "Industrial providers can be presented with product strength, export readiness, certifications, and B2B credibility.",
     trustedProviders: [
-      provider("IronPeak Industries", "Sample provider - Factory", manufacturingImages, 0),
-      provider("Apex Tools Manufacturing", "Demo brand - Product manufacturer", manufacturingImages, 1),
-      provider("NorthLine Exports", "Sample provider - Exporter", manufacturingImages, 2),
-      provider("SteelGrid Components", "Demo brand - Industrial supplier", manufacturingImages, 3),
-      provider("MachinaWorks", "Sample provider - Machinery business", manufacturingImages, 0),
-      provider("ForgePath OEM", "Demo brand - OEM business", manufacturingImages, 1),
-      provider("SupplyAxis Traders", "Sample provider - B2B trader", manufacturingImages, 2),
-      provider("DeltaParts Distribution", "Demo brand - Distributor", manufacturingImages, 3),
+      provider("IronPeak Industries", "Factory", manufacturingImages, 0),
+      provider("Apex Tools Manufacturing", "Product manufacturer", manufacturingImages, 1),
+      provider("NorthLine Exports", "Exporter", manufacturingImages, 2),
+      provider("SteelGrid Components", "Industrial supplier", manufacturingImages, 3),
+      provider("MachinaWorks", "Machinery business", manufacturingImages, 0),
+      provider("ForgePath OEM", "OEM business", manufacturingImages, 1),
+      provider("SupplyAxis Traders", "B2B trader", manufacturingImages, 2),
+      provider("DeltaParts Distribution", "Distributor", manufacturingImages, 3),
     ],
-    demoGalleryTitle: "Manufacturing Website Demos - Built For Industrial Buyers",
+    demoGalleryTitle: "Manufacturing Website Experiences - Built For Industrial Buyers",
     demoGalleryDescription:
-      "Explore factory, industrial supplier, exporter, product catalog, machinery, and B2B distributor demos.",
+      "Explore factory, industrial supplier, exporter, product catalog, machinery, and B2B distributor website previews.",
     demoGallery: [
       demo("Factory Website", "Capabilities, capacity, certifications, and RFQ flows.", "IronPeak", "Show Factory Strength With Buyer Confidence", manufacturingImages, 0, Factory, "blue", ["Plant", "ISO", "RFQ", "B2B"], ["Capabilities", "Quality Proof", "Plant Gallery", "RFQ Forms"]),
       demo("Industrial Supplier Website", "Product categories, specs, bulk inquiries, and catalog downloads.", "SupplyGrid", "Make Industrial Products Easier To Source", manufacturingImages, 1, PackageCheck, "emerald", ["240", "Specs", "Bulk", "Fast"], ["Product Categories", "Specs", "Bulk Inquiry", "Downloads"]),
       demo("Export Business Website", "Regions, logistics, certifications, and international buyer forms.", "NorthLine", "Build Export Trust Before The First Call", manufacturingImages, 2, Truck, "orange", ["12", "Ports", "Docs", "Global"], ["Export Regions", "Logistics Proof", "Certifications", "Buyer Forms"]),
       demo("Product Catalog Website", "Detailed products, applications, variants, and RFQ request paths.", "ProductBase", "Turn Catalog Browsing Into Qualified RFQs", manufacturingImages, 3, PackageSearch, "violet", ["SKUs", "PDF", "Specs", "RFQ"], ["Catalog Pages", "Applications", "Variants", "Quote Requests"]),
-      demo("Machinery Website", "Machines, demos, service support, and spare part inquiries.", "MachineHub", "Explain Machinery Value With Clear Demos", manufacturingImages, 0, Wrench, "teal", ["Demo", "Parts", "Service", "B2B"], ["Machine Pages", "Demo Booking", "Service Support", "Spare Parts"]),
+      demo("Machinery Website", "Machines, website previews, service support, and spare part inquiries.", "MachineHub", "Explain Machinery Value With Clear Walkthroughs", manufacturingImages, 0, Wrench, "teal", ["Walkthrough", "Parts", "Service", "B2B"], ["Machine Pages", "Consultation Booking", "Service Support", "Spare Parts"]),
       demo("B2B Distributor Website", "Product lines, territory pages, dealer forms, and lead routing.", "TradeWorks", "Connect Buyers To The Right Distributor Flow", manufacturingImages, 1, Store, "rose", ["Lines", "Dealers", "Areas", "Leads"], ["Product Lines", "Dealer Forms", "Territory Pages", "Lead Routing"]),
+      demo("OEM / Fabrication Website", "Custom fabrication, drawing review, material options, and production inquiry flows.", "FabriCore", "Turn Custom Requirements Into Qualified RFQs", manufacturingImages, 2, Factory, "blue", ["OEM", "Draw", "Batch", "RFQ"], ["Fabrication Pages", "Drawing Review", "Material Options", "Production Inquiry"]),
+      demo("Chemical / Materials Website", "Material grades, compliance proof, applications, safety notes, and buyer forms.", "MaterialWorks", "Present Industrial Materials With Compliance Trust", manufacturingImages, 3, ClipboardCheck, "emerald", ["Grades", "Safe", "Docs", "Bulk"], ["Material Grades", "Compliance Proof", "Applications", "Buyer Forms"]),
     ],
-    demoCtaTitle: "100% Customizable Manufacturing Website Demos",
+    demoCtaTitle: "100% Customizable Manufacturing Website Experiences",
     demoCtaDescription:
-      "Every demo can be customized with products, specs, certifications, catalogs, RFQ fields, export regions, and B2B workflows.",
+      "Every website experience can be customized with products, specs, certifications, catalogs, RFQ fields, export regions, and B2B workflows.",
     benefitsTitle: "Why Industrial Businesses Choose Us",
     benefits: [
       { title: "Better Product Clarity", description: "Buyers understand specs, applications, and capabilities before inquiry.", icon: PackageSearch },
@@ -1426,9 +1432,9 @@ export const industryWebsitePages: Record<string, IndustryWebsitePageData> = {
     ],
     testimonialsTitle: "Happy Industrial Teams, Better Buyer Experiences",
     testimonials: [
-      { quote: "The catalog and RFQ flow gave our sales team much cleaner buyer information.", name: "Rohan Kulkarni", role: "Demo testimonial - Industrial supplier" },
-      { quote: "Capabilities, certifications, and product pages finally looked organized for export buyers.", name: "Devika Menon", role: "Demo testimonial - Export business" },
-      { quote: "The machinery demo helped us explain products and capture service inquiries in one place.", name: "Sameer Jain", role: "Demo testimonial - Machinery team" },
+      { quote: "The catalog and RFQ flow gave our sales team much cleaner buyer information.", name: "Rohan Kulkarni", role: "Industrial supplier" },
+      { quote: "Capabilities, certifications, and product pages finally looked organized for export buyers.", name: "Devika Menon", role: "Export business" },
+      { quote: "The machinery website helped us explain products and capture service inquiries in one place.", name: "Sameer Jain", role: "Machinery team" },
     ],
     complianceDescription:
       "We follow secure website practices to protect B2B inquiries, RFQ details, documents, and buyer data.",
@@ -1494,20 +1500,20 @@ export const industryWebsitePages: Record<string, IndustryWebsitePageData> = {
     ],
     trustedProvidersTitle: "Trusted By Retail Brands Across The Country",
     trustedProvidersDescription:
-      "Sample retail provider cards for brands that need product discovery, campaigns, and customer trust.",
+      "Retail brands can be presented with product discovery, campaign visibility, store trust, and customer confidence.",
     trustedProviders: [
-      provider("StyleKart", "Sample provider - Fashion retail", retailImages, 0),
-      provider("FreshBasket Retail", "Demo brand - Grocery store", retailImages, 1),
-      provider("UrbanWear Studio", "Sample provider - Lifestyle brand", retailImages, 2),
-      provider("ElectroLane", "Demo brand - Electronics store", retailImages, 3),
-      provider("GlowCart Beauty", "Sample provider - Beauty store", retailImages, 0),
-      provider("DecorNest Living", "Demo brand - Home decor", retailImages, 1),
-      provider("LocalMart Chain", "Sample provider - Retail chain", retailImages, 2),
-      provider("DailyStyle D2C", "Demo brand - D2C brand", retailImages, 3),
+      provider("StyleKart", "Fashion retail", retailImages, 0),
+      provider("FreshBasket Retail", "Grocery store", retailImages, 1),
+      provider("UrbanWear Studio", "Lifestyle brand", retailImages, 2),
+      provider("ElectroLane", "Electronics store", retailImages, 3),
+      provider("GlowCart Beauty", "Beauty store", retailImages, 0),
+      provider("DecorNest Living", "Home decor", retailImages, 1),
+      provider("LocalMart Chain", "Retail chain", retailImages, 2),
+      provider("DailyStyle D2C", "D2C brand", retailImages, 3),
     ],
-    demoGalleryTitle: "Retail Website Demos - Built For Product-Led Brands",
+    demoGalleryTitle: "Retail Website Experiences - Built For Product-Led Brands",
     demoGalleryDescription:
-      "Explore fashion, grocery, electronics, D2C, beauty, and home decor website demos with catalog and inquiry flows.",
+      "Explore fashion, grocery, electronics, D2C, beauty, home decor, jewellery, and furniture website experiences with catalog and inquiry flows.",
     demoGallery: [
       demo("Fashion Retail Website", "Collections, lookbooks, size inquiry, and campaign pages.", "StyleKart", "Launch Collections That Shoppers Want To Explore", retailImages, 0, ShoppingBag, "violet", ["Drops", "Looks", "Sizes", "Sales"], ["Collection Pages", "Lookbook", "Size Inquiry", "Campaign Pages"]),
       demo("Grocery Store Website", "Daily offers, categories, delivery inquiry, and store locator.", "FreshBasket", "Make Daily Shopping Fast And Local", retailImages, 1, Store, "emerald", ["Fresh", "Daily", "Local", "Fast"], ["Grocery Catalog", "Daily Offers", "Delivery Inquiry", "Store Locator"]),
@@ -1515,10 +1521,12 @@ export const industryWebsitePages: Record<string, IndustryWebsitePageData> = {
       demo("D2C Brand Website", "Brand story, product launches, social proof, and inquiries.", "D2C Studio", "Build A Direct Brand Experience That Converts", retailImages, 3, Sparkles, "orange", ["Launch", "Brand", "Reviews", "Grow"], ["Brand Story", "Product Launches", "Reviews", "Campaign CTAs"]),
       demo("Beauty Store Website", "Product categories, skin concern pages, bundles, and reviews.", "GlowCart", "Guide Shoppers To The Right Beauty Picks", retailImages, 0, Star, "rose", ["Skin", "Bundles", "Reviews", "Care"], ["Concern Pages", "Bundles", "Reviews", "Product Inquiry"]),
       demo("Home Decor Website", "Room collections, catalogs, gallery, and consultation CTA.", "DecorNest", "Inspire Homes With Better Product Stories", retailImages, 1, Home, "teal", ["Rooms", "Catalog", "Gallery", "Consult"], ["Room Collections", "Catalog Inquiry", "Gallery", "Consultation CTA"]),
+      demo("Jewellery Store Website", "Collections, occasion pages, trust proof, appointment inquiries, and product stories.", "JewelLane", "Showcase Jewellery With Premium Trust", retailImages, 2, Sparkles, "violet", ["Gold", "Trust", "Style", "Book"], ["Jewellery Collections", "Occasion Pages", "Trust Proof", "Appointment Inquiry"]),
+      demo("Furniture Store Website", "Room sets, product ranges, material details, delivery notes, and consultation CTAs.", "FurniNest", "Help Shoppers Visualize Better Living Spaces", retailImages, 3, Home, "orange", ["Rooms", "Wood", "Ship", "Plan"], ["Room Sets", "Product Ranges", "Material Details", "Consultation CTA"]),
     ],
-    demoCtaTitle: "100% Customizable Retail Website Demos",
+    demoCtaTitle: "100% Customizable Retail Website Experiences",
     demoCtaDescription:
-      "Every demo can be customized with products, categories, offers, store pages, inquiry flows, campaign landing pages, and brand content.",
+      "Every website experience can be customized with products, categories, offers, store pages, inquiry flows, campaign landing pages, and brand content.",
     benefitsTitle: "Why Retail Brands Choose Us",
     benefits: [
       { title: "Better Product Discovery", description: "Collections and categories make browsing easier for every customer.", icon: ShoppingBag },
@@ -1538,9 +1546,9 @@ export const industryWebsitePages: Record<string, IndustryWebsitePageData> = {
     ],
     testimonialsTitle: "Happy Retail Teams, Better Shopping Experiences",
     testimonials: [
-      { quote: "The collection structure made our products easier to browse and promote.", name: "Tara Bansal", role: "Demo testimonial - Fashion retail" },
-      { quote: "Campaign pages and inquiry forms gave our store team cleaner customer intent.", name: "Kunal Arora", role: "Demo testimonial - Retail chain" },
-      { quote: "The mobile preview showed exactly how customers would move from product to inquiry.", name: "Priya Nair", role: "Demo testimonial - D2C brand" },
+      { quote: "The collection structure made our products easier to browse and promote.", name: "Tara Bansal", role: "Fashion retail" },
+      { quote: "Campaign pages and inquiry forms gave our store team cleaner customer intent.", name: "Kunal Arora", role: "Retail chain" },
+      { quote: "The mobile preview showed exactly how customers would move from product to inquiry.", name: "Priya Nair", role: "D2C brand" },
     ],
     complianceDescription:
       "We follow secure website practices to protect customer inquiries, order interest, and retail website trust.",
@@ -1602,35 +1610,37 @@ export const industryWebsitePages: Record<string, IndustryWebsitePageData> = {
       { title: "Tax Consultants", image: image(financeImages, 0), icon: FileCheck2, points: ["Tax service pages", "Document flow", "Deadline notices", "Secure forms"] },
       { title: "NBFCs", image: image(financeImages, 1), icon: Landmark, points: ["Product pages", "Eligibility flow", "Branch pages", "Lead routing"] },
       { title: "Wealth Managers", image: image(financeImages, 2), icon: ShieldCheck, points: ["Portfolio services", "Advisor proof", "Private inquiry", "Client education"] },
-      { title: "Fintech Services", image: image(financeImages, 3), icon: MonitorSmartphone, points: ["Feature pages", "App flows", "Security trust", "Demo request"] },
+      { title: "Fintech Services", image: image(financeImages, 3), icon: MonitorSmartphone, points: ["Feature pages", "App flows", "Security trust", "Product walkthrough request"] },
     ],
     trustedProvidersTitle: "Trusted By Finance Service Providers Across The Country",
     trustedProvidersDescription:
-      "Sample finance provider cards for firms that need credibility, secure inquiries, and consultation flows.",
+      "Finance firms can be presented with credibility, secure inquiries, service clarity, and consultation pathways.",
     trustedProviders: [
-      provider("FinTrust Advisors", "Sample provider - Financial advisor", financeImages, 0),
-      provider("CapitalPath Consulting", "Demo brand - Finance consultant", financeImages, 1),
-      provider("LedgerWise Accounts", "Sample provider - Accounting firm", financeImages, 2),
-      provider("TaxBridge Services", "Demo brand - Tax consultant", financeImages, 3),
-      provider("LoanLift Desk", "Sample provider - Loan consultant", financeImages, 0),
-      provider("WealthAxis Managers", "Demo brand - Wealth manager", financeImages, 1),
-      provider("CredNorth NBFC", "Sample provider - NBFC team", financeImages, 2),
-      provider("FinEdge Digital", "Demo brand - Fintech service", financeImages, 3),
+      provider("FinTrust Advisors", "Financial advisor", financeImages, 0),
+      provider("CapitalPath Consulting", "Finance consultant", financeImages, 1),
+      provider("LedgerWise Accounts", "Accounting firm", financeImages, 2),
+      provider("TaxBridge Services", "Tax consultant", financeImages, 3),
+      provider("LoanLift Desk", "Loan consultant", financeImages, 0),
+      provider("WealthAxis Managers", "Wealth manager", financeImages, 1),
+      provider("CredNorth NBFC", "NBFC team", financeImages, 2),
+      provider("FinEdge Digital", "Fintech service", financeImages, 3),
     ],
-    demoGalleryTitle: "Finance Website Demos - Built For Trust And Qualified Leads",
+    demoGalleryTitle: "Finance Website Experiences - Built For Trust And Qualified Leads",
     demoGalleryDescription:
-      "Explore advisor, loan consultant, tax, wealth management, accounting, and fintech service website demos.",
+      "Explore advisor, loan consultant, tax, wealth management, accounting, and fintech service website experiences.",
     demoGallery: [
       demo("Financial Advisor Website", "Advisor trust, services, insights, and consultation booking.", "FinTrust", "Build Client Confidence Before The First Call", financeImages, 0, UserCheck, "blue", ["Trust", "Calls", "Plans", "Safe"], ["Advisor Profiles", "Service Pages", "Insights", "Consultation"]),
       demo("Loan Consultant Website", "Loan types, eligibility forms, document checklists, and callbacks.", "LoanBridge", "Make Loan Inquiries Easier To Qualify", financeImages, 1, CreditCard, "emerald", ["Loans", "Docs", "EMI", "Calls"], ["Loan Pages", "Eligibility Forms", "Document Checklist", "Callback Flow"]),
       demo("Tax Consultant Website", "Tax services, deadlines, document flows, and secure forms.", "TaxWise", "Help Clients Prepare Tax Work With Clarity", financeImages, 2, FileCheck2, "orange", ["ITR", "GST", "Docs", "Safe"], ["Tax Services", "Document Flow", "Deadline Notes", "Secure Forms"]),
       demo("Wealth Management Website", "Portfolio services, private inquiries, education, and trust.", "WealthPath", "Present Wealth Services With Careful Trust", financeImages, 3, ShieldCheck, "violet", ["Private", "Plans", "Risk", "Trust"], ["Portfolio Services", "Private Inquiry", "Risk Notes", "Advisor Proof"]),
       demo("Accounting Firm Website", "Firm services, client inquiry, compliance notes, and team profiles.", "LedgerPro", "Turn Accounting Needs Into Clear Client Requests", financeImages, 0, ClipboardList, "teal", ["Books", "Audit", "GST", "Team"], ["Accounting Services", "Client Forms", "Compliance Notes", "Team Profiles"]),
-      demo("Fintech Service Website", "Product pages, app flows, security trust, and demo requests.", "FinEdge", "Explain Digital Finance Features With Trust", financeImages, 1, MonitorSmartphone, "rose", ["App", "Secure", "Demo", "API"], ["Feature Pages", "App Flows", "Security Trust", "Demo Request"]),
+      demo("Fintech Service Website", "Product pages, app flows, security trust, and product walkthrough requests.", "FinEdge", "Explain Digital Finance Features With Trust", financeImages, 1, MonitorSmartphone, "rose", ["App", "Secure", "Guide", "API"], ["Feature Pages", "App Flows", "Security Trust", "Product Walkthrough Request"]),
+      demo("Investment Advisory Website", "Investment services, risk education, advisor trust, and consultation inquiry flows.", "InvestPath", "Build Investor Confidence Before The First Call", financeImages, 2, BarChart3, "blue", ["Risk", "Plan", "Calls", "Trust"], ["Investment Services", "Risk Education", "Advisor Trust", "Consultation Inquiry"]),
+      demo("CA / CPA Firm Website", "Audit services, tax compliance, client intake, document checklists, and firm trust.", "AuditBridge", "Turn Compliance Needs Into Organized Client Requests", financeImages, 3, FileCheck2, "emerald", ["Audit", "Tax", "Docs", "Firm"], ["Audit Services", "Client Intake", "Document Checklist", "Firm Trust"]),
     ],
-    demoCtaTitle: "100% Customizable Finance Website Demos",
+    demoCtaTitle: "100% Customizable Finance Website Experiences",
     demoCtaDescription:
-      "Every demo can be customized with service pages, advisor profiles, disclaimers, secure forms, insights, calculators, and consultation flows.",
+      "Every website experience can be customized with service pages, advisor profiles, disclaimers, secure forms, insights, calculators, and consultation flows.",
     benefitsTitle: "Why Finance Service Providers Choose Us",
     benefits: [
       { title: "Trust-First Positioning", description: "Credentials, process, and proof help visitors feel safer before inquiry.", icon: ShieldCheck },
@@ -1650,9 +1660,9 @@ export const industryWebsitePages: Record<string, IndustryWebsitePageData> = {
     ],
     testimonialsTitle: "Happy Finance Teams, Better Client Experiences",
     testimonials: [
-      { quote: "The finance demo balanced trust, service clarity, and secure inquiry capture very well.", name: "Naveen Malhotra", role: "Demo testimonial - Financial advisor" },
-      { quote: "Loan inquiries became much easier to qualify with eligibility and document fields.", name: "Sana Qureshi", role: "Demo testimonial - Loan consultant" },
-      { quote: "The service pages helped clients understand tax and accounting needs before contacting us.", name: "Harish Patel", role: "Demo testimonial - Accounting firm" },
+      { quote: "The finance website balanced trust, service clarity, and secure inquiry capture very well.", name: "Naveen Malhotra", role: "Financial advisor" },
+      { quote: "Loan inquiries became much easier to qualify with eligibility and document fields.", name: "Sana Qureshi", role: "Loan consultant" },
+      { quote: "The service pages helped clients understand tax and accounting needs before contacting us.", name: "Harish Patel", role: "Accounting firm" },
     ],
     complianceDescription:
       "We follow secure website practices to protect client inquiries and support a compliance-friendly finance website structure.",
@@ -1718,20 +1728,20 @@ export const industryWebsitePages: Record<string, IndustryWebsitePageData> = {
     ],
     trustedProvidersTitle: "Trusted By Insurance Teams Across The Country",
     trustedProvidersDescription:
-      "Sample insurance provider cards for agencies, advisors, claim teams, and renewal-focused businesses.",
+      "Insurance teams can be presented with policy trust, claim support, renewal pathways, and advisor credibility.",
     trustedProviders: [
-      provider("PolicyFirst Advisors", "Sample provider - Insurance advisor", insuranceImages, 0),
-      provider("SecureLife Insurance Desk", "Demo brand - Life insurance desk", insuranceImages, 1),
-      provider("ClaimCare Consultants", "Sample provider - Claim consultant", insuranceImages, 2),
-      provider("HealthCover Point", "Demo brand - Health policy team", insuranceImages, 3),
-      provider("AutoShield Desk", "Sample provider - Vehicle insurance", insuranceImages, 0),
-      provider("RenewRight Team", "Demo brand - Renewal team", insuranceImages, 1),
-      provider("CorpCover Partners", "Sample provider - Corporate insurance", insuranceImages, 2),
-      provider("PolicyBridge Agency", "Demo brand - Insurance agency", insuranceImages, 3),
+      provider("PolicyFirst Advisors", "Insurance advisor", insuranceImages, 0),
+      provider("SecureLife Insurance Desk", "Life insurance desk", insuranceImages, 1),
+      provider("ClaimCare Consultants", "Claim consultant", insuranceImages, 2),
+      provider("HealthCover Point", "Health policy team", insuranceImages, 3),
+      provider("AutoShield Desk", "Vehicle insurance", insuranceImages, 0),
+      provider("RenewRight Team", "Renewal team", insuranceImages, 1),
+      provider("CorpCover Partners", "Corporate insurance", insuranceImages, 2),
+      provider("PolicyBridge Agency", "Insurance agency", insuranceImages, 3),
     ],
-    demoGalleryTitle: "Insurance Website Demos - Built For Policy And Claim Journeys",
+    demoGalleryTitle: "Insurance Website Experiences - Built For Policy And Claim Journeys",
     demoGalleryDescription:
-      "Explore agency, health policy, vehicle insurance, claim support, renewal, and corporate insurance website demos.",
+      "Explore agency, health policy, vehicle insurance, claim support, renewal, and corporate insurance website experiences.",
     demoGallery: [
       demo("Insurance Agency Website", "Policy pages, advisor profiles, quote forms, and lead routing.", "PolicyFirst", "Make Policy Choices Easier To Understand", insuranceImages, 0, Store, "blue", ["Plans", "Quotes", "Trust", "Calls"], ["Policy Pages", "Advisor Profiles", "Quote Forms", "Lead Routing"]),
       demo("Health Policy Website", "Health plans, family quote forms, hospital network, and support.", "HealthCover", "Guide Families Toward The Right Health Cover", insuranceImages, 1, ShieldCheck, "emerald", ["Health", "Family", "Network", "Quote"], ["Health Plans", "Family Forms", "Hospital Network", "Quote CTA"]),
@@ -1739,10 +1749,12 @@ export const industryWebsitePages: Record<string, IndustryWebsitePageData> = {
       demo("Claim Support Website", "Claim forms, document checklists, status inquiry, and support routing.", "ClaimCare", "Help Policyholders Start Claims Clearly", insuranceImages, 3, LifeBuoy, "rose", ["Claim", "Docs", "Status", "Help"], ["Claim Forms", "Document Checklist", "Status Inquiry", "Support Routing"]),
       demo("Renewal Website", "Renewal reminders, policy lookup, callbacks, and plan upgrades.", "RenewDesk", "Turn Renewal Dates Into Conversations", insuranceImages, 0, CalendarCheck, "teal", ["Renew", "Lookup", "Calls", "Plans"], ["Renewal Reminders", "Policy Lookup", "Callback Flow", "Upgrade Pages"]),
       demo("Corporate Insurance Website", "Group policy pages, employee coverage, RFQ forms, and broker support.", "SecureCorp", "Present Corporate Coverage With Confidence", insuranceImages, 1, Building2, "violet", ["Group", "RFQ", "Broker", "Teams"], ["Group Plans", "Employee Coverage", "RFQ Forms", "Broker Support"]),
+      demo("Life Insurance Website", "Life cover pages, needs calculator sections, advisor guidance, and callback flows.", "LifeGuard", "Help Families Understand Long-Term Protection", insuranceImages, 2, Users, "blue", ["Life", "Family", "Plan", "Call"], ["Life Cover Pages", "Needs Guidance", "Advisor CTA", "Callback Flow"]),
+      demo("Travel Insurance Website", "Trip cover pages, claim support, document guidance, and quick quote inquiries.", "TravelCover", "Make Trip Protection Simple To Compare", insuranceImages, 3, Plane, "emerald", ["Trip", "Docs", "Claim", "Fast"], ["Travel Cover", "Document Guidance", "Claim Support", "Quick Quote"]),
     ],
-    demoCtaTitle: "100% Customizable Insurance Website Demos",
+    demoCtaTitle: "100% Customizable Insurance Website Experiences",
     demoCtaDescription:
-      "Every demo can be customized with policy types, advisor profiles, quote forms, claim flows, renewal journeys, and support content.",
+      "Every website experience can be customized with policy types, advisor profiles, quote forms, claim flows, renewal journeys, and support content.",
     benefitsTitle: "Why Insurance Teams Choose Us",
     benefits: [
       { title: "Clear Policy Education", description: "Visitors understand coverage options before requesting a quote.", icon: ShieldCheck },
@@ -1762,9 +1774,9 @@ export const industryWebsitePages: Record<string, IndustryWebsitePageData> = {
     ],
     testimonialsTitle: "Happy Insurance Teams, Better Policy Experiences",
     testimonials: [
-      { quote: "The demo policy pages made coverage choices easier for visitors to understand.", name: "Amit Desai", role: "Demo testimonial - Insurance agency" },
-      { quote: "Claim support and renewal flows gave our team much better context.", name: "Leena Verma", role: "Demo testimonial - Claim consultant" },
-      { quote: "Advisor profiles and privacy notes helped the website feel trustworthy.", name: "Farhan Ali", role: "Demo testimonial - Policy advisor" },
+      { quote: "The policy pages made coverage choices easier for visitors to understand.", name: "Amit Desai", role: "Insurance agency" },
+      { quote: "Claim support and renewal flows gave our team much better context.", name: "Leena Verma", role: "Claim consultant" },
+      { quote: "Advisor profiles and privacy notes helped the website feel trustworthy.", name: "Farhan Ali", role: "Policy advisor" },
     ],
     complianceDescription:
       "We follow secure website practices to protect policy inquiries, claim details, and customer trust.",
@@ -1830,20 +1842,20 @@ export const industryWebsitePages: Record<string, IndustryWebsitePageData> = {
     ],
     trustedProvidersTitle: "Trusted By Travel Businesses Across The Country",
     trustedProvidersDescription:
-      "Sample travel provider cards for agencies, operators, hotels, planners, and visa consultants.",
+      "Travel businesses can be presented with package clarity, booking trust, destination proof, and consultant support.",
     trustedProviders: [
-      provider("TripNest Holidays", "Sample provider - Travel agency", travelImages, 0),
-      provider("GlobeWay Tours", "Demo brand - Tour operator", travelImages, 1),
-      provider("ResortRoute Stays", "Sample provider - Hotel and resort", travelImages, 2),
-      provider("VisaPath Consultants", "Demo brand - Visa consultant", travelImages, 3),
-      provider("AdventureMiles", "Sample provider - Adventure travel", travelImages, 0),
-      provider("Honeymoon Harbor", "Demo brand - Honeymoon packages", travelImages, 1),
-      provider("CorporateTrip Desk", "Sample provider - Corporate travel", travelImages, 2),
-      provider("DestinationCraft", "Demo brand - Destination planner", travelImages, 3),
+      provider("TripNest Holidays", "Travel agency", travelImages, 0),
+      provider("GlobeWay Tours", "Tour operator", travelImages, 1),
+      provider("ResortRoute Stays", "Hotel and resort", travelImages, 2),
+      provider("VisaPath Consultants", "Visa consultant", travelImages, 3),
+      provider("AdventureMiles", "Adventure travel", travelImages, 0),
+      provider("Honeymoon Harbor", "Honeymoon packages", travelImages, 1),
+      provider("CorporateTrip Desk", "Corporate travel", travelImages, 2),
+      provider("DestinationCraft", "Destination planner", travelImages, 3),
     ],
-    demoGalleryTitle: "Travel Website Demos - Built For Packages And Bookings",
+    demoGalleryTitle: "Travel Website Experiences - Built For Packages And Bookings",
     demoGalleryDescription:
-      "Explore travel agency, tour package, hotel, adventure, visa, and honeymoon package website demos.",
+      "Explore travel agency, tour package, hotel, adventure, visa, and honeymoon package website experiences.",
     demoGallery: [
       demo("Travel Agency Website", "Packages, inquiry forms, destination pages, and reviews.", "TripNest", "Turn Travel Dreams Into Planned Trips", travelImages, 0, Plane, "blue", ["Trips", "Leads", "Deals", "Maps"], ["Package Pages", "Inquiry Forms", "Reviews", "Destination SEO"]),
       demo("Tour Package Website", "Itineraries, inclusions, group tour seats, and booking requests.", "TourCraft", "Make Packages Easy To Compare And Book", travelImages, 1, Route, "emerald", ["Tours", "Seats", "Plans", "Book"], ["Itineraries", "Inclusions", "Group Tours", "Booking Requests"]),
@@ -1851,10 +1863,12 @@ export const industryWebsitePages: Record<string, IndustryWebsitePageData> = {
       demo("Adventure Travel Website", "Adventure packages, safety details, activity pages, and forms.", "AdventureRoute", "Sell Experiences With Safety And Excitement", travelImages, 3, Sparkles, "teal", ["Trek", "Gear", "Safe", "Go"], ["Adventure Packages", "Safety Notes", "Activity Pages", "Booking Forms"]),
       demo("Visa Consultant Website", "Visa pages, document checklists, appointments, and status inquiries.", "VisaDesk", "Make Visa Guidance Clear From The Start", travelImages, 0, FileCheck2, "violet", ["Visa", "Docs", "Slots", "Help"], ["Visa Pages", "Document Checklist", "Appointment CTA", "Status Inquiry"]),
       demo("Honeymoon Package Website", "Romantic packages, custom plans, galleries, and consultation CTA.", "HoneymoonMiles", "Create Memorable Trips With Clear Packages", travelImages, 1, Star, "rose", ["Couple", "Plans", "Gallery", "Care"], ["Romantic Packages", "Custom Plans", "Gallery", "Consultation CTA"]),
+      demo("Destination Guide Website", "City guides, attraction pages, itinerary ideas, local tips, and inquiry paths.", "DestinationPro", "Help Travelers Choose The Right Destination", travelImages, 2, MapPin, "blue", ["Guides", "Maps", "Tips", "Plan"], ["City Guides", "Attraction Pages", "Itinerary Ideas", "Inquiry Paths"]),
+      demo("Corporate Travel Website", "Business travel plans, group bookings, policy pages, and account inquiry flows.", "CorpTrip", "Manage Business Travel Interest With Clarity", travelImages, 3, Building2, "emerald", ["Teams", "Plans", "Stay", "Book"], ["Business Trips", "Group Bookings", "Policy Pages", "Account Inquiry"]),
     ],
-    demoCtaTitle: "100% Customizable Travel Website Demos",
+    demoCtaTitle: "100% Customizable Travel Website Experiences",
     demoCtaDescription:
-      "Every demo can be customized with destinations, package pages, hotel details, itineraries, offers, booking forms, and consultant flows.",
+      "Every website experience can be customized with destinations, package pages, hotel details, itineraries, offers, booking forms, and consultant flows.",
     benefitsTitle: "Why Travel Businesses Choose Us",
     benefits: [
       { title: "Better Package Clarity", description: "Travelers understand inclusions, itinerary, pricing context, and support.", icon: Route },
@@ -1874,9 +1888,9 @@ export const industryWebsitePages: Record<string, IndustryWebsitePageData> = {
     ],
     testimonialsTitle: "Happy Travel Teams, Better Booking Experiences",
     testimonials: [
-      { quote: "The package pages made our itineraries easier to understand and sell.", name: "Ishita Roy", role: "Demo testimonial - Travel agency" },
-      { quote: "Booking forms finally captured dates, guests, budget, and trip preferences clearly.", name: "Rahul Bedi", role: "Demo testimonial - Tour operator" },
-      { quote: "The destination sections gave our seasonal campaigns a much stronger landing page.", name: "Neha Thomas", role: "Demo testimonial - Destination planner" },
+      { quote: "The package pages made our itineraries easier to understand and sell.", name: "Ishita Roy", role: "Travel agency" },
+      { quote: "Booking forms finally captured dates, guests, budget, and trip preferences clearly.", name: "Rahul Bedi", role: "Tour operator" },
+      { quote: "The destination sections gave our seasonal campaigns a much stronger landing page.", name: "Neha Thomas", role: "Destination planner" },
     ],
     complianceDescription:
       "We follow secure website practices to protect booking inquiries, customer travel details, and website trust.",
@@ -1936,37 +1950,39 @@ export const industryWebsitePages: Record<string, IndustryWebsitePageData> = {
       { title: "Service Centers", image: image(automobileImages, 2), icon: Wrench, points: ["Service booking", "Issue forms", "Location pages", "Reviews"] },
       { title: "Auto Parts Stores", image: image(automobileImages, 3), icon: PackageSearch, points: ["Parts catalog", "Fitment inquiry", "Bulk requests", "Delivery notes"] },
       { title: "Used Car Sellers", image: image(automobileImages, 0), icon: Tags, points: ["Used inventory", "Inspection proof", "Finance forms", "Visit booking"] },
-      { title: "EV Dealers", image: image(automobileImages, 1), icon: Sparkles, points: ["EV model pages", "Range details", "Charging FAQs", "Demo ride"] },
+      { title: "EV Dealers", image: image(automobileImages, 1), icon: Sparkles, points: ["EV model pages", "Range details", "Charging FAQs", "Test ride"] },
       { title: "Detailing Studios", image: image(automobileImages, 2), icon: Star, points: ["Service packages", "Before after", "Booking forms", "Gallery"] },
       { title: "Fleet Businesses", image: image(automobileImages, 3), icon: Truck, points: ["Fleet pages", "B2B inquiries", "Maintenance plans", "Quote forms"] },
     ],
     trustedProvidersTitle: "Trusted By Automobile Businesses Across The Country",
     trustedProvidersDescription:
-      "Sample automobile provider cards for dealers, service centers, EV sellers, and parts businesses.",
+      "Automobile businesses can be presented with vehicle discovery, test drive intent, service booking, and local showroom trust.",
     trustedProviders: [
-      provider("DriveMax Motors", "Sample provider - Car dealership", automobileImages, 0),
-      provider("AutoPrime Service", "Demo brand - Service center", automobileImages, 1),
-      provider("BikeLane Motors", "Sample provider - Bike dealership", automobileImages, 2),
-      provider("PartsLane Auto", "Demo brand - Auto parts store", automobileImages, 3),
-      provider("EVDrive Hub", "Sample provider - EV dealer", automobileImages, 0),
-      provider("PreOwned Wheels", "Demo brand - Used car seller", automobileImages, 1),
-      provider("DetailPro Studio", "Sample provider - Detailing studio", automobileImages, 2),
-      provider("FleetAxis Auto", "Demo brand - Fleet business", automobileImages, 3),
+      provider("DriveMax Motors", "Car dealership", automobileImages, 0),
+      provider("AutoPrime Service", "Service center", automobileImages, 1),
+      provider("BikeLane Motors", "Bike dealership", automobileImages, 2),
+      provider("PartsLane Auto", "Auto parts store", automobileImages, 3),
+      provider("EVDrive Hub", "EV dealer", automobileImages, 0),
+      provider("PreOwned Wheels", "Used car seller", automobileImages, 1),
+      provider("DetailPro Studio", "Detailing studio", automobileImages, 2),
+      provider("FleetAxis Auto", "Fleet business", automobileImages, 3),
     ],
-    demoGalleryTitle: "Automobile Website Demos - Built For Dealers And Service Teams",
+    demoGalleryTitle: "Automobile Website Experiences - Built For Dealers And Service Teams",
     demoGalleryDescription:
-      "Explore dealership, bike dealer, service center, used car, EV dealer, and auto parts website demos.",
+      "Explore dealership, bike dealer, service center, used car, EV dealer, and auto parts website experiences.",
     demoGallery: [
       demo("Car Dealership Website", "Inventory, model pages, finance inquiry, and test drives.", "DriveMax", "Turn Model Interest Into Test Drives", automobileImages, 0, Car, "blue", ["Cars", "Drives", "EMI", "Deals"], ["Vehicle Inventory", "Model Pages", "Finance Inquiry", "Test Drive"]),
       demo("Bike Dealership Website", "Model variants, walk-in CTA, offers, and local SEO pages.", "BikePrime", "Help Riders Choose The Right Model", automobileImages, 1, Route, "emerald", ["Bikes", "Ride", "Offer", "Local"], ["Variant Pages", "Walk-in CTA", "Offers", "Local SEO"]),
       demo("Service Center Website", "Service booking, issue forms, packages, and reviews.", "AutoPrime", "Make Service Booking Fast And Clear", automobileImages, 2, Wrench, "orange", ["Service", "Slots", "Care", "Trust"], ["Service Booking", "Issue Forms", "Packages", "Reviews"]),
       demo("Used Car Website", "Used inventory, inspection proof, finance forms, and visits.", "PreOwnedHub", "Sell Verified Used Cars With More Trust", automobileImages, 3, Tags, "teal", ["Used", "Proof", "Visit", "EMI"], ["Used Inventory", "Inspection Proof", "Finance Forms", "Visit Booking"]),
-      demo("EV Dealer Website", "EV models, range details, charging FAQs, and demo ride booking.", "EVDrive", "Explain EV Choices With Confidence", automobileImages, 0, Sparkles, "violet", ["EV", "Range", "Charge", "Demo"], ["EV Models", "Range Details", "Charging FAQs", "Demo Ride"]),
+      demo("EV Dealer Website", "EV models, range details, charging FAQs, and test ride booking.", "EVDrive", "Explain EV Choices With Confidence", automobileImages, 0, Sparkles, "violet", ["EV", "Range", "Charge", "Test"], ["EV Models", "Range Details", "Charging FAQs", "Test Ride"]),
       demo("Auto Parts Website", "Parts catalog, fitment inquiry, bulk requests, and delivery notes.", "PartsLane", "Make Auto Parts Easier To Find And Request", automobileImages, 1, PackageSearch, "rose", ["Parts", "Fit", "Bulk", "Ship"], ["Parts Catalog", "Fitment Inquiry", "Bulk Requests", "Delivery Notes"]),
+      demo("Car Rental Website", "Fleet pages, booking requests, location details, pricing notes, and customer forms.", "RentDrive", "Turn Rental Searches Into Booking Requests", automobileImages, 2, CalendarCheck, "blue", ["Fleet", "Book", "Local", "Fast"], ["Fleet Pages", "Booking Requests", "Location Details", "Pricing Notes"]),
+      demo("Automobile Accessories Website", "Accessory catalog, fitment support, installation requests, and store inquiry flows.", "AutoStyle", "Show Accessories With Better Product Clarity", automobileImages, 3, PackageCheck, "emerald", ["Style", "Fit", "Store", "Install"], ["Accessory Catalog", "Fitment Support", "Installation Requests", "Store Inquiry"]),
     ],
-    demoCtaTitle: "100% Customizable Automobile Website Demos",
+    demoCtaTitle: "100% Customizable Automobile Website Experiences",
     demoCtaDescription:
-      "Every demo can be customized with inventory, model pages, service forms, test drive flows, finance CTAs, offers, and location pages.",
+      "Every website experience can be customized with inventory, model pages, service forms, test drive flows, finance CTAs, offers, and location pages.",
     benefitsTitle: "Why Automobile Businesses Choose Us",
     benefits: [
       { title: "Better Inventory Discovery", description: "Buyers can compare models, variants, and offers quickly.", icon: Search },
@@ -1986,9 +2002,9 @@ export const industryWebsitePages: Record<string, IndustryWebsitePageData> = {
     ],
     testimonialsTitle: "Happy Automobile Teams, Better Buyer Experiences",
     testimonials: [
-      { quote: "Inventory and test drive forms became much easier for customers to use.", name: "Vikram Sethi", role: "Demo testimonial - Car dealership" },
-      { quote: "The service center flow captured vehicle issues and preferred slots clearly.", name: "Pooja Menon", role: "Demo testimonial - Service center" },
-      { quote: "Model pages, offers, and finance CTAs worked together in a simple buyer journey.", name: "Karan Bhatt", role: "Demo testimonial - Dealer team" },
+      { quote: "Inventory and test drive forms became much easier for customers to use.", name: "Vikram Sethi", role: "Car dealership" },
+      { quote: "The service center flow captured vehicle issues and preferred slots clearly.", name: "Pooja Menon", role: "Service center" },
+      { quote: "Model pages, offers, and finance CTAs worked together in a simple buyer journey.", name: "Karan Bhatt", role: "Dealer team" },
     ],
     complianceDescription:
       "We follow secure website practices to protect customer inquiries, booking details, and dealership trust.",
@@ -2054,20 +2070,20 @@ export const industryWebsitePages: Record<string, IndustryWebsitePageData> = {
     ],
     trustedProvidersTitle: "Trusted By Service Businesses Across The Country",
     trustedProvidersDescription:
-      "Sample service provider cards for businesses that need quote requests, appointments, local trust, and service-area visibility.",
+      "Service businesses can be presented with quote requests, appointments, local trust, and service-area visibility.",
     trustedProviders: [
-      provider("ProServe Experts", "Sample provider - Professional services", serviceImages, 0),
-      provider("TaskBridge Services", "Demo brand - Local service team", serviceImages, 1),
-      provider("FixRight Repairs", "Sample provider - Repair service", serviceImages, 2),
-      provider("LegalPath Advisors", "Demo brand - Legal service", serviceImages, 3),
-      provider("HomeTasker Pros", "Sample provider - Home service", serviceImages, 0),
-      provider("ConsultEdge Partners", "Demo brand - Consultant", serviceImages, 1),
-      provider("AgencyWorks Studio", "Sample provider - Agency", serviceImages, 2),
-      provider("FieldFlow Teams", "Demo brand - Field service", serviceImages, 3),
+      provider("ProServe Experts", "Professional services", serviceImages, 0),
+      provider("TaskBridge Services", "Local service team", serviceImages, 1),
+      provider("FixRight Repairs", "Repair service", serviceImages, 2),
+      provider("LegalPath Advisors", "Legal service", serviceImages, 3),
+      provider("HomeTasker Pros", "Home service", serviceImages, 0),
+      provider("ConsultEdge Partners", "Consultant", serviceImages, 1),
+      provider("AgencyWorks Studio", "Agency", serviceImages, 2),
+      provider("FieldFlow Teams", "Field service", serviceImages, 3),
     ],
-    demoGalleryTitle: "Service Business Website Demos - Built For Quote And Booking Flows",
+    demoGalleryTitle: "Service Business Website Experiences - Built For Quote And Booking Flows",
     demoGalleryDescription:
-      "Explore consulting, agency, local service, repair, legal, and home service website demos with quote request flows.",
+      "Explore consulting, agency, local service, repair, legal, and home service website experiences with quote request flows.",
     demoGallery: [
       demo("Consulting Website", "Service packages, expert profiles, case studies, and consultation CTA.", "ConsultPro", "Turn Expertise Into Qualified Consultations", serviceImages, 0, UserCheck, "blue", ["Calls", "Cases", "Trust", "Leads"], ["Service Packages", "Expert Profiles", "Case Studies", "Consultation CTA"]),
       demo("Agency Website", "Services, portfolio proof, inquiry routing, and analytics-ready pages.", "AgencyWorks", "Show Services And Proof With Clarity", serviceImages, 1, Building2, "violet", ["Work", "Proof", "Forms", "Growth"], ["Service Pages", "Portfolio Proof", "Inquiry Routing", "Analytics"]),
@@ -2075,10 +2091,12 @@ export const industryWebsitePages: Record<string, IndustryWebsitePageData> = {
       demo("Repair Service Website", "Issue forms, urgent requests, service packages, and booking slots.", "RepairDesk", "Make Repair Requests Faster To Route", serviceImages, 3, Wrench, "orange", ["Fix", "Urgent", "Slots", "Care"], ["Issue Forms", "Urgency Fields", "Booking Slots", "Service Proof"]),
       demo("Legal Service Website", "Practice pages, consultation forms, trust content, and document intake.", "LegalPath", "Help Clients Request Legal Help With Confidence", serviceImages, 0, FileCheck2, "teal", ["Law", "Docs", "Calls", "Trust"], ["Practice Pages", "Consult Forms", "Trust Content", "Document Intake"]),
       demo("Home Service Website", "Home service pages, quote CTA, local areas, and project proof.", "HomeTasker", "Turn Home Service Needs Into Booked Jobs", serviceImages, 1, Home, "rose", ["Home", "Quote", "Areas", "Proof"], ["Service Pages", "Area Pages", "Photo Proof", "Quote CTA"]),
+      demo("Cleaning Service Website", "Residential and commercial cleaning pages, package cards, booking forms, and reviews.", "CleanPro", "Convert Cleaning Needs Into Scheduled Jobs", serviceImages, 2, Sparkles, "blue", ["Clean", "Book", "Areas", "Trust"], ["Cleaning Packages", "Booking Forms", "Service Areas", "Reviews"]),
+      demo("Interior / Renovation Website", "Project galleries, service packages, consultation requests, and material guidance.", "RenovaSpace", "Show Renovation Work With Visual Trust", serviceImages, 3, Wrench, "emerald", ["Design", "Work", "Quote", "Proof"], ["Project Galleries", "Service Packages", "Consultation Requests", "Material Guidance"]),
     ],
-    demoCtaTitle: "100% Customizable Service Business Website Demos",
+    demoCtaTitle: "100% Customizable Service Business Website Experiences",
     demoCtaDescription:
-      "Every demo can be customized with service pages, quote forms, appointment booking, reviews, area pages, project proof, and team workflows.",
+      "Every website experience can be customized with service pages, quote forms, appointment booking, reviews, area pages, project proof, and team workflows.",
     benefitsTitle: "Why Service Businesses Choose Us",
     benefits: [
       { title: "Clear Service Positioning", description: "Customers quickly understand what you do and how you help.", icon: ClipboardList },
@@ -2098,9 +2116,9 @@ export const industryWebsitePages: Record<string, IndustryWebsitePageData> = {
     ],
     testimonialsTitle: "Happy Service Teams, Better Client Experiences",
     testimonials: [
-      { quote: "The service pages and quote forms made our local leads much easier to understand.", name: "Maya Fernandes", role: "Demo testimonial - Local service business" },
-      { quote: "Area pages, reviews, and process sections gave the website stronger local trust.", name: "Nikhil Chopra", role: "Demo testimonial - Repair service" },
-      { quote: "The consulting demo helped us package services and capture better-fit inquiries.", name: "Diya Shah", role: "Demo testimonial - Consultant" },
+      { quote: "The service pages and quote forms made our local leads much easier to understand.", name: "Maya Fernandes", role: "Local service business" },
+      { quote: "Area pages, reviews, and process sections gave the website stronger local trust.", name: "Nikhil Chopra", role: "Repair service" },
+      { quote: "The consulting website helped us package services and capture better-fit inquiries.", name: "Diya Shah", role: "Consultant" },
     ],
     complianceDescription:
       "We follow secure website practices to protect client inquiries, quote requests, and service business trust.",

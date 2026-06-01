@@ -137,17 +137,17 @@ const tabs: {
   },
   {
     id: "flow",
-    label: "Request Flow",
+    label: "Appointment Flow",
     icon: CalendarCheck,
   },
   {
     id: "profile",
-    label: "Directory / Catalog",
+    label: "Services & Doctors",
     icon: PackageSearch,
   },
   {
     id: "analytics",
-    label: "Analytics Dashboard",
+    label: "Lead Insights",
     icon: BarChart3,
   },
 ];
@@ -201,7 +201,7 @@ export default function HealthcareDemoModal({
         onClick={onClose}
       />
 
-      <section className="relative h-[100dvh] w-full max-w-none overflow-hidden rounded-none border border-white/20 bg-white shadow-[0_35px_120px_rgba(0,0,0,0.35)] dark:border-white/10 dark:bg-[#080b16] sm:h-auto sm:max-h-[92vh] sm:max-w-[1380px] sm:rounded-[2rem]">
+      <section className="relative h-[100dvh] w-full max-w-none overflow-hidden rounded-none border border-white/20 bg-white shadow-[0_35px_120px_rgba(0,0,0,0.35)] dark:border-white/10 dark:bg-[#080b16] sm:h-[92vh] sm:max-h-[92vh] sm:max-w-[1380px] sm:rounded-[2rem]">
         <button
           type="button"
           aria-label="Close demo"
@@ -299,7 +299,7 @@ export default function HealthcareDemoModal({
             </Link>
           </aside>
 
-          <div className="min-h-0 flex-1 overflow-y-auto bg-white p-3 dark:bg-[#080b16] sm:p-5 lg:p-7">
+          <div className="h-full min-h-0 flex-1 overflow-y-auto overscroll-contain bg-white p-3 dark:bg-[#080b16] sm:p-5 lg:p-7">
             <div className="mb-4 pr-12 sm:mb-5 sm:pr-14">
               <p className={`text-sm font-black ${accent.text}`}>
                 {activeTabLabel(activeTab, content)}
@@ -314,7 +314,9 @@ export default function HealthcareDemoModal({
             ) : null}
 
             {activeTab === "mobile" ? (
-              <MobilePreview demo={demo} onOpenTab={setActiveTab} />
+              <div className="flex min-h-[72vh] items-start justify-center overflow-y-auto rounded-[1.6rem] border border-slate-200 bg-slate-50 p-4 dark:border-white/10 dark:bg-white/[0.04]">
+                <MobileOnlyWebsiteDemo demo={demo} />
+              </div>
             ) : null}
 
             {activeTab === "flow" ? <FlowPreview demo={demo} /> : null}
@@ -327,11 +329,13 @@ export default function HealthcareDemoModal({
               <AnalyticsPreview demo={demo} onOpenTab={setActiveTab} />
             ) : null}
 
-            <div className="mt-6 rounded-2xl border border-blue-100 bg-blue-50 px-5 py-4 text-sm leading-6 text-slate-600 dark:border-blue-400/20 dark:bg-blue-400/10 dark:text-slate-300">
-              This is a strategic preview. Final design, content, modules,
-              images, booking flow, forms, and dashboards can be customized
-              according to the client&apos;s healthcare business.
-            </div>
+            {activeTab !== "mobile" ? (
+              <div className="mt-6 rounded-2xl border border-blue-100 bg-blue-50 px-5 py-4 text-sm leading-6 text-slate-600 dark:border-blue-400/20 dark:bg-blue-400/10 dark:text-slate-300">
+                This is a strategic preview. Final design, content, modules,
+                images, booking flow, forms, and dashboards can be customized
+                according to the client&apos;s healthcare business.
+              </div>
+            ) : null}
           </div>
         </div>
       </section>
@@ -2476,6 +2480,10 @@ function AnalyticsPreview({
     () => getAnalyticsMetrics(demo, content, activeRange),
     [demo, content, activeRange],
   );
+  const recentLeads = useMemo(
+    () => getRecentLeadRows(demo, content),
+    [demo, content],
+  );
 
   useEffect(() => {
     setActiveSource(content.analyticsSources[0]?.[0] ?? "Google Search");
@@ -2483,15 +2491,19 @@ function AnalyticsPreview({
   }, [content]);
 
   return (
-    <div className="grid gap-5 lg:grid-cols-[1fr_0.8fr]">
+    <div className="grid gap-5 lg:grid-cols-[1fr_0.78fr]">
       <div className="rounded-[1.6rem] border border-slate-200 bg-white p-6 dark:border-white/10 dark:bg-white/[0.05]">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div>
-            <h3 className="text-xl font-black text-slate-950 dark:text-white">
-              Website Performance Overview
+            <p className={`text-xs font-black uppercase tracking-[0.18em] ${accent.text}`}>
+              Admin Lead Portal
+            </p>
+            <h3 className="mt-2 text-xl font-black text-slate-950 dark:text-white">
+              Healthcare Lead Insights
             </h3>
             <p className="mt-2 text-sm leading-6 text-slate-500 dark:text-slate-400">
-              Filter the dashboard to see category-specific analytics update in place.
+              A simple admin view for appointment requests, patient inquiries,
+              call clicks, WhatsApp clicks, and top requested services.
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -2512,13 +2524,13 @@ function AnalyticsPreview({
           </div>
         </div>
 
-        <div className="mt-6 grid gap-4 sm:grid-cols-2">
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {metrics.map(([label, value, growth]) => (
             <button
               key={label}
               type="button"
               onClick={() => setReportReady(false)}
-              className="rounded-2xl border border-slate-200 bg-slate-50 p-5 text-left transition hover:-translate-y-0.5 hover:bg-white dark:border-white/10 dark:bg-[#0b1020]"
+              className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-left transition hover:-translate-y-0.5 hover:bg-white dark:border-white/10 dark:bg-[#0b1020]"
             >
               <p className="text-xs font-bold text-slate-500 dark:text-slate-400">
                 {label}
@@ -2533,17 +2545,44 @@ function AnalyticsPreview({
           ))}
         </div>
 
-        <div className="mt-6 h-44 rounded-2xl bg-slate-50 p-5 dark:bg-[#0b1020]">
-          <svg viewBox="0 0 500 140" className="h-full w-full">
-            <path
-              d={getChartPath(activeRange)}
-              fill="none"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeWidth="8"
-              className={accent.text}
-            />
-          </svg>
+        <div className="mt-6 overflow-hidden rounded-2xl border border-slate-200 dark:border-white/10">
+          <div className="grid grid-cols-[1.15fr_0.95fr_0.8fr_0.7fr] gap-3 bg-slate-50 px-4 py-3 text-[10px] font-black uppercase tracking-[0.12em] text-slate-500 dark:bg-[#0b1020] dark:text-slate-400">
+            <span>Patient Lead</span>
+            <span>Interest</span>
+            <span>Source</span>
+            <span>Status</span>
+          </div>
+
+          <div className="divide-y divide-slate-200 dark:divide-white/10">
+            {recentLeads.map((lead) => (
+              <button
+                key={`${lead.name}-${lead.interest}`}
+                type="button"
+                onClick={() => onOpenTab("flow")}
+                className="grid w-full grid-cols-[1.15fr_0.95fr_0.8fr_0.7fr] gap-3 px-4 py-4 text-left transition hover:bg-slate-50 dark:hover:bg-white/[0.04]"
+              >
+                <span>
+                  <span className="block text-sm font-black text-slate-950 dark:text-white">
+                    {lead.name}
+                  </span>
+                  <span className="mt-1 block text-xs font-bold text-slate-500 dark:text-slate-400">
+                    {lead.time}
+                  </span>
+                </span>
+                <span className="text-xs font-bold leading-5 text-slate-600 dark:text-slate-300">
+                  {lead.interest}
+                </span>
+                <span className="text-xs font-bold text-slate-500 dark:text-slate-400">
+                  {lead.source}
+                </span>
+                <span>
+                  <span className={`inline-flex rounded-full px-2.5 py-1 text-[10px] font-black ${accent.softBg} ${accent.text}`}>
+                    {lead.status}
+                  </span>
+                </span>
+              </button>
+            ))}
+          </div>
         </div>
 
         <div className="mt-5 flex flex-wrap gap-3">
@@ -2553,14 +2592,14 @@ function AnalyticsPreview({
             className={`inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-black text-white ${accent.button}`}
           >
             <FileText className="h-4 w-4" />
-            {reportReady ? "Report Ready" : "Generate Report"}
+            {reportReady ? "Lead Report Ready" : "Generate Lead Report"}
           </button>
           <button
             type="button"
             onClick={() => onOpenTab("flow")}
             className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 px-5 py-3 text-sm font-black text-slate-700 transition hover:-translate-y-0.5 dark:border-white/10 dark:text-white"
           >
-            Review Requests
+            Review Appointment Flow
             <ArrowRight className="h-4 w-4" />
           </button>
         </div>
@@ -2568,7 +2607,7 @@ function AnalyticsPreview({
 
       <div className="rounded-[1.6rem] border border-slate-200 bg-white p-6 dark:border-white/10 dark:bg-white/[0.05]">
         <h3 className="text-xl font-black text-slate-950 dark:text-white">
-          Source Performance
+          Lead Sources & Top Requests
         </h3>
 
         <div className="mt-6 space-y-4">
@@ -2597,14 +2636,35 @@ function AnalyticsPreview({
 
         <div className="mt-6 rounded-2xl bg-slate-50 p-4 dark:bg-[#0b1020]">
           <p className="text-xs font-black uppercase text-slate-500 dark:text-slate-400">
+            Top requested services
+          </p>
+          <div className="mt-4 space-y-3">
+            {content.services.slice(0, 4).map((service, index) => (
+              <div
+                key={service.title}
+                className="flex items-center justify-between gap-3 rounded-xl bg-white px-3 py-3 dark:bg-white/[0.05]"
+              >
+                <span className="text-xs font-black text-slate-700 dark:text-slate-300">
+                  {service.title}
+                </span>
+                <span className={`rounded-full px-2.5 py-1 text-[10px] font-black ${accent.softBg} ${accent.text}`}>
+                  {[38, 29, 24, 18][index] ?? 12} leads
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-6 rounded-2xl bg-slate-50 p-4 dark:bg-[#0b1020]">
+          <p className="text-xs font-black uppercase text-slate-500 dark:text-slate-400">
             Selected source
           </p>
           <p className="mt-2 text-lg font-black text-slate-950 dark:text-white">
             {activeSource}
           </p>
           <p className="mt-2 text-sm leading-6 text-slate-500 dark:text-slate-400">
-            Campaign details, page paths, request quality, and follow-up status
-            can be connected to this view.
+            Hospital admins can see which channel brings the most appointment
+            requests and which services patients ask for most.
           </p>
         </div>
 
@@ -2645,16 +2705,17 @@ function SectionHeader({
 }
 
 function activeTabLabel(tab: DemoTab, content: DemoContent) {
-  if (tab === "desktop") return "Sticky Desktop Website Preview";
-  if (tab === "mobile") return "Sticky Mobile Website Preview";
-  if (tab === "flow") return `${content.requestAction} Flow`;
-  if (tab === "profile") return `${content.profileTitle} Preview`;
-  return "Analytics Dashboard Preview";
+  if (tab === "desktop") return "Desktop Website Preview";
+  if (tab === "mobile") return "Mobile Website Preview";
+  if (tab === "flow") return "Patient Appointment Journey";
+  if (tab === "profile") return "Services, Departments & Doctor Profiles";
+  return "Website Leads & Performance Insights";
 }
 
 function getTabLabel(tab: DemoTab, content: DemoContent) {
-  if (tab === "flow") return `${content.requestAction} Flow`;
-  if (tab === "profile") return content.profileTitle;
+  void content;
+  if (tab === "flow") return "Appointment Flow";
+  if (tab === "profile") return "Services & Doctors";
   return tabs.find((item) => item.id === tab)?.label ?? "Preview";
 }
 
@@ -2662,8 +2723,8 @@ function getMobileTabLabel(tab: DemoTab) {
   if (tab === "desktop") return "Desktop";
   if (tab === "mobile") return "Mobile";
   if (tab === "flow") return "Flow";
-  if (tab === "profile") return "Directory";
-  return "Analytics";
+  if (tab === "profile") return "Services";
+  return "Insights";
 }
 
 function useHealthcareDemoContent(demo: HealthcareDemo) {
@@ -3262,6 +3323,43 @@ function createRehabContent(demo: HealthcareDemo): DemoContent {
   };
 }
 
+function getRecentLeadRows(demo: HealthcareDemo, content: DemoContent) {
+  const primaryInterest = content.services[0]?.title ?? demo.title;
+  const secondaryInterest = content.services[1]?.title ?? content.directoryLabel;
+  const tertiaryInterest = content.services[2]?.title ?? content.requestAction;
+
+  return [
+    {
+      name: "Amit Sharma",
+      interest: primaryInterest,
+      source: "Google Search",
+      status: "New",
+      time: "12 min ago",
+    },
+    {
+      name: "Priya Mehta",
+      interest: secondaryInterest,
+      source: "WhatsApp",
+      status: "Contacted",
+      time: "38 min ago",
+    },
+    {
+      name: "Rahul Verma",
+      interest: tertiaryInterest,
+      source: "Direct",
+      status: "Follow-up",
+      time: "1 hr ago",
+    },
+    {
+      name: "Neha Kapoor",
+      interest: content.directoryLabel,
+      source: "Social Media",
+      status: "Booked",
+      time: "2 hrs ago",
+    },
+  ];
+}
+
 function getAnalyticsMetrics(
   demo: HealthcareDemo,
   content: DemoContent,
@@ -3271,27 +3369,27 @@ function getAnalyticsMetrics(
 
   if (range === "Today") {
     return [
-      ["Visitors", "642", "+8.4%"],
-      ["Requests", "58", "+12.1%"],
-      ["Conversion", "9.0%", "+3.5%"],
-      ["Top Interest", topLabel, "+6.7%"],
+      ["Total Leads", "58", "+12.1%"],
+      ["Appointment Requests", "24", "+8.4%"],
+      ["Phone / WhatsApp Clicks", "21", "+6.8%"],
+      [topLabel, "18", "Top Interest"],
     ];
   }
 
   if (range === "30 Days") {
     return [
-      ["Visitors", "34,850", "+31.9%"],
-      ["Requests", "3,420", "+36.4%"],
-      ["Conversion", "9.8%", "+18.4%"],
-      ["Top Interest", topLabel, "+24.7%"],
+      ["Total Leads", "3,420", "+36.4%"],
+      ["Appointment Requests", "1,486", "+31.9%"],
+      ["Phone / WhatsApp Clicks", "1,124", "+24.7%"],
+      [topLabel, "640", "Top Interest"],
     ];
   }
 
   return [
-    ["Visitors", "12,540", "+24.5%"],
-    ["Requests", "1,245", "+32.1%"],
-    ["Conversion", "9.8%", "+18.4%"],
-    ["Top Interest", topLabel, "+20.7%"],
+    ["Total Leads", "1,245", "+32.1%"],
+    ["Appointment Requests", "486", "+24.5%"],
+    ["Phone / WhatsApp Clicks", "392", "+18.4%"],
+    [topLabel, "240", "Top Interest"],
   ];
 }
 

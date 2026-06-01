@@ -68,29 +68,33 @@ export default function IndustryWebsiteDemoModal({
     { id: "mobile", label: "Mobile Preview", icon: Smartphone },
     { id: "flow", label: content.flowTabLabel, icon: CalendarCheck },
     { id: "catalog", label: content.catalogTabLabel, icon: PackageSearch },
-    { id: "analytics", label: "Analytics Dashboard", icon: BarChart3 },
+    { id: "analytics", label: "Lead Insights", icon: BarChart3 },
   ] as const;
 
   return (
-    <div className="fixed inset-0 z-[999] flex items-center justify-center bg-slate-950/70 p-4 backdrop-blur-xl">
+    <div className="fixed inset-0 z-[999] flex items-center justify-center bg-slate-950/70 p-0 backdrop-blur-xl sm:p-4">
       <button
         type="button"
-        aria-label="Close demo"
+        aria-label="Close preview"
         className="absolute inset-0 cursor-default"
         onClick={onClose}
       />
 
-      <section className="relative max-h-[92vh] w-full max-w-[1380px] overflow-hidden rounded-[2rem] border border-white/20 bg-white shadow-[0_35px_120px_rgba(0,0,0,0.35)] dark:border-white/10 dark:bg-[#080b16]">
+      <section className="relative h-[100dvh] w-full max-w-none overflow-hidden rounded-none border border-white/20 bg-white shadow-[0_35px_120px_rgba(0,0,0,0.35)] dark:border-white/10 dark:bg-[#080b16] sm:h-[92vh] sm:max-w-[1380px] sm:rounded-[2rem]">
         <button
           type="button"
-          aria-label="Close demo"
+          aria-label="Close preview"
           onClick={onClose}
-          className="absolute right-5 top-5 z-30 grid h-11 w-11 place-items-center rounded-full border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:scale-105 dark:border-white/10 dark:bg-white/[0.08] dark:text-white"
+          className="absolute right-3 top-3 z-30 grid h-10 w-10 place-items-center rounded-full border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:scale-105 dark:border-white/10 dark:bg-white/[0.08] dark:text-white sm:right-5 sm:top-5 sm:h-11 sm:w-11"
         >
           <X className="h-5 w-5" />
         </button>
 
-        <div className="grid max-h-[92vh] overflow-y-auto lg:grid-cols-[300px_1fr]">
+        <div className="flex h-full min-h-0 overflow-y-auto bg-white px-3 pb-5 pt-12 dark:bg-[#080b16] lg:hidden">
+          <MobilePreview content={content} demo={demo} onOpenTab={setActiveTab} />
+        </div>
+
+        <div className="hidden h-full min-h-0 overflow-hidden lg:grid lg:max-h-[92vh] lg:grid-cols-[300px_1fr]">
           <aside className="border-b border-slate-200 bg-slate-50/80 p-6 dark:border-white/10 dark:bg-white/[0.03] lg:sticky lg:top-0 lg:max-h-[92vh] lg:overflow-y-auto lg:border-b-0 lg:border-r">
             <div className="flex items-center gap-3">
               <span
@@ -118,7 +122,7 @@ export default function IndustryWebsiteDemoModal({
               </p>
             </div>
 
-            <nav className="mt-7 space-y-2" aria-label="Demo preview tabs">
+            <nav className="mt-7 space-y-2" aria-label="Website preview tabs">
               {tabs.map((tab) => {
                 const Icon = tab.icon;
                 const isActive = activeTab === tab.id;
@@ -128,14 +132,21 @@ export default function IndustryWebsiteDemoModal({
                     key={tab.id}
                     type="button"
                     onClick={() => setActiveTab(tab.id)}
-                    className={`flex w-full items-center gap-3 rounded-2xl px-4 py-3 text-left text-sm font-black transition ${
+                    className={`flex w-full items-start gap-3 rounded-2xl px-4 py-3 text-left transition ${
                       isActive
                         ? `${accent.softBg} ${accent.text}`
                         : "text-slate-600 hover:bg-white hover:text-slate-950 dark:text-slate-300 dark:hover:bg-white/[0.06] dark:hover:text-white"
                     }`}
                   >
-                    <Icon className="h-5 w-5" />
-                    {tab.label}
+                    <Icon className="mt-0.5 h-5 w-5 shrink-0" />
+                    <span className="min-w-0">
+                      <span className="block text-sm font-black leading-5">
+                        {tab.label}
+                      </span>
+                      <span className="mt-0.5 block text-[11px] font-semibold leading-4 text-slate-500 dark:text-slate-400">
+                        {getTabDescription(tab.id, content)}
+                      </span>
+                    </span>
                   </button>
                 );
               })}
@@ -170,7 +181,7 @@ export default function IndustryWebsiteDemoModal({
             </Link>
           </aside>
 
-          <div className="bg-white p-5 dark:bg-[#080b16] sm:p-7">
+          <div className="min-h-0 flex-1 overflow-y-auto bg-white p-5 dark:bg-[#080b16] sm:p-7">
             <div className="mb-5 pr-14">
               <p className={`text-sm font-black ${accent.text}`}>
                 {tabs.find((tab) => tab.id === activeTab)?.label}
@@ -215,6 +226,26 @@ export default function IndustryWebsiteDemoModal({
       </section>
     </div>
   );
+}
+
+function getTabDescription(tab: DemoTab, content: IndustryWebsiteDemoContent) {
+  if (tab === "desktop") {
+    return "Full website layout, trust sections, and conversion CTAs.";
+  }
+
+  if (tab === "mobile") {
+    return "Compact mobile website with menu-based pages.";
+  }
+
+  if (tab === "flow") {
+    return `${content.flowTabLabel} steps, fields, and follow-up routing.`;
+  }
+
+  if (tab === "catalog") {
+    return `${content.catalogTabLabel}, services, proof, and detailed pages.`;
+  }
+
+  return "Lead source, recent requests, and performance overview.";
 }
 
 function DesktopPreview({
@@ -412,7 +443,7 @@ function HomePage({
               onClick={() => onOpenTab("analytics")}
               className="rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-black text-slate-700 transition hover:-translate-y-0.5 hover:border-slate-300 dark:border-white/10 dark:bg-white/[0.06] dark:text-white"
             >
-              View Analytics
+              View Lead Insights
             </button>
           </div>
         </div>
@@ -475,7 +506,7 @@ function HomePage({
           <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">
             The homepage moves visitors from trust to action: understand the
             offer, compare the right path, see proof, then send a request
-            without leaving the demo website.
+            without leaving the website experience.
           </p>
         </div>
         <div className="grid gap-3 sm:grid-cols-2">
@@ -837,15 +868,15 @@ function ContactPage({
           <p className="mt-2 text-sm leading-6 text-slate-500 dark:text-slate-400">
             {requestSent
               ? `${selectedService} is now assigned to the ${content.directoryLabel.toLowerCase()} workflow with alerts queued.`
-              : "This preview can connect forms to WhatsApp, email, CRM, reports, or admin dashboards."}
+              : "This preview can connect forms to WhatsApp, email, CRM, reports, or a lightweight lead insights portal."}
           </p>
           <div className="mt-5 grid gap-2">
-            {["WhatsApp", "Email", "CRM", "Analytics Dashboard"].map((route) => (
+            {["WhatsApp", "Email", "CRM", "Lead Insights"].map((route) => (
               <button
                 key={route}
                 type="button"
                 onClick={() =>
-                  route === "Analytics Dashboard" ? onOpenTab("analytics") : undefined
+                  route === "Lead Insights" ? onOpenTab("analytics") : undefined
                 }
                 className="flex items-center justify-between rounded-xl bg-slate-50 px-4 py-3 text-sm font-black text-slate-700 transition hover:bg-slate-100 dark:bg-white/[0.06] dark:text-slate-300"
               >
@@ -965,59 +996,71 @@ function MobilePreview({
   }, [content, demo.title]);
 
   function handleScreen(screen: IndustryWebsiteDemoSectionId | "flow" | "updates") {
-    if (screen === "flow") {
-      onOpenTab("flow");
-      return;
-    }
-
     setActiveScreen(screen);
+    setMenuOpen(false);
   }
 
-  return (
-    <div className="grid items-start gap-6 lg:grid-cols-[0.8fr_1.2fr]">
-      <div className="mx-auto w-[280px] rounded-[2.4rem] border-[10px] border-slate-950 bg-white p-4 shadow-[0_30px_80px_rgba(15,23,42,0.24)] dark:border-slate-800 dark:bg-[#0b1020]">
-        <div className="mx-auto mb-4 h-1.5 w-16 rounded-full bg-slate-300" />
+  const activeLabel =
+    content.mobileScreens.find((screen) => screen.id === activeScreen)?.label ??
+    content.navSections.find((section) => section.id === activeScreen)?.label ??
+    "Home";
 
-        <div className="sticky top-0 z-10 flex items-center justify-between bg-white/95 py-1 backdrop-blur-xl dark:bg-[#0b1020]/95">
+  return (
+    <div className="mx-auto h-[calc(100dvh-4.75rem)] max-h-[790px] min-h-[620px] w-full max-w-[350px] overflow-hidden rounded-[1.8rem] border border-slate-200 bg-white shadow-[0_24px_70px_rgba(15,23,42,0.16)] dark:border-white/10 dark:bg-[#0b1020]">
+      <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/95 px-4 py-3 backdrop-blur-xl dark:border-white/10 dark:bg-[#0b1020]/95">
+        <div className="flex items-center justify-between gap-3">
           <button
             type="button"
-            onClick={() => setActiveScreen("home")}
-            className="text-sm font-black text-slate-950 dark:text-white"
+            onClick={() => handleScreen("home")}
+            className="flex min-w-0 items-center gap-2 text-left"
           >
-            {demo.brand}
+            <span
+              className={`grid h-9 w-9 shrink-0 place-items-center rounded-2xl ${accent.iconBg} ${accent.iconText}`}
+            >
+              <MonitorSmartphone className="h-4 w-4" />
+            </span>
+            <span className="min-w-0">
+              <span className="block truncate text-sm font-black text-slate-950 dark:text-white">
+                {demo.brand}
+              </span>
+              <span className="block truncate text-[10px] font-bold text-slate-500 dark:text-slate-400">
+                {activeLabel}
+              </span>
+            </span>
           </button>
+
           <button
             type="button"
+            aria-label="Open website menu"
             onClick={() => setMenuOpen((value) => !value)}
-            aria-label="Toggle mobile menu"
-            className="grid h-8 w-8 place-items-center rounded-full bg-slate-100 text-slate-600 dark:bg-white/[0.08] dark:text-slate-200"
+            className="grid h-9 w-9 place-items-center rounded-full bg-slate-100 text-slate-600 transition hover:bg-slate-200 dark:bg-white/[0.08] dark:text-slate-200"
           >
             <Menu className="h-4 w-4" />
           </button>
         </div>
 
         {menuOpen ? (
-          <div className="mt-3 grid grid-cols-2 gap-2 rounded-2xl bg-slate-50 p-2 dark:bg-white/[0.04]">
+          <div className="absolute left-3 right-3 top-[4.15rem] z-40 rounded-2xl border border-slate-200 bg-white p-2 shadow-[0_18px_50px_rgba(15,23,42,0.16)] dark:border-white/10 dark:bg-[#111827]">
             {content.mobileScreens.map((screen) => (
               <button
-                key={screen.id}
+                key={`${screen.id}-mobile-menu`}
                 type="button"
-                onClick={() => {
-                  handleScreen(screen.id);
-                  setMenuOpen(false);
-                }}
-                className={`rounded-xl px-2 py-2 text-[10px] font-black ${
+                onClick={() => handleScreen(screen.id)}
+                className={`flex w-full items-center justify-between rounded-xl px-3 py-3 text-left text-xs font-black transition ${
                   activeScreen === screen.id
                     ? `${accent.button} text-white`
-                    : "bg-white text-slate-600 dark:bg-white/[0.06] dark:text-slate-300"
+                    : "text-slate-600 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-white/[0.06]"
                 }`}
               >
                 {screen.label}
+                <ArrowRight className="h-3.5 w-3.5" />
               </button>
             ))}
           </div>
         ) : null}
+      </header>
 
+      <div className="h-[calc(100%-4.1rem)] overflow-y-auto scroll-smooth bg-slate-50/70 dark:bg-white/[0.02]">
         <MobilePhoneScreen
           activeScreen={activeScreen}
           accent={accent}
@@ -1027,51 +1070,23 @@ function MobilePreview({
           onScreenChange={handleScreen}
         />
 
-        <div className="sticky bottom-0 mt-5 grid grid-cols-4 gap-2 bg-white/95 pt-2 backdrop-blur-xl dark:bg-[#0b1020]/95">
-          {content.mobileScreens.map((screen) => {
-            const Icon = screen.icon;
-
-            return (
-              <button
-                key={screen.id}
-                type="button"
-                onClick={() => handleScreen(screen.id)}
-                className={`grid h-12 place-items-center rounded-xl transition ${
-                  activeScreen === screen.id
-                    ? `${accent.button} text-white`
-                    : "bg-slate-50 text-slate-500 hover:text-slate-900 dark:bg-white/[0.06] dark:text-slate-300"
-                }`}
-              >
-                <Icon className="h-4 w-4" />
-              </button>
-            );
-          })}
+        <div className="border-t border-slate-200 bg-slate-950 p-4 text-white dark:border-white/10">
+          <div className="flex items-center gap-2">
+            <span className={`h-3.5 w-3.5 rounded-full ${accent.button}`} />
+            <p className="text-sm font-black">{demo.brand}</p>
+          </div>
+          <p className="mt-2 line-clamp-2 text-xs leading-5 text-slate-300">
+            {content.intro}
+          </p>
+          <button
+            type="button"
+            onClick={() => handleScreen("contact")}
+            className={`mt-4 inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl text-xs font-black text-white ${accent.button}`}
+          >
+            {content.requestAction}
+            <ArrowRight className="h-4 w-4" />
+          </button>
         </div>
-      </div>
-
-      <div className="grid gap-4 sm:grid-cols-2">
-        {content.overviewCards.map((item, index) => {
-          const Icon = item.icon;
-
-          return (
-            <button
-              key={item.title}
-              type="button"
-              onClick={() =>
-                index === 3 ? onOpenTab("analytics") : handleScreen(content.mobileScreens[index]?.id ?? "sectionA")
-              }
-              className="rounded-2xl border border-slate-200 bg-white p-5 text-left transition hover:-translate-y-0.5 hover:shadow-sm dark:border-white/10 dark:bg-white/[0.05]"
-            >
-              <Icon className={`mb-3 h-5 w-5 ${accent.text}`} />
-              <p className="text-sm font-black text-slate-950 dark:text-white">
-                {item.title}
-              </p>
-              <p className="mt-2 text-xs leading-5 text-slate-500 dark:text-slate-400">
-                {item.description}
-              </p>
-            </button>
-          );
-        })}
       </div>
     </div>
   );
@@ -1092,148 +1107,525 @@ function MobilePhoneScreen({
   onOpenTab: (tab: DemoTab) => void;
   onScreenChange: (screen: IndustryWebsiteDemoSectionId | "flow" | "updates") => void;
 }) {
+  const pageShell =
+    "min-h-[630px] bg-gradient-to-br from-slate-50 via-white to-blue-50/80 p-4 dark:from-white/[0.04] dark:via-transparent dark:to-blue-950/20";
+
   if (activeScreen === "sectionA") {
     return (
-      <div>
-        <h3 className="mt-5 text-xl font-black leading-tight text-slate-950 dark:text-white">
-          {content.catalogTabLabel}
-        </h3>
-        <div className="mt-3 grid gap-2">
-          {content.services.slice(0, 5).map((service) => (
+      <section className={pageShell}>
+        <div className={`rounded-[1.55rem] p-4 text-white shadow-sm ${accent.button}`}>
+          <div className="flex items-start justify-between gap-3">
+            <div>
+              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/80">
+                {content.catalogTabLabel}
+              </p>
+              <h3 className="mt-3 text-2xl font-black leading-tight tracking-[-0.035em]">
+                Explore the right option faster
+              </h3>
+              <p className="mt-3 text-sm leading-6 text-white/85">
+                {content.secondaryAction} pages give visitors clear details, proof,
+                and the next action without making them search manually.
+              </p>
+            </div>
+            <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-white/15">
+              <PackageSearch className="h-6 w-6" />
+            </span>
+          </div>
+
+          <div className="mt-5 grid grid-cols-2 gap-2">
+            {content.services.slice(0, 2).map((service) => (
+              <button
+                key={service.title}
+                type="button"
+                onClick={() => onScreenChange("contact")}
+                className="rounded-2xl bg-white/14 p-3 text-left text-xs font-black text-white backdrop-blur"
+              >
+                {service.title}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-5 grid gap-3">
+          {content.services.slice(0, 6).map((service, index) => {
+            const Icon = service.icon;
+
+            return (
+              <button
+                key={service.title}
+                type="button"
+                onClick={() => onScreenChange(index % 2 === 0 ? "sectionB" : "contact")}
+                className="group rounded-2xl border border-slate-200 bg-white p-4 text-left shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-white/10 dark:bg-white/[0.05]"
+              >
+                <div className="flex items-start gap-3">
+                  <span
+                    className={`grid h-10 w-10 shrink-0 place-items-center rounded-xl ${index % 2 === 0 ? accent.iconBg : "bg-slate-50 dark:bg-white/[0.06]"} ${accent.iconText}`}
+                  >
+                    <Icon className="h-4 w-4" />
+                  </span>
+                  <span className="min-w-0">
+                    <span className="block text-sm font-black text-slate-950 dark:text-white">
+                      {service.title}
+                    </span>
+                    <span className="mt-1 line-clamp-3 block text-xs leading-5 text-slate-500 dark:text-slate-400">
+                      {service.description}
+                    </span>
+                    {service.meta ? (
+                      <span className={`mt-3 inline-flex rounded-full px-2.5 py-1 text-[9px] font-black ${accent.softBg} ${accent.text}`}>
+                        {service.meta}
+                      </span>
+                    ) : null}
+                  </span>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+
+        <MobileWebsiteInfoBand
+          title="What this page helps with"
+          items={["Clear category discovery", "Relevant proof sections", "Direct request CTA"]}
+          accent={accent}
+        />
+      </section>
+    );
+  }
+
+  if (activeScreen === "sectionB") {
+    return (
+      <section className={pageShell}>
+        <div className="overflow-hidden rounded-[1.55rem] border border-slate-200 bg-white shadow-sm dark:border-white/10 dark:bg-white/[0.05]">
+          <div className="grid grid-cols-[0.92fr_1.08fr]">
+            <div className="p-4">
+              <p className={`text-[10px] font-black uppercase tracking-[0.18em] ${accent.text}`}>
+                {content.directoryLabel}
+              </p>
+              <h3 className="mt-3 text-2xl font-black leading-tight tracking-[-0.035em] text-slate-950 dark:text-white">
+                {content.directoryTitle}
+              </h3>
+              <p className="mt-2 line-clamp-4 text-xs leading-5 text-slate-500 dark:text-slate-400">
+                {content.directoryDescription}
+              </p>
+              <button
+                type="button"
+                onClick={() => onScreenChange("contact")}
+                className={`mt-4 inline-flex rounded-xl px-4 py-2 text-[10px] font-black text-white ${accent.button}`}
+              >
+                {content.requestAction}
+              </button>
+            </div>
+            <div
+              className="min-h-[225px] bg-cover bg-center"
+              style={{ backgroundImage: `url(${demo.image})` }}
+            />
+          </div>
+        </div>
+
+        <div className="mt-5 grid gap-3">
+          {content.directoryItems.slice(0, 5).map((item, index) => (
             <button
-              key={service.title}
+              key={item.name}
               type="button"
-              onClick={() => onOpenTab("catalog")}
-              className="flex items-center justify-between rounded-xl bg-slate-50 px-3 py-3 text-left text-[11px] font-black text-slate-700 dark:bg-white/[0.06] dark:text-slate-200"
+              onClick={() => onScreenChange("contact")}
+              className="overflow-hidden rounded-2xl border border-slate-200 bg-white text-left shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-white/10 dark:bg-white/[0.05]"
             >
-              {service.title}
-              <ArrowRight className="h-3.5 w-3.5" />
+              <div className="flex items-start gap-3 p-4">
+                <span className={`grid h-10 w-10 shrink-0 place-items-center rounded-xl ${accent.iconBg} ${accent.iconText}`}>
+                  <PackageSearch className="h-4 w-4" />
+                </span>
+                <span className="min-w-0">
+                  <span className="flex items-center justify-between gap-2">
+                    <span className="text-sm font-black text-slate-950 dark:text-white">
+                      {item.name}
+                    </span>
+                    {index === 0 ? (
+                      <span className={`rounded-full px-2 py-0.5 text-[9px] font-black ${accent.softBg} ${accent.text}`}>
+                        Featured
+                      </span>
+                    ) : null}
+                  </span>
+                  <span className="mt-1 block text-xs font-bold text-slate-500 dark:text-slate-400">
+                    {item.role} • {item.slot}
+                  </span>
+                  <span className="mt-2 line-clamp-3 block text-xs leading-5 text-slate-500 dark:text-slate-400">
+                    {item.detail}
+                  </span>
+                </span>
+              </div>
             </button>
           ))}
         </div>
-      </div>
+
+        <MobileWebsiteInfoBand
+          title="Trust modules included"
+          items={[content.directoryLabel, "Availability/details", "Follow-up ready CTA"]}
+          accent={accent}
+        />
+      </section>
+    );
+  }
+
+  if (activeScreen === "sectionC") {
+    return (
+      <section className={pageShell}>
+        <div className="relative overflow-hidden rounded-[1.55rem] border border-slate-200 bg-slate-950 p-4 text-white shadow-sm dark:border-white/10">
+          <div
+            className="absolute inset-0 bg-cover bg-center opacity-20"
+            style={{ backgroundImage: `url(${demo.image})` }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900/90 to-blue-950/80" />
+          <div className="relative">
+            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-200">
+              {content.resourceLabel}
+            </p>
+            <h3 className="mt-3 text-2xl font-black leading-tight tracking-[-0.035em]">
+              {content.resourceTitle}
+            </h3>
+            <p className="mt-3 text-sm leading-6 text-slate-300">
+              Support pages build confidence before a visitor sends a request.
+              They make the website useful, searchable, and conversion-ready.
+            </p>
+
+            <div className="mt-5 grid grid-cols-3 gap-2">
+              {["Proof", "SEO", "Trust"].map((item) => (
+                <span
+                  key={item}
+                  className="rounded-2xl bg-white/10 px-3 py-3 text-center text-[10px] font-black text-white"
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-5 grid gap-3">
+          {content.resourcePages.slice(0, 5).map((page, index) => {
+            const Icon = page.icon;
+
+            return (
+              <article
+                key={page.title}
+                className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-white/[0.05]"
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <Icon className={`h-5 w-5 ${accent.text}`} />
+                  <span className="rounded-full bg-slate-50 px-2 py-1 text-[9px] font-black text-slate-500 dark:bg-white/[0.06] dark:text-slate-300">
+                    Page {index + 1}
+                  </span>
+                </div>
+                <p className="mt-3 text-sm font-black text-slate-950 dark:text-white">
+                  {page.title}
+                </p>
+                <p className="mt-2 line-clamp-3 text-xs leading-5 text-slate-500 dark:text-slate-400">
+                  {page.description}
+                </p>
+                <div className="mt-3 flex flex-wrap gap-1.5">
+                  {page.blocks.slice(0, 4).map((block) => (
+                    <span
+                      key={block}
+                      className="rounded-full bg-slate-50 px-2.5 py-1 text-[9px] font-black text-slate-500 dark:bg-white/[0.06] dark:text-slate-300"
+                    >
+                      {block}
+                    </span>
+                  ))}
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+    );
+  }
+
+  if (activeScreen === "flow") {
+    return (
+      <section className={pageShell}>
+        <div className={`rounded-[1.55rem] p-4 text-white shadow-sm ${accent.button}`}>
+          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/80">
+            {content.flowTabLabel}
+          </p>
+          <h3 className="mt-3 text-2xl font-black leading-tight tracking-[-0.035em]">
+            Turn visitors into qualified requests
+          </h3>
+          <p className="mt-3 text-sm leading-6 text-white/85">
+            The flow collects the exact details your team needs before a callback,
+            quote, visit, admission conversation, or consultation.
+          </p>
+        </div>
+
+        <div className="mt-5 grid gap-3">
+          {content.flowSteps.map((step, index) => (
+            <button
+              key={step}
+              type="button"
+              onClick={() => index === content.flowSteps.length - 1 ? onScreenChange("contact") : undefined}
+              className="rounded-2xl border border-slate-200 bg-white p-4 text-left shadow-sm dark:border-white/10 dark:bg-white/[0.05]"
+            >
+              <div className="flex items-start gap-3">
+                <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-xl text-xs font-black text-white ${accent.button}`}>
+                  {index + 1}
+                </span>
+                <span>
+                  <span className="block text-sm font-black text-slate-950 dark:text-white">
+                    {step}
+                  </span>
+                  <span className="mt-1 block text-xs leading-5 text-slate-500 dark:text-slate-400">
+                    {content.requestFields[index] ?? content.requestAction}
+                  </span>
+                </span>
+              </div>
+            </button>
+          ))}
+        </div>
+
+        <MobileWebsiteInfoBand
+          title="Flow outcome"
+          items={["Qualified lead details", "Clear team follow-up", "Reduced manual calls"]}
+          accent={accent}
+        />
+      </section>
     );
   }
 
   if (activeScreen === "updates") {
     return (
-      <div>
-        <h3 className="mt-5 text-xl font-black leading-tight text-slate-950 dark:text-white">
-          Updates
-        </h3>
-        <div className="mt-3 grid gap-2">
+      <section className={pageShell}>
+        <div className="rounded-[1.55rem] border border-slate-200 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-white/[0.05]">
+          <div className="flex items-center gap-3">
+            <span className={`grid h-12 w-12 place-items-center rounded-2xl ${accent.iconBg} ${accent.iconText}`}>
+              <BarChart3 className="h-5 w-5" />
+            </span>
+            <div>
+              <p className={`text-[10px] font-black uppercase tracking-[0.18em] ${accent.text}`}>
+                Lead Insights
+              </p>
+              <h3 className="mt-1 text-xl font-black leading-tight text-slate-950 dark:text-white">
+                Recent website activity
+              </h3>
+            </div>
+          </div>
+          <p className="mt-4 text-sm leading-6 text-slate-600 dark:text-slate-300">
+            A compact admin-style view shows what came from the website and
+            which channel or page created the most interest.
+          </p>
+        </div>
+
+        <div className="mt-5 grid grid-cols-2 gap-2">
+          {content.analyticsMetrics.slice(0, 4).map((metric) => (
+            <button
+              key={metric.label}
+              type="button"
+              onClick={() => onOpenTab("analytics")}
+              className="rounded-2xl border border-slate-200 bg-white p-3 text-left shadow-sm dark:border-white/10 dark:bg-white/[0.05]"
+            >
+              <p className="text-[10px] font-bold text-slate-500 dark:text-slate-400">
+                {metric.label}
+              </p>
+              <p className="mt-1 text-sm font-black text-slate-950 dark:text-white">
+                {metric.value}
+              </p>
+              <p className={`mt-0.5 text-[10px] font-black ${accent.text}`}>
+                {metric.change}
+              </p>
+            </button>
+          ))}
+        </div>
+
+        <div className="mt-5 grid gap-3">
           {content.mobileUpdates.map(([title, description]) => (
             <button
               key={title}
               type="button"
               onClick={() => onOpenTab("analytics")}
-              className="rounded-xl bg-slate-50 px-3 py-3 text-left dark:bg-white/[0.06]"
+              className="rounded-2xl border border-slate-200 bg-white p-4 text-left shadow-sm dark:border-white/10 dark:bg-white/[0.05]"
             >
-              <p className="text-[11px] font-black text-slate-800 dark:text-slate-100">
+              <p className="text-sm font-black text-slate-950 dark:text-white">
                 {title}
               </p>
-              <p className="mt-1 text-[10px] leading-4 text-slate-500 dark:text-slate-400">
+              <p className="mt-1 text-xs leading-5 text-slate-500 dark:text-slate-400">
                 {description}
               </p>
             </button>
           ))}
         </div>
-      </div>
-    );
-  }
 
-  if (activeScreen === "sectionB" || activeScreen === "sectionC") {
-    const items =
-      activeScreen === "sectionB"
-        ? content.directoryItems.map((item) => [item.name, item.detail] as const)
-        : content.resourcePages.map((page) => [page.title, page.description] as const);
-
-    return (
-      <div>
-        <h3 className="mt-5 text-xl font-black leading-tight text-slate-950 dark:text-white">
-          {activeScreen === "sectionB" ? content.directoryLabel : content.resourceLabel}
-        </h3>
-        <div className="mt-3 grid gap-2">
-          {items.slice(0, 4).map(([title, description]) => (
-            <button
-              key={title}
-              type="button"
-              onClick={() => onScreenChange("contact")}
-              className="rounded-xl bg-slate-50 px-3 py-3 text-left dark:bg-white/[0.06]"
-            >
-              <p className="text-[11px] font-black text-slate-800 dark:text-slate-100">
-                {title}
-              </p>
-              <p className="mt-1 line-clamp-2 text-[10px] leading-4 text-slate-500 dark:text-slate-400">
-                {description}
-              </p>
-            </button>
-          ))}
-        </div>
-      </div>
+        <MobileWebsiteInfoBand
+          title="Admin can quickly check"
+          items={["New requests", "Top source", "Next follow-up status"]}
+          accent={accent}
+        />
+      </section>
     );
   }
 
   if (activeScreen === "contact") {
     return (
-      <div>
-        <h3 className="mt-5 text-xl font-black leading-tight text-slate-950 dark:text-white">
-          {content.requestAction}
-        </h3>
-        <div className="mt-4 space-y-2">
-          {content.requestFields.slice(0, 4).map((field, index) => (
+      <section className={pageShell}>
+        <div className="rounded-[1.55rem] border border-slate-200 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-white/[0.05]">
+          <div className="flex items-center gap-3">
+            <span className={`grid h-12 w-12 place-items-center rounded-2xl ${accent.iconBg} ${accent.iconText}`}>
+              <PhoneCall className="h-5 w-5" />
+            </span>
+            <div>
+              <p className={`text-[10px] font-black uppercase tracking-[0.18em] ${accent.text}`}>
+                {content.contactTitle}
+              </p>
+              <h3 className="mt-1 text-xl font-black leading-tight text-slate-950 dark:text-white">
+                Start with a simple request
+              </h3>
+            </div>
+          </div>
+          <p className="mt-4 text-sm leading-6 text-slate-600 dark:text-slate-300">
+            {content.contactDescription}
+          </p>
+        </div>
+
+        <div className="mt-5 space-y-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-white/[0.05]">
+          {content.requestFields.slice(0, 6).map((field, index) => (
             <div
               key={field}
-              className="rounded-xl border border-slate-200 bg-white px-3 py-3 text-[11px] font-bold text-slate-500 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-300"
+              className="rounded-xl bg-slate-50 px-4 py-3 text-xs font-bold text-slate-500 dark:bg-white/[0.06] dark:text-slate-300"
             >
               {getDemoFieldValue(field, index)}
             </div>
           ))}
+          <button
+            type="button"
+            onClick={() => onScreenChange("updates")}
+            className={`inline-flex h-11 w-full items-center justify-center rounded-xl text-xs font-black text-white ${accent.button}`}
+          >
+            Request Submitted
+          </button>
         </div>
-        <button
-          type="button"
-          onClick={() => onOpenTab("flow")}
-          className={`mt-4 grid h-11 w-full place-items-center rounded-xl text-sm font-black text-white ${accent.button}`}
-        >
-          Continue Flow
-        </button>
-        <button
-          type="button"
-          className="mt-3 flex h-10 w-full items-center justify-center gap-2 rounded-xl border border-slate-200 text-xs font-black text-slate-700 dark:border-white/10 dark:text-slate-200"
-        >
-          <PhoneCall className="h-4 w-4" />
-          Talk To Team
-        </button>
-      </div>
+
+        <div className="mt-4 grid grid-cols-2 gap-2">
+          {content.analyticsSources.slice(0, 4).map(([label, value]) => (
+            <button
+              key={label}
+              type="button"
+              onClick={() => onScreenChange("updates")}
+              className="rounded-2xl border border-slate-200 bg-white p-3 text-left shadow-sm dark:border-white/10 dark:bg-white/[0.05]"
+            >
+              <p className="text-[10px] font-bold text-slate-500 dark:text-slate-400">
+                {label}
+              </p>
+              <p className="mt-1 text-sm font-black text-slate-950 dark:text-white">
+                {value}
+              </p>
+            </button>
+          ))}
+        </div>
+      </section>
     );
   }
 
   return (
-    <div>
-      <div
-        className="mt-4 h-32 rounded-2xl bg-cover bg-center"
-        style={{ backgroundImage: `url(${demo.image})` }}
+    <section className={pageShell}>
+      <div className="overflow-hidden rounded-[1.55rem] border border-slate-200 bg-white shadow-sm dark:border-white/10 dark:bg-white/[0.05]">
+        <div
+          className="relative h-44 bg-cover bg-center"
+          style={{ backgroundImage: `url(${demo.image})` }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/15 to-transparent" />
+          <div className="absolute bottom-3 left-3 right-3">
+            <span className="rounded-full bg-white/90 px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-slate-800">
+              {content.trustLine}
+            </span>
+          </div>
+        </div>
+
+        <div className="p-4">
+          <h3 className="text-2xl font-black leading-tight tracking-[-0.035em] text-slate-950 dark:text-white">
+            {demo.headline}
+          </h3>
+          <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">
+            {content.intro}
+          </p>
+          <div className="mt-5 grid grid-cols-2 gap-2">
+            <button
+              type="button"
+              onClick={() => onScreenChange("flow")}
+              className={`inline-flex h-11 items-center justify-center rounded-xl text-xs font-black text-white ${accent.button}`}
+            >
+              {content.primaryAction}
+            </button>
+            <button
+              type="button"
+              onClick={() => onScreenChange("sectionA")}
+              className="inline-flex h-11 items-center justify-center rounded-xl border border-slate-200 bg-white text-xs font-black text-slate-700 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-200"
+            >
+              {content.secondaryAction}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-5 grid grid-cols-2 gap-2">
+        {content.services.slice(0, 4).map((service) => {
+          const Icon = service.icon;
+
+          return (
+            <button
+              type="button"
+              key={service.title}
+              onClick={() => onScreenChange("sectionA")}
+              className="min-h-[92px] rounded-2xl border border-slate-200 bg-white p-3 text-left shadow-sm dark:border-white/10 dark:bg-white/[0.05]"
+            >
+              <Icon className={`h-4 w-4 ${accent.text}`} />
+              <p className="mt-2 line-clamp-2 text-[10px] font-black leading-4 text-slate-700 dark:text-slate-300">
+                {service.title}
+              </p>
+            </button>
+          );
+        })}
+      </div>
+
+      <div className="mt-5 grid grid-cols-4 gap-2 rounded-2xl border border-slate-200 bg-white p-3 text-center shadow-sm dark:border-white/10 dark:bg-white/[0.05]">
+        {demo.stats.map((stat, index) => (
+          <div key={`${stat}-${index}`}>
+            <p className={`text-sm font-black ${accent.text}`}>{stat}</p>
+            <p className="mt-1 text-[9px] font-bold leading-3 text-slate-500 dark:text-slate-400">
+              {content.statsLabels[index] ?? "Metric"}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      <MobileWebsiteInfoBand
+        title="Website journey"
+        items={["Trust first", content.secondaryAction, content.primaryAction]}
+        accent={accent}
       />
-      <h3 className="mt-4 text-xl font-black leading-tight text-slate-950 dark:text-white">
-        {demo.headline}
-      </h3>
-      <p className="mt-2 text-xs leading-5 text-slate-500 dark:text-slate-400">
-        {content.intro}
+    </section>
+  );
+}
+
+function MobileWebsiteInfoBand({
+  title,
+  items,
+  accent,
+}: {
+  title: string;
+  items: string[];
+  accent: ReturnType<typeof getDemoAccentClasses>;
+}) {
+  return (
+    <div className="mt-5 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-white/[0.05]">
+      <p className="text-sm font-black text-slate-950 dark:text-white">
+        {title}
       </p>
-      <button
-        type="button"
-        onClick={() => onOpenTab("flow")}
-        className={`mt-4 grid h-11 w-full place-items-center rounded-xl text-sm font-black text-white ${accent.button}`}
-      >
-        {content.primaryAction}
-      </button>
-      <button
-        type="button"
-        onClick={() => onScreenChange("sectionA")}
-        className="mt-3 grid h-10 w-full place-items-center rounded-xl border border-slate-200 text-xs font-black text-slate-700 dark:border-white/10 dark:text-slate-200"
-      >
-        {content.secondaryAction}
-      </button>
+      <div className="mt-3 grid gap-2">
+        {items.map((item) => (
+          <div
+            key={item}
+            className="flex items-center gap-2 text-xs font-bold text-slate-600 dark:text-slate-300"
+          >
+            <CheckCircle2 className={`h-4 w-4 shrink-0 ${accent.text}`} />
+            {item}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
@@ -1471,11 +1863,11 @@ function AnalyticsPreview({
         <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div>
             <h3 className="text-xl font-black text-slate-950 dark:text-white">
-              Website Performance Overview
+              Lead Insights Overview
             </h3>
             <p className="mt-2 text-sm leading-6 text-slate-500 dark:text-slate-400">
               Metrics are tailored to this industry&apos;s real conversion path,
-              not a generic dashboard.
+              not a generic analytics dashboard.
             </p>
           </div>
           <span className={`rounded-xl px-4 py-2 text-xs font-black ${accent.softBg} ${accent.text}`}>
@@ -1524,7 +1916,7 @@ function AnalyticsPreview({
             className={`inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-black text-white ${accent.button}`}
           >
             <FileText className="h-4 w-4" />
-            {reportReady ? "Report Ready" : "Generate Report"}
+            {reportReady ? "Report Ready" : "Generate Lead Report"}
           </button>
           <button
             type="button"
@@ -1561,7 +1953,7 @@ function AnalyticsPreview({
 
         <div className="mt-6 rounded-2xl bg-slate-50 p-5 dark:bg-white/[0.04]">
           <p className="text-sm font-black text-slate-950 dark:text-white">
-            Latest demo lead
+            Latest lead
           </p>
           <p className="mt-2 text-xs leading-5 text-slate-500 dark:text-slate-400">
             {demo.title} request from the {content.catalogTabLabel.toLowerCase()} section,
@@ -1697,8 +2089,8 @@ function getDemoFieldValue(field: string, index: number) {
   if (lower.includes("budget")) return "Flexible budget";
   if (lower.includes("location")) return "Central area";
   if (lower.includes("guest")) return "4 travelers";
-  if (lower.includes("company")) return "Demo Industries Pvt Ltd";
-  if (lower.includes("name")) return index === 0 ? "Anika Sharma" : "Demo contact";
+  if (lower.includes("company")) return "Northstar Industries Pvt Ltd";
+  if (lower.includes("name")) return index === 0 ? "Anika Sharma" : "Primary contact";
 
   return ["Selected option", "Priority request", "Ready for follow-up", "Detailed notes"][index % 4];
 }

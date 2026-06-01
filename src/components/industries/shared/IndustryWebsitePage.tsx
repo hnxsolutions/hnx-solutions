@@ -684,9 +684,25 @@ function WhyChooseAndCTASection({ data }: { data: IndustryWebsitePageData }) {
 }
 
 function PricingSection({ data }: { data: IndustryWebsitePageData }) {
+  const [activePlan, setActivePlan] = useState(0);
+
+  useEffect(() => {
+    if (data.pricingPlans.length <= 1) return;
+
+    const timer = window.setInterval(() => {
+      setActivePlan((current) => (current + 1) % data.pricingPlans.length);
+    }, 2500);
+
+    return () => window.clearInterval(timer);
+  }, [data.pricingPlans.length]);
+
+  useEffect(() => {
+    setActivePlan(0);
+  }, [data.industrySlug, data.websiteSlug]);
+
   return (
     <section className="border-t border-slate-200 px-0 py-8 dark:border-white/10">
-      <div className="px-7 sm:px-10 lg:px-12">
+      <div className="px-4 sm:px-10 lg:px-12">
         <SectionTitle
           title="Simple, Transparent Pricing"
           description={data.pricingDescription}
@@ -694,10 +710,37 @@ function PricingSection({ data }: { data: IndustryWebsitePageData }) {
         />
       </div>
 
-      <div className="mt-8 grid gap-5 px-3 lg:hidden">
-        {data.pricingPlans.map((plan) => (
-          <PricingCard key={`${plan.name}-mobile`} plan={plan} mobile />
-        ))}
+      <div className="mt-8 lg:hidden">
+        <div className="overflow-hidden px-3">
+          <div
+            className="flex transition-transform duration-700 ease-out motion-reduce:transition-none"
+            style={{ transform: `translateX(-${activePlan * 100}%)` }}
+          >
+            {data.pricingPlans.map((plan) => (
+              <div key={`${plan.name}-mobile`} className="w-full shrink-0">
+                <PricingCard plan={plan} mobile />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {data.pricingPlans.length > 1 ? (
+          <div className="mt-5 flex items-center justify-center gap-2">
+            {data.pricingPlans.map((plan, index) => (
+              <button
+                key={`${plan.name}-dot`}
+                type="button"
+                aria-label={`Show ${plan.name} pricing plan`}
+                onClick={() => setActivePlan(index)}
+                className={`h-2.5 rounded-full transition-all duration-300 ${
+                  activePlan === index
+                    ? "w-7 bg-gradient-to-r from-blue-600 to-violet-600"
+                    : "w-2.5 bg-slate-300 dark:bg-white/20"
+                }`}
+              />
+            ))}
+          </div>
+        ) : null}
       </div>
 
       <div className="mt-8 hidden gap-5 px-7 sm:px-10 lg:grid lg:grid-cols-3 lg:px-12">
@@ -861,11 +904,75 @@ function TestimonialsSection({
   title: string;
   items: IndustryWebsiteTestimonial[];
 }) {
+  const [activeTestimonial, setActiveTestimonial] = useState(0);
+
+  useEffect(() => {
+    if (items.length <= 1) return;
+
+    const timer = window.setInterval(() => {
+      setActiveTestimonial((current) => (current + 1) % items.length);
+    }, 2500);
+
+    return () => window.clearInterval(timer);
+  }, [items.length]);
+
+  useEffect(() => {
+    setActiveTestimonial(0);
+  }, [title]);
+
   return (
-    <section className="border-t border-slate-200 px-7 py-10 dark:border-white/10 sm:px-10 lg:px-12">
+    <section className="border-t border-slate-200 px-4 py-10 dark:border-white/10 sm:px-10 lg:px-12">
       <SectionTitle title={title} center />
 
-      <div className="mt-8 grid gap-5 lg:grid-cols-3">
+      <div className="mt-8 lg:hidden">
+        <div className="overflow-hidden px-1">
+          <div
+            className="flex transition-transform duration-700 ease-out motion-reduce:transition-none"
+            style={{ transform: `translateX(-${activeTestimonial * 100}%)` }}
+          >
+            {items.map((item) => (
+              <div key={`${item.name}-mobile`} className="w-full shrink-0">
+                <article className="mx-auto max-w-[340px] rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-white/[0.05]">
+                  <div className="mb-4 flex gap-1 text-amber-400">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <Star key={star} className="h-4 w-4 fill-current" />
+                    ))}
+                  </div>
+                  <p className="text-sm leading-6 text-slate-700 dark:text-slate-300">
+                    &quot;{item.quote}&quot;
+                  </p>
+                  <p className="mt-5 text-sm font-black text-slate-950 dark:text-white">
+                    {item.name}
+                  </p>
+                  <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">
+                    {item.role}
+                  </p>
+                </article>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {items.length > 1 ? (
+          <div className="mt-5 flex items-center justify-center gap-2">
+            {items.map((item, index) => (
+              <button
+                key={`${item.name}-dot`}
+                type="button"
+                aria-label={`Show testimonial from ${item.name}`}
+                onClick={() => setActiveTestimonial(index)}
+                className={`h-2.5 rounded-full transition-all duration-300 ${
+                  activeTestimonial === index
+                    ? "w-7 bg-gradient-to-r from-blue-600 to-violet-600"
+                    : "w-2.5 bg-slate-300 dark:bg-white/20"
+                }`}
+              />
+            ))}
+          </div>
+        ) : null}
+      </div>
+
+      <div className="mt-8 hidden gap-5 lg:grid lg:grid-cols-3">
         {items.map((item) => (
           <article
             key={item.name}
@@ -893,11 +1000,63 @@ function TestimonialsSection({
 }
 
 function ComplianceSection({ data }: { data: IndustryWebsitePageData }) {
+  const orbitPositions = [
+    "left-1/2 top-0 -translate-x-1/2",
+    "right-0 top-[72px]",
+    "bottom-[42px] right-[16px]",
+    "bottom-0 left-1/2 -translate-x-1/2",
+    "left-0 top-[72px]",
+    "left-[38px] bottom-[42px]",
+  ];
+
   return (
-    <section className="border-t border-slate-200 px-7 py-10 dark:border-white/10 sm:px-10 lg:px-12">
+    <section className="border-t border-slate-200 px-4 py-10 dark:border-white/10 sm:px-10 lg:px-12">
       <SectionTitle title="Built For Security, Trust & Compliance" center />
 
-      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+      <div className="mt-8 sm:hidden">
+        <div className="relative mx-auto h-[320px] w-[320px] max-w-full">
+          <div className="absolute inset-3 rounded-full bg-gradient-to-br from-blue-50 via-white to-violet-50 shadow-[0_24px_70px_rgba(37,99,235,0.10)] dark:from-white/[0.04] dark:via-white/[0.03] dark:to-violet-400/10" />
+          <div className="absolute inset-8 rounded-full border border-dashed border-blue-200 dark:border-blue-400/20" />
+          <div className="absolute inset-16 rounded-full border border-slate-200 bg-white/80 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.05]" />
+
+          <div className="absolute left-1/2 top-1/2 z-20 grid h-[104px] w-[104px] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-gradient-to-br from-blue-600 to-violet-600 text-center text-white shadow-[0_22px_55px_rgba(37,99,235,0.28)]">
+            <div>
+              <ShieldCheck className="mx-auto h-7 w-7" />
+              <p className="mt-2 text-[11px] font-black leading-4">
+                Secure
+                <br />
+                Website
+              </p>
+            </div>
+          </div>
+
+          <div className="industry-website-compliance-orbit absolute inset-0 z-10">
+            {data.compliance.map((item, index) => {
+              const Icon = item.icon;
+
+              return (
+                <div
+                  key={item.title}
+                  className={`absolute ${
+                    orbitPositions[index % orbitPositions.length]
+                  } industry-website-compliance-counter`}
+                >
+                  <div className="w-[92px] rounded-2xl border border-slate-200 bg-white/95 p-2.5 text-center shadow-[0_16px_40px_rgba(15,23,42,0.09)] backdrop-blur dark:border-white/10 dark:bg-[#111111]/95">
+                    <span className="grid h-10 w-10 place-items-center rounded-2xl bg-blue-50 text-blue-600 dark:bg-blue-400/10 dark:text-blue-300">
+                      <Icon className="h-4 w-4" />
+                    </span>
+                    <p className="mt-2 text-[10px] font-black leading-4 text-slate-700 dark:text-slate-300">
+                      {item.title}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-8 hidden gap-4 sm:grid sm:grid-cols-2 lg:grid-cols-5">
         {data.compliance.map((item) => (
           <TrustItem key={item.title} item={item} />
         ))}
@@ -1870,12 +2029,53 @@ function MarqueeStyles() {
         animation-play-state: paused;
       }
 
+      @keyframes industry-website-compliance-orbit {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes industry-website-compliance-counter-orbit {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(-360deg);
+        }
+      }
+
+      .industry-website-compliance-orbit {
+        animation: industry-website-compliance-orbit 20s linear infinite;
+        transform-origin: center;
+      }
+
+      .industry-website-compliance-counter {
+        animation: industry-website-compliance-counter-orbit 20s linear infinite;
+        transform-origin: center;
+      }
+
+      .industry-website-compliance-orbit:hover,
+      .industry-website-compliance-orbit:focus-within {
+        animation-play-state: paused;
+      }
+
+      .industry-website-compliance-orbit:hover .industry-website-compliance-counter,
+      .industry-website-compliance-orbit:focus-within .industry-website-compliance-counter {
+        animation-play-state: paused;
+      }
+
       @media (prefers-reduced-motion: reduce) {
         .industry-website-marquee-left,
-        .industry-website-marquee-right {
+        .industry-website-marquee-right,
+        .industry-website-compliance-orbit,
+        .industry-website-compliance-counter {
           animation: none;
         }
       }
     `}</style>
   );
 }
+
