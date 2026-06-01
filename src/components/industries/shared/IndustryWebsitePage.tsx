@@ -65,7 +65,7 @@ export default function IndustryWebsitePage({
 
       <section className="relative px-3 pb-20 pt-24 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <div className="mx-auto w-full max-w-full sm:max-w-[min(92vw,1440px)]">
-          <div className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white/90 shadow-[0_28px_90px_rgba(15,23,42,0.08)] backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.05]">
+          <div className="relative overflow-hidden">
             <HeroSection data={data} />
 
             <div className="grid border-t border-slate-200 dark:border-white/10 xl:grid-cols-[1.05fr_0.95fr]">
@@ -684,20 +684,6 @@ function WhyChooseAndCTASection({ data }: { data: IndustryWebsitePageData }) {
 }
 
 function PricingSection({ data }: { data: IndustryWebsitePageData }) {
-  const [activePlan, setActivePlan] = useState(0);
-
-  useEffect(() => {
-    if (data.pricingPlans.length < 2) {
-      return;
-    }
-
-    const timer = window.setInterval(() => {
-      setActivePlan((current) => (current + 1) % data.pricingPlans.length);
-    }, 3500);
-
-    return () => window.clearInterval(timer);
-  }, [data.pricingPlans.length]);
-
   return (
     <section className="border-t border-slate-200 px-0 py-8 dark:border-white/10">
       <div className="px-7 sm:px-10 lg:px-12">
@@ -708,35 +694,10 @@ function PricingSection({ data }: { data: IndustryWebsitePageData }) {
         />
       </div>
 
-      <div className="mt-7 lg:hidden">
-        <div className="mx-auto w-[285px] overflow-hidden">
-          <div
-            className="flex transition-transform duration-500 ease-out"
-            style={{
-              transform: `translateX(-${activePlan * 285}px)`,
-            }}
-          >
-            {data.pricingPlans.map((plan) => (
-              <PricingCard key={`${plan.name}-mobile`} plan={plan} mobile />
-            ))}
-          </div>
-        </div>
-
-        <div className="mt-5 flex items-center justify-center gap-2">
-          {data.pricingPlans.map((plan, index) => (
-            <button
-              key={plan.name}
-              type="button"
-              aria-label={`Show ${plan.name}`}
-              onClick={() => setActivePlan(index)}
-              className={`h-2.5 rounded-full transition-all duration-300 ${
-                activePlan === index
-                  ? "w-7 bg-gradient-to-r from-blue-600 to-violet-600"
-                  : "w-2.5 bg-slate-300 dark:bg-white/20"
-              }`}
-            />
-          ))}
-        </div>
+      <div className="mt-8 grid gap-5 px-3 lg:hidden">
+        {data.pricingPlans.map((plan) => (
+          <PricingCard key={`${plan.name}-mobile`} plan={plan} mobile />
+        ))}
       </div>
 
       <div className="mt-8 hidden gap-5 px-7 sm:px-10 lg:grid lg:grid-cols-3 lg:px-12">
@@ -760,13 +721,19 @@ function PricingCard({
   if (mobile) {
     return (
       <article
-        className={`relative h-[350px] w-[285px] shrink-0 rounded-[1.5rem] border bg-white p-5 shadow-sm dark:bg-white/[0.05] ${
+        className={`relative flex h-auto min-h-0 w-full flex-col overflow-visible rounded-[1.5rem] border bg-white p-5 shadow-sm dark:bg-white/[0.05] ${
           plan.popular
             ? "border-violet-400 shadow-[0_18px_48px_rgba(124,58,237,0.14)] dark:border-violet-400/60"
             : "border-slate-200 dark:border-white/10"
         }`}
       >
-        {plan.popular ? <PopularBadge mobile /> : null}
+        {plan.popular ? (
+          <div className="mb-4 flex justify-center">
+            <span className="rounded-full bg-gradient-to-r from-blue-600 to-violet-600 px-4 py-1.5 text-[10px] font-black text-white">
+              Most Popular
+            </span>
+          </div>
+        ) : null}
 
         <span className="grid h-11 w-11 place-items-center rounded-2xl bg-blue-50 text-blue-600 dark:bg-blue-400/10 dark:text-blue-300">
           <Icon className="h-5 w-5" />
@@ -776,7 +743,7 @@ function PricingCard({
           {plan.name}
         </h3>
 
-        <p className="mt-1 line-clamp-2 text-xs leading-5 text-slate-500 dark:text-slate-400">
+        <p className="mt-1 text-sm leading-6 text-slate-500 dark:text-slate-400">
           {plan.subtitle}
         </p>
 
@@ -789,28 +756,30 @@ function PricingCard({
           </p>
         </div>
 
-        <ul className="mt-4 space-y-2">
-          {plan.features.slice(0, 4).map((feature) => (
+        <ul className="mt-5 space-y-3">
+          {plan.features.map((feature) => (
             <li
               key={feature}
-              className="flex items-center gap-2 text-xs font-semibold text-slate-700 dark:text-slate-300"
+              className="flex items-start gap-2 text-sm font-semibold leading-6 text-slate-700 dark:text-slate-300"
             >
-              <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-emerald-500" />
+              <CheckCircle2 className="mt-1 h-3.5 w-3.5 shrink-0 text-emerald-500" />
               {feature}
             </li>
           ))}
         </ul>
 
-        <Link
-          href="/contact"
-          className={`absolute bottom-5 left-5 right-5 inline-flex items-center justify-center rounded-xl px-4 py-3 text-xs font-black transition hover:-translate-y-0.5 ${
-            plan.popular
-              ? "bg-gradient-to-r from-blue-600 to-violet-600 text-white shadow-[0_14px_36px_rgba(37,99,235,0.24)]"
-              : "border border-slate-200 bg-white text-blue-700 dark:border-white/10 dark:bg-white/[0.06] dark:text-blue-300"
-          }`}
-        >
-          {plan.cta}
-        </Link>
+        <div className="mt-5">
+          <Link
+            href="/contact"
+            className={`inline-flex w-full items-center justify-center rounded-xl px-4 py-3 text-xs font-black transition hover:-translate-y-0.5 ${
+              plan.popular
+                ? "bg-gradient-to-r from-blue-600 to-violet-600 text-white shadow-[0_14px_36px_rgba(37,99,235,0.24)]"
+                : "border border-slate-200 bg-white text-blue-700 dark:border-white/10 dark:bg-white/[0.06] dark:text-blue-300"
+            }`}
+          >
+            {plan.cta}
+          </Link>
+        </div>
       </article>
     );
   }
@@ -875,12 +844,10 @@ function PricingCard({
   );
 }
 
-function PopularBadge({ mobile = false }: { mobile?: boolean }) {
+function PopularBadge() {
   return (
     <span
-      className={`absolute left-1/2 -translate-x-1/2 rounded-full bg-gradient-to-r from-blue-600 to-violet-600 font-black text-white ${
-        mobile ? "-top-3 px-4 py-1.5 text-[10px]" : "-top-4 px-5 py-2 text-xs"
-      }`}
+      className="absolute left-1/2 -top-4 -translate-x-1/2 rounded-full bg-gradient-to-r from-blue-600 to-violet-600 px-5 py-2 text-xs font-black text-white"
     >
       Most Popular
     </span>

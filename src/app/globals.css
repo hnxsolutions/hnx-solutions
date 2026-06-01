@@ -758,6 +758,16 @@ html.dark .premium-card:hover {
   }
 }
 
+@keyframes mobilePricingSlider {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 .mobile-auto-slider {
   -ms-overflow-style: none;
   scrollbar-width: none;

@@ -48,7 +48,7 @@ export default function IndustryPortalPage({
 
       <section className="relative px-3 pb-20 pt-24 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <div className="mx-auto w-full max-w-full sm:max-w-[min(92vw,1440px)]">
-          <div className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white/90 shadow-[0_28px_90px_rgba(15,23,42,0.08)] backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.05]">
+          <div className="relative overflow-hidden">
             <HeroSection data={data} />
             <ProblemsAndFixesSection data={data} />
             <PortalRolesSection data={data} />
@@ -940,14 +940,27 @@ function MiniDashboardPreview({ demo }: { demo: IndustryPortalDemo }) {
 
 function PricingSection({ data }: { data: IndustryPortalPageData }) {
   return (
-    <section className="border-t border-slate-200 bg-gradient-to-b from-white to-slate-50/80 px-7 py-12 dark:border-white/10 dark:from-white/[0.04] dark:to-white/[0.025] sm:px-10 lg:px-12">
+    <section className="border-t border-slate-200 bg-gradient-to-b from-white to-slate-50/80 px-3 py-12 dark:border-white/10 dark:from-white/[0.04] dark:to-white/[0.025] sm:px-10 lg:px-12">
       <SectionTitle
         title={`Portal pricing for ${data.industryName}`}
         description={data.pricingDescription}
         center
       />
 
-      <div className="mt-8 grid gap-5 lg:grid-cols-3">
+      <div className="mt-8 overflow-hidden px-3 lg:hidden">
+        <div className="flex w-max gap-4 animate-[mobilePricingSlider_30s_linear_infinite] [animation-play-state:running] will-change-transform motion-reduce:animate-none hover:[animation-play-state:paused] focus-within:[animation-play-state:paused] active:[animation-play-state:paused]">
+          {data.pricingPlans.map((planItem) => (
+            <PricingCard key={`${planItem.name}-mobile`} plan={planItem} mobile />
+          ))}
+          {data.pricingPlans.map((planItem) => (
+            <div key={`${planItem.name}-mobile-copy`} aria-hidden="true" inert className="contents">
+              <PricingCard plan={planItem} mobile />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-8 hidden gap-5 lg:grid lg:grid-cols-3">
         {data.pricingPlans.map((planItem) => (
           <PricingCard key={planItem.name} plan={planItem} />
         ))}
@@ -956,8 +969,81 @@ function PricingSection({ data }: { data: IndustryPortalPageData }) {
   );
 }
 
-function PricingCard({ plan }: { plan: IndustryPortalPricingPlan }) {
+function PricingCard({
+  plan,
+  mobile = false,
+}: {
+  plan: IndustryPortalPricingPlan;
+  mobile?: boolean;
+}) {
   const Icon = plan.icon;
+
+  if (mobile) {
+    return (
+      <article
+        className={`relative flex h-auto w-[82vw] max-w-[340px] shrink-0 flex-col overflow-visible rounded-[1.5rem] border bg-white p-5 shadow-sm dark:bg-white/[0.05] ${
+          plan.popular
+            ? "border-violet-400 shadow-[0_18px_48px_rgba(124,58,237,0.14)] dark:border-violet-400/60"
+            : "border-slate-200 dark:border-white/10"
+        }`}
+      >
+        {plan.popular ? (
+          <div className="mb-4 flex justify-center">
+            <span className="rounded-full bg-gradient-to-r from-blue-600 to-violet-600 px-4 py-1.5 text-[10px] font-black uppercase text-white shadow-sm">
+              Popular
+            </span>
+          </div>
+        ) : null}
+
+        <span className="grid h-11 w-11 place-items-center rounded-2xl bg-blue-50 text-blue-600 dark:bg-blue-400/10 dark:text-blue-300">
+          <Icon className="h-5 w-5" />
+        </span>
+
+        <h3 className="mt-5 text-xl font-black text-slate-950 dark:text-white">
+          {plan.name}
+        </h3>
+
+        <p className="mt-2 text-sm leading-6 text-slate-500 dark:text-slate-400">
+          {plan.subtitle}
+        </p>
+
+        <div className="mt-5">
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400">
+            Starting From
+          </p>
+          <p className="mt-1 text-3xl font-black text-slate-950 dark:text-white">
+            {plan.price}
+          </p>
+        </div>
+
+        <ul className="mt-5 space-y-3">
+          {plan.features.slice(0, 5).map((feature) => (
+            <li
+              key={feature}
+              className="flex items-start gap-2 text-sm leading-6 text-slate-700 dark:text-slate-300"
+            >
+              <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-emerald-500" />
+              {feature}
+            </li>
+          ))}
+        </ul>
+
+        <div className="mt-auto pt-5">
+          <Link
+            href="/contact"
+            className={`inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-black transition hover:-translate-y-0.5 ${
+              plan.popular
+                ? "bg-gradient-to-r from-blue-600 to-violet-600 text-white shadow-[0_14px_36px_rgba(37,99,235,0.22)]"
+                : "border border-slate-200 bg-slate-50 text-slate-900 dark:border-white/10 dark:bg-white/[0.06] dark:text-white"
+            }`}
+          >
+            Discuss Plan
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+      </article>
+    );
+  }
 
   return (
     <article

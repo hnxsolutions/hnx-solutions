@@ -2045,7 +2045,7 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="fixed inset-x-0 top-0 z-50 px-3 pt-0.1 sm:px-4">
+    <nav className="fixed inset-x-0 top-0 z-50 px-0 pt-0.1 sm:px-4">
       <AnimatePresence>
         {isDesktopDropdownOpen && (
           <motion.div
@@ -2059,7 +2059,8 @@ export default function Navbar() {
       </AnimatePresence>
 
       <div
-      className={`relative z-50 mx-auto max-w-[min(94vw,1680px)] rounded-3xl border border-white/50 bg-white/70 shadow-black/10 backdrop-blur-2xl dark:border-white/10 dark:bg-dark-800/80 ${          scrolled ? "shadow-xl" : "shadow-lg"
+        className={`relative z-50 mx-0 w-full max-w-none rounded-none border border-x-0 border-white/50 bg-white/70 shadow-black/10 backdrop-blur-2xl dark:border-white/10 dark:bg-dark-800/80 sm:mx-auto sm:max-w-[min(94vw,1680px)] sm:rounded-3xl sm:border-x ${
+          scrolled ? "shadow-xl" : "shadow-lg"
         }`}
       >
         <div className="px-4 sm:px-5 lg:px-7">
@@ -2885,9 +2886,9 @@ export default function Navbar() {
                 duration: 0.28,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="relative z-50 mx-auto mt-3 max-w-[min(96vw,1600px)] overflow-hidden rounded-3xl border border-(--border) bg-(--surface) backdrop-blur-xl xl:hidden"
+              className="relative z-50 mx-0 mt-0 w-full max-w-none overflow-hidden rounded-none border border-x-0 border-(--border) bg-(--surface) backdrop-blur-xl sm:mx-auto sm:mt-3 sm:max-w-[min(96vw,1600px)] sm:rounded-3xl sm:border-x xl:hidden"
             >
-              <div className="max-h-[78vh] space-y-1 overflow-y-auto px-6 py-6">
+              <div className="max-h-[78vh] space-y-1 overflow-y-auto px-4 py-5 sm:px-6 sm:py-6">
                 <Link
                   href="/"
                   onClick={closeMobileMenu}

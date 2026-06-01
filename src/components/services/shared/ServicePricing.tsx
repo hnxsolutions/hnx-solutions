@@ -10,6 +10,8 @@ type ServicePricingProps = {
   service: ServiceItem;
 };
 
+type ServicePackage = ServiceItem["packages"][number];
+
 export default function ServicePricing({ service }: ServicePricingProps) {
   return (
     <section
@@ -25,6 +27,23 @@ export default function ServicePricing({ service }: ServicePricingProps) {
           />
         </div>
 
+        <div className="mt-10 overflow-hidden px-3 lg:hidden">
+          <div className="flex w-max gap-4 animate-[mobilePricingSlider_30s_linear_infinite] [animation-play-state:running] will-change-transform motion-reduce:animate-none hover:[animation-play-state:paused] focus-within:[animation-play-state:paused] active:[animation-play-state:paused]">
+            {service.packages.map((pkg) => (
+              <MobileServicePricingCard
+                key={`${pkg.name}-mobile`}
+                service={service}
+                pkg={pkg}
+              />
+            ))}
+            {service.packages.map((pkg) => (
+              <div key={`${pkg.name}-mobile-copy`} aria-hidden="true" inert className="contents">
+                <MobileServicePricingCard service={service} pkg={pkg} />
+              </div>
+            ))}
+          </div>
+        </div>
+
         <motion.div
           initial="hidden"
           whileInView="show"
@@ -33,7 +52,7 @@ export default function ServicePricing({ service }: ServicePricingProps) {
             hidden: {},
             show: { transition: { staggerChildren: 0.08 } },
           }}
-          className="mt-10 grid gap-5 lg:grid-cols-3"
+          className="mt-10 hidden gap-5 lg:grid lg:grid-cols-3"
         >
           {service.packages.map((pkg) => (
             <motion.article
@@ -127,5 +146,85 @@ export default function ServicePricing({ service }: ServicePricingProps) {
         </motion.div>
       </div>
     </section>
+  );
+}
+
+function MobileServicePricingCard({
+  service,
+  pkg,
+}: {
+  service: ServiceItem;
+  pkg: ServicePackage;
+}) {
+  return (
+    <article
+      className={`relative flex h-auto w-[82vw] max-w-[340px] shrink-0 flex-col overflow-visible rounded-[1.5rem] border bg-white p-5 shadow-[0_24px_70px_rgba(15,23,42,0.08)] dark:bg-[#18181B] dark:shadow-[0_24px_80px_rgba(0,0,0,0.45)] ${
+        pkg.popular
+          ? "border-blue-300 ring-1 ring-blue-100 dark:border-cyan-300/35 dark:ring-cyan-300/10"
+          : "border-slate-200 dark:border-white/10"
+      }`}
+    >
+      <div
+        className={`absolute inset-x-0 top-0 h-1.5 rounded-t-[1.5rem] bg-gradient-to-r ${service.accent} ${
+          pkg.popular ? "opacity-100" : "opacity-55"
+        }`}
+      />
+
+      {pkg.popular ? (
+        <div className="mb-4 flex justify-center pt-2">
+          <span className="rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-[#145cb7] dark:border-cyan-300/25 dark:bg-cyan-300/10 dark:text-cyan-200">
+            Most Popular
+          </span>
+        </div>
+      ) : (
+        <div className="pt-2" />
+      )}
+
+      <h3 className="relative text-2xl font-semibold tracking-[-0.035em] text-slate-950 antialiased dark:text-white">
+        {pkg.name}
+      </h3>
+
+      <p className="relative mt-3 text-sm font-normal leading-6 text-slate-600 antialiased dark:text-slate-300">
+        {pkg.description}
+      </p>
+
+      <p
+        className={`relative mt-6 bg-gradient-to-r ${service.accent} bg-clip-text text-4xl font-semibold tracking-[-0.045em] text-transparent antialiased`}
+      >
+        {pkg.price}
+      </p>
+
+      <div className="relative mt-6 grid gap-3">
+        {pkg.features.map((feature) => (
+          <div
+            key={feature}
+            className="flex gap-3 text-sm font-normal leading-6 text-slate-700 dark:text-slate-300"
+          >
+            <span className="mt-1 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-emerald-50 text-emerald-500 dark:bg-emerald-400/10 dark:text-emerald-300">
+              <CheckCircle2 className="h-3.5 w-3.5" aria-hidden="true" />
+            </span>
+            {feature}
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-auto pt-5">
+        <Link
+          href="/contact"
+          className={`group relative inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-2xl px-5 py-3.5 text-sm font-semibold transition hover:-translate-y-0.5 ${
+            pkg.popular
+              ? `bg-gradient-to-r ${service.accent} text-white shadow-[0_14px_34px_rgba(37,99,235,0.2)]`
+              : "border border-slate-200 bg-white text-slate-950 hover:border-blue-200 hover:bg-blue-50 dark:border-white/10 dark:bg-[#202024] dark:text-zinc-50 dark:hover:border-blue-300/25 dark:hover:bg-blue-300/10"
+          }`}
+        >
+          <span className="absolute inset-0 -translate-x-full bg-[linear-gradient(110deg,transparent,rgba(255,255,255,0.28),transparent)] transition duration-700 group-hover:translate-x-full" />
+          <span className="relative">Get This Package</span>
+          <ArrowRight
+            className="relative h-4 w-4 transition group-hover:translate-x-1"
+            aria-hidden="true"
+          />
+        </Link>
+      </div>
+    </article>
   );
 }
