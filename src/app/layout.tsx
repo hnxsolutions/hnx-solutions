@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Raleway } from "next/font/google";
 import { ThemeProvider } from "next-themes";
+import type { CSSProperties } from "react";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -19,21 +19,14 @@ import {
   websiteJsonLd,
 } from "@/lib/seo";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const raleway = Raleway({
-  variable: "--font-raleway",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
-});
+const fontVariables = {
+  "--font-geist-sans":
+    'Arial, Helvetica, "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif',
+  "--font-geist-mono":
+    '"Courier New", Consolas, "SFMono-Regular", Menlo, Monaco, monospace',
+  "--font-raleway":
+    'Raleway, Arial, Helvetica, "Segoe UI", system-ui, sans-serif',
+} as CSSProperties;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -80,9 +73,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} ${raleway.variable} antialiased`}
-      >
+      <body className="antialiased" style={fontVariables}>
         <JsonLd data={[organizationJsonLd, websiteJsonLd, professionalServiceJsonLd]} />
 
         <ThemeProvider

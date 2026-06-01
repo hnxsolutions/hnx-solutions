@@ -698,7 +698,7 @@ function PricingSection({ data }: { data: IndustryWebsitePageData }) {
 
   useEffect(() => {
     setActivePlan(0);
-  }, [data.industrySlug, data.websiteSlug]);
+  }, [data.industrySlug]);
 
   return (
     <section className="border-t border-slate-200 px-0 py-8 dark:border-white/10">
