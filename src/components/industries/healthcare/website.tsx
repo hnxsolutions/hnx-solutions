@@ -492,7 +492,7 @@ export default function HealthcareWebsitePreview() {
   const [activeDemo, setActiveDemo] = useState<HealthcareDemo | null>(null);
 
   return (
-    <main className="relative overflow-hidden bg-[#f8fbff] text-slate-950 dark:bg-[#050814] dark:text-white">
+    <main className="relative overflow-hidden bg-[#f8fbff] font-[family-name:var(--font-raleway)] text-slate-950 dark:bg-[#050814] dark:text-white">
       <div className="pointer-events-none absolute left-0 top-0 h-[34rem] w-[34rem] rounded-full bg-blue-200/35 blur-3xl dark:bg-blue-500/10" />
       <div className="pointer-events-none absolute right-0 top-20 h-[30rem] w-[30rem] rounded-full bg-violet-200/35 blur-3xl dark:bg-violet-500/10" />
 
