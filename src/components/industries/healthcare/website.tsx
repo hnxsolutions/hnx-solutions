@@ -535,7 +535,7 @@ export default function HealthcareWebsitePreview() {
 
 function HeroSection() {
   return (
-    <section className="relative overflow-hidden px-7 py-1 sm:px-10 lg:px-12 xl:px-14">
+    <section className="relative overflow-hidden px-4 py-1 sm:px-10 lg:px-12 xl:px-14">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_16%,rgba(59,130,246,0.12),transparent_28%),radial-gradient(circle_at_78%_16%,rgba(124,58,237,0.10),transparent_28%)]" />
 
       <div className="relative grid items-center gap-10 xl:grid-cols-[0.78fr_1.22fr]">
@@ -578,7 +578,7 @@ function HeroSection() {
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 px-7 py-4 text-sm font-black text-white shadow-[0_18px_50px_rgba(37,99,235,0.25)] transition hover:-translate-y-0.5"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 px-4 py-4 text-sm font-black text-white shadow-[0_18px_50px_rgba(37,99,235,0.25)] transition hover:-translate-y-0.5"
             >
               Build My Website
               <ArrowRight className="h-4 w-4" />
@@ -586,7 +586,7 @@ function HeroSection() {
 
             <Link
               href="#healthcare-website-demos"
-              className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-7 py-4 text-sm font-black text-blue-700 shadow-sm transition hover:-translate-y-0.5 dark:border-white/10 dark:bg-white/[0.06] dark:text-blue-300"
+              className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-4 text-sm font-black text-blue-700 shadow-sm transition hover:-translate-y-0.5 dark:border-white/10 dark:bg-white/[0.06] dark:text-blue-300"
             >
               View Live Demo
             </Link>
@@ -705,7 +705,7 @@ function HealthcareWebsiteMockup() {
 
 function ProblemsSection() {
   return (
-    <section className="border-r border-slate-200 px-7 py-10 dark:border-white/10 sm:px-10 lg:px-12">
+    <section className="border-r border-slate-200 px-4 py-10 dark:border-white/10 sm:px-10 lg:px-12">
       <SectionTitle
         title="Challenges We Solve For Healthcare Providers"
         center
@@ -739,7 +739,7 @@ function ProblemsSection() {
 
 function IncludesSection() {
   return (
-    <section className="px-7 py-10 sm:px-10 lg:px-12">
+    <section className="px-4 py-10 sm:px-10 lg:px-12">
       <SectionTitle title="What Your Healthcare Website Will Include" center />
 
       <div className="mt-8 grid gap-5 sm:grid-cols-2">
@@ -775,7 +775,7 @@ function IndustryModulesSection() {
 
   return (
     <section className="border-t border-slate-200 px-0 py-8 dark:border-white/10">
-      <div className="px-7 sm:px-10 lg:px-12">
+      <div className="px-4 sm:px-10 lg:px-12">
         <SectionTitle
           title="Built for Every Healthcare Specialty"
           description="Tailored website modules for clinics, hospitals, labs, wellness centers, and healthcare brands."
@@ -784,7 +784,7 @@ function IndustryModulesSection() {
       </div>
 
       <div className="mt-6 overflow-hidden">
-        <div className="healthcare-marquee-left flex w-max gap-4 px-7 sm:px-10 lg:px-12">
+        <div className="healthcare-marquee-left flex w-max gap-4 px-4 sm:px-10 lg:px-12">
           {marqueeModules.map((module, index) => {
             const Icon = module.icon;
 
@@ -834,7 +834,7 @@ function TrustedProvidersSection() {
 
   return (
     <section className="border-t border-slate-200 px-0 py-8 dark:border-white/10">
-      <div className="px-7 sm:px-10 lg:px-12">
+      <div className="px-4 sm:px-10 lg:px-12">
         <SectionTitle
           title="Trusted By Healthcare Providers Across The Country"
           description="A premium healthcare website system built for providers who want trust, bookings, visibility, and growth."
@@ -843,7 +843,7 @@ function TrustedProvidersSection() {
       </div>
 
       <div className="mt-6 overflow-hidden">
-        <div className="healthcare-marquee-right flex w-max gap-4 px-7 sm:px-10 lg:px-12">
+        <div className="healthcare-marquee-right flex w-max gap-4 px-4 sm:px-10 lg:px-12">
           {marqueeProviders.map((provider, index) => (
             <article
               key={`${provider.name}-${index}`}
@@ -883,7 +883,7 @@ function HealthcareWebsiteDemosSection({
   return (
     <section
       id="healthcare-website-demos"
-      className="border-t border-slate-200 bg-gradient-to-b from-white to-blue-50/40 px-7 py-12 dark:border-white/10 dark:from-white/[0.04] dark:to-blue-950/10 sm:px-10 lg:px-12"
+      className="border-t border-slate-200 bg-gradient-to-b from-white to-blue-50/40 px-4 py-12 dark:border-white/10 dark:from-white/[0.04] dark:to-blue-950/10 sm:px-10 lg:px-12"
     >
       <div className="mx-auto max-w-3xl text-center">
         <div className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-4 py-2 text-xs font-black text-blue-700 dark:border-blue-400/20 dark:bg-blue-400/10 dark:text-blue-300">
@@ -952,7 +952,7 @@ function HealthcareWebsiteDemosSection({
 
         <Link
           href="/contact"
-          className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 px-7 py-4 text-sm font-black text-white shadow-[0_18px_50px_rgba(37,99,235,0.25)] transition hover:-translate-y-0.5"
+          className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 px-4 py-4 text-sm font-black text-white shadow-[0_18px_50px_rgba(37,99,235,0.25)] transition hover:-translate-y-0.5"
         >
           Build My Website Now
           <ArrowRight className="h-4 w-4" />
@@ -1069,7 +1069,7 @@ function HealthcareDemoCard({
 
 function WhyChooseAndCTASection() {
   return (
-    <section className="border-t border-slate-200 px-7 py-10 dark:border-white/10 sm:px-10 lg:px-12">
+    <section className="border-t border-slate-200 px-4 py-10 dark:border-white/10 sm:px-10 lg:px-12">
       <div className="grid gap-6 xl:grid-cols-[1fr_1fr]">
         <div>
           <SectionTitle title="Why Healthcare Providers Choose Us" center />
@@ -1133,7 +1133,7 @@ function PricingSection() {
 
   return (
     <section className="border-t border-slate-200 px-0 py-8 dark:border-white/10">
-      <div className="px-7 sm:px-10 lg:px-12">
+      <div className="px-4 sm:px-10 lg:px-12">
         <SectionTitle
           title="Simple, Transparent Pricing"
           description="Flexible plans designed to grow with your healthcare business"
@@ -1236,7 +1236,7 @@ function PricingSection() {
         </div>
       </div>
 
-      <div className="mt-8 hidden gap-5 px-7 sm:px-10 lg:grid lg:grid-cols-3 lg:px-12">
+      <div className="mt-8 hidden gap-5 px-4 sm:px-10 lg:grid lg:grid-cols-3 lg:px-12">
         {pricingPlans.map((plan) => {
           const Icon = plan.icon;
 
@@ -1321,7 +1321,7 @@ function TestimonialsSection() {
   }, []);
 
   return (
-    <section className="border-t border-slate-200 px-7 py-10 dark:border-white/10 sm:px-10 lg:px-12">
+    <section className="border-t border-slate-200 px-4 py-10 dark:border-white/10 sm:px-10 lg:px-12">
       <SectionTitle
         title="Happy Providers, Better Patient Experiences"
         center
@@ -1402,7 +1402,7 @@ function TestimonialsSection() {
 
 function ComplianceSection() {
   return (
-    <section className="border-t border-slate-200 px-7 py-10 dark:border-white/10 sm:px-10 lg:px-12">
+    <section className="border-t border-slate-200 px-4 py-10 dark:border-white/10 sm:px-10 lg:px-12">
       <SectionTitle title="Built For Security, Trust & Compliance" center />
 
       <div className="mt-8 sm:hidden">

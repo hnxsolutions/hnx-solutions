@@ -211,7 +211,11 @@ export default function HealthcareDemoModal({
           <X className="h-5 w-5" />
         </button>
 
-        <div className="flex h-full min-h-0 flex-col overflow-hidden lg:grid lg:max-h-[92vh] lg:grid-cols-[300px_1fr]">
+        <div className="flex h-full min-h-0 overflow-y-auto bg-white px-3 pb-5 pt-12 dark:bg-[#080b16] lg:hidden">
+          <MobileOnlyWebsiteDemo demo={demo} />
+        </div>
+
+        <div className="hidden h-full min-h-0 overflow-hidden lg:grid lg:max-h-[92vh] lg:grid-cols-[300px_1fr]">
           <aside className="border-b border-slate-200 bg-slate-50/80 p-3 dark:border-white/10 dark:bg-white/[0.03] lg:sticky lg:top-0 lg:max-h-[92vh] lg:overflow-y-auto lg:border-b-0 lg:border-r lg:p-6">
             <div className="flex items-center gap-3 pr-12 lg:pr-0">
               <span
@@ -334,6 +338,671 @@ export default function HealthcareDemoModal({
     </div>
   );
 }
+
+
+function MobileOnlyWebsiteDemo({ demo }: { demo: HealthcareDemo }) {
+  const accent = getDemoAccentClasses(demo.accent);
+  const content = useHealthcareDemoContent(demo);
+  const [activeSection, setActiveSection] = useState<DesktopSection>("home");
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  function openSection(section: DesktopSection) {
+    setActiveSection(section);
+    setMenuOpen(false);
+  }
+
+  const activeLabel =
+    content.navSections.find((section) => section.id === activeSection)?.label ??
+    "Home";
+
+  return (
+    <div className="mx-auto h-[calc(100dvh-4.75rem)] max-h-[790px] min-h-[620px] w-full max-w-[350px] overflow-hidden rounded-[1.8rem] border border-slate-200 bg-white shadow-[0_24px_70px_rgba(15,23,42,0.16)] dark:border-white/10 dark:bg-[#0b1020]">
+      <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/95 px-4 py-3 backdrop-blur-xl dark:border-white/10 dark:bg-[#0b1020]/95">
+        <div className="flex items-center justify-between gap-3">
+          <button
+            type="button"
+            onClick={() => openSection("home")}
+            className="flex min-w-0 items-center gap-2 text-left"
+          >
+            <span
+              className={`grid h-9 w-9 shrink-0 place-items-center rounded-2xl ${accent.iconBg} ${accent.iconText}`}
+            >
+              <HeartPulse className="h-4 w-4" />
+            </span>
+            <span className="min-w-0">
+              <span className="block truncate text-sm font-black text-slate-950 dark:text-white">
+                {demo.brand}
+              </span>
+              <span className="block truncate text-[10px] font-bold text-slate-500 dark:text-slate-400">
+                {activeLabel}
+              </span>
+            </span>
+          </button>
+
+          <button
+            type="button"
+            aria-label="Open website menu"
+            onClick={() => setMenuOpen((value) => !value)}
+            className="grid h-9 w-9 place-items-center rounded-full bg-slate-100 text-slate-600 transition hover:bg-slate-200 dark:bg-white/[0.08] dark:text-slate-200"
+          >
+            <Menu className="h-4 w-4" />
+          </button>
+        </div>
+
+        {menuOpen ? (
+          <div className="absolute left-3 right-3 top-[4.15rem] z-40 rounded-2xl border border-slate-200 bg-white p-2 shadow-[0_18px_50px_rgba(15,23,42,0.16)] dark:border-white/10 dark:bg-[#111827]">
+            {content.navSections.map((section) => (
+              <button
+                key={`${section.id}-mobile-menu`}
+                type="button"
+                onClick={() => openSection(section.id)}
+                className={`flex w-full items-center justify-between rounded-xl px-3 py-3 text-left text-xs font-black transition ${
+                  activeSection === section.id
+                    ? `${accent.button} text-white`
+                    : "text-slate-600 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-white/[0.06]"
+                }`}
+              >
+                {section.label}
+                <ArrowRight className="h-3.5 w-3.5" />
+              </button>
+            ))}
+          </div>
+        ) : null}
+      </header>
+
+      <div className="h-[calc(100%-4.1rem)] overflow-y-auto scroll-smooth bg-slate-50/70 dark:bg-white/[0.02]">
+        <MobileWebsitePage
+          demo={demo}
+          content={content}
+          accent={accent}
+          activeSection={activeSection}
+          onOpenSection={openSection}
+        />
+
+        <MobileWebsiteFooter
+          demo={demo}
+          content={content}
+          accent={accent}
+          onOpenSection={openSection}
+        />
+      </div>
+    </div>
+  );
+}
+
+function MobileWebsitePage({
+  demo,
+  content,
+  accent,
+  activeSection,
+  onOpenSection,
+}: {
+  demo: HealthcareDemo;
+  content: DemoContent;
+  accent: ReturnType<typeof getDemoAccentClasses>;
+  activeSection: DesktopSection;
+  onOpenSection: (section: DesktopSection) => void;
+}) {
+  const pageShell =
+    "min-h-[630px] bg-gradient-to-br from-slate-50 via-white to-blue-50/80 p-4 dark:from-white/[0.04] dark:via-transparent dark:to-blue-950/20";
+
+  if (activeSection === "services") {
+    return (
+      <section className={pageShell}>
+        <MobileServicesHero
+          demo={demo}
+          content={content}
+          accent={accent}
+          onOpenSection={onOpenSection}
+        />
+
+        <div className="mt-5 grid gap-3">
+          {content.services.slice(0, 6).map((service, index) => {
+            const Icon = service.icon;
+
+            return (
+              <button
+                key={service.title}
+                type="button"
+                onClick={() => onOpenSection("contact")}
+                className="group rounded-2xl border border-slate-200 bg-white p-4 text-left shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-white/10 dark:bg-white/[0.05]"
+              >
+                <div className="flex items-start gap-3">
+                  <span
+                    className={`grid h-10 w-10 shrink-0 place-items-center rounded-xl ${index % 2 === 0 ? accent.iconBg : "bg-slate-50 dark:bg-white/[0.06]"} ${accent.iconText}`}
+                  >
+                    <Icon className="h-4 w-4" />
+                  </span>
+                  <span className="min-w-0">
+                    <span className="block text-sm font-black text-slate-950 dark:text-white">
+                      {service.title}
+                    </span>
+                    <span className="mt-1 line-clamp-2 block text-xs leading-5 text-slate-500 dark:text-slate-400">
+                      {service.description}
+                    </span>
+                  </span>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+
+        <MobileWebsiteInfoBand
+          title="Conversion sections included"
+          items={["Service overview", "Trust proof", "Clear request CTA"]}
+          accent={accent}
+        />
+      </section>
+    );
+  }
+
+  if (activeSection === "directory") {
+    return (
+      <section className={pageShell}>
+        <MobileDirectoryHero
+          demo={demo}
+          content={content}
+          accent={accent}
+          onOpenSection={onOpenSection}
+        />
+
+        <div className="mt-5 grid gap-3">
+          {content.directoryItems.slice(0, 4).map((item, index) => (
+            <button
+              key={item.name}
+              type="button"
+              onClick={() => onOpenSection("contact")}
+              className="overflow-hidden rounded-2xl border border-slate-200 bg-white text-left shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-white/10 dark:bg-white/[0.05]"
+            >
+              <div className="flex items-start gap-3 p-4">
+                <span
+                  className={`grid h-10 w-10 shrink-0 place-items-center rounded-xl ${accent.iconBg} ${accent.iconText}`}
+                >
+                  {content.profileKind === "experts" ? (
+                    <UserRound className="h-4 w-4" />
+                  ) : (
+                    <PackageSearch className="h-4 w-4" />
+                  )}
+                </span>
+                <span className="min-w-0">
+                  <span className="flex items-center justify-between gap-2">
+                    <span className="text-sm font-black text-slate-950 dark:text-white">
+                      {item.name}
+                    </span>
+                    {index === 0 ? (
+                      <span className={`rounded-full px-2 py-0.5 text-[9px] font-black ${accent.softBg} ${accent.text}`}>
+                        Featured
+                      </span>
+                    ) : null}
+                  </span>
+                  <span className="mt-1 block text-xs font-bold text-slate-500 dark:text-slate-400">
+                    {item.role}
+                  </span>
+                  <span className="mt-2 line-clamp-2 block text-xs leading-5 text-slate-500 dark:text-slate-400">
+                    {item.detail}
+                  </span>
+                </span>
+              </div>
+            </button>
+          ))}
+        </div>
+
+        <MobileWebsiteInfoBand
+          title="Directory page modules"
+          items={["Profiles", "Availability", "Review-led trust"]}
+          accent={accent}
+        />
+      </section>
+    );
+  }
+
+  if (activeSection === "resources") {
+    return (
+      <section className={pageShell}>
+        <MobileResourcesHero
+          demo={demo}
+          content={content}
+          accent={accent}
+        />
+
+        <div className="mt-5 grid gap-3">
+          {content.resourcePages.slice(0, 4).map((page, index) => {
+            const Icon = page.icon;
+
+            return (
+              <article
+                key={page.title}
+                className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-white/[0.05]"
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <Icon className={`h-5 w-5 ${accent.text}`} />
+                  <span className="rounded-full bg-slate-50 px-2 py-1 text-[9px] font-black text-slate-500 dark:bg-white/[0.06] dark:text-slate-300">
+                    Article {index + 1}
+                  </span>
+                </div>
+                <p className="mt-3 text-sm font-black text-slate-950 dark:text-white">
+                  {page.title}
+                </p>
+                <p className="mt-2 line-clamp-2 text-xs leading-5 text-slate-500 dark:text-slate-400">
+                  {page.description}
+                </p>
+                <div className="mt-3 flex flex-wrap gap-1.5">
+                  {page.blocks.slice(0, 3).map((block) => (
+                    <span
+                      key={block}
+                      className="rounded-full bg-slate-50 px-2.5 py-1 text-[9px] font-black text-slate-500 dark:bg-white/[0.06] dark:text-slate-300"
+                    >
+                      {block}
+                    </span>
+                  ))}
+                </div>
+              </article>
+            );
+          })}
+        </div>
+
+        <MobileWebsiteInfoBand
+          title="Content strategy"
+          items={["SEO pages", "FAQ answers", "Patient education"]}
+          accent={accent}
+        />
+      </section>
+    );
+  }
+
+  if (activeSection === "contact") {
+    return (
+      <section className={pageShell}>
+        <MobileContactHero
+          demo={demo}
+          content={content}
+          accent={accent}
+        />
+
+        <div className="mt-5 space-y-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-white/[0.05]">
+          {["Name", "Phone number", content.services[0]?.title ?? "Service", "Preferred date"].map((field) => (
+            <div
+              key={field}
+              className="rounded-xl bg-slate-50 px-4 py-3 text-xs font-bold text-slate-500 dark:bg-white/[0.06] dark:text-slate-300"
+            >
+              {field}
+            </div>
+          ))}
+          <button
+            type="button"
+            className={`inline-flex h-11 w-full items-center justify-center rounded-xl text-xs font-black text-white ${accent.button}`}
+          >
+            Request Submitted
+          </button>
+        </div>
+
+        <div className="mt-4 grid grid-cols-2 gap-2">
+          {content.analyticsSources.slice(0, 4).map(([label, value]) => (
+            <div
+              key={label}
+              className="rounded-2xl border border-slate-200 bg-white p-3 shadow-sm dark:border-white/10 dark:bg-white/[0.05]"
+            >
+              <p className="text-[10px] font-bold text-slate-500 dark:text-slate-400">
+                {label}
+              </p>
+              <p className="mt-1 text-sm font-black text-slate-950 dark:text-white">
+                {value}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section className={pageShell}>
+      <MobileHomeHero
+        demo={demo}
+        content={content}
+        accent={accent}
+        onOpenSection={onOpenSection}
+      />
+
+      <div className="mt-5 grid grid-cols-2 gap-2">
+        {content.services.slice(0, 4).map((service) => {
+          const Icon = service.icon;
+
+          return (
+            <button
+              type="button"
+              key={service.title}
+              onClick={() => onOpenSection("services")}
+              className="min-h-[92px] rounded-2xl border border-slate-200 bg-white p-3 text-left shadow-sm dark:border-white/10 dark:bg-white/[0.05]"
+            >
+              <Icon className={`h-4 w-4 ${accent.text}`} />
+              <p className="mt-2 line-clamp-2 text-[10px] font-black leading-4 text-slate-700 dark:text-slate-300">
+                {service.title}
+              </p>
+            </button>
+          );
+        })}
+      </div>
+
+      <div className="mt-5 grid grid-cols-4 gap-2 rounded-2xl border border-slate-200 bg-white p-3 text-center shadow-sm dark:border-white/10 dark:bg-white/[0.05]">
+        {demo.stats.map((stat, index) => (
+          <div key={`${stat}-${index}`}>
+            <p className={`text-sm font-black ${accent.text}`}>{stat}</p>
+            <p className="mt-1 text-[9px] font-bold leading-3 text-slate-500 dark:text-slate-400">
+              {content.statsLabels[index] ?? "Metric"}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      <MobileWebsiteInfoBand
+        title="Website journey"
+        items={["Trust first", "Clear services", "Simple request flow"]}
+        accent={accent}
+      />
+    </section>
+  );
+}
+
+function MobileHomeHero({
+  demo,
+  content,
+  accent,
+  onOpenSection,
+}: {
+  demo: HealthcareDemo;
+  content: DemoContent;
+  accent: ReturnType<typeof getDemoAccentClasses>;
+  onOpenSection: (section: DesktopSection) => void;
+}) {
+  return (
+    <div className="overflow-hidden rounded-[1.55rem] border border-slate-200 bg-white shadow-sm dark:border-white/10 dark:bg-white/[0.05]">
+      <div
+        className="relative h-44 bg-cover bg-center"
+        style={{ backgroundImage: `url(${demo.image})` }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/15 to-transparent" />
+        <div className="absolute bottom-3 left-3 right-3">
+          <span className="rounded-full bg-white/90 px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-slate-800">
+            {content.trustLine}
+          </span>
+        </div>
+      </div>
+
+      <div className="p-4">
+        <h3 className="text-2xl font-black leading-tight tracking-[-0.035em] text-slate-950 dark:text-white">
+          {demo.headline}
+        </h3>
+        <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">
+          {content.intro}
+        </p>
+        <div className="mt-5 grid grid-cols-2 gap-2">
+          <button
+            type="button"
+            onClick={() => onOpenSection("contact")}
+            className={`inline-flex h-11 items-center justify-center rounded-xl text-xs font-black text-white ${accent.button}`}
+          >
+            {content.requestAction}
+          </button>
+          <button
+            type="button"
+            onClick={() => onOpenSection("services")}
+            className="inline-flex h-11 items-center justify-center rounded-xl border border-slate-200 bg-white text-xs font-black text-slate-700 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-200"
+          >
+            View Services
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function MobileServicesHero({
+  demo,
+  content,
+  accent,
+  onOpenSection,
+}: {
+  demo: HealthcareDemo;
+  content: DemoContent;
+  accent: ReturnType<typeof getDemoAccentClasses>;
+  onOpenSection: (section: DesktopSection) => void;
+}) {
+  return (
+    <div className={`rounded-[1.55rem] p-4 text-white shadow-sm ${accent.button}`}>
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/80">
+            Services
+          </p>
+          <h3 className="mt-3 text-2xl font-black leading-tight tracking-[-0.035em]">
+            Choose the right care path
+          </h3>
+          <p className="mt-3 text-sm leading-6 text-white/85">
+            Detailed service pages, clear next steps, and conversion-focused actions.
+          </p>
+        </div>
+        <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-white/15">
+          <ClipboardList className="h-6 w-6" />
+        </span>
+      </div>
+
+      <div className="mt-5 grid grid-cols-2 gap-2">
+        {content.services.slice(0, 2).map((service) => (
+          <button
+            key={service.title}
+            type="button"
+            onClick={() => onOpenSection("contact")}
+            className="rounded-2xl bg-white/14 p-3 text-left text-xs font-black text-white backdrop-blur"
+          >
+            {service.title}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function MobileDirectoryHero({
+  demo,
+  content,
+  accent,
+  onOpenSection,
+}: {
+  demo: HealthcareDemo;
+  content: DemoContent;
+  accent: ReturnType<typeof getDemoAccentClasses>;
+  onOpenSection: (section: DesktopSection) => void;
+}) {
+  return (
+    <div className="overflow-hidden rounded-[1.55rem] border border-slate-200 bg-white shadow-sm dark:border-white/10 dark:bg-white/[0.05]">
+      <div className="grid grid-cols-[0.92fr_1.08fr]">
+        <div className="p-4">
+          <p className={`text-[10px] font-black uppercase tracking-[0.18em] ${accent.text}`}>
+            {content.directoryLabel}
+          </p>
+          <h3 className="mt-3 text-2xl font-black leading-tight tracking-[-0.035em] text-slate-950 dark:text-white">
+            Find the right option faster
+          </h3>
+          <p className="mt-2 text-xs leading-5 text-slate-500 dark:text-slate-400">
+            Profiles, details, availability, and proof in one place.
+          </p>
+          <button
+            type="button"
+            onClick={() => onOpenSection("contact")}
+            className={`mt-4 inline-flex rounded-xl px-4 py-2 text-[10px] font-black text-white ${accent.button}`}
+          >
+            Request
+          </button>
+        </div>
+        <div
+          className="min-h-[205px] bg-cover bg-center"
+          style={{ backgroundImage: `url(${demo.image})` }}
+        />
+      </div>
+    </div>
+  );
+}
+
+function MobileResourcesHero({
+  demo,
+  content,
+  accent,
+}: {
+  demo: HealthcareDemo;
+  content: DemoContent;
+  accent: ReturnType<typeof getDemoAccentClasses>;
+}) {
+  return (
+    <div className="relative overflow-hidden rounded-[1.55rem] border border-slate-200 bg-slate-950 p-4 text-white shadow-sm dark:border-white/10">
+      <div
+        className="absolute inset-0 bg-cover bg-center opacity-20"
+        style={{ backgroundImage: `url(${demo.image})` }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900/90 to-blue-950/80" />
+      <div className="relative">
+        <p className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-200">
+          {content.resourceLabel}
+        </p>
+        <h3 className="mt-3 text-2xl font-black leading-tight tracking-[-0.035em]">
+          Educate visitors before they contact you
+        </h3>
+        <p className="mt-3 text-sm leading-6 text-slate-300">
+          Useful pages, FAQs, and trust-building content improve the website experience.
+        </p>
+
+        <div className="mt-5 grid grid-cols-3 gap-2">
+          {["Guides", "FAQs", "SEO"].map((item) => (
+            <span
+              key={item}
+              className="rounded-2xl bg-white/10 px-3 py-3 text-center text-[10px] font-black text-white"
+            >
+              {item}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function MobileContactHero({
+  demo,
+  content,
+  accent,
+}: {
+  demo: HealthcareDemo;
+  content: DemoContent;
+  accent: ReturnType<typeof getDemoAccentClasses>;
+}) {
+  return (
+    <div className="rounded-[1.55rem] border border-slate-200 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-white/[0.05]">
+      <div className="flex items-center gap-3">
+        <span className={`grid h-12 w-12 place-items-center rounded-2xl ${accent.iconBg} ${accent.iconText}`}>
+          <PhoneCall className="h-5 w-5" />
+        </span>
+        <div>
+          <p className={`text-[10px] font-black uppercase tracking-[0.18em] ${accent.text}`}>
+            {content.contactTitle}
+          </p>
+          <h3 className="mt-1 text-xl font-black leading-tight text-slate-950 dark:text-white">
+            Start with a simple request
+          </h3>
+        </div>
+      </div>
+      <p className="mt-4 text-sm leading-6 text-slate-600 dark:text-slate-300">
+        {content.contactDescription}
+      </p>
+      <div className="mt-4 grid grid-cols-3 gap-2">
+        {["WhatsApp", "Email", "CRM"].map((item) => (
+          <span
+            key={item}
+            className="rounded-2xl bg-slate-50 px-2 py-3 text-center text-[10px] font-black text-slate-600 dark:bg-white/[0.06] dark:text-slate-300"
+          >
+            {item}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function MobileWebsiteInfoBand({
+  title,
+  items,
+  accent,
+}: {
+  title: string;
+  items: string[];
+  accent: ReturnType<typeof getDemoAccentClasses>;
+}) {
+  return (
+    <div className="mt-5 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-white/[0.05]">
+      <p className="text-sm font-black text-slate-950 dark:text-white">
+        {title}
+      </p>
+      <div className="mt-3 grid gap-2">
+        {items.map((item) => (
+          <div
+            key={item}
+            className="flex items-center gap-2 text-xs font-bold text-slate-600 dark:text-slate-300"
+          >
+            <CheckCircle2 className={`h-4 w-4 shrink-0 ${accent.text}`} />
+            {item}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function MobileWebsiteFooter({
+  demo,
+  content,
+  accent,
+  onOpenSection,
+}: {
+  demo: HealthcareDemo;
+  content: DemoContent;
+  accent: ReturnType<typeof getDemoAccentClasses>;
+  onOpenSection: (section: DesktopSection) => void;
+}) {
+  return (
+    <footer className="border-t border-slate-200 bg-slate-950 p-4 text-white dark:border-white/10">
+      <div className="flex items-center gap-2">
+        <span className={`h-3.5 w-3.5 rounded-full ${accent.button}`} />
+        <p className="text-sm font-black">{demo.brand}</p>
+      </div>
+
+      <p className="mt-2 line-clamp-2 text-xs leading-5 text-slate-300">
+        {content.intro}
+      </p>
+
+      <div className="mt-4 grid grid-cols-2 gap-2">
+        {content.navSections.map((section) => (
+          <button
+            key={`${section.id}-footer-link`}
+            type="button"
+            onClick={() => onOpenSection(section.id)}
+            className="rounded-xl bg-white/10 px-3 py-2 text-left text-[10px] font-black text-slate-200 transition hover:bg-white/15"
+          >
+            {section.label}
+          </button>
+        ))}
+      </div>
+
+      <button
+        type="button"
+        onClick={() => onOpenSection("contact")}
+        className={`mt-4 inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl text-xs font-black text-white ${accent.button}`}
+      >
+        Build Similar Website
+        <ArrowRight className="h-4 w-4" />
+      </button>
+    </footer>
+  );
+}
+
 
 function DesktopPreview({
   demo,
