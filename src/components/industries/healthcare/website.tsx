@@ -588,7 +588,7 @@ function HeroSection() {
               href="#healthcare-website-demos"
               className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-4 text-sm font-black text-blue-700 shadow-sm transition hover:-translate-y-0.5 dark:border-white/10 dark:bg-white/[0.06] dark:text-blue-300"
             >
-              View Live Demo
+              View Website Preview
             </Link>
           </div>
         </div>

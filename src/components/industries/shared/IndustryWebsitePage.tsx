@@ -84,7 +84,7 @@ function HeroSection({ data }: { data: IndustryWebsitePageData }) {
   const [titleStart, titleEnd] = splitHighlightedText(data.title, data.highlight);
 
   return (
-    <section className="relative overflow-hidden px-4 py-1 sm:px-10 lg:px-12 xl:px-14">
+    <section className="relative overflow-hidden px-7 py-1 sm:px-10 lg:px-12 xl:px-14">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_16%,rgba(59,130,246,0.12),transparent_28%),radial-gradient(circle_at_78%_16%,rgba(124,58,237,0.10),transparent_28%)]" />
 
       <div className="relative grid items-center gap-10 xl:grid-cols-[0.78fr_1.22fr]">
@@ -137,7 +137,7 @@ function HeroSection({ data }: { data: IndustryWebsitePageData }) {
               href="#industry-website-demos"
               className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-7 py-4 text-sm font-black text-blue-700 shadow-sm transition hover:-translate-y-0.5 dark:border-white/10 dark:bg-white/[0.06] dark:text-blue-300"
             >
-              View Live Demo
+              View Website Preview
             </Link>
           </div>
         </div>

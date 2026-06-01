@@ -1195,7 +1195,7 @@ export const industryWebsitePages: Record<string, IndustryWebsitePageData> = {
     ctaTitle: "Ready To Turn Property Traffic Into Site Visits?",
     ctaDescription:
       "Build a premium real estate website that connects listings, project trust, location SEO, inquiries, and sales follow-up.",
-    ctaLabel: "Build My Real Estate Website",
+    ctaLabel: "Build My Website",
     pricingDescription: "Flexible plans designed to grow with your real estate business",
     pricingPlans: [
       plan("Property Starter", "Best for brokers and small property teams", `${rupee}30,000`, Home, ["Up to 10 Pages", "Property Inquiry Forms", "Mobile Responsive", "Basic SEO Setup", "Email Support"]),
@@ -1309,7 +1309,7 @@ export const industryWebsitePages: Record<string, IndustryWebsitePageData> = {
     ctaTitle: "Ready To Turn Education Interest Into Admission Inquiries?",
     ctaDescription:
       "Build an education website that explains programs, earns parent trust, captures inquiries, and supports counselor follow-up.",
-    ctaLabel: "Build My Education Website",
+    ctaLabel: "Build My Website",
     pricingDescription: "Flexible plans designed to grow with your education brand",
     pricingPlans: [
       plan("Institute Starter", "Best for schools, tutors, and smaller institutes", `${rupee}25,000`, School, ["Up to 10 Pages", "Admission Inquiry Form", "Mobile Responsive", "Basic SEO Setup", "Email Support"]),
@@ -1423,7 +1423,7 @@ export const industryWebsitePages: Record<string, IndustryWebsitePageData> = {
     ctaTitle: "Ready To Turn Industrial Traffic Into RFQs?",
     ctaDescription:
       "Build a manufacturing website that presents products, proves capability, captures RFQs, and supports B2B sales.",
-    ctaLabel: "Build My Manufacturing Website",
+    ctaLabel: "Build My Website",
     pricingDescription: "Flexible plans designed to grow with your manufacturing business",
     pricingPlans: [
       plan("Industrial Starter", "Best for small manufacturers and suppliers", `${rupee}35,000`, Factory, ["Up to 10 Pages", "RFQ Inquiry Form", "Mobile Responsive", "Basic SEO Setup", "Email Support"]),
@@ -1537,7 +1537,7 @@ export const industryWebsitePages: Record<string, IndustryWebsitePageData> = {
     ctaTitle: "Ready To Turn Retail Browsing Into Sales Conversations?",
     ctaDescription:
       "Build a retail website that showcases products, promotes offers, captures inquiries, and supports customer trust.",
-    ctaLabel: "Build My Retail Website",
+    ctaLabel: "Build My Website",
     pricingDescription: "Flexible plans designed to grow with your retail brand",
     pricingPlans: [
       plan("Retail Starter", "Best for small stores and new retail brands", `${rupee}25,000`, Store, ["Up to 10 Pages", "Product Inquiry Form", "Mobile Responsive", "Basic SEO Setup", "Email Support"]),
@@ -1651,7 +1651,7 @@ export const industryWebsitePages: Record<string, IndustryWebsitePageData> = {
     ctaTitle: "Ready To Turn Finance Visitors Into Qualified Consultations?",
     ctaDescription:
       "Build a finance website that explains services, earns trust, captures secure inquiries, and supports your advisory team.",
-    ctaLabel: "Build My Finance Website",
+    ctaLabel: "Build My Website",
     pricingDescription: "Flexible plans designed to grow with your finance service business",
     pricingPlans: [
       plan("Finance Starter", "Best for advisors and smaller finance teams", `${rupee}35,000`, Landmark, ["Up to 10 Pages", "Secure Inquiry Form", "Mobile Responsive", "Basic SEO Setup", "Email Support"]),
@@ -1765,7 +1765,7 @@ export const industryWebsitePages: Record<string, IndustryWebsitePageData> = {
     ctaTitle: "Ready To Turn Policy Interest Into Qualified Inquiries?",
     ctaDescription:
       "Build an insurance website that explains policies, captures quotes, supports claims, and improves renewal follow-up.",
-    ctaLabel: "Build My Insurance Website",
+    ctaLabel: "Build My Website",
     pricingDescription: "Flexible plans designed to grow with your insurance team",
     pricingPlans: [
       plan("Insurance Starter", "Best for advisors and smaller insurance agencies", `${rupee}30,000`, ShieldCheck, ["Up to 10 Pages", "Quote Inquiry Form", "Mobile Responsive", "Basic SEO Setup", "Email Support"]),
@@ -1879,7 +1879,7 @@ export const industryWebsitePages: Record<string, IndustryWebsitePageData> = {
     ctaTitle: "Ready To Turn Destination Interest Into Booking Inquiries?",
     ctaDescription:
       "Build a travel website that showcases destinations, explains packages, captures inquiries, and supports consultant follow-up.",
-    ctaLabel: "Build My Travel Website",
+    ctaLabel: "Build My Website",
     pricingDescription: "Flexible plans designed to grow with your travel business",
     pricingPlans: [
       plan("Travel Starter", "Best for agencies and small tour teams", `${rupee}25,000`, Plane, ["Up to 10 Pages", "Booking Inquiry Form", "Mobile Responsive", "Basic SEO Setup", "Email Support"]),
@@ -1993,7 +1993,7 @@ export const industryWebsitePages: Record<string, IndustryWebsitePageData> = {
     ctaTitle: "Ready To Turn Vehicle Interest Into Test Drives?",
     ctaDescription:
       "Build an automobile website that showcases inventory, captures bookings, promotes offers, and supports sales and service teams.",
-    ctaLabel: "Build My Automobile Website",
+    ctaLabel: "Build My Website",
     pricingDescription: "Flexible plans designed to grow with your automobile business",
     pricingPlans: [
       plan("Auto Starter", "Best for small dealers and service teams", `${rupee}30,000`, Car, ["Up to 10 Pages", "Booking Inquiry Form", "Mobile Responsive", "Basic SEO Setup", "Email Support"]),
@@ -2107,7 +2107,7 @@ export const industryWebsitePages: Record<string, IndustryWebsitePageData> = {
     ctaTitle: "Ready To Turn Local Visitors Into Quote Requests?",
     ctaDescription:
       "Build a service business website that explains your services, proves your work, captures quotes, and supports local growth.",
-    ctaLabel: "Build My Service Website",
+    ctaLabel: "Build My Website",
     pricingDescription: "Flexible plans designed to grow with your service business",
     pricingPlans: [
       plan("Service Starter", "Best for consultants and smaller local service teams", `${rupee}25,000`, ClipboardList, ["Up to 10 Pages", "Quote Request Form", "Mobile Responsive", "Basic SEO Setup", "Email Support"]),
