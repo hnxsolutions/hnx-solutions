@@ -2188,7 +2188,7 @@ export default function Navbar() {
             >
                 <div className="relative grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-full border-2 border-[#D8ECFF] bg-[#f8efe0] ring-2 ring-[#D8ECFF]/60 shadow-[0_8px_22px_rgba(15,23,42,0.14)] transition-all duration-300 group-hover:scale-105 dark:border-[#D8ECFF] dark:ring-[#D8ECFF]/40 dark:bg-white/8 sm:h-11 sm:w-11">
                 <Image
-                  src="/HNXLogo.png"
+                  src="/hnxlogo.png"
                   alt="HNX Solutions Logo"
                   fill
                   priority

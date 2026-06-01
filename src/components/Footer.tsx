@@ -48,7 +48,7 @@ export default function Footer() {
             <Link href="/" className="mb-5 flex items-center gap-3">
               <div className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full border border-slate-200/70 bg-[#f8efe0] shadow-[0_6px_18px_rgba(15,23,42,0.12)] ring-1 ring-slate-200/70 transition-all duration-300 hover:scale-105 dark:border-white/10 dark:bg-white/8 dark:ring-white/10 sm:h-10 sm:w-10">
                 <Image
-                  src="/HNXLogo.png"
+                  src="/hnxlogo.png"
                   alt="HNX Solutions Logo"
                   fill
                   sizes="40px"
