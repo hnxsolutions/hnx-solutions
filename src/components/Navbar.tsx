@@ -2187,7 +2187,7 @@ export default function Navbar() {
               className="group flex min-w-0 items-center gap-2.5 sm:gap-3"
             >
                 <div className="relative grid h-12 w-12 shrink-0 place-items-center overflow-hidden rounded-full border border-slate-200/70 bg-[#f8efe0] shadow-[0_8px_22px_rgba(15,23,42,0.14)] transition-all duration-300 group-hover:scale-105 dark:border-white/10 dark:bg-white/8 sm:h-13 sm:w-13">                <Image
-                  src="/HNXLogo.png"
+                  src="/hnxlogo.png"
                   alt="HNX Solutions Logo"
                   fill
                   priority
@@ -3102,7 +3102,7 @@ export default function Navbar() {
                           </span>
                         </span>
 
-                        {/* <ChevronRight className="mt-1 h-4 w-4 shrink-0 text-(--text-soft) transition-transform duration-300 group-hover:translate-x-1 group-hover:text-primary" /> */}
+                        <ChevronRight className="mt-1 h-4 w-4 shrink-0 text-(--text-soft) transition-transform duration-300 group-hover:translate-x-1 group-hover:text-primary" />
                       </Link>
                     </motion.div>
 
@@ -3436,7 +3436,9 @@ export default function Navbar() {
                 </Link>
 
                 <a
-                  href="https://wa.me/919896324736"
+                  href="https://wa.me/919896324736?text=Hi%20HNX%20Solutions%2C%20I%20want%20to%20discuss%20my%20project%20and%20book%20a%20free%20consultation."
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-emerald-500/20 bg-emerald-500/10 px-5 py-3 text-sm font-bold text-emerald-600 dark:text-emerald-300"
                 >
                   Chat on WhatsApp
