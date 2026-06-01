@@ -41,7 +41,7 @@ const demoTabs: Array<{ id: DemoTab; label: string; icon: LucideIcon }> = [
   { id: "mobile", label: "Mobile Preview", icon: Smartphone },
   { id: "flow", label: "Lead Flow", icon: CalendarCheck },
   { id: "catalog", label: "Catalog / Listings", icon: PackageSearch },
-  { id: "analytics", label: "Analytics Dashboard", icon: BarChart3 },
+  { id: "analytics", label: "Lead Insights", icon: BarChart3 },
 ];
 
 export default function IndustryWebsitePage({
@@ -462,7 +462,7 @@ function WebsiteDemosSection({
       <div className="mx-auto max-w-3xl text-center">
         <div className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-4 py-2 text-xs font-black text-blue-700 dark:border-blue-400/20 dark:bg-blue-400/10 dark:text-blue-300">
           <MonitorSmartphone className="h-4 w-4" />
-          Website Demo Gallery
+          Website Experience Gallery
         </div>
 
         <h2 className="mt-5 text-[clamp(1.8rem,3vw,2.8rem)] font-black leading-tight tracking-[-0.04em] text-slate-950 dark:text-white">
@@ -626,7 +626,7 @@ function DemoCard({
         onClick={() => onOpenDemo(demo)}
         className={`mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3 text-xs font-black text-white shadow-sm transition hover:-translate-y-0.5 ${accentClasses.button}`}
       >
-        View Full Demo
+        View Website Preview
         <ArrowRight className="h-4 w-4" />
       </button>
     </article>
@@ -1116,7 +1116,7 @@ function IndustryWebsiteDemoModal({
     <div className="fixed inset-0 z-[999] flex items-center justify-center bg-slate-950/70 p-4 backdrop-blur-xl">
       <button
         type="button"
-        aria-label="Close demo"
+        aria-label="Close preview"
         className="absolute inset-0 cursor-default"
         onClick={onClose}
       />
@@ -1124,7 +1124,7 @@ function IndustryWebsiteDemoModal({
       <section className="relative max-h-[92vh] w-full max-w-[1380px] overflow-hidden rounded-[2rem] border border-white/20 bg-white shadow-[0_35px_120px_rgba(0,0,0,0.35)] dark:border-white/10 dark:bg-[#080b16]">
         <button
           type="button"
-          aria-label="Close demo"
+          aria-label="Close preview"
           onClick={onClose}
           className="absolute right-5 top-5 z-30 grid h-11 w-11 place-items-center rounded-full border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:scale-105 dark:border-white/10 dark:bg-white/[0.08] dark:text-white"
         >
@@ -1145,7 +1145,7 @@ function IndustryWebsiteDemoModal({
                   HNX Solutions
                 </p>
                 <p className="text-xs font-bold text-slate-500 dark:text-slate-400">
-                  {data.industryName} Website Demo
+                  {data.industryName} Website Preview
                 </p>
               </div>
             </div>
@@ -1159,7 +1159,7 @@ function IndustryWebsiteDemoModal({
               </p>
             </div>
 
-            <nav className="mt-7 space-y-2" aria-label="Demo preview tabs">
+            <nav className="mt-7 space-y-2" aria-label="Website preview tabs">
               {demoTabs.map((tab) => {
                 const Icon = tab.icon;
                 const isActive = activeTab === tab.id;
