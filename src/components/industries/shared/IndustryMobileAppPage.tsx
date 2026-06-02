@@ -7,19 +7,15 @@ import {
   ArrowRight,
   BarChart3,
   Bell,
-  CalendarCheck,
   CheckCircle2,
-  ChevronRight,
-  Layers3,
-  Play,
   Route,
   ShieldCheck,
   Smartphone,
   Star,
   Users,
-  Zap,
 } from "lucide-react";
 import IndustryMobileAppDemoModal from "./IndustryMobileAppDemoModal";
+import IndustryMobileAppPreviewHero from "./IndustryMobileAppPreviewHero";
 import {
   getIndustryMobileAppPage,
   type IndustryMobileAppCard,
@@ -54,7 +50,7 @@ export default function IndustryMobileAppPage({
       <section className="relative px-3 pb-20 pt-24 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <div className="mx-auto w-full max-w-full sm:max-w-[min(92vw,1440px)]">
           <div className="relative overflow-hidden">
-            <HeroSection data={data} />
+            <IndustryMobileAppPreviewHero data={data} />
 
             <div className="grid border-t border-slate-200 dark:border-white/10 xl:grid-cols-[1.05fr_0.95fr]">
               <ProblemsSection title={data.problemsTitle} items={data.problems} />
@@ -84,302 +80,6 @@ export default function IndustryMobileAppPage({
 
       <MobileAppPageStyles />
     </main>
-  );
-}
-
-function HeroSection({ data }: { data: IndustryMobileAppPageData }) {
-  const [titleStart, titleEnd] = splitHighlightedText(data.title, data.highlight);
-  const trustChips = getHeroTrustChips(data);
-
-  return (
-    <section className="relative overflow-hidden px-7 py-1 sm:px-10 lg:px-12 xl:px-14">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(59,130,246,0.15),transparent_30%),radial-gradient(circle_at_78%_18%,rgba(124,58,237,0.13),transparent_32%),linear-gradient(135deg,rgba(255,255,255,0.98),rgba(248,250,252,0.94)_46%,rgba(239,246,255,0.88))] dark:bg-[radial-gradient(circle_at_18%_18%,rgba(59,130,246,0.18),transparent_30%),radial-gradient(circle_at_78%_18%,rgba(124,58,237,0.16),transparent_32%),linear-gradient(135deg,rgba(15,23,42,0.98),rgba(2,6,23,0.94)_48%,rgba(15,23,42,0.96))]" />
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(59,130,246,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.045)_1px,transparent_1px)] bg-[size:52px_52px] opacity-50 [mask-image:linear-gradient(120deg,black,transparent_75%)] dark:bg-[linear-gradient(rgba(125,211,252,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(125,211,252,0.045)_1px,transparent_1px)]" />
-
-      <div className="relative">
-        <nav className="mb-5 flex flex-wrap items-center gap-3 text-sm font-semibold text-slate-500 dark:text-slate-400">
-          <Link href="/industries" className="transition hover:text-blue-700 dark:hover:text-blue-300">
-            Industries
-          </Link>
-          <ChevronRight className="h-4 w-4" />
-          <Link
-            href={`/industries/${data.industrySlug}`}
-            className="transition hover:text-blue-700 dark:hover:text-blue-300"
-          >
-            {data.industryName}
-          </Link>
-          <ChevronRight className="h-4 w-4" />
-          <span className="text-slate-900 dark:text-white">Mobile App</span>
-        </nav>
-
-        <div className="relative grid items-center gap-10 xl:grid-cols-[0.82fr_1.18fr]">
-          <div className="relative z-20">
-            <Badge>
-              <Smartphone className="h-4 w-4" />
-              {data.industryName} Mobile App Solution
-            </Badge>
-
-            <h1 className="mt-6 max-w-2xl text-[clamp(2.45rem,4.4vw,4.15rem)] font-black leading-[1.02] tracking-[-0.055em] text-slate-950 dark:text-white">
-              {titleStart}
-              <span className="bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent">
-                {data.highlight}
-              </span>
-              {titleEnd}
-            </h1>
-            <span className="mt-4 block h-1.5 w-24 rounded-full bg-gradient-to-r from-blue-600 to-violet-600" />
-
-            <p className="mt-5 max-w-xl text-base leading-8 text-slate-600 dark:text-slate-300">
-              {data.description}
-            </p>
-
-            <div className="mt-7 grid grid-cols-2 gap-3 sm:grid-cols-4">
-              {data.heroChips.map((chip) => {
-                const Icon = chip.icon;
-
-                return (
-                  <div
-                    key={chip.label}
-                    className="rounded-2xl border border-slate-200 bg-white/85 p-3 text-slate-800 shadow-sm backdrop-blur-xl transition hover:-translate-y-1 hover:border-blue-200 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-100"
-                  >
-                    <span className="mb-2 grid h-9 w-9 place-items-center rounded-2xl bg-blue-50 text-blue-600 dark:bg-blue-400/10 dark:text-blue-300">
-                      <Icon className="h-5 w-5" />
-                    </span>
-                    <p className="text-xs font-bold leading-4 text-slate-700 dark:text-slate-300">
-                      {chip.label}
-                    </p>
-                  </div>
-                );
-              })}
-            </div>
-
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-blue-600 to-violet-600 px-8 py-4 text-sm font-black text-white shadow-[0_22px_50px_rgba(37,99,235,0.30)] transition hover:-translate-y-0.5"
-              >
-                Build My {data.industryName} App
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-
-              <Link
-                href="#mobile-app-use-cases"
-                className="inline-flex items-center justify-center gap-3 rounded-2xl border border-slate-200 bg-white/92 px-8 py-4 text-sm font-black text-blue-700 shadow-[0_16px_36px_rgba(15,23,42,0.08)] transition hover:-translate-y-0.5 hover:border-blue-200 dark:border-white/10 dark:bg-white/[0.06] dark:text-blue-300"
-              >
-                View App Use Cases
-                <span className="grid h-8 w-8 place-items-center rounded-full border border-blue-200 bg-white text-blue-600 dark:border-blue-300/20 dark:bg-white/10 dark:text-blue-300">
-                  <Play className="h-3.5 w-3.5 fill-current" />
-                </span>
-              </Link>
-            </div>
-
-            <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2">
-              {trustChips.map((chip) => (
-                <span
-                  key={chip}
-                  className="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 dark:text-slate-300"
-                >
-                  <CheckCircle2 className="h-4 w-4 text-blue-600 dark:text-blue-300" />
-                  {chip}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <PremiumAppHeroVisual data={data} />
-        </div>
-      </div>
-    </section>
-  );
-}
-
-type HeroVisualContent = {
-  phoneRows: Array<{ label: string; value: string; icon: IndustryMobileAppCard["icon"] }>;
-  metrics: Array<{ label: string; value: string; icon: LucideIcon }>;
-  notificationTitle: string;
-  notificationDescription: string;
-  phoneNav: string[];
-};
-
-function PremiumAppHeroVisual({ data }: { data: IndustryMobileAppPageData }) {
-  const visual = getPremiumHeroVisual(data);
-  const primaryMetric = visual.metrics[0];
-  const secondaryMetric = visual.metrics[1];
-  const PrimaryIcon = primaryMetric?.icon ?? BarChart3;
-  const SecondaryIcon = secondaryMetric?.icon ?? CalendarCheck;
-
-  return (
-    <div className="relative mx-auto h-[520px] w-full max-w-[760px] overflow-hidden rounded-[2.2rem] border border-slate-200 bg-white/70 p-4 shadow-[0_30px_90px_rgba(15,23,42,0.12)] backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.05] sm:h-[560px] xl:h-[590px]">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_38%,rgba(37,99,235,0.20),transparent_34%),radial-gradient(circle_at_62%_52%,rgba(124,58,237,0.18),transparent_32%),linear-gradient(135deg,rgba(239,246,255,0.96),rgba(255,255,255,0.84),rgba(224,242,254,0.86))] dark:bg-[radial-gradient(circle_at_50%_38%,rgba(37,99,235,0.18),transparent_34%),radial-gradient(circle_at_62%_52%,rgba(124,58,237,0.16),transparent_32%),linear-gradient(135deg,rgba(15,23,42,0.96),rgba(2,6,23,0.88),rgba(15,23,42,0.96))]" />
-      <div
-        className="absolute inset-y-0 right-0 w-[58%] bg-cover bg-center opacity-[0.11] saturate-50 [mask-image:linear-gradient(to_left,black_6%,rgba(0,0,0,0.55)_52%,transparent_94%)] dark:opacity-[0.08]"
-        style={{ backgroundImage: `url(${data.heroImage})` }}
-      />
-      <div className="absolute left-1/2 top-[48%] h-[22rem] w-[22rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-500/15 blur-3xl dark:bg-blue-400/10" />
-      <div className="absolute left-1/2 top-[50%] h-[18rem] w-[18rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-violet-500/12 blur-3xl dark:bg-violet-400/10" />
-
-      <div className="absolute left-4 top-5 z-20 hidden w-[230px] rounded-[1.5rem] border border-white/85 bg-white/88 p-4 shadow-[0_22px_55px_rgba(15,23,42,0.13)] backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/76 sm:block">
-        <div className="flex items-start gap-3">
-          <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-blue-50 text-blue-600 dark:bg-blue-400/10 dark:text-blue-300">
-            <PrimaryIcon className="h-5 w-5" />
-          </span>
-          <div>
-            <p className="text-[10px] font-black uppercase tracking-[0.16em] text-blue-700 dark:text-blue-300">
-              Live App Activity
-            </p>
-            <p className="mt-1 text-lg font-black text-slate-950 dark:text-white">
-              {primaryMetric?.value ?? "18"}
-            </p>
-            <p className="text-xs font-bold leading-5 text-slate-500 dark:text-slate-400">
-              {primaryMetric?.label ?? "Active Requests"}
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div className="absolute right-4 top-8 z-20 hidden w-[235px] rounded-[1.5rem] border border-white/85 bg-white/90 p-4 shadow-[0_22px_55px_rgba(15,23,42,0.13)] backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/78 md:block">
-        <div className="flex items-start gap-3">
-          <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-violet-50 text-violet-600 dark:bg-violet-400/10 dark:text-violet-300">
-            <Bell className="h-5 w-5" />
-          </span>
-          <div>
-            <p className="text-xs font-black text-slate-950 dark:text-white">
-              {visual.notificationTitle}
-            </p>
-            <p className="mt-1 text-xs leading-5 text-slate-500 dark:text-slate-400">
-              {visual.notificationDescription}
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div className="absolute bottom-6 left-5 z-20 hidden w-[235px] rounded-[1.5rem] border border-white/85 bg-white/90 p-4 shadow-[0_22px_55px_rgba(15,23,42,0.13)] backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/78 md:block">
-        <div className="mb-3 flex items-center justify-between">
-          <p className="text-[10px] font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
-            Admin Sync
-          </p>
-          <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-[10px] font-black text-emerald-700 dark:bg-emerald-400/10 dark:text-emerald-300">
-            Live
-          </span>
-        </div>
-        <div className="flex items-center gap-3">
-          <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-emerald-50 text-emerald-600 dark:bg-emerald-400/10 dark:text-emerald-300">
-            <SecondaryIcon className="h-5 w-5" />
-          </span>
-          <div>
-            <p className="text-lg font-black text-slate-950 dark:text-white">
-              {secondaryMetric?.value ?? data.heroVisual.floatingMetric}
-            </p>
-            <p className="text-xs font-bold text-slate-500 dark:text-slate-400">
-              {secondaryMetric?.label ?? "Updated Tasks"}
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div className="absolute bottom-8 right-4 z-20 hidden w-[230px] rounded-[1.5rem] border border-white/85 bg-slate-950 p-4 text-white shadow-[0_24px_60px_rgba(15,23,42,0.22)] backdrop-blur-xl lg:block">
-        <p className="text-[10px] font-black uppercase tracking-[0.16em] text-blue-200">
-          App Result
-        </p>
-        <p className="mt-2 text-xl font-black leading-tight">
-          Faster requests. Cleaner operations.
-        </p>
-        <div className="mt-4 grid grid-cols-3 gap-2">
-          {visual.metrics.slice(0, 3).map((metric) => (
-            <div key={metric.label} className="rounded-xl bg-white/10 p-2 text-center">
-              <p className="text-sm font-black">{metric.value}</p>
-              <p className="mt-1 truncate text-[9px] font-bold text-slate-300">{metric.label}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="absolute left-1/2 top-1/2 z-30 w-[245px] -translate-x-1/2 -translate-y-1/2 sm:w-[270px] xl:w-[286px]">
-        <HeroPhoneFrame data={data} visual={visual} />
-      </div>
-    </div>
-  );
-}
-
-function HeroPhoneFrame({ data, visual }: { data: IndustryMobileAppPageData; visual: HeroVisualContent }) {
-  return (
-    <div className="rounded-[2.8rem] border-[10px] border-slate-950 bg-slate-950 p-2 shadow-[0_34px_95px_rgba(15,23,42,0.38)] dark:border-slate-800">
-      <div className="overflow-hidden rounded-[2.05rem] bg-white dark:bg-slate-950">
-        <div className="flex items-center justify-between border-b border-slate-100 px-4 py-3 dark:border-white/10">
-          <div>
-            <p className="text-sm font-black text-slate-950 dark:text-white">
-              {data.heroVisual.screenTitle}
-            </p>
-            <p className="mt-0.5 text-[10px] font-bold text-slate-500 dark:text-slate-400">
-              {data.heroVisual.appName}
-            </p>
-          </div>
-          <span className="grid h-8 w-8 place-items-center rounded-full bg-blue-50 text-blue-600 dark:bg-blue-400/10 dark:text-blue-300">
-            <Smartphone className="h-4 w-4" />
-          </span>
-        </div>
-
-        <div className="bg-gradient-to-b from-blue-50 to-white p-4 dark:from-blue-950/30 dark:to-slate-950">
-          <div className="rounded-[1.35rem] bg-gradient-to-br from-slate-950 to-blue-950 p-4 text-white shadow-[0_16px_38px_rgba(15,23,42,0.24)]">
-            <p className="text-[10px] font-black uppercase text-blue-200">
-              {data.heroVisual.screenSubtitle}
-            </p>
-            <p className="mt-2 text-xl font-black leading-tight">
-              {data.heroVisual.actionLabel}
-            </p>
-            <div className="mt-4 flex items-center justify-between rounded-2xl bg-white/10 p-3">
-              <span className="text-xs font-bold text-blue-50">{data.heroVisual.actionCard}</span>
-              <ArrowRight className="h-4 w-4 text-blue-100" />
-            </div>
-          </div>
-
-          <div className="mt-4 space-y-2.5">
-            {visual.phoneRows.map((row, index) => {
-              const Icon = row.icon;
-
-              return (
-                <div
-                  key={`${row.label}-${index}`}
-                  className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-3 shadow-sm dark:border-white/10 dark:bg-white/[0.06]"
-                >
-                  <span
-                    className={`grid h-10 w-10 shrink-0 place-items-center rounded-2xl ${
-                      index === 0
-                        ? "bg-blue-50 text-blue-600 dark:bg-blue-400/10 dark:text-blue-300"
-                        : "bg-slate-100 text-slate-600 dark:bg-white/10 dark:text-slate-300"
-                    }`}
-                  >
-                    <Icon className="h-4 w-4" />
-                  </span>
-                  <div className="min-w-0 flex-1">
-                    <p className="truncate text-xs font-black text-slate-950 dark:text-white">
-                      {row.label}
-                    </p>
-                    <p className="mt-0.5 truncate text-[10px] font-bold text-slate-500 dark:text-slate-400">
-                      {row.value}
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          <div className="mt-4 grid grid-cols-4 gap-2 border-t border-slate-100 pt-3 dark:border-white/10">
-            {visual.phoneNav.map((item, index) => (
-              <span
-                key={`${item}-${index}`}
-                className={`grid h-10 place-items-center rounded-xl text-[9px] font-black ${
-                  index === 0
-                    ? "bg-blue-600 text-white"
-                    : "bg-slate-50 text-slate-500 dark:bg-white/[0.06] dark:text-slate-300"
-                }`}
-              >
-                {item}
-              </span>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
   );
 }
 
@@ -1364,14 +1064,6 @@ function TrustItem({ item }: { item: IndustryMobileAppTrustItem }) {
   );
 }
 
-function Badge({ children }: { children: ReactNode }) {
-  return (
-    <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 px-4 py-2 text-xs font-black text-blue-700 dark:bg-blue-400/10 dark:text-blue-300">
-      {children}
-    </div>
-  );
-}
-
 function SectionTitle({
   title,
   description,
@@ -1409,62 +1101,6 @@ function PopularBadge() {
       Most Popular
     </span>
   );
-}
-
-function splitHighlightedText(title: string, highlight: string) {
-  const highlightIndex = title.indexOf(highlight);
-
-  if (highlightIndex === -1) {
-    return [`${title} `, ""];
-  }
-
-  return [
-    title.slice(0, highlightIndex),
-    title.slice(highlightIndex + highlight.length),
-  ];
-}
-
-function getHeroTrustChips(data: IndustryMobileAppPageData) {
-  if (data.industrySlug === "manufacturing") {
-    return ["Enterprise-grade security", "Scalable & secure", "Built for manufacturers"];
-  }
-
-  return ["Enterprise-grade security", "Scalable & secure", `Built for ${data.industryName.toLowerCase()}`];
-}
-
-function getPremiumHeroVisual(data: IndustryMobileAppPageData): HeroVisualContent {
-  const rows = data.heroVisual.cards.slice(0, 4);
-
-  return {
-    phoneRows: rows,
-    metrics: [
-      {
-        label: rows[0]?.label ?? "Active Requests",
-        value: rows[0]?.value ?? "18",
-        icon: rows[0]?.icon ?? BarChart3,
-      },
-      {
-        label: rows[1]?.label ?? "Open Tasks",
-        value: rows[1]?.value ?? "24",
-        icon: rows[1]?.icon ?? CalendarCheck,
-      },
-      {
-        label: "Live Sync",
-        value: data.heroVisual.floatingMetric,
-        icon: Zap,
-      },
-      {
-        label: "App Users",
-        value: "24/7",
-        icon: Users,
-      },
-    ],
-    notificationTitle: "Push notification",
-    notificationDescription: data.heroVisual.notification,
-    phoneNav: data.heroVisual.navItems.slice(0, 4).length
-      ? data.heroVisual.navItems.slice(0, 4)
-      : ["Home", "Tasks", "Alerts", "Profile"],
-  };
 }
 
 function getModuleAccent(index: number) {
