@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, Star } from "lucide-react";
 import IndustryMobileAppDemoModal from "./IndustryMobileAppDemoModal";
-import IndustryMobileAppPreviewHero from "./IndustryMobileAppPreviewHero";
+import IndustryMobileAppPreviewHero from "./mobile-app-shared/IndustryMobileAppPreviewHero";
 import MobileAppAdvantageSection from "./mobile-app-shared/MobileAppAdvantageSection";
 import MobileAppExperienceGallerySection from "./mobile-app-shared/MobileAppExperienceGallerySection";
 import MobileAppIncludesSection from "./mobile-app-shared/MobileAppIncludesSection";
@@ -54,8 +54,8 @@ export default function IndustryMobileAppPage({
             <MobileAppAdvantageSection data={data} />
             <PricingSection data={data} />
             <TestimonialsSection title={data.testimonialsTitle} items={data.testimonials} />
-            <FinalCTASection data={data} />
             <TrustSection data={data} />
+            <FinalCTASection data={data} />
           </div>
         </div>
       </section>

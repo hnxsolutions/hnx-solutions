@@ -14,7 +14,7 @@ import {
   Sparkles,
   Star,
 } from "lucide-react";
-import type { IndustryMobileAppPageData } from "./industryMobileAppData";
+import type { IndustryMobileAppPageData } from "../industryMobileAppData";
 
 type HeroAccent = "blue" | "violet" | "emerald" | "cyan" | "orange";
 
@@ -246,25 +246,7 @@ export default function IndustryMobileAppPreviewHero({
       <div className="pointer-events-none absolute left-1/2 top-0 h-full w-screen -translate-x-1/2 bg-[radial-gradient(ellipse_at_74%_42%,rgba(34,211,238,0.14),transparent_34%),radial-gradient(ellipse_at_96%_92%,rgba(168,85,247,0.12),transparent_28%),linear-gradient(180deg,#ffffff,rgba(248,250,252,0.92))] dark:bg-[radial-gradient(ellipse_at_74%_42%,rgba(34,211,238,0.10),transparent_34%),radial-gradient(ellipse_at_96%_92%,rgba(168,85,247,0.10),transparent_28%),linear-gradient(180deg,#020617,rgba(15,23,42,0.95))]" />
 
       <div className="relative mx-auto grid min-h-[calc(100svh-5.2rem)] max-w-[1640px] gap-8 pb-9 pt-8 lg:grid-cols-[minmax(0,0.46fr)_minmax(0,0.54fr)] lg:items-start lg:gap-6">
-        <div className="relative z-30 min-w-0 max-w-[800px] xl:-mt-2">
-          <nav
-            aria-label="Breadcrumb"
-            className="mb-6 flex flex-wrap items-center gap-2.5 text-sm font-medium text-slate-500 dark:text-slate-400"
-          >
-            <Link href="/industries" className="transition hover:text-blue-700 dark:hover:text-blue-300">
-              Industries
-            </Link>
-            <ChevronRight className="h-4 w-4 shrink-0" aria-hidden="true" />
-            <Link
-              href={`/industries/${data.industrySlug}`}
-              className="transition hover:text-blue-700 dark:hover:text-blue-300"
-            >
-              {data.industryName}
-            </Link>
-            <ChevronRight className="h-4 w-4 shrink-0" aria-hidden="true" />
-            <span className="text-slate-900 dark:text-white">Mobile App</span>
-          </nav>
-
+        <div className="relative z-30 min-w-0 max-w-[800px] pt-0 sm:pt-1 lg:pt-3 xl:pt-4">
           <Badge accent={accent.badge}>
             <BadgeIcon className="h-3.5 w-3.5" aria-hidden="true" />
             {config.badgeLabel}
@@ -293,7 +275,7 @@ export default function IndustryMobileAppPreviewHero({
             </Link>
 
             <Link
-              href="#mobile-app-demos"
+              href="#mobile-app-experience-gallery"
               className="inline-flex min-h-12 w-full items-center justify-center gap-3 whitespace-nowrap rounded-2xl border border-slate-200 bg-white px-6 py-3 text-sm font-extrabold text-slate-950 shadow-[0_16px_34px_rgba(15,23,42,0.08)] transition hover:-translate-y-0.5 hover:border-blue-200 hover:bg-blue-50/40 sm:w-auto lg:gap-2 lg:px-4 lg:text-xs xl:min-h-14 xl:gap-3 xl:px-7 xl:py-4 xl:text-sm dark:border-white/15 dark:bg-white/[0.06] dark:text-white dark:hover:bg-white/10"
             >
               <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full border border-blue-100 bg-blue-50 text-blue-600 lg:h-6 lg:w-6 xl:h-8 xl:w-8 dark:border-blue-300/20 dark:bg-blue-400/10 dark:text-blue-300">
@@ -303,26 +285,23 @@ export default function IndustryMobileAppPreviewHero({
             </Link>
           </div>
 
-          <div className="mt-6 flex max-w-[20rem] flex-wrap gap-2 sm:max-w-[720px] lg:gap-1.5 xl:grid xl:grid-cols-4 xl:gap-3">
+          <div className="mt-6 grid max-w-[20rem] grid-cols-1 gap-3 sm:max-w-[720px] sm:grid-cols-2 xl:max-w-[650px] xl:grid-cols-2">
             {heroChips.map((chip, index) => {
               const Icon = chip.icon;
 
               return (
                 <div
                   key={`${chip.label}-${index}`}
-                  className="inline-flex min-h-9 min-w-0 items-center gap-2 rounded-xl border border-slate-200/80 bg-white/88 px-2.5 py-1.5 text-slate-800 shadow-[0_12px_26px_rgba(15,23,42,0.06)] backdrop-blur transition hover:-translate-y-0.5 hover:border-blue-200 lg:gap-1.5 lg:px-2 xl:min-h-14 xl:w-full xl:gap-2.5 xl:rounded-2xl xl:px-3 xl:py-2.5 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-100"
+                  className="inline-flex min-h-[4.25rem] min-w-0 max-w-full items-center gap-3 overflow-hidden rounded-2xl border border-slate-200/80 bg-white/88 px-3.5 py-3 text-slate-800 shadow-[0_12px_26px_rgba(15,23,42,0.06)] backdrop-blur transition hover:-translate-y-0.5 hover:border-blue-200 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-100"
                 >
-                  <span className={`grid h-7 w-7 shrink-0 place-items-center rounded-xl lg:h-6 lg:w-6 xl:h-8 xl:w-8 ${chip.tone ?? accent.chipIcon}`}>
+                  <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-xl ${chip.tone ?? accent.chipIcon}`}>
                     <Icon className="h-3.5 w-3.5" aria-hidden="true" />
                   </span>
-                  <span className="min-w-0 leading-tight">
-                    <span className="block whitespace-nowrap text-[11px] font-extrabold text-slate-800 lg:hidden xl:block dark:text-slate-100">
+                  <span className="min-w-0 flex-1 overflow-hidden leading-tight">
+                    <span className="block line-clamp-2 text-[12px] font-extrabold leading-[1.15] text-slate-800 lg:block dark:text-slate-100">
                       {chip.label}
                     </span>
-                    <span className="hidden whitespace-nowrap text-[10px] font-extrabold text-slate-800 lg:block xl:hidden dark:text-slate-100">
-                      {getCompactChipLabel(chip.label)}
-                    </span>
-                    <span className="mt-0.5 hidden text-[10px] font-semibold text-slate-500 xl:block dark:text-slate-400">
+                    <span className="mt-1 block line-clamp-1 text-[10px] font-semibold leading-4 text-slate-500 dark:text-slate-400">
                       {chip.caption}
                     </span>
                   </span>
@@ -350,7 +329,10 @@ function HeroVisualStage({
   const phoneRows = getPhoneRows(data);
 
   return (
-    <div className="relative z-10 mx-auto h-[560px] w-full max-w-[760px] min-w-0 overflow-visible sm:h-[590px] lg:h-[430px] lg:max-w-none xl:h-[600px]">
+    <div
+      className="relative z-10 mx-auto h-[560px] w-full max-w-[760px] min-w-0 overflow-visible sm:h-[590px] lg:h-[430px] lg:max-w-none xl:h-[600px]"
+      style={{ transform: "translateY(-34px)" }}
+    >
       <div className={`pointer-events-none absolute left-[52%] top-[54%] h-[31rem] w-[31rem] -translate-x-1/2 -translate-y-1/2 rounded-full ${accent.ring}`} />
       <div className="pointer-events-none absolute left-[52%] top-[54%] h-[32rem] w-[32rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-200/70 dark:border-cyan-300/10" />
       <div className="pointer-events-none absolute left-[52%] top-[54%] h-[24rem] w-[24rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-violet-200/55 dark:border-violet-300/10" />
@@ -490,7 +472,7 @@ function HeroPhoneFrame({
                   >
                     <Icon className="h-4 w-4" aria-hidden="true" />
                   </span>
-                  <p className="mt-1.5 truncate text-[9px] font-extrabold text-slate-700 dark:text-slate-200">
+                  <p className="mt-1.5 line-clamp-2 min-h-[22px] text-[8px] font-extrabold leading-[11px] text-slate-700 dark:text-slate-200">
                     {row.label}
                   </p>
                 </div>
@@ -536,7 +518,7 @@ function HeroPhoneFrame({
         <div className="absolute inset-x-4 bottom-3 grid grid-cols-4 gap-1 border-t border-slate-100 bg-white/95 pt-2.5 dark:border-white/10 dark:bg-slate-950/95">
           {navItems.map((item, index) => (
             <div
-              key={item}
+              key={`${item}-${index}`}
               className={`rounded-lg px-1 py-1.5 text-center text-[8px] font-black ${
                 index === 0
                   ? "bg-blue-600 text-white"

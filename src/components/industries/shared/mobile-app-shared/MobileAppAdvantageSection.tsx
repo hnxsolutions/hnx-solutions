@@ -25,8 +25,8 @@ export default function MobileAppAdvantageSection({
   return (
     <MobileAppSectionShell>
       <MobileAppSectionHeader
-        number="7"
-        eyebrow="Why Businesses Choose HNX for Mobile Apps"
+        // number="7"
+        // eyebrow="Why Businesses Choose HNX for Mobile Apps"
         title="The HNX Advantage"
         highlight="HNX"
         description={`A practical product team for ${data.industryName.toLowerCase()} apps: strategy, UI, development, integrations, launch support, and long-term growth.`}
