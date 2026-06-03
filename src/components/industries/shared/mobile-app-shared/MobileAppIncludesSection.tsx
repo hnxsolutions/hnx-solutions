@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import type { IndustryMobileAppPageData } from "../industryMobileAppData";
 import {
   MiniPhoneFrame,
@@ -12,6 +13,9 @@ export default function MobileAppIncludesSection({
 }: {
   data: IndustryMobileAppPageData;
 }) {
+  const triggerRef = useRef<HTMLDivElement | null>(null);
+  const [animateIncludes, setAnimateIncludes] = useState(false);
+
   const includes = data.includes.slice(0, 8);
   const phoneRows = data.heroVisual.cards.length
     ? data.heroVisual.cards
@@ -20,6 +24,30 @@ export default function MobileAppIncludesSection({
         value: item.description,
         icon: item.icon,
       }));
+
+  useEffect(() => {
+    const trigger = triggerRef.current;
+
+    if (!trigger || animateIncludes) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry?.isIntersecting) return;
+
+        setAnimateIncludes(true);
+        observer.disconnect();
+      },
+      {
+        root: null,
+        rootMargin: "-38% 0px -22% 0px",
+        threshold: 0.01,
+      },
+    );
+
+    observer.observe(trigger);
+
+    return () => observer.disconnect();
+  }, [animateIncludes]);
 
   return (
     <section
@@ -49,14 +77,35 @@ export default function MobileAppIncludesSection({
                 </p>
               </div>
 
-              <div className="mt-6 grid gap-3 sm:grid-cols-2">
+              <div ref={triggerRef} className="mt-6 grid gap-3 sm:grid-cols-2">
                 {includes.map((item, index) => {
                   const Icon = item.icon;
+                  const row = Math.floor(index / 2);
+                  const isLeftColumn = index % 2 === 0;
 
                   return (
                     <article
                       key={item.title}
-                      className="flex min-h-[78px] min-w-0 items-center gap-3 rounded-[1.05rem] bg-white px-4 py-3.5 shadow-[0_10px_24px_rgba(15,23,42,0.035)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_36px_rgba(37,99,235,0.07)] dark:bg-white/[0.045]"
+                      className="flex min-h-[78px] min-w-0 items-center gap-3 rounded-[1.05rem] bg-white px-4 py-3.5 shadow-[0_10px_24px_rgba(15,23,42,0.035)] transition-shadow duration-300 hover:shadow-[0_16px_36px_rgba(37,99,235,0.07)] dark:bg-white/[0.045]"
+                      style={
+                        {
+                          opacity: animateIncludes ? 1 : 0,
+                          transform: animateIncludes
+                            ? "translate3d(0, 0, 0) scale(1) rotate(0deg)"
+                            : `translate3d(${isLeftColumn ? -160 : 160}px, ${
+                                row % 2 === 0 ? -80 : 80
+                              }px, 0) scale(0.72) rotate(${
+                                isLeftColumn ? -12 : 12
+                              }deg)`,
+                          filter: animateIncludes ? "blur(0px)" : "blur(8px)",
+                          transition: [
+                            `opacity 900ms ease-out ${index * 180}ms`,
+                            `transform 900ms cubic-bezier(0.16, 0.9, 0.2, 1.18) ${index * 180}ms`,
+                            `filter 900ms ease-out ${index * 180}ms`,
+                          ].join(", "),
+                          willChange: "opacity, transform, filter",
+                        } as CSSProperties
+                      }
                     >
                       <MobileAppIconBadge
                         icon={Icon}
@@ -77,7 +126,19 @@ export default function MobileAppIncludesSection({
               </div>
             </div>
 
-            <div className="relative z-20 mx-auto w-full max-w-[285px] self-start lg:col-span-4 lg:mx-0 lg:ml-auto lg:max-w-[300px] xl:max-w-[315px]">
+            <div
+              className="relative z-20 mx-auto w-full max-w-[285px] self-start lg:col-span-4 lg:mx-0 lg:ml-auto lg:max-w-[300px] xl:max-w-[315px]"
+              style={{
+                opacity: animateIncludes ? 1 : 0,
+                transform: animateIncludes
+                  ? "translate3d(0, 0, 0) scale(1) rotate(0deg)"
+                  : "translate3d(140px, 60px, 0) scale(0.78) rotate(8deg)",
+                filter: animateIncludes ? "blur(0px)" : "blur(10px)",
+                transition:
+                  "opacity 1000ms ease-out 520ms, transform 1000ms cubic-bezier(0.16, 0.9, 0.2, 1.15) 520ms, filter 1000ms ease-out 520ms",
+                willChange: "opacity, transform, filter",
+              }}
+            >
               <div className="pointer-events-none absolute -inset-5 rounded-full bg-cyan-200/35 blur-3xl dark:bg-cyan-400/10" />
               <div className="pointer-events-none absolute left-1/2 top-1/2 hidden h-[20rem] w-[20rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-100/20 blur-3xl dark:bg-blue-300/10 lg:block" />
               <div className="pointer-events-none absolute left-1/2 top-1/2 hidden h-[14rem] w-[14rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-violet-100/20 blur-3xl dark:bg-violet-300/10 lg:block" />

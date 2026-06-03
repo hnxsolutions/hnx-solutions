@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import {
   ArrowRight,
   GitBranch,
@@ -315,6 +316,8 @@ export default function MobileAppWorkflowSection({
   data: IndustryMobileAppPageData;
 }) {
   const workflowCopy = getWorkflowCopy(data);
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [animateWorkflow, setAnimateWorkflow] = useState(false);
 
   const workflowItems = data.modules.slice(0, 6).map((item, index) => ({
     icon: item.icon,
@@ -322,9 +325,33 @@ export default function MobileAppWorkflowSection({
     description: workflowCopy[index]?.description ?? item.description,
   }));
 
+  useEffect(() => {
+    const section = sectionRef.current;
+
+    if (!section || animateWorkflow) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry?.isIntersecting) return;
+
+        setAnimateWorkflow(true);
+        observer.disconnect();
+      },
+      {
+        root: null,
+        rootMargin: "-12% 0px -18% 0px",
+        threshold: 0.28,
+      },
+    );
+
+    observer.observe(section);
+
+    return () => observer.disconnect();
+  }, [animateWorkflow]);
+
   return (
     <MobileAppSectionShell className="border-0 py-6 sm:py-8 lg:py-8 xl:py-8">
-      <section className="relative py-4 sm:py-5 lg:py-6">
+      <section ref={sectionRef} className="relative py-4 sm:py-5 lg:py-6">
         <div className="mx-auto flex max-w-fit items-center justify-center gap-3">
           <span className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-blue-600 via-indigo-500 to-violet-500 text-white shadow-[0_12px_30px_rgba(79,70,229,0.24)]">
             <GitBranch className="h-6 w-6" />
@@ -359,7 +386,17 @@ export default function MobileAppWorkflowSection({
               return (
                 <article
                   key={`${item.title}-${index}`}
-                  className="relative flex min-h-[310px] w-[270px] shrink-0 snap-center flex-col rounded-[1.8rem] border border-slate-200 bg-white px-6 py-8 text-center shadow-[0_18px_44px_rgba(15,23,42,0.05)] transition duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-[0_22px_54px_rgba(59,130,246,0.12)] dark:border-white/10 dark:bg-white/[0.045] xl:w-full"
+                  className={[
+                    "workflow-drop-card relative flex min-h-[310px] w-[270px] shrink-0 snap-center flex-col rounded-[1.8rem] border border-slate-200 bg-white px-6 py-8 text-center shadow-[0_18px_44px_rgba(15,23,42,0.05)] transition-shadow duration-300 hover:shadow-[0_22px_54px_rgba(59,130,246,0.12)] dark:border-white/10 dark:bg-white/[0.045] xl:w-full",
+                    animateWorkflow ? "workflow-drop-card--active" : "",
+                  ].join(" ")}
+                  style={
+                    {
+                      "--workflow-start-x": `${index % 2 === 0 ? -42 : 42}px`,
+                      "--workflow-start-rotate": `${index % 2 === 0 ? -4 : 4}deg`,
+                      animationDelay: `${index * 155}ms`,
+                    } as CSSProperties
+                  }
                 >
                   <WorkflowIcon icon={Icon} tone={tone} />
 
@@ -389,6 +426,54 @@ export default function MobileAppWorkflowSection({
             })}
           </div>
         </div>
+
+        <style jsx>{`
+          .workflow-drop-card {
+            opacity: 0;
+            transform: translate3d(var(--workflow-start-x), -92px, 0)
+              scale(0.92)
+              rotate(var(--workflow-start-rotate));
+          }
+
+          .workflow-drop-card--active {
+            animation: workflowCardDrop 780ms cubic-bezier(0.18, 0.84, 0.28, 1.18)
+              forwards;
+          }
+
+          @keyframes workflowCardDrop {
+            0% {
+              opacity: 0;
+              transform: translate3d(var(--workflow-start-x), -92px, 0)
+                scale(0.92)
+                rotate(var(--workflow-start-rotate));
+            }
+
+            62% {
+              opacity: 1;
+              transform: translate3d(0, 10px, 0) scale(1.015) rotate(0deg);
+            }
+
+            82% {
+              transform: translate3d(0, -5px, 0) scale(0.995) rotate(0deg);
+            }
+
+            100% {
+              opacity: 1;
+              transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+            }
+          }
+
+          @media (prefers-reduced-motion: reduce) {
+            .workflow-drop-card {
+              opacity: 1;
+              transform: none;
+            }
+
+            .workflow-drop-card--active {
+              animation: none;
+            }
+          }
+        `}</style>
       </section>
     </MobileAppSectionShell>
   );
