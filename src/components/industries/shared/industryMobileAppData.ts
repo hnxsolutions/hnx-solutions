@@ -348,7 +348,7 @@ function demo(
     image,
     icon,
     accent,
-    stats: ["Mobile UX", "Push alerts", "Admin sync"],
+    stats: chips.length >= 3 ? chips.slice(0, 3) : ["Mobile App", "Live Updates", "Admin Sync"],
     chips,
   };
 }
@@ -1151,27 +1151,148 @@ function buildTrustItems(input: PageInput): IndustryMobileAppTrustItem[] {
   ];
 }
 
+const sectionCopyByIndustry: Record<
+  string,
+  {
+    modulesDescription: string;
+    roleExperiencesDescription: string;
+    demoGalleryDescription: string;
+    trustTitle: string;
+    trustDescription: string;
+  }
+> = {
+  "real-estate": {
+    modulesDescription:
+      "Mobile modules for property search, buyer shortlists, site visit booking, broker follow-ups, and sales admin visibility.",
+    roleExperiencesDescription:
+      "Separate buyer, broker, builder-admin, and sales-team views keep property discovery, visits, and deal movement clear for every role.",
+    demoGalleryDescription:
+      "Preview real estate app screens for buyer discovery, broker coordination, site visits, rentals, and builder project launches.",
+    trustTitle: "Real Estate App Security And Lead Trust",
+    trustDescription:
+      "Property inquiries, buyer profiles, visit details, broker notes, and CRM handoffs are planned with secure access and controlled team visibility.",
+  },
+  education: {
+    modulesDescription:
+      "Mobile modules for students, parents, teachers, admissions counselors, notices, assignments, and institute communication.",
+    roleExperiencesDescription:
+      "Student, parent, teacher, admin, and counselor views help each user see the academic or admission actions that matter to them.",
+    demoGalleryDescription:
+      "Preview education app screens for student dashboards, parent communication, admissions, coaching batches, and online course delivery.",
+    trustTitle: "Education App Security And Student Data Trust",
+    trustDescription:
+      "Student records, parent updates, admission forms, notices, and academic communication are planned around secure logins and role-based access.",
+  },
+  manufacturing: {
+    modulesDescription:
+      "Mobile modules for dealer catalogs, RFQs, order requests, approvals, inventory visibility, documents, and dispatch tracking.",
+    roleExperiencesDescription:
+      "Dealer, sales-team, admin, and dispatch views keep B2B requests, approvals, and shipment updates moving without scattered follow-ups.",
+    demoGalleryDescription:
+      "Preview manufacturing app screens for dealer ordering, inventory visibility, dispatch tracking, approval flows, and B2B product catalogs.",
+    trustTitle: "Manufacturing App Security And Dealer Trust",
+    trustDescription:
+      "Dealer accounts, RFQs, pricing discussions, order documents, approval data, and dispatch updates are planned with secure access controls.",
+  },
+  retail: {
+    modulesDescription:
+      "Mobile modules for product discovery, offers, order inquiries, loyalty points, customer support, reviews, and repeat purchase campaigns.",
+    roleExperiencesDescription:
+      "Customer, store-admin, loyalty-manager, and support-team views keep catalog updates, rewards, orders, and service requests organized.",
+    demoGalleryDescription:
+      "Preview retail app screens for shopping, offers, loyalty, order tracking, product discovery, and customer support flows.",
+    trustTitle: "Retail App Security And Customer Trust",
+    trustDescription:
+      "Customer profiles, order inquiries, loyalty activity, offer campaigns, and support requests are planned with privacy-aware access and reliable hosting.",
+  },
+  finance: {
+    modulesDescription:
+      "Mobile modules for consultation requests, advisor workflows, document checklists, secure forms, client status, and service reporting.",
+    roleExperiencesDescription:
+      "Client, advisor, admin, and document-review views keep finance inquiries, checklist progress, and consultation follow-ups structured.",
+    demoGalleryDescription:
+      "Preview finance app screens for client onboarding, advisor workflows, secure documents, consultation booking, and service tracking.",
+    trustTitle: "Finance App Security And Client Confidence",
+    trustDescription:
+      "Client inquiries, advisory notes, uploaded documents, consultation details, and service records are planned with secure login and controlled access.",
+  },
+  insurance: {
+    modulesDescription:
+      "Mobile modules for policy access, claims, renewals, agent chat, document upload, notifications, and service dashboards.",
+    roleExperiencesDescription:
+      "Policyholder, agent, claims-team, and admin views keep renewals, claim updates, and customer follow-ups clear across the service cycle.",
+    demoGalleryDescription:
+      "Preview insurance app screens for policy management, claims, renewals, agent support, and document-driven customer service.",
+    trustTitle: "Insurance App Security And Policyholder Trust",
+    trustDescription:
+      "Policy data, claim documents, renewal reminders, agent notes, and customer records are planned with secure access and role-based controls.",
+  },
+  travel: {
+    modulesDescription:
+      "Mobile modules for package discovery, itineraries, booking inquiries, vouchers, trip alerts, consultant follow-ups, and support.",
+    roleExperiencesDescription:
+      "Traveler, consultant, admin, and operations views keep packages, guest details, vouchers, and trip coordination easier to manage.",
+    demoGalleryDescription:
+      "Preview travel app screens for package browsing, itinerary planning, booking inquiries, vouchers, and pre-trip support.",
+    trustTitle: "Travel App Security And Booking Trust",
+    trustDescription:
+      "Traveler details, booking inquiries, vouchers, trip documents, vendor updates, and support notes are planned with secure access and backups.",
+  },
+  automobile: {
+    modulesDescription:
+      "Mobile modules for vehicle inventory, test drive booking, service scheduling, finance inquiries, offers, reminders, and dealer analytics.",
+    roleExperiencesDescription:
+      "Customer, dealer, service-advisor, and admin views keep vehicle leads, test drives, service slots, and showroom operations connected.",
+    demoGalleryDescription:
+      "Preview automobile app screens for inventory browsing, test drives, service booking, dealer follow-ups, and offer campaigns.",
+    trustTitle: "Automobile App Security And Dealership Trust",
+    trustDescription:
+      "Vehicle inquiries, test drive bookings, finance requests, service records, and dealer team access are planned with privacy-aware controls.",
+  },
+  "service-business": {
+    modulesDescription:
+      "Mobile modules for service catalogs, quote requests, appointment booking, field-team updates, job tracking, reviews, and support.",
+    roleExperiencesDescription:
+      "Customer, field-team, admin, and support views keep quote requests, assigned jobs, completion proof, and follow-ups organized.",
+    demoGalleryDescription:
+      "Preview service-business app screens for booking, quote requests, job tracking, field execution, reviews, and customer support.",
+    trustTitle: "Service App Security And Customer Trust",
+    trustDescription:
+      "Customer inquiries, quote details, booking records, field-job notes, proof uploads, and support history are planned with secure access.",
+  },
+};
+
+function getSectionCopy(input: PageInput) {
+  return (
+    sectionCopyByIndustry[input.industrySlug] ?? {
+      modulesDescription: `Mobile modules for ${input.industryName.toLowerCase()} customers, teams, admin workflows, notifications, and connected reporting.`,
+      roleExperiencesDescription: `${input.industryName} customers, teams, and admins can each get role-specific app views with the actions they need most.`,
+      demoGalleryDescription: `Preview ${input.industryName.toLowerCase()} mobile app screens for common customer, team, and admin workflows.`,
+      trustTitle: `${input.industryName} App Security And Trust`,
+      trustDescription: `${input.industryName} mobile workflows are planned around secure login, privacy-aware forms, role-based access, and reliable hosting.`,
+    }
+  );
+}
+
 function createPage(input: PageInput): IndustryMobileAppPageData {
+  const sectionCopy = getSectionCopy(input);
+
   return {
     ...input,
     heroVisual: buildHeroVisual(input),
     problemsTitle: `${input.industryName} App Problems We Solve`,
     includesTitle: `What Your ${input.industryName} Mobile App Includes`,
     modulesTitle: `${input.industryName} App Modules`,
-    modulesDescription:
-      "A focused module set for customer, team, and admin workflows that need to work from a phone.",
+    modulesDescription: sectionCopy.modulesDescription,
     roleExperiencesTitle: `${input.industryName} Role-Based App Experiences`,
-    roleExperiencesDescription:
-      "Each mobile app can include separate experiences for customers, teams, admins, and operational roles so every user sees the right actions.",
+    roleExperiencesDescription: sectionCopy.roleExperiencesDescription,
     roleExperiences: buildRoleExperiences(input),
     demoGalleryTitle: `${input.industryName} Mobile App Demo Gallery`,
-    demoGalleryDescription:
-      "Explore sample app experiences for the most common mobile workflows in this industry.",
+    demoGalleryDescription: sectionCopy.demoGalleryDescription,
     benefitsTitle: `Why Build A ${input.industryName} Mobile App With HNX`,
     testimonialsTitle: `${input.industryName} App Feedback`,
-    trustTitle: "Security, Compliance And Trust",
-    trustDescription:
-      "Every mobile app is planned around privacy-aware forms, secure access, reliable hosting, and operational continuity.",
+    trustTitle: sectionCopy.trustTitle,
+    trustDescription: sectionCopy.trustDescription,
     trustItems: buildTrustItems(input),
   };
 }
@@ -1285,9 +1406,9 @@ export const industryMobileAppPages: Record<string, IndustryMobileAppPageData> =
       plan("Developer App Suite", `${rupee}1,80,000+`, false, ["Project inventory", "CRM integration", "Broker roles", "Advanced reports", "Custom workflows"]),
     ],
     testimonials: [
-      { quote: "The demo app helped us see how buyer shortlists and visit requests can stay connected.", name: "Riya Malhotra", role: "Sample provider - Property consultant" },
-      { quote: "Broker follow-ups became much clearer once the app flow was mapped to lead status.", name: "Arjun Sethi", role: "Demo brand - Real estate agency" },
-      { quote: "The site visit flow feels practical for project launches and weekend campaigns.", name: "Neha Kapoor", role: "Sample provider - Developer team" },
+      { quote: "Buyer shortlists, visit requests, and broker follow-ups stay connected instead of getting lost across calls.", name: "Property Sales Team", role: "Real Estate Operations" },
+      { quote: "Site visit booking becomes easier for buyers and gives the sales team clearer next steps.", name: "Project Launch Team", role: "Developer Sales" },
+      { quote: "Location alerts and saved listings create a smoother journey from first search to confirmed visit.", name: "Broker Coordination Team", role: "Property Consultant" },
     ],
     trustItems: [
       { title: "Lead Data Protection", icon: ShieldCheck },
@@ -1406,9 +1527,9 @@ export const industryMobileAppPages: Record<string, IndustryMobileAppPageData> =
       plan("Campus App Suite", `${rupee}1,60,000+`, false, ["Role-based access", "Fee reminders", "Teacher workflows", "LMS hooks", "Custom reports"]),
     ],
     testimonials: [
-      { quote: "The demo made notices, parent updates, and admissions feel much less fragmented.", name: "Meera Rao", role: "Sample provider - Academy director" },
-      { quote: "Counselor follow-ups finally had a simple app flow our team could understand.", name: "Rohan Iyer", role: "Demo brand - Coaching institute" },
-      { quote: "The parent view is exactly the kind of clear communication schools need.", name: "Anika Sen", role: "Sample provider - School admin" },
+      { quote: "Notices, parent updates, and admissions can sit in one official mobile channel instead of scattered messages.", name: "Academic Operations Team", role: "Education Administrator" },
+      { quote: "Counselor follow-ups become easier when every inquiry has program interest, status, and next action.", name: "Admissions Team", role: "Institute Counseling" },
+      { quote: "The parent view gives families clearer updates without depending on repeated calls or chat groups.", name: "Parent Communication Team", role: "School Administration" },
     ],
     trustItems: [
       { title: "Student Data Privacy", icon: ShieldCheck },
@@ -1529,9 +1650,9 @@ industryMobileAppPages.manufacturing = createPage({
     plan("Manufacturing App Suite", `${rupee}2,00,000+`, false, ["ERP hooks", "Document workflows", "Dealer roles", "Inventory sync", "Custom reports"]),
   ],
   testimonials: [
-    { quote: "The dealer catalog and RFQ flow matched the way our distributors actually ask for stock.", name: "Kunal Mehta", role: "Sample provider - Industrial supplier" },
-    { quote: "Approval visibility was the biggest win in the demo app.", name: "Asha Nair", role: "Demo brand - Manufacturing team" },
-    { quote: "Dispatch updates inside the app would reduce so many status calls.", name: "Dev Shah", role: "Sample provider - Export business" },
+    { quote: "Dealer catalog, RFQ requests, and dispatch visibility fit the way distributors ask for stock and order updates.", name: "Dealer Operations Team", role: "Industrial Supplier" },
+    { quote: "Approval visibility helps internal teams understand what is pending, approved, or ready for dispatch.", name: "Factory Coordination Team", role: "Manufacturing Operations" },
+    { quote: "Dispatch updates inside the app can reduce repeated shipment status calls from dealer accounts.", name: "B2B Sales Team", role: "Export Business" },
   ],
   trustItems: [
     { title: "B2B Inquiry Privacy", icon: ShieldCheck },
@@ -1650,9 +1771,9 @@ industryMobileAppPages.retail = createPage({
     plan("Retail App Suite", `${rupee}1,80,000+`, false, ["Payment gateway", "Inventory hooks", "Customer segments", "Campaign automation", "Custom reports"]),
   ],
   testimonials: [
-    { quote: "The app flow showed how offers and orders can finally sit in one customer experience.", name: "Tara Shah", role: "Sample provider - Retail brand" },
-    { quote: "Loyalty, product discovery, and notifications felt practical for repeat buying.", name: "Ishan Bedi", role: "Demo brand - Local store chain" },
-    { quote: "The order tracking screen would reduce so many customer follow-up calls.", name: "Pooja Menon", role: "Sample provider - D2C seller" },
+    { quote: "Offers, catalog discovery, and order inquiries work better when customers can return to one branded app.", name: "Store Growth Team", role: "Retail Brand" },
+    { quote: "Loyalty points and push campaigns create a clearer path for repeat buying.", name: "Customer Retention Team", role: "Local Store Chain" },
+    { quote: "Order status and support updates inside the app can reduce repeated customer follow-up calls.", name: "Ecommerce Operations Team", role: "D2C Retail" },
   ],
   trustItems: [
     { title: "Customer Data Privacy", icon: ShieldCheck },
@@ -1770,9 +1891,9 @@ const financeBase = createPage({
     plan("Finance App Suite", `${rupee}2,20,000+`, false, ["Advanced roles", "Compliance-friendly flows", "Document review stages", "CRM integration", "Custom reports"]),
   ],
   testimonials: [
-    { quote: "The document checklist and advisor flow makes finance onboarding feel much clearer.", name: "Nitin Rao", role: "Sample provider - Finance consultant" },
-    { quote: "Clients knowing status inside the app would reduce repeated follow-up calls.", name: "Priya Kapoor", role: "Demo brand - Advisory team" },
-    { quote: "The secure consultation flow is a strong fit for tax and loan advisory work.", name: "Amit Suri", role: "Sample provider - Accounting firm" },
+    { quote: "Document checklists and advisor updates make client onboarding easier to follow.", name: "Client Advisory Team", role: "Finance Consultant" },
+    { quote: "Clients can understand status without repeatedly calling for document or consultation updates.", name: "Service Operations Team", role: "Advisory Firm" },
+    { quote: "Secure consultation requests and controlled document handling are important for tax, loan, and accounting workflows.", name: "Compliance Support Team", role: "Accounting Services" },
   ],
   trustItems: [
     { title: "Client Data Privacy", icon: ShieldCheck },
@@ -1894,9 +2015,9 @@ industryMobileAppPages.insurance = createPage({
     plan("Insurance App Suite", `${rupee}1,90,000+`, false, ["Agent roles", "Claim stages", "Policy integrations", "Renewal automation", "Custom reports"]),
   ],
   testimonials: [
-    { quote: "The policy and claim flow makes support feel simple for policyholders.", name: "Kavya Sharma", role: "Sample provider - Insurance advisor" },
-    { quote: "Renewal reminders and agent chat are exactly what our desk needs.", name: "Manav Jain", role: "Demo brand - Policy team" },
-    { quote: "Document upload inside the claim flow would reduce back-and-forth.", name: "Sara Dutta", role: "Sample provider - Claim consultant" },
+    { quote: "Policy access, claim updates, and renewal reminders help policyholders understand what to do next.", name: "Policy Support Team", role: "Insurance Advisor" },
+    { quote: "Agent chat and task reminders keep renewal follow-ups more organized for the service desk.", name: "Renewal Operations Team", role: "Policy Management" },
+    { quote: "Document upload inside the claim flow can reduce back-and-forth between customers and claim teams.", name: "Claims Coordination Team", role: "Insurance Operations" },
   ],
   trustItems: [
     { title: "Policy Inquiry Privacy", icon: ShieldCheck },
@@ -2016,9 +2137,9 @@ industryMobileAppPages.travel = createPage({
     plan("Travel App Suite", `${rupee}1,80,000+`, false, ["Custom package builder", "Agent roles", "CRM integration", "Automated reminders", "Custom reports"]),
   ],
   testimonials: [
-    { quote: "The itinerary and voucher flow fits exactly how travelers ask for trip updates.", name: "Rhea Thomas", role: "Sample provider - Travel consultant" },
-    { quote: "Package inquiry with dates and guests would make sales follow-up faster.", name: "Kabir Khan", role: "Demo brand - Tour operator" },
-    { quote: "The support app preview makes pre-trip communication feel organized.", name: "Maya Das", role: "Sample provider - Destination planner" },
+    { quote: "Itinerary, voucher, and trip-alert workflows match how travelers expect updates before departure.", name: "Travel Planning Team", role: "Tour Consultant" },
+    { quote: "Package inquiries with dates, guests, and preferences give consultants faster follow-up context.", name: "Booking Sales Team", role: "Tour Operator" },
+    { quote: "Pre-trip support becomes easier when documents, reminders, and vendor updates stay inside one app.", name: "Destination Operations Team", role: "Travel Services" },
   ],
   trustItems: [
     { title: "Booking Inquiry Privacy", icon: ShieldCheck },
@@ -2138,9 +2259,9 @@ industryMobileAppPages.automobile = createPage({
     plan("Automobile App Suite", `${rupee}2,00,000+`, false, ["Inventory sync", "Dealer roles", "Service history", "Campaign automation", "Custom reports"]),
   ],
   testimonials: [
-    { quote: "The test drive flow and inventory preview are very practical for dealership leads.", name: "Varun Arora", role: "Sample provider - Auto dealer" },
-    { quote: "Service reminders and booking in the same app would help our workshop team.", name: "Sneha Rathi", role: "Demo brand - Service center" },
-    { quote: "The finance inquiry and offers flow makes campaign follow-ups easier.", name: "Nikhil Bose", role: "Sample provider - Vehicle sales team" },
+    { quote: "Inventory browsing and test drive booking help dealership teams move leads into scheduled showroom visits.", name: "Showroom Sales Team", role: "Auto Dealer" },
+    { quote: "Service reminders and booking status inside the app can support stronger workshop retention.", name: "Service Desk Team", role: "Vehicle Service Center" },
+    { quote: "Finance inquiries and offer follow-ups become easier when campaign leads stay connected to vehicle interest.", name: "Dealer Marketing Team", role: "Vehicle Sales" },
   ],
   trustItems: [
     { title: "Customer Inquiry Privacy", icon: ShieldCheck },
@@ -2260,9 +2381,9 @@ industryMobileAppPages["service-business"] = createPage({
     plan("Service App Suite", `${rupee}1,60,000+`, false, ["Team assignment", "Field staff roles", "Payment status", "Review automation", "Custom reports"]),
   ],
   testimonials: [
-    { quote: "The quote and job tracking flow would remove a lot of repeated customer calls.", name: "Sahil Verma", role: "Sample provider - Service company" },
-    { quote: "Booking, reminders, and reviews in one app is exactly what local teams need.", name: "Mina Joseph", role: "Demo brand - Home service team" },
-    { quote: "The field-service structure feels practical for agencies and repair teams.", name: "Aditya Rao", role: "Sample provider - Professional services" },
+    { quote: "Quote requests and job tracking can remove many repeated customer calls for service updates.", name: "Service Operations Team", role: "Local Service Business" },
+    { quote: "Booking, reminders, and reviews in one app give field teams a more organized customer journey.", name: "Field Coordination Team", role: "Home Services" },
+    { quote: "The field-service structure works well for appointment-based agencies, repair teams, and professional services.", name: "Customer Support Team", role: "Professional Services" },
   ],
   trustItems: [
     { title: "Client Inquiry Privacy", icon: ShieldCheck },

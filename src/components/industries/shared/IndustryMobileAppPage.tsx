@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, Star } from "lucide-react";
+import { ArrowRight, CheckCircle2, ShieldCheck, Star } from "lucide-react";
 import IndustryMobileAppDemoModal from "./IndustryMobileAppDemoModal";
 import IndustryMobileAppPreviewHero from "./mobile-app-shared/IndustryMobileAppPreviewHero";
 import MobileAppAdvantageSection from "./mobile-app-shared/MobileAppAdvantageSection";
@@ -40,7 +40,7 @@ export default function IndustryMobileAppPage({
       <div className="pointer-events-none absolute left-0 top-0 h-[34rem] w-[34rem] rounded-full bg-blue-200/35 blur-3xl dark:bg-blue-500/10" />
       <div className="pointer-events-none absolute right-0 top-20 h-[30rem] w-[30rem] rounded-full bg-violet-200/35 blur-3xl dark:bg-violet-500/10" />
 
-      <section className="relative px-3 pb-20 pt-16 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
+      <section className="relative px-3 pb-0 pt-16 sm:px-6 sm:pb-4 lg:px-8 xl:px-10 2xl:px-12">
         <div className="mx-auto w-full max-w-full sm:max-w-[min(92vw,1440px)]">
           <div className="relative">
             <IndustryMobileAppPreviewHero data={data} />
@@ -89,7 +89,7 @@ function PricingSection({ data }: { data: IndustryMobileAppPageData }) {
   }, [data.industrySlug]);
 
   return (
-    <section className="border-t border-slate-200 px-0 py-8 dark:border-white/10">
+    <section className="border-t border-slate-200 px-0 py-14 dark:border-white/10 sm:py-16 lg:py-[4.5rem]">
       <div className="px-7 sm:px-10 lg:px-12">
         <SectionTitle
           title="Simple, Transparent Mobile App Pricing"
@@ -98,8 +98,8 @@ function PricingSection({ data }: { data: IndustryMobileAppPageData }) {
         />
       </div>
 
-      <div className="mt-8 lg:hidden">
-        <div className="overflow-hidden px-3">
+      <div className="mt-16 lg:hidden">
+        <div className="overflow-hidden px-3 pt-7">
           <div
             className="flex transition-transform duration-700 ease-out motion-reduce:transition-none"
             style={{ transform: `translateX(-${activePlan * 100}%)` }}
@@ -113,7 +113,7 @@ function PricingSection({ data }: { data: IndustryMobileAppPageData }) {
         </div>
 
         {data.pricingPlans.length > 1 ? (
-          <div className="mt-5 flex items-center justify-center gap-2">
+          <div className="mt-7 flex items-center justify-center gap-2">
             {data.pricingPlans.map((plan, index) => (
               <button
                 key={`${plan.name}-dot`}
@@ -131,7 +131,7 @@ function PricingSection({ data }: { data: IndustryMobileAppPageData }) {
         ) : null}
       </div>
 
-      <div className="mt-8 hidden gap-5 px-7 sm:px-10 lg:grid lg:grid-cols-3 lg:px-12">
+      <div className="mt-14 hidden gap-6 px-7 sm:px-10 lg:grid lg:grid-cols-3 lg:px-12">
         {data.pricingPlans.map((plan) => (
           <PricingCard key={plan.name} plan={plan} />
         ))}
@@ -151,11 +151,11 @@ function PricingCard({
 
   return (
     <article
-      className={`relative flex h-full flex-col rounded-[1.6rem] border bg-white p-6 shadow-sm transition hover:-translate-y-1 dark:bg-white/[0.05] ${
+      className={`relative flex h-full flex-col rounded-[1.6rem] border bg-white px-6 pb-6 pt-6 shadow-sm transition hover:-translate-y-1 dark:bg-white/[0.05] ${
         plan.popular
           ? "border-violet-400 shadow-[0_18px_50px_rgba(124,58,237,0.13)] dark:border-violet-400/60"
           : "border-slate-200 dark:border-white/10"
-      } ${mobile ? "mx-auto max-w-[350px]" : ""}`}
+      } ${plan.popular ? "pt-14" : ""} ${mobile ? "mx-auto max-w-[350px]" : ""}`}
     >
       {plan.popular ? <PopularBadge /> : null}
 
@@ -233,10 +233,10 @@ function TestimonialsSection({
   }, [title]);
 
   return (
-    <section className="border-t border-slate-200 px-7 py-10 dark:border-white/10 sm:px-10 lg:px-12">
+    <section className="border-t border-slate-200 px-7 py-14 dark:border-white/10 sm:px-10 sm:py-16 lg:px-12 lg:py-[4.5rem]">
       <SectionTitle title={title} center />
 
-      <div className="mt-8 lg:hidden">
+      <div className="mt-14 lg:hidden">
         <div className="overflow-hidden px-1">
           <div
             className="flex transition-transform duration-700 ease-out motion-reduce:transition-none"
@@ -251,7 +251,7 @@ function TestimonialsSection({
         </div>
 
         {items.length > 1 ? (
-          <div className="mt-5 flex items-center justify-center gap-2">
+          <div className="mt-7 flex items-center justify-center gap-2">
             {items.map((item, index) => (
               <button
                 key={`${item.name}-dot`}
@@ -269,7 +269,7 @@ function TestimonialsSection({
         ) : null}
       </div>
 
-      <div className="mt-8 hidden gap-5 lg:grid lg:grid-cols-3">
+      <div className="mt-14 hidden gap-6 lg:grid lg:grid-cols-3">
         {items.map((item) => (
           <TestimonialCard key={item.name} item={item} />
         ))}
@@ -307,17 +307,17 @@ function TestimonialCard({
 
 function FinalCTASection({ data }: { data: IndustryMobileAppPageData }) {
   return (
-    <section className="border-t border-slate-200 px-7 py-10 dark:border-white/10 sm:px-10 lg:px-12">
+    <section className="border-t border-slate-200 px-7 pb-12 pt-14 dark:border-white/10 sm:px-10 sm:pb-14 sm:pt-16 lg:px-12">
       <div className="overflow-hidden rounded-[2rem] bg-slate-950 p-8 text-white shadow-[0_24px_70px_rgba(15,23,42,0.18)] dark:border dark:border-white/10">
         <div className="grid gap-5 lg:grid-cols-[1fr_auto] lg:items-center">
           <div>
             <p className="text-xs font-black uppercase tracking-[0.18em] text-blue-300">
               Mobile App Strategy
             </p>
-            <h2 className="mt-3 text-3xl font-black leading-tight">
+            <h2 className="mt-4 text-3xl font-black leading-tight">
               Build a connected {data.industryName.toLowerCase()} app experience.
             </h2>
-            <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-300">
+            <p className="mt-4 max-w-3xl text-sm leading-6 text-slate-300">
               We can plan the app screens, user roles, admin dashboard, notifications, launch path, and future scale before development starts.
             </p>
           </div>
@@ -336,19 +336,122 @@ function FinalCTASection({ data }: { data: IndustryMobileAppPageData }) {
 }
 
 function TrustSection({ data }: { data: IndustryMobileAppPageData }) {
+  const orbitPositions = [
+    "left-1/2 top-0 -translate-x-1/2",
+    "right-0 top-[72px]",
+    "bottom-[42px] right-[16px]",
+    "bottom-0 left-1/2 -translate-x-1/2",
+    "left-0 top-[72px]",
+  ];
+
   return (
-    <section className="border-t border-slate-200 px-7 py-10 dark:border-white/10 sm:px-10 lg:px-12">
+    <section className="border-t border-slate-200 px-7 pb-16 pt-14 dark:border-white/10 sm:px-10 sm:pb-[4.5rem] sm:pt-16 lg:px-12 lg:pb-20 lg:pt-[4.5rem]">
       <SectionTitle
         title={data.trustTitle}
         description={data.trustDescription}
         center
       />
 
-      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+      <div className="mt-14 sm:hidden">
+        <div className="relative mx-auto h-[320px] w-[320px] max-w-full">
+          <div className="absolute inset-3 rounded-full bg-gradient-to-br from-blue-50 via-white to-violet-50 shadow-[0_24px_70px_rgba(37,99,235,0.10)] dark:from-white/[0.04] dark:via-white/[0.03] dark:to-violet-400/10" />
+          <div className="absolute inset-8 rounded-full border border-dashed border-blue-200 dark:border-blue-400/20" />
+          <div className="absolute inset-16 rounded-full border border-slate-200 bg-white/80 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.05]" />
+
+          <div className="absolute left-1/2 top-1/2 z-20 grid h-[104px] w-[104px] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-gradient-to-br from-blue-600 to-violet-600 text-center text-white shadow-[0_22px_55px_rgba(37,99,235,0.28)]">
+            <div>
+              <ShieldCheck className="mx-auto h-7 w-7" />
+              <p className="mt-2 text-[11px] font-black leading-4">
+                Secure
+                <br />
+                Mobile App
+              </p>
+            </div>
+          </div>
+
+          <div className="industry-mobile-trust-orbit absolute inset-0 z-10">
+            {data.trustItems.map((item, index) => {
+              const Icon = item.icon;
+
+              return (
+                <div
+                  key={`${item.title}-mobile-orbit`}
+                  className={[
+                    "absolute",
+                    orbitPositions[index % orbitPositions.length],
+                  ].join(" ")}
+                >
+                  <div className="industry-mobile-trust-counter">
+                    <div className="w-[92px] rounded-2xl border border-slate-200 bg-white/95 p-2.5 text-center shadow-[0_16px_40px_rgba(15,23,42,0.09)] backdrop-blur dark:border-white/10 dark:bg-[#111111]/95">
+                      <span className="mx-auto grid h-10 w-10 place-items-center rounded-2xl bg-blue-50 text-blue-600 dark:bg-blue-400/10 dark:text-blue-300">
+                        <Icon className="h-4 w-4" />
+                      </span>
+                      <p className="mt-2 text-[10px] font-black leading-4 text-slate-700 dark:text-slate-300">
+                        {item.title}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-14 hidden gap-5 sm:grid sm:grid-cols-2 lg:grid-cols-5">
         {data.trustItems.map((item) => (
           <TrustItem key={item.title} item={item} />
         ))}
       </div>
+
+      <style jsx>{`
+        @keyframes industryMobileTrustOrbit {
+          0% {
+            transform: rotate(0deg);
+          }
+
+          100% {
+            transform: rotate(360deg);
+          }
+        }
+
+        @keyframes industryMobileTrustCounterOrbit {
+          0% {
+            transform: rotate(0deg);
+          }
+
+          100% {
+            transform: rotate(-360deg);
+          }
+        }
+
+        .industry-mobile-trust-orbit {
+          animation: industryMobileTrustOrbit 20s linear infinite;
+          transform-origin: center;
+        }
+
+        .industry-mobile-trust-counter {
+          animation: industryMobileTrustCounterOrbit 20s linear infinite;
+          transform-origin: center;
+        }
+
+        .industry-mobile-trust-orbit:hover,
+        .industry-mobile-trust-orbit:focus-within {
+          animation-play-state: paused;
+        }
+
+        .industry-mobile-trust-orbit:hover .industry-mobile-trust-counter,
+        .industry-mobile-trust-orbit:focus-within .industry-mobile-trust-counter {
+          animation-play-state: paused;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .industry-mobile-trust-orbit,
+          .industry-mobile-trust-counter {
+            animation: none;
+          }
+        }
+      `}</style>
     </section>
   );
 }
@@ -393,7 +496,7 @@ function SectionTitle({
 
 function PopularBadge() {
   return (
-    <span className="absolute left-1/2 -top-4 -translate-x-1/2 rounded-full bg-gradient-to-r from-blue-600 to-violet-600 px-5 py-2 text-xs font-black text-white">
+    <span className="absolute left-1/2 top-4 -translate-x-1/2 rounded-full bg-gradient-to-r from-blue-600 to-violet-600 px-5 py-2 text-xs font-black text-white shadow-[0_12px_28px_rgba(37,99,235,0.24)]">
       Most Popular
     </span>
   );

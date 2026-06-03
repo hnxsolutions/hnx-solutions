@@ -317,9 +317,7 @@ export default function MobileAppWorkflowSection({
 }) {
   const workflowCopy = getWorkflowCopy(data);
   const sectionRef = useRef<HTMLElement | null>(null);
-  const scrollRef = useRef<HTMLDivElement | null>(null);
   const [animateWorkflow, setAnimateWorkflow] = useState(false);
-  const [activeWorkflowIndex, setActiveWorkflowIndex] = useState(0);
 
   const workflowItems = data.modules.slice(0, 6).map((item, index) => ({
     icon: item.icon,
@@ -351,62 +349,6 @@ export default function MobileAppWorkflowSection({
     return () => observer.disconnect();
   }, [animateWorkflow]);
 
-  useEffect(() => {
-    const scroller = scrollRef.current;
-
-    if (!scroller) return;
-
-    const updateActiveWorkflowIndex = () => {
-      const cards = Array.from(
-        scroller.querySelectorAll<HTMLElement>("[data-workflow-card]"),
-      );
-
-      if (!cards.length) return;
-
-      const viewportCenter = scroller.scrollLeft + scroller.clientWidth / 2;
-      let closestIndex = 0;
-      let closestDistance = Number.POSITIVE_INFINITY;
-
-      cards.forEach((card, index) => {
-        const cardCenter = card.offsetLeft + card.offsetWidth / 2;
-        const distance = Math.abs(cardCenter - viewportCenter);
-
-        if (distance < closestDistance) {
-          closestDistance = distance;
-          closestIndex = index;
-        }
-      });
-
-      setActiveWorkflowIndex(closestIndex);
-    };
-
-    updateActiveWorkflowIndex();
-
-    scroller.addEventListener("scroll", updateActiveWorkflowIndex, {
-      passive: true,
-    });
-    window.addEventListener("resize", updateActiveWorkflowIndex);
-
-    return () => {
-      scroller.removeEventListener("scroll", updateActiveWorkflowIndex);
-      window.removeEventListener("resize", updateActiveWorkflowIndex);
-    };
-  }, [workflowItems.length]);
-
-  const scrollToWorkflowItem = (index: number) => {
-    const scroller = scrollRef.current;
-    const card = scroller?.querySelector<HTMLElement>(
-      `[data-workflow-card="${index}"]`,
-    );
-
-    if (!scroller || !card) return;
-
-    scroller.scrollTo({
-      left: card.offsetLeft - 12,
-      behavior: "smooth",
-    });
-  };
-
   return (
     <MobileAppSectionShell className="border-0 py-6 sm:py-8 lg:py-8 xl:py-8">
       <section ref={sectionRef} className="relative py-4 sm:py-5 lg:py-6">
@@ -435,10 +377,7 @@ export default function MobileAppWorkflowSection({
           </p>
         </div>
 
-        <div
-          ref={scrollRef}
-          className="mt-10 overflow-x-auto pb-3 [scrollbar-width:none] xl:overflow-visible [&::-webkit-scrollbar]:hidden"
-        >
+        <div className="mt-10 overflow-x-auto pb-3 [scrollbar-width:none] xl:overflow-visible [&::-webkit-scrollbar]:hidden">
           <div className="flex min-w-max snap-x snap-mandatory gap-6 px-1 xl:grid xl:min-w-0 xl:grid-cols-6 xl:gap-6 xl:px-0">
             {workflowItems.map((item, index) => {
               const tone = workflowTones[index % workflowTones.length];
@@ -447,7 +386,6 @@ export default function MobileAppWorkflowSection({
               return (
                 <article
                   key={`${item.title}-${index}`}
-                  data-workflow-card={index}
                   className={[
                     "workflow-drop-card relative flex min-h-[310px] w-[270px] shrink-0 snap-center flex-col rounded-[1.8rem] border border-slate-200 bg-white px-6 py-8 text-center shadow-[0_18px_44px_rgba(15,23,42,0.05)] transition-shadow duration-300 hover:shadow-[0_22px_54px_rgba(59,130,246,0.12)] dark:border-white/10 dark:bg-white/[0.045] xl:w-full",
                     animateWorkflow ? "workflow-drop-card--active" : "",
@@ -487,24 +425,6 @@ export default function MobileAppWorkflowSection({
               );
             })}
           </div>
-        </div>
-
-        <div className="mt-4 flex items-center justify-center gap-2 xl:hidden">
-          {workflowItems.map((item, index) => (
-            <button
-              key={`${item.title}-dot`}
-              type="button"
-              aria-label={`Show workflow step ${index + 1}`}
-              aria-current={activeWorkflowIndex === index ? "step" : undefined}
-              onClick={() => scrollToWorkflowItem(index)}
-              className={[
-                "h-2.5 rounded-full transition-all duration-300",
-                activeWorkflowIndex === index
-                  ? "w-8 bg-blue-600 shadow-[0_6px_16px_rgba(37,99,235,0.3)]"
-                  : "w-2.5 bg-slate-300 hover:bg-slate-400 dark:bg-white/20 dark:hover:bg-white/35",
-              ].join(" ")}
-            />
-          ))}
         </div>
 
         <style jsx>{`
