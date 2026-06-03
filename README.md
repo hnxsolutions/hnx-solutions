@@ -1,42 +1,116 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# HNX Solutions Website
 
-## Getting Started
+The HNX Solutions website is a modern company website built with Next.js. It presents HNX Solutions' digital services, CRM offerings, automation capabilities, industry solutions, portfolio work, pricing information, resources, and contact experience in a polished public-facing interface.
 
-Create a `.env.local` file in the project root with:
+This repository contains the frontend application and supporting server-side functionality required to run the website.
+
+## Main Features
+
+- Responsive business website for HNX Solutions
+- Service pages for CRM systems, AI automation, web development, SaaS, mobile apps, cloud/DevOps, UI/UX, SEO, and growth
+- Solution pages organized by CRM, Web & SaaS, Mobile Apps, AI Automation, Cloud & DevOps, and Design & Growth
+- Industry-focused pages for sectors such as healthcare, real estate, education, finance, retail, travel, manufacturing, insurance, automobile, and service businesses
+- Portfolio and case-study style project showcase
+- Blog and resource pages for educational content
+- Interactive CRM demo, workflow lab, and ROI calculator experiences
+- Contact and enquiry flows for potential clients
+- SEO-ready metadata, sitemap, robots configuration, and structured data support
+- Light/dark theme support, responsive navigation, animations, and modern UI components
+
+## Tech Stack
+
+- **Framework:** Next.js 16 with App Router
+- **Language:** TypeScript
+- **UI:** React 19, Tailwind CSS 4
+- **Animation:** Framer Motion
+- **Icons:** Lucide React, React Icons
+- **Theme:** next-themes
+- **Database:** MongoDB with Mongoose
+- **Validation:** Zod
+- **SEO:** Next.js Metadata API, sitemap, robots, and JSON-LD support
+
+## Local Setup
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Create a `.env.local` file in the project root:
 
 ```bash
 MONGODB_URI=your_mongodb_connection_string
+MONGODB_DB_NAME=hnx-solutions
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+NEXT_PUBLIC_ENHANCED_DEMO=true
 ```
 
-First, run the development server:
+Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open the local site:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Run lint checks:
 
-## Learn More
+```bash
+npm run lint
+```
 
-To learn more about Next.js, take a look at the following resources:
+Create a production build:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm run build
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Start the production build:
 
-## Deploy on Vercel
+```bash
+npm run start
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Environment Variables
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Variable | Example Value | Description |
+| --- | --- | --- |
+| `MONGODB_URI` | `your_mongodb_connection_string` | MongoDB connection string for server-side features. |
+| `MONGODB_DB_NAME` | `hnx-solutions` | Database name used by the application. |
+| `NEXT_PUBLIC_SITE_URL` | `http://localhost:3000` | Base site URL used for public metadata and SEO. |
+| `NEXT_PUBLIC_ENHANCED_DEMO` | `true` | Enables the enhanced demo experience when supported. |
+
+For production, set `NEXT_PUBLIC_SITE_URL` to the live website domain.
+
+## Available Scripts
+
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Starts the local development server. |
+| `npm run build` | Builds the production application. |
+| `npm run start` | Starts the production build. |
+| `npm run lint` | Runs ESLint checks. |
+
+## Deployment Checklist
+
+Before deploying:
+
+- Configure all required environment variables in the hosting provider.
+- Set `NEXT_PUBLIC_SITE_URL` to the production domain.
+- Confirm the MongoDB connection string points to the correct production database.
+- Run `npm run lint`.
+- Run `npm run build`.
+- Verify key pages, contact flows, demo pages, images, and SEO metadata after deployment.
+- Confirm `/sitemap.xml` and `/robots.txt` are accessible on the production domain.
+
+## Security Note
+
+- Never commit `.env`, `.env.local`, API keys, database URLs, bot credentials, passwords, or production secrets.
+- Production secrets should be stored only in hosting provider environment variables.
+- Keep `.env.local` in `.gitignore`.
+- Review public documentation before publishing to avoid exposing internal implementation details.

@@ -77,7 +77,9 @@ export default function MobileAppJourneySection({
   data: IndustryMobileAppPageData;
 }) {
   const sectionRef = useRef<HTMLElement | null>(null);
+  const scrollRef = useRef<HTMLDivElement | null>(null);
   const [animateJourney, setAnimateJourney] = useState(false);
+  const [activeJourneyIndex, setActiveJourneyIndex] = useState(0);
   const steps = data.flowSteps.slice(0, 5);
 
   useEffect(() => {
@@ -103,6 +105,62 @@ export default function MobileAppJourneySection({
 
     return () => observer.disconnect();
   }, [animateJourney]);
+
+  useEffect(() => {
+    const scroller = scrollRef.current;
+
+    if (!scroller) return;
+
+    const updateActiveJourneyIndex = () => {
+      const cards = Array.from(
+        scroller.querySelectorAll<HTMLElement>("[data-journey-card]"),
+      );
+
+      if (!cards.length) return;
+
+      const viewportCenter = scroller.scrollLeft + scroller.clientWidth / 2;
+      let closestIndex = 0;
+      let closestDistance = Number.POSITIVE_INFINITY;
+
+      cards.forEach((card, index) => {
+        const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+        const distance = Math.abs(cardCenter - viewportCenter);
+
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestIndex = index;
+        }
+      });
+
+      setActiveJourneyIndex(closestIndex);
+    };
+
+    updateActiveJourneyIndex();
+
+    scroller.addEventListener("scroll", updateActiveJourneyIndex, {
+      passive: true,
+    });
+    window.addEventListener("resize", updateActiveJourneyIndex);
+
+    return () => {
+      scroller.removeEventListener("scroll", updateActiveJourneyIndex);
+      window.removeEventListener("resize", updateActiveJourneyIndex);
+    };
+  }, [steps.length]);
+
+  const scrollToJourneyStep = (index: number) => {
+    const scroller = scrollRef.current;
+    const card = scroller?.querySelector<HTMLElement>(
+      `[data-journey-card="${index}"]`,
+    );
+
+    if (!scroller || !card) return;
+
+    scroller.scrollTo({
+      left: card.offsetLeft - 12,
+      behavior: "smooth",
+    });
+  };
 
   return (
     <MobileAppSectionShell className="border-0 py-6 sm:py-8 lg:py-8 xl:py-8">
@@ -131,15 +189,19 @@ export default function MobileAppJourneySection({
           </p>
         </div>
 
-        <div className="mt-9 overflow-x-auto pb-3 [scrollbar-width:none] xl:overflow-visible [&::-webkit-scrollbar]:hidden">
-          <div className="flex min-w-max snap-x snap-mandatory gap-8 px-1 xl:grid xl:min-w-0 xl:grid-cols-5 xl:gap-0 xl:px-0">
+        <div
+          ref={scrollRef}
+          className="mt-9 overflow-x-auto pb-3 [scrollbar-width:none] xl:overflow-visible [&::-webkit-scrollbar]:hidden"
+        >
+          <div className="flex min-w-max snap-x snap-mandatory gap-5 px-1 pr-10 xl:grid xl:min-w-0 xl:grid-cols-5 xl:gap-0 xl:px-0 xl:pr-0">
             {steps.map((step, index) => {
               const tone = journeyTones[index % journeyTones.length];
 
               return (
                 <article
                   key={`${step.title}-${index}`}
-                  className="relative w-[230px] shrink-0 snap-center overflow-visible text-center xl:w-auto"
+                  data-journey-card={index}
+                  className="relative w-[78vw] max-w-[250px] shrink-0 snap-center overflow-visible text-center xl:w-auto xl:max-w-none"
                   style={
                     {
                       opacity: animateJourney ? 1 : 0,
@@ -232,6 +294,31 @@ export default function MobileAppJourneySection({
                 </article>
               );
             })}
+          </div>
+        </div>
+
+        <div className="mt-4 flex flex-col items-center justify-center gap-3 xl:hidden">
+          <p className="text-[0.68rem] font-black uppercase tracking-[0.22em] text-blue-600 dark:text-blue-300">
+            Step {String(activeJourneyIndex + 1).padStart(2, "0")} of{" "}
+            {String(steps.length).padStart(2, "0")}
+          </p>
+
+          <div className="flex items-center justify-center gap-2">
+            {steps.map((step, index) => (
+              <button
+                key={`${step.title}-journey-dot`}
+                type="button"
+                aria-label={`Show journey step ${index + 1}`}
+                aria-current={activeJourneyIndex === index ? "step" : undefined}
+                onClick={() => scrollToJourneyStep(index)}
+                className={[
+                  "h-2.5 rounded-full transition-all duration-300",
+                  activeJourneyIndex === index
+                    ? "w-8 bg-blue-600 shadow-[0_6px_16px_rgba(37,99,235,0.3)]"
+                    : "w-2.5 bg-slate-300 hover:bg-slate-400 dark:bg-white/20 dark:hover:bg-white/35",
+                ].join(" ")}
+              />
+            ))}
           </div>
         </div>
       </section>
