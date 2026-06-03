@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Roboto_Slab } from "next/font/google";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, ShieldCheck, Star } from "lucide-react";
 import IndustryMobileAppDemoModal from "./IndustryMobileAppDemoModal";
@@ -22,12 +21,6 @@ import {
   type IndustryMobileAppTrustItem,
 } from "./industryMobileAppData";
 
-const mobileAppRobotoSlab = Roboto_Slab({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
-  variable: "--font-mobile-app-roboto-slab",
-});
-
 export default function IndustryMobileAppPage({
   industrySlug,
   solutionSlug,
@@ -43,7 +36,16 @@ export default function IndustryMobileAppPage({
   }
 
   return (
-    <main className={`${mobileAppRobotoSlab.className} relative overflow-hidden bg-[#f8fbff] text-slate-950 dark:bg-[#050814] dark:text-white`}>
+    <main className="industry-mobile-app-roboto-slab relative overflow-hidden bg-[#f8fbff] text-slate-950 dark:bg-[#050814] dark:text-white">
+      <style jsx global>{`
+        @import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;600;700;800;900&display=swap");
+
+        .industry-mobile-app-roboto-slab,
+        .industry-mobile-app-roboto-slab * {
+          font-family: "Roboto Slab", Georgia, serif;
+        }
+      `}</style>
+
       <div className="pointer-events-none absolute left-0 top-0 h-[34rem] w-[34rem] rounded-full bg-blue-200/35 blur-3xl dark:bg-blue-500/10" />
       <div className="pointer-events-none absolute right-0 top-20 h-[30rem] w-[30rem] rounded-full bg-violet-200/35 blur-3xl dark:bg-violet-500/10" />
 
@@ -343,14 +345,6 @@ function FinalCTASection({ data }: { data: IndustryMobileAppPageData }) {
 }
 
 function TrustSection({ data }: { data: IndustryMobileAppPageData }) {
-  const orbitPositions = [
-    "left-1/2 top-0 -translate-x-1/2",
-    "right-0 top-[72px]",
-    "bottom-[42px] right-[16px]",
-    "bottom-0 left-1/2 -translate-x-1/2",
-    "left-0 top-[72px]",
-  ];
-
   return (
     <section className="border-t border-slate-200 px-7 pb-16 pt-14 dark:border-white/10 sm:px-10 sm:pb-[4.5rem] sm:pt-16 lg:px-12 lg:pb-20 lg:pt-[4.5rem]">
       <SectionTitle
@@ -360,47 +354,43 @@ function TrustSection({ data }: { data: IndustryMobileAppPageData }) {
       />
 
       <div className="mt-14 sm:hidden">
-        <div className="relative mx-auto h-[320px] w-[320px] max-w-full">
-          <div className="absolute inset-3 rounded-full bg-gradient-to-br from-blue-50 via-white to-violet-50 shadow-[0_24px_70px_rgba(37,99,235,0.10)] dark:from-white/[0.04] dark:via-white/[0.03] dark:to-violet-400/10" />
-          <div className="absolute inset-8 rounded-full border border-dashed border-blue-200 dark:border-blue-400/20" />
-          <div className="absolute inset-16 rounded-full border border-slate-200 bg-white/80 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.05]" />
+        <div className="relative mx-auto h-[345px] max-w-[340px]">
+          <div className="absolute inset-x-8 top-6 h-64 rounded-[2rem] bg-gradient-to-br from-blue-200/40 to-violet-200/35 blur-2xl dark:from-blue-500/10 dark:to-violet-500/10" />
 
-          <div className="absolute left-1/2 top-1/2 z-20 grid h-[104px] w-[104px] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-gradient-to-br from-blue-600 to-violet-600 text-center text-white shadow-[0_22px_55px_rgba(37,99,235,0.28)]">
-            <div>
-              <ShieldCheck className="mx-auto h-7 w-7" />
-              <p className="mt-2 text-[11px] font-black leading-4">
-                Secure
-                <br />
-                Mobile App
-              </p>
-            </div>
-          </div>
-
-          <div className="industry-mobile-trust-orbit absolute inset-0 z-10">
-            {data.trustItems.map((item, index) => {
+          <div className="relative mx-auto pt-2">
+            {data.trustItems.slice(0, 5).map((item, index) => {
               const Icon = item.icon;
 
               return (
                 <div
-                  key={`${item.title}-mobile-orbit`}
-                  className={[
-                    "absolute",
-                    orbitPositions[index % orbitPositions.length],
-                  ].join(" ")}
+                  key={`${item.title}-mobile-stack`}
+                  className="industry-mobile-protection-layer absolute left-0 right-0 mx-auto flex w-full items-center gap-3 rounded-[1.4rem] border border-slate-200 bg-white/95 px-4 py-3 shadow-[0_18px_45px_rgba(15,23,42,0.08)] backdrop-blur dark:border-white/10 dark:bg-[#111111]/95"
+                  style={{
+                    top: `${index * 50}px`,
+                    zIndex: 20 - index,
+                    transform: `scale(${1 - index * 0.035})`,
+                    animationDelay: `${index * 0.18}s`,
+                  }}
                 >
-                  <div className="industry-mobile-trust-counter">
-                    <div className="w-[92px] rounded-2xl border border-slate-200 bg-white/95 p-2.5 text-center shadow-[0_16px_40px_rgba(15,23,42,0.09)] backdrop-blur dark:border-white/10 dark:bg-[#111111]/95">
-                      <span className="mx-auto grid h-10 w-10 place-items-center rounded-2xl bg-blue-50 text-blue-600 dark:bg-blue-400/10 dark:text-blue-300">
-                        <Icon className="h-4 w-4" />
-                      </span>
-                      <p className="mt-2 text-[10px] font-black leading-4 text-slate-700 dark:text-slate-300">
-                        {item.title}
-                      </p>
-                    </div>
+                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-blue-50 text-blue-600 dark:bg-blue-400/10 dark:text-blue-300">
+                    <Icon className="h-5 w-5" />
+                  </span>
+                  <div>
+                    <p className="text-[10px] font-black uppercase tracking-[0.16em] text-slate-400">
+                      Layer 0{index + 1}
+                    </p>
+                    <p className="mt-1 text-[12px] font-black text-slate-800 dark:text-slate-100">
+                      {item.title}
+                    </p>
                   </div>
+                  <CheckCircle2 className="ml-auto h-5 w-5 text-emerald-500" />
                 </div>
               );
             })}
+
+            <div className="absolute left-1/2 top-[272px] grid h-16 w-16 -translate-x-1/2 place-items-center rounded-3xl bg-gradient-to-br from-blue-600 to-violet-600 text-white shadow-[0_18px_50px_rgba(37,99,235,0.28)]">
+              <ShieldCheck className="h-7 w-7" />
+            </div>
           </div>
         </div>
       </div>
@@ -412,49 +402,23 @@ function TrustSection({ data }: { data: IndustryMobileAppPageData }) {
       </div>
 
       <style jsx>{`
-        @keyframes industryMobileTrustOrbit {
-          0% {
-            transform: rotate(0deg);
-          }
-
+        @keyframes industryMobileProtectionLayer {
+          0%,
           100% {
-            transform: rotate(360deg);
+            transform: translateY(0) scale(var(--layer-scale, 1));
+          }
+
+          50% {
+            transform: translateY(-5px) scale(var(--layer-scale, 1));
           }
         }
 
-        @keyframes industryMobileTrustCounterOrbit {
-          0% {
-            transform: rotate(0deg);
-          }
-
-          100% {
-            transform: rotate(-360deg);
-          }
-        }
-
-        .industry-mobile-trust-orbit {
-          animation: industryMobileTrustOrbit 20s linear infinite;
-          transform-origin: center;
-        }
-
-        .industry-mobile-trust-counter {
-          animation: industryMobileTrustCounterOrbit 20s linear infinite;
-          transform-origin: center;
-        }
-
-        .industry-mobile-trust-orbit:hover,
-        .industry-mobile-trust-orbit:focus-within {
-          animation-play-state: paused;
-        }
-
-        .industry-mobile-trust-orbit:hover .industry-mobile-trust-counter,
-        .industry-mobile-trust-orbit:focus-within .industry-mobile-trust-counter {
-          animation-play-state: paused;
+        .industry-mobile-protection-layer {
+          animation: industryMobileProtectionLayer 3.8s ease-in-out infinite;
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .industry-mobile-trust-orbit,
-          .industry-mobile-trust-counter {
+          .industry-mobile-protection-layer {
             animation: none;
           }
         }
