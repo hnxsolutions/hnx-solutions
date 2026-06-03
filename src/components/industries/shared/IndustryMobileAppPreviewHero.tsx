@@ -4,11 +4,7 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import type { LucideIcon } from "lucide-react";
 import {
-  ArrowRight,
-  BarChart3,
   Bell,
-  CalendarCheck,
-  CheckCircle2,
   ChevronRight,
   Cloud,
   LockKeyhole,
@@ -17,7 +13,6 @@ import {
   Smartphone,
   Sparkles,
   Star,
-  Zap,
 } from "lucide-react";
 import type { IndustryMobileAppPageData } from "./industryMobileAppData";
 
@@ -90,17 +85,17 @@ const industryHeroPreviewConfig: Record<string, IndustryHeroPreviewConfig> = {
     accent: "cyan",
   },
   education: {
-    badgeLabel: "Education Industry Solution",
-    floatingTitle: "Live Admissions",
-    floatingText: "12 new inquiries this week",
-    notificationTitle: "Parent Notification Sent",
-    notificationText: "Fee reminder sent successfully",
-    resultTitle: "Attendance Overview",
-    resultText: "92% average attendance this month.",
+    badgeLabel: "Education Industry",
+    floatingTitle: "New Assignment",
+    floatingText: "History Essay - The Renaissance",
+    notificationTitle: "Quiz Scored",
+    notificationText: "You achieved 92% in Biology Quiz",
+    resultTitle: "Parent Communication",
+    resultText: "Message from Principal: School Update.",
     phoneGreeting: "Good morning,",
-    phoneTitle: "Ananya",
+    phoneTitle: "Alex Carter",
     phoneSubtitle: "Greenwood International School",
-    phoneAction: "Today’s Classes",
+    phoneAction: "Advanced Mathematics",
     phoneMetricOne: "Classes",
     phoneMetricTwo: "Updates",
     accent: "violet",
@@ -116,7 +111,7 @@ const industryHeroPreviewConfig: Record<string, IndustryHeroPreviewConfig> = {
     phoneGreeting: "Hello,",
     phoneTitle: "Arjun",
     phoneSubtitle: "ABC Industries Operations",
-    phoneAction: "Today’s Overview",
+    phoneAction: "Today's Overview",
     phoneMetricOne: "Orders",
     phoneMetricTwo: "Dispatch",
     accent: "orange",
@@ -244,18 +239,17 @@ export default function IndustryMobileAppPreviewHero({
   const accent = getAccentClasses(config.accent);
   const [titleStart, titleEnd] = splitHighlightedText(data.title, data.highlight);
   const heroChips = getDisplayHeroChips(data);
+  const BadgeIcon = data.heroChips[0]?.icon ?? Smartphone;
 
   return (
-    <section className="relative isolate overflow-hidden px-5 py-0 sm:px-10 lg:px-12 xl:px-14">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_28%_24%,rgba(59,130,246,0.11),transparent_34%),radial-gradient(ellipse_at_78%_20%,rgba(124,58,237,0.12),transparent_34%),linear-gradient(115deg,rgba(255,255,255,0.99),rgba(248,250,252,0.96)_48%,rgba(239,246,255,0.9))] dark:bg-[radial-gradient(ellipse_at_28%_24%,rgba(59,130,246,0.16),transparent_34%),radial-gradient(ellipse_at_78%_20%,rgba(124,58,237,0.15),transparent_34%),linear-gradient(115deg,rgba(15,23,42,0.98),rgba(2,6,23,0.95)_48%,rgba(15,23,42,0.97))]" />
-      <div className="pointer-events-none absolute -left-24 bottom-16 hidden h-40 w-40 bg-[radial-gradient(circle,rgba(59,130,246,0.18)_1.5px,transparent_1.5px)] bg-[length:18px_18px] opacity-60 lg:block" />
-      <div className="pointer-events-none absolute right-[12%] top-[24%] hidden h-32 w-32 bg-[radial-gradient(circle,rgba(99,102,241,0.18)_1.5px,transparent_1.5px)] bg-[length:18px_18px] opacity-50 xl:block" />
+    <section className="relative isolate overflow-visible bg-transparent px-5 py-0 text-slate-950 sm:px-10 lg:px-12 xl:px-10 dark:text-white">
+      <div className="pointer-events-none absolute left-1/2 top-0 h-full w-screen -translate-x-1/2 bg-[radial-gradient(ellipse_at_74%_42%,rgba(34,211,238,0.14),transparent_34%),radial-gradient(ellipse_at_96%_92%,rgba(168,85,247,0.12),transparent_28%),linear-gradient(180deg,#ffffff,rgba(248,250,252,0.92))] dark:bg-[radial-gradient(ellipse_at_74%_42%,rgba(34,211,238,0.10),transparent_34%),radial-gradient(ellipse_at_96%_92%,rgba(168,85,247,0.10),transparent_28%),linear-gradient(180deg,#020617,rgba(15,23,42,0.95))]" />
 
-      <div className="relative grid min-h-[calc(100svh-5.2rem)] gap-8 pb-7 pt-5 xl:grid-cols-[minmax(0,0.52fr)_minmax(0,0.48fr)] xl:items-center xl:gap-0">
-        <div className="relative z-30 min-w-0 max-w-[820px] xl:pr-6">
+      <div className="relative mx-auto grid min-h-[calc(100svh-5.2rem)] max-w-[1640px] gap-8 pb-9 pt-8 lg:grid-cols-[minmax(0,0.46fr)_minmax(0,0.54fr)] lg:items-start lg:gap-6">
+        <div className="relative z-30 min-w-0 max-w-[800px] xl:-mt-2">
           <nav
             aria-label="Breadcrumb"
-            className="mb-6 flex flex-wrap items-center gap-3 text-sm font-semibold text-slate-500 dark:text-slate-400"
+            className="mb-6 flex flex-wrap items-center gap-2.5 text-sm font-medium text-slate-500 dark:text-slate-400"
           >
             <Link href="/industries" className="transition hover:text-blue-700 dark:hover:text-blue-300">
               Industries
@@ -272,11 +266,11 @@ export default function IndustryMobileAppPreviewHero({
           </nav>
 
           <Badge accent={accent.badge}>
-            <Smartphone className="h-4 w-4" aria-hidden="true" />
+            <BadgeIcon className="h-3.5 w-3.5" aria-hidden="true" />
             {config.badgeLabel}
           </Badge>
 
-          <h1 className="mt-7 max-w-[860px] text-[clamp(2.75rem,4.95vw,5.35rem)] font-black leading-[1.05] tracking-[-0.055em] text-slate-950 dark:text-white xl:max-w-[820px] 2xl:max-w-[900px]">
+          <h1 className="mt-5 max-w-[20rem] break-words text-[2rem] font-extrabold leading-[1.08] tracking-[-0.025em] text-slate-950 sm:max-w-[760px] sm:text-[clamp(2.2rem,3vw,3.5rem)] sm:leading-[1.06] lg:text-[clamp(1.95rem,2.8vw,2.55rem)] xl:max-w-[800px] xl:text-[clamp(2.55rem,3.1vw,3.9rem)] dark:text-white">
             {titleStart}
             <span className="bg-gradient-to-r from-blue-600 via-indigo-500 to-violet-600 bg-clip-text text-transparent">
               {data.highlight}
@@ -284,52 +278,54 @@ export default function IndustryMobileAppPreviewHero({
             {titleEnd}
           </h1>
 
-          <span className={`mt-5 block h-1.5 w-28 rounded-full ${accent.line}`} />
+          <span className={`mt-4 block h-1.5 w-24 rounded-full ${accent.line}`} />
 
-          <p className="mt-6 max-w-[700px] text-base leading-8 text-slate-600 dark:text-slate-300 sm:text-lg">
+          <p className="mt-5 max-w-[20rem] text-base leading-7 text-slate-600 sm:max-w-[650px] xl:text-lg xl:leading-8 dark:text-slate-300">
             {data.description}
           </p>
 
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <div className="mt-7 flex max-w-[20rem] flex-col gap-3 sm:max-w-none sm:flex-row">
             <Link
               href="/contact"
-              className={`inline-flex min-h-14 w-full items-center justify-center gap-3 rounded-2xl px-8 py-4 text-sm font-black text-white shadow-[0_22px_50px_rgba(37,99,235,0.28)] transition hover:-translate-y-0.5 sm:w-auto ${accent.cta}`}
+              className="inline-flex min-h-12 w-full items-center justify-center gap-3 whitespace-nowrap rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-500 to-violet-600 px-6 py-3 text-sm font-extrabold text-white shadow-[0_22px_44px_rgba(37,99,235,0.24)] transition hover:-translate-y-0.5 hover:shadow-[0_26px_52px_rgba(37,99,235,0.3)] sm:w-auto lg:px-4 lg:text-xs xl:min-h-14 xl:px-7 xl:py-4 xl:text-sm dark:shadow-[0_22px_44px_rgba(59,130,246,0.18)]"
             >
               Book a Consultation
-              <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
 
             <Link
               href="#mobile-app-demos"
-              className="inline-flex min-h-14 w-full items-center justify-center gap-3 rounded-2xl border border-slate-200 bg-white/92 px-8 py-4 text-sm font-black text-slate-950 shadow-[0_16px_36px_rgba(15,23,42,0.08)] transition hover:-translate-y-0.5 hover:border-blue-200 dark:border-white/10 dark:bg-white/[0.06] dark:text-white sm:w-auto"
+              className="inline-flex min-h-12 w-full items-center justify-center gap-3 whitespace-nowrap rounded-2xl border border-slate-200 bg-white px-6 py-3 text-sm font-extrabold text-slate-950 shadow-[0_16px_34px_rgba(15,23,42,0.08)] transition hover:-translate-y-0.5 hover:border-blue-200 hover:bg-blue-50/40 sm:w-auto lg:gap-2 lg:px-4 lg:text-xs xl:min-h-14 xl:gap-3 xl:px-7 xl:py-4 xl:text-sm dark:border-white/15 dark:bg-white/[0.06] dark:text-white dark:hover:bg-white/10"
             >
-              <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-blue-200 bg-white text-blue-600 dark:border-blue-300/20 dark:bg-white/10 dark:text-blue-300">
+              <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full border border-blue-100 bg-blue-50 text-blue-600 lg:h-6 lg:w-6 xl:h-8 xl:w-8 dark:border-blue-300/20 dark:bg-blue-400/10 dark:text-blue-300">
                 <Play className="h-3.5 w-3.5 fill-current" aria-hidden="true" />
               </span>
               View App Preview
             </Link>
           </div>
 
-          <div className="mt-8 grid max-w-[790px] grid-cols-2 gap-3 sm:grid-cols-4">
+          <div className="mt-6 flex max-w-[20rem] flex-wrap gap-2 sm:max-w-[720px] lg:gap-1.5 xl:grid xl:grid-cols-4 xl:gap-3">
             {heroChips.map((chip, index) => {
               const Icon = chip.icon;
 
               return (
                 <div
                   key={`${chip.label}-${index}`}
-                  className="flex min-h-[72px] min-w-0 items-center gap-3 overflow-hidden rounded-2xl border border-slate-200 bg-white/88 px-4 py-3 text-slate-800 shadow-[0_14px_36px_rgba(15,23,42,0.07)] backdrop-blur-xl transition hover:-translate-y-1 hover:border-blue-200 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-100"
+                  className="inline-flex min-h-9 min-w-0 items-center gap-2 rounded-xl border border-slate-200/80 bg-white/88 px-2.5 py-1.5 text-slate-800 shadow-[0_12px_26px_rgba(15,23,42,0.06)] backdrop-blur transition hover:-translate-y-0.5 hover:border-blue-200 lg:gap-1.5 lg:px-2 xl:min-h-14 xl:w-full xl:gap-2.5 xl:rounded-2xl xl:px-3 xl:py-2.5 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-100"
                 >
-                  <span className={`grid h-10 w-10 shrink-0 place-items-center rounded-2xl ${chip.tone ?? accent.chipIcon}`}>
-                    <Icon className="h-4 w-4" aria-hidden="true" />
+                  <span className={`grid h-7 w-7 shrink-0 place-items-center rounded-xl lg:h-6 lg:w-6 xl:h-8 xl:w-8 ${chip.tone ?? accent.chipIcon}`}>
+                    <Icon className="h-3.5 w-3.5" aria-hidden="true" />
                   </span>
-                  <div className="min-w-0">
-                    <p className="truncate text-sm font-black leading-4 text-slate-800 dark:text-slate-200">
+                  <span className="min-w-0 leading-tight">
+                    <span className="block whitespace-nowrap text-[11px] font-extrabold text-slate-800 lg:hidden xl:block dark:text-slate-100">
                       {chip.label}
-                    </p>
-                    <p className="mt-1 truncate text-[10px] font-bold text-slate-500 dark:text-slate-400">
+                    </span>
+                    <span className="hidden whitespace-nowrap text-[10px] font-extrabold text-slate-800 lg:block xl:hidden dark:text-slate-100">
+                      {getCompactChipLabel(chip.label)}
+                    </span>
+                    <span className="mt-0.5 hidden text-[10px] font-semibold text-slate-500 xl:block dark:text-slate-400">
                       {chip.caption}
-                    </p>
-                  </div>
+                    </span>
+                  </span>
                 </div>
               );
             })}
@@ -352,62 +348,50 @@ function HeroVisualStage({
   accent: AccentClasses;
 }) {
   const phoneRows = getPhoneRows(data);
-  const PrimaryIcon = phoneRows[0]?.icon ?? BarChart3;
-  const SecondaryIcon = phoneRows[1]?.icon ?? CalendarCheck;
 
   return (
-    <div className="relative z-10 mx-auto h-[500px] w-full max-w-[760px] min-w-0 overflow-visible sm:h-[560px] xl:h-[620px] xl:max-w-none">
-      <div className={`pointer-events-none absolute inset-y-10 left-[12%] right-[2%] rounded-[3rem] ${accent.ring}`} />
-      <div
-        className="pointer-events-none absolute inset-y-14 right-0 w-[62%] rounded-[2.6rem] bg-cover bg-center opacity-[0.13] saturate-75 [mask-image:linear-gradient(to_left,black_6%,rgba(0,0,0,0.42)_60%,transparent_96%)] dark:opacity-[0.08]"
-        style={{ backgroundImage: `url(${data.heroImage})` }}
-      />
-      <div className="pointer-events-none absolute left-[50%] top-[50%] h-[28rem] w-[28rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-blue-200/60 dark:border-blue-300/10" />
-      <div className="pointer-events-none absolute left-[50%] top-[50%] h-[20rem] w-[20rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-violet-200/60 dark:border-violet-300/10" />
-      <div className="pointer-events-none absolute left-[49%] top-[52%] h-[24rem] w-[24rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-500/10 blur-3xl dark:bg-blue-400/10" />
+    <div className="relative z-10 mx-auto h-[560px] w-full max-w-[760px] min-w-0 overflow-visible sm:h-[590px] lg:h-[430px] lg:max-w-none xl:h-[600px]">
+      <div className={`pointer-events-none absolute left-[52%] top-[54%] h-[31rem] w-[31rem] -translate-x-1/2 -translate-y-1/2 rounded-full ${accent.ring}`} />
+      <div className="pointer-events-none absolute left-[52%] top-[54%] h-[32rem] w-[32rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-200/70 dark:border-cyan-300/10" />
+      <div className="pointer-events-none absolute left-[52%] top-[54%] h-[24rem] w-[24rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-violet-200/55 dark:border-violet-300/10" />
+      <div className="pointer-events-none absolute left-[52%] top-[55%] h-[22rem] w-[22rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-300/12 blur-3xl dark:bg-cyan-300/10" />
 
-      <div className="absolute left-[50%] top-[51%] z-30 w-[245px] -translate-x-1/2 -translate-y-1/2 sm:w-[282px] xl:w-[322px] 2xl:w-[338px]">
+      <div className="absolute left-1/2 top-[53%] z-30 w-[235px] -translate-x-1/2 -translate-y-1/2 sm:w-[260px] lg:left-[52%] lg:top-[53%] lg:w-[190px] xl:top-[54%] xl:w-[272px] 2xl:w-[282px]">
         <HeroPhoneFrame data={data} config={config} phoneRows={phoneRows} accent={accent} />
       </div>
 
       <HeroFloatCard
-        className="left-[0%] top-[27%] hidden w-[230px] xl:block 2xl:left-[2%] 2xl:w-[245px]"
-        icon={PrimaryIcon}
-        tone={config.accent === "orange" ? "orange" : config.accent === "cyan" ? "cyan" : "blue"}
+        className="-left-[4%] top-[41%] hidden w-[150px] lg:block xl:left-[4%] xl:w-[190px] 2xl:left-[7%]"
       >
-        <p className="text-sm font-black leading-5 text-slate-950 dark:text-white">
+        <p className="text-sm font-extrabold leading-5 text-slate-950 dark:text-white">
           {config.floatingTitle}
         </p>
-        <p className="mt-2 text-xs leading-5 text-slate-500 dark:text-slate-400">
+        <p className="mt-1.5 text-xs leading-5 text-slate-600 dark:text-slate-300">
           {config.floatingText}
         </p>
-        <div className="mt-4 h-10 overflow-hidden rounded-xl bg-gradient-to-r from-blue-50 via-violet-50 to-white dark:from-white/10 dark:via-white/5 dark:to-transparent">
-          <div className="h-full w-full bg-[linear-gradient(120deg,transparent_0%,transparent_28%,rgba(124,58,237,0.18)_28%,rgba(124,58,237,0.18)_42%,transparent_42%,transparent_56%,rgba(59,130,246,0.16)_56%,rgba(59,130,246,0.16)_70%,transparent_70%)]" />
-        </div>
+        <span className="mt-3 inline-flex rounded-lg bg-slate-100 px-3 py-2 text-[11px] font-bold text-slate-800 dark:bg-white/10 dark:text-slate-100">
+          {config.phoneAction}
+        </span>
       </HeroFloatCard>
 
       <HeroFloatCard
-        className="right-[2%] top-[29%] hidden w-[230px] xl:block 2xl:right-[5%] 2xl:w-[245px]"
-        icon={Bell}
-        tone="violet"
+        className="-right-[2%] top-[21%] hidden w-[150px] lg:block xl:right-[4%] xl:top-[23%] xl:w-[190px] 2xl:right-[8%]"
       >
-        <p className="text-base font-black leading-5 text-slate-950 dark:text-white">
+        <p className="text-sm font-extrabold leading-5 text-slate-950 dark:text-white">
           {config.notificationTitle}
         </p>
-        <p className="mt-2 text-sm leading-6 text-slate-500 dark:text-slate-400">
-          {data.heroVisual.notification || config.notificationText}
+        <p className="mt-1.5 text-xs leading-5 text-slate-600 dark:text-slate-300">
+          {config.notificationText}
         </p>
       </HeroFloatCard>
 
       <HeroFloatCard
-        className="right-[4%] bottom-[11%] hidden w-[245px] xl:block 2xl:right-[4%] 2xl:w-[255px]"
-        icon={SecondaryIcon}
-        tone={config.accent === "emerald" ? "emerald" : "blue"}
+        className="-right-[8%] bottom-[18%] hidden w-[165px] lg:block xl:right-[5%] xl:bottom-[23%] xl:w-[205px] 2xl:right-[7%]"
       >
-        <p className="text-base font-black leading-5 text-slate-950 dark:text-white">
+        <p className="text-sm font-extrabold leading-5 text-slate-950 dark:text-white">
           {config.resultTitle}
         </p>
-        <p className="mt-2 text-sm leading-6 text-slate-500 dark:text-slate-400">
+        <p className="mt-1.5 text-xs leading-5 text-slate-600 dark:text-slate-300">
           {config.resultText}
         </p>
       </HeroFloatCard>
@@ -431,81 +415,83 @@ function HeroPhoneFrame({
     : ["Home", "Tasks", "Updates", "Profile"];
 
   return (
-    <div className="rounded-[2.75rem] border-[9px] border-slate-950 bg-slate-950 p-2 shadow-[0_34px_95px_rgba(15,23,42,0.36)] dark:border-slate-800 sm:border-[10px]">
-      <div className="relative h-[430px] overflow-hidden rounded-[2rem] bg-white dark:bg-slate-950 sm:h-[500px] xl:h-[560px]">
-        <div className="flex items-start justify-between px-4 pb-3 pt-4">
+    <div className="rounded-[2.55rem] border-[7px] border-slate-950 bg-slate-950 p-1.5 shadow-[0_28px_70px_rgba(15,23,42,0.28)] dark:border-slate-800">
+      <div className="relative h-[430px] overflow-hidden rounded-[2rem] bg-white dark:bg-slate-950 sm:h-[480px] lg:h-[340px] xl:h-[505px] 2xl:h-[520px]">
+        <div className="relative flex h-8 items-center justify-between px-4 pt-2 text-[10px] font-black text-slate-950 dark:text-white">
+          <span>9:41</span>
+          <span className="absolute left-1/2 top-2 h-5 w-16 -translate-x-1/2 rounded-full bg-slate-950 dark:bg-slate-800" />
+          <span className="flex items-center gap-1">
+            <span className="h-2 w-3 rounded-[2px] border border-slate-950 dark:border-white" />
+            <span className="h-2 w-3 rounded-[2px] bg-slate-950 dark:bg-white" />
+          </span>
+        </div>
+
+        <div className="flex items-start justify-between px-4 pb-3 pt-2">
           <div className="min-w-0">
             <p className="text-xs font-bold text-slate-500 dark:text-slate-400">
               {config.phoneGreeting}
             </p>
-            <p className="truncate text-lg font-black text-slate-950 dark:text-white">
+            <p className="truncate text-base font-black text-slate-950 xl:text-lg dark:text-white">
               {config.phoneTitle}
             </p>
             <p className="mt-0.5 truncate text-[10px] font-bold text-slate-500 dark:text-slate-400">
               {config.phoneSubtitle}
             </p>
           </div>
-          <span className="relative grid h-10 w-10 shrink-0 place-items-center rounded-full bg-blue-50 text-blue-600 dark:bg-blue-400/10 dark:text-blue-300">
-            <Bell className="h-4 w-4" aria-hidden="true" />
+          <span className="relative grid h-8 w-8 shrink-0 place-items-center rounded-full bg-slate-50 text-slate-700 dark:bg-white/10 dark:text-slate-200">
+            <Bell className="h-3.5 w-3.5" aria-hidden="true" />
             <span className="absolute right-1 top-1 h-2.5 w-2.5 rounded-full bg-red-500 ring-2 ring-white dark:ring-slate-950" />
           </span>
         </div>
 
         <div className="px-4">
           <div
-            className={`relative overflow-hidden rounded-[1.45rem] p-4 text-white shadow-[0_16px_38px_rgba(15,23,42,0.24)] ${accent.phonePanel}`}
+            className={`relative overflow-hidden rounded-2xl border p-3.5 shadow-[0_12px_28px_rgba(15,23,42,0.08)] ${accent.phonePanel}`}
           >
-            <div
-              className="pointer-events-none absolute inset-0 bg-cover bg-center opacity-20 mix-blend-screen"
-              style={{ backgroundImage: `url(${data.heroImage})` }}
-            />
-            <div className="relative">
-              <p className="line-clamp-2 text-[10px] font-black uppercase tracking-[0.12em] text-blue-100">
-                {data.heroVisual.screenSubtitle}
-              </p>
-              <p className="mt-3 line-clamp-2 text-2xl font-black leading-tight">
-                {config.phoneAction || data.heroVisual.actionLabel}
-              </p>
-              <div className="mt-4 grid grid-cols-3 gap-2">
-                {phoneRows.slice(0, 3).map((row) => (
-                  <div key={row.label} className="rounded-xl bg-white/12 p-2.5">
-                    <p className="truncate text-[10px] font-black text-white">{row.label}</p>
-                    <p className="mt-1 truncate text-[9px] font-bold text-blue-100">{row.value}</p>
-                  </div>
-                ))}
+            <div className="relative flex items-start justify-between gap-3">
+              <div className="min-w-0">
+                <p className="text-[11px] font-extrabold text-slate-700 dark:text-slate-200">
+                  {data.heroVisual.screenTitle}
+                </p>
+                <p className="mt-1 line-clamp-2 text-sm font-black leading-snug text-slate-950 dark:text-white">
+                  {config.phoneAction || data.heroVisual.actionLabel}
+                </p>
+                <p className="mt-1 line-clamp-2 text-[10px] font-semibold leading-4 text-slate-600 dark:text-slate-300">
+                  {data.heroVisual.screenSubtitle}
+                </p>
               </div>
+              <ChevronRight className="mt-1 h-4 w-4 shrink-0 text-slate-400" aria-hidden="true" />
+            </div>
+            <div className="mt-3 flex flex-wrap gap-2 text-[10px] font-bold text-slate-600 dark:text-slate-300">
+              <span>{phoneRows[0]?.label ?? config.phoneMetricOne}</span>
+              <span>/</span>
+              <span>{phoneRows[1]?.value ?? config.phoneMetricTwo}</span>
             </div>
           </div>
         </div>
 
         <div className="px-4 pt-4">
           <div className="mb-3 flex items-center justify-between">
-            <p className="text-sm font-black text-slate-950 dark:text-white">Quick Actions</p>
+            <p className="text-xs font-black text-slate-950 dark:text-white">Quick Actions</p>
             <span className="text-[10px] font-black text-blue-600 dark:text-blue-300">View all</span>
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-4 gap-2">
             {phoneRows.slice(0, 4).map((row, index) => {
               const Icon = row.icon;
 
               return (
-                <div
-                  key={`${row.label}-${index}`}
-                  className="rounded-2xl border border-slate-200 bg-white p-3 shadow-sm dark:border-white/10 dark:bg-white/[0.06]"
-                >
+                <div key={`${row.label}-${index}`} className="min-w-0 text-center">
                   <span
-                    className={`mb-3 grid h-9 w-9 place-items-center rounded-2xl ${
+                    className={`mx-auto grid h-10 w-10 place-items-center rounded-xl ${
                       index === 0
                         ? accent.chipIcon
-                        : "bg-slate-100 text-slate-600 dark:bg-white/10 dark:text-slate-300"
+                        : "bg-slate-50 text-slate-500 ring-1 ring-slate-200 dark:bg-white/10 dark:text-slate-300 dark:ring-white/10"
                     }`}
                   >
                     <Icon className="h-4 w-4" aria-hidden="true" />
                   </span>
-                  <p className="truncate text-xs font-black text-slate-950 dark:text-white">
+                  <p className="mt-1.5 truncate text-[9px] font-extrabold text-slate-700 dark:text-slate-200">
                     {row.label}
-                  </p>
-                  <p className="mt-0.5 truncate text-[10px] font-bold text-slate-500 dark:text-slate-400">
-                    {row.value}
                   </p>
                 </div>
               );
@@ -514,39 +500,44 @@ function HeroPhoneFrame({
         </div>
 
         <div className="px-4 pt-4">
-          <div className="mb-2 flex items-center justify-between">
-            <p className="text-sm font-black text-slate-950 dark:text-white">Recent Updates</p>
-            <span className="text-[10px] font-black text-blue-600 dark:text-blue-300">View all</span>
-          </div>
-          <div className="space-y-2">
-            {phoneRows.slice(0, 3).map((row, index) => (
-              <div
-                key={`update-${row.label}`}
-                className="flex items-center gap-3 rounded-2xl bg-slate-50 px-3 py-2.5 dark:bg-white/[0.06]"
-              >
-                <span
-                  className={`h-2.5 w-2.5 shrink-0 rounded-full ${
-                    index === 0 ? "bg-blue-500" : index === 1 ? "bg-emerald-500" : "bg-violet-500"
-                  }`}
-                />
-                <div className="min-w-0 flex-1">
-                  <p className="truncate text-xs font-black text-slate-700 dark:text-slate-200">
-                    {row.label}
-                  </p>
-                  <p className="truncate text-[9px] font-bold text-slate-500 dark:text-slate-400">
-                    {row.value}
-                  </p>
+          <p className="mb-2 text-xs font-black text-slate-950 dark:text-white">Learning Overview</p>
+          <div className="grid grid-cols-2 gap-2.5">
+            {phoneRows.slice(0, 2).map((row, index) => {
+              const Icon = row.icon;
+
+              return (
+                <div
+                  key={`metric-${row.label}`}
+                  className="min-w-0 rounded-2xl border border-slate-100 bg-slate-50 px-3 py-3 dark:border-white/10 dark:bg-white/[0.06]"
+                >
+                  <div className="flex items-center gap-2">
+                    <span
+                      className={`grid h-7 w-7 shrink-0 place-items-center rounded-lg ${
+                        index === 0 ? accent.chipIcon : "bg-violet-50 text-violet-600 dark:bg-violet-400/10 dark:text-violet-300"
+                      }`}
+                    >
+                      <Icon className="h-3.5 w-3.5" aria-hidden="true" />
+                    </span>
+                    <div className="min-w-0">
+                      <p className="truncate text-[9px] font-bold text-slate-500 dark:text-slate-400">
+                        {row.label}
+                      </p>
+                      <p className="truncate text-sm font-black text-slate-950 dark:text-white">
+                        {row.value}
+                      </p>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
-        <div className="absolute inset-x-4 bottom-3 grid grid-cols-4 gap-2 border-t border-slate-100 bg-white/95 pt-3 dark:border-white/10 dark:bg-slate-950/95">
+        <div className="absolute inset-x-4 bottom-3 grid grid-cols-4 gap-1 border-t border-slate-100 bg-white/95 pt-2.5 dark:border-white/10 dark:bg-slate-950/95">
           {navItems.map((item, index) => (
             <div
               key={item}
-              className={`rounded-xl px-1.5 py-2 text-center text-[8px] font-black ${
+              className={`rounded-lg px-1 py-1.5 text-center text-[8px] font-black ${
                 index === 0
                   ? "bg-blue-600 text-white"
                   : "bg-slate-100 text-slate-500 dark:bg-white/10 dark:text-slate-300"
@@ -564,26 +555,15 @@ function HeroPhoneFrame({
 function HeroFloatCard({
   children,
   className,
-  icon: Icon,
-  tone,
 }: {
   children: ReactNode;
   className: string;
-  icon: LucideIcon;
-  tone: "blue" | "violet" | "emerald" | "cyan" | "orange";
 }) {
-  const toneClass = getFloatingToneClass(tone);
-
   return (
     <div
-      className={`absolute z-40 rounded-[1.55rem] border border-white/85 bg-white/90 p-4 shadow-[0_22px_55px_rgba(15,23,42,0.13)] backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/78 ${className}`}
+      className={`absolute z-40 rounded-2xl border border-slate-200/80 bg-white p-4 shadow-[0_18px_42px_rgba(15,23,42,0.14)] dark:border-white/10 dark:bg-slate-900/95 ${className}`}
     >
-      <div className="flex items-start gap-3">
-        <span className={`grid h-11 w-11 shrink-0 place-items-center rounded-2xl ${toneClass}`}>
-          <Icon className="h-5 w-5" aria-hidden="true" />
-        </span>
-        <div className="min-w-0 flex-1">{children}</div>
-      </div>
+      {children}
     </div>
   );
 }
@@ -596,7 +576,7 @@ function Badge({
   accent: string;
 }) {
   return (
-    <div className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-black shadow-sm ${accent}`}>
+    <div className={`inline-flex items-center gap-2 rounded-full px-3 py-2 text-xs font-semibold ${accent}`}>
       {children}
     </div>
   );
@@ -673,6 +653,16 @@ function splitHighlightedText(title: string, highlight: string) {
   ];
 }
 
+function getCompactChipLabel(label: string) {
+  const firstWord = label.split(" ")[0] ?? label;
+
+  if (firstWord.toLowerCase().startsWith("admission")) {
+    return "Adm.";
+  }
+
+  return firstWord;
+}
+
 function getAccentClasses(accent: HeroAccent): AccentClasses {
   if (accent === "violet") {
     return {
@@ -680,8 +670,8 @@ function getAccentClasses(accent: HeroAccent): AccentClasses {
       chipIcon: "bg-violet-50 text-violet-600 dark:bg-violet-400/10 dark:text-violet-300",
       cta: "bg-gradient-to-r from-blue-600 to-violet-600",
       line: "bg-gradient-to-r from-blue-600 to-violet-600",
-      phonePanel: "bg-gradient-to-br from-indigo-600 via-violet-600 to-blue-700",
-      ring: "bg-[radial-gradient(ellipse_at_center,rgba(124,58,237,0.22),rgba(59,130,246,0.12)_48%,transparent_76%)] dark:bg-[radial-gradient(ellipse_at_center,rgba(124,58,237,0.16),rgba(59,130,246,0.10)_48%,transparent_76%)]",
+      phonePanel: "border-violet-100 bg-gradient-to-br from-violet-50 via-white to-cyan-50 dark:border-violet-300/10 dark:bg-gradient-to-br dark:from-violet-400/10 dark:via-white/[0.04] dark:to-cyan-400/10",
+      ring: "bg-[radial-gradient(ellipse_at_center,rgba(45,212,191,0.20),rgba(124,58,237,0.08)_46%,transparent_70%)] dark:bg-[radial-gradient(ellipse_at_center,rgba(45,212,191,0.12),rgba(124,58,237,0.08)_46%,transparent_70%)]",
     };
   }
 
@@ -691,8 +681,8 @@ function getAccentClasses(accent: HeroAccent): AccentClasses {
       chipIcon: "bg-emerald-50 text-emerald-600 dark:bg-emerald-400/10 dark:text-emerald-300",
       cta: "bg-gradient-to-r from-blue-600 to-emerald-600",
       line: "bg-gradient-to-r from-blue-600 to-emerald-500",
-      phonePanel: "bg-gradient-to-br from-teal-600 via-blue-700 to-emerald-700",
-      ring: "bg-[radial-gradient(ellipse_at_center,rgba(16,185,129,0.18),rgba(59,130,246,0.14)_48%,transparent_76%)] dark:bg-[radial-gradient(ellipse_at_center,rgba(16,185,129,0.12),rgba(59,130,246,0.10)_48%,transparent_76%)]",
+      phonePanel: "border-emerald-100 bg-gradient-to-br from-emerald-50 via-white to-cyan-50 dark:border-emerald-300/10 dark:bg-gradient-to-br dark:from-emerald-400/10 dark:via-white/[0.04] dark:to-cyan-400/10",
+      ring: "bg-[radial-gradient(ellipse_at_center,rgba(45,212,191,0.20),rgba(16,185,129,0.08)_46%,transparent_70%)] dark:bg-[radial-gradient(ellipse_at_center,rgba(45,212,191,0.12),rgba(16,185,129,0.08)_46%,transparent_70%)]",
     };
   }
 
@@ -702,8 +692,8 @@ function getAccentClasses(accent: HeroAccent): AccentClasses {
       chipIcon: "bg-cyan-50 text-cyan-600 dark:bg-cyan-400/10 dark:text-cyan-300",
       cta: "bg-gradient-to-r from-blue-600 to-cyan-600",
       line: "bg-gradient-to-r from-blue-600 to-cyan-500",
-      phonePanel: "bg-gradient-to-br from-cyan-600 via-teal-600 to-blue-700",
-      ring: "bg-[radial-gradient(ellipse_at_center,rgba(6,182,212,0.18),rgba(59,130,246,0.14)_48%,transparent_76%)] dark:bg-[radial-gradient(ellipse_at_center,rgba(6,182,212,0.12),rgba(59,130,246,0.10)_48%,transparent_76%)]",
+      phonePanel: "border-cyan-100 bg-gradient-to-br from-cyan-50 via-white to-blue-50 dark:border-cyan-300/10 dark:bg-gradient-to-br dark:from-cyan-400/10 dark:via-white/[0.04] dark:to-blue-400/10",
+      ring: "bg-[radial-gradient(ellipse_at_center,rgba(34,211,238,0.20),rgba(59,130,246,0.08)_46%,transparent_70%)] dark:bg-[radial-gradient(ellipse_at_center,rgba(34,211,238,0.12),rgba(59,130,246,0.08)_46%,transparent_70%)]",
     };
   }
 
@@ -713,8 +703,8 @@ function getAccentClasses(accent: HeroAccent): AccentClasses {
       chipIcon: "bg-orange-50 text-orange-600 dark:bg-orange-400/10 dark:text-orange-300",
       cta: "bg-gradient-to-r from-blue-600 to-orange-500",
       line: "bg-gradient-to-r from-blue-600 to-orange-500",
-      phonePanel: "bg-gradient-to-br from-slate-900 via-blue-900 to-orange-800",
-      ring: "bg-[radial-gradient(ellipse_at_center,rgba(249,115,22,0.16),rgba(59,130,246,0.14)_48%,transparent_76%)] dark:bg-[radial-gradient(ellipse_at_center,rgba(249,115,22,0.10),rgba(59,130,246,0.10)_48%,transparent_76%)]",
+      phonePanel: "border-orange-100 bg-gradient-to-br from-orange-50 via-white to-cyan-50 dark:border-orange-300/10 dark:bg-gradient-to-br dark:from-orange-400/10 dark:via-white/[0.04] dark:to-cyan-400/10",
+      ring: "bg-[radial-gradient(ellipse_at_center,rgba(45,212,191,0.18),rgba(249,115,22,0.08)_46%,transparent_70%)] dark:bg-[radial-gradient(ellipse_at_center,rgba(45,212,191,0.11),rgba(249,115,22,0.08)_46%,transparent_70%)]",
     };
   }
 
@@ -723,27 +713,7 @@ function getAccentClasses(accent: HeroAccent): AccentClasses {
     chipIcon: "bg-blue-50 text-blue-600 dark:bg-blue-400/10 dark:text-blue-300",
     cta: "bg-gradient-to-r from-blue-600 to-violet-600",
     line: "bg-gradient-to-r from-blue-600 to-violet-600",
-    phonePanel: "bg-gradient-to-br from-blue-600 via-indigo-600 to-violet-700",
-    ring: "bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.18),rgba(124,58,237,0.12)_48%,transparent_76%)] dark:bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.14),rgba(124,58,237,0.10)_48%,transparent_76%)]",
+    phonePanel: "border-blue-100 bg-gradient-to-br from-blue-50 via-white to-cyan-50 dark:border-blue-300/10 dark:bg-gradient-to-br dark:from-blue-400/10 dark:via-white/[0.04] dark:to-cyan-400/10",
+    ring: "bg-[radial-gradient(ellipse_at_center,rgba(34,211,238,0.18),rgba(59,130,246,0.08)_46%,transparent_70%)] dark:bg-[radial-gradient(ellipse_at_center,rgba(34,211,238,0.11),rgba(59,130,246,0.08)_46%,transparent_70%)]",
   };
-}
-
-function getFloatingToneClass(tone: "blue" | "violet" | "emerald" | "cyan" | "orange") {
-  if (tone === "emerald") {
-    return "bg-emerald-50 text-emerald-600 dark:bg-emerald-400/10 dark:text-emerald-300";
-  }
-
-  if (tone === "violet") {
-    return "bg-violet-50 text-violet-600 dark:bg-violet-400/10 dark:text-violet-300";
-  }
-
-  if (tone === "cyan") {
-    return "bg-cyan-50 text-cyan-600 dark:bg-cyan-400/10 dark:text-cyan-300";
-  }
-
-  if (tone === "orange") {
-    return "bg-orange-50 text-orange-600 dark:bg-orange-400/10 dark:text-orange-300";
-  }
-
-  return "bg-blue-50 text-blue-600 dark:bg-blue-400/10 dark:text-blue-300";
 }
