@@ -23,7 +23,7 @@ export default function MobileAppAdvantageSection({
   const advantages = getAdvantages(data).slice(0, 6);
 
   return (
-    <MobileAppSectionShell>
+    <MobileAppSectionShell className="border-0 py-6 sm:py-8 lg:py-8 xl:py-8">
       <MobileAppSectionHeader
         // number="7"
         // eyebrow="Why Businesses Choose HNX for Mobile Apps"
@@ -32,7 +32,7 @@ export default function MobileAppAdvantageSection({
         description={`A practical product team for ${data.industryName.toLowerCase()} apps: strategy, UI, development, integrations, launch support, and long-term growth.`}
       />
 
-      <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+      <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
         {advantages.map((item, index) => (
           <MobileAppFeatureCard
             key={item.title}
@@ -66,3 +66,4 @@ function getAdvantages(data: IndustryMobileAppPageData): AdvantageItem[] {
 
   return [...benefitItems, ...trustItems];
 }
+  

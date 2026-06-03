@@ -78,8 +78,8 @@ export default function MobileAppJourneySection({
   const steps = data.flowSteps.slice(0, 5);
 
   return (
-    <MobileAppSectionShell>
-      <section className="relative overflow-hidden bg-white py-12 dark:bg-slate-950 lg:py-14">
+    <MobileAppSectionShell className="border-0 py-6 sm:py-8 lg:py-8 xl:py-8">
+      <section className="relative overflow-hidden bg-white py-6 dark:bg-slate-950 lg:py-8">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="text-[2rem] font-black leading-tight tracking-[-0.025em] text-slate-950 dark:text-white sm:text-[2.35rem]">
             App Journey / How It Works
@@ -90,7 +90,7 @@ export default function MobileAppJourneySection({
           </p>
         </div>
 
-        <div className="mt-12 overflow-x-auto pb-4 [scrollbar-width:none] xl:overflow-visible [&::-webkit-scrollbar]:hidden">
+        <div className="mt-9 overflow-x-auto pb-3 [scrollbar-width:none] xl:overflow-visible [&::-webkit-scrollbar]:hidden">
           <div className="flex min-w-max snap-x snap-mandatory gap-8 px-1 xl:grid xl:min-w-0 xl:grid-cols-5 xl:gap-0 xl:px-0">
             {steps.map((step, index) => {
               const tone = journeyTones[index % journeyTones.length];

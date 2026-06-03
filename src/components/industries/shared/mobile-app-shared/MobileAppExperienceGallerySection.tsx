@@ -697,7 +697,7 @@ export default function MobileAppExperienceGallerySection({
 
   return (
     <div id="mobile-app-experience-gallery" className="scroll-mt-28">
-      <MobileAppSectionShell className="overflow-hidden bg-white dark:bg-slate-950">
+      <MobileAppSectionShell className="border-0 overflow-hidden bg-white py-6 dark:bg-slate-950 sm:py-8 lg:py-8 xl:py-8">
       <div className="mx-auto max-w-5xl text-center">
         <h2 className="text-3xl font-semibold tracking-tight text-slate-950 dark:text-white sm:text-4xl lg:text-5xl">
           Mobile App Experience Gallery
@@ -707,11 +707,11 @@ export default function MobileAppExperienceGallerySection({
         </p>
       </div>
 
-      <div className="relative mt-10 overflow-hidden">
+      <div className="relative mt-8 overflow-hidden">
         <div className="pointer-events-none absolute bottom-0 left-0 top-0 z-20 w-8 bg-gradient-to-r from-white to-transparent dark:from-slate-950 sm:w-14 lg:w-20" />
         <div className="pointer-events-none absolute bottom-0 right-0 top-0 z-20 w-8 bg-gradient-to-l from-white to-transparent dark:from-slate-950 sm:w-14 lg:w-20" />
 
-        <div className="mobile-app-gallery-slider overflow-x-auto pb-5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="mobile-app-gallery-slider overflow-x-auto pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <div className="mobile-app-gallery-track flex w-max items-center gap-5 px-1">
             {sliderScreens.map((screen, index) => (
               <GalleryPhoneCard
@@ -819,11 +819,11 @@ function GalleryPhoneCard({
               <div className="pointer-events-none absolute inset-x-5 top-0 h-px bg-gradient-to-r from-transparent via-white/80 to-transparent dark:via-white/15" />
               <div className="relative h-full">
                 <PhoneScreenContent
-                screen={screen}
-                Icon={Icon}
-                tone={tone}
-                accentTheme={accentTheme}
-              />
+                  screen={screen}
+                  Icon={Icon}
+                  tone={tone}
+                  accentTheme={accentTheme}
+                />
               </div>
             </div>
           </div>
@@ -1753,6 +1753,8 @@ function RealWorldHero({
   tone: DemoTone;
   accentTheme: AccentTheme;
 }) {
+  void accentTheme;
+
   return (
     <div className="relative h-[172px] overflow-hidden rounded-[1.6rem] bg-slate-950 shadow-[0_18px_40px_rgba(15,23,42,0.18)]">
       <div
@@ -1966,6 +1968,8 @@ function AppStoreStyleCard({
   profile: IndustryProfile;
   accentTheme: AccentTheme;
 }) {
+  void accentTheme;
+
   return (
     <div className="relative h-[150px] overflow-hidden rounded-[1.6rem] bg-slate-950 shadow-[0_18px_42px_rgba(15,23,42,0.18)]">
       <div
@@ -2118,7 +2122,7 @@ function ImageHero({
   );
 }
 
-function ImageTile({
+export function ImageTile({
   demo,
   label,
   active,
@@ -2235,7 +2239,7 @@ function FieldRow({ icon: Icon, label }: { icon: LucideIcon; label: string }) {
   );
 }
 
-function SearchBar({ label }: { label: string }) {
+export function SearchBar({ label }: { label: string }) {
   return (
     <div className="flex items-center gap-2 rounded-xl border border-slate-100 bg-slate-50 px-3 py-2.5 text-[9px] font-semibold text-slate-400 dark:border-white/10 dark:bg-white/5">
       <Search className="h-3.5 w-3.5 shrink-0" />
@@ -2244,7 +2248,7 @@ function SearchBar({ label }: { label: string }) {
   );
 }
 
-function MiniGridCard({
+export function MiniGridCard({
   icon: Icon,
   label,
   active = false,
@@ -2362,7 +2366,7 @@ function ListRow({
   );
 }
 
-function FeatureRow({
+export function FeatureRow({
   label,
   active,
   accentTheme,
@@ -2393,7 +2397,7 @@ function FeatureRow({
   );
 }
 
-function TimelineRow({
+export function TimelineRow({
   title,
   subtitle,
   done,
@@ -2426,7 +2430,7 @@ function TimelineRow({
   );
 }
 
-function SearchResultRow({
+export function SearchResultRow({
   title,
   subtitle,
   active,
@@ -2469,7 +2473,7 @@ function SearchResultRow({
   );
 }
 
-function FormField({
+export function FormField({
   label,
   value,
   accentTheme,
@@ -2495,7 +2499,7 @@ function FormField({
   );
 }
 
-function NotificationRow({
+export function NotificationRow({
   index,
   label,
   accentTheme,
@@ -2925,7 +2929,7 @@ function FileIcon({ accentTheme }: { accentTheme: AccentTheme }) {
   );
 }
 
-function DevicePreviewCard({
+export function DevicePreviewCard({
   demo,
   accentTheme,
 }: {
@@ -3030,7 +3034,7 @@ function SparkMini({ accentTheme }: { accentTheme: AccentTheme }) {
   );
 }
 
-function PremiumNotificationStack({
+export function PremiumNotificationStack({
   accentTheme,
 }: {
   accentTheme: AccentTheme;
@@ -3111,7 +3115,7 @@ function MiniCalendarCard({
   );
 }
 
-function RouteTimelineCard({
+export function RouteTimelineCard({
   accentTheme,
 }: {
   accentTheme: AccentTheme;
@@ -3149,7 +3153,7 @@ function RouteTimelineCard({
   );
 }
 
-function PremiumReceiptCard({
+export function PremiumReceiptCard({
   demo,
   accentTheme,
 }: {
@@ -3195,7 +3199,7 @@ function PremiumReceiptCard({
 }
 
 
-function IndustryDashboardVisual({
+export function IndustryDashboardVisual({
   profile,
   accentTheme,
 }: {
@@ -3272,7 +3276,7 @@ function IndustryDashboardVisual({
   );
 }
 
-function IndustryDiscoverHero({
+export function IndustryDiscoverHero({
   demo,
   profile,
   accentTheme,
@@ -3574,7 +3578,7 @@ function IndustryControlPanel({
 }) {
   const items = [
     [profile.screenTheme.mode, profile.screenTheme.status],
-    [profile.progressLabel, profile.primaryMetric],
+    [profile.screenTheme.progressLabel, profile.primaryMetric],
     [profile.secondaryMetricLabel, profile.secondaryMetric],
   ];
 
@@ -4131,7 +4135,7 @@ function getAccentTheme(tone: DemoTone): AccentTheme {
         ring: "ring-emerald-200 dark:ring-emerald-500/20",
       };
 
-    case "amber":
+    case "orange":
       return {
         softBg:
           "bg-gradient-to-br from-amber-50 via-orange-50 to-white dark:from-amber-500/15 dark:via-orange-500/10 dark:to-white/[0.03]",

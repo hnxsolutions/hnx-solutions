@@ -24,15 +24,15 @@ export default function MobileAppIncludesSection({
   return (
     <section
       aria-label={`${data.industryName} mobile app includes`}
-      className="relative overflow-hidden bg-white px-5 py-8 dark:bg-slate-950 sm:px-8 lg:px-10 xl:px-12"
+      className="relative overflow-hidden bg-white px-5 py-6 dark:bg-slate-950 sm:px-8 lg:px-10 xl:px-12"
     >
       <div className="mx-auto w-full max-w-[min(92vw,1440px)]">
-        <div className="relative overflow-hidden rounded-xl border border-slate-200 bg-white px-4 py-7 shadow-[0_14px_40px_rgba(15,23,42,0.045)] dark:border-white/10 dark:bg-white/[0.035] sm:px-6 lg:px-8 xl:px-10">
+        <div className="relative overflow-hidden rounded-xl bg-white px-4 py-5 shadow-[0_12px_34px_rgba(15,23,42,0.04)] dark:bg-white/[0.035] sm:px-6 lg:px-8 xl:px-10">
           <div className="pointer-events-none absolute right-0 top-0 hidden h-full w-[34%] bg-[radial-gradient(circle_at_58%_42%,rgba(59,130,246,0.12),transparent_36%),radial-gradient(circle_at_62%_55%,rgba(124,58,237,0.08),transparent_42%)] lg:block" />
           <div className="pointer-events-none absolute right-8 top-10 hidden h-[22rem] w-[22rem] rounded-full bg-cyan-100/40 blur-3xl dark:bg-cyan-400/10 lg:block" />
           <div className="pointer-events-none absolute right-4 top-10 hidden h-[24rem] w-[24rem] bg-[radial-gradient(circle,rgba(59,130,246,0.08)_1.5px,transparent_1.5px)] bg-[length:18px_18px] opacity-60 lg:block" />
 
-          <div className="relative z-10 grid gap-8 lg:grid-cols-12 lg:items-start lg:gap-8 xl:gap-10">
+          <div className="relative z-10 grid gap-6 lg:grid-cols-12 lg:items-start lg:gap-7 xl:gap-8">
             <div className="min-w-0 lg:col-span-8">
               <div className="max-w-[34rem]">
                 <h2 className="text-2xl font-black leading-tight tracking-[-0.025em] text-slate-950 dark:text-white sm:text-3xl lg:text-[2.25rem]">
@@ -49,14 +49,14 @@ export default function MobileAppIncludesSection({
                 </p>
               </div>
 
-              <div className="mt-7 grid gap-3 sm:grid-cols-2">
+              <div className="mt-6 grid gap-3 sm:grid-cols-2">
                 {includes.map((item, index) => {
                   const Icon = item.icon;
 
                   return (
                     <article
                       key={item.title}
-                      className="flex min-h-[84px] min-w-0 items-center gap-3 rounded-[1.05rem] border border-slate-200 bg-white px-4 py-4 shadow-[0_12px_28px_rgba(15,23,42,0.04)] transition hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-[0_18px_42px_rgba(37,99,235,0.08)] dark:border-white/10 dark:bg-white/[0.045]"
+                      className="flex min-h-[78px] min-w-0 items-center gap-3 rounded-[1.05rem] bg-white px-4 py-3.5 shadow-[0_10px_24px_rgba(15,23,42,0.035)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_36px_rgba(37,99,235,0.07)] dark:bg-white/[0.045]"
                     >
                       <MobileAppIconBadge
                         icon={Icon}
@@ -79,8 +79,8 @@ export default function MobileAppIncludesSection({
 
             <div className="relative z-20 mx-auto w-full max-w-[285px] self-start lg:col-span-4 lg:mx-0 lg:ml-auto lg:max-w-[300px] xl:max-w-[315px]">
               <div className="pointer-events-none absolute -inset-5 rounded-full bg-cyan-200/35 blur-3xl dark:bg-cyan-400/10" />
-              <div className="pointer-events-none absolute left-1/2 top-1/2 hidden h-[20rem] w-[20rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-blue-100 dark:border-blue-300/10 lg:block" />
-              <div className="pointer-events-none absolute left-1/2 top-1/2 hidden h-[14rem] w-[14rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-violet-100 dark:border-violet-300/10 lg:block" />
+              <div className="pointer-events-none absolute left-1/2 top-1/2 hidden h-[20rem] w-[20rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-100/20 blur-3xl dark:bg-blue-300/10 lg:block" />
+              <div className="pointer-events-none absolute left-1/2 top-1/2 hidden h-[14rem] w-[14rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-violet-100/20 blur-3xl dark:bg-violet-300/10 lg:block" />
 
               <MiniPhoneFrame
                 appName={data.heroVisual.appName}

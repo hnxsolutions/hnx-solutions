@@ -323,8 +323,8 @@ export default function MobileAppWorkflowSection({
   }));
 
   return (
-    <MobileAppSectionShell>
-      <section className="relative py-6 sm:py-8 lg:py-10">
+    <MobileAppSectionShell className="border-0 py-6 sm:py-8 lg:py-8 xl:py-8">
+      <section className="relative py-4 sm:py-5 lg:py-6">
         <div className="mx-auto flex max-w-fit items-center justify-center gap-3">
           <span className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-blue-600 via-indigo-500 to-violet-500 text-white shadow-[0_12px_30px_rgba(79,70,229,0.24)]">
             <GitBranch className="h-6 w-6" />
@@ -335,7 +335,7 @@ export default function MobileAppWorkflowSection({
           </p>
         </div>
 
-        <div className="mx-auto mt-7 max-w-6xl text-center">
+        <div className="mx-auto mt-5 max-w-6xl text-center">
           <h2 className="text-[clamp(2.6rem,5.8vw,5.4rem)] font-black leading-[0.96] tracking-[-0.045em] text-slate-950 dark:text-white">
             A Workflow That Works From
             <br />
@@ -344,13 +344,13 @@ export default function MobileAppWorkflowSection({
             </span>
           </h2>
 
-          <p className="mx-auto mt-6 max-w-3xl text-[1rem] leading-7 text-slate-600 dark:text-slate-300 sm:text-[1.08rem]">
+          <p className="mx-auto mt-4 max-w-3xl text-[1rem] leading-7 text-slate-600 dark:text-slate-300 sm:text-[1.08rem]">
             Designed to simplify every step of the user journey and your daily
             operations.
           </p>
         </div>
 
-        <div className="mt-14 overflow-x-auto pb-3 [scrollbar-width:none] xl:overflow-visible [&::-webkit-scrollbar]:hidden">
+        <div className="mt-10 overflow-x-auto pb-3 [scrollbar-width:none] xl:overflow-visible [&::-webkit-scrollbar]:hidden">
           <div className="flex min-w-max snap-x snap-mandatory gap-6 px-1 xl:grid xl:min-w-0 xl:grid-cols-6 xl:gap-6 xl:px-0">
             {workflowItems.map((item, index) => {
               const tone = workflowTones[index % workflowTones.length];

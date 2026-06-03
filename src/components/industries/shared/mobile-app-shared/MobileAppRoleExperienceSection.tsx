@@ -61,8 +61,8 @@ export default function MobileAppRoleExperienceSection({
   const roles = data.roleExperiences.slice(0, 4);
 
   return (
-    <MobileAppSectionShell className="bg-slate-50/70 dark:bg-slate-950">
-      <section className="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white px-6 py-10 shadow-[0_18px_48px_rgba(15,23,42,0.055)] dark:border-white/10 dark:bg-white/[0.035] sm:px-8 lg:px-10 lg:py-12">
+    <MobileAppSectionShell className="border-0 bg-slate-50/70 py-6 dark:bg-slate-950 sm:py-8 lg:py-8 xl:py-8">
+      <section className="relative overflow-hidden rounded-[2rem] bg-white px-6 py-8 shadow-[0_18px_48px_rgba(15,23,42,0.055)] dark:bg-white/[0.035] sm:px-8 lg:px-10 lg:py-9">
         <div className="mx-auto max-w-5xl text-center">
           <h2 className="text-3xl font-black leading-[1.05] tracking-[-0.035em] text-slate-950 dark:text-white sm:text-4xl lg:text-5xl xl:text-6xl">
             One App. Multiple
@@ -72,12 +72,12 @@ export default function MobileAppRoleExperienceSection({
             </span>
           </h2>
 
-          <p className="mx-auto mt-5 max-w-3xl text-base leading-7 text-slate-600 dark:text-slate-300 sm:text-lg">
+          <p className="mx-auto mt-4 max-w-3xl text-base leading-7 text-slate-600 dark:text-slate-300 sm:text-lg">
             {data.roleExperiencesDescription}
           </p>
         </div>
 
-        <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+        <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
           {roles.map((role, index) => {
             const tone = roleTones[index % roleTones.length];
 
