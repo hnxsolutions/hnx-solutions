@@ -1,4 +1,4 @@
-import HealthcareCRMPage from "@/components/industries/HealthcareCRMPage";
+import IndustryCrmPage from "@/components/industries/shared/crm-shared/IndustryCrmPage";
 import { createIndustryMetadata, IndustrySeoJsonLd } from "@/components/seo/IndustrySeo";
 
 const slug = "healthcare-crm";
@@ -9,7 +9,7 @@ export default function Page() {
   return (
     <>
       <IndustrySeoJsonLd slug={slug} />
-      <HealthcareCRMPage />
+      <IndustryCrmPage industrySlug="healthcare" />
     </>
   );
 }

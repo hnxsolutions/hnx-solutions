@@ -682,6 +682,8 @@ export default function MobileAppExperienceGallerySection({
   data: IndustryMobileAppPageData;
   onOpenDemo: (demo: IndustryMobileAppDemo) => void;
 }) {
+  void onOpenDemo;
+
   const gallery = data.demoGallery.slice(0, 5);
 
   if (!gallery.length) {
@@ -717,7 +719,6 @@ export default function MobileAppExperienceGallerySection({
               <GalleryPhoneCard
                 key={`${screen.type}-${screen.demo.title}-${index}`}
                 screen={screen}
-                onOpenDemo={onOpenDemo}
               />
             ))}
           </div>
@@ -755,24 +756,15 @@ export default function MobileAppExperienceGallerySection({
   );
 }
 
-function GalleryPhoneCard({
-  screen,
-  onOpenDemo,
-}: {
-  screen: AppScreen;
-  onOpenDemo: (demo: IndustryMobileAppDemo) => void;
-}) {
+function GalleryPhoneCard({ screen }: { screen: AppScreen }) {
   const demo = screen.demo;
   const Icon = demo.icon;
   const tone = getDemoTone(demo.accent);
   const accentTheme = getAccentTheme(tone);
 
   return (
-    <button
-      type="button"
-      onClick={() => onOpenDemo(demo)}
-      aria-label={`Open ${screen.label} preview`}
-      className="block shrink-0 text-left transition-[filter] duration-300 hover:brightness-[1.03]"
+    <div
+      className="block shrink-0 text-left"
       style={{
         width: PHONE_WIDTH,
         minWidth: PHONE_WIDTH,
@@ -829,7 +821,7 @@ function GalleryPhoneCard({
           </div>
         </div>
       </div>
-    </button>
+    </div>
   );
 }
 

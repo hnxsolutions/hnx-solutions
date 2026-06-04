@@ -1,7 +1,6 @@
 import type { ComponentType } from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import HealthcareCrmPreview from "@/components/industries/healthcare/crm";
 import HealthcareFullSuitePreview from "@/components/industries/healthcare/full-suite";
 import {
   getHealthcareSolution,
@@ -11,6 +10,7 @@ import {
 import HealthcareMobileAppPreview from "@/components/industries/healthcare/mobile-app";
 import HealthcarePatientPortalPreview from "@/components/industries/healthcare/patient-portal";
 import HealthcareWebsitePreview from "@/components/industries/healthcare/website";
+import IndustryCrmPage from "@/components/industries/shared/crm-shared/IndustryCrmPage";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { createBreadcrumbJsonLd, createMetadata, createServiceJsonLd } from "@/lib/seo";
 
@@ -19,6 +19,10 @@ type HealthcareSolutionPageProps = {
     solutionType: string;
   }>;
 };
+
+function HealthcareCrmPreview() {
+  return <IndustryCrmPage industrySlug="healthcare" solutionSlug="crm" />;
+}
 
 const previewComponents: Record<HealthcareSolutionSlug, ComponentType> = {
   website: HealthcareWebsitePreview,

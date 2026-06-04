@@ -1,4 +1,4 @@
-import EducationCRMPage from "@/components/industries/EducationCRMPage";
+import IndustryCrmPage from "@/components/industries/shared/crm-shared/IndustryCrmPage";
 import { createIndustryMetadata, IndustrySeoJsonLd } from "@/components/seo/IndustrySeo";
 
 const slug = "education-crm";
@@ -9,7 +9,7 @@ export default function Page() {
   return (
     <>
       <IndustrySeoJsonLd slug={slug} />
-      <EducationCRMPage />
+      <IndustryCrmPage industrySlug="education" />
     </>
   );
 }

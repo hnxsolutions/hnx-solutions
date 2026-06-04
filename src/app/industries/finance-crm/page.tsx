@@ -1,4 +1,4 @@
-import FinanceCRMPage from "@/components/industries/FinanceCRMPage";
+import IndustryCrmPage from "@/components/industries/shared/crm-shared/IndustryCrmPage";
 import { createIndustryMetadata, IndustrySeoJsonLd } from "@/components/seo/IndustrySeo";
 
 const slug = "finance-crm";
@@ -9,7 +9,7 @@ export default function Page() {
   return (
     <>
       <IndustrySeoJsonLd slug={slug} />
-      <FinanceCRMPage />
+      <IndustryCrmPage industrySlug="finance" />
     </>
   );
 }
