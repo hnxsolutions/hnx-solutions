@@ -1,30 +1,25 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import LegacyIndustryCrmPage from "@/components/industries/shared/IndustryCrmPage";
-import {
-  getIndustryCrmPage as getLegacyIndustryCrmPage,
-  industryCrmStaticParams as legacyIndustryCrmStaticParams,
-} from "@/components/industries/shared/industryCrmData";
 import IndustryCrmPage from "@/components/industries/shared/crm-shared/IndustryCrmPage";
 import {
   getIndustryCrmPage,
   industryCrmStaticParams,
 } from "@/components/industries/shared/crm-shared/industryCrmData";
-import IndustryMobileAppPage from "@/components/industries/shared/IndustryMobileAppPage";
+import IndustryMobileAppPage from "@/components/industries/shared/mobile-app-shared/IndustryMobileAppPage";
 import {
   getIndustryMobileAppPage,
   industryMobileAppStaticParams,
-} from "@/components/industries/shared/industryMobileAppData";
-import IndustryPortalPage from "@/components/industries/shared/IndustryPortalPage";
+} from "@/components/industries/shared/mobile-app-shared/industryMobileAppData";
+import IndustryPortalPage from "@/components/industries/shared/portal-shared/IndustryPortalPage";
 import {
   getIndustryPortalPage,
   industryPortalStaticParams,
-} from "@/components/industries/shared/industryPortalData";
-import IndustryWebsitePage from "@/components/industries/shared/IndustryWebsitePage";
+} from "@/components/industries/shared/portal-shared/industryPortalData";
+import IndustryWebsitePage from "@/components/industries/shared/website-shared/IndustryWebsitePage";
 import {
   getIndustryWebsitePage,
   industryWebsiteStaticParams,
-} from "@/components/industries/shared/industryWebsiteData";
+} from "@/components/industries/shared/website-shared/industryWebsiteData";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { createBreadcrumbJsonLd, createMetadata, createServiceJsonLd } from "@/lib/seo";
 
@@ -34,12 +29,6 @@ type IndustrySolutionRoutePageProps = {
     solutionSlug: string;
   }>;
 };
-
-const sharedCrmParamKeys = new Set(
-  industryCrmStaticParams.map(
-    ({ industrySlug, solutionSlug }) => `${industrySlug}/${solutionSlug}`,
-  ),
-);
 
 export function generateStaticParams() {
   return [
@@ -59,15 +48,6 @@ export function generateStaticParams() {
       slug: industrySlug,
       solutionSlug,
     })),
-    ...legacyIndustryCrmStaticParams
-      .filter(
-        ({ industrySlug, solutionSlug }) =>
-          !sharedCrmParamKeys.has(`${industrySlug}/${solutionSlug}`),
-      )
-      .map(({ industrySlug, solutionSlug }) => ({
-        slug: industrySlug,
-        solutionSlug,
-      })),
   ];
 }
 
@@ -113,21 +93,10 @@ export async function generateMetadata({
       });
     }
 
-    const legacyCrmPage = getLegacyIndustryCrmPage(slug, solutionSlug);
-
-    if (!legacyCrmPage) {
-      return createMetadata({
-        title: "Industry Solution Not Found | HNX Solutions",
-        description: "The requested industry solution page could not be found.",
-        path: `/industries/${slug}/${solutionSlug}`,
-      });
-    }
-
     return createMetadata({
-      title: `${legacyCrmPage.industryName} CRM Development Services | HNX Solutions`,
-      description: `Build a custom ${legacyCrmPage.industryName.toLowerCase()} CRM for lead management, customer timelines, pipeline tracking, follow-up automation, reporting and role-based dashboards.`,
-      path: legacyCrmPage.primaryRoute,
-      keywords: legacyCrmPage.keywords,
+      title: "Industry Solution Not Found | HNX Solutions",
+      description: "The requested industry solution page could not be found.",
+      path: `/industries/${slug}/${solutionSlug}`,
     });
   }
 
@@ -225,33 +194,7 @@ export default async function IndustrySolutionRoutePage({
       );
     }
 
-    const legacyCrmPage = getLegacyIndustryCrmPage(slug, solutionSlug);
-
-    if (!legacyCrmPage) {
-      notFound();
-    }
-
-    return (
-      <>
-        <JsonLd
-          data={[
-              createBreadcrumbJsonLd([
-                { name: "Home", path: "/" },
-                { name: "Industries", path: "/industries" },
-                { name: legacyCrmPage.industryName, path: `/industries/${legacyCrmPage.industrySlug}` },
-                { name: "CRM", path: legacyCrmPage.primaryRoute },
-              ]),
-              createServiceJsonLd({
-                name: `${legacyCrmPage.eyebrow} Development`,
-                description: legacyCrmPage.description,
-                path: legacyCrmPage.primaryRoute,
-                serviceType: legacyCrmPage.serviceType,
-              }),
-            ]}
-          />
-        <LegacyIndustryCrmPage industrySlug={slug} solutionSlug={solutionSlug} />
-      </>
-    );
+    notFound();
   }
 
   return (

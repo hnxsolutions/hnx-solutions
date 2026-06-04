@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
-import type { IndustryMobileAppPageData } from "../industryMobileAppData";
+import type { IndustryMobileAppPageData } from "./industryMobileAppData";
 import {
   MiniPhoneFrame,
   MobileAppIconBadge,

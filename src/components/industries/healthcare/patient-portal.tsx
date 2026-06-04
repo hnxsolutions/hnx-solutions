@@ -1,13 +1,13 @@
 "use client";
 
-import IndustryBenefitChips from "@/components/industries/shared/IndustryBenefitChips";
-import IndustryCTA from "@/components/industries/shared/IndustryCTA";
-import IndustryDashboardPreview from "@/components/industries/shared/IndustryDashboardPreview";
-import IndustryFeatureGrid from "@/components/industries/shared/IndustryFeatureGrid";
-import IndustryFlow from "@/components/industries/shared/IndustryFlow";
-import IndustryHeroPreview from "@/components/industries/shared/IndustryHeroPreview";
-import IndustryPreviewShell from "@/components/industries/shared/IndustryPreviewShell";
-import IndustryProblemCards from "@/components/industries/shared/IndustryProblemCards";
+import IndustryBenefitChips from "@/components/industries/shared/common/IndustryBenefitChips";
+import IndustryCTA from "@/components/industries/shared/common/IndustryCTA";
+import IndustryDashboardPreview from "@/components/industries/shared/common/IndustryDashboardPreview";
+import IndustryFeatureGrid from "@/components/industries/shared/common/IndustryFeatureGrid";
+import IndustryFlow from "@/components/industries/shared/common/IndustryFlow";
+import IndustryHeroPreview from "@/components/industries/shared/common/IndustryHeroPreview";
+import IndustryPreviewShell from "@/components/industries/shared/common/IndustryPreviewShell";
+import IndustryProblemCards from "@/components/industries/shared/common/IndustryProblemCards";
 import { healthcareSolutions } from "./healthcareData";
 
 const solution = healthcareSolutions["patient-portal"];

@@ -8,7 +8,7 @@ import { getHealthcareSolution } from "@/components/industries/healthcare/health
 import {
   industryWebsitePages,
   type IndustryWebsitePageData,
-} from "@/components/industries/shared/industryWebsiteData";
+} from "@/components/industries/shared/website-shared/industryWebsiteData";
 import {
   ArrowRight,
   BarChart3,

@@ -1,4 +1,4 @@
-import TravelCRMPage from "@/components/industries/TravelCRMPage";
+import IndustryCrmPage from "@/components/industries/shared/crm-shared/IndustryCrmPage";
 import { createIndustryMetadata, IndustrySeoJsonLd } from "@/components/seo/IndustrySeo";
 
 const slug = "travel-crm";
@@ -9,7 +9,7 @@ export default function Page() {
   return (
     <>
       <IndustrySeoJsonLd slug={slug} />
-      <TravelCRMPage />
+      <IndustryCrmPage industrySlug="travel" />
     </>
   );
 }

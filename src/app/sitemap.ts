@@ -6,8 +6,8 @@ import { mobileAppSolutions } from "@/data/solutions/mobileAppSolutions";
 import { aiAutomationSolutions } from "@/data/solutions/aiAutomationSolutions";
 import { cloudDevopsSolutions } from "@/data/solutions/cloudDevopsSolutions";
 import { designGrowthSolutions } from "@/data/solutions/designGrowthSolutions";
-import { industryCrmPages } from "@/components/industries/shared/industryCrmData";
-import { industryPortalPages } from "@/components/industries/shared/industryPortalData";
+import { industryCrmPages } from "@/components/industries/shared/crm-shared/industryCrmData";
+import { industryPortalPages } from "@/components/industries/shared/portal-shared/industryPortalData";
 
 type ChangeFrequency = NonNullable<MetadataRoute.Sitemap[number]["changeFrequency"]>;
 

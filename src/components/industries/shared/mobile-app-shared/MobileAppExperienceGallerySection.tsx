@@ -27,7 +27,7 @@ import {
 import type {
   IndustryMobileAppDemo,
   IndustryMobileAppPageData,
-} from "../industryMobileAppData";
+} from "./industryMobileAppData";
 import {
   MobileAppIconBadge,
   MobileAppSectionShell,

@@ -10,7 +10,7 @@ import {
   Puzzle,
   Users,
 } from "lucide-react";
-import type { IndustryMobileAppPageData } from "../industryMobileAppData";
+import type { IndustryMobileAppPageData } from "./industryMobileAppData";
 
 type ProblemItem = {
   title: string;

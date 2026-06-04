@@ -1,7 +1,7 @@
 "use client";
 
 import type { LucideIcon } from "lucide-react";
-import type { IndustryMobileAppPageData } from "../industryMobileAppData";
+import type { IndustryMobileAppPageData } from "./industryMobileAppData";
 import {
   MobileAppFeatureCard,
   MobileAppSectionHeader,

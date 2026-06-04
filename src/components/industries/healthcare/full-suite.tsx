@@ -1,9 +1,9 @@
 "use client";
 
-import FullSuitePreview from "@/components/industries/shared/FullSuitePreview";
-import IndustryCTA from "@/components/industries/shared/IndustryCTA";
-import IndustryHeroPreview from "@/components/industries/shared/IndustryHeroPreview";
-import IndustryPreviewShell from "@/components/industries/shared/IndustryPreviewShell";
+import FullSuitePreview from "@/components/industries/shared/common/FullSuitePreview";
+import IndustryCTA from "@/components/industries/shared/common/IndustryCTA";
+import IndustryHeroPreview from "@/components/industries/shared/common/IndustryHeroPreview";
+import IndustryPreviewShell from "@/components/industries/shared/common/IndustryPreviewShell";
 import { healthcareSolutions } from "./healthcareData";
 
 const solution = healthcareSolutions["full-suite"];

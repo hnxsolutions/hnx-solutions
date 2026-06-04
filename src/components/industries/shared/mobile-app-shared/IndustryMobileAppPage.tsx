@@ -4,14 +4,14 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, ShieldCheck, Star } from "lucide-react";
 import IndustryMobileAppDemoModal from "./IndustryMobileAppDemoModal";
-import IndustryMobileAppPreviewHero from "./mobile-app-shared/IndustryMobileAppPreviewHero";
-import MobileAppAdvantageSection from "./mobile-app-shared/MobileAppAdvantageSection";
-import MobileAppExperienceGallerySection from "./mobile-app-shared/MobileAppExperienceGallerySection";
-import MobileAppIncludesSection from "./mobile-app-shared/MobileAppIncludesSection";
-import MobileAppJourneySection from "./mobile-app-shared/MobileAppJourneySection";
-import MobileAppProblemsSection from "./mobile-app-shared/MobileAppProblemsSection";
-import MobileAppRoleExperienceSection from "./mobile-app-shared/MobileAppRoleExperienceSection";
-import MobileAppWorkflowSection from "./mobile-app-shared/MobileAppWorkflowSection";
+import IndustryMobileAppPreviewHero from "./IndustryMobileAppPreviewHero";
+import MobileAppAdvantageSection from "./MobileAppAdvantageSection";
+import MobileAppExperienceGallerySection from "./MobileAppExperienceGallerySection";
+import MobileAppIncludesSection from "./MobileAppIncludesSection";
+import MobileAppJourneySection from "./MobileAppJourneySection";
+import MobileAppProblemsSection from "./MobileAppProblemsSection";
+import MobileAppRoleExperienceSection from "./MobileAppRoleExperienceSection";
+import MobileAppWorkflowSection from "./MobileAppWorkflowSection";
 import {
   getIndustryMobileAppPage,
   type IndustryMobileAppDemo,

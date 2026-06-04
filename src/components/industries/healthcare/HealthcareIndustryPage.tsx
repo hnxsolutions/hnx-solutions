@@ -3,9 +3,9 @@
 import Link from "next/link";
 import { ArrowRight, Headphones, Layers3, ShieldCheck, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
-import IndustryBenefitChips from "@/components/industries/shared/IndustryBenefitChips";
-import IndustryPreviewShell from "@/components/industries/shared/IndustryPreviewShell";
-import IndustrySolutionSelector from "@/components/industries/shared/IndustrySolutionSelector";
+import IndustryBenefitChips from "@/components/industries/shared/common/IndustryBenefitChips";
+import IndustryPreviewShell from "@/components/industries/shared/common/IndustryPreviewShell";
+import IndustrySolutionSelector from "@/components/industries/shared/common/IndustrySolutionSelector";
 import { healthcareSolutionList } from "./healthcareData";
 
 const platformBenefits = [

@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import CrmAutomationSection from "./CrmAutomationSection";
 import CrmDemoRedirectSection from "./CrmDemoRedirectSection";
 import CrmFinalCTASection from "./CrmFinalCTASection";
@@ -22,7 +23,7 @@ export default function IndustryCrmPage({
   const data = getIndustryCrmPage(industrySlug, solutionSlug);
 
   if (!data) {
-    return null;
+    notFound();
   }
 
   return (
@@ -51,4 +52,3 @@ export default function IndustryCrmPage({
     </main>
   );
 }
-

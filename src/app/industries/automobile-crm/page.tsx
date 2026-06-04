@@ -1,4 +1,4 @@
-import AutomobileCRMPage from "@/components/industries/AutomobileCRMPage";
+import IndustryCrmPage from "@/components/industries/shared/crm-shared/IndustryCrmPage";
 import { createIndustryMetadata, IndustrySeoJsonLd } from "@/components/seo/IndustrySeo";
 
 const slug = "automobile-crm";
@@ -9,7 +9,7 @@ export default function Page() {
   return (
     <>
       <IndustrySeoJsonLd slug={slug} />
-      <AutomobileCRMPage />
+      <IndustryCrmPage industrySlug="automobile" />
     </>
   );
 }

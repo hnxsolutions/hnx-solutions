@@ -14,7 +14,7 @@ import {
   Sparkles,
   Star,
 } from "lucide-react";
-import type { IndustryMobileAppPageData } from "../industryMobileAppData";
+import type { IndustryMobileAppPageData } from "./industryMobileAppData";
 
 type HeroAccent = "blue" | "violet" | "emerald" | "cyan" | "orange";
 

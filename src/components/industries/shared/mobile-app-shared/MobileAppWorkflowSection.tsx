@@ -6,7 +6,7 @@ import {
   GitBranch,
   type LucideIcon,
 } from "lucide-react";
-import type { IndustryMobileAppPageData } from "../industryMobileAppData";
+import type { IndustryMobileAppPageData } from "./industryMobileAppData";
 import { MobileAppSectionShell } from "./mobileAppSectionUtils";
 
 type WorkflowCopy = {
