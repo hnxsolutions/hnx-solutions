@@ -314,6 +314,101 @@ function createPage(config: IndustryConfig): IndustryCrmPageData {
   };
 }
 
+type StandardCrmConfig = {
+  industrySlug: string;
+  industryName: string;
+  title: string;
+  description: string;
+  dashboardName: string;
+  sidebarItems: string[];
+  stats: IndustryCrmMetric[];
+  pipelineStages: IndustryCrmHero["pipelineStages"];
+  customerPanel: IndustryCrmHero["customerPanel"];
+  followUps: string[];
+  analytics: IndustryCrmHero["analytics"];
+  leadNoun: string;
+  pipelineNoun: string;
+  teamNoun: string;
+  documentNoun: string;
+  revenueNoun: string;
+  primaryIcon: LucideIcon;
+  processIcon: LucideIcon;
+  teamIcon: LucideIcon;
+  documentIcon: LucideIcon;
+  financeIcon: LucideIcon;
+};
+
+function createStandardCrmConfig(config: StandardCrmConfig): IndustryConfig {
+  const leadNoun = config.leadNoun.toLowerCase();
+  const pipelineNoun = config.pipelineNoun.toLowerCase();
+  const teamNoun = config.teamNoun.toLowerCase();
+  const documentNoun = config.documentNoun.toLowerCase();
+  const revenueNoun = config.revenueNoun.toLowerCase();
+
+  return {
+    industrySlug: config.industrySlug,
+    industryName: config.industryName,
+    title: config.title,
+    description: config.description,
+    dashboardName: config.dashboardName,
+    sidebarItems: config.sidebarItems,
+    stats: config.stats,
+    pipelineStages: config.pipelineStages,
+    customerPanel: config.customerPanel,
+    followUps: config.followUps,
+    analytics: config.analytics,
+    problems: [
+      card(`${config.industryName} inquiries need clear ownership`, `Teams need one place to capture ${leadNoun}, sources, status, and next action.`, config.primaryIcon),
+      card("Follow-ups are easy to miss", `Manual reminders make it hard to move ${pipelineNoun} forward at the right time.`, Bell),
+      card("Reporting stays scattered", `Owners need quick visibility into ${teamNoun}, conversions, delays, and business performance.`, BarChart3),
+    ],
+    workflowSteps: [
+      workflowStep(`Capture ${leadNoun}`, `Record source, customer details, requirement, priority, and preferred communication channel.`, "Front office / sales team", config.primaryIcon),
+      workflowStep("Assign team owner", `Route each record to the right ${teamNoun} with workload visibility.`, "Manager", config.teamIcon),
+      workflowStep(`Move ${pipelineNoun}`, "Track stages, status changes, deadlines, and next actions from one workspace.", "Assigned owner", config.processIcon),
+      workflowStep(`Track ${documentNoun}`, "Manage checklists, pending items, approvals, and customer updates.", "Operations team", config.documentIcon),
+      workflowStep("Review CRM analytics", `Measure response time, conversion, team workload, and ${revenueNoun}.`, "Business owner", BarChart3),
+    ],
+    modules: [
+      moduleCard(`${config.industryName} Lead Management`, `Capture and organize ${leadNoun} from forms, calls, campaigns, referrals, and walk-ins.`, config.primaryIcon, ["Source tracking", "Owner", "Status"]),
+      moduleCard(`${config.pipelineNoun} Pipeline`, `Move records through practical stages with next actions and clear ownership.`, config.processIcon, ["Stages", "Next action", "Priority"]),
+      moduleCard("Team Assignment", `Assign work to the right ${teamNoun} with workload and escalation visibility.`, config.teamIcon, ["Owner", "Workload", "Escalations"]),
+      moduleCard(`${config.documentNoun} Tracking`, "Track required documents, pending items, review notes, and approvals.", config.documentIcon, ["Checklist", "Pending items", "Review"]),
+      moduleCard("Follow-up Automation", "Create reminders for calls, renewals, status updates, payments, and customer responses.", Bell, ["Reminders", "Tasks", "Escalations"]),
+      moduleCard(`${config.revenueNoun} Status`, `Monitor ${revenueNoun}, pending payments, forecasts, and finance handoffs.`, config.financeIcon, ["Value", "Payments", "Forecast"]),
+      moduleCard("Communication Timeline", "Keep customer conversations, notes, calls, emails, and WhatsApp-ready follow-ups in context.", MessageCircle, ["Timeline", "Notes", "Follow-ups"]),
+      moduleCard("Analytics Dashboard", "View source performance, conversions, team productivity, delays, and business outcomes.", BarChart3, ["Sources", "Conversion", "Performance"]),
+    ],
+    roles: [
+      roleCard("Business Owner", `Monitor ${pipelineNoun}, team performance, reports, and growth opportunities.`, ShieldCheck, ["Reports", "Team view", "Settings"]),
+      roleCard("Manager", `Assign records, review escalations, and keep ${teamNoun} moving.`, config.teamIcon, ["Assignment", "Escalations", "Pipeline"]),
+      roleCard("Sales / Service Team", `Manage assigned ${leadNoun}, customer notes, and daily follow-ups.`, UserCheck, ["Assigned records", "Tasks", "Timeline"]),
+      roleCard("Operations Team", `Track ${documentNoun}, status updates, handoffs, and completion checks.`, config.documentIcon, ["Checklist", "Status", "Approvals"]),
+      roleCard("Finance Team", `Update ${revenueNoun}, payment status, billing notes, and forecasts.`, config.financeIcon, ["Payments", "Forecast", "Finance notes"]),
+    ],
+    automations: [
+      automation("New inquiry assignment", `New ${leadNoun} captured`, "Assign the right owner and create a first response task.", "Avoid unowned customer enquiries.", config.primaryIcon),
+      automation("Follow-up reminder", "Next action is due", "Notify the owner and escalate if response is delayed.", "Keep customer movement active.", Bell),
+      automation("Document or payment alert", "Checklist or payment is pending", "Create an operations or finance task for review.", "Reduce delays before completion.", config.documentIcon),
+    ],
+    reports: [
+      report(`${config.pipelineNoun} Conversion`, "Live", `Track ${pipelineNoun} movement by source, owner, and stage.`, BarChart3),
+      report("Team Performance", "Active", `Measure ${teamNoun}, task completion, response speed, and workload.`, UserCheck),
+      report(`${config.revenueNoun} Forecast`, "Updated", `Review ${revenueNoun}, pending payments, and forecasted value.`, config.financeIcon),
+    ],
+    integrations: [
+      integration("Website Forms", "Forms to CRM", `Capture ${leadNoun} and consultation requests directly into the CRM.`, ClipboardList),
+      integration("Customer Portal", "Portal to CRM", `Sync ${documentNoun}, status updates, and customer responses.`, config.documentIcon),
+      integration("Communication Tools", "Messages to CRM", "Connect reminders, email, calls, and WhatsApp-ready follow-ups.", MessageCircle),
+    ],
+    useCases: [
+      card(`${config.industryName} lead CRM`, `Track ${leadNoun}, stages, owners, and follow-ups.`, config.primaryIcon),
+      card(`${config.pipelineNoun} CRM`, `Manage stages, documents, payments, and next actions.`, config.processIcon),
+      card(`${config.industryName} reporting CRM`, "Give owners a clean view of performance, workload, and outcomes.", BarChart3),
+    ],
+  };
+}
+
 export const industryCrmPages: Record<string, IndustryCrmPageData> = {
   healthcare: createPage({
     industrySlug: "healthcare",
@@ -801,6 +896,174 @@ export const industryCrmPages: Record<string, IndustryCrmPageData> = {
       card("Investment advisory CRM", "Track client interest, risk profile, advisor notes and compliance tasks.", BarChart3),
     ],
   }),
+  insurance: createPage(createStandardCrmConfig({
+    industrySlug: "insurance",
+    industryName: "Insurance",
+    title: "Insurance CRM for policy leads, renewals, claims, agents and document follow-ups",
+    description:
+      "A custom insurance CRM for policy enquiries, renewals, claim tracking, agent assignment, document collection, premium follow-ups and customer communication.",
+    dashboardName: "Insurance CRM",
+    sidebarItems: ["Policies", "Claims", "Agents", "Renewals", "Documents"],
+    stats: [
+      { label: "Policy leads", value: "118", note: "Active" },
+      { label: "Renewals due", value: "42", note: "This week" },
+      { label: "Claims open", value: "26", note: "Needs review" },
+      { label: "Premium pipeline", value: "Rs. 84L", note: "Forecast" },
+    ],
+    pipelineStages: [
+      { title: "New policy enquiry", count: "38", items: ["Health policy", "Vehicle policy"] },
+      { title: "Quote shared", count: "31", items: ["Family plan", "Term plan"] },
+      { title: "Document review", count: "22", items: ["KYC pending", "Claim proof"] },
+    ],
+    customerPanel: {
+      title: "Policyholder profile",
+      subtitle: "Riya Mehta - Health insurance lead",
+      nextAction: "Share revised premium quote",
+      owner: "Insurance advisor",
+    },
+    followUps: ["Send renewal reminder", "Collect claim document", "Schedule advisor call"],
+    analytics: [
+      { label: "Renewal rate", value: "74%" },
+      { label: "Claims open", value: "26" },
+      { label: "Premium pipeline", value: "Rs. 84L" },
+    ],
+    leadNoun: "Policy leads",
+    pipelineNoun: "Policy pipeline",
+    teamNoun: "agents and advisors",
+    documentNoun: "Policy documents",
+    revenueNoun: "premium revenue",
+    primaryIcon: ShieldCheck,
+    processIcon: Route,
+    teamIcon: UserCheck,
+    documentIcon: FileCheck2,
+    financeIcon: CreditCard,
+  })),
+  automobile: createPage(createStandardCrmConfig({
+    industrySlug: "automobile",
+    industryName: "Automobile",
+    title: "Automobile CRM for vehicle leads, test drives, quotations, bookings and service reminders",
+    description:
+      "A custom automobile CRM for vehicle enquiries, showroom visits, test drives, quotations, bookings, delivery follow-ups, service reminders and sales reporting.",
+    dashboardName: "Automobile CRM",
+    sidebarItems: ["Leads", "Vehicles", "Test Drives", "Bookings", "Service"],
+    stats: [
+      { label: "Vehicle leads", value: "156", note: "Active" },
+      { label: "Test drives", value: "48", note: "Scheduled" },
+      { label: "Bookings", value: "18", note: "This week" },
+      { label: "Booking value", value: "Rs. 1.2Cr", note: "Forecast" },
+    ],
+    pipelineStages: [
+      { title: "New vehicle lead", count: "46", items: ["SUV enquiry", "EV interest"] },
+      { title: "Test drive", count: "28", items: ["Showroom visit", "Home test drive"] },
+      { title: "Quotation / booking", count: "19", items: ["Finance option", "Delivery date"] },
+    ],
+    customerPanel: {
+      title: "Buyer profile",
+      subtitle: "Aarav Kapoor - EV enquiry",
+      nextAction: "Confirm test drive slot",
+      owner: "Sales advisor",
+    },
+    followUps: ["Confirm test drive", "Share quotation", "Send service reminder"],
+    analytics: [
+      { label: "Test drive rate", value: "31%" },
+      { label: "Bookings", value: "18" },
+      { label: "Booking value", value: "Rs. 1.2Cr" },
+    ],
+    leadNoun: "Vehicle leads",
+    pipelineNoun: "Sales pipeline",
+    teamNoun: "sales advisors",
+    documentNoun: "Booking documents",
+    revenueNoun: "booking value",
+    primaryIcon: Store,
+    processIcon: Route,
+    teamIcon: UserCheck,
+    documentIcon: FileText,
+    financeIcon: CreditCard,
+  })),
+  "service-business": createPage(createStandardCrmConfig({
+    industrySlug: "service-business",
+    industryName: "Service Business",
+    title: "Service business CRM for customer requests, schedules, technicians, tickets and payments",
+    description:
+      "A custom service business CRM for customer requests, technician assignment, schedules, service tickets, SLA tracking, payment status, feedback and operations reporting.",
+    dashboardName: "Service Business CRM",
+    sidebarItems: ["Requests", "Jobs", "Technicians", "Tickets", "Payments"],
+    stats: [
+      { label: "Service requests", value: "214", note: "Active" },
+      { label: "Jobs scheduled", value: "86", note: "Today" },
+      { label: "Open tickets", value: "32", note: "Needs action" },
+      { label: "SLA met", value: "94%", note: "This month" },
+    ],
+    pipelineStages: [
+      { title: "New request", count: "64", items: ["Repair request", "Installation enquiry"] },
+      { title: "Assigned", count: "48", items: ["Technician visit", "Remote support"] },
+      { title: "In progress", count: "36", items: ["Waiting parts", "Customer confirmation"] },
+    ],
+    customerPanel: {
+      title: "Service request",
+      subtitle: "Meera Iyer - AC repair request",
+      nextAction: "Assign technician for afternoon slot",
+      owner: "Service coordinator",
+    },
+    followUps: ["Assign technician", "Confirm arrival window", "Collect service feedback"],
+    analytics: [
+      { label: "SLA met", value: "94%" },
+      { label: "Open tickets", value: "32" },
+      { label: "Repeat customers", value: "41%" },
+    ],
+    leadNoun: "Service requests",
+    pipelineNoun: "Service pipeline",
+    teamNoun: "technicians and coordinators",
+    documentNoun: "Service checklists",
+    revenueNoun: "service revenue",
+    primaryIcon: LifeBuoy,
+    processIcon: CalendarCheck,
+    teamIcon: Users,
+    documentIcon: ClipboardCheck,
+    financeIcon: ReceiptText,
+  })),
+  travel: createPage(createStandardCrmConfig({
+    industrySlug: "travel",
+    industryName: "Travel",
+    title: "Travel CRM for enquiries, packages, itineraries, bookings, payments and customer follow-ups",
+    description:
+      "A custom travel CRM for travel enquiries, package planning, itinerary sharing, booking coordination, payment follow-ups, reminders and customer communication.",
+    dashboardName: "Travel CRM",
+    sidebarItems: ["Inquiries", "Packages", "Itineraries", "Bookings", "Payments"],
+    stats: [
+      { label: "Travel leads", value: "142", note: "Active" },
+      { label: "Packages shared", value: "68", note: "This week" },
+      { label: "Bookings", value: "24", note: "Confirmed" },
+      { label: "Booking revenue", value: "Rs. 92L", note: "Forecast" },
+    ],
+    pipelineStages: [
+      { title: "New travel enquiry", count: "42", items: ["Honeymoon package", "Group tour"] },
+      { title: "Package shared", count: "36", items: ["Europe itinerary", "Goa trip"] },
+      { title: "Booking follow-up", count: "24", items: ["Payment pending", "Passport details"] },
+    ],
+    customerPanel: {
+      title: "Traveler profile",
+      subtitle: "Neha Shah - Dubai family trip",
+      nextAction: "Share final itinerary and payment link",
+      owner: "Travel advisor",
+    },
+    followUps: ["Share package options", "Confirm itinerary", "Send payment reminder"],
+    analytics: [
+      { label: "Booking rate", value: "21%" },
+      { label: "Trips planned", value: "68" },
+      { label: "Booking revenue", value: "Rs. 92L" },
+    ],
+    leadNoun: "Travel leads",
+    pipelineNoun: "Booking pipeline",
+    teamNoun: "travel advisors",
+    documentNoun: "Travel documents",
+    revenueNoun: "booking revenue",
+    primaryIcon: Route,
+    processIcon: CalendarCheck,
+    teamIcon: UserCheck,
+    documentIcon: FileText,
+    financeIcon: CreditCard,
+  })),
 };
 
 export const industryCrmStaticParams: IndustryCrmRoute[] = Object.values(
