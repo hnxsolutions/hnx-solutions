@@ -28,7 +28,6 @@ import {
   Tags,
   UserCheck,
   Users,
-  Workflow,
 } from "lucide-react";
 
 export type IndustryCrmRoute = {

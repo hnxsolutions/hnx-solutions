@@ -1,16 +1,16 @@
 import { PT_Sans } from "next/font/google";
 import { notFound } from "next/navigation";
-import CrmAutomationSection from "./CrmAutomationSection";
+import CrmAutomationReportsSection from "./CrmAutomationReportsSection";
 import CrmDemoRedirectSection from "./CrmDemoRedirectSection";
 import CrmFinalCTASection from "./CrmFinalCTASection";
 import CrmHeroSection from "./CrmHeroSection";
-import CrmIntegrationSection from "./CrmIntegrationSection";
+import CrmIntegrationsUseCasesSection from "./CrmIntegrationsUseCasesSection";
 import CrmModulesSection from "./CrmModulesSection";
+import CrmOwnershipComparisonSection from "./CrmOwnershipComparisonSection";
 import CrmProblemsSection from "./CrmProblemsSection";
 import CrmProcessSection from "./CrmProcessSection";
-import CrmReportsSection from "./CrmReportsSection";
 import CrmRolesSection from "./CrmRolesSection";
-import CrmUseCasesSection from "./CrmUseCasesSection";
+import CrmTimelinePackagesSection from "./CrmTimelinePackagesSection";
 import CrmWorkflowSection from "./CrmWorkflowSection";
 import { getIndustryCrmPage } from "./industryCrmData";
 
@@ -36,6 +36,7 @@ export default function IndustryCrmPage({
   return (
     <main className={`${ptSans.className} relative overflow-hidden bg-[#f8fbff] text-slate-950 dark:bg-[#050814] dark:text-white`}>
       <CrmHeroSection data={data} />
+      <CrmOwnershipComparisonSection data={data} />
 
       <section className="relative px-3 pb-20 pt-10 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <div className="mx-auto w-full max-w-[min(92vw,1440px)]">
@@ -44,11 +45,10 @@ export default function IndustryCrmPage({
           <CrmModulesSection data={data} />
           <CrmRolesSection data={data} />
           <CrmDemoRedirectSection data={data} />
-          <CrmAutomationSection data={data} />
-          <CrmReportsSection data={data} />
-          <CrmIntegrationSection data={data} />
-          <CrmUseCasesSection data={data} />
+          <CrmAutomationReportsSection data={data} />
+          <CrmIntegrationsUseCasesSection data={data} />
           <CrmProcessSection data={data} />
+          <CrmTimelinePackagesSection data={data} />
           <CrmFinalCTASection data={data} />
         </div>
       </section>
