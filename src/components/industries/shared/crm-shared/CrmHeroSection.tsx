@@ -35,8 +35,8 @@ const fallbackCrmHeroAsset = {
 const crmHeroAssets = {
   education: fallbackCrmHeroAsset,
   healthcare: {
-    background: "/images/industries/crm/healthcare-crm-bg.png",
-    dashboard: "/images/industries/crm/healthcare-crm-dashboard.png",
+    background: "/images/industries/crm/healthcare-preview.png",
+    dashboard: "/images/industries/crm/healthcare-crm-dashboard-preview.png",
   },
   "real-estate": {
     background: "/images/industries/crm/real-estate-preview.png",
@@ -51,24 +51,24 @@ const crmHeroAssets = {
     dashboard: "/images/industries/crm/retail-crm-dashboard-preview.png",
   },
   finance: {
-    background: "/images/industries/crm/finance-crm-bg.png",
-    dashboard: "/images/industries/crm/finance-crm-dashboard.png",
+    background: "/images/industries/crm/finance-preview.png",
+    dashboard: "/images/industries/crm/finance-crm-dashboard-preview.png",
   },
   insurance: {
-    background: "/images/industries/crm/insurance-crm-bg.png",
-    dashboard: "/images/industries/crm/insurance-crm-dashboard.png",
+    background: "/images/industries/crm/insurance-preview.png",
+    dashboard: "/images/industries/crm/insurance-crm-dashboard-preview.png",
   },
   automobile: {
-    background: "/images/industries/crm/automobile-crm-bg.png",
-    dashboard: "/images/industries/crm/automobile-crm-dashboard.png",
+    background: "/images/industries/crm/automobile-preview.png",
+    dashboard: "/images/industries/crm/automobile-crm-dashboard-preview.png",
   },
   "service-business": {
-    background: "/images/industries/crm/service-business-crm-bg.png",
-    dashboard: "/images/industries/crm/service-business-crm-dashboard.png",
+    background: "/images/industries/crm/service-preview.png",
+    dashboard: "/images/industries/crm/service-crm-dashboard-preview.png",
   },
   travel: {
-    background: "/images/industries/crm/travel-crm-bg.png",
-    dashboard: "/images/industries/crm/travel-crm-dashboard.png",
+    background: "/images/industries/crm/travel-preview.png",
+    dashboard: "/images/industries/crm/travel-crm-dashboard-preview.png",
   },
 } as const satisfies Record<Exclude<CrmVariant, "default">, typeof fallbackCrmHeroAsset>;
 
@@ -151,7 +151,7 @@ function getDashboardConfig(data: IndustryCrmPageData): DashboardConfig {
     healthcare: {
       variant,
       heroTitle: "Healthcare CRM",
-      heroLineOne: "Stronger Patient Relationships",
+      heroLineOne: "Strong Patient Bonds",
       heroLineTwo: "Healthier Growth",
       description:
         "Unify patient inquiries, appointment requests, follow-ups, doctor communication, and care journeys with a CRM built for modern healthcare teams.",
@@ -161,8 +161,8 @@ function getDashboardConfig(data: IndustryCrmPageData): DashboardConfig {
     finance: {
       variant,
       heroTitle: "Finance CRM",
-      heroLineOne: "Stronger Client Relationships",
-      heroLineTwo: "Smarter Financial Growth",
+      heroLineOne: "Trusted Client Bonds",
+      heroLineTwo: "Smart Financial Growth",
       description:
         "Manage clients, KYC, documents, advisors, opportunities, follow-ups, and compliance workflows with a CRM built for financial services.",
       dashboardLabel: "Finance CRM",
@@ -201,8 +201,8 @@ function getDashboardConfig(data: IndustryCrmPageData): DashboardConfig {
     insurance: {
       variant,
       heroTitle: "Insurance CRM",
-      heroLineOne: "Stronger Policyholder Relationships",
-      heroLineTwo: "Smarter Insurance Growth",
+      heroLineOne: "Stronger Client Bonds",
+      heroLineTwo: "Smart Insurance Growth",
       description:
         "Manage policy inquiries, renewals, claims, agents, documents, reminders, and customer communication with an insurance CRM.",
       dashboardLabel: "Insurance CRM",

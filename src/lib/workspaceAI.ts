@@ -80,10 +80,34 @@ export function buildLocalAiResponse(workspace: WorkspaceState, industry: DemoIn
     return `You do not have workspace leads yet. Add one ${industry.labels.leads.toLowerCase().replace(" / ", " or ")} record, then I can prioritize it and suggest workflows from real data.`;
   }
 
+  if (lower.includes("hottest")) {
+    const hottest = workspace.leads
+      .slice()
+      .sort((a, b) => (b.aiScore ?? getLeadScoreResult(b).score) - (a.aiScore ?? getLeadScoreResult(a).score))
+      .slice(0, 5);
+    return hottest.length
+      ? `Your hottest leads are ${hottest.map((lead, index) => `${index + 1}. ${formatLeadLine(lead)}`).join(" ")}`
+      : "Add leads first, then I can rank the hottest opportunities.";
+  }
+
   if (lower.includes("score")) {
     if (!topLead) return "Add a lead first, then I can score it and explain the next best action.";
     const result = getLeadScoreResult(topLead);
     return `${topLead.name} should be scored first. My deterministic workspace score is ${result.score}/100 because ${result.reasons[0].toLowerCase()} ${result.recommendedAction}`;
+  }
+
+  if (lower.includes("whatsapp")) {
+    if (!topLead) return "Add a lead first and I can draft a WhatsApp follow-up from its actual stage and need.";
+    return `Hi ${topLead.name}, thanks for your interest in ${topLead.need || industry.name}. We have mapped the next CRM step for you and can share a focused walkthrough. Would today or tomorrow work better?`;
+  }
+
+  if (lower.includes("next best action")) {
+    if (!topLead) return "Add your first lead, then the next best action will be based on its score, value, source, and stage.";
+    return `The next best action is to follow up with ${topLead.name} today, assign the task to ${topLead.owner || "Sales Team"}, and move the record only after the customer confirms the next meeting or document requirement.`;
+  }
+
+  if (lower.includes("pipeline risk")) {
+    return `Today's pipeline risk is ${analysis.crowdedStage ? `${analysis.crowdedStage[1]} lead(s) crowded in ${analysis.crowdedStage[0]}` : "low because no stage is crowded yet"}. Review stale follow-ups, unassigned records, and hot leads before end of day.`;
   }
 
   if (lower.includes("priority") || lower.includes("follow") || lower.includes("today")) {
@@ -105,11 +129,6 @@ export function buildLocalAiResponse(workspace: WorkspaceState, industry: DemoIn
     return roleNames
       ? `You have ${workspace.roles.length} custom role${workspace.roles.length === 1 ? "" : "s"}: ${roleNames}. Test the most restricted role next so locked tabs and exports match your real team design.`
       : "No roles are configured yet. Create a Sales User role first, then test the workspace as that role to confirm restricted tabs are locked.";
-  }
-
-  if (lower.includes("whatsapp")) {
-    if (!topLead) return "Add a lead first and I can draft a WhatsApp follow-up from its actual stage and need.";
-    return `Hi ${topLead.name}, thanks for your interest in ${topLead.need || industry.name}. I can walk you through the next step and answer questions today. Would a quick call work?`;
   }
 
   return `Your ${workspace.workspaceName} currently has ${workspace.leads.length} leads, ${activeWorkflows.length} active workflows, ${workspace.roles.length} roles, and ${workspace.tasks.filter((task) => task.status !== "Done").length} open tasks. The next best action is ${topLead ? `follow up with ${topLead.name}` : "add your first lead"} and connect that action to a workflow.`;

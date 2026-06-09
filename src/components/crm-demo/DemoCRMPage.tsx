@@ -1,6 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
 import type { LucideIcon } from "lucide-react";
 import {
   Activity,
@@ -41,9 +42,8 @@ import {
   X,
   Zap,
 } from "lucide-react";
-import { useEffect, useMemo, useState, type FormEvent, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type FormEvent, type ReactNode, type RefObject } from "react";
 import {
-  defaultIndustryId,
   demoIndustries,
   permissionColumns,
   permissionRows,
@@ -94,17 +94,6 @@ type DemoTab =
   | "build"
   | "activity";
 
-const iconMap: Record<DemoIndustry["icon"], LucideIcon> = {
-  business: Building2,
-  education: GraduationCap,
-  healthcare: HeartPulse,
-  realEstate: HomeIcon,
-  pharma: Boxes,
-  events: Ticket,
-  saas: Laptop,
-  local: Store,
-};
-
 const tabIcons: Record<DemoTab, LucideIcon> = {
   overview: BarChart3,
   leads: ClipboardList,
@@ -140,6 +129,96 @@ const tabOrder: DemoTab[] = [
 
 const workspaceTabOrder: DemoTab[] = [...tabOrder, "activity"];
 
+const heroFeatures: Array<{ label: string; icon: LucideIcon }> = [
+  { label: "Create Leads", icon: ClipboardList },
+  { label: "Move Pipeline", icon: Kanban },
+  { label: "Automate Follow-ups", icon: Workflow },
+  { label: "Role Permissions", icon: ShieldCheck },
+  { label: "AI Insights", icon: Bot },
+  { label: "Live Reports", icon: BarChart3 },
+];
+
+const demoJourneySteps: Array<{ title: string; description: string; icon: LucideIcon }> = [
+  { title: "Choose Industry", description: "Pick the business context for your CRM.", icon: Building2 },
+  { title: "View Dashboard", description: "Explore the metrics and records that matter.", icon: LayoutDashboard },
+  { title: "Add Lead", description: "Create or inspect an inquiry with real fields.", icon: ClipboardList },
+  { title: "Move Pipeline", description: "See how stages guide the sales process.", icon: Kanban },
+  { title: "Trigger Workflow", description: "Preview reminders, owners, and tasks.", icon: Workflow },
+  { title: "See AI + Reports", description: "Get insights from leads and team activity.", icon: Bot },
+  { title: "Request CRM Blueprint", description: "Turn the demo into your build plan.", icon: FileText },
+];
+
+const workflowPreviewSteps: Array<{ title: string; description: string; icon: LucideIcon }> = [
+  { title: "New Lead Created", description: "When a new lead is added", icon: ClipboardList },
+  { title: "Assign Owner", description: "Assign to the best available agent", icon: Users },
+  { title: "Send WhatsApp", description: "Send welcome message", icon: MessageSquare },
+  { title: "Wait 1 Day", description: "Wait for 1 day", icon: CalendarDays },
+  { title: "Create Task", description: "Create follow-up task", icon: CheckCircle2 },
+];
+
+const previewPermissionRoles = ["Admin", "Manager", "Sales Agent", "Support", "Accountant"];
+const previewPermissionModules = ["Leads", "Pipeline", "Tasks", "Reports", "Invoices", "Settings"];
+
+const integrationPreviewItems: Array<{ name: string; icon: LucideIcon }> = [
+  { name: "WhatsApp Business", icon: MessageSquare },
+  { name: "Website Forms", icon: FileText },
+  { name: "Google Sheets", icon: Database },
+  { name: "Gmail", icon: Mail },
+  { name: "Payment Gateway", icon: Calculator },
+  { name: "Calendar", icon: CalendarDays },
+  { name: "QuickBooks", icon: Boxes },
+  { name: "Slack", icon: Users },
+  { name: "More", icon: Zap },
+];
+
+const industryPreviewCards: Array<{
+  key: string;
+  label: string;
+  industryId: IndustryId;
+  icon: LucideIcon;
+}> = [
+  { key: "realEstate", label: "Real Estate", industryId: "realEstate", icon: HomeIcon },
+  { key: "healthcare", label: "Healthcare", industryId: "healthcare", icon: HeartPulse },
+  { key: "education", label: "Education", industryId: "education", icon: GraduationCap },
+  { key: "finance", label: "Finance", industryId: "general", icon: Calculator },
+  { key: "ecommerce", label: "E-commerce", industryId: "saas", icon: Store },
+  { key: "manufacturing", label: "Manufacturing", industryId: "general", icon: Building2 },
+  { key: "hospitality", label: "Hospitality", industryId: "events", icon: Bell },
+  { key: "logistics", label: "Logistics", industryId: "localServices", icon: Boxes },
+  { key: "automotive", label: "Automotive", industryId: "general", icon: Laptop },
+  { key: "customBusiness", label: "Custom Business", industryId: "general", icon: Layers },
+];
+
+const aiPreviewActions: Array<{ label: string; icon: LucideIcon }> = [
+  { label: "Find my hottest leads", icon: Sparkles },
+  { label: "Why is this lead high priority?", icon: ShieldCheck },
+  { label: "Suggest next best action", icon: Zap },
+  { label: "Draft WhatsApp follow-up", icon: MessageSquare },
+  { label: "Summarize today's pipeline risk", icon: BarChart3 },
+];
+
+const industryPreviewImages: Record<IndustryId, string> = {
+  general: "/images/industries/crm/manufacturing-preview.png",
+  education: "/images/industries/crm/education-campus-preview.png",
+  healthcare: "/images/industries/crm/retail-preview.png",
+  realEstate: "/images/industries/crm/real-estate-preview.png",
+  pharma: "/images/industries/crm/retail-preview.png",
+  events: "/images/industries/crm/manufacturing-preview.png",
+  saas: "/images/industries/crm/retail-preview.png",
+  localServices: "/images/industries/crm/manufacturing-preview.png",
+};
+
+const industryDashboardImages: Record<IndustryId, string> = {
+  general: "/images/industries/crm/manufacturing-crm-dashboard-preview.png",
+  education: "/images/industries/crm/education-crm-dashboard-preview.png",
+  healthcare: "/images/industries/crm/Retail-crm-dashboard-preview.png",
+  realEstate: "/images/industries/crm/real-estate-crm-dashboard-preview.png",
+  pharma: "/images/industries/crm/Retail-crm-dashboard-preview.png",
+  events: "/images/industries/crm/manufacturing-crm-dashboard-preview.png",
+  saas: "/images/industries/crm/Retail-crm-dashboard-preview.png",
+  localServices: "/images/industries/crm/manufacturing-crm-dashboard-preview.png",
+};
+
 function getRoleOptions(industry: DemoIndustry) {
   const adminLabel =
     industry.id === "education"
@@ -161,6 +240,14 @@ function getRoleOptions(industry: DemoIndustry) {
               : "Manager";
 
   return ["Business Owner", adminLabel, managerLabel, industry.roleUserLabel, "Operations User"];
+}
+
+function getIndustryCardKey(industryId: IndustryId) {
+  return industryPreviewCards.find((card) => card.industryId === industryId)?.key ?? "customBusiness";
+}
+
+function getVisibleIndustryLabel(cardKey: string, industry: DemoIndustry) {
+  return industryPreviewCards.find((card) => card.key === cardKey)?.label ?? industry.name;
 }
 
 function getTabLabel(tab: DemoTab, industry: DemoIndustry) {
@@ -227,17 +314,21 @@ export function DemoCRMPage() {
 }
 
 function DemoCRMPageContent() {
-  const [selectedIndustryId, setSelectedIndustryId] = useState<IndustryId>(defaultIndustryId);
+  const [selectedIndustryId, setSelectedIndustryId] = useState<IndustryId>("realEstate");
+  const [selectedIndustryCardKey, setSelectedIndustryCardKey] = useState("realEstate");
   const industry = useMemo(
     () => demoIndustries.find((item) => item.id === selectedIndustryId) ?? demoIndustries[0],
     [selectedIndustryId],
   );
+  const selectedIndustryLabel = getVisibleIndustryLabel(selectedIndustryCardKey, industry);
   const roleOptions = useMemo(() => getRoleOptions(industry), [industry]);
   const [selectedRole, setSelectedRole] = useState("Business Owner");
   const [activeTab, setActiveTab] = useState<DemoTab>("overview");
   const [search, setSearch] = useState("");
   const [selectedLead, setSelectedLead] = useState<DemoLead | null>(null);
   const [toast, setToast] = useState<string | null>(null);
+  const crmShellRef = useRef<HTMLDivElement | null>(null);
+  const blueprintFormRef = useRef<HTMLDivElement | null>(null);
   const { isWorkspaceMode, restoredFromSession, acknowledgeSessionRestore } = useWorkspace();
 
   useEffect(() => {
@@ -263,62 +354,72 @@ function DemoCRMPageContent() {
     acknowledgeSessionRestore();
   }, [acknowledgeSessionRestore, restoredFromSession]);
 
+  function previewSelectedCrm() {
+    setActiveTab("overview");
+    crmShellRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function requestSelectedBlueprint() {
+    blueprintFormRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function selectIndustry(industryId: IndustryId, cardKey?: string) {
+    setSelectedIndustryId(industryId);
+    setSelectedIndustryCardKey(cardKey ?? getIndustryCardKey(industryId));
+  }
+
   return (
     <main className={`relative min-h-screen overflow-hidden text-slate-950 transition-colors ${isWorkspaceMode ? "bg-[#f0f7ff]" : "bg-[#f8fbff]"}`}>
-      <section className="relative pb-10 pt-28 lg:pb-14 lg:pt-32">
-        <motion.div
-          animate={{ scale: [1, 1.08, 1], opacity: [0.45, 0.72, 0.45] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute left-[-12rem] top-0 h-[34rem] w-[34rem] rounded-full bg-cyan-200/70 blur-3xl"
-        />
-        <motion.div
-          animate={{ scale: [1, 1.06, 1], opacity: [0.45, 0.68, 0.45] }}
-          transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute right-[-10rem] top-10 h-[34rem] w-[34rem] rounded-full bg-blue-200/70 blur-3xl"
-        />
-        <div className="grid-fade absolute left-1/2 top-0 h-[38rem] w-[56rem] -translate-x-1/2 opacity-60" />
-
+      <section className="relative bg-[linear-gradient(180deg,#f8fbff_0%,#ffffff_48%,#f6fbff_100%)] pb-10 pt-24 lg:pb-14 lg:pt-28">
+        <div className="grid-fade absolute left-1/2 top-0 h-[32rem] w-[56rem] -translate-x-1/2 opacity-55" />
         <div className="relative mx-auto w-full max-w-[min(92vw,1440px)] px-5 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.62, ease: "easeOut" }}
-            className="mx-auto max-w-4xl text-center"
-          >
-            <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white/[0.85] px-4 py-2 text-sm font-bold text-blue-700 shadow-sm backdrop-blur">
-              <Sparkles className="h-4 w-4 text-cyan-500" aria-hidden="true" />
-              Interactive custom CRM product demo
-            </div>
-            <h1 className="mt-6 text-balance text-4xl font-bold tracking-normal text-slate-950 sm:text-5xl lg:text-6xl">
-              What Type of CRM Demo Do You Want to Explore?
-            </h1>
-            <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-slate-600">
-              Choose your industry and see how a custom HNX CRM Systems can be designed around your real business workflow,
-              data, roles, reports, automation, and AI use cases.
-            </p>
-          </motion.div>
+          <HeroProductDemo industry={industry} onTryDemo={previewSelectedCrm} onRequest={requestSelectedBlueprint} />
+
+          <GuidedDemoJourney />
 
           <WorkspaceModeToggle industry={industry} />
 
-          <IndustrySelector selectedIndustryId={industry.id} onSelect={setSelectedIndustryId} />
+          <IndustrySelector selectedCardKey={selectedIndustryCardKey} onSelect={selectIndustry} />
 
-          <div className="mt-8 rounded-[34px] border border-blue-100 bg-white/[0.86] p-4 shadow-[0_26px_90px_rgba(15,23,42,0.11)] backdrop-blur-xl sm:p-5">
+          <IndustryBlueprintPreview
+            industry={industry}
+            selectedIndustryLabel={selectedIndustryLabel}
+            roleOptions={roleOptions}
+            onPreview={previewSelectedCrm}
+            onRequest={requestSelectedBlueprint}
+          />
+
+          <ProductBrowserFrame refNode={crmShellRef} industry={industry} onRequest={requestSelectedBlueprint}>
             <DemoShell
+                industry={industry}
+                selectedIndustryId={selectedIndustryId}
+                setSelectedIndustryId={selectIndustry}
+                roleOptions={roleOptions}
+                selectedRole={selectedRole}
+                setSelectedRole={setSelectedRole}
+                activeTab={activeTab}
+                setActiveTab={setActiveTab}
+                search={search}
+                setSearch={setSearch}
+                setSelectedLead={setSelectedLead}
+                showToast={showToast}
+              />
+          </ProductBrowserFrame>
+
+          <div className="mt-8 space-y-6">
+            <WorkflowPreviewCard onRequest={requestSelectedBlueprint} />
+            <AIAssistantPreviewCard industry={industry} onRequest={requestSelectedBlueprint} />
+            <RolePermissionsPreviewCard onRequest={requestSelectedBlueprint} />
+            <IntegrationsPreviewCard onRequest={requestSelectedBlueprint} />
+            <BlueprintRequestForm
+              refNode={blueprintFormRef}
               industry={industry}
-              selectedIndustryId={selectedIndustryId}
-              setSelectedIndustryId={setSelectedIndustryId}
-              roleOptions={roleOptions}
+              selectedIndustryLabel={selectedIndustryLabel}
               selectedRole={selectedRole}
-              setSelectedRole={setSelectedRole}
-              activeTab={activeTab}
-              setActiveTab={setActiveTab}
-              search={search}
-              setSearch={setSearch}
-              setSelectedLead={setSelectedLead}
               showToast={showToast}
             />
+            <BottomCtaStrip onRequest={requestSelectedBlueprint} />
           </div>
-
         </div>
       </section>
       <WorkspaceOnboarding industry={industry} setActiveTab={setActiveTab} showToast={showToast} />
@@ -329,55 +430,828 @@ function DemoCRMPageContent() {
   );
 }
 
-function IndustrySelector({
-  selectedIndustryId,
-  onSelect,
+function SectionKicker({ number, title }: { number: string; title: string }) {
+  return (
+    <div className="mb-4 flex items-center gap-2">
+      <span className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-violet-600 text-sm font-bold text-white shadow-[0_8px_20px_rgba(109,40,217,0.24)]">
+        {number}
+      </span>
+      <span className="text-sm font-bold uppercase tracking-[0.08em] text-slate-950">{title}</span>
+    </div>
+  );
+}
+
+function HeroProductDemo({
+  industry,
+  onTryDemo,
+  onRequest,
 }: {
-  selectedIndustryId: IndustryId;
-  onSelect: (industryId: IndustryId) => void;
+  industry: DemoIndustry;
+  onTryDemo: () => void;
+  onRequest: () => void;
 }) {
   return (
-    <motion.div
+    <motion.section
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.62, ease: "easeOut", delay: 0.12 }}
-      className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
+      transition={{ duration: 0.62, ease: "easeOut" }}
+      className="rounded-[30px] border border-slate-200 bg-white/[0.9] p-5 shadow-[0_18px_70px_rgba(15,23,42,0.08)] backdrop-blur-xl sm:p-7"
     >
-      {demoIndustries.map((item) => {
-        const Icon = iconMap[item.icon];
-        const isSelected = item.id === selectedIndustryId;
-        return (
+      <SectionKicker number="1" title="Hero Section (2-Column)" />
+      <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+        <div className="max-w-2xl">
+          <div className="inline-flex items-center gap-2 rounded-xl border border-violet-100 bg-violet-50 px-3 py-2 text-xs font-bold text-violet-700">
+            <Sparkles className="h-4 w-4 text-violet-600" aria-hidden="true" />
+            Interactive Custom CRM Demo
+          </div>
+          <h1 className="mt-6 text-balance text-4xl font-bold tracking-normal text-slate-950 sm:text-5xl lg:text-6xl">
+            Experience a Custom CRM Built Around <span className="text-violet-600">Your Business</span>
+          </h1>
+          <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600">
+            Choose your industry, test real workflows, and see how your CRM can manage leads, teams, automation,
+            reports, permissions, and AI.
+          </p>
+          <div className="mt-6 grid gap-x-4 gap-y-3 sm:grid-cols-2 lg:grid-cols-3">
+            {heroFeatures.map((feature) => {
+              const Icon = feature.icon;
+              return (
+                <span key={feature.label} className="inline-flex min-w-0 items-center gap-2 text-xs font-bold text-slate-700">
+                  <Icon className="h-4 w-4 shrink-0 text-violet-700" aria-hidden="true" />
+                  <span className="truncate">{feature.label}</span>
+                </span>
+              );
+            })}
+          </div>
+          <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+            <Button type="button" size="lg" onClick={onTryDemo} showArrow>
+              Try CRM Demo
+            </Button>
+            <Button type="button" size="lg" variant="secondary" onClick={onRequest} showArrow>
+              Request CRM Blueprint
+            </Button>
+          </div>
+          <div className="mt-5 inline-flex max-w-full items-center gap-2 rounded-2xl border border-violet-100 bg-violet-50 px-4 py-3 text-sm font-semibold text-slate-700">
+            <ShieldCheck className="h-4 w-4 shrink-0 text-violet-700" aria-hidden="true" />
+            No signup required. Your test data stays only in this browser demo.
+          </div>
+        </div>
+
+        <HeroDashboardPreview industry={industry} />
+      </div>
+    </motion.section>
+  );
+}
+
+function HeroDashboardPreview({ industry }: { industry: DemoIndustry }) {
+  const metrics = industry.stats.slice(0, 4);
+  const leads = industry.leads.slice(0, 3);
+  const stages = industry.pipelineStages.slice(0, 5);
+
+  return (
+    <div className="rounded-[30px] border border-blue-100 bg-white/[0.92] p-3 shadow-[0_30px_100px_rgba(15,23,42,0.14)] backdrop-blur-xl">
+      <div className="flex items-center gap-2 border-b border-slate-100 px-3 py-2">
+        <span className="h-2.5 w-2.5 rounded-full bg-rose-300" />
+        <span className="h-2.5 w-2.5 rounded-full bg-amber-300" />
+        <span className="h-2.5 w-2.5 rounded-full bg-emerald-300" />
+        <span className="ml-3 rounded-full bg-slate-100 px-3 py-1 text-[11px] font-bold text-slate-500">
+          hnxcrm.local/{industry.id}
+        </span>
+      </div>
+      <div className="grid min-h-[30rem] overflow-hidden rounded-[24px] bg-slate-50 lg:grid-cols-[11rem_minmax(0,1fr)]">
+        <aside className="hidden bg-slate-950 p-4 text-white lg:block">
+          <div className="flex items-center gap-2">
+            <span className="grid h-8 w-8 place-items-center rounded-xl bg-cyan-300/15 text-cyan-100">
+              <Database className="h-4 w-4" aria-hidden="true" />
+            </span>
+            <span className="text-sm font-bold">HNX CRM</span>
+          </div>
+          <div className="mt-6 space-y-2">
+            {["Overview", industry.labels.leads, industry.labels.pipeline, "Reports", "AI"].map((item, index) => (
+              <div
+                key={item}
+                className={`rounded-xl px-3 py-2 text-xs font-bold ${index === 0 ? "bg-blue-600 text-white" : "text-slate-300"}`}
+              >
+                {item}
+              </div>
+            ))}
+          </div>
+        </aside>
+        <div className="p-4">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-blue-700">Dashboard Preview</p>
+              <h2 className="mt-1 text-xl font-bold text-slate-950">{industry.name}</h2>
+            </div>
+            <div className="h-9 rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-bold text-slate-400">
+              Search anything...
+            </div>
+          </div>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+            {metrics.map((metric) => (
+              <div key={metric.label} className="rounded-2xl border border-slate-200 bg-white p-3 shadow-sm">
+                <p className="text-[11px] font-bold text-slate-500">{metric.label}</p>
+                <div className="mt-2 flex items-end justify-between gap-2">
+                  <span className="text-lg font-bold text-slate-950">{metric.value}</span>
+                  <span className="text-[10px] font-bold text-emerald-600">{metric.trend}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-4 grid gap-4 xl:grid-cols-[0.9fr_1.1fr]">
+            <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+              <div className="flex items-center justify-between">
+                <h3 className="text-sm font-bold text-slate-950">Leads by Source</h3>
+                <BarChart3 className="h-4 w-4 text-blue-700" aria-hidden="true" />
+              </div>
+              <div className="mt-4 flex items-center gap-4">
+                <div className="grid h-24 w-24 place-items-center rounded-full bg-[conic-gradient(#2563eb_0_34%,#06b6d4_34%_60%,#8b5cf6_60%_82%,#e2e8f0_82%)]">
+                  <div className="h-12 w-12 rounded-full bg-white" />
+                </div>
+                <div className="space-y-2 text-xs font-bold text-slate-600">
+                  {["Website", "WhatsApp", "Referral", "Walk-in"].map((item) => (
+                    <div key={item} className="flex items-center gap-2">
+                      <span className="h-2 w-2 rounded-full bg-blue-600" />
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+              <div className="flex items-center justify-between">
+                <h3 className="text-sm font-bold text-slate-950">Pipeline Overview</h3>
+                <Kanban className="h-4 w-4 text-blue-700" aria-hidden="true" />
+              </div>
+              <div className="mt-4 flex h-28 items-end gap-2">
+                {stages.map((stage, index) => (
+                  <div key={stage} className="flex min-w-0 flex-1 flex-col items-center gap-2">
+                    <div
+                      className="w-full rounded-t-xl bg-gradient-to-t from-blue-600 to-cyan-300"
+                      style={{ height: `${42 + index * 10}%` }}
+                    />
+                    <span className="max-w-full truncate text-[10px] font-bold text-slate-500">{stage}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="mt-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+            <div className="flex items-center justify-between">
+              <h3 className="text-sm font-bold text-slate-950">Recent Leads</h3>
+              <span className="rounded-full bg-blue-50 px-2 py-1 text-[10px] font-bold text-blue-700">Live demo</span>
+            </div>
+            <div className="mt-3 space-y-2">
+              {leads.map((lead) => (
+                <div key={lead.name} className="grid grid-cols-[1fr_auto] items-center gap-3 rounded-xl bg-slate-50 px-3 py-2">
+                  <div className="min-w-0">
+                    <p className="truncate text-xs font-bold text-slate-800">{lead.name}</p>
+                    <p className="truncate text-[11px] text-slate-500">{lead.need}</p>
+                  </div>
+                  <span className={`rounded-full border px-2 py-1 text-[10px] font-bold ${statusClasses(lead.temperature)}`}>
+                    {lead.temperature}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function IndustrySelector({
+  selectedCardKey,
+  onSelect,
+}: {
+  selectedCardKey: string;
+  onSelect: (industryId: IndustryId, cardKey?: string) => void;
+}) {
+  return (
+    <section className="mt-8 rounded-[30px] border border-slate-200 bg-white/[0.92] p-5 shadow-[0_18px_60px_rgba(15,23,42,0.07)] backdrop-blur-xl sm:p-6" aria-label="Industry selector">
+      <SectionKicker number="4" title="Select Your Industry" />
+      <h2 className="text-center text-sm font-bold text-slate-950">Start by selecting your industry</h2>
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.62, ease: "easeOut", delay: 0.12 }}
+        className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-5"
+      >
+        {industryPreviewCards.map((item) => {
+          const Icon = item.icon;
+          const isSelected = item.key === selectedCardKey;
+          return (
+            <button
+              type="button"
+              key={item.key}
+              onClick={() => onSelect(item.industryId, item.key)}
+              className={`group relative min-h-[8.4rem] overflow-hidden rounded-2xl border p-4 text-center shadow-sm transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_44px_rgba(109,40,217,0.12)] ${
+                isSelected
+                  ? "border-violet-400 bg-white text-violet-950 ring-4 ring-violet-100"
+                  : "border-slate-200 bg-white text-slate-950 hover:border-violet-200"
+              }`}
+            >
+              <span
+                className={`mx-auto grid h-12 w-12 place-items-center rounded-2xl ${
+                  isSelected ? "bg-violet-600 text-white" : "bg-slate-50 text-blue-700 group-hover:bg-violet-50 group-hover:text-violet-700"
+                }`}
+              >
+                <Icon className="h-6 w-6" aria-hidden="true" />
+              </span>
+              <span className="mt-4 block text-sm font-bold">{item.label}</span>
+              <span className={`mx-auto mt-3 block h-1.5 w-8 rounded-full transition ${isSelected ? "bg-violet-600" : "bg-slate-100 group-hover:bg-violet-200"}`} />
+            </button>
+          );
+        })}
+      </motion.div>
+    </section>
+  );
+}
+
+function GuidedDemoJourney() {
+  return (
+    <section className="mt-8 rounded-[30px] border border-blue-100 bg-white/[0.92] p-5 shadow-[0_22px_70px_rgba(15,23,42,0.08)] backdrop-blur-xl sm:p-6">
+      <SectionKicker number="2" title="Guided Demo Journey" />
+      <div className="text-center">
+        <h2 className="text-2xl font-bold text-slate-950">Your 7 Step Demo Journey</h2>
+        <p className="mt-2 text-sm font-semibold text-slate-500">Follow these steps to explore your CRM like a real business</p>
+      </div>
+      <div className="no-scrollbar relative mt-7 flex gap-5 overflow-x-auto pb-2 xl:grid xl:grid-cols-7 xl:overflow-visible xl:pb-0">
+        <div className="absolute left-12 right-12 top-5 hidden border-t border-dashed border-violet-300 xl:block" />
+        {demoJourneySteps.map((step, index) => {
+          const Icon = step.icon;
+          return (
+            <div key={step.title} className="relative z-10 w-[9.6rem] shrink-0 text-center xl:w-auto">
+              <span className="mx-auto grid h-10 w-10 place-items-center rounded-full border border-violet-300 bg-white text-sm font-bold text-violet-700 shadow-[0_10px_24px_rgba(109,40,217,0.16)]">
+                {index + 1}
+              </span>
+              <span className="mx-auto mt-3 grid h-8 w-8 place-items-center rounded-xl bg-violet-50 text-violet-700 xl:hidden">
+                <Icon className="h-4 w-4" aria-hidden="true" />
+              </span>
+              <h3 className="mt-3 text-xs font-bold text-slate-950">{step.title}</h3>
+              <p className="mt-1 text-[11px] leading-4 text-slate-600">{step.description}</p>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+function IndustryBlueprintPreview({
+  industry,
+  selectedIndustryLabel,
+  roleOptions,
+  onPreview,
+  onRequest,
+}: {
+  industry: DemoIndustry;
+  selectedIndustryLabel: string;
+  roleOptions: string[];
+  onPreview: () => void;
+  onRequest: () => void;
+}) {
+  const columns = [
+    { title: "Recommended Modules", items: industry.modules.slice(0, 4), icon: Layers },
+    { title: "Recommended Roles", items: roleOptions.slice(0, 4), icon: Users },
+    { title: "Key Automations", items: industry.workflows.map((workflow) => workflow.title).slice(0, 4), icon: Workflow },
+    { title: "Estimated Timeline", items: ["7-14 days MVP", "2-4 weeks full CRM"], icon: CalendarDays },
+  ];
+
+  return (
+    <section className="mt-8 overflow-hidden rounded-[30px] border border-blue-100 bg-white/[0.92] p-5 shadow-[0_26px_90px_rgba(15,23,42,0.1)] backdrop-blur-xl sm:p-6">
+      <SectionKicker number="5" title="Industry Blueprint Preview" />
+      <div className="overflow-hidden rounded-[24px] border border-slate-100 bg-white">
+        <div className="grid gap-0 lg:grid-cols-[1.05fr_0.75fr]">
+        <div className="p-5 sm:p-6">
+          <h2 className="text-3xl font-bold text-slate-950">{selectedIndustryLabel} CRM Blueprint</h2>
+          <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600">
+            Here&apos;s a quick preview of what your CRM will look like for {selectedIndustryLabel} businesses.
+          </p>
+          <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+            {columns.map((column) => {
+              const Icon = column.icon;
+              return (
+                <div key={column.title} className="rounded-[20px] border border-slate-200 bg-slate-50 p-4 shadow-sm">
+                  <div className="flex items-center gap-3">
+                    <span className="grid h-9 w-9 place-items-center rounded-2xl bg-white text-blue-700 shadow-sm">
+                      <Icon className="h-4 w-4" aria-hidden="true" />
+                    </span>
+                    <h3 className="text-sm font-bold text-slate-950">{column.title}</h3>
+                  </div>
+                  <div className="mt-3 space-y-2">
+                    {column.items.map((item) => (
+                      <div key={item} className="flex gap-2 text-xs font-semibold leading-5 text-slate-700">
+                        <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-600" aria-hidden="true" />
+                        <span>{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+            <Button type="button" onClick={onPreview} showArrow>
+              Preview This CRM
+            </Button>
+            <Button type="button" variant="secondary" onClick={onRequest}>
+              Request This Blueprint
+            </Button>
+          </div>
+        </div>
+        <div className="relative min-h-[18rem] overflow-hidden bg-slate-100">
+          <Image
+            src={industryPreviewImages[industry.id]}
+            alt={`${selectedIndustryLabel} CRM blueprint preview`}
+            fill
+            sizes="(min-width: 1024px) 34vw, 100vw"
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-l from-transparent via-white/10 to-white/80" />
+          <div className="relative flex h-full min-h-[18rem] items-end p-5 sm:p-6">
+            <div className="rounded-2xl border border-white/60 bg-white/90 p-4 shadow-[0_18px_45px_rgba(15,23,42,0.12)] backdrop-blur">
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-violet-700">Selected Industry</p>
+              <h3 className="mt-1 text-xl font-bold text-slate-950">{selectedIndustryLabel}</h3>
+              <p className="mt-2 text-sm font-semibold text-slate-600">Modules, roles, workflows and reports update instantly.</p>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function PreviewPanelHeader({
+  number,
+  sectionLabel,
+  eyebrow,
+  title,
+  description,
+  actionLabel,
+  onAction,
+}: {
+  number?: string;
+  sectionLabel?: string;
+  eyebrow: string;
+  title: string;
+  description: string;
+  actionLabel?: string;
+  onAction?: () => void;
+}) {
+  return (
+    <div className="mb-5">
+      {number && sectionLabel ? <SectionKicker number={number} title={sectionLabel} /> : null}
+      <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+        <div className="max-w-3xl">
+          <p className="text-xs font-bold uppercase tracking-[0.22em] text-blue-700">{eyebrow}</p>
+          <h2 className="mt-2 text-2xl font-bold text-slate-950">{title}</h2>
+          <p className="mt-2 text-sm leading-6 text-slate-600">{description}</p>
+        </div>
+        {actionLabel && onAction ? (
           <button
             type="button"
-            key={item.id}
-            onClick={() => onSelect(item.id)}
-            className={`group relative min-h-44 overflow-hidden rounded-[28px] border p-5 text-left shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(37,208,255,0.16)] ${
-              isSelected
-                ? "border-blue-300 bg-gradient-to-br from-blue-600 to-cyan-500 text-white"
-                : "border-slate-200 bg-white/90 text-slate-950 hover:border-cyan-200"
-            }`}
+            onClick={onAction}
+            className="inline-flex h-10 shrink-0 items-center justify-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-4 text-sm font-bold text-blue-700 transition hover:bg-blue-100"
           >
-            <div
-              className={`grid h-12 w-12 place-items-center rounded-2xl ${
-                isSelected ? "bg-white/[0.16] text-white" : "bg-cyan-50 text-blue-700"
-              }`}
-            >
-              <Icon className="h-6 w-6" aria-hidden="true" />
-            </div>
-            <h2 className="mt-5 text-lg font-bold">{item.selectorTitle}</h2>
-            <p className={`mt-2 text-sm leading-6 ${isSelected ? "text-blue-50" : "text-slate-600"}`}>{item.description}</p>
-            <span
-              className={`mt-4 inline-flex items-center gap-2 text-xs font-bold ${
-                isSelected ? "text-white" : "text-blue-700"
-              }`}
-            >
-              {isSelected ? "Selected demo" : "Explore workflow"}
-              <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" aria-hidden="true" />
-            </span>
+            {actionLabel}
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </button>
-        );
-      })}
-    </motion.div>
+        ) : null}
+      </div>
+    </div>
+  );
+}
+
+function WorkflowPreviewCard({ onRequest }: { onRequest: () => void }) {
+  return (
+    <section className="rounded-[30px] border border-slate-200 bg-white/[0.94] p-5 shadow-[0_20px_70px_rgba(15,23,42,0.08)] sm:p-6">
+      <PreviewPanelHeader
+        number="7"
+        sectionLabel="Workflow Preview"
+        eyebrow="Workflow preview"
+        title="New Lead Auto Follow-up Workflow"
+        description="A compact automation path your final CRM can run without manual chasing."
+        actionLabel="Build this workflow"
+        onAction={onRequest}
+      />
+      <div className="no-scrollbar flex gap-3 overflow-x-auto pb-2 pt-1">
+        {workflowPreviewSteps.map((step, index) => {
+          const Icon = step.icon;
+          return (
+            <div key={step.title} className="flex shrink-0 items-center gap-3">
+              <div className="w-40 rounded-[20px] border border-blue-100 bg-slate-50 p-4 text-center shadow-sm">
+                <span className="mx-auto grid h-10 w-10 place-items-center rounded-2xl bg-white text-blue-700 shadow-sm">
+                  <Icon className="h-4 w-4" aria-hidden="true" />
+                </span>
+                <h3 className="mt-3 text-sm font-bold text-slate-950">{step.title}</h3>
+                <p className="mt-2 text-xs leading-5 text-slate-600">{step.description}</p>
+              </div>
+              {index < workflowPreviewSteps.length - 1 ? <ArrowRight className="h-5 w-5 shrink-0 text-blue-400" aria-hidden="true" /> : null}
+            </div>
+          );
+        })}
+      </div>
+      <div className="mt-4 flex flex-wrap gap-2">
+        <button
+          type="button"
+          onClick={onRequest}
+          className="rounded-full border border-blue-100 bg-blue-50 px-4 py-2 text-sm font-bold text-blue-700 transition hover:border-blue-200 hover:bg-blue-100"
+        >
+          Liked this workflow? Build this CRM for my business.
+        </button>
+      </div>
+    </section>
+  );
+}
+
+function AIAssistantPreviewCard({ industry, onRequest }: { industry: DemoIndustry; onRequest: () => void }) {
+  const [activeAction, setActiveAction] = useState(aiPreviewActions[0].label);
+  const topLeads = useMemo(
+    () =>
+      industry.leads
+        .slice()
+        .sort((a, b) => {
+          const scoreA = a.temperature === "Hot" || a.temperature === "High" ? 2 : a.temperature === "Warm" ? 1 : 0;
+          const scoreB = b.temperature === "Hot" || b.temperature === "High" ? 2 : b.temperature === "Warm" ? 1 : 0;
+          return scoreB - scoreA;
+        })
+        .slice(0, 5),
+    [industry],
+  );
+  const lead = topLeads[0] ?? industry.leads[0];
+  const response =
+    activeAction === "Find my hottest leads"
+      ? `Here are the top ${topLeads.length} leads based on priority, stage, value, and engagement.`
+      : activeAction === "Why is this lead high priority?"
+        ? `${lead.name} is high priority because the record is ${lead.temperature}, valued at ${lead.value}, and currently in ${lead.stage}.`
+        : activeAction === "Suggest next best action"
+          ? `Create a same-day follow-up for ${lead.name}, assign ${lead.owner}, and confirm the next meeting before moving the pipeline stage.`
+          : activeAction === "Draft WhatsApp follow-up"
+            ? `Hi ${lead.name}, thanks for your interest in ${lead.need}. We mapped the next CRM step and can share a focused walkthrough. Would today or tomorrow work better?`
+            : `Risk is concentrated around middle-stage records. Clear overdue follow-ups and review hot leads without confirmed next meetings.`;
+
+  return (
+    <section className="rounded-[30px] border border-slate-200 bg-white/[0.94] p-5 shadow-[0_20px_70px_rgba(15,23,42,0.08)] sm:p-6">
+      <PreviewPanelHeader
+        number="8"
+        sectionLabel="AI Assistant Preview"
+        eyebrow="AI assistant preview"
+        title="Ask useful questions, get CRM actions"
+        description="Static demo responses show how AI can sit inside your CRM workflow."
+        actionLabel="Request AI blueprint"
+        onAction={onRequest}
+      />
+      <div className="grid gap-5 xl:grid-cols-[0.78fr_1.22fr]">
+        <div className="grid gap-3">
+          {aiPreviewActions.map((action) => {
+            const Icon = action.icon;
+            const selected = action.label === activeAction;
+            return (
+              <button
+                type="button"
+                key={action.label}
+                onClick={() => setActiveAction(action.label)}
+                className={`flex items-center gap-3 rounded-2xl border p-4 text-left text-sm font-bold transition ${
+                  selected ? "border-blue-200 bg-blue-50 text-blue-800 ring-4 ring-blue-50" : "border-slate-200 bg-slate-50 text-slate-700 hover:border-cyan-200"
+                }`}
+              >
+                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-white text-blue-700 shadow-sm">
+                  <Icon className="h-4 w-4" aria-hidden="true" />
+                </span>
+                <span>{action.label}</span>
+              </button>
+            );
+          })}
+        </div>
+        <div className="rounded-[24px] border border-slate-200 bg-white p-4 shadow-sm">
+          <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+            <div className="flex items-center gap-3">
+              <span className="grid h-10 w-10 place-items-center rounded-2xl bg-violet-50 text-violet-700">
+                <Bot className="h-5 w-5" aria-hidden="true" />
+              </span>
+              <div>
+                <h3 className="font-bold text-slate-950">AI Assistant</h3>
+                <p className="text-xs font-semibold text-slate-500">{industry.name} data context</p>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => setActiveAction(aiPreviewActions[0].label)}
+              className="hidden rounded-lg bg-violet-600 px-3 py-2 text-xs font-bold text-white transition hover:bg-violet-700 sm:inline-flex"
+            >
+              Show me my hottest 5 leads
+            </button>
+          </div>
+          <div className="mt-5 rounded-2xl border border-violet-100 bg-violet-50 p-4">
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-violet-700">{activeAction}</p>
+            <p className="mt-3 text-sm leading-6 text-slate-700">{response}</p>
+          </div>
+          <div className="mt-4 overflow-hidden rounded-2xl border border-slate-200">
+            <table className="w-full text-left text-xs">
+              <thead className="bg-slate-50 text-slate-500">
+                <tr>
+                  <th className="px-3 py-3">Lead</th>
+                  <th className="px-3 py-3">Score</th>
+                  <th className="px-3 py-3">Reason</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {topLeads.map((item, index) => (
+                  <tr key={item.name}>
+                    <td className="px-3 py-3 font-bold text-slate-900">{item.name}</td>
+                    <td className="px-3 py-3 font-bold text-violet-700">{92 - index * 7}</td>
+                    <td className="px-3 py-3 text-slate-600">{item.stage}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function RolePermissionsPreviewCard({ onRequest }: { onRequest: () => void }) {
+  return (
+    <section className="rounded-[30px] border border-slate-200 bg-white/[0.94] p-5 shadow-[0_20px_70px_rgba(15,23,42,0.08)] sm:p-6">
+      <PreviewPanelHeader
+        number="9"
+        sectionLabel="Role Permissions Preview"
+        eyebrow="Role permissions preview"
+        title="Control what each team can see"
+        description="Compact permission matrix with role-level access across core modules."
+        actionLabel="Plan permissions"
+        onAction={onRequest}
+      />
+      <div className="overflow-hidden rounded-[24px] border border-slate-200 bg-white shadow-sm">
+        <div className="overflow-x-auto">
+        <table className="w-full min-w-[700px] text-left text-sm">
+          <thead className="bg-slate-50 text-xs font-bold uppercase tracking-[0.14em] text-slate-500">
+            <tr>
+              <th className="px-4 py-4">Module</th>
+              {previewPermissionRoles.map((role) => (
+                <th key={role} className="px-4 py-4 text-center">{role}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-slate-100">
+            {previewPermissionModules.map((module) => (
+              <tr key={module} className="hover:bg-cyan-50/40">
+                <td className="px-4 py-4 font-bold text-slate-800">{module}</td>
+                {previewPermissionRoles.map((role) => {
+                  const status = getPreviewPermissionStatus(role, module);
+                  return (
+                    <td key={`${role}-${module}`} className="px-4 py-4 text-center">
+                      <span className={`inline-flex rounded-full border px-2.5 py-1 text-[11px] font-bold ${permissionStatusClasses(status)}`}>
+                        {status}
+                      </span>
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function IntegrationsPreviewCard({ onRequest }: { onRequest: () => void }) {
+  return (
+    <section className="rounded-[30px] border border-slate-200 bg-white/[0.94] p-5 shadow-[0_20px_70px_rgba(15,23,42,0.08)] sm:p-6">
+      <PreviewPanelHeader
+        number="10"
+        sectionLabel="Integrations (Visual)"
+        eyebrow="Integrations"
+        title="Connect your CRM with tools your team already uses"
+        description="App-style integration tiles for messaging, forms, finance, sheets, calendars, and team tools."
+        actionLabel="Book Free Consultation"
+        onAction={onRequest}
+      />
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6 xl:grid-cols-9">
+        {integrationPreviewItems.map((item) => {
+          const Icon = item.icon;
+          return (
+            <div key={item.name} className="rounded-[20px] border border-slate-200 bg-slate-50 p-4 text-center shadow-sm transition hover:-translate-y-0.5 hover:border-blue-200 hover:bg-white hover:shadow-[0_18px_44px_rgba(37,99,235,0.1)]">
+              <span className="mx-auto grid h-11 w-11 place-items-center rounded-2xl bg-white text-blue-700 shadow-sm">
+                <Icon className="h-5 w-5" aria-hidden="true" />
+              </span>
+              <h3 className="mt-3 text-xs font-bold leading-5 text-slate-800">{item.name}</h3>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+function BlueprintRequestForm({
+  refNode,
+  industry,
+  selectedIndustryLabel,
+  selectedRole,
+  showToast,
+}: {
+  refNode: RefObject<HTMLDivElement | null>;
+  industry: DemoIndustry;
+  selectedIndustryLabel: string;
+  selectedRole: string;
+  showToast: (message: string) => void;
+}) {
+  function submitBlueprintRequest(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    showToast("Blueprint request captured. We will contact you shortly.");
+    event.currentTarget.reset();
+  }
+
+  return (
+    <section ref={refNode} className="scroll-mt-24 rounded-[30px] border border-blue-100 bg-white/[0.94] p-5 shadow-[0_28px_95px_rgba(15,23,42,0.12)] backdrop-blur-xl sm:p-6">
+      <SectionKicker number="11" title="Blueprint Request Form" />
+      <div className="overflow-hidden rounded-[24px] border border-slate-200 bg-white">
+        <div className="grid gap-0 xl:grid-cols-[0.82fr_1.18fr]">
+        <div className="relative overflow-hidden bg-[linear-gradient(135deg,#6d28d9,#7c3aed_52%,#2563eb)] p-5 text-white sm:p-7">
+          <div className="absolute -right-20 -top-20 h-48 w-48 rounded-full bg-white/10 blur-3xl" />
+          <p className="text-xs font-bold uppercase tracking-[0.24em] text-violet-100">Send Me This CRM Blueprint</p>
+          <h2 className="mt-3 text-3xl font-bold">Send Me This CRM Blueprint</h2>
+          <p className="mt-3 leading-7 text-violet-50">
+            Get a detailed CRM blueprint, estimated timeline, and cost range for your business.
+          </p>
+          <div className="mt-6 grid gap-3 text-sm font-bold">
+            {["Custom modules for your business", "Role-based access structure", "Workflow & automation plan", "Implementation timeline", "Cost estimation"].map((benefit) => (
+              <div key={benefit} className="flex items-center gap-3">
+                <CheckCircle2 className="h-4 w-4 text-violet-100" aria-hidden="true" />
+                {benefit}
+              </div>
+            ))}
+          </div>
+          <div className="relative mt-8 overflow-hidden rounded-[22px] border border-white/30 bg-white/10 p-4 text-sm leading-6 shadow-[0_20px_55px_rgba(15,23,42,0.18)] backdrop-blur">
+            <p className="font-bold text-violet-100">Selected Industry</p>
+            <div className="mt-3 grid gap-4 sm:grid-cols-[1fr_7.5rem]">
+              <div>
+                <p className="text-xl font-bold text-white">{selectedIndustryLabel}</p>
+                <p className="mt-1 text-violet-100">Role perspective: {selectedRole}</p>
+                <p className="text-violet-100">Suggested launch: 7-14 days MVP</p>
+              </div>
+              <Image
+                src={industryDashboardImages[industry.id]}
+                alt={`${selectedIndustryLabel} selected dashboard`}
+                width={160}
+                height={96}
+                className="h-24 w-full rounded-2xl object-cover"
+              />
+            </div>
+          </div>
+        </div>
+        <form onSubmit={submitBlueprintRequest} className="grid gap-4 p-5 sm:p-7">
+          <div className="grid gap-4 md:grid-cols-2">
+            <FormField label="Full Name" name="name" placeholder="Enter your name" required />
+            <label>
+              <span className="mb-2 block text-sm font-bold text-slate-700">Business Type</span>
+              <input
+                name="businessType"
+                value={selectedIndustryLabel}
+                readOnly
+                className="h-12 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 text-sm font-semibold text-slate-700 outline-none focus:border-cyan-300 focus:ring-4 focus:ring-cyan-100"
+              />
+            </label>
+            <FormField label="WhatsApp Number" name="whatsapp" placeholder="Enter number" type="tel" required />
+            <FormField label="Email" name="email" placeholder="Enter your email" type="email" required />
+          </div>
+          <label>
+            <span className="mb-2 block text-sm font-bold text-slate-700">Requirement / Notes</span>
+            <textarea
+              name="requirements"
+              placeholder="Write your requirement..."
+              className="min-h-32 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-cyan-300 focus:ring-4 focus:ring-cyan-100"
+            />
+          </label>
+          <Button type="submit" size="lg" className="w-full">
+            Send My Blueprint
+          </Button>
+          <p className="flex items-center justify-center gap-2 text-xs font-semibold text-slate-500">
+            <Lock className="h-3.5 w-3.5" aria-hidden="true" />
+            We respect your privacy. No spam. Ever.
+          </p>
+        </form>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function BottomCtaStrip({ onRequest }: { onRequest: () => void }) {
+  return (
+    <section className="rounded-[30px] border border-violet-200 bg-white/[0.94] p-5 shadow-[0_22px_75px_rgba(15,23,42,0.08)] sm:p-6">
+      <SectionKicker number="12" title="Final Call To Action" />
+      <div className="flex flex-col gap-4 rounded-[24px] bg-[linear-gradient(135deg,#111827,#312e81_54%,#6d28d9)] p-5 text-white sm:p-6 lg:flex-row lg:items-center lg:justify-between">
+        <div className="max-w-3xl">
+          <h2 className="text-2xl font-bold">Ready to design your own CRM blueprint?</h2>
+          <p className="mt-2 text-sm leading-6 text-violet-100">
+            Share your business details and get a focused CRM structure with modules, roles, workflows, timeline, and cost estimate.
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={onRequest}
+          className="inline-flex h-12 shrink-0 items-center justify-center gap-2 rounded-2xl bg-white px-5 text-sm font-bold text-violet-700 shadow-sm transition hover:bg-violet-50"
+        >
+          Request My CRM Blueprint
+          <ArrowRight className="h-4 w-4" aria-hidden="true" />
+        </button>
+      </div>
+    </section>
+  );
+}
+
+function FormField({
+  label,
+  name,
+  placeholder,
+  type = "text",
+  required = false,
+}: {
+  label: string;
+  name: string;
+  placeholder: string;
+  type?: string;
+  required?: boolean;
+}) {
+  return (
+    <label>
+      <span className="mb-2 block text-sm font-bold text-slate-700">{label}</span>
+      <input
+        name={name}
+        type={type}
+        required={required}
+        placeholder={placeholder}
+        className="h-12 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 text-sm outline-none focus:border-cyan-300 focus:ring-4 focus:ring-cyan-100"
+      />
+    </label>
+  );
+}
+
+function getPreviewPermissionStatus(role: string, module: string) {
+  if (role === "Admin") return "View/Edit";
+  if (role === "Manager" && module !== "Settings") return "View/Edit";
+  if (role === "Sales Agent" && ["Leads", "Pipeline", "Tasks"].includes(module)) return "View/Edit";
+  if (role === "Support" && ["Leads", "Tasks", "Reports"].includes(module)) return "View Only";
+  if (role === "Accountant" && ["Reports", "Invoices"].includes(module)) return "View/Edit";
+  if (module === "Settings" || module === "Invoices") return "No Access";
+  return "View Only";
+}
+
+function permissionStatusClasses(status: string) {
+  if (status === "View/Edit") return "border-emerald-200 bg-emerald-50 text-emerald-700";
+  if (status === "View Only") return "border-blue-200 bg-blue-50 text-blue-700";
+  return "border-rose-200 bg-rose-50 text-rose-700";
+}
+
+function ProductBrowserFrame({
+  refNode,
+  industry,
+  onRequest,
+  children,
+}: {
+  refNode: RefObject<HTMLDivElement | null>;
+  industry: DemoIndustry;
+  onRequest: () => void;
+  children: ReactNode;
+}) {
+  return (
+    <section ref={refNode} className="mt-8 scroll-mt-24 rounded-[30px] border border-blue-100 bg-white/[0.92] p-5 shadow-[0_30px_100px_rgba(15,23,42,0.14)] backdrop-blur-xl sm:p-6">
+      <SectionKicker number="6" title="Main CRM Demo Shell (Preview)" />
+      <div className="overflow-hidden rounded-[24px] border border-slate-200 bg-white">
+        <div className="flex flex-col gap-3 border-b border-slate-100 px-3 py-3 lg:flex-row lg:items-center lg:justify-between">
+          <div className="flex min-w-0 items-center gap-3">
+            <div className="flex shrink-0 items-center gap-1.5">
+              <span className="h-3 w-3 rounded-full bg-rose-300" />
+              <span className="h-3 w-3 rounded-full bg-amber-300" />
+              <span className="h-3 w-3 rounded-full bg-emerald-300" />
+            </div>
+            <div className="min-w-0 rounded-full bg-slate-100 px-4 py-2 text-xs font-bold text-slate-500">
+              <span className="hidden sm:inline">hnxcrm.local/demo/</span>{industry.id}
+            </div>
+          </div>
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+            <span className="text-sm font-bold text-slate-700">Want this dashboard with your real data?</span>
+            <button
+              type="button"
+              onClick={onRequest}
+              className="inline-flex h-10 items-center justify-center gap-2 rounded-full bg-violet-600 px-4 text-sm font-bold text-white shadow-sm transition hover:bg-violet-700"
+            >
+              Request This Blueprint
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </button>
+          </div>
+        </div>
+        <div className="p-2 sm:p-3">{children}</div>
+      </div>
+    </section>
   );
 }
 
@@ -579,7 +1453,7 @@ function DemoTopbar({
         <div className="flex flex-wrap items-center gap-3">
           <div className="flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-3 py-2 text-xs font-bold text-blue-700">
             <span className="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_0_4px_rgba(16,185,129,0.14)]" />
-            Demo Mode
+            Preview CRM
           </div>
           <div className="rounded-full border border-cyan-200 bg-white px-3 py-2 text-xs font-bold text-slate-700">
             Demo: {industry.name}
@@ -706,7 +1580,7 @@ function WorkspaceSidebar({
   return (
     <aside className="hidden bg-slate-950 p-4 text-white lg:block">
       <div className="rounded-[24px] border border-white/10 bg-white/[0.06] p-4">
-        <p className="text-xs font-bold uppercase tracking-[0.24em] text-cyan-200">Live Workspace</p>
+        <p className="text-xs font-bold uppercase tracking-[0.24em] text-cyan-200">Try It Yourself</p>
         <h2 className="mt-2 text-xl font-bold">{industry.name}</h2>
         <p className="mt-2 text-sm leading-6 text-slate-300">Build your CRM live with leads, roles, workflows, AI, and activity logs.</p>
       </div>
@@ -1510,6 +2384,39 @@ function AIAssistantTab({ industry, showToast }: { industry: DemoIndustry; showT
   const [selectedQuestion, setSelectedQuestion] = useState(industry.aiQuestions[0]?.question ?? "");
   const [answer, setAnswer] = useState(industry.aiQuestions[0]?.answer ?? "");
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const quickActions = useMemo<Array<{ label: string; answer: string; icon: LucideIcon }>>(() => {
+    const priorityLeads = industry.leads.filter((lead) => ["Hot", "High"].includes(lead.temperature)).slice(0, 5);
+    const topLead = priorityLeads[0] ?? industry.leads[0];
+    const riskStage = industry.pipelineStages[Math.max(0, Math.floor(industry.pipelineStages.length / 2))] ?? "middle stage";
+
+    return [
+      {
+        label: "Find my hottest leads",
+        icon: Sparkles,
+        answer: `${priorityLeads.map((lead, index) => `${index + 1}. ${lead.name} (${lead.temperature}, ${lead.value})`).join(" ")} Focus on leads with recent activity, high value, and clear next steps.`,
+      },
+      {
+        label: "Why is this lead high priority?",
+        icon: ShieldCheck,
+        answer: `${topLead.name} is high priority because the record is valued at ${topLead.value}, sits in ${topLead.stage}, and has this CRM note: ${topLead.note}`,
+      },
+      {
+        label: "Suggest next best action",
+        icon: Zap,
+        answer: `Create a same-day follow-up for ${topLead.name}, assign ${topLead.owner}, and move the record forward only after the customer confirms the next meeting or document requirement.`,
+      },
+      {
+        label: "Draft WhatsApp follow-up",
+        icon: MessageSquare,
+        answer: `Hi ${topLead.name}, thanks for your interest in ${topLead.need}. We have mapped the next CRM step for you and can share a focused walkthrough. Would today or tomorrow work better?`,
+      },
+      {
+        label: "Summarize today's pipeline risk",
+        icon: BarChart3,
+        answer: `Pipeline risk is concentrated around ${riskStage}. The team should clear overdue follow-ups, confirm next meetings for hot leads, and review records without an owner before end of day.`,
+      },
+    ];
+  }, [industry]);
 
   useEffect(() => {
     const first = industry.aiQuestions[0];
@@ -1530,6 +2437,17 @@ function AIAssistantTab({ industry, showToast }: { industry: DemoIndustry; showT
     }, 650);
   }
 
+  function askQuickAction(action: { label: string; answer: string }) {
+    setSelectedQuestion(action.label);
+    setIsAnalyzing(true);
+    setAnswer("");
+    window.setTimeout(() => {
+      setAnswer(action.answer);
+      setIsAnalyzing(false);
+      showToast(`${action.label} generated.`);
+    }, 650);
+  }
+
   return (
     <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.34 }}>
       <SectionHeader
@@ -1539,7 +2457,28 @@ function AIAssistantTab({ industry, showToast }: { industry: DemoIndustry; showT
       />
       <div className="grid gap-5 xl:grid-cols-[0.9fr_1.1fr]">
         <div className="rounded-[28px] border border-slate-200 bg-white p-5 shadow-sm">
-          <h3 className="text-lg font-bold text-slate-950">Suggested questions</h3>
+          <h3 className="text-lg font-bold text-slate-950">Quick actions</h3>
+          <div className="mt-4 grid gap-3">
+            {quickActions.map((action) => {
+              const Icon = action.icon;
+              return (
+                <button
+                  type="button"
+                  key={action.label}
+                  onClick={() => askQuickAction(action)}
+                  className={`flex items-center gap-3 rounded-2xl border p-4 text-left text-sm font-bold leading-6 transition ${
+                    action.label === selectedQuestion ? "border-blue-200 bg-blue-50 text-blue-800" : "border-slate-200 bg-slate-50 text-slate-700 hover:border-cyan-200"
+                  }`}
+                >
+                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-2xl bg-white text-blue-700 shadow-sm">
+                    <Icon className="h-4 w-4" aria-hidden="true" />
+                  </span>
+                  <span>{action.label}</span>
+                </button>
+              );
+            })}
+          </div>
+          <h3 className="mt-6 text-lg font-bold text-slate-950">Industry questions</h3>
           <div className="mt-4 grid gap-3">
             {industry.aiQuestions.map((item) => (
               <button
@@ -1839,7 +2778,7 @@ function BuildCRMTab({
 }
 
 function FloatingDemoGuide({ activeTab, setActiveTab }: { activeTab: DemoTab; setActiveTab: (tab: DemoTab) => void }) {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const [dismissed, setDismissed] = useState(false);
   const guide = getGuideContent(activeTab);
 
@@ -1852,10 +2791,11 @@ function FloatingDemoGuide({ activeTab, setActiveTab }: { activeTab: DemoTab; se
       <button
         type="button"
         onClick={() => setCollapsed(false)}
-        className="fixed bottom-5 right-5 z-[75] inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white px-4 py-3 text-sm font-bold text-blue-700 shadow-[0_20px_70px_rgba(15,23,42,0.18)]"
+        aria-label="Open CRM guide"
+        className="fixed bottom-5 right-5 z-[75] grid h-11 w-11 place-items-center rounded-full border border-blue-100 bg-white text-blue-700 shadow-[0_20px_70px_rgba(15,23,42,0.18)]"
       >
         <Bot className="h-4 w-4" aria-hidden="true" />
-        CRM Guide
+        <span className="sr-only">CRM Guide</span>
       </button>
     );
   }

@@ -13,7 +13,7 @@ export const metadata = createMetadata({
 });
 
 export default function DemoCrmRoute() {
-  const enhancedDemo = process.env.NEXT_PUBLIC_ENHANCED_DEMO !== "false";
+  const enhancedDemo = process.env.NEXT_PUBLIC_ENHANCED_DEMO === "true";
 
   const structuredData = {
     "@context": "https://schema.org",

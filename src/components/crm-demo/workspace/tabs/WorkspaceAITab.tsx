@@ -140,8 +140,14 @@ export function WorkspaceAITab({ industry, showToast }: { industry: DemoIndustry
             <h3 className="text-lg font-bold text-slate-950 dark:text-white">Quick actions</h3>
           </div>
           <div className="mt-4 grid gap-3">
+            <QuickButton label="Find my hottest leads" onClick={() => submitQuery("Find my hottest leads")} disabled={!workspace.leads.length} />
+            <QuickButton label="Why is this lead high priority?" onClick={() => submitQuery("Why is this lead high priority?")} disabled={!workspace.leads.length} />
+            <QuickButton label="Suggest next best action" onClick={() => submitQuery("Suggest next best action")} />
+            <QuickButton label="Draft WhatsApp follow-up" onClick={() => submitQuery("Draft WhatsApp follow-up")} disabled={!workspace.leads.length} />
+            <QuickButton label="Summarize today's pipeline risk" onClick={() => submitQuery("Summarize today's pipeline risk")} />
+          </div>
+          <div className="mt-5 grid gap-3">
             <QuickButton label="Score all my leads" onClick={scoreAllLeads} disabled={!workspace.leads.length} />
-            <QuickButton label="Suggest my top priority lead" onClick={() => submitQuery("Suggest my top priority lead")} />
             <QuickButton label="Create a follow-up plan" onClick={createPlan} disabled={!workspace.leads.length} />
             <QuickButton
               label="What workflows should I set up?"
@@ -150,8 +156,6 @@ export function WorkspaceAITab({ industry, showToast }: { industry: DemoIndustry
                 submitQuery(`What workflows should I set up? ${suggestions.map((item) => item.name).join(", ")}`);
               }}
             />
-            <QuickButton label="Analyze my pipeline" onClick={() => submitQuery("Analyze my pipeline")} />
-            <QuickButton label="Draft a WhatsApp message" onClick={() => submitQuery("Draft a WhatsApp message")} />
           </div>
           <div className="mt-5 rounded-2xl border border-blue-100 bg-blue-50 p-4">
             <WorkspaceBadge tone="blue">Powered by local workspace AI</WorkspaceBadge>
