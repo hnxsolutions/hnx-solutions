@@ -24,6 +24,8 @@ import type {
   IndustryWebsiteTestimonial,
   IndustryWebsiteTrustItem,
 } from "./industryWebsiteData";
+import IndustryAiAutomationSection from "../common/IndustryAiAutomationSection";
+import IndustryIntegrationsDeploymentSection from "../common/IndustryIntegrationsDeploymentSection";
 import SharedIndustryWebsiteDemoModal from "./IndustryWebsiteDemoModal";
 import { getIndustryWebsitePage } from "./industryWebsiteData";
 
@@ -59,6 +61,8 @@ export default function IndustryWebsitePage({
             <IndustryModulesSection data={data} />
             <TrustedProvidersSection data={data} />
             <WebsiteDemosSection data={data} onOpenDemo={setActiveDemo} />
+            <IndustryAiAutomationSection {...data.aiAutomation} />
+            <IndustryIntegrationsDeploymentSection {...data.integrationsDeployment} />
             <WhyChooseAndCTASection data={data} />
             <PricingSection data={data} />
             <TestimonialsSection title={data.testimonialsTitle} items={data.testimonials} />
@@ -1272,4 +1276,3 @@ function MarqueeStyles() {
     `}</style>
   );
 }
-

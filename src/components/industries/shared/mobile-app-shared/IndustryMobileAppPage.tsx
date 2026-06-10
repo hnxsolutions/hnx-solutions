@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, ShieldCheck, Star } from "lucide-react";
+import IndustryAiAutomationSection from "../common/IndustryAiAutomationSection";
+import IndustryIntegrationsDeploymentSection from "../common/IndustryIntegrationsDeploymentSection";
 import IndustryMobileAppDemoModal from "./IndustryMobileAppDemoModal";
 import IndustryMobileAppPreviewHero from "./IndustryMobileAppPreviewHero";
 import MobileAppAdvantageSection from "./MobileAppAdvantageSection";
@@ -64,6 +66,8 @@ export default function IndustryMobileAppPage({
             <PricingSection data={data} />
             <TestimonialsSection title={data.testimonialsTitle} items={data.testimonials} />
             <TrustSection data={data} />
+            <IndustryAiAutomationSection {...data.aiAutomation} />
+            <IndustryIntegrationsDeploymentSection {...data.integrationsDeployment} />
             <FinalCTASection data={data} />
           </div>
         </div>

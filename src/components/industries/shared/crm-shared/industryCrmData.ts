@@ -1,23 +1,38 @@
 import type { LucideIcon } from "lucide-react";
 import {
+  Activity,
   BarChart3,
   Bell,
+  Bot,
+  BriefcaseBusiness,
   Building2,
   CalendarCheck,
+  Car,
   ClipboardCheck,
   ClipboardList,
   CreditCard,
+  Database,
   Factory,
   FileCheck2,
   FileText,
+  FolderOpen,
+  GitBranch,
   GraduationCap,
+  HandCoins,
   HeartPulse,
   Home,
+  Hotel,
+  IdCard,
   Landmark,
   LifeBuoy,
+  LineChart,
+  Mail,
+  MapPinned,
   MessageCircle,
   PackageCheck,
+  Plane,
   ReceiptText,
+  Repeat2,
   Route,
   School,
   ShieldCheck,
@@ -26,9 +41,14 @@ import {
   Stethoscope,
   Store,
   Tags,
+  Target,
+  Truck,
   UserCheck,
   Users,
+  Wrench,
 } from "lucide-react";
+import type { IndustryAiAutomationData } from "../common/IndustryAiAutomationSection";
+import type { IndustryIntegrationsDeploymentData } from "../common/IndustryIntegrationsDeploymentSection";
 
 export type IndustryCrmRoute = {
   industrySlug: string;
@@ -143,6 +163,8 @@ export type IndustryCrmPageData = {
   integrations: IndustryCrmIntegration[];
   useCases: IndustryCrmUseCase[];
   processSteps: IndustryCrmProcessStep[];
+  aiAutomation: IndustryAiAutomationData;
+  integrationsDeployment: IndustryIntegrationsDeploymentData;
   finalCta: IndustryCrmFinalCta;
 };
 
@@ -170,6 +192,34 @@ type IndustryConfig = {
 
 const crmDemoHref = "/crm-demo";
 const contactHref = "/contact";
+const aiAutomationHref = "/contact?service=ai-automation";
+
+const crmAiAutomation: IndustryAiAutomationData = {
+  eyebrow: "AI Automation Add-ons",
+  title: "AI Automation Inside Your CRM",
+  description:
+    "Automate lead scoring, follow-ups, reports, proposals, and repetitive sales or operations workflows inside your CRM.",
+  items: ["Lead scoring", "Auto follow-ups", "Proposal generation", "Performance reports"],
+  ctaLabel: "Automate My CRM",
+  ctaHref: aiAutomationHref,
+};
+
+const crmIntegrationsDeployment: IndustryIntegrationsDeploymentData = {
+  eyebrow: "Integrations & Deployment",
+  title: "CRM Integrations & Deployment",
+  description:
+    "Connect your CRM with WhatsApp, email, forms, reports, payment tools, team roles, and secure cloud deployment for real business operations.",
+  items: [
+    { title: "WhatsApp / email", description: "Connect follow-ups, reminders, and team alerts." },
+    { title: "Lead form sync", description: "Pull website and campaign inquiries into CRM." },
+    { title: "Role-based access", description: "Control what each team member can view or edit." },
+    { title: "Reports & exports", description: "Share performance, pipeline, and activity data." },
+    { title: "Payment tools", description: "Track invoices, payment status, and collections." },
+    { title: "Cloud deployment", description: "Host securely with backups and scale planning." },
+  ],
+  ctaLabel: "Plan CRM Stack",
+  ctaHref: aiAutomationHref,
+};
 
 function card(
   title: string,
@@ -234,6 +284,228 @@ function integration(
   return { title, flow, description, icon };
 }
 
+const industryModuleExtensions: Record<string, IndustryCrmModule[]> = {
+  healthcare: [
+    moduleCard("Medical Document Collection", "Collect reports, prescriptions, identity proofs and consent documents securely.", FolderOpen, ["Documents"]),
+    moduleCard("Insurance Verification", "Track insurance details, approval status and verification notes for patient cases.", ShieldCheck, ["Insurance"]),
+    moduleCard("Patient Support Tickets", "Manage patient queries, complaints, escalations and service closure.", LifeBuoy, ["Support"]),
+    moduleCard("Lab / Report Tracking", "Track lab tests, diagnostic reports, review status and patient updates.", FileCheck2, ["Reports"]),
+    moduleCard("Referral Management", "Track referrals from doctors, partners, campaigns and existing patients.", GitBranch, ["Referrals"]),
+    moduleCard("Health Checkup Campaigns", "Run wellness, checkup, camp and preventive-care campaigns.", Target, ["Campaigns"]),
+    moduleCard("Patient Feedback", "Collect feedback, reviews and service improvement notes after visits.", MessageCircle, ["Feedback"]),
+    moduleCard("Role-Based Access", "Control access for admin, doctors, reception, billing and support teams.", ShieldCheck, ["Security"]),
+    moduleCard("Doctor Dashboard", "Give doctors a focused view of assigned patients, visits, notes and reports.", Stethoscope, ["Dashboard"]),
+    moduleCard("Reception Dashboard", "Manage front-desk patient flow, appointments, queues and follow-ups.", ClipboardCheck, ["Front Desk"]),
+    moduleCard("Care Plan Tracking", "Track care plans, treatment stages, repeat visits and patient progress.", Activity, ["Care"]),
+    moduleCard("Patient Portal", "Let patients access appointments, reports, prescriptions and updates.", IdCard, ["Portal"]),
+    moduleCard("Repeat Visit Reminders", "Trigger reminders for follow-ups, reviews, checkups and repeat consultations.", Repeat2, ["Retention"]),
+    moduleCard("Emergency Contact Records", "Maintain emergency contacts and patient support information.", Users, ["Records"]),
+    moduleCard("AI Patient Summary", "Summarize patient timeline, notes, reports and suggested next actions.", Bot, ["AI"]),
+  ],
+
+  manufacturing: [
+    moduleCard("Product Catalogue", "Manage product categories, variants, specifications, pricing and availability.", PackageCheck, ["Products"]),
+    moduleCard("Vendor / Supplier Records", "Store vendor contacts, purchase coordination notes and supply status.", BriefcaseBusiness, ["Suppliers"]),
+    moduleCard("Warranty Management", "Track warranty periods, claims, replacements and customer eligibility.", ShieldCheck, ["Warranty"]),
+    moduleCard("AMC / Maintenance Tracking", "Manage annual maintenance contracts, renewals and service commitments.", Repeat2, ["AMC"]),
+    moduleCard("Field Visit Tracking", "Track sales and service visits, routes, notes and customer outcomes.", MapPinned, ["Field"]),
+    moduleCard("Payment Collection", "Track pending payments, credit terms, dues and collection follow-ups.", HandCoins, ["Finance"]),
+    moduleCard("Invoice Tracking", "Manage invoices, receipts, payment status and billing handoffs.", ReceiptText, ["Finance"]),
+    moduleCard("Approval Workflows", "Route quotes, discounts, orders and exceptions for internal approval.", GitBranch, ["Approvals"]),
+    moduleCard("Partner Portal", "Give dealers and partners access to requests, quotes and order updates.", IdCard, ["Portal"]),
+    moduleCard("Dealer Performance Dashboard", "Measure dealer activity, order value, follow-up health and targets.", LineChart, ["Dashboard"]),
+    moduleCard("Sales Forecasting", "Forecast demand, revenue and order movement using CRM activity.", BarChart3, ["Forecast"]),
+    moduleCard("Repeat Order Tracking", "Track reorder cycles, repeat buyers and product demand patterns.", Repeat2, ["Retention"]),
+    moduleCard("Complaint Management", "Manage complaints, warranty issues, escalations and resolution history.", LifeBuoy, ["Support"]),
+    moduleCard("Document Templates", "Generate reusable quotation, order, invoice and service templates.", FileText, ["Documents"]),
+    moduleCard("AI Sales Forecast", "Generate forecast insights from quote, order and dealer activity.", Bot, ["AI"]),
+  ],
+
+  education: [
+    moduleCard("Application Review", "Review forms, applications, eligibility and admission status.", FileCheck2, ["Applications"]),
+    moduleCard("Document Collection", "Collect ID proof, certificates, marksheets and admission documents.", FolderOpen, ["Documents"]),
+    moduleCard("Scholarship Tracking", "Manage scholarship requests, approval status and award notes.", GraduationCap, ["Scholarships"]),
+    moduleCard("Batch / Course Management", "Manage courses, batches, classes, seats and academic groups.", School, ["Batches"]),
+    moduleCard("Attendance Integration", "Connect attendance visibility with student profiles and follow-ups.", ClipboardCheck, ["Attendance"]),
+    moduleCard("Academic Operations", "Track academic handoffs, student support, internal tasks and updates.", School, ["Operations"]),
+    moduleCard("Interview / Test Scheduling", "Schedule entrance tests, interviews, assessments and reminders.", CalendarCheck, ["Scheduling"]),
+    moduleCard("Admission Conversion Reports", "Track admissions by source, program, branch and counsellor.", BarChart3, ["Reports"]),
+    moduleCard("Student Success Tracking", "Monitor student progress, engagement, retention and risk signals.", Activity, ["Success"]),
+    moduleCard("Alumni Management", "Manage alumni records, campaigns, updates and engagement.", Users, ["Alumni"]),
+    moduleCard("Marketing Campaigns", "Run admission campaigns, source tracking and response workflows.", Target, ["Campaigns"]),
+    moduleCard("Email / WhatsApp Broadcasts", "Send notices, reminders and campaigns to students and parents.", Mail, ["Communication"]),
+    moduleCard("Student Portal", "Give students access to application status, documents and updates.", IdCard, ["Portal"]),
+    moduleCard("Campus / Branch Management", "Manage multiple campuses, branches, counsellors and performance.", Building2, ["Campus"]),
+    moduleCard("Lead Source Tracking", "Track lead channels, campaigns, referrals and source performance.", Target, ["Sources"]),
+    moduleCard("AI Admission Summary", "Summarize student enquiries and suggest next admission actions.", Bot, ["AI"]),
+  ],
+
+  "real-estate": [
+    moduleCard("Buyer Lead Management", "Track buyer requirements, budget, location preferences and urgency.", Users, ["Buyers"]),
+    moduleCard("Seller Lead Management", "Manage seller records, listing interest and property handoffs.", UserCheck, ["Sellers"]),
+    moduleCard("Property Listings", "Manage listings, price, availability, status, photos and project notes.", Building2, ["Listings"]),
+    moduleCard("Booking Management", "Track token amount, booking status, allotment and customer updates.", ClipboardCheck, ["Booking"]),
+    moduleCard("Builder / Project Records", "Manage builders, projects, towers, units, status and project documents.", Building2, ["Projects"]),
+    moduleCard("Property Matching", "Match available inventory with customer requirements and budget.", Target, ["Matching"]),
+    moduleCard("Follow-up Reminders", "Create reminders for calls, visits, offers and deal movement.", Bell, ["Reminders"]),
+    moduleCard("WhatsApp Property Sharing", "Share property details, brochures and visit confirmations on WhatsApp.", MessageCircle, ["WhatsApp"]),
+    moduleCard("Call Logs", "Track calls, notes, outcomes and customer timeline history.", MessageCircle, ["Calls"]),
+    moduleCard("Customer Requirements", "Store preferred location, property type, budget and timeline.", ClipboardList, ["Requirements"]),
+    moduleCard("Channel Partner Management", "Manage brokers, referrals, partners and source performance.", GitBranch, ["Partners"]),
+    moduleCard("Loan Assistance Tracking", "Track bank coordination, documents, eligibility and approval status.", Landmark, ["Loans"]),
+    moduleCard("Inventory / Unit Availability", "Track available units, inventory status, holds and booked properties.", Home, ["Inventory"]),
+    moduleCard("Customer Portal", "Give customers secure access to booking status and updates.", IdCard, ["Portal"]),
+    moduleCard("Agent Performance Dashboard", "Measure visits, conversions, lead activity and deal closures.", LineChart, ["Dashboard"]),
+    moduleCard("Agreement Status Tracking", "Track agreements, KYC, signing, verification and pending documents.", FileCheck2, ["Agreements"]),
+    moduleCard("AI Property Match Suggestions", "Recommend properties based on budget, location and buyer needs.", Bot, ["AI"]),
+  ],
+
+  retail: [
+    moduleCard("Product Interest Tracking", "Track product interests, preferences, wishlist items and purchase intent.", Tags, ["Products"]),
+    moduleCard("Cart / Inquiry Follow-up", "Follow up on abandoned carts, product enquiries and incomplete purchases.", Bell, ["Follow-ups"]),
+    moduleCard("Coupons & Offers", "Create coupon campaigns, offer rules and redemption follow-ups.", Tags, ["Offers"]),
+    moduleCard("Returns / Refunds", "Manage return requests, refund status and support communication.", Repeat2, ["Returns"]),
+    moduleCard("Inventory Alerts", "Notify teams about stock requests, restocks and product availability.", PackageCheck, ["Inventory"]),
+    moduleCard("Campaign Management", "Run customer campaigns by segment, purchase history and interest.", Target, ["Campaigns"]),
+    moduleCard("WhatsApp Promotions", "Send product updates, offers and customer follow-ups over WhatsApp.", MessageCircle, ["WhatsApp"]),
+    moduleCard("Email Marketing", "Send customer campaigns, announcements and promotional sequences.", Mail, ["Email"]),
+    moduleCard("Payment Tracking", "Track payment status, failed payments and follow-up tasks.", CreditCard, ["Payments"]),
+    moduleCard("Delivery Status", "Track delivery updates, delays, returns and customer communication.", Truck, ["Delivery"]),
+    moduleCard("Customer Segmentation", "Segment customers by interest, loyalty, value and behavior.", Users, ["Segments"]),
+    moduleCard("Store / Branch Management", "Manage multiple stores, locations, teams and local performance.", Store, ["Branches"]),
+    moduleCard("POS Integration", "Connect POS sales data, customer history and purchase activity.", Store, ["POS"]),
+    moduleCard("E-commerce Integration", "Sync online orders, customers, carts and product enquiries.", ShoppingBag, ["E-commerce"]),
+    moduleCard("Abandoned Cart Follow-up", "Trigger follow-ups for abandoned carts and incomplete checkouts.", Bell, ["Retention"]),
+    moduleCard("VIP Customer Tracking", "Track high-value customers, preferences and priority service.", Star, ["VIP"]),
+    moduleCard("AI Product Recommendation", "Suggest relevant products and offers based on customer behavior.", Bot, ["AI"]),
+  ],
+
+  finance: [
+    moduleCard("Customer Onboarding", "Manage client onboarding steps, forms, verification and account setup.", UserCheck, ["Onboarding"]),
+    moduleCard("Product Interest Tracking", "Track interest in loans, investments, insurance and advisory products.", Target, ["Products"]),
+    moduleCard("Risk Profile", "Record client risk category, eligibility and financial suitability.", ShieldCheck, ["Risk"]),
+    moduleCard("Compliance Checklist", "Manage compliance tasks, approvals, internal reviews and audit notes.", ClipboardCheck, ["Compliance"]),
+    moduleCard("Appointment Scheduling", "Schedule advisor calls, branch visits and document review meetings.", CalendarCheck, ["Scheduling"]),
+    moduleCard("Document Verification", "Verify KYC, income proof, bank statements and submitted documents.", FileCheck2, ["Verification"]),
+    moduleCard("Approval Workflow", "Route cases through manager, compliance and finance approvals.", GitBranch, ["Approvals"]),
+    moduleCard("Customer Portfolio", "View customer products, policies, loans, investments and history.", Database, ["Portfolio"]),
+    moduleCard("Payment / EMI Tracking", "Track payments, EMIs, dues, fees and finance follow-ups.", CreditCard, ["Payments"]),
+    moduleCard("Renewal Tracking", "Manage renewals for policies, products and recurring financial services.", Repeat2, ["Renewals"]),
+    moduleCard("Support Tickets", "Handle client questions, service requests and escalations.", LifeBuoy, ["Support"]),
+    moduleCard("Secure Notes", "Store sensitive relationship, risk and compliance notes securely.", ShieldCheck, ["Security"]),
+    moduleCard("Branch Management", "Manage branches, teams, advisors and regional performance.", Building2, ["Branches"]),
+    moduleCard("Advisor Dashboard", "Track advisor activity, pipeline, follow-ups and client workload.", LineChart, ["Dashboard"]),
+    moduleCard("Referral Tracking", "Track client referrals, partner leads and source performance.", GitBranch, ["Referrals"]),
+    moduleCard("Audit Trail", "Maintain change history, approvals and compliance-sensitive logs.", ClipboardList, ["Audit"]),
+    moduleCard("AI Financial Summary", "Summarize client profile, documents, risk and next actions.", Bot, ["AI"]),
+  ],
+
+  insurance: [
+    moduleCard("Policyholder Management", "Manage policyholder profiles, policies, family details and communication history.", Users, ["Policyholders"]),
+    moduleCard("Policy Lead Management", "Track policy enquiries, source, interest, advisor and status.", ShieldCheck, ["Leads"]),
+    moduleCard("Agent Assignment", "Assign policy leads, renewals and claims to agents or advisors.", UserCheck, ["Agents"]),
+    moduleCard("Policy Quotation", "Create and track quotations, comparisons and premium discussions.", FileText, ["Quotes"]),
+    moduleCard("Premium Payment Tracking", "Track premiums, pending dues, payment status and reminders.", CreditCard, ["Premiums"]),
+    moduleCard("Renewal Reminders", "Automate reminders for upcoming renewals and retention follow-ups.", Bell, ["Renewals"]),
+    moduleCard("Claim Intake", "Capture claim requests, reason, documents and priority.", ClipboardCheck, ["Claims"]),
+    moduleCard("Claim Status Tracking", "Track claims from intake to review, approval and settlement.", Route, ["Claims"]),
+    moduleCard("Document Collection", "Collect KYC, policy documents, claim proof and nominee details.", FolderOpen, ["Documents"]),
+    moduleCard("KYC / Verification", "Track KYC, identity verification and document review status.", FileCheck2, ["KYC"]),
+    moduleCard("Nominee Details", "Store nominee records, relationship details and policyholder updates.", Users, ["Nominee"]),
+    moduleCard("Policy Comparison", "Compare policy options, coverages, premiums and benefits.", BarChart3, ["Comparison"]),
+    moduleCard("Cross-sell / Upsell Tracking", "Track opportunities for add-ons, upgrades and related policies.", Target, ["Upsell"]),
+    moduleCard("Customer Support Tickets", "Manage policyholder questions, service requests and escalations.", LifeBuoy, ["Support"]),
+    moduleCard("Branch / Agent Dashboard", "Monitor agents, branches, renewals, claims and premium performance.", LineChart, ["Dashboard"]),
+    moduleCard("Commission Tracking", "Track agent commissions, payout status and premium-linked calculations.", HandCoins, ["Commission"]),
+    moduleCard("WhatsApp Premium Alerts", "Send renewal and payment alerts through WhatsApp-ready workflows.", MessageCircle, ["WhatsApp"]),
+    moduleCard("Claim Escalation", "Escalate delayed claims and sensitive cases to managers.", Bell, ["Escalation"]),
+    moduleCard("Risk Category", "Classify customers, policies and claims by risk category.", ShieldCheck, ["Risk"]),
+    moduleCard("Renewal Conversion Report", "Measure renewal performance by agent, branch and policy type.", BarChart3, ["Reports"]),
+    moduleCard("AI Policy Recommendation", "Suggest suitable policies, add-ons and renewal actions.", Bot, ["AI"]),
+  ],
+
+  automobile: [
+    moduleCard("Vehicle Inquiry Management", "Capture vehicle enquiries from showroom, website, campaigns and calls.", Car, ["Leads"]),
+    moduleCard("Test Drive Scheduling", "Schedule showroom, home and fleet test drives with reminders.", CalendarCheck, ["Test Drives"]),
+    moduleCard("Dealer Lead Assignment", "Assign leads to sales advisors, dealers or branches.", UserCheck, ["Assignment"]),
+    moduleCard("Vehicle Catalogue", "Manage models, variants, prices, colors and availability.", Car, ["Vehicles"]),
+    moduleCard("Quotation Management", "Create and track quotations, discounts and revisions.", FileText, ["Quotes"]),
+    moduleCard("Booking Pipeline", "Track enquiry, test drive, quotation, booking and delivery stages.", Route, ["Pipeline"]),
+    moduleCard("Finance / Loan Assistance", "Track loan interest, documents, eligibility and approvals.", Landmark, ["Finance"]),
+    moduleCard("Trade-in Management", "Manage old vehicle valuation, exchange offers and trade-in documents.", Repeat2, ["Trade-in"]),
+    moduleCard("Warranty Tracking", "Track warranty status, coverage and claim eligibility.", ShieldCheck, ["Warranty"]),
+    moduleCard("Service Appointment", "Schedule service visits, reminders and workshop tasks.", Wrench, ["Service"]),
+    moduleCard("Service Reminder", "Send reminders for periodic service, warranty checks and renewals.", Bell, ["Reminders"]),
+    moduleCard("Customer Vehicle Records", "Store vehicle ownership, service history and customer notes.", Database, ["Records"]),
+    moduleCard("Spare Parts Request", "Track spare parts requests, availability and service needs.", PackageCheck, ["Parts"]),
+    moduleCard("Complaint Management", "Handle complaints, escalations and resolution history.", LifeBuoy, ["Support"]),
+    moduleCard("Insurance Renewal", "Track vehicle insurance expiry, renewal follow-ups and documents.", ShieldCheck, ["Insurance"]),
+    moduleCard("Sales Consultant Dashboard", "Measure consultant performance, test drives, bookings and follow-ups.", LineChart, ["Dashboard"]),
+    moduleCard("Payment Tracking", "Track booking amount, balance, finance status and receipts.", CreditCard, ["Payments"]),
+    moduleCard("Document Collection", "Collect KYC, finance papers, booking forms and delivery documents.", FolderOpen, ["Documents"]),
+    moduleCard("AI Vehicle Recommendation", "Suggest vehicles based on customer budget, usage and preferences.", Bot, ["AI"]),
+  ],
+
+  "service-business": [
+    moduleCard("Customer Request Management", "Capture customer service requests from calls, forms and messages.", LifeBuoy, ["Requests"]),
+    moduleCard("Technician Assignment", "Assign jobs to technicians based on location, skill and workload.", Users, ["Technicians"]),
+    moduleCard("Job Scheduling", "Schedule service visits, time slots and arrival windows.", CalendarCheck, ["Scheduling"]),
+    moduleCard("Service Tickets", "Track tickets, status, priority and resolution history.", LifeBuoy, ["Tickets"]),
+    moduleCard("SLA Tracking", "Monitor response time, resolution time and SLA risk.", BarChart3, ["SLA"]),
+    moduleCard("Payment Status", "Track service payments, invoices, dues and receipts.", ReceiptText, ["Payments"]),
+    moduleCard("Customer Feedback", "Collect ratings, feedback and improvement notes after service.", MessageCircle, ["Feedback"]),
+    moduleCard("Technician Route Tracking", "Track technician routes, field visits and service location updates.", MapPinned, ["Field"]),
+    moduleCard("Parts / Inventory Requests", "Manage required parts, stock requests and availability notes.", PackageCheck, ["Inventory"]),
+    moduleCard("AMC / Renewal Tracking", "Track service contracts, renewals and recurring maintenance.", Repeat2, ["AMC"]),
+    moduleCard("Complaint Escalation", "Escalate unresolved complaints and high-priority issues.", Bell, ["Escalation"]),
+    moduleCard("Work Order Management", "Create and track work orders from request to completion.", ClipboardCheck, ["Work Orders"]),
+    moduleCard("Service Checklist", "Use checklists for installation, repair, inspection and completion.", ClipboardList, ["Checklist"]),
+    moduleCard("Operations Dashboard", "View jobs, technicians, SLA, revenue and customer satisfaction.", LineChart, ["Dashboard"]),
+    moduleCard("AI Service Summary", "Summarize service issue, history, parts and recommended action.", Bot, ["AI"]),
+  ],
+
+  travel: [
+    moduleCard("Travel Enquiry Management", "Capture travel enquiries by destination, budget, dates and group size.", Plane, ["Leads"]),
+    moduleCard("Package Planning", "Plan packages, inclusions, exclusions and customer preferences.", Route, ["Packages"]),
+    moduleCard("Itinerary Builder", "Build day-wise itineraries, activities and travel schedules.", CalendarCheck, ["Itinerary"]),
+    moduleCard("Booking Coordination", "Track flights, hotels, transport, activities and confirmations.", ClipboardCheck, ["Bookings"]),
+    moduleCard("Payment Follow-ups", "Track advances, pending payments, due dates and receipts.", CreditCard, ["Payments"]),
+    moduleCard("Travel Documents", "Collect passport, visa, ID proof, tickets and vouchers.", FolderOpen, ["Documents"]),
+    moduleCard("Visa Status Tracking", "Track visa requirements, submission status and approval updates.", FileCheck2, ["Visa"]),
+    moduleCard("Hotel / Stay Management", "Manage hotel options, room details, confirmations and changes.", Hotel, ["Hotels"]),
+    moduleCard("Transport Coordination", "Track cabs, transfers, routes and travel logistics.", Truck, ["Transport"]),
+    moduleCard("Customer Preferences", "Store food, room, activity, budget and destination preferences.", Star, ["Preferences"]),
+    moduleCard("Reminder Engine", "Send reminders for documents, payments, travel dates and confirmations.", Bell, ["Reminders"]),
+    moduleCard("Vendor / Partner Records", "Manage hotels, transport providers, guides and local partners.", BriefcaseBusiness, ["Vendors"]),
+    moduleCard("Group Tour Management", "Manage group members, payments, documents and communication.", Users, ["Groups"]),
+    moduleCard("Feedback & Reviews", "Collect post-trip feedback, reviews and repeat travel interest.", MessageCircle, ["Feedback"]),
+    moduleCard("Travel Advisor Dashboard", "Track advisor leads, packages, bookings and conversion.", LineChart, ["Dashboard"]),
+    moduleCard("AI Itinerary Suggestions", "Suggest itineraries based on destination, budget and preferences.", Bot, ["AI"]),
+  ],
+};
+
+function extendIndustryModules(
+  industrySlug: string,
+  baseModules: IndustryCrmModule[],
+): IndustryCrmModule[] {
+  const extendedModules = [...baseModules];
+  const extraModules = industryModuleExtensions[industrySlug] ?? [];
+
+  extraModules.forEach((extraModule) => {
+    const alreadyExists = extendedModules.some(
+      (module) =>
+        module.title.trim().toLowerCase() ===
+        extraModule.title.trim().toLowerCase(),
+    );
+
+    if (!alreadyExists) {
+      extendedModules.push(extraModule);
+    }
+  });
+
+  return extendedModules;
+}
+
 function createPage(config: IndustryConfig): IndustryCrmPageData {
   return {
     industrySlug: config.industrySlug,
@@ -264,7 +536,7 @@ function createPage(config: IndustryConfig): IndustryCrmPageData {
     },
     problems: config.problems,
     workflowSteps: config.workflowSteps,
-    modules: config.modules,
+    modules: extendIndustryModules(config.industrySlug, config.modules),
     roles: config.roles,
     demoRedirect: {
       title: "Explore the CRM Demo",
@@ -301,6 +573,8 @@ function createPage(config: IndustryConfig): IndustryCrmPageData {
           "Test sample records, train users, migrate starting data, and launch with support for adoption.",
       },
     ],
+    aiAutomation: crmAiAutomation,
+    integrationsDeployment: crmIntegrationsDeployment,
     finalCta: {
       title: `Build a custom ${config.industryName} CRM around your workflow`,
       description:

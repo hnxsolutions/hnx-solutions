@@ -38,6 +38,8 @@ import {
   Users,
   Wrench,
 } from "lucide-react";
+import type { IndustryAiAutomationData } from "../common/IndustryAiAutomationSection";
+import type { IndustryIntegrationsDeploymentData } from "../common/IndustryIntegrationsDeploymentSection";
 
 export type IndustryMobileAppRoute = {
   industrySlug: string;
@@ -212,6 +214,8 @@ export type IndustryMobileAppPageData = {
   trustTitle: string;
   trustDescription: string;
   trustItems: IndustryMobileAppTrustItem[];
+  aiAutomation: IndustryAiAutomationData;
+  integrationsDeployment: IndustryIntegrationsDeploymentData;
 };
 
 type PageInput = {
@@ -248,6 +252,34 @@ type PageInput = {
 };
 
 const rupee = "\u20b9";
+const aiAutomationHref = "/contact?service=ai-automation";
+
+const mobileAppAiAutomation: IndustryAiAutomationData = {
+  eyebrow: "AI Automation Add-ons",
+  title: "Make Your Mobile App Smarter",
+  description:
+    "Add AI-powered personalization, smart reminders, recommendations, and user journey automation inside your mobile app.",
+  items: ["Smart recommendations", "Push automation", "Voice/search assistant", "User journey triggers"],
+  ctaLabel: "Add AI to App",
+  ctaHref: aiAutomationHref,
+};
+
+const mobileAppIntegrationsDeployment: IndustryIntegrationsDeploymentData = {
+  eyebrow: "Integrations & Deployment",
+  title: "App Integrations & Launch Support",
+  description:
+    "Connect your mobile app with payments, notifications, admin panels, analytics, APIs, and deployment workflows for a smooth production launch.",
+  items: [
+    { title: "Payment gateway", description: "Connect secure payments, invoices, or subscriptions." },
+    { title: "Push notifications", description: "Send timely alerts, reminders, and updates." },
+    { title: "Admin dashboard", description: "Manage users, content, requests, and activity." },
+    { title: "API integrations", description: "Connect the app with backend and third-party systems." },
+    { title: "Analytics tracking", description: "Measure usage, journeys, retention, and conversions." },
+    { title: "Store launch support", description: "Prepare Play Store and App Store release workflows." },
+  ],
+  ctaLabel: "Plan App Launch",
+  ctaHref: aiAutomationHref,
+};
 
 const realEstateImages = [
   "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1400&q=85",
@@ -1294,6 +1326,8 @@ function createPage(input: PageInput): IndustryMobileAppPageData {
     trustTitle: sectionCopy.trustTitle,
     trustDescription: sectionCopy.trustDescription,
     trustItems: buildTrustItems(input),
+    aiAutomation: mobileAppAiAutomation,
+    integrationsDeployment: mobileAppIntegrationsDeployment,
   };
 }
 

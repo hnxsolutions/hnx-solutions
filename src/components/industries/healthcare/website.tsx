@@ -2,9 +2,12 @@
 
 import Link from "next/link";
 import { useEffect, useState, type ReactNode } from "react";
+import IndustryAiAutomationSection from "@/components/industries/shared/common/IndustryAiAutomationSection";
+import IndustryIntegrationsDeploymentSection from "@/components/industries/shared/common/IndustryIntegrationsDeploymentSection";
 import HealthcareDemoModal, {
   type HealthcareDemo,
 } from "./HealthcareDemoModal";
+import { healthcareSolutions } from "./healthcareData";
 import {
   Activity,
   ArrowRight,
@@ -30,6 +33,10 @@ import {
 
 const heroImageUrl =
   "https://images.pexels.com/photos/5452291/pexels-photo-5452291.jpeg?auto=compress&cs=tinysrgb&w=1400";
+
+const healthcareWebsiteAiAutomation = healthcareSolutions.website.aiAutomation;
+const healthcareWebsiteIntegrationsDeployment =
+  healthcareSolutions.website.integrationsDeployment;
 
 const hospitalImageUrl =
   "https://images.pexels.com/photos/263402/pexels-photo-263402.jpeg?auto=compress&cs=tinysrgb&w=900";
@@ -513,6 +520,10 @@ export default function HealthcareWebsitePreview() {
               onOpenDemo={(demo) => setActiveDemo(demo)}
             />
 
+            <IndustryAiAutomationSection {...healthcareWebsiteAiAutomation} />
+            <IndustryIntegrationsDeploymentSection
+              {...healthcareWebsiteIntegrationsDeployment}
+            />
             <WhyChooseAndCTASection />
             <PricingSection />
             <TestimonialsSection />

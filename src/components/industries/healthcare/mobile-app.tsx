@@ -2,10 +2,12 @@
 
 import IndustryBenefitChips from "@/components/industries/shared/common/IndustryBenefitChips";
 import IndustryCTA from "@/components/industries/shared/common/IndustryCTA";
+import IndustryAiAutomationSection from "@/components/industries/shared/common/IndustryAiAutomationSection";
 import IndustryDashboardPreview from "@/components/industries/shared/common/IndustryDashboardPreview";
 import IndustryFeatureGrid from "@/components/industries/shared/common/IndustryFeatureGrid";
 import IndustryFlow from "@/components/industries/shared/common/IndustryFlow";
 import IndustryHeroPreview from "@/components/industries/shared/common/IndustryHeroPreview";
+import IndustryIntegrationsDeploymentSection from "@/components/industries/shared/common/IndustryIntegrationsDeploymentSection";
 import IndustryPreviewShell from "@/components/industries/shared/common/IndustryPreviewShell";
 import IndustryProblemCards from "@/components/industries/shared/common/IndustryProblemCards";
 import { healthcareSolutions } from "./healthcareData";
@@ -34,6 +36,8 @@ export default function HealthcareMobileAppPreview() {
           metrics={solution.metrics}
         />
         <IndustryBenefitChips benefits={solution.benefits} />
+        <IndustryAiAutomationSection {...solution.aiAutomation} />
+        <IndustryIntegrationsDeploymentSection {...solution.integrationsDeployment} />
         <IndustryCTA
           title={solution.ctaLabel}
           description={solution.ctaDescription}

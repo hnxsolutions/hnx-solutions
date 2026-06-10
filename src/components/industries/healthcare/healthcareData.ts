@@ -36,6 +36,8 @@ import {
   Wallet,
   Workflow,
 } from "lucide-react";
+import type { IndustryAiAutomationData } from "../shared/common/IndustryAiAutomationSection";
+import type { IndustryIntegrationsDeploymentData } from "../shared/common/IndustryIntegrationsDeploymentSection";
 
 export const healthcareSolutionSlugs = [
   "website",
@@ -99,7 +101,146 @@ export type HealthcareSolutionData = {
   dashboardDescription: string;
   ctaLabel: string;
   ctaDescription: string;
+  aiAutomation: IndustryAiAutomationData;
+  integrationsDeployment: IndustryIntegrationsDeploymentData;
   isBestValue?: boolean;
+};
+
+const aiAutomationHref = "/contact?service=ai-automation";
+
+const healthcareWebsiteAiAutomation: IndustryAiAutomationData = {
+  eyebrow: "AI Automation Add-ons",
+  title: "Add AI Automation to Your Website",
+  description:
+    "Turn your healthcare website into a smarter lead and support system with AI chat, qualification, follow-ups, and booking automation.",
+  items: ["AI chatbot", "Lead qualification", "WhatsApp follow-ups", "Booking assistant"],
+  ctaLabel: "Add AI to Website",
+  ctaHref: aiAutomationHref,
+};
+
+const healthcareMobileAppAiAutomation: IndustryAiAutomationData = {
+  eyebrow: "AI Automation Add-ons",
+  title: "Make Your Mobile App Smarter",
+  description:
+    "Add AI-powered personalization, smart reminders, recommendations, and patient journey automation inside your mobile app.",
+  items: ["Smart recommendations", "Push automation", "Voice/search assistant", "User journey triggers"],
+  ctaLabel: "Add AI to App",
+  ctaHref: aiAutomationHref,
+};
+
+const healthcareCrmAiAutomation: IndustryAiAutomationData = {
+  eyebrow: "AI Automation Add-ons",
+  title: "AI Automation Inside Your CRM",
+  description:
+    "Automate lead scoring, follow-ups, reports, proposals, and repetitive healthcare sales or operations workflows inside your CRM.",
+  items: ["Lead scoring", "Auto follow-ups", "Proposal generation", "Performance reports"],
+  ctaLabel: "Automate My CRM",
+  ctaHref: aiAutomationHref,
+};
+
+const healthcarePortalAiAutomation: IndustryAiAutomationData = {
+  eyebrow: "AI Automation Add-ons",
+  title: "Add AI Self-Service to Your Portal",
+  description:
+    "Help patients get answers, upload documents, track requests, and receive status updates through AI-powered portal workflows.",
+  items: ["AI helpdesk", "Document workflow", "Ticket routing", "Status updates"],
+  ctaLabel: "Add AI to Portal",
+  ctaHref: aiAutomationHref,
+};
+
+const healthcareSuiteAiAutomation: IndustryAiAutomationData = {
+  eyebrow: "AI Automation Add-ons",
+  title: "Add AI Across Your Healthcare Suite",
+  description:
+    "Connect your website, app, CRM, and portal with AI-assisted lead handling, support, reminders, reports, and workflow automation.",
+  items: ["AI support", "Workflow triggers", "Smart reports", "Connected follow-ups"],
+  ctaLabel: "Add AI Automation",
+  ctaHref: aiAutomationHref,
+};
+
+const healthcareWebsiteIntegrationsDeployment: IndustryIntegrationsDeploymentData = {
+  eyebrow: "Integrations & Deployment",
+  title: "Connected Website. Ready to Scale.",
+  description:
+    "Connect your healthcare website with forms, WhatsApp, analytics, booking tools, CRM pipelines, and secure hosting so every patient lead is captured and tracked properly.",
+  items: [
+    { title: "Forms & lead capture", description: "Route appointment and patient inquiries clearly." },
+    { title: "WhatsApp / email alerts", description: "Notify staff when visitors request care." },
+    { title: "Analytics & pixels", description: "Track campaigns, services, and booking demand." },
+    { title: "Booking integrations", description: "Connect appointments, consultations, and slots." },
+    { title: "CRM connection", description: "Sync website leads into patient follow-up workflows." },
+    { title: "Secure hosting", description: "Deploy with SSL, backups, and performance planning." },
+  ],
+  ctaLabel: "Plan Website Stack",
+  ctaHref: aiAutomationHref,
+};
+
+const healthcareMobileAppIntegrationsDeployment: IndustryIntegrationsDeploymentData = {
+  eyebrow: "Integrations & Deployment",
+  title: "App Integrations & Launch Support",
+  description:
+    "Connect your healthcare mobile app with payments, notifications, admin panels, analytics, APIs, and deployment workflows for a smooth production launch.",
+  items: [
+    { title: "Payment gateway", description: "Support fees, billing, or subscription payments." },
+    { title: "Push notifications", description: "Send care reminders and appointment updates." },
+    { title: "Admin dashboard", description: "Manage users, requests, and operational activity." },
+    { title: "API integrations", description: "Connect care, CRM, and portal systems." },
+    { title: "Analytics tracking", description: "Measure usage, engagement, and retention." },
+    { title: "Store launch support", description: "Prepare Play Store and App Store workflows." },
+  ],
+  ctaLabel: "Plan App Launch",
+  ctaHref: aiAutomationHref,
+};
+
+const healthcareCrmIntegrationsDeployment: IndustryIntegrationsDeploymentData = {
+  eyebrow: "Integrations & Deployment",
+  title: "CRM Integrations & Deployment",
+  description:
+    "Connect your healthcare CRM with WhatsApp, email, forms, reports, payment tools, team roles, and secure cloud deployment for real operations.",
+  items: [
+    { title: "WhatsApp / email", description: "Connect follow-ups, reminders, and staff alerts." },
+    { title: "Lead form sync", description: "Pull patient inquiries into CRM pipelines." },
+    { title: "Role-based access", description: "Control access for admins, doctors, and staff." },
+    { title: "Reports & exports", description: "Share appointment, lead, and activity reports." },
+    { title: "Payment tools", description: "Track billing and payment status cleanly." },
+    { title: "Cloud deployment", description: "Host securely with backups and scale planning." },
+  ],
+  ctaLabel: "Plan CRM Stack",
+  ctaHref: aiAutomationHref,
+};
+
+const healthcarePortalIntegrationsDeployment: IndustryIntegrationsDeploymentData = {
+  eyebrow: "Integrations & Deployment",
+  title: "Secure Portal Integrations",
+  description:
+    "Connect your patient portal with authentication, payments, documents, notifications, tickets, and secure database workflows for smooth self-service access.",
+  items: [
+    { title: "Login & auth", description: "Support secure patient and staff sign-in." },
+    { title: "Document uploads", description: "Collect reports, prescriptions, and files." },
+    { title: "Payment gateway", description: "Enable billing, fees, or service payments." },
+    { title: "Ticketing workflow", description: "Route patient requests and support issues." },
+    { title: "Notifications", description: "Send portal, email, and WhatsApp-ready updates." },
+    { title: "Secure database", description: "Protect records with structured access controls." },
+  ],
+  ctaLabel: "Plan Portal Stack",
+  ctaHref: aiAutomationHref,
+};
+
+const healthcareSuiteIntegrationsDeployment: IndustryIntegrationsDeploymentData = {
+  eyebrow: "Integrations & Deployment",
+  title: "Connected Healthcare Suite Deployment",
+  description:
+    "Connect your website, app, CRM, portal, automation, analytics, payments, and cloud workflows into one maintainable healthcare operating system.",
+  items: [
+    { title: "Connected systems", description: "Link website, app, CRM, portal, and admin tools." },
+    { title: "Payments & documents", description: "Support billing, uploads, and secure files." },
+    { title: "Notifications", description: "Coordinate updates across patient journeys." },
+    { title: "Analytics tracking", description: "Measure demand, usage, conversion, and care flow." },
+    { title: "Role-based access", description: "Separate access for staff, doctors, and admins." },
+    { title: "Cloud deployment", description: "Deploy with security, backups, and scale planning." },
+  ],
+  ctaLabel: "Plan Suite Stack",
+  ctaHref: aiAutomationHref,
 };
 
 export const healthcareSolutions: Record<
@@ -274,6 +415,8 @@ export const healthcareSolutions: Record<
     ctaLabel: "Build Healthcare Website",
     ctaDescription:
       "Launch a healthcare website that builds trust, captures appointment demand, and supports every patient journey.",
+    aiAutomation: healthcareWebsiteAiAutomation,
+    integrationsDeployment: healthcareWebsiteIntegrationsDeployment,
   },
   "mobile-app": {
     slug: "mobile-app",
@@ -443,6 +586,8 @@ export const healthcareSolutions: Record<
     ctaLabel: "Build Healthcare App",
     ctaDescription:
       "Launch a patient-centered mobile app that improves communication, access, and care outcomes.",
+    aiAutomation: healthcareMobileAppAiAutomation,
+    integrationsDeployment: healthcareMobileAppIntegrationsDeployment,
   },
   crm: {
     slug: "crm",
@@ -617,6 +762,8 @@ export const healthcareSolutions: Record<
     ctaLabel: "Build Healthcare CRM",
     ctaDescription:
       "Streamline patient relationships, appointment workflows, follow-ups, billing, and reporting in one CRM.",
+    aiAutomation: healthcareCrmAiAutomation,
+    integrationsDeployment: healthcareCrmIntegrationsDeployment,
   },
   "patient-portal": {
     slug: "patient-portal",
@@ -812,6 +959,8 @@ export const healthcareSolutions: Record<
     ctaLabel: "Build Patient Portal",
     ctaDescription:
       "Launch a secure patient portal that reduces support load and gives patients confident self-service access.",
+    aiAutomation: healthcarePortalAiAutomation,
+    integrationsDeployment: healthcarePortalIntegrationsDeployment,
   },
   "full-suite": {
     slug: "full-suite",
@@ -1001,6 +1150,8 @@ export const healthcareSolutions: Record<
     ctaLabel: "Build Full Healthcare Suite",
     ctaDescription:
       "Get every core healthcare digital module working together as one connected growth and operations platform.",
+    aiAutomation: healthcareSuiteAiAutomation,
+    integrationsDeployment: healthcareSuiteIntegrationsDeployment,
     isBestValue: true,
   },
 };

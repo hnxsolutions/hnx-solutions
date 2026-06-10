@@ -14,6 +14,8 @@ import {
   Sparkles,
   Star,
 } from "lucide-react";
+import IndustryAiAutomationSection from "../common/IndustryAiAutomationSection";
+import IndustryIntegrationsDeploymentSection from "../common/IndustryIntegrationsDeploymentSection";
 import {
   getIndustryPortalPage,
   type IndustryPortalCard,
@@ -59,6 +61,8 @@ export default function IndustryPortalPage({
             <PricingSection data={data} />
             <TestimonialsSection title={data.testimonialsTitle} items={data.testimonials} />
             <TrustSection data={data} />
+            <IndustryAiAutomationSection {...data.aiAutomation} />
+            <IndustryIntegrationsDeploymentSection {...data.integrationsDeployment} />
             <FinalCTASection data={data} />
           </div>
         </div>

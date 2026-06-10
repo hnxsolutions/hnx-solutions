@@ -19,7 +19,6 @@ import {
   LockKeyhole,
   MapPin,
   MessageCircle,
-  MessageSquareText,
   MonitorSmartphone,
   PackageCheck,
   PackageSearch,
@@ -39,6 +38,8 @@ import {
   Users,
   Wrench,
 } from "lucide-react";
+import type { IndustryAiAutomationData } from "../common/IndustryAiAutomationSection";
+import type { IndustryIntegrationsDeploymentData } from "../common/IndustryIntegrationsDeploymentSection";
 
 export type IndustryWebsiteRoute = {
   industrySlug: string;
@@ -213,10 +214,40 @@ export type IndustryWebsitePageData = {
   testimonials: IndustryWebsiteTestimonial[];
   complianceDescription: string;
   compliance: IndustryWebsiteTrustItem[];
+  aiAutomation: IndustryAiAutomationData;
+  integrationsDeployment: IndustryIntegrationsDeploymentData;
   demoContent: IndustryWebsiteDemoContent;
 };
 
 const rupee = "\u20b9";
+const aiAutomationHref = "/contact?service=ai-automation";
+
+const websiteAiAutomation: IndustryAiAutomationData = {
+  eyebrow: "AI Automation Add-ons",
+  title: "Add AI Automation to Your Website",
+  description:
+    "Turn your industry website into a smarter lead and support system with AI chat, qualification, follow-ups, and booking automation.",
+  items: ["AI chatbot", "Lead qualification", "WhatsApp follow-ups", "Booking assistant"],
+  ctaLabel: "Add AI to Website",
+  ctaHref: aiAutomationHref,
+};
+
+const websiteIntegrationsDeployment: IndustryIntegrationsDeploymentData = {
+  eyebrow: "Integrations & Deployment",
+  title: "Connected Website. Ready to Scale.",
+  description:
+    "Connect your website with forms, WhatsApp, analytics, booking tools, CRM pipelines, and secure hosting so every lead is captured and tracked properly.",
+  items: [
+    { title: "Forms & lead capture", description: "Route inquiries into structured lead records." },
+    { title: "WhatsApp / email alerts", description: "Notify teams instantly when visitors convert." },
+    { title: "Analytics & pixels", description: "Track sources, campaigns, events, and conversions." },
+    { title: "Booking integrations", description: "Connect appointment, visit, or consultation flows." },
+    { title: "CRM connection", description: "Sync website leads into your sales pipeline." },
+    { title: "Secure hosting", description: "Deploy with performance, backups, and SSL readiness." },
+  ],
+  ctaLabel: "Plan Website Stack",
+  ctaHref: aiAutomationHref,
+};
 
 const realEstateImages = [
   "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1400&q=85",
@@ -1211,6 +1242,8 @@ export const industryWebsitePages: Record<string, IndustryWebsitePageData> = {
     complianceDescription:
       "We follow secure website practices to protect property inquiries, lead details, and visitor trust.",
     compliance: trustItems(["SSL Secured", "Lead Data Protection", "Property Inquiry Privacy", "Fast Hosting", "Regular Backups"]),
+    aiAutomation: websiteAiAutomation,
+    integrationsDeployment: websiteIntegrationsDeployment,
     demoContent: createRealEstateDemoContent(),
   },
 
@@ -1325,6 +1358,8 @@ export const industryWebsitePages: Record<string, IndustryWebsitePageData> = {
     complianceDescription:
       "We follow secure website practices to protect student inquiries, admission forms, and institution trust.",
     compliance: trustItems(["Student Data Privacy", "SSL Secured", "Admission Form Protection", "Fast Hosting", "Regular Backups"]),
+    aiAutomation: websiteAiAutomation,
+    integrationsDeployment: websiteIntegrationsDeployment,
     demoContent: createEducationDemoContent(),
   },
 
@@ -1439,6 +1474,8 @@ export const industryWebsitePages: Record<string, IndustryWebsitePageData> = {
     complianceDescription:
       "We follow secure website practices to protect B2B inquiries, RFQ details, documents, and buyer data.",
     compliance: trustItems(["B2B Inquiry Privacy", "SSL Secured", "RFQ Data Protection", "Secure Hosting", "Regular Backups"]),
+    aiAutomation: websiteAiAutomation,
+    integrationsDeployment: websiteIntegrationsDeployment,
     demoContent: createManufacturingDemoContent(),
   },
 
@@ -1553,6 +1590,8 @@ export const industryWebsitePages: Record<string, IndustryWebsitePageData> = {
     complianceDescription:
       "We follow secure website practices to protect customer inquiries, order interest, and retail website trust.",
     compliance: trustItems(["Customer Data Privacy", "SSL Secured", "Order Inquiry Protection", "Secure Hosting", "Regular Backups"]),
+    aiAutomation: websiteAiAutomation,
+    integrationsDeployment: websiteIntegrationsDeployment,
     demoContent: createRetailDemoContent(),
   },
 
@@ -1667,6 +1706,8 @@ export const industryWebsitePages: Record<string, IndustryWebsitePageData> = {
     complianceDescription:
       "We follow secure website practices to protect client inquiries and support a compliance-friendly finance website structure.",
     compliance: trustItems(["Client Data Privacy", "SSL Secured", "Secure Inquiry Handling", "Compliance-Friendly Structure", "Regular Backups"]),
+    aiAutomation: websiteAiAutomation,
+    integrationsDeployment: websiteIntegrationsDeployment,
     demoContent: createFinanceDemoContent(),
   },
 
@@ -1781,6 +1822,8 @@ export const industryWebsitePages: Record<string, IndustryWebsitePageData> = {
     complianceDescription:
       "We follow secure website practices to protect policy inquiries, claim details, and customer trust.",
     compliance: trustItems(["Policy Inquiry Privacy", "SSL Secured", "Claim Data Protection", "Secure Hosting", "Regular Backups"]),
+    aiAutomation: websiteAiAutomation,
+    integrationsDeployment: websiteIntegrationsDeployment,
     demoContent: createInsuranceDemoContent(),
   },
 
@@ -1895,6 +1938,8 @@ export const industryWebsitePages: Record<string, IndustryWebsitePageData> = {
     complianceDescription:
       "We follow secure website practices to protect booking inquiries, customer travel details, and website trust.",
     compliance: trustItems(["Booking Inquiry Privacy", "SSL Secured", "Customer Data Protection", "Secure Hosting", "Regular Backups"]),
+    aiAutomation: websiteAiAutomation,
+    integrationsDeployment: websiteIntegrationsDeployment,
     demoContent: createTravelDemoContent(),
   },
 
@@ -2009,6 +2054,8 @@ export const industryWebsitePages: Record<string, IndustryWebsitePageData> = {
     complianceDescription:
       "We follow secure website practices to protect customer inquiries, booking details, and dealership trust.",
     compliance: trustItems(["Customer Inquiry Privacy", "SSL Secured", "Booking Data Protection", "Secure Hosting", "Regular Backups"]),
+    aiAutomation: websiteAiAutomation,
+    integrationsDeployment: websiteIntegrationsDeployment,
     demoContent: createAutomobileDemoContent(),
   },
 
@@ -2123,6 +2170,8 @@ export const industryWebsitePages: Record<string, IndustryWebsitePageData> = {
     complianceDescription:
       "We follow secure website practices to protect client inquiries, quote requests, and service business trust.",
     compliance: trustItems(["Client Inquiry Privacy", "SSL Secured", "Quote Request Protection", "Secure Hosting", "Regular Backups"]),
+    aiAutomation: websiteAiAutomation,
+    integrationsDeployment: websiteIntegrationsDeployment,
     demoContent: createServiceBusinessDemoContent(),
   },
 };

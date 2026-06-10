@@ -34,6 +34,8 @@ import {
   Workflow,
   Wrench,
 } from "lucide-react";
+import type { IndustryAiAutomationData } from "../common/IndustryAiAutomationSection";
+import type { IndustryIntegrationsDeploymentData } from "../common/IndustryIntegrationsDeploymentSection";
 
 export type IndustryPortalRoute = {
   industrySlug: string;
@@ -159,6 +161,8 @@ export type IndustryPortalPageData = {
   trustItems: IndustryPortalTrustItem[];
   ctaTitle: string;
   ctaDescription: string;
+  aiAutomation: IndustryAiAutomationData;
+  integrationsDeployment: IndustryIntegrationsDeploymentData;
 };
 
 type PageInput = Omit<
@@ -175,9 +179,39 @@ type PageInput = Omit<
   | "demoGalleryTitle"
   | "testimonialsTitle"
   | "trustTitle"
+  | "aiAutomation"
+  | "integrationsDeployment"
 >;
 
 const rupee = "\u20b9";
+const aiAutomationHref = "/contact?service=ai-automation";
+
+const portalAiAutomation: IndustryAiAutomationData = {
+  eyebrow: "AI Automation Add-ons",
+  title: "Add AI Self-Service to Your Portal",
+  description:
+    "Help users get answers, upload documents, track requests, and receive status updates through AI-powered portal workflows.",
+  items: ["AI helpdesk", "Document workflow", "Ticket routing", "Status updates"],
+  ctaLabel: "Add AI to Portal",
+  ctaHref: aiAutomationHref,
+};
+
+const portalIntegrationsDeployment: IndustryIntegrationsDeploymentData = {
+  eyebrow: "Integrations & Deployment",
+  title: "Secure Portal Integrations",
+  description:
+    "Connect your portal with authentication, payments, documents, notifications, tickets, and secure database workflows for smooth self-service access.",
+  items: [
+    { title: "Login & auth", description: "Support secure sign-in and role-based identity flows." },
+    { title: "Document uploads", description: "Collect, review, and store important files." },
+    { title: "Payment gateway", description: "Enable portal payments, invoices, or fees." },
+    { title: "Ticketing workflow", description: "Route requests, issues, and approvals clearly." },
+    { title: "Notifications", description: "Send email, WhatsApp-ready, and in-portal updates." },
+    { title: "Secure database", description: "Protect records with structured access controls." },
+  ],
+  ctaLabel: "Plan Portal Stack",
+  ctaHref: aiAutomationHref,
+};
 
 function card(title: string, description: string, icon: LucideIcon): IndustryPortalCard {
   return { title, description, icon };
@@ -280,6 +314,8 @@ function createPage(input: PageInput): IndustryPortalPageData {
     demoGalleryTitle: `${input.industryName} Portal Demo Gallery`,
     testimonialsTitle: `${input.industryName} Portal Feedback`,
     trustTitle: "Portal Trust Signals",
+    aiAutomation: portalAiAutomation,
+    integrationsDeployment: portalIntegrationsDeployment,
   };
 }
 
