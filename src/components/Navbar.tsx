@@ -216,24 +216,24 @@ const serviceColumns: ServiceColumn[] = [
 
 const serviceFeaturedLinks = [
   {
-    label: "Workflow Automation",
-    href: "/services/workflow-automation",
-    icon: Workflow,
+    label: "Digital Strategy",
+    href: "/services/full-business-suite#starting-point",
+    icon: Rocket,
   },
   {
-    label: "AI Intelligence",
+    label: "AI Automation",
     href: "/services/ai-automation",
     icon: Bot,
   },
   {
-    label: "Industry Modules",
-    href: "/industries",
-    icon: Layers3,
+    label: "CRM + Portal",
+    href: "/services/full-business-suite#suite-architecture",
+    icon: Network,
   },
   {
-    label: "Complete Ownership",
-    href: "/services/custom-crm-systems",
-    icon: ShieldCheck,
+    label: "Integrations",
+    href: "/services/integration-services",
+    icon: Layers3,
   },
 ];
 
@@ -589,22 +589,34 @@ const solutionLinks: DropdownLink[] = solutionMenuColumns.flatMap(
 
 const showcaseLinks: DropdownLink[] = [
   {
-    label: "CRM Demo",
+    label: "Demo CRM",
     description: "Explore leads, tickets, workflows, reports, and team dashboards.",
     href: "/demo-crm",
     icon: LayoutDashboard,
-  },
-  {
-    label: "ROI Calculator",
-    description: "Estimate time saved, cost reduction, and automation value.",
-    href: "/roi-calculator",
-    icon: BarChart3,
   },
   {
     label: "Workflow Lab",
     description: "Browse ready-to-use automation flows for business operations.",
     href: "/workflow-lab",
     icon: Workflow,
+  },
+  {
+    label: "About Us",
+    description: "Meet HNX Solutions, our approach, and how we build digital systems.",
+    href: "/about",
+    icon: Building2,
+  },
+  {
+    label: "Portfolio",
+    description: "See selected websites, apps, CRM systems, and digital product work.",
+    href: "/portfolio",
+    icon: Sparkles,
+  },
+  {
+    label: "ROI Calculator",
+    description: "Estimate time saved, cost reduction, and automation value.",
+    href: "/roi-calculator",
+    icon: BarChart3,
   },
 ];
 
@@ -692,6 +704,11 @@ const solutionPreviewPhotosByTag: Record<string, IndustryPreviewPhoto> = {
     src: "https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=900&q=80",
     alt: "Client portal and team workflow interface preview",
     credit: "Portal preview",
+  },
+  Suite: {
+    src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=80",
+    alt: "Complete business suite preview with connected dashboards and business systems",
+    credit: "Business suite preview",
   },
 };
 
@@ -993,6 +1010,14 @@ const industryMenus: IndustryMenu[] = [
         tag: "Portal",
         tagClass: tagStyles.portal,
       },
+      {
+        label: "Full Business Suite",
+        description: "Complete healthcare system with website, app, CRM, patient portal, dashboards, AI, and cloud.",
+        href: "/industries/healthcare/business-suite",
+        icon: Rocket,
+        tag: "Suite",
+        tagClass: tagStyles.suite,
+      },
     ],
   },
   {
@@ -1045,6 +1070,14 @@ const industryMenus: IndustryMenu[] = [
         icon: Network,
         tag: "Portal",
         tagClass: tagStyles.portal,
+      },
+      {
+        label: "Full Business Suite",
+        description: "Property website, mobile app, CRM, buyer portal, dashboards, automation, integrations, and cloud.",
+        href: "/industries/real-estate/business-suite",
+        icon: Rocket,
+        tag: "Suite",
+        tagClass: tagStyles.suite,
       },
       {
         label: "Automation Workflows",
@@ -1132,6 +1165,14 @@ const industryMenus: IndustryMenu[] = [
         tagClass: tagStyles.portal,
       },
       {
+        label: "Full Business Suite",
+        description: "Education website, app, CRM, student/parent portal, dashboards, notifications, AI, and cloud.",
+        href: "/industries/education/business-suite",
+        icon: Rocket,
+        tag: "Suite",
+        tagClass: tagStyles.suite,
+      },
+      {
         label: "Admissions Automation",
         description: "Automate forms, counselor follow-ups, admission workflows, and reminders.",
         href: "/industries/education/admissions-automation",
@@ -1215,6 +1256,14 @@ const industryMenus: IndustryMenu[] = [
         icon: Network,
         tag: "Portal",
         tagClass: tagStyles.portal,
+      },
+      {
+        label: "Full Business Suite",
+        description: "Manufacturing website, app, dealer/vendor portal, CRM, dashboards, automation, and cloud.",
+        href: "/industries/manufacturing/business-suite",
+        icon: Rocket,
+        tag: "Suite",
+        tagClass: tagStyles.suite,
       },
       {
         label: "Workflow Automation",
@@ -1302,6 +1351,14 @@ const industryMenus: IndustryMenu[] = [
         tagClass: tagStyles.portal,
       },
       {
+        label: "Full Business Suite",
+        description: "Retail website, mobile app, CRM, loyalty portal, inventory dashboards, automation, and cloud.",
+        href: "/industries/retail/business-suite",
+        icon: Rocket,
+        tag: "Suite",
+        tagClass: tagStyles.suite,
+      },
+      {
         label: "Loyalty Automation",
         description: "Automate offers, rewards, reminders, retention campaigns, and customer journeys.",
         href: "/industries/retail/loyalty-automation",
@@ -1385,6 +1442,14 @@ const industryMenus: IndustryMenu[] = [
         icon: Network,
         tag: "Portal",
         tagClass: tagStyles.portal,
+      },
+      {
+        label: "Full Business Suite",
+        description: "Finance website, secure app, CRM, client portal, document workflow, reporting, AI, and cloud.",
+        href: "/industries/finance/business-suite",
+        icon: Rocket,
+        tag: "Suite",
+        tagClass: tagStyles.suite,
       },
       {
         label: "KYC Automation",
@@ -1472,6 +1537,14 @@ const industryMenus: IndustryMenu[] = [
         tagClass: tagStyles.portal,
       },
       {
+        label: "Full Business Suite",
+        description: "Insurance website, app, CRM, policyholder portal, claims dashboards, renewals, AI, and cloud.",
+        href: "/industries/insurance/business-suite",
+        icon: Rocket,
+        tag: "Suite",
+        tagClass: tagStyles.suite,
+      },
+      {
         label: "Claims Automation",
         description: "Automate claims intake, reminders, document routing, and service processes.",
         href: "/industries/insurance/claims-automation",
@@ -1555,6 +1628,14 @@ const industryMenus: IndustryMenu[] = [
         icon: Network,
         tag: "Portal",
         tagClass: tagStyles.portal,
+      },
+      {
+        label: "Full Business Suite",
+        description: "Travel website, booking app, CRM, traveler portal, dashboards, trip automation, AI, and cloud.",
+        href: "/industries/travel/business-suite",
+        icon: Rocket,
+        tag: "Suite",
+        tagClass: tagStyles.suite,
       },
       {
         label: "Booking Automation",
@@ -1642,6 +1723,14 @@ const industryMenus: IndustryMenu[] = [
         tagClass: tagStyles.portal,
       },
       {
+        label: "Full Business Suite",
+        description: "Automobile website, customer app, CRM, service portal, booking dashboards, AI, and cloud.",
+        href: "/industries/automobile/business-suite",
+        icon: Rocket,
+        tag: "Suite",
+        tagClass: tagStyles.suite,
+      },
+      {
         label: "Service Automation",
         description: "Automate reminders, bookings, follow-ups, service workflows, and updates.",
         href: "/industries/automobile/service-automation",
@@ -1725,6 +1814,14 @@ const industryMenus: IndustryMenu[] = [
         icon: Network,
         tag: "Portal",
         tagClass: tagStyles.portal,
+      },
+      {
+        label: "Full Business Suite",
+        description: "Service website, app, CRM, client portal, scheduling dashboards, automation, AI, and cloud.",
+        href: "/industries/service-business/business-suite",
+        icon: Rocket,
+        tag: "Suite",
+        tagClass: tagStyles.suite,
       },
       {
         label: "Scheduling Automation",
@@ -1827,11 +1924,24 @@ function DropdownAnchor({ open }: { open: boolean }) {
   );
 }
 
+function getActiveIndustryForPath(pathname: string) {
+  return industryMenus.find(
+    (industry) =>
+      pathname === industry.href ||
+      pathname.startsWith(`${industry.href}/`) ||
+      pathname.startsWith(`/industries/${industry.id}/`) ||
+      industry.solutions.some(
+        (solution) =>
+          pathname === solution.href || pathname.startsWith(`${solution.href}/`),
+      ),
+  );
+}
+
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileMenuView, setMobileMenuView] = useState<MobileMenuView>("main");
   const [mobileSelectedIndustryId, setMobileSelectedIndustryId] =
-    useState("healthcare");
+    useState<string | null>(null);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const [mobileSolutionsOpen, setMobileSolutionsOpen] = useState(false);
   const [mobileIndustriesOpen, setMobileIndustriesOpen] = useState(false);
@@ -1840,7 +1950,7 @@ export default function Navbar() {
   const [desktopSolutionsOpen, setDesktopSolutionsOpen] = useState(false);
   const [desktopIndustriesOpen, setDesktopIndustriesOpen] = useState(false);
   const [desktopShowcaseOpen, setDesktopShowcaseOpen] = useState(false);
-  const [selectedIndustryId, setSelectedIndustryId] = useState("healthcare");
+  const [selectedIndustryId, setSelectedIndustryId] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
 
   const pathname = usePathname();
@@ -1891,7 +2001,7 @@ export default function Navbar() {
   function closeMobileMenu() {
     setMobileOpen(false);
     setMobileMenuView("main");
-    setMobileSelectedIndustryId("healthcare");
+    setMobileSelectedIndustryId(null);
     setMobileServicesOpen(false);
     setMobileSolutionsOpen(false);
     setMobileIndustriesOpen(false);
@@ -1941,24 +2051,6 @@ export default function Navbar() {
   useEffect(() => {
     return () => clearDesktopCloseTimer();
   }, []);
-
-  useEffect(() => {
-    const activeIndustry = industryMenus.find(
-      (industry) =>
-        pathname === industry.href ||
-        pathname.startsWith(`${industry.href}/`) ||
-        industry.solutions.some(
-          (solution) =>
-            pathname === solution.href ||
-            pathname.startsWith(`${solution.href}/`)
-        )
-    );
-
-    if (activeIndustry) {
-      setMobileSelectedIndustryId(activeIndustry.id);
-    }
-  }, [pathname]);
-
 
   useEffect(() => {
     if (mobileOpen) {
@@ -2033,6 +2125,9 @@ export default function Navbar() {
     pathname === item.href || pathname.startsWith(`${item.href}/`);
 
   const isShowcaseActive = showcaseLinks.some(isShowcaseLinkActive);
+  const pathMatchedIndustry = getActiveIndustryForPath(pathname);
+  const activeMobileIndustryId =
+    mobileSelectedIndustryId ?? pathMatchedIndustry?.id ?? "healthcare";
 
   const isServiceColumnActive = (column: ServiceColumn) =>
     column.items.some((item) => isLinkActive(item.href));
@@ -2050,7 +2145,7 @@ export default function Navbar() {
 
   const isIndustrySolutionActive = (
     solution: IndustrySolution,
-    industryId = mobileSelectedIndustryId
+    industryId = activeMobileIndustryId
   ) => {
     if (pathname === solution.href || pathname.startsWith(`${solution.href}/`)) {
       return true;
@@ -2086,6 +2181,10 @@ export default function Navbar() {
       return pathname.includes("portal");
     }
 
+    if (solution.tag === "Suite") {
+      return pathname.includes("business-suite");
+    }
+
     return false;
   };
   const isDesktopDropdownOpen =
@@ -2093,11 +2192,13 @@ export default function Navbar() {
     desktopSolutionsOpen ||
     desktopIndustriesOpen ||
     desktopShowcaseOpen;
+  const selectedIndustryKey =
+    selectedIndustryId ?? pathMatchedIndustry?.id ?? "healthcare";
   const selectedIndustry =
-    industryMenus.find((industry) => industry.id === selectedIndustryId) ??
+    industryMenus.find((industry) => industry.id === selectedIndustryKey) ??
     industryMenus[0];
   const mobileSelectedIndustry =
-    industryMenus.find((industry) => industry.id === mobileSelectedIndustryId) ??
+    industryMenus.find((industry) => industry.id === activeMobileIndustryId) ??
     industryMenus[0];
   function desktopNavClass(active: boolean) {
     return `rounded-2xl px-3.5 py-2 text-sm font-medium transition-all duration-200 2xl:px-4 ${
@@ -2283,21 +2384,21 @@ export default function Navbar() {
                               </span>
 
                               <h3 className="mt-5 text-2xl font-bold tracking-tight">
-                                HNX CRM Systems
+                                HNX Full Business Suite
                               </h3>
 
                               <p className="mt-3 text-sm leading-6 text-white/85">
-                                Owned CRM systems with workflow automation, AI
-                                insights, dashboards, secure roles, and industry
-                                modules.
+                                Complete digital ecosystem with website, app,
+                                CRM, portal, dashboards, automation,
+                                integrations, and AI agents.
                               </p>
 
                               <Link
-                                href="/crm-systems"
+                                href="/services/full-business-suite"
                                 onClick={closeDesktopDropdowns}
                                 className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-white px-4 py-3 text-sm font-semibold text-blue-700 transition hover:bg-blue-50"
                               >
-                                Explore CRM Systems
+                                Explore Business Suite
                                 <ArrowRight size={16} aria-hidden="true" />
                               </Link>
 
@@ -2602,11 +2703,11 @@ export default function Navbar() {
                         <p className="text-[10px] font-extrabold uppercase tracking-[0.28em] text-primary dark:text-cyan-300">
                           Explore HNX
                         </p>
-                        <h3 className="mt-1 text-base font-extrabold tracking-tight text-(--text)">
-                          Try tools before you book
+                      <h3 className="mt-1 text-base font-extrabold tracking-tight text-(--text)">
+                          Company, work, and tools
                         </h3>
                         <p className="mt-1 text-[11px] leading-4 text-(--text-soft)">
-                          Preview CRM, savings, and automation workflows.
+                          Learn about HNX, view portfolio work, and preview tools.
                         </p>
                       </div>
 
@@ -2848,17 +2949,17 @@ export default function Navbar() {
                             >
                               {selectedIndustry.solutions
                                 .filter((solution) =>
-                                  ["Website", "App", "CRM", "Portal"].includes(solution.tag)
+                                  ["Website", "App", "CRM", "Portal", "Suite"].includes(solution.tag)
                                 )
                                 .sort(
                                   (a, b) =>
-                                    ["Website", "App", "CRM", "Portal"].indexOf(a.tag) -
-                                    ["Website", "App", "CRM", "Portal"].indexOf(b.tag)
+                                    ["Website", "App", "CRM", "Portal", "Suite"].indexOf(a.tag) -
+                                    ["Website", "App", "CRM", "Portal", "Suite"].indexOf(b.tag)
                                 )
-                                .slice(0, 4)
+                                .slice(0, 5)
                                 .map((solution) => {
                                   const Icon = solution.icon;
-                                  const active = isLinkActive(solution.href);
+                                  const active = isIndustrySolutionActive(solution, selectedIndustry.id);
                                   const previewPhoto = getSolutionPreviewPhoto(solution, selectedIndustry.id);
 
                                   return (
@@ -3122,7 +3223,7 @@ export default function Navbar() {
                       },
                       {
                         label: "Explore",
-                        description: "CRM demo, ROI calculator and workflow lab.",
+                        description: "About HNX, portfolio, CRM demo, ROI calculator and workflow lab.",
                         view: "showcase" as MobileMenuView,
                         active: isShowcaseActive,
                       },
@@ -3360,7 +3461,7 @@ export default function Navbar() {
                     </div>
 
                     <div className="grid gap-3">
-                      {mobileSelectedIndustry.solutions.slice(0, 4).map((solution, index, list) => {
+                      {mobileSelectedIndustry.solutions.slice(0, 5).map((solution, index, list) => {
                         const active = isIndustrySolutionActive(solution);
 
                         return (

@@ -3,9 +3,9 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { createBreadcrumbJsonLd, createMetadata, createServiceJsonLd } from "@/lib/seo";
 
 export const metadata = createMetadata({
-  title: "Healthcare Digital Solutions | Website, App, CRM, Portal & Automation",
+  title: "Healthcare Digital Solutions | Website, App, CRM, Portal & Full Business Suite",
   description:
-    "Explore HNX healthcare solution previews for websites, mobile apps, CRM, patient portals, automation workflows, dashboards, and full digital suites.",
+    "Explore HNX healthcare solution previews for websites, mobile apps, CRM, patient portals, automation workflows, dashboards, and full business suites.",
   path: "/industries/healthcare",
   keywords: [
     "healthcare digital solutions",
@@ -31,7 +31,7 @@ export default function Page() {
           createServiceJsonLd({
             name: "Healthcare Digital Solutions",
             description:
-              "Healthcare websites, mobile apps, CRM systems, patient portals, workflow automation, dashboards, and connected digital suites.",
+              "Healthcare websites, mobile apps, CRM systems, patient portals, workflow automation, dashboards, and connected full business suites.",
             path: "/industries/healthcare",
             serviceType: "Healthcare Digital Solutions",
           }),

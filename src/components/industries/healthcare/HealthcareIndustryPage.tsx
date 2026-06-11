@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Headphones, Layers3, ShieldCheck, Sparkles } from "lucide-react";
+import { ArrowRight, Headphones, Layers3, Rocket, ShieldCheck, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 import IndustryBenefitChips from "@/components/industries/shared/common/IndustryBenefitChips";
 import IndustryPreviewShell from "@/components/industries/shared/common/IndustryPreviewShell";
@@ -28,6 +28,20 @@ const platformBenefits = [
     title: "Expert Support",
     description: "A product team that understands healthcare operations.",
     icon: Headphones,
+  },
+];
+
+const healthcareSelectorSolutions = [
+  ...healthcareSolutionList,
+  {
+    slug: "business-suite",
+    title: "Healthcare Full Business Suite",
+    selectorTitle: "Full Business Suite",
+    selectorDescription:
+      "The complete healthcare operating system: website, mobile app, CRM, patient portal, dashboards, AI automation, integrations, and cloud support.",
+    href: "/industries/healthcare/business-suite",
+    icon: Rocket,
+    isBestValue: true,
   },
 ];
 
@@ -63,10 +77,10 @@ export default function HealthcareIndustryPage() {
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Link
-                  href="/industries/healthcare/full-suite"
+                  href="/industries/healthcare/business-suite"
                   className="btn-shine inline-flex items-center justify-center gap-3 rounded-2xl bg-linear-to-r from-blue-600 via-cyan-500 to-violet-600 px-6 py-4 text-sm font-black text-white shadow-[0_18px_42px_rgba(37,99,235,0.26)] transition hover:-translate-y-1"
                 >
-                  Explore Full Suite
+                  Explore Full Business Suite
                   <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </Link>
                 <Link
@@ -97,7 +111,7 @@ export default function HealthcareIndustryPage() {
                   }}
                 >
                   <div className="grid max-w-2xl gap-3 sm:grid-cols-2">
-                    {healthcareSolutionList.slice(0, 6).map((solution) => {
+                    {healthcareSelectorSolutions.slice(0, 6).map((solution) => {
                       const Icon = solution.icon;
 
                       return (
@@ -142,7 +156,7 @@ export default function HealthcareIndustryPage() {
           </p>
         </div>
 
-        <IndustrySolutionSelector solutions={healthcareSolutionList} />
+        <IndustrySolutionSelector solutions={healthcareSelectorSolutions} />
 
         <IndustryBenefitChips benefits={platformBenefits} />
       </section>

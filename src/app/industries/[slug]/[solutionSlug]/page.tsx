@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import IndustryBusinessSuitePage from "@/components/industries/shared/business-suite-shared/IndustryBusinessSuitePage";
+import {
+  getIndustryBusinessSuitePage,
+  industryBusinessSuiteStaticParams,
+} from "@/components/industries/shared/business-suite-shared/industryBusinessSuiteData";
 import IndustryCrmPage from "@/components/industries/shared/crm-shared/IndustryCrmPage";
 import {
   getIndustryCrmPage,
@@ -44,6 +49,10 @@ export function generateStaticParams() {
       slug: industrySlug,
       solutionSlug,
     })),
+    ...industryBusinessSuiteStaticParams.map(({ industrySlug, solutionSlug }) => ({
+      slug: industrySlug,
+      solutionSlug,
+    })),
     ...industryCrmStaticParams.map(({ industrySlug, solutionSlug }) => ({
       slug: industrySlug,
       solutionSlug,
@@ -70,6 +79,17 @@ export async function generateMetadata({
   const mobileAppPage = getIndustryMobileAppPage(slug, solutionSlug);
 
   if (!mobileAppPage) {
+    const businessSuitePage = getIndustryBusinessSuitePage(slug, solutionSlug);
+
+    if (businessSuitePage) {
+      return createMetadata({
+        title: `${businessSuitePage.industryName} Full Business Suite | HNX Solutions`,
+        description: businessSuitePage.hero.description,
+        path: businessSuitePage.primaryRoute,
+        keywords: businessSuitePage.keywords,
+      });
+    }
+
     const portalPage = getIndustryPortalPage(slug, solutionSlug);
 
     if (portalPage) {
@@ -142,6 +162,32 @@ export default async function IndustrySolutionRoutePage({
   const mobileAppPage = getIndustryMobileAppPage(slug, solutionSlug);
 
   if (!mobileAppPage) {
+    const businessSuitePage = getIndustryBusinessSuitePage(slug, solutionSlug);
+
+    if (businessSuitePage) {
+      return (
+        <>
+          <JsonLd
+            data={[
+              createBreadcrumbJsonLd([
+                { name: "Home", path: "/" },
+                { name: "Industries", path: "/industries" },
+                { name: businessSuitePage.industryName, path: `/industries/${businessSuitePage.slug}` },
+                { name: "Full Business Suite", path: businessSuitePage.primaryRoute },
+              ]),
+              createServiceJsonLd({
+                name: `${businessSuitePage.industryName} Full Business Suite`,
+                description: businessSuitePage.hero.description,
+                path: businessSuitePage.primaryRoute,
+                serviceType: businessSuitePage.serviceType,
+              }),
+            ]}
+          />
+          <IndustryBusinessSuitePage industrySlug={slug} solutionSlug={solutionSlug} />
+        </>
+      );
+    }
+
     const portalPage = getIndustryPortalPage(slug, solutionSlug);
 
     if (portalPage) {

@@ -18,27 +18,27 @@ const aboutHeroBgImage =
 const values = [
   {
     icon: HiLightningBolt,
-    title: "Innovation First",
+    title: "Systems First",
     description:
-      "We stay ahead of the curve, adopting emerging technologies before they become mainstream. Our team continuously experiments with modern frameworks, AI systems, and scalable architectures to give clients a competitive advantage.",
+      "We plan websites, apps, CRM, portals, dashboards, integrations, and automation as one connected business system around your real workflow.",
   },
   {
     icon: HiShieldCheck,
-    title: "Quality Obsessed",
+    title: "Engineering Quality",
     description:
-      "Every line of code is reviewed, tested, and production-hardened. We focus on maintainability, performance, security, and clean delivery standards so your product is reliable from day one.",
+      "We focus on maintainable frontend, reliable backend APIs, secure roles, clean data models, performance, deployment hygiene, and production-ready handoff.",
   },
   {
     icon: HiUserGroup,
-    title: "Client Partners",
+    title: "Business Workflow Partners",
     description:
-      "We don’t just build software and disappear. We collaborate closely, understand your business deeply, and work like an extension of your team from strategy through launch.",
+      "We understand how your teams handle leads, customers, documents, payments, requests, support, reports, and follow-ups before deciding what to build.",
   },
   {
     icon: HiGlobeAlt,
-    title: "Global Mindset",
+    title: "Automation With Control",
     description:
-      "We build with scale in mind. From architecture to UX, our solutions are designed to support growth, global audiences, and future business expansion without technical debt slowing you down.",
+      "AI agents, workflow triggers, WhatsApp follow-ups, reports, reminders, and integrations are designed with clear rules, permissions, and human review points.",
   },
 ];
 
@@ -79,51 +79,129 @@ const team = [
 
 const techCategories = [
   {
-    label: "Frontend",
+    label: "Web & Frontend",
     techs: [
       "Next.js",
       "React",
       "TypeScript",
       "Tailwind CSS",
+      "Landing Pages",
+      "SEO Structure",
+      "Design Systems",
+      "Responsive UI",
+    ],
+  },
+  {
+    label: "Mobile Apps",
+    techs: [
       "React Native",
       "Flutter",
+      "Secure Auth",
+      "Push Notifications",
+      "Payments",
+      "App APIs",
+      "Admin Sync",
+      "Store Launch",
     ],
   },
   {
-    label: "Backend",
-    techs: ["Node.js", "Express", "NestJS", "Python", "REST APIs", "GraphQL"],
-  },
-  {
-    label: "Databases",
+    label: "CRM & Portals",
     techs: [
-      "PostgreSQL",
-      "MongoDB",
-      "Redis",
-      "Supabase",
-      "Firebase",
-      "Vector DBs",
+      "Lead Pipelines",
+      "Customer Profiles",
+      "Role Access",
+      "Client Portals",
+      "Document Uploads",
+      "Request Tracking",
+      "Payment Status",
+      "Admin Review",
     ],
   },
   {
-    label: "Cloud & DevOps",
-    techs: ["AWS", "GCP", "Docker", "CI/CD", "Vercel", "GitHub Actions"],
+    label: "Backend & APIs",
+    techs: [
+      "Node.js",
+      "Express",
+      "NestJS",
+      "REST APIs",
+      "Webhooks",
+      "Auth Flows",
+      "Payment APIs",
+      "API Docs",
+    ],
+  },
+  {
+    label: "AI & Automation",
+    techs: [
+      "AI Agents",
+      "Lead Scoring",
+      "Smart Replies",
+      "WhatsApp Flows",
+      "Email Automation",
+      "Report Generation",
+      "Task Triggers",
+      "Reminders",
+    ],
+  },
+  {
+    label: "Data & Reporting",
+    techs: [
+      "MongoDB",
+      "PostgreSQL",
+      "Dashboards",
+      "Analytics Events",
+      "Conversion Tracking",
+      "Audit Trails",
+      "Charts",
+      "Business Reports",
+    ],
+  },
+  {
+    label: "Integrations",
+    techs: [
+      "WhatsApp API",
+      "Payment Gateways",
+      "Email Systems",
+      "Google Sheets",
+      "CRM Sync",
+      "Analytics",
+      "Third-party APIs",
+      "Notifications",
+    ],
+  },
+  {
+    label: "Cloud & Security",
+    techs: [
+      "Vercel",
+      "AWS",
+      "Docker",
+      "CI/CD",
+      "GitHub Actions",
+      "Monitoring",
+      "Backups",
+      "Access Control",
+    ],
   },
 ];
 
 const industries: string[] = [
-  "Startups",
-  "E-commerce",
   "Healthcare",
-  "EdTech",
-  "SaaS Products",
-  "Enterprise Solutions",
+  "Manufacturing",
+  "Education",
+  "Real Estate",
+  "Retail",
+  "Finance",
+  "Insurance",
+  "Travel",
+  "Automobile",
+  "Service Business",
 ];
 
 const stats = [
-  { value: "50+", label: "Projects Delivered" },
-  { value: "30+", label: "Clients Served" },
-  { value: "99%", label: "Satisfaction Focus" },
-  { value: "24/7", label: "Execution Mindset" },
+  { value: "16", label: "Core Service Areas" },
+  { value: "10", label: "Industries Served" },
+  { value: "360", label: "Digital Suite Delivery" },
+  { value: "Cloud", label: "Launch & Support Ready" },
 ];
 
 function TeamCard({
@@ -508,7 +586,7 @@ export default function AboutPage() {
         <div className="absolute inset-0 z-0">
           <Image
             src={aboutHeroBgImage}
-            alt="HNX Technologies team collaboration"
+            alt="HNX Solutions digital systems collaboration"
             fill
             priority
             sizes="100vw"
@@ -546,7 +624,7 @@ export default function AboutPage() {
                 className="mb-7 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-2 text-sm font-medium text-primary backdrop-blur-sm"
               >
                 <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-                About HNX Technologies
+                About HNX Solutions
               </motion.div>
 
               <motion.h1
@@ -555,9 +633,9 @@ export default function AboutPage() {
                 transition={{ delay: 0.14, duration: 0.6 }}
                 className="mb-6 text-5xl font-bold leading-[1.04] tracking-tight md:text-6xl lg:text-7xl"
               >
-                The Team Behind
+                The Team Building
                 <br />
-                <span className="gradient-text">Your Next Big Idea</span>
+                <span className="gradient-text">Digital Business Systems</span>
               </motion.h1>
 
               <motion.p
@@ -566,9 +644,9 @@ export default function AboutPage() {
                 transition={{ delay: 0.22, duration: 0.6 }}
                 className="max-w-2xl text-lg leading-relaxed text-(--text-muted) md:text-xl"
               >
-                We’re a team of engineers, designers, and digital problem-solvers
-                building premium web platforms, mobile apps, and AI-powered systems
-                that create real business impact.
+                We build websites, mobile apps, custom CRM, portals, dashboards,
+                AI automation, integrations, cloud deployment, and support systems
+                that connect how a business gets leads, serves users, and grows.
               </motion.p>
 
               <motion.div
@@ -581,7 +659,7 @@ export default function AboutPage() {
                   href="#industries-section"
                   className="btn-shine inline-flex items-center justify-center gap-2 rounded-xl bg-linear-to-r from-primary to-accent px-8 py-4 text-base font-bold text-dark-900 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/25"
                 >
-                  Explore Our Expertise
+                  Explore Industries
                   <HiArrowRight className="text-lg" />
                 </Link>
 
@@ -589,7 +667,7 @@ export default function AboutPage() {
                   href="/contact"
                   className="gradient-border inline-flex items-center justify-center gap-2 rounded-xl border border-(--border) bg-white/55 px-8 py-4 text-base font-semibold text-(--text) transition-all hover:border-primary/30 hover:bg-white/80 dark:bg-white/4"
                 >
-                  Let’s Work Together
+                  Let&apos;s Work Together
                 </Link>
               </motion.div>
 
@@ -599,7 +677,7 @@ export default function AboutPage() {
                 transition={{ delay: 0.34, duration: 0.6 }}
                 className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-(--text-muted) sm:gap-x-5"
               >
-                {["Engineering", "Design", "Product Strategy", "AI Delivery"].map(
+                {["Websites", "Mobile Apps", "CRM + Portals", "AI Automation"].map(
                   (item, index) => (
                     <span key={item} className="inline-flex items-center gap-4">
                       <span className="font-medium tracking-wide">{item}</span>
@@ -644,12 +722,12 @@ export default function AboutPage() {
                     Built for trust
                   </p>
                   <h3 className="mt-3 text-2xl font-bold">
-                    Modern execution. Premium product thinking.
+                    Modern execution. Full-system product thinking.
                   </h3>
                   <p className="mt-3 text-sm leading-7 text-(--text-muted)">
-                    We combine strong UI, clean architecture, and practical business
-                    thinking to deliver software that looks premium and performs in
-                    real-world production environments.
+                    We combine premium UI, clean architecture, secure data flows,
+                    automation, integrations, and cloud deployment so each product
+                    works inside real business operations.
                   </p>
                 </div>
               </div>
@@ -675,27 +753,26 @@ export default function AboutPage() {
               </span>
 
               <h2 className="mt-6 text-3xl font-bold leading-tight md:text-5xl">
-                Engineering Excellence,
+                Complete Digital Systems,
                 <br />
-                <span className="gradient-text">Delivered Fast.</span>
+                <span className="gradient-text">Built Around Your Workflow.</span>
               </h2>
 
               <div className="mt-6 space-y-5 text-base leading-8 text-(--text-muted)">
                 <p>
-                  HNX Technologies was built with one clear mission: help businesses
-                  unlock the full potential of modern software, design, and
-                  automation.
+                  HNX Solutions was built with one clear mission: help businesses
+                  turn scattered digital tools into connected systems for growth,
+                  operations, customer access, reporting, and automation.
                 </p>
                 <p>
-                  From scalable web platforms and mobile apps to AI-driven workflow
-                  systems, we create solutions that are not just visually strong, but
-                  strategically useful and technically dependable.
+                  From conversion-focused websites and mobile apps to custom CRM,
+                  secure portals, admin dashboards, integrations, and AI workflows,
+                  we build software that looks premium and supports daily operations.
                 </p>
                 <p>
-                  Our way of working is simple: understand deeply, move fast, build
-                  cleanly, and keep improving. We don’t believe in generic delivery.
-                  We believe in building digital systems that genuinely move your
-                  business forward.
+                  Our way of working is simple: understand the workflow, plan the
+                  right modules, build cleanly, automate repeat work, deploy with
+                  care, and keep improving after launch.
                 </p>
               </div>
             </motion.div>
@@ -742,11 +819,11 @@ export default function AboutPage() {
               Industries
             </span>
             <h2 className="mt-6 text-4xl font-bold md:text-5xl">
-              Industries We <span className="gradient-text">Serve</span>
+              Actual Industries We <span className="gradient-text">Serve</span>
             </h2>
             <p className="mt-4 text-lg leading-8 text-(--text-muted)">
-              We build tailored digital solutions across multiple industries,
-              helping businesses scale with modern technology and smart execution.
+              These are the current HNX industry categories with website, mobile app,
+              CRM, portal, and business-suite pages built around their workflows.
             </p>
           </motion.div>
 
@@ -948,8 +1025,9 @@ export default function AboutPage() {
               Technical <span className="gradient-text">Expertise</span>
             </h2>
             <p className="mt-4 text-lg leading-8 text-(--text-muted)">
-              The technologies, frameworks, and delivery stack we use to build
-              modern digital systems that scale.
+              The technical and operational stack we use across our real services:
+              websites, mobile apps, CRM, portals, dashboards, AI automation,
+              integrations, cloud deployment, security, analytics, and support.
             </p>
           </motion.div>
 
@@ -995,17 +1073,17 @@ export default function AboutPage() {
             className="glass-card depth-card cursor-glow rounded-4xl p-10 text-center md:p-14"
           >
             <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-primary">
-              Let’s Build
+              Let&apos;s Build
             </span>
 
             <h2 className="mt-6 text-3xl font-bold md:text-5xl">
-              Want to Work <span className="gradient-text">With Us?</span>
+              Want HNX to Build Your <span className="gradient-text">Digital System?</span>
             </h2>
 
             <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-(--text-muted)">
-              We help businesses turn ideas into high-quality digital products with
-              premium UI, solid engineering, and smart automation. Let’s create
-              something powerful together.
+              We can help you plan the right mix of website, app, CRM, portal,
+              dashboards, integrations, AI automation, cloud deployment, and support
+              for your industry and workflow.
             </p>
 
             <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">

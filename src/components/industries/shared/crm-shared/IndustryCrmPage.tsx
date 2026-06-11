@@ -10,7 +10,6 @@ import CrmIntegrationsUseCasesSection from "./CrmIntegrationsUseCasesSection";
 import CrmModulesSection from "./CrmModulesSection";
 import CrmOwnershipComparisonSection from "./CrmOwnershipComparisonSection";
 import CrmProblemsSection from "./CrmProblemsSection";
-import CrmProcessSection from "./CrmProcessSection";
 import CrmRolesSection from "./CrmRolesSection";
 import CrmTimelinePackagesSection from "./CrmTimelinePackagesSection";
 import CrmWorkflowSection from "./CrmWorkflowSection";
@@ -48,11 +47,10 @@ export default function IndustryCrmPage({
           <CrmModulesSection data={data} />
           <CrmRolesSection data={data} />
           <IndustryAiAutomationSection {...data.aiAutomation} />
-          <IndustryIntegrationsDeploymentSection {...data.integrationsDeployment} />
+          {/* <IndustryIntegrationsDeploymentSection {...data.integrationsDeployment} /> */}
           <CrmDemoRedirectSection data={data} />
           <CrmAutomationReportsSection data={data} />
           <CrmIntegrationsUseCasesSection data={data} />
-          <CrmProcessSection data={data} />
           <CrmTimelinePackagesSection data={data} />
           <CrmFinalCTASection data={data} />
         </div>

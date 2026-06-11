@@ -139,7 +139,7 @@ const healthcareCrmAiAutomation: IndustryAiAutomationData = {
 };
 
 const healthcarePortalAiAutomation: IndustryAiAutomationData = {
-  eyebrow: "AI Automation Add-ons",
+  eyebrow: "AI Self-Service Add-ons",
   title: "Add AI Self-Service to Your Portal",
   description:
     "Help patients get answers, upload documents, track requests, and receive status updates through AI-powered portal workflows.",
@@ -769,13 +769,13 @@ export const healthcareSolutions: Record<
     slug: "patient-portal",
     href: "/industries/healthcare/patient-portal",
     eyebrow: "Patient Portal",
-    title: "Patient Portal Solutions",
-    highlight: "Portal Solutions",
+    title: "Give Patients a Secure Portal Experience",
+    highlight: "Secure Portal Experience",
     description:
-      "Secure portals for patients to access records, reports, appointments, prescriptions, and updates in one place.",
+      "Give patients one secure place to access records, reports, appointments, prescriptions, payments, requests, and updates.",
     selectorTitle: "Patient Portal",
     selectorDescription:
-      "A secure self-service portal where patients can access records, reports, appointments, invoices, and updates.",
+      "A secure self-service portal where patients log in, access records, track requests, check payments, and receive updates.",
     icon: User,
     visualType: "portal",
     imageUrl:
@@ -952,7 +952,7 @@ export const healthcareSolutions: Record<
         icon: ShieldCheck,
       },
     ],
-    featureTitle: "Portal Modules",
+    featureTitle: "Patient Portal Features",
     dashboardTitle: "Portal preview",
     dashboardDescription:
       "Give patients one secure view for appointments, latest reports, prescriptions, notifications, and billing activity.",

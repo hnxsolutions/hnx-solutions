@@ -1,34 +1,34 @@
-"use client";
-
-import { useState, type ReactNode } from "react";
+import type { ReactNode } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
   Bell,
   CheckCircle2,
   ChevronRight,
-  ClipboardCheck,
-  FileText,
+  CreditCard,
+  Download,
   LockKeyhole,
+  MessageCircle,
   ShieldCheck,
   Sparkles,
-  Star,
+  TicketCheck,
+  Upload,
+  UserRound,
 } from "lucide-react";
 import IndustryAiAutomationSection from "../common/IndustryAiAutomationSection";
 import IndustryIntegrationsDeploymentSection from "../common/IndustryIntegrationsDeploymentSection";
 import {
   getIndustryPortalPage,
   type IndustryPortalCard,
-  type IndustryPortalDemo,
+  type IndustryPortalHeroPreviewCard,
   type IndustryPortalModule,
   type IndustryPortalPageData,
-  type IndustryPortalPricingPlan,
-  type IndustryPortalRole,
-  type IndustryPortalSecurityItem,
-  type IndustryPortalTestimonial,
-  type IndustryPortalTrustItem,
-  type IndustryPortalWorkflowStep,
+  type IndustryPortalRoleExperience,
 } from "./industryPortalData";
+import { PortalFloat, PortalProgressLine, PortalReveal } from "./PortalMotion";
+
+const portalPreviewIcons = [UserRound, Upload, Download, TicketCheck, CreditCard, Bell] as const;
+const roleExperienceIcons = [UserRound, ShieldCheck, MessageCircle] as const;
 
 export default function IndustryPortalPage({
   industrySlug,
@@ -45,24 +45,19 @@ export default function IndustryPortalPage({
 
   return (
     <main className="relative overflow-hidden bg-[#f8fbff] text-slate-950 dark:bg-[#050814] dark:text-white">
-      <div className="pointer-events-none absolute left-0 top-0 h-[34rem] w-[34rem] rounded-full bg-blue-200/35 blur-3xl dark:bg-blue-500/10" />
-      <div className="pointer-events-none absolute right-0 top-20 h-[30rem] w-[30rem] rounded-full bg-violet-200/35 blur-3xl dark:bg-violet-500/10" />
-
-      <section className="relative px-3 pb-20 pt-24 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
+      <section className="relative px-3 pb-20 pt-20 sm:px-6 lg:px-8 lg:pt-24 xl:px-10 2xl:px-12">
         <div className="mx-auto w-full max-w-full sm:max-w-[min(92vw,1440px)]">
-          <div className="relative overflow-hidden">
-            <HeroSection data={data} />
-            <ProblemsAndFixesSection data={data} />
-            <PortalRolesSection data={data} />
+          <div className="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-[0_24px_80px_rgba(15,23,42,0.06)] dark:border-white/10 dark:bg-white/[0.035]">
+            <PortalHeroSection data={data} />
+            <PortalProblemsSection data={data} />
+            <PortalAccessJourneySection data={data} />
+            <PortalRoleExperiencesSection data={data} />
             <PortalModulesSection data={data} />
-            <WorkflowJourneySection data={data} />
-            <SecurityAccessSection data={data} />
-            <PortalDemoGallerySection data={data} />
-            <PricingSection data={data} />
-            <TestimonialsSection title={data.testimonialsTitle} items={data.testimonials} />
-            <TrustSection data={data} />
-            <IndustryAiAutomationSection {...data.aiAutomation} />
-            <IndustryIntegrationsDeploymentSection {...data.integrationsDeployment} />
+            <PortalSecuritySection data={data} />
+            <section className="border-t border-slate-200 px-5 py-4 dark:border-white/10 sm:px-8 lg:px-10 xl:px-12">
+              <IndustryAiAutomationSection {...data.aiAutomation} />
+              <IndustryIntegrationsDeploymentSection {...data.integrationsDeployment} />
+            </section>
             <FinalCTASection data={data} />
           </div>
         </div>
@@ -71,1158 +66,480 @@ export default function IndustryPortalPage({
   );
 }
 
-function HeroSection({ data }: { data: IndustryPortalPageData }) {
-  const [titleStart, titleEnd] = splitHighlightedText(data.title, data.highlight);
+function PortalHeroSection({ data }: { data: IndustryPortalPageData }) {
+  const hero = data.portalHero;
 
   return (
-    <section className="relative overflow-hidden px-7 py-1 sm:px-10 lg:px-12 xl:px-14">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_16%,rgba(59,130,246,0.12),transparent_28%),radial-gradient(circle_at_78%_16%,rgba(124,58,237,0.10),transparent_28%)]" />
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(59,130,246,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.04)_1px,transparent_1px)] bg-[size:48px_48px] opacity-60 [mask-image:linear-gradient(120deg,black,transparent_76%)] dark:bg-[linear-gradient(rgba(125,211,252,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(125,211,252,0.05)_1px,transparent_1px)]" />
+    <section className="relative overflow-hidden px-6 py-7 sm:px-10 lg:px-12 lg:py-10 xl:px-14">
+      <div
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(59,130,246,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.04)_1px,transparent_1px)] bg-[size:44px_44px] [mask-image:linear-gradient(120deg,black,transparent_72%)] dark:bg-[linear-gradient(rgba(125,211,252,0.044)_1px,transparent_1px),linear-gradient(90deg,rgba(125,211,252,0.044)_1px,transparent_1px)]"
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute -right-16 top-10 h-80 w-80 rounded-full bg-blue-100/55 blur-3xl dark:bg-blue-500/10"
+        aria-hidden="true"
+      />
 
       <div className="relative">
         <nav className="mb-5 flex flex-wrap items-center gap-3 text-sm font-semibold text-slate-500 dark:text-slate-400">
           <Link href="/industries" className="transition hover:text-blue-700 dark:hover:text-blue-300">
             Industries
           </Link>
-          <ChevronRight className="h-4 w-4" />
+          <ChevronRight className="h-4 w-4" aria-hidden="true" />
           <Link
             href={`/industries/${data.industrySlug}`}
             className="transition hover:text-blue-700 dark:hover:text-blue-300"
           >
             {data.industryName}
           </Link>
-          <ChevronRight className="h-4 w-4" />
-          <span className="text-slate-900 dark:text-white">Portal</span>
+          <ChevronRight className="h-4 w-4" aria-hidden="true" />
+          <span className="text-slate-900 dark:text-white">{data.eyebrow}</span>
         </nav>
 
-        <div className="relative grid items-center gap-10 xl:grid-cols-[0.78fr_1.22fr]">
-          <div className="relative z-20">
-            <Badge>
-              <LockKeyhole className="h-4 w-4" />
-              {data.eyebrow}
-            </Badge>
+        <div className="grid items-center gap-8 xl:grid-cols-[0.9fr_1.1fr]">
+          <PortalReveal>
+            <div>
+              <Badge>
+                <LockKeyhole className="h-4 w-4" aria-hidden="true" />
+                {hero.eyebrow}
+              </Badge>
 
-            <h1 className="mt-7 max-w-3xl text-[clamp(2.5rem,4.6vw,4.65rem)] font-black leading-[1.02] tracking-[-0.055em] text-slate-950 dark:text-white">
-              {titleStart}
-              <span className="bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent">
-                {data.highlight}
-              </span>
-              {titleEnd}
-            </h1>
+              <h1 className="mt-6 max-w-4xl text-[clamp(2.25rem,4.1vw,4.35rem)] font-black leading-[1.03] tracking-[-0.052em] text-slate-950 dark:text-white">
+                {hero.title}
+              </h1>
 
-            <p className="mt-5 max-w-xl text-base leading-8 text-slate-600 dark:text-slate-300">
-              {data.description}
-            </p>
+              <p className="mt-5 max-w-2xl text-base font-semibold leading-8 text-slate-600 dark:text-slate-300">
+                {hero.description}
+              </p>
 
-            <div className="mt-7 grid grid-cols-2 gap-3 sm:grid-cols-4">
-              {data.heroChips.map((chip) => {
-                const Icon = chip.icon;
-
-                return (
-                  <div
-                    key={chip.label}
-                    className="rounded-2xl border border-slate-200 bg-white/85 p-3 shadow-sm backdrop-blur-xl transition hover:-translate-y-1 hover:border-blue-200 dark:border-white/10 dark:bg-white/[0.06]"
+              <div className="mt-6 flex flex-wrap gap-2">
+                {hero.trustChips.map((chip) => (
+                  <span
+                    key={chip}
+                    className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/88 px-3 py-2 text-xs font-black text-slate-700 shadow-sm dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-300"
                   >
-                    <span className="mb-2 grid h-9 w-9 place-items-center rounded-2xl bg-blue-50 text-blue-600 dark:bg-blue-400/10 dark:text-blue-300">
-                      <Icon className="h-5 w-5" />
-                    </span>
-                    <p className="text-xs font-bold leading-4 text-slate-700 dark:text-slate-300">
-                      {chip.label}
-                    </p>
-                  </div>
-                );
-              })}
-            </div>
+                    <CheckCircle2 className="h-3.5 w-3.5 text-blue-600 dark:text-blue-300" aria-hidden="true" />
+                    {chip}
+                  </span>
+                ))}
+              </div>
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-blue-600 to-violet-600 px-8 py-4 text-sm font-black text-white shadow-[0_22px_50px_rgba(37,99,235,0.30)] transition hover:-translate-y-0.5"
-              >
-                Build My {data.industryName} Portal
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-
-              <Link
-                href="#portal-flow"
-                className="inline-flex items-center justify-center gap-3 rounded-2xl border border-slate-200 bg-white/92 px-8 py-4 text-sm font-black text-blue-700 shadow-[0_16px_36px_rgba(15,23,42,0.08)] transition hover:-translate-y-0.5 hover:border-blue-200 dark:border-white/10 dark:bg-white/[0.06] dark:text-blue-300"
-              >
-                View Portal Flow
-                <span className="grid h-8 w-8 place-items-center rounded-full border border-blue-200 bg-white text-blue-600 dark:border-blue-300/20 dark:bg-white/10 dark:text-blue-300">
-                  <ArrowRight className="h-3.5 w-3.5" />
-                </span>
-              </Link>
-            </div>
-
-            <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2">
-              {["Secure login", "Role-based views", "Admin visibility"].map((chip) => (
-                <span
-                  key={chip}
-                  className="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 dark:text-slate-300"
+              <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+                <Link
+                  href={hero.primaryCtaHref}
+                  className="inline-flex items-center justify-center gap-3 rounded-2xl bg-slate-950 px-8 py-4 text-sm font-black text-white shadow-[0_18px_44px_rgba(15,23,42,0.18)] transition hover:-translate-y-0.5 dark:bg-white dark:text-slate-950"
                 >
-                  <CheckCircle2 className="h-4 w-4 text-blue-600 dark:text-blue-300" />
-                  {chip}
-                </span>
-              ))}
-            </div>
-          </div>
+                  {hero.primaryCtaLabel}
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </Link>
 
-          <PortalDashboardMockup data={data} />
+                {hero.secondaryCtaHref && hero.secondaryCtaLabel ? (
+                  <Link
+                    href={hero.secondaryCtaHref}
+                    className="inline-flex items-center justify-center gap-3 rounded-2xl border border-slate-200 bg-white/92 px-8 py-4 text-sm font-black text-blue-700 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-200 dark:border-white/10 dark:bg-white/[0.06] dark:text-blue-300"
+                  >
+                    {hero.secondaryCtaLabel}
+                    <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                  </Link>
+                ) : null}
+              </div>
+            </div>
+          </PortalReveal>
+
+          <PortalAccessExperience data={data} />
         </div>
       </div>
     </section>
   );
 }
 
-function PortalDashboardMockup({ data }: { data: IndustryPortalPageData }) {
-  const { heroVisual } = data;
+function PortalAccessExperience({ data }: { data: IndustryPortalPageData }) {
+  const cards = data.portalHero.previewCards.slice(0, 6);
+  const timeline = data.portalJourney.steps.slice(0, 4);
 
   return (
-    <div className="relative mx-auto h-[500px] w-full max-w-[780px] overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-4 shadow-[0_28px_90px_rgba(15,23,42,0.12)] dark:border-white/10 dark:bg-white/[0.06] sm:h-[560px]">
-      <div
-        className="pointer-events-none absolute right-0 top-0 h-full w-[58%] bg-cover bg-center opacity-[0.16] grayscale [mask-image:linear-gradient(90deg,transparent,black)]"
-        style={{ backgroundImage: `url(${data.heroImage})` }}
-      />
-      <div className="pointer-events-none absolute -left-16 top-12 h-64 w-64 rounded-full bg-blue-300/25 blur-3xl" />
-      <div className="pointer-events-none absolute -right-14 bottom-10 h-72 w-72 rounded-full bg-violet-300/25 blur-3xl" />
-
-      <div className="relative z-10 h-full overflow-hidden rounded-[1.55rem] border border-slate-200 bg-slate-50/85 shadow-inner dark:border-white/10 dark:bg-slate-950/80">
-        <div className="flex h-full">
-          <aside className="hidden w-40 border-r border-slate-200 bg-white/80 p-4 dark:border-white/10 dark:bg-white/[0.04] md:block">
-            <div className="flex items-center gap-2">
-              <span className="grid h-9 w-9 place-items-center rounded-2xl bg-gradient-to-br from-blue-600 to-violet-600 text-white">
-                <LockKeyhole className="h-4 w-4" />
-              </span>
-              <div>
-                <p className="text-xs font-black text-slate-950 dark:text-white">
-                  {heroVisual.portalName}
-                </p>
-                <p className="text-[10px] font-bold text-slate-400">Portal</p>
-              </div>
-            </div>
-
-            <div className="mt-8 space-y-2">
-              {heroVisual.sidebar.map((item, index) => (
-                <div
-                  key={item}
-                  className={`rounded-xl px-3 py-2 text-xs font-black ${
-                    index === 0
-                      ? "bg-blue-600 text-white shadow-sm"
-                      : "text-slate-500 dark:text-slate-400"
-                  }`}
-                >
-                  {item}
-                </div>
-              ))}
-            </div>
-          </aside>
-
-          <div className="flex-1 p-4 sm:p-5">
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <div>
-                <p className="text-xs font-black uppercase text-blue-700 dark:text-blue-300">
-                  {heroVisual.portalName} Workspace
-                </p>
-                <h2 className="mt-1 text-2xl font-black text-slate-950 dark:text-white">
-                  Portal Operations
-                </h2>
-              </div>
-              <span className="inline-flex items-center gap-2 rounded-full border border-emerald-100 bg-emerald-50 px-3 py-1.5 text-xs font-black text-emerald-700 dark:border-emerald-300/15 dark:bg-emerald-400/10 dark:text-emerald-300">
-                <span className="h-2 w-2 rounded-full bg-emerald-500" />
-                Live
-              </span>
-            </div>
-
-            <div className="mt-5 grid grid-cols-2 gap-3 lg:grid-cols-4">
-              {heroVisual.stats.map((stat) => (
-                <div
-                  key={stat.label}
-                  className="rounded-2xl border border-slate-200 bg-white/90 p-3 shadow-sm dark:border-white/10 dark:bg-white/[0.06]"
-                >
-                  <p className="text-[10px] font-bold text-slate-500 dark:text-slate-400">
-                    {stat.label}
+    <PortalReveal delay={0.08} y={18}>
+      <div className="mx-auto w-full max-w-[720px]">
+        <div className="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-slate-950 p-3 shadow-[0_24px_70px_rgba(15,23,42,0.15)] dark:border-white/10">
+          <div className="rounded-[1.5rem] bg-white p-4 dark:bg-slate-950">
+            <div className="flex flex-col gap-3 border-b border-slate-100 pb-3 dark:border-white/10 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex items-center gap-3">
+                <span className="grid h-11 w-11 place-items-center rounded-2xl bg-blue-50 text-blue-600 dark:bg-blue-400/10 dark:text-blue-300">
+                  <LockKeyhole className="h-5 w-5" aria-hidden="true" />
+                </span>
+                <div>
+                  <p className="text-sm font-black text-slate-950 dark:text-white">
+                    Portal Access Experience
                   </p>
-                  <div className="mt-2 flex items-end justify-between gap-2">
-                    <p className="text-2xl font-black text-slate-950 dark:text-white">
-                      {stat.value}
-                    </p>
-                    <span className="text-[10px] font-black text-emerald-600 dark:text-emerald-300">
-                      {stat.change}
+                  <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">
+                    Secure login, account status, files, requests, payments, and updates
+                  </p>
+                </div>
+              </div>
+              <span className="w-fit rounded-full border border-emerald-100 bg-emerald-50 px-3 py-1 text-xs font-black text-emerald-700 dark:border-emerald-300/20 dark:bg-emerald-400/10 dark:text-emerald-200">
+                Login protected
+              </span>
+            </div>
+
+            <div className="grid gap-4 py-4 lg:grid-cols-[0.72fr_1.28fr]">
+              <PortalFloat className="min-w-0" delay={0.08}>
+                <div className="h-full rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-white/10 dark:bg-white/[0.04]">
+                  <p className="text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
+                    My account
+                  </p>
+                  <div className="mt-4 flex items-center gap-3">
+                    <span className="grid h-12 w-12 place-items-center rounded-2xl bg-white text-blue-600 shadow-sm dark:bg-white/10 dark:text-blue-300">
+                      <UserRound className="h-6 w-6" aria-hidden="true" />
                     </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-4 grid gap-4 lg:grid-cols-[1.3fr_0.9fr]">
-              <div className="rounded-[1.35rem] border border-slate-200 bg-white/92 p-4 shadow-sm dark:border-white/10 dark:bg-white/[0.06]">
-                <div className="flex items-center justify-between gap-3">
-                  <h3 className="text-sm font-black text-slate-950 dark:text-white">
-                    {heroVisual.pipelineTitle}
-                  </h3>
-                  <span className="text-[10px] font-black text-blue-700 dark:text-blue-300">
-                    View all
-                  </span>
-                </div>
-                <div className="mt-4 space-y-3">
-                  {heroVisual.pipeline.map((item) => (
-                    <div
-                      key={item.label}
-                      className="flex items-center gap-3 rounded-2xl border border-slate-100 bg-slate-50 p-3 dark:border-white/10 dark:bg-white/[0.06]"
-                    >
-                      <span className="grid h-9 w-9 place-items-center rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-400/10 dark:text-blue-300">
-                        <ClipboardCheck className="h-4 w-4" />
-                      </span>
-                      <div className="min-w-0 flex-1">
-                        <p className="truncate text-xs font-black text-slate-950 dark:text-white">
-                          {item.label}
-                        </p>
-                        <p className="mt-0.5 truncate text-[10px] font-bold text-slate-500 dark:text-slate-400">
-                          {item.owner}
-                        </p>
-                      </div>
-                      <span className="rounded-full bg-blue-50 px-2.5 py-1 text-[10px] font-black text-blue-700 dark:bg-blue-400/10 dark:text-blue-300">
-                        {item.status}
-                      </span>
+                    <div className="min-w-0">
+                      <p className="truncate text-sm font-black text-slate-950 dark:text-white">
+                        {data.eyebrow} User
+                      </p>
+                      <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">
+                        Verified access
+                      </p>
                     </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="space-y-4">
-                <div className="rounded-[1.35rem] border border-slate-200 bg-white/92 p-4 shadow-sm dark:border-white/10 dark:bg-white/[0.06]">
-                  <p className="text-xs font-black text-slate-950 dark:text-white">
-                    {heroVisual.roleViewTitle}
-                  </p>
-                  <div className="mt-3 grid gap-2">
-                    {heroVisual.roleView.map((item) => (
-                      <div
-                        key={item}
-                        className="flex items-center gap-2 rounded-xl bg-slate-50 px-3 py-2 text-[10px] font-black text-slate-600 dark:bg-white/[0.06] dark:text-slate-300"
-                      >
-                        <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
-                        {item}
+                  </div>
+                  <div className="mt-4 space-y-2">
+                    {data.portalHero.trustChips.slice(0, 3).map((chip) => (
+                      <div key={chip} className="flex items-center gap-2 rounded-xl bg-white px-3 py-2 text-xs font-black text-slate-700 shadow-sm dark:bg-white/[0.06] dark:text-slate-300">
+                        <ShieldCheck className="h-3.5 w-3.5 text-blue-600 dark:text-blue-300" aria-hidden="true" />
+                        {chip}
                       </div>
                     ))}
                   </div>
                 </div>
+              </PortalFloat>
 
-                <div className="rounded-[1.35rem] border border-blue-100 bg-blue-50/90 p-4 shadow-sm dark:border-blue-300/15 dark:bg-blue-400/10">
-                  <div className="flex items-start gap-3">
-                    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-white text-blue-600 shadow-sm dark:bg-white/10 dark:text-blue-300">
-                      <Bell className="h-4 w-4" />
-                    </span>
-                    <div>
-                      <p className="text-[10px] font-black uppercase text-blue-700 dark:text-blue-300">
-                        New notification
-                      </p>
-                      <p className="mt-1 text-xs font-bold leading-5 text-slate-700 dark:text-slate-200">
-                        {heroVisual.notification}
-                      </p>
-                    </div>
-                  </div>
-                </div>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {cards.map((card, index) => (
+                  <PortalPreviewCard key={card.title} card={card} index={index} />
+                ))}
               </div>
             </div>
 
-            <div className="absolute bottom-4 left-4 right-4 hidden rounded-[1.35rem] border border-violet-100 bg-white/92 p-4 shadow-[0_18px_50px_rgba(15,23,42,0.12)] dark:border-violet-300/15 dark:bg-slate-950/90 sm:block">
-              <div className="flex items-center justify-between gap-4">
-                <div className="flex items-center gap-3">
-                  <span className="grid h-11 w-11 place-items-center rounded-2xl bg-violet-50 text-violet-600 dark:bg-violet-400/10 dark:text-violet-300">
-                    <FileText className="h-5 w-5" />
-                  </span>
-                  <div>
-                    <p className="text-xs font-black text-slate-950 dark:text-white">
-                      {heroVisual.documentCard}
-                    </p>
-                    <p className="mt-1 text-[10px] font-bold text-slate-500 dark:text-slate-400">
-                      Document center / Review queue
-                    </p>
-                  </div>
-                </div>
-                <span className="rounded-full bg-violet-50 px-3 py-1 text-[10px] font-black text-violet-700 dark:bg-violet-400/10 dark:text-violet-300">
-                  Needs review
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function ProblemsAndFixesSection({ data }: { data: IndustryPortalPageData }) {
-  return (
-    <section className="grid border-t border-slate-200 dark:border-white/10 xl:grid-cols-[1fr_1fr]">
-      <PortalCardColumn
-        title={data.problemsTitle}
-        description="Portal gaps usually show up as repeated follow-ups, lost files, unclear status, and slow approvals."
-        items={data.problems}
-        tone="problem"
-      />
-      <PortalCardColumn
-        title={data.fixesTitle}
-        description="A secure portal turns those loose messages into controlled requests, documents, roles, and updates."
-        items={data.fixes}
-        tone="fix"
-      />
-    </section>
-  );
-}
-
-function PortalCardColumn({
-  title,
-  description,
-  items,
-  tone,
-}: {
-  title: string;
-  description: string;
-  items: IndustryPortalCard[];
-  tone: "problem" | "fix";
-}) {
-  return (
-    <section className="border-slate-200 px-7 py-10 dark:border-white/10 sm:px-10 lg:px-12 xl:first:border-r">
-      <SectionTitle title={title} description={description} center />
-
-      <div className="mt-8 grid gap-5 md:grid-cols-2">
-        {items.map((item) => {
-          const Icon = item.icon;
-
-          return (
-            <article
-              key={item.title}
-              className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-[0_22px_60px_rgba(15,23,42,0.08)] dark:border-white/10 dark:bg-white/[0.05]"
-            >
-              <span
-                className={`grid h-12 w-12 place-items-center rounded-2xl ${
-                  tone === "fix"
-                    ? "bg-blue-50 text-blue-600 dark:bg-blue-400/10 dark:text-blue-300"
-                    : "bg-slate-100 text-slate-600 dark:bg-white/10 dark:text-slate-300"
-                }`}
-              >
-                <Icon className="h-6 w-6" />
-              </span>
-              <h3 className="mt-5 text-base font-black text-slate-950 dark:text-white">
-                {item.title}
-              </h3>
-              <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">
-                {item.description}
-              </p>
-            </article>
-          );
-        })}
-      </div>
-    </section>
-  );
-}
-
-function PortalRolesSection({ data }: { data: IndustryPortalPageData }) {
-  const firstRole = data.roles[0];
-  const [activeRoleId, setActiveRoleId] = useState(firstRole?.id ?? "");
-  const activeRole = data.roles.find((role) => role.id === activeRoleId) ?? firstRole;
-
-  if (!activeRole) {
-    return null;
-  }
-
-  return (
-    <section className="border-t border-slate-200 bg-gradient-to-b from-slate-50/80 to-white px-7 py-12 dark:border-white/10 dark:from-white/[0.025] dark:to-white/[0.04] sm:px-10 lg:px-12">
-      <div className="mx-auto max-w-3xl text-center">
-        <SectionEyebrow>Portal Roles</SectionEyebrow>
-        <h2 className="mt-3 text-3xl font-black leading-tight text-slate-950 dark:text-white sm:text-4xl">
-          {data.rolesTitle}
-        </h2>
-        <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
-          {data.rolesDescription}
-        </p>
-      </div>
-
-      <div className="mt-9 grid gap-6 xl:grid-cols-[0.78fr_1.22fr] xl:items-stretch">
-        <div className="-mx-7 flex gap-3 overflow-x-auto px-7 pb-2 sm:-mx-10 sm:px-10 xl:mx-0 xl:grid xl:auto-rows-fr xl:overflow-visible xl:px-0 xl:pb-0">
-          {data.roles.map((roleItem) => (
-            <PortalRoleTab
-              key={roleItem.id}
-              role={roleItem}
-              isActive={roleItem.id === activeRole.id}
-              onClick={() => setActiveRoleId(roleItem.id)}
-            />
-          ))}
-        </div>
-
-        <PortalRolePreview role={activeRole} data={data} />
-      </div>
-    </section>
-  );
-}
-
-function PortalRoleTab({
-  role,
-  isActive,
-  onClick,
-}: {
-  role: IndustryPortalRole;
-  isActive: boolean;
-  onClick: () => void;
-}) {
-  const Icon = role.icon;
-
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={`min-w-[245px] rounded-[1.35rem] border p-4 text-left shadow-sm transition hover:-translate-y-1 xl:min-w-0 ${
-        isActive
-          ? "border-blue-200 bg-gradient-to-br from-blue-600 to-violet-600 text-white shadow-[0_22px_58px_rgba(37,99,235,0.22)]"
-          : "border-slate-200 bg-white text-slate-950 hover:border-blue-200 hover:shadow-[0_18px_45px_rgba(15,23,42,0.08)] dark:border-white/10 dark:bg-white/[0.05] dark:text-white"
-      }`}
-    >
-      <div className="flex items-start gap-3">
-        <span
-          className={`grid h-11 w-11 shrink-0 place-items-center rounded-2xl ${
-            isActive
-              ? "bg-white/16 text-white"
-              : "bg-blue-50 text-blue-600 dark:bg-blue-400/10 dark:text-blue-300"
-          }`}
-        >
-          <Icon className="h-5 w-5" />
-        </span>
-        <div>
-          <p className={`text-[10px] font-black uppercase ${isActive ? "text-blue-100" : "text-slate-400"}`}>
-            {role.role}
-          </p>
-          <h3 className="mt-1 text-base font-black">{role.title}</h3>
-        </div>
-      </div>
-      <p className={`mt-3 line-clamp-2 text-xs leading-5 ${isActive ? "text-blue-50" : "text-slate-500 dark:text-slate-400"}`}>
-        {role.description}
-      </p>
-      <p className={`mt-4 rounded-full px-3 py-1.5 text-[10px] font-black ${isActive ? "bg-white/14 text-white" : "bg-slate-100 text-slate-600 dark:bg-white/10 dark:text-slate-300"}`}>
-        {role.metric}
-      </p>
-    </button>
-  );
-}
-
-function PortalRolePreview({
-  role,
-  data,
-}: {
-  role: IndustryPortalRole;
-  data: IndustryPortalPageData;
-}) {
-  const Icon = role.icon;
-
-  return (
-    <div className="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-5 shadow-[0_26px_80px_rgba(15,23,42,0.10)] dark:border-white/10 dark:bg-white/[0.05] sm:p-6">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_16%_12%,rgba(59,130,246,0.12),transparent_28%),radial-gradient(circle_at_82%_14%,rgba(124,58,237,0.12),transparent_30%)]" />
-      <div className="relative grid gap-6 lg:grid-cols-[1fr_330px] lg:items-center">
-        <div>
-          <div className="flex items-center gap-3">
-            <span className="grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br from-blue-600 to-violet-600 text-white shadow-[0_14px_30px_rgba(37,99,235,0.24)]">
-              <Icon className="h-6 w-6" />
-            </span>
-            <div>
-              <p className="text-xs font-black uppercase text-blue-700 dark:text-blue-300">
-                {role.role}
-              </p>
-              <h3 className="mt-1 text-3xl font-black leading-tight text-slate-950 dark:text-white">
-                {role.title}
-              </h3>
-            </div>
-          </div>
-
-          <p className="mt-5 max-w-2xl text-sm leading-7 text-slate-600 dark:text-slate-300">
-            {role.description}
-          </p>
-
-          <div className="mt-6 grid gap-3 sm:grid-cols-2">
-            {role.capabilities.map((capability) => (
-              <div
-                key={capability}
-                className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-3 dark:border-white/10 dark:bg-white/[0.06]"
-              >
-                <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-500" />
-                <span className="text-xs font-black text-slate-700 dark:text-slate-300">
-                  {capability}
-                </span>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-7 rounded-[1.35rem] border border-slate-200 bg-slate-50 p-4 shadow-sm dark:border-white/10 dark:bg-white/[0.06]">
-            <div className="mb-4 flex items-center justify-between gap-3">
-              <p className="text-xs font-black uppercase text-slate-400">
-                Portal workflow line
-              </p>
-              <span className="rounded-full bg-emerald-50 px-3 py-1 text-[10px] font-black text-emerald-700 dark:bg-emerald-400/10 dark:text-emerald-300">
-                Role synced
-              </span>
-            </div>
-            <div className="grid gap-3 sm:grid-cols-4">
-              {role.capabilities.map((capability, index) => (
-                <div key={`${role.id}-flow-${capability}`}>
-                  <div className="flex items-center gap-2">
-                    <span
-                      className={`grid h-7 w-7 shrink-0 place-items-center rounded-full text-[10px] font-black ${
-                        index === 0
-                          ? "bg-gradient-to-br from-blue-600 to-violet-600 text-white"
-                          : "bg-white text-slate-500 dark:bg-white/10 dark:text-slate-300"
-                      }`}
-                    >
-                      {index + 1}
-                    </span>
-                    <span className="h-1 flex-1 rounded-full bg-slate-100 dark:bg-white/10" />
-                  </div>
-                  <p className="mt-2 text-[11px] font-black leading-4 text-slate-600 dark:text-slate-300">
-                    {capability}
+            <div className="rounded-2xl border border-blue-100 bg-blue-50/70 p-4 dark:border-blue-300/15 dark:bg-blue-400/10">
+              <div className="flex items-center justify-between gap-3">
+                <div>
+                  <p className="text-sm font-black text-slate-950 dark:text-white">
+                    Latest update
+                  </p>
+                  <p className="mt-1 text-xs font-semibold leading-5 text-slate-600 dark:text-slate-300">
+                    {cards[1]?.description ?? "A new portal update is ready for the user."}
                   </p>
                 </div>
-              ))}
+                <Bell className="h-5 w-5 shrink-0 text-blue-600 dark:text-blue-300" aria-hidden="true" />
+              </div>
             </div>
-          </div>
 
-          <div className="mt-6 grid gap-3 sm:grid-cols-2">
-            <div className="rounded-2xl border border-blue-100 bg-blue-50 p-4 dark:border-blue-300/15 dark:bg-blue-400/10">
-              <p className="text-xs font-black uppercase text-blue-700 dark:text-blue-300">
-                Role metric
-              </p>
-              <p className="mt-2 text-xl font-black text-slate-950 dark:text-white">
-                {role.metric}
-              </p>
+            <div className="mt-4 hidden rounded-2xl border border-slate-200 bg-white p-4 dark:border-white/10 dark:bg-white/[0.04] sm:block">
+              <div className="relative grid grid-cols-4 gap-3">
+                <span className="absolute left-6 right-6 top-5 h-px bg-slate-200 dark:bg-white/10" aria-hidden="true" />
+                <PortalProgressLine className="absolute left-6 right-6 top-5 h-px bg-blue-500" />
+                {timeline.map((step, index) => (
+                  <div key={step.title} className="relative text-center">
+                    <span className="mx-auto grid h-10 w-10 place-items-center rounded-full bg-white text-xs font-black text-blue-700 ring-1 ring-blue-200 dark:bg-slate-950 dark:text-blue-300 dark:ring-blue-300/20">
+                      {index + 1}
+                    </span>
+                    <p className="mt-2 truncate text-[11px] font-black text-slate-700 dark:text-slate-300">
+                      {step.title}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-blue-600 to-violet-600 px-5 py-4 text-sm font-black text-white shadow-[0_16px_42px_rgba(37,99,235,0.22)] transition hover:-translate-y-0.5"
-            >
-              Plan This Portal Role
-              <ArrowRight className="h-4 w-4" />
-            </Link>
           </div>
         </div>
-
-        <MiniPortalPreview role={role} portalName={data.heroVisual.portalName} />
       </div>
-    </div>
+    </PortalReveal>
   );
 }
 
-function MiniPortalPreview({
-  role,
-  portalName,
+function PortalPreviewCard({
+  card,
+  index,
 }: {
-  role: IndustryPortalRole;
-  portalName: string;
+  card: IndustryPortalHeroPreviewCard;
+  index: number;
 }) {
+  const Icon = portalPreviewIcons[index % portalPreviewIcons.length];
+
   return (
-    <div className="mx-auto w-full max-w-[330px] rounded-[1.75rem] border border-slate-200 bg-white p-3 shadow-[0_24px_70px_rgba(15,23,42,0.14)] dark:border-white/10 dark:bg-slate-950">
-      <div className="rounded-[1.35rem] bg-slate-950 p-4 text-white">
-        <p className="text-[10px] font-black uppercase text-blue-200">
-          {portalName}
+    <PortalFloat delay={0.04 * index}>
+      {/*
+        Updated preview card to use a subtle gradient background and deeper shadow.
+        The rounded corners are slightly larger for a more modern look.
+      */}
+      <article className="rounded-3xl border border-transparent bg-gradient-to-br from-white via-blue-50 to-white p-5 shadow-[0_8px_24px_rgba(15,23,42,0.06)] dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
+        <div className="flex items-center justify-between gap-3">
+          <span className="grid h-10 w-10 place-items-center rounded-xl bg-slate-50 text-blue-600 dark:bg-white/[0.07] dark:text-blue-300">
+            <Icon className="h-5 w-5" aria-hidden="true" />
+          </span>
+          <span className="rounded-full bg-slate-100 px-2.5 py-1 text-[10px] font-black uppercase text-slate-500 dark:bg-white/[0.08] dark:text-slate-300">
+            {card.value}
+          </span>
+        </div>
+        <h3 className="mt-4 text-sm font-black text-slate-950 dark:text-white">
+          {card.title}
+        </h3>
+        <p className="mt-2 text-xs font-semibold leading-5 text-slate-500 dark:text-slate-400">
+          {card.description}
         </p>
-        <h4 className="mt-2 text-xl font-black leading-tight">
-          {role.title}
-        </h4>
-        <p className="mt-2 text-xs leading-5 text-slate-300">
-          Secure role workspace
-        </p>
+      </article>
+    </PortalFloat>
+  );
+}
+
+function PortalProblemsSection({ data }: { data: IndustryPortalPageData }) {
+  return (
+    <section className="border-t border-slate-200 px-6 py-10 dark:border-white/10 sm:px-10 lg:px-12">
+      <SectionHeader
+        eyebrow="Portal Problems / Why It Matters"
+        title={data.problemsTitle}
+        description="Without a secure self-service portal, users keep asking for status, documents, payments, support, and updates through scattered calls and messages."
+      />
+
+      <div className="mt-8 grid gap-4 lg:grid-cols-2">
+        {data.problems.slice(0, 4).map((item, index) => (
+          <PortalReveal key={item.title} delay={index * 0.04}>
+            <ProblemCard item={item} />
+          </PortalReveal>
+        ))}
       </div>
+    </section>
+  );
+}
 
-      <div className="mt-3 space-y-2.5">
-        {role.previewCards.map((card, index) => {
-          const Icon = card.icon;
+function ProblemCard({ item }: { item: IndustryPortalCard }) {
+  const Icon = item.icon;
 
-          return (
-            <div
-              key={card.label}
-              className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-3 dark:border-white/10 dark:bg-white/[0.06]"
-            >
-              <span
-                className={`grid h-10 w-10 shrink-0 place-items-center rounded-2xl ${
-                  index === 0
-                    ? "bg-blue-50 text-blue-600 dark:bg-blue-400/10 dark:text-blue-300"
-                    : "bg-white text-slate-600 dark:bg-white/10 dark:text-slate-300"
-                }`}
-              >
-                <Icon className="h-4 w-4" />
-              </span>
-              <div className="min-w-0 flex-1">
-                <p className="truncate text-xs font-black text-slate-950 dark:text-white">
-                  {card.label}
-                </p>
-                <p className="mt-0.5 truncate text-[10px] font-bold text-slate-500 dark:text-slate-400">
-                  {card.value}
-                </p>
-              </div>
-            </div>
-          );
-        })}
+  return (
+    <article className="h-full rounded-3xl border border-transparent bg-gradient-to-br from-slate-50 via-white to-slate-50 p-5 shadow-[0_4px_16px_rgba(15,23,42,0.05)] dark:from-slate-800 dark:via-slate-900 dark:to-slate-800">
+      <div className="flex items-start gap-4">
+        <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white text-slate-600 shadow-sm dark:bg-white/10 dark:text-slate-300">
+          <Icon className="h-5 w-5" aria-hidden="true" />
+        </span>
+        <div>
+          <h3 className="text-base font-black text-slate-950 dark:text-white">{item.title}</h3>
+          <p className="mt-2 text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
+            {item.description}
+          </p>
+        </div>
       </div>
+    </article>
+  );
+}
 
-      <div className="mt-3 flex items-center justify-around rounded-2xl border border-slate-200 bg-white px-3 py-2 dark:border-white/10 dark:bg-white/[0.04]">
-        {["Home", "Files", "Messages", "Reports"].map((item, index) => (
+function PortalAccessJourneySection({ data }: { data: IndustryPortalPageData }) {
+  const steps = data.portalJourney.steps;
+
+  return (
+    <section id="portal-journey" className="border-t border-slate-200 bg-slate-50/65 px-6 py-10 dark:border-white/10 dark:bg-white/[0.025] sm:px-10 lg:px-12">
+      <SectionHeader
+        eyebrow="Portal Access Journey"
+        title={data.portalJourney.title}
+        description={data.portalJourney.description}
+      />
+
+      <div className="relative mt-8">
+        <div className="absolute left-6 right-6 top-[1.38rem] hidden h-px bg-slate-200 dark:bg-white/10 xl:block" aria-hidden="true" />
+        <PortalProgressLine className="absolute left-6 right-6 top-[1.38rem] hidden h-px bg-blue-500 xl:block" />
+
+        <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-7">
+          {steps.map((step, index) => (
+            <PortalReveal key={step.title} delay={index * 0.035}>
+              <article className="relative h-full rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-white/[0.05]">
+                <span className="grid h-11 w-11 place-items-center rounded-full bg-slate-950 text-sm font-black text-white dark:bg-white dark:text-slate-950">
+                  {index + 1}
+                </span>
+                <h3 className="mt-4 text-sm font-black text-slate-950 dark:text-white">
+                  {step.title}
+                </h3>
+                <p className="mt-2 text-xs font-semibold leading-5 text-slate-600 dark:text-slate-300">
+                  {step.description}
+                </p>
+              </article>
+            </PortalReveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function PortalRoleExperiencesSection({ data }: { data: IndustryPortalPageData }) {
+  return (
+    <section className="border-t border-slate-200 px-6 py-10 dark:border-white/10 sm:px-10 lg:px-12">
+      <SectionHeader
+        eyebrow="Role-Based Portal Experiences"
+        title={data.roleExperiences.title}
+        description={data.roleExperiences.description}
+      />
+
+      <div className="mt-8 grid gap-4 lg:grid-cols-3">
+        {data.roleExperiences.roles.map((role, index) => (
+          <PortalReveal key={role.role} delay={index * 0.05}>
+            <RoleExperienceCard role={role} index={index} />
+          </PortalReveal>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function RoleExperienceCard({
+  role,
+  index,
+}: {
+  role: IndustryPortalRoleExperience;
+  index: number;
+}) {
+  const Icon = roleExperienceIcons[index % roleExperienceIcons.length];
+
+  return (
+    <article className="h-full rounded-[1.5rem] border border-transparent bg-gradient-to-br from-white via-slate-50 to-white p-5 shadow-[0_4px_16px_rgba(15,23,42,0.05)] dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
+      <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-blue-50 text-blue-600 dark:bg-blue-400/10 dark:text-blue-300">
+        <Icon className="h-6 w-6" aria-hidden="true" />
+      </span>
+      <p className="mt-5 text-xs font-black uppercase tracking-[0.16em] text-blue-700 dark:text-blue-300">
+        {role.role}
+      </p>
+      <h3 className="mt-2 text-lg font-black text-slate-950 dark:text-white">
+        {role.title}
+      </h3>
+      <p className="mt-2 text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
+        {role.description}
+      </p>
+      <div className="mt-4 flex flex-wrap gap-2">
+        {role.features.map((feature) => (
           <span
-            key={item}
-            className={`text-[10px] font-black ${index === 0 ? "text-blue-600 dark:text-blue-300" : "text-slate-400"}`}
+            key={feature}
+            className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-black text-slate-600 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-300"
           >
-            {item}
+            {feature}
           </span>
         ))}
       </div>
-    </div>
+    </article>
   );
 }
 
 function PortalModulesSection({ data }: { data: IndustryPortalPageData }) {
+  const features = data.modules.slice(0, 10);
+
   return (
-    <section className="border-t border-slate-200 px-7 py-12 dark:border-white/10 sm:px-10 lg:px-12">
-      <SectionTitle
+    <section className="border-t border-slate-200 bg-[linear-gradient(180deg,#ffffff,#f8fbff)] px-6 py-10 dark:border-white/10 dark:bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.025))] sm:px-10 lg:px-12">
+      <SectionHeader
+        eyebrow="Portal Modules"
         title={data.modulesTitle}
         description={data.modulesDescription}
-        center
       />
 
-      <div className="mt-9 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
-        {data.modules.map((module) => (
-          <PortalModuleCard key={module.title} module={module} />
+      <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
+        {features.map((module, index) => (
+          <PortalReveal key={module.title} delay={index * 0.025}>
+            <PortalFeatureCard module={module} />
+          </PortalReveal>
         ))}
       </div>
     </section>
   );
 }
 
-function PortalModuleCard({ module }: { module: IndustryPortalModule }) {
+function PortalFeatureCard({ module }: { module: IndustryPortalModule }) {
   const Icon = module.icon;
 
   return (
-    <article className="group overflow-hidden rounded-[1.45rem] border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(15,23,42,0.10)] dark:border-white/10 dark:bg-white/[0.05]">
-      <div className="relative min-h-[135px] overflow-hidden bg-gradient-to-br from-blue-50 via-white to-violet-50 p-4 dark:from-blue-950/30 dark:via-slate-950 dark:to-violet-950/20">
-        <div className="absolute right-4 top-4 grid h-10 w-10 place-items-center rounded-2xl bg-white text-blue-600 shadow-sm dark:bg-white/10 dark:text-blue-300">
-          <Icon className="h-5 w-5" />
-        </div>
-        <div className="w-full max-w-[210px] rounded-2xl border border-slate-200 bg-white/90 p-3 shadow-sm dark:border-white/10 dark:bg-white/[0.06]">
-          <div className="flex items-center justify-between">
-            <span className="h-2 w-16 rounded-full bg-blue-200 dark:bg-blue-300/20" />
-            <span className="h-5 w-5 rounded-full bg-emerald-100 dark:bg-emerald-300/20" />
-          </div>
-          <div className="mt-4 space-y-2">
-            {[0, 1, 2].map((item) => (
-              <div key={item} className="flex items-center gap-2 rounded-xl bg-slate-50 p-2 dark:bg-white/10">
-                <span className="h-6 w-6 rounded-lg bg-blue-100 dark:bg-blue-400/20" />
-                <span className="h-2 flex-1 rounded-full bg-slate-200 dark:bg-white/15" />
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <div className="p-5">
-        <h3 className="text-lg font-black leading-6 text-slate-950 dark:text-white">
-          {module.title}
-        </h3>
-        <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
-          {module.description}
-        </p>
-
-        <div className="mt-4 space-y-2">
-          {module.points.slice(0, 3).map((point) => (
-            <div
-              key={point}
-              className="flex items-start gap-2 text-xs font-semibold leading-5 text-slate-600 dark:text-slate-300"
-            >
-              <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-500" />
-              {point}
-            </div>
-          ))}
-        </div>
-      </div>
-    </article>
-  );
-}
-
-function WorkflowJourneySection({ data }: { data: IndustryPortalPageData }) {
-  return (
-    <section
-      id="portal-flow"
-      className="border-t border-slate-200 bg-gradient-to-b from-white to-blue-50/35 px-7 py-12 dark:border-white/10 dark:from-white/[0.04] dark:to-blue-950/10 sm:px-10 lg:px-12"
-    >
-      <SectionTitle
-        title={data.workflowTitle}
-        description="A portal workflow turns login, requests, documents, review, updates, and reporting into one visible journey."
-        center
-      />
-
-      <div className="relative mt-10">
-        <div className="pointer-events-none absolute left-0 right-0 top-10 hidden h-px bg-gradient-to-r from-transparent via-blue-200 to-transparent dark:via-blue-300/20 lg:block" />
-
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
-          {data.workflowSteps.map((step, index) => (
-            <WorkflowJourneyStep key={step.title} step={step} index={index} />
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function WorkflowJourneyStep({
-  step,
-  index,
-}: {
-  step: IndustryPortalWorkflowStep;
-  index: number;
-}) {
-  const Icon = step.icon;
-
-  return (
-    <article className="relative rounded-[1.35rem] border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-[0_18px_50px_rgba(15,23,42,0.08)] dark:border-white/10 dark:bg-white/[0.05]">
-      <span className="relative z-10 grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br from-blue-600 to-violet-600 text-white shadow-[0_14px_30px_rgba(37,99,235,0.22)]">
-        <Icon className="h-5 w-5" />
+    <article className="h-full rounded-3xl border border-transparent bg-gradient-to-br from-white via-slate-50 to-white p-5 shadow-[0_4px_16px_rgba(15,23,42,0.05)] dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
+      <span className="grid h-11 w-11 place-items-center rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-400/10 dark:text-blue-300">
+        <Icon className="h-5 w-5" aria-hidden="true" />
       </span>
-      <p className="mt-5 text-xs font-black uppercase text-blue-700 dark:text-blue-300">
-        Step {index + 1}
-      </p>
-      <h3 className="mt-2 text-base font-black text-slate-950 dark:text-white">
-        {step.title}
+      <h3 className="mt-4 text-base font-black leading-6 text-slate-950 dark:text-white">
+        {module.title}
       </h3>
-      <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
-        {step.description}
+      <p className="mt-2 text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
+        {module.description}
       </p>
-    </article>
-  );
-}
-
-function SecurityAccessSection({ data }: { data: IndustryPortalPageData }) {
-  return (
-    <section className="border-t border-slate-200 px-7 py-12 dark:border-white/10 sm:px-10 lg:px-12">
-      <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-        <div className="max-w-3xl">
-          <SectionEyebrow>Access Control</SectionEyebrow>
-          <h2 className="mt-3 text-3xl font-black leading-tight text-slate-950 dark:text-white sm:text-4xl">
-            {data.securityTitle}
-          </h2>
-          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
-            {data.securityDescription}
-          </p>
-        </div>
-        <ShieldCheck className="h-10 w-10 text-emerald-500" />
-      </div>
-
-      <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-        {data.securityItems.map((item) => (
-          <SecurityCard key={item.title} item={item} />
+      <div className="mt-4 space-y-2">
+        {module.points.slice(0, 2).map((point) => (
+          <div key={point} className="flex items-center gap-2 text-xs font-black text-slate-500 dark:text-slate-300">
+            <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" aria-hidden="true" />
+            {point}
+          </div>
         ))}
       </div>
+    </article>
+  );
+}
+
+function PortalSecuritySection({ data }: { data: IndustryPortalPageData }) {
+  return (
+    <section className="border-t border-slate-200 px-6 py-10 dark:border-white/10 sm:px-10 lg:px-12">
+      <div className="grid gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
+        <SectionHeader
+          eyebrow="Security & Permissions"
+          title={data.securityTitle}
+          description={data.securityDescription}
+        />
+        <div className="grid gap-3 sm:grid-cols-2">
+          {data.securityItems.slice(0, 4).map((item, index) => (
+            <PortalReveal key={item.title} delay={index * 0.04}>
+              <SecurityCard item={item} />
+            </PortalReveal>
+          ))}
+        </div>
+      </div>
     </section>
   );
 }
 
-function SecurityCard({ item }: { item: IndustryPortalSecurityItem }) {
+function SecurityCard({ item }: { item: IndustryPortalCard }) {
   const Icon = item.icon;
 
   return (
-    <article className="rounded-[1.35rem] border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-[0_22px_60px_rgba(15,23,42,0.08)] dark:border-white/10 dark:bg-white/[0.05]">
-      <span className="grid h-12 w-12 place-items-center rounded-2xl bg-emerald-50 text-emerald-600 dark:bg-emerald-400/10 dark:text-emerald-300">
-        <Icon className="h-6 w-6" />
-      </span>
-      <h3 className="mt-5 text-base font-black text-slate-950 dark:text-white">
+    <article className="rounded-3xl border border-transparent bg-gradient-to-br from-slate-50 via-white to-slate-50 p-5 shadow-[0_4px_16px_rgba(15,23,42,0.05)] dark:from-slate-800 dark:via-slate-900 dark:to-slate-800">
+      <Icon className="h-6 w-6 text-blue-600 dark:text-blue-300" aria-hidden="true" />
+      <h3 className="mt-4 text-sm font-black text-slate-950 dark:text-white">
         {item.title}
       </h3>
-      <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">
+      <p className="mt-2 text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
         {item.description}
       </p>
     </article>
   );
 }
 
-function PortalDemoGallerySection({ data }: { data: IndustryPortalPageData }) {
-  return (
-    <section className="border-t border-slate-200 bg-gradient-to-b from-white to-blue-50/40 px-7 py-12 dark:border-white/10 dark:from-white/[0.04] dark:to-blue-950/10 sm:px-10 lg:px-12">
-      <div className="mx-auto max-w-3xl text-center">
-        <SectionEyebrow>Portal Demo Gallery</SectionEyebrow>
-        <h2 className="mt-3 text-3xl font-black leading-tight text-slate-950 dark:text-white sm:text-4xl">
-          {data.demoGalleryTitle}
-        </h2>
-        <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-slate-600 dark:text-slate-300">
-          {data.demoGalleryDescription}
-        </p>
-      </div>
-
-      <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-        {data.demoGallery.map((demoItem) => (
-          <PortalDemoCard key={demoItem.title} demo={demoItem} />
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function PortalDemoCard({ demo }: { demo: IndustryPortalDemo }) {
-  const Icon = demo.icon;
-
-  return (
-    <article className="group overflow-hidden rounded-[1.45rem] border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(15,23,42,0.10)] dark:border-white/10 dark:bg-white/[0.05]">
-      <div className="mb-4 flex items-start gap-3">
-        <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-blue-50 text-blue-600 dark:bg-blue-400/10 dark:text-blue-300">
-          <Icon className="h-5 w-5" />
-        </span>
-        <div>
-          <h3 className="text-base font-black text-slate-950 dark:text-white">
-            {demo.title}
-          </h3>
-          <p className="mt-1 line-clamp-2 text-xs leading-5 text-slate-500 dark:text-slate-400">
-            {demo.subtitle}
-          </p>
-        </div>
-      </div>
-
-      <MiniDashboardPreview demo={demo} />
-
-      <div className="mt-3 grid grid-cols-2 gap-2">
-        {demo.chips.slice(0, 4).map((chip) => (
-          <span
-            key={chip}
-            className="truncate rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-[10px] font-bold text-slate-600 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-300"
-          >
-            {chip}
-          </span>
-        ))}
-      </div>
-
-      <Link
-        href="/contact"
-        className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 px-5 py-3 text-xs font-black text-white shadow-sm transition hover:-translate-y-0.5"
-      >
-        View Portal Demo
-        <ArrowRight className="h-4 w-4" />
-      </Link>
-    </article>
-  );
-}
-
-function MiniDashboardPreview({ demo }: { demo: IndustryPortalDemo }) {
-  return (
-    <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 dark:border-white/10 dark:bg-slate-950">
-      <div className="flex items-center justify-between border-b border-slate-200 bg-white px-3 py-2 dark:border-white/10 dark:bg-white/[0.06]">
-        <span className="text-[10px] font-black text-slate-900 dark:text-white">
-          Portal Preview
-        </span>
-        <span className="rounded-full bg-emerald-50 px-2 py-1 text-[9px] font-black text-emerald-700 dark:bg-emerald-400/10 dark:text-emerald-300">
-          Live
-        </span>
-      </div>
-
-      <div className="grid min-h-[185px] grid-cols-[0.8fr_1.2fr] gap-3 p-3">
-        <div className="space-y-2">
-          {demo.stats.map(([label, value]) => (
-            <div key={label} className="rounded-xl bg-white p-3 shadow-sm dark:bg-white/[0.06]">
-              <p className="text-[9px] font-black uppercase text-slate-400">
-                {label}
-              </p>
-              <p className="mt-1 text-xs font-black text-slate-950 dark:text-white">
-                {value}
-              </p>
-            </div>
-          ))}
-        </div>
-        <div className="rounded-xl bg-white p-3 shadow-sm dark:bg-white/[0.06]">
-          <div className="h-2 w-20 rounded-full bg-blue-200 dark:bg-blue-300/20" />
-          <div className="mt-4 space-y-2.5">
-            {[0, 1, 2, 3].map((item) => (
-              <div key={item} className="flex items-center gap-2">
-                <span className="h-7 w-7 rounded-lg bg-blue-50 dark:bg-blue-400/10" />
-                <span className="h-2 flex-1 rounded-full bg-slate-100 dark:bg-white/10" />
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function PricingSection({ data }: { data: IndustryPortalPageData }) {
-  return (
-    <section className="border-t border-slate-200 bg-gradient-to-b from-white to-slate-50/80 px-3 py-12 dark:border-white/10 dark:from-white/[0.04] dark:to-white/[0.025] sm:px-10 lg:px-12">
-      <SectionTitle
-        title={`Portal pricing for ${data.industryName}`}
-        description={data.pricingDescription}
-        center
-      />
-
-      <div className="mt-8 overflow-hidden px-3 lg:hidden">
-        <div className="flex w-max gap-4 animate-[mobilePricingSlider_30s_linear_infinite] [animation-play-state:running] will-change-transform motion-reduce:animate-none hover:[animation-play-state:paused] focus-within:[animation-play-state:paused] active:[animation-play-state:paused]">
-          {data.pricingPlans.map((planItem) => (
-            <PricingCard key={`${planItem.name}-mobile`} plan={planItem} mobile />
-          ))}
-          {data.pricingPlans.map((planItem) => (
-            <div key={`${planItem.name}-mobile-copy`} aria-hidden="true" inert className="contents">
-              <PricingCard plan={planItem} mobile />
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="mt-8 hidden gap-5 lg:grid lg:grid-cols-3">
-        {data.pricingPlans.map((planItem) => (
-          <PricingCard key={planItem.name} plan={planItem} />
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function PricingCard({
-  plan,
-  mobile = false,
-}: {
-  plan: IndustryPortalPricingPlan;
-  mobile?: boolean;
-}) {
-  const Icon = plan.icon;
-
-  if (mobile) {
-    return (
-      <article
-        className={`relative flex h-auto w-[82vw] max-w-[340px] shrink-0 flex-col overflow-visible rounded-[1.5rem] border bg-white p-5 shadow-sm dark:bg-white/[0.05] ${
-          plan.popular
-            ? "border-violet-400 shadow-[0_18px_48px_rgba(124,58,237,0.14)] dark:border-violet-400/60"
-            : "border-slate-200 dark:border-white/10"
-        }`}
-      >
-        {plan.popular ? (
-          <div className="mb-4 flex justify-center">
-            <span className="rounded-full bg-gradient-to-r from-blue-600 to-violet-600 px-4 py-1.5 text-[10px] font-black uppercase text-white shadow-sm">
-              Popular
-            </span>
-          </div>
-        ) : null}
-
-        <span className="grid h-11 w-11 place-items-center rounded-2xl bg-blue-50 text-blue-600 dark:bg-blue-400/10 dark:text-blue-300">
-          <Icon className="h-5 w-5" />
-        </span>
-
-        <h3 className="mt-5 text-xl font-black text-slate-950 dark:text-white">
-          {plan.name}
-        </h3>
-
-        <p className="mt-2 text-sm leading-6 text-slate-500 dark:text-slate-400">
-          {plan.subtitle}
-        </p>
-
-        <div className="mt-5">
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400">
-            Starting From
-          </p>
-          <p className="mt-1 text-3xl font-black text-slate-950 dark:text-white">
-            {plan.price}
-          </p>
-        </div>
-
-        <ul className="mt-5 space-y-3">
-          {plan.features.slice(0, 5).map((feature) => (
-            <li
-              key={feature}
-              className="flex items-start gap-2 text-sm leading-6 text-slate-700 dark:text-slate-300"
-            >
-              <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-emerald-500" />
-              {feature}
-            </li>
-          ))}
-        </ul>
-
-        <div className="mt-auto pt-5">
-          <Link
-            href="/contact"
-            className={`inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-black transition hover:-translate-y-0.5 ${
-              plan.popular
-                ? "bg-gradient-to-r from-blue-600 to-violet-600 text-white shadow-[0_14px_36px_rgba(37,99,235,0.22)]"
-                : "border border-slate-200 bg-slate-50 text-slate-900 dark:border-white/10 dark:bg-white/[0.06] dark:text-white"
-            }`}
-          >
-            Discuss Plan
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
-      </article>
-    );
-  }
-
-  return (
-    <article
-      className={`relative rounded-[1.5rem] border bg-white p-6 shadow-sm transition hover:-translate-y-1 dark:bg-white/[0.05] ${
-        plan.popular
-          ? "border-violet-400 shadow-[0_18px_48px_rgba(124,58,237,0.14)] dark:border-violet-400/60"
-          : "border-slate-200 dark:border-white/10"
-      }`}
-    >
-      {plan.popular ? <PopularBadge /> : null}
-
-      <span className="grid h-12 w-12 place-items-center rounded-2xl bg-blue-50 text-blue-600 dark:bg-blue-400/10 dark:text-blue-300">
-        <Icon className="h-5 w-5" />
-      </span>
-
-      <h3 className="mt-5 text-xl font-black text-slate-950 dark:text-white">
-        {plan.name}
-      </h3>
-
-      <p className="mt-2 text-sm leading-6 text-slate-500 dark:text-slate-400">
-        {plan.subtitle}
-      </p>
-
-      <div className="mt-5">
-        <p className="text-xs font-bold text-slate-500 dark:text-slate-400">
-          Starting From
-        </p>
-        <p className="mt-1 text-3xl font-black text-slate-950 dark:text-white">
-          {plan.price}
-        </p>
-      </div>
-
-      <ul className="mt-5 space-y-3">
-        {plan.features.slice(0, 5).map((feature) => (
-          <li
-            key={feature}
-            className="flex items-center gap-2 text-sm leading-6 text-slate-700 dark:text-slate-300"
-          >
-            <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-500" />
-            {feature}
-          </li>
-        ))}
-      </ul>
-
-      <Link
-        href="/contact"
-        className={`mt-7 inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-black transition hover:-translate-y-0.5 ${
-          plan.popular
-            ? "bg-gradient-to-r from-blue-600 to-violet-600 text-white shadow-[0_14px_36px_rgba(37,99,235,0.22)]"
-            : "border border-slate-200 bg-slate-50 text-slate-900 dark:border-white/10 dark:bg-white/[0.06] dark:text-white"
-        }`}
-      >
-        Discuss Plan
-        <ArrowRight className="h-4 w-4" />
-      </Link>
-    </article>
-  );
-}
-
-function TestimonialsSection({
-  title,
-  items,
-}: {
-  title: string;
-  items: IndustryPortalTestimonial[];
-}) {
-  return (
-    <section className="border-t border-slate-200 bg-slate-50/60 px-7 py-12 dark:border-white/10 dark:bg-white/[0.025] sm:px-10 lg:px-12">
-      <SectionTitle title={title} center />
-
-      <div className="mt-8 grid gap-5 lg:grid-cols-3">
-        {items.map((item) => (
-          <article
-            key={item.name}
-            className="rounded-[1.45rem] border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 dark:border-white/10 dark:bg-white/[0.05]"
-          >
-            <div className="mb-4 flex gap-1 text-amber-400">
-              {[0, 1, 2, 3, 4].map((star) => (
-                <Star key={star} className="h-4 w-4 fill-current" />
-              ))}
-            </div>
-            <p className="text-sm leading-7 text-slate-600 dark:text-slate-300">
-              &quot;{item.quote}&quot;
-            </p>
-            <div className="mt-6 border-t border-slate-100 pt-5 dark:border-white/10">
-              <p className="font-black text-slate-950 dark:text-white">
-                {item.name}
-              </p>
-              <p className="mt-1 text-xs leading-5 text-slate-500 dark:text-slate-400">
-                {item.role}
-              </p>
-            </div>
-          </article>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function TrustSection({ data }: { data: IndustryPortalPageData }) {
-  return (
-    <section className="border-t border-slate-200 px-7 py-12 dark:border-white/10 sm:px-10 lg:px-12">
-      <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-        <div className="max-w-3xl">
-          <SectionEyebrow>Trust</SectionEyebrow>
-          <h2 className="mt-3 text-3xl font-black leading-tight text-slate-950 dark:text-white sm:text-4xl">
-            {data.trustTitle}
-          </h2>
-          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
-            {data.trustDescription}
-          </p>
-        </div>
-        <ShieldCheck className="h-10 w-10 text-emerald-500" />
-      </div>
-
-      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {data.trustItems.map((item) => (
-          <TrustCard key={item.title} item={item} />
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function TrustCard({ item }: { item: IndustryPortalTrustItem }) {
-  const Icon = item.icon;
-
-  return (
-    <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 dark:border-white/10 dark:bg-white/[0.05]">
-      <Icon className="h-6 w-6 text-emerald-600 dark:text-emerald-300" />
-      <h3 className="mt-4 text-sm font-black leading-5 text-slate-950 dark:text-white">
-        {item.title}
-      </h3>
-    </article>
-  );
-}
-
 function FinalCTASection({ data }: { data: IndustryPortalPageData }) {
   return (
-    <section className="border-t border-slate-200 px-7 py-10 dark:border-white/10 sm:px-10 lg:px-12">
-      <div className="overflow-hidden rounded-[2rem] border border-slate-800 bg-[linear-gradient(135deg,#020617,#0f172a_48%,#1d4ed8)] p-6 text-white shadow-[0_24px_70px_rgba(15,23,42,0.20)] sm:p-8 lg:p-10">
+    <section className="border-t border-slate-200 px-6 py-12 dark:border-white/10 sm:px-10 lg:px-14">
+      <div className="overflow-hidden rounded-[2.5rem] border border-transparent bg-gradient-to-tr from-slate-900 via-blue-950 to-indigo-900 p-8 text-white shadow-[0_30px_80px_rgba(15,23,42,0.3)] sm:p-10 lg:p-12">
         <div className="grid gap-7 lg:grid-cols-[1fr_auto] lg:items-center">
           <div>
-            <p className="text-xs font-black uppercase text-blue-300">
-              Portal build
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-blue-300">
+              Secure portal build
             </p>
             <h2 className="mt-3 max-w-3xl text-3xl font-black leading-tight sm:text-4xl">
               {data.ctaTitle}
             </h2>
-            <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-300">
+            <p className="mt-4 max-w-3xl text-sm font-semibold leading-7 text-slate-300">
               {data.ctaDescription}
             </p>
           </div>
 
-          <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 px-7 py-4 text-sm font-black text-white shadow-[0_18px_50px_rgba(37,99,235,0.25)] transition hover:-translate-y-0.5"
-            >
-              Start My Portal Build
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-            <Link
-              href="#portal-flow"
-              className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/10 px-7 py-4 text-sm font-black text-white transition hover:-translate-y-0.5 hover:bg-white/15"
-            >
-              View Portal Flow
-              <WorkflowIcon />
-            </Link>
-          </div>
+          <Link
+            href="/contact"
+            className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-8 py-4 text-sm font-black text-slate-950 shadow-md transition hover:-translate-y-0.5 hover:shadow-lg"
+          >
+            Start My Portal Build
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </Link>
         </div>
 
-        <div className="mt-8 grid gap-3 sm:grid-cols-3">
-          {["Secure role-based access", "Document-controlled workspace", "Admin visibility"].map((item) => (
-            <div key={item} className="rounded-2xl bg-white/10 px-4 py-3 text-sm font-black ring-1 ring-white/10">
+        <div className="mt-10 grid gap-4 sm:grid-cols-3">
+          {[
+            "Secure login access", "Self-service user workspace", "Reduced manual support",
+          ].map((item) => (
+            <div key={item} className="rounded-2xl bg-white/10 px-5 py-3 text-sm font-black ring-1 ring-white/10">
               {item}
             </div>
           ))}
@@ -1232,37 +549,36 @@ function FinalCTASection({ data }: { data: IndustryPortalPageData }) {
   );
 }
 
-function WorkflowIcon() {
-  return <ArrowRight className="h-4 w-4" />;
-}
-
-function SectionTitle({
+function SectionHeader({
+  eyebrow,
   title,
   description,
-  center = false,
 }: {
+  eyebrow: string;
   title: string;
   description?: string;
-  center?: boolean;
 }) {
   return (
-    <div className={center ? "mx-auto max-w-3xl text-center" : "max-w-3xl"}>
-      <h2 className="text-3xl font-black leading-tight text-slate-950 dark:text-white sm:text-4xl">
-        {title}
-      </h2>
-      {description ? (
-        <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
-          {description}
-        </p>
-      ) : null}
-    </div>
+    <PortalReveal>
+      <div className="max-w-3xl">
+        <SectionEyebrow>{eyebrow}</SectionEyebrow>
+        <h2 className="mt-4 text-3xl font-black leading-tight tracking-[-0.03em] text-slate-950 dark:text-white sm:text-4xl">
+          {title}
+        </h2>
+        {description ? (
+          <p className="mt-3 text-sm font-semibold leading-7 text-slate-600 dark:text-slate-300">
+            {description}
+          </p>
+        ) : null}
+      </div>
+    </PortalReveal>
   );
 }
 
 function SectionEyebrow({ children }: { children: ReactNode }) {
   return (
-    <span className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-4 py-2 text-xs font-black uppercase text-blue-700 dark:border-blue-400/20 dark:bg-blue-400/10 dark:text-blue-300">
-      <Sparkles className="h-4 w-4" />
+    <span className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-3 py-1.5 text-[11px] font-black uppercase tracking-[0.16em] text-blue-700 dark:border-blue-400/20 dark:bg-blue-400/10 dark:text-blue-300">
+      <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
       {children}
     </span>
   );
@@ -1270,26 +586,8 @@ function SectionEyebrow({ children }: { children: ReactNode }) {
 
 function Badge({ children }: { children: ReactNode }) {
   return (
-    <span className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-4 py-2 text-xs font-black uppercase text-blue-700 dark:border-blue-400/20 dark:bg-blue-400/10 dark:text-blue-300">
+    <span className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-4 py-2 text-xs font-black uppercase tracking-[0.14em] text-blue-700 dark:border-blue-400/20 dark:bg-blue-400/10 dark:text-blue-300">
       {children}
     </span>
   );
-}
-
-function PopularBadge() {
-  return (
-    <span className="absolute right-5 top-5 rounded-full bg-gradient-to-r from-blue-600 to-violet-600 px-3 py-1 text-[10px] font-black uppercase text-white shadow-sm">
-      Popular
-    </span>
-  );
-}
-
-function splitHighlightedText(title: string, highlight: string): [string, string] {
-  const index = title.toLowerCase().indexOf(highlight.toLowerCase());
-
-  if (index === -1) {
-    return [`${title} `, ""];
-  }
-
-  return [title.slice(0, index), title.slice(index + highlight.length)];
 }

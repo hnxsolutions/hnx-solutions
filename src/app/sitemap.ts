@@ -6,6 +6,7 @@ import { mobileAppSolutions } from "@/data/solutions/mobileAppSolutions";
 import { aiAutomationSolutions } from "@/data/solutions/aiAutomationSolutions";
 import { cloudDevopsSolutions } from "@/data/solutions/cloudDevopsSolutions";
 import { designGrowthSolutions } from "@/data/solutions/designGrowthSolutions";
+import { industryBusinessSuitePages } from "@/components/industries/shared/business-suite-shared/industryBusinessSuiteData";
 import { industryCrmPages } from "@/components/industries/shared/crm-shared/industryCrmData";
 import { industryPortalPages } from "@/components/industries/shared/portal-shared/industryPortalData";
 
@@ -60,6 +61,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticEntries = [
     entry("/", 1, "weekly"),
     entry("/services", 0.96, "weekly"),
+    entry("/services/full-business-suite", 0.97, "weekly"),
     entry("/solutions", 0.94, "weekly"),
     entry("/industries", 0.94, "weekly"),
     entry("/demo-crm", 0.9, "weekly"),
@@ -91,6 +93,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const industryCrmEntries = Object.values(industryCrmPages).map((page) =>
     entry(page.primaryRoute, 0.9, "monthly"),
   );
+  const industryBusinessSuiteEntries = Object.values(industryBusinessSuitePages).map((page) =>
+    entry(page.primaryRoute, 0.9, "monthly"),
+  );
 
   return [
     ...staticEntries,
@@ -99,5 +104,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...industryEntries,
     ...industryPortalEntries,
     ...industryCrmEntries,
+    ...industryBusinessSuiteEntries,
   ];
 }

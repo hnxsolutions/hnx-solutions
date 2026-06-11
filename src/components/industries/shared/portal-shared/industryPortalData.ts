@@ -1,3 +1,4 @@
+
 import type { LucideIcon } from "lucide-react";
 import {
   BarChart3,
@@ -119,6 +120,40 @@ export type IndustryPortalHeroVisual = {
   documentCard: string;
 };
 
+export type IndustryPortalHeroPreviewCard = {
+  title: string;
+  value: string;
+  description: string;
+};
+
+export type IndustryPortalHero = {
+  eyebrow: string;
+  title: string;
+  description: string;
+  primaryCtaLabel: string;
+  primaryCtaHref: string;
+  secondaryCtaLabel?: string;
+  secondaryCtaHref?: string;
+  trustChips: string[];
+  previewCards: IndustryPortalHeroPreviewCard[];
+};
+
+export type IndustryPortalJourney = {
+  title: string;
+  description: string;
+  steps: Array<{
+    title: string;
+    description: string;
+  }>;
+};
+
+export type IndustryPortalRoleExperience = {
+  role: string;
+  title: string;
+  description: string;
+  features: string[];
+};
+
 export type IndustryPortalPageData = {
   industrySlug: string;
   industryName: string;
@@ -134,6 +169,7 @@ export type IndustryPortalPageData = {
   heroChips: Array<{ label: string; icon: LucideIcon }>;
   heroStats: Array<[string, string]>;
   heroVisual: IndustryPortalHeroVisual;
+  portalHero: IndustryPortalHero;
   problemsTitle: string;
   problems: IndustryPortalCard[];
   fixesTitle: string;
@@ -141,11 +177,17 @@ export type IndustryPortalPageData = {
   rolesTitle: string;
   rolesDescription: string;
   roles: IndustryPortalRole[];
+  roleExperiences: {
+    title: string;
+    description: string;
+    roles: IndustryPortalRoleExperience[];
+  };
   modulesTitle: string;
   modulesDescription: string;
   modules: IndustryPortalModule[];
   workflowTitle: string;
   workflowSteps: IndustryPortalWorkflowStep[];
+  portalJourney: IndustryPortalJourney;
   securityTitle: string;
   securityDescription: string;
   securityItems: IndustryPortalSecurityItem[];
@@ -171,10 +213,13 @@ type PageInput = Omit<
   | "primaryRoute"
   | "keywords"
   | "serviceType"
+  | "portalHero"
   | "problemsTitle"
   | "fixesTitle"
   | "rolesTitle"
+  | "roleExperiences"
   | "modulesTitle"
+  | "portalJourney"
   | "securityTitle"
   | "demoGalleryTitle"
   | "testimonialsTitle"
@@ -187,7 +232,7 @@ const rupee = "\u20b9";
 const aiAutomationHref = "/contact?service=ai-automation";
 
 const portalAiAutomation: IndustryAiAutomationData = {
-  eyebrow: "AI Automation Add-ons",
+  eyebrow: "AI Self-Service Add-ons",
   title: "Add AI Self-Service to Your Portal",
   description:
     "Help users get answers, upload documents, track requests, and receive status updates through AI-powered portal workflows.",
@@ -291,9 +336,11 @@ function plan(
 }
 
 function createPage(input: PageInput): IndustryPortalPageData {
+  const portalCategoryName = getPortalCategoryName(input.industrySlug, input.industryName);
+
   return {
     ...input,
-    eyebrow: `${input.industryName} Portal Solution`,
+    eyebrow: portalCategoryName,
     primaryRoute: `/industries/${input.industrySlug}/portal`,
     keywords: [
       `${input.industryName.toLowerCase()} portal development`,
@@ -305,11 +352,24 @@ function createPage(input: PageInput): IndustryPortalPageData {
       "document management portal",
       "request tracking portal",
     ],
-    serviceType: `${input.industryName} Portal Development`,
-    problemsTitle: "What Breaks Without a Portal",
+    serviceType: `${portalCategoryName} Development`,
+    portalHero: getPortalHero(input.industrySlug, portalCategoryName),
+    problemsTitle: "Why a Self-Service Portal Matters",
     fixesTitle: "What Gets Fixed With A Portal",
-    rolesTitle: `Role-Based Portal Experience for ${input.industryName}`,
-    modulesTitle: `${input.industryName} Portal Modules`,
+    rolesTitle: `Role-Based Access for ${portalCategoryName}`,
+    roleExperiences: {
+      title: `Portal Experiences for ${portalCategoryName} Users`,
+      description:
+        "Every user gets a focused self-service view with the documents, requests, payments, updates, and support actions relevant to them.",
+      roles: getPortalRoleExperiences(input.industrySlug),
+    },
+    modulesTitle: `${portalCategoryName} Features`,
+    portalJourney: {
+      title: `${portalCategoryName} Access Journey`,
+      description:
+        "A clear self-service path helps users log in, submit requests, upload files, track status, pay, receive updates, and raise support tickets without repeated calls.",
+      steps: getPortalJourneySteps(input.industrySlug),
+    },
     securityTitle: "Built for Secure Role-Based Access",
     demoGalleryTitle: `${input.industryName} Portal Demo Gallery`,
     testimonialsTitle: `${input.industryName} Portal Feedback`,
@@ -319,6 +379,246 @@ function createPage(input: PageInput): IndustryPortalPageData {
   };
 }
 
+function getPortalCategoryName(industrySlug: string, industryName: string) {
+  if (industrySlug === "real-estate") return "Buyer / Tenant Portal";
+  if (industrySlug === "manufacturing") return "Dealer / Vendor Portal";
+  if (industrySlug === "education") return "Student / Parent Portal";
+  if (industrySlug === "retail") return "Customer / Loyalty Portal";
+  if (industrySlug === "finance") return "Client Portal";
+  if (industrySlug === "insurance") return "Policyholder / Agent Portal";
+  if (industrySlug === "travel") return "Traveler Portal";
+  if (industrySlug === "automobile") return "Customer / Dealer Portal";
+  if (industrySlug === "service-business") return "Customer / Service Portal";
+
+  return `${industryName} Portal`;
+}
+
+function getPortalHero(industrySlug: string, portalCategoryName: string): IndustryPortalHero {
+  const heroTitles: Record<string, string> = {
+    healthcare: "Give Patients a Secure Portal Experience",
+    manufacturing: "Give Dealers and Vendors a Secure Portal",
+    education: "Create a Smarter Student & Parent Portal",
+    "real-estate": "Give Buyers and Tenants a Secure Portal",
+    retail: "Create a Customer Portal for Orders, Loyalty, and Support",
+    finance: "Give Clients a Secure Financial Portal",
+    insurance: "Create a Policyholder Portal for Claims and Renewals",
+    travel: "Give Travelers a Portal for Bookings and Documents",
+    automobile: "Create a Customer Portal for Service and Vehicle Updates",
+    "service-business": "Give Clients a Portal for Projects, Invoices, and Support",
+  };
+
+  const descriptions: Record<string, string> = {
+    healthcare:
+      "Let patients sign in, view reports, track appointments, download prescriptions, check payments, and receive care updates without waiting on calls.",
+    manufacturing:
+      "Let dealers and vendors log in, track purchase orders, download invoices, upload documents, check dispatch status, and raise support requests.",
+    education:
+      "Give students and parents one secure place for notices, assignments, attendance, fee status, documents, results, and support requests.",
+    "real-estate":
+      "Give buyers and tenants secure access to site visit status, agreements, payment milestones, property updates, documents, and support requests.",
+    retail:
+      "Let customers manage orders, returns, invoices, loyalty points, account details, support tickets, and notifications from one self-service portal.",
+    finance:
+      "Give clients a secure place to upload KYC documents, track applications, download statements, view payment status, and message advisors.",
+    insurance:
+      "Let policyholders view policies, track claims, download documents, check renewals, pay premiums, and contact agents from one secure portal.",
+    travel:
+      "Give travelers one login for bookings, vouchers, visa documents, payment updates, itinerary alerts, and support tickets.",
+    automobile:
+      "Let customers track service bookings, vehicle documents, warranty status, invoices, reminders, and showroom updates without manual follow-up.",
+    "service-business":
+      "Give clients secure access to project status, invoices, file uploads, approvals, support tickets, and team updates.",
+  };
+
+  return {
+    eyebrow: "Secure Portal System",
+    title: heroTitles[industrySlug] ?? `Give Users a Secure ${portalCategoryName}`,
+    description:
+      descriptions[industrySlug] ??
+      "Give users a secure place to log in, track requests, upload documents, view payments, receive updates, and reduce manual support work.",
+    primaryCtaLabel: "Build My Portal",
+    primaryCtaHref: "/contact",
+    secondaryCtaLabel: "View Portal Journey",
+    secondaryCtaHref: "#portal-journey",
+    trustChips: ["Secure login", "Role-based access", "Document control", "Status updates"],
+    previewCards: getPortalHeroPreviewCards(industrySlug),
+  };
+}
+
+function getPortalHeroPreviewCards(industrySlug: string): IndustryPortalHeroPreviewCard[] {
+  const previewCards: Record<string, IndustryPortalHeroPreviewCard[]> = {
+    healthcare: [
+      previewCard("Patient profile", "Verified", "Secure patient account and contact details."),
+      previewCard("Lab report uploaded", "Ready", "Reports can be opened and downloaded."),
+      previewCard("Appointment status", "Confirmed", "Upcoming visit details stay visible."),
+      previewCard("Prescription ready", "2 Active", "Prescriptions and care instructions are available."),
+      previewCard("Payment status", "Paid", "Receipts and invoices stay attached."),
+      previewCard("Doctor message", "New", "Care updates reach the patient inside the portal."),
+    ],
+    manufacturing: [
+      previewCard("Dealer account", "Active", "Dealer profile and permissions are verified."),
+      previewCard("Purchase order", "In review", "Order stage and owner stay visible."),
+      previewCard("Invoice downloaded", "Latest", "Invoices and documents are easy to access."),
+      previewCard("Dispatch update", "Shipped", "Shipment progress is visible to the dealer."),
+      previewCard("Vendor request", "Open", "Vendor submissions move through review."),
+      previewCard("Support ticket", "Assigned", "Issues are routed to the right team."),
+    ],
+    education: [
+      previewCard("Student profile", "Active", "Student account and class details are secure."),
+      previewCard("Attendance report", "92%", "Parents can review attendance status."),
+      previewCard("Fee status", "Due soon", "Fees and receipts are easy to find."),
+      previewCard("Assignment upload", "Submitted", "Students can upload work securely."),
+      previewCard("Parent notice", "New", "Important notices reach parents quickly."),
+      previewCard("Result update", "Published", "Results and records are available on demand."),
+    ],
+    "real-estate": [
+      previewCard("Buyer profile", "Verified", "Buyer details and preferences stay organized."),
+      previewCard("Site visit status", "Scheduled", "Visit date, time, and owner are visible."),
+      previewCard("Agreement document", "Uploaded", "Agreements can be reviewed securely."),
+      previewCard("Payment milestone", "Next due", "Milestones and receipts stay trackable."),
+      previewCard("Support request", "Open", "Questions route to the assigned team."),
+      previewCard("Property update", "New", "Users receive status and availability updates."),
+    ],
+    retail: [
+      previewCard("Customer account", "Active", "Profile, order history, and preferences are secure."),
+      previewCard("Order status", "Out for delivery", "Orders and delivery status stay visible."),
+      previewCard("Return request", "In review", "Returns move through a clear support flow."),
+      previewCard("Loyalty points", "1,240", "Rewards and offers stay visible."),
+      previewCard("Invoice download", "Ready", "Receipts and invoices are available anytime."),
+      previewCard("Support ticket", "Assigned", "Customer issues are routed and tracked."),
+    ],
+    finance: [
+      previewCard("Client profile", "Verified", "Client account and advisor details are secure."),
+      previewCard("KYC documents", "Pending review", "Documents move through a controlled workflow."),
+      previewCard("Application status", "In progress", "Clients can check loan or service progress."),
+      previewCard("Statement download", "Ready", "Statements and reports stay available."),
+      previewCard("Advisor message", "New", "Advisor updates reach clients securely."),
+      previewCard("Secure ticket", "Open", "Questions can be raised and tracked."),
+    ],
+    insurance: [
+      previewCard("Policyholder profile", "Active", "Policyholder account and policy access are secure."),
+      previewCard("Claim status", "Under review", "Claims move through visible stages."),
+      previewCard("Policy document", "Ready", "Policies and endorsements can be downloaded."),
+      previewCard("Renewal reminder", "Due soon", "Renewals and reminders stay visible."),
+      previewCard("Premium payment", "Pending", "Premium status and receipts are trackable."),
+      previewCard("Agent message", "New", "Agent communication stays attached to the policy."),
+    ],
+    travel: [
+      previewCard("Traveler profile", "Verified", "Traveler details and preferences stay secure."),
+      previewCard("Booking status", "Confirmed", "Bookings and inclusions stay visible."),
+      previewCard("Voucher download", "Ready", "Vouchers and receipts are easy to access."),
+      previewCard("Visa documents", "Uploaded", "Required documents can be reviewed."),
+      previewCard("Payment update", "Paid", "Payment stages and receipts stay trackable."),
+      previewCard("Itinerary alert", "New", "Trip alerts reach travelers quickly."),
+    ],
+    automobile: [
+      previewCard("Customer profile", "Active", "Customer and vehicle details are secure."),
+      previewCard("Service booking", "Scheduled", "Service appointments and status are visible."),
+      previewCard("Vehicle documents", "Ready", "Documents and service history stay available."),
+      previewCard("Warranty status", "Valid", "Warranty and coverage details stay clear."),
+      previewCard("Payment invoice", "Ready", "Invoices can be downloaded anytime."),
+      previewCard("Service reminder", "New", "Customers receive service and maintenance alerts."),
+    ],
+    "service-business": [
+      previewCard("Client profile", "Active", "Client account, project, and access details are secure."),
+      previewCard("Project status", "In progress", "Clients can track milestones and next steps."),
+      previewCard("Invoice download", "Ready", "Invoices and receipts are available anytime."),
+      previewCard("Support ticket", "Assigned", "Support items are routed and tracked."),
+      previewCard("File upload", "Received", "Files and approvals stay organized."),
+      previewCard("Team update", "New", "Clients receive updates from the assigned team."),
+    ],
+  };
+
+  return previewCards[industrySlug] ?? previewCards["service-business"];
+}
+
+function getPortalJourneySteps(industrySlug: string): IndustryPortalJourney["steps"] {
+  const requestLabel = industrySlug === "retail" ? "Create Return" : "Submit Request";
+  const paymentLabel = industrySlug === "education" ? "Check Fees" : industrySlug === "insurance" ? "Pay Premium" : "Make Payment";
+
+  return [
+    { title: "Login", description: "The user signs in to a secure portal account with the right access level." },
+    { title: requestLabel, description: "They submit a request, application, booking update, return, or service need." },
+    { title: "Upload Documents", description: "Files, IDs, reports, invoices, or approvals are uploaded and stored safely." },
+    { title: "Track Status", description: "Every stage is visible so users do not need to ask for repeated updates." },
+    { title: paymentLabel, description: "Payment, fee, invoice, premium, or milestone status stays easy to check." },
+    { title: "Get Updates", description: "Notifications keep users informed when status, files, or actions change." },
+    { title: "Raise Support Ticket", description: "Issues are logged, assigned, and tracked through a clear support workflow." },
+  ];
+}
+
+function getPortalRoleExperiences(industrySlug: string): IndustryPortalRoleExperience[] {
+  const roleExperiences: Record<string, IndustryPortalRoleExperience[]> = {
+    healthcare: [
+      roleExperience("Patient", "Patient self-service", "Patients access reports, appointments, prescriptions, payments, and secure messages.", ["Reports", "Appointments", "Prescriptions", "Payments"]),
+      roleExperience("Doctor/Admin", "Care review access", "Care and admin teams review uploads, requests, and patient status without exposing unrelated data.", ["Document review", "Care status", "Patient requests", "Permissions"]),
+      roleExperience("Reception Team", "Front desk support", "Reception teams can help with appointment status, billing notes, and patient updates.", ["Appointments", "Billing notes", "Support queue", "Notifications"]),
+    ],
+    manufacturing: [
+      roleExperience("Dealer", "Dealer self-service", "Dealers track orders, invoices, dispatch updates, documents, and support tickets.", ["Orders", "Invoices", "Dispatch", "Tickets"]),
+      roleExperience("Vendor", "Vendor submission access", "Vendors submit documents, RFQs, compliance files, and request updates.", ["RFQs", "Compliance docs", "Submissions", "Status"]),
+      roleExperience("Operations Team", "Internal review access", "Operations teams review requests, documents, dispatch stages, and escalations.", ["Review queue", "Dispatch", "Approvals", "Escalations"]),
+    ],
+    education: [
+      roleExperience("Student", "Student self-service", "Students access assignments, notices, resources, fee status, and results.", ["Assignments", "Resources", "Results", "Requests"]),
+      roleExperience("Parent", "Parent access", "Parents review notices, fees, attendance, reports, and school communication.", ["Notices", "Fees", "Attendance", "Reports"]),
+      roleExperience("Teacher/Admin", "Academic review access", "Teachers and admins manage uploads, notices, requests, and student records.", ["Notices", "Records", "Review", "Updates"]),
+    ],
+    "real-estate": [
+      roleExperience("Buyer", "Buyer self-service", "Buyers track visits, documents, payment milestones, property updates, and support requests.", ["Visits", "Documents", "Milestones", "Updates"]),
+      roleExperience("Tenant", "Tenant access", "Tenants can view agreements, payment status, maintenance requests, and account updates.", ["Agreements", "Payments", "Maintenance", "Support"]),
+      roleExperience("Sales/Admin Team", "Property team access", "Sales and admin teams review buyer requests, documents, visit status, and pending actions.", ["Buyer requests", "Document review", "Visit status", "Pending actions"]),
+    ],
+    retail: [
+      roleExperience("Customer", "Customer self-service", "Customers track orders, returns, invoices, loyalty points, and support tickets.", ["Orders", "Returns", "Invoices", "Loyalty"]),
+      roleExperience("Store Team", "Store service access", "Store teams review orders, return requests, customer updates, and support notes.", ["Order queue", "Returns", "Customer notes", "Updates"]),
+      roleExperience("Support Team", "Support ticket access", "Support teams manage issues, status changes, refund notes, and customer communication.", ["Tickets", "Refund notes", "Status", "Messages"]),
+    ],
+    finance: [
+      roleExperience("Client", "Client self-service", "Clients upload KYC, track applications, download statements, and contact advisors.", ["KYC", "Applications", "Statements", "Advisor messages"]),
+      roleExperience("Advisor", "Advisor access", "Advisors review documents, client requests, consultation status, and next actions.", ["Documents", "Requests", "Consultations", "Next actions"]),
+      roleExperience("Compliance/Admin Team", "Compliance review access", "Compliance and admin teams control document review, approvals, records, and audit trails.", ["Review", "Approvals", "Records", "Audit trail"]),
+    ],
+    insurance: [
+      roleExperience("Policyholder", "Policyholder self-service", "Policyholders track claims, policies, renewals, premiums, and agent messages.", ["Claims", "Policies", "Renewals", "Premiums"]),
+      roleExperience("Agent", "Agent support access", "Agents review customer requests, documents, claim status, and renewal opportunities.", ["Requests", "Documents", "Claims", "Renewals"]),
+      roleExperience("Claims/Admin Team", "Claims review access", "Claims and admin teams manage evidence, approvals, updates, and service notes.", ["Evidence", "Approvals", "Updates", "Notes"]),
+    ],
+    travel: [
+      roleExperience("Traveler", "Traveler self-service", "Travelers view bookings, vouchers, visa documents, payments, and itinerary alerts.", ["Bookings", "Vouchers", "Visa docs", "Alerts"]),
+      roleExperience("Travel Agent", "Agent assistance access", "Agents review traveler requests, package updates, documents, and support needs.", ["Requests", "Packages", "Documents", "Support"]),
+      roleExperience("Operations Team", "Trip operations access", "Operations teams manage bookings, payment status, vendor notes, and escalations.", ["Bookings", "Payments", "Vendors", "Escalations"]),
+    ],
+    automobile: [
+      roleExperience("Customer", "Customer self-service", "Customers track service bookings, vehicle documents, invoices, warranties, and reminders.", ["Bookings", "Documents", "Invoices", "Warranty"]),
+      roleExperience("Service Team", "Service access", "Service teams manage booking status, service notes, reminders, and handover updates.", ["Status", "Service notes", "Reminders", "Handover"]),
+      roleExperience("Dealer/Admin Team", "Dealer review access", "Dealer teams review customer requests, vehicle records, invoices, and support tickets.", ["Requests", "Vehicle records", "Invoices", "Tickets"]),
+    ],
+    "service-business": [
+      roleExperience("Client", "Client self-service", "Clients track project status, invoices, file uploads, approvals, and support tickets.", ["Projects", "Invoices", "Files", "Approvals"]),
+      roleExperience("Project Team", "Team update access", "Project teams update milestones, review files, respond to requests, and log status.", ["Milestones", "Files", "Requests", "Status"]),
+      roleExperience("Support Team", "Support access", "Support teams manage tickets, client questions, SLAs, and resolution notes.", ["Tickets", "Questions", "SLAs", "Resolution notes"]),
+    ],
+  };
+
+  return roleExperiences[industrySlug] ?? roleExperiences["service-business"];
+}
+
+function previewCard(title: string, value: string, description: string): IndustryPortalHeroPreviewCard {
+  return { title, value, description };
+}
+
+function roleExperience(
+  roleName: string,
+  title: string,
+  description: string,
+  features: string[],
+): IndustryPortalRoleExperience {
+  return { role: roleName, title, description, features };
+}
+
+const healthcareImage =
+  "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=1400&q=82";
 const realEstateImage =
   "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1400&q=85";
 const educationImage =
@@ -363,45 +663,45 @@ const customFeatures = [
 ];
 
 const sharedModules = [
-  moduleCard("Request Management", ClipboardList, "Structured requests with category, priority, owner, SLA, and status.", [
-    "Custom request forms",
-    "Status pipeline",
-    "Owner assignment",
+  moduleCard("Secure Login", LockKeyhole, "Give every external user a protected account with the right access level.", [
+    "Login access",
+    "User sessions",
+    "Access control",
   ]),
-  moduleCard("Document Center", FileText, "Secure upload, review, approval, and retrieval for role-based files.", [
+  moduleCard("User Dashboard", UserCheck, "Show requests, documents, payments, tickets, and status updates in one workspace.", [
+    "Account overview",
+    "Live status",
+    "Quick actions",
+  ]),
+  moduleCard("Document Upload / Download", FileText, "Let users upload, download, review, and retrieve important files securely.", [
     "Upload controls",
     "Review status",
     "Document history",
   ]),
-  moduleCard("Approval Workflow", ClipboardCheck, "Move work through approval stages without manual message chasing.", [
-    "Approval queue",
+  moduleCard("Request Tracking", ClipboardList, "Turn inquiries, approvals, service needs, and applications into trackable requests.", [
+    "Custom forms",
+    "Status pipeline",
+    "Owner assignment",
+  ]),
+  moduleCard("Ticket / Support Workflow", LifeBuoy, "Route user questions, issues, and service tickets to the right internal team.", [
+    "Ticket queue",
+    "Support notes",
+    "Response status",
+  ]),
+  moduleCard("Payment Status", ReceiptText, "Show invoices, fees, dues, milestones, or payment confirmations inside the portal.", [
+    "Invoice status",
+    "Payment notes",
+    "Receipt access",
+  ]),
+  moduleCard("Notifications", Bell, "Send portal, email, and WhatsApp-ready updates when status changes or action is needed.", [
+    "Status alerts",
+    "Due reminders",
+    "Action prompts",
+  ]),
+  moduleCard("Admin Review Panel", ShieldCheck, "Give admins a controlled workspace for reviews, approvals, users, and reports.", [
+    "Review queue",
     "Role actions",
-    "Escalation alerts",
-  ]),
-  moduleCard("Status Tracking", PackageCheck, "Give every user a clear view of progress and next steps.", [
-    "Stage visibility",
-    "Timeline updates",
-    "SLA markers",
-  ]),
-  moduleCard("Secure Messaging", MessageCircle, "Keep conversations attached to records, requests, documents, or orders.", [
-    "Threaded notes",
-    "User mentions",
-    "Record context",
-  ]),
-  moduleCard("Admin Dashboard", BarChart3, "Monitor workload, pending reviews, user activity, and portal performance.", [
-    "Live metrics",
-    "Team queues",
-    "Export reports",
-  ]),
-  moduleCard("User & Role Management", Users, "Control permissions by customer, partner, team, branch, or service role.", [
-    "Role permissions",
-    "Invite users",
-    "Access groups",
-  ]),
-  moduleCard("Reports / Analytics", ReceiptText, "Track requests, approvals, document gaps, response time, and conversion.", [
-    "SLA reports",
-    "Activity history",
-    "Source insights",
+    "Admin visibility",
   ]),
 ];
 
@@ -413,11 +713,106 @@ const sharedSecurity = [
 ];
 
 export const industryPortalPages: Record<string, IndustryPortalPageData> = {
+  healthcare: createPage({
+    industrySlug: "healthcare",
+    industryName: "Healthcare",
+    title: "Patient Portal for Records, Reports, Requests and Payments",
+    highlight: "Patient Portal",
+    description:
+      "Give patients secure access to reports, appointments, prescriptions, billing status, care updates, and support requests without repeated front-desk calls.",
+    aliases: ["portal", "patient-portal"],
+    heroImage: healthcareImage,
+    heroChips: [
+      { label: "Patient Login", icon: UserCheck },
+      { label: "Medical Records", icon: FileText },
+      { label: "Appointment Status", icon: CalendarCheck },
+      { label: "Payment Status", icon: ReceiptText },
+    ],
+    heroStats: [["Reports", "Downloadable"], ["Payments", "Visible"], ["Requests", "Tracked"]],
+    heroVisual: {
+      portalName: "PatientCare Portal",
+      sidebar: ["Overview", "Reports", "Appointments", "Prescriptions", "Payments", "Support"],
+      stats: [
+        { label: "Reports", value: "Ready", change: "Live" },
+        { label: "Appointments", value: "2", change: "Upcoming" },
+        { label: "Payments", value: "Clear", change: "Updated" },
+      ],
+      pipelineTitle: "Care Access Status",
+      pipeline: [
+        { label: "Lab report", status: "Ready", owner: "Diagnostics" },
+        { label: "Appointment", status: "Confirmed", owner: "Reception" },
+        { label: "Prescription", status: "Updated", owner: "Doctor" },
+      ],
+      roleViewTitle: "Patient access",
+      roleView: ["Reports", "Prescriptions", "Appointments", "Payments"],
+      notification: "New lab report is ready to download.",
+      documentCard: "Blood test report uploaded",
+    },
+    problems: [
+      card("Patients wait for records", "Reports, prescriptions, and visit notes are often requested repeatedly through calls or front desk visits.", FileText),
+      card("Appointment status is unclear", "Patients need a clearer place to check appointment timing, doctor details, and visit updates.", CalendarCheck),
+      card("Billing questions repeat", "Payment status, invoices, and receipts are hard to access without staff support.", ReceiptText),
+      card("Support is scattered", "Patient questions, document requests, and updates get split across calls, WhatsApp, and email.", MessageCircle),
+    ],
+    fixes: [
+      card("Self-service records", "Patients can access records, reports, prescriptions, and visit documents from one secure account.", FileText),
+      card("Status visibility", "Appointments, billing status, document review, and support updates stay visible.", CalendarCheck),
+      card("Secure patient communication", "Messages and updates are connected to the patient account.", ShieldCheck),
+    ],
+    rolesDescription: "Give patients, care teams, reception, and admins separate access levels while keeping medical information controlled.",
+    roles: [
+      role("patient", "Patient Portal", "Patient access", "Patients view reports, appointments, prescriptions, invoices, and secure updates.", UserCheck, ["Reports", "Appointments", "Prescriptions", "Payments"], "Better patient self-service"),
+      role("doctor-admin", "Doctor / Admin Portal", "Care review", "Care and admin teams review uploads, requests, patient status, and document gaps.", ShieldCheck, ["Review queue", "Patient status", "Document review", "Permissions"], "Cleaner care coordination"),
+      role("reception", "Reception Portal", "Front desk support", "Reception teams assist with appointments, payment notes, requests, and patient updates.", Users, ["Appointments", "Payment notes", "Requests", "Notifications"], "Reduced repeated calls"),
+    ],
+    modulesDescription: "Portal modules for patient login, medical records, appointments, payments, notifications, support, and admin review.",
+    modules: sharedModules,
+    workflowTitle: "Patient Portal Access Flow",
+    workflowSteps: [
+      card("Login", "Patients securely sign in to their portal account.", LockKeyhole),
+      card("View Records", "Reports, prescriptions, and visit documents are available.", FileText),
+      card("Track Appointment", "Upcoming and past appointments stay easy to find.", CalendarCheck),
+      card("Check Payment", "Invoices, receipts, and payment status stay visible.", ReceiptText),
+      card("Get Updates", "Portal notifications keep patients informed.", Bell),
+      card("Raise Ticket", "Patients can ask for help through a tracked support request.", LifeBuoy),
+    ],
+    securityDescription: "Patient portals need secure login, role-based visibility, document access control, and admin governance.",
+    securityItems: sharedSecurity,
+    demoGalleryDescription: "Preview patient, doctor/admin, and reception portal flows with secure records and status updates.",
+    demoGallery: [
+      demo("Patient Portal Demo", "Reports, prescriptions, appointments, and payments.", UserCheck, ["Reports", "Appointments", "Payments"]),
+      demo("Care Team Demo", "Review uploads, patient requests, and care status.", ShieldCheck, ["Review", "Requests", "Status"]),
+      demo("Reception Demo", "Appointments, billing notes, and patient support.", Users, ["Appointments", "Billing", "Support"]),
+    ],
+    pricingDescription: "Patient portal pricing depends on users, records, integrations, security needs, and workflow complexity.",
+    pricingPlans: [
+      plan("Patient Portal Starter", `${rupee}45,000`, false, starterFeatures),
+      plan("Healthcare Portal Growth", `${rupee}95,000`, true, growthFeatures),
+      plan("Patient Portal Custom", `${rupee}1,80,000+`, false, customFeatures),
+    ],
+    testimonials: [
+      {
+        quote: "Patients stopped calling repeatedly for reports and appointment status because the portal made updates visible.",
+        name: "Clinic Operations Lead",
+        role: "Healthcare Provider",
+      },
+    ],
+    trustDescription: "Portal architecture for patient privacy, care team review, and admin-controlled records.",
+    trustItems: [
+      { title: "Patient Data Privacy", icon: ShieldCheck },
+      { title: "Document Control", icon: FileText },
+      { title: "Role-Based Access", icon: LockKeyhole },
+      { title: "Support Audit Trail", icon: ClipboardCheck },
+    ],
+    ctaTitle: "Launch a Secure Patient Portal",
+    ctaDescription:
+      "Give patients one secure place to access reports, appointments, prescriptions, payments, updates, and support.",
+  }),
   "real-estate": createPage({
     industrySlug: "real-estate",
     industryName: "Real Estate",
-    title: "Buyer, Broker and Builder Portal for Property Workflows",
-    highlight: "Property Workflows",
+    title: "Buyer / Tenant Portal for Property Documents, Requests and Status Updates",
+    highlight: "Buyer / Tenant Portal",
     description:
       "Give buyers, brokers, builders, and sales teams a secure portal to manage inquiries, documents, bookings, site visit status, and deal updates without scattered calls or WhatsApp threads.",
     aliases: ["portal", "client-portal", "property-portal"],
@@ -515,8 +910,8 @@ export const industryPortalPages: Record<string, IndustryPortalPageData> = {
   education: createPage({
     industrySlug: "education",
     industryName: "Education",
-    title: "Student, Parent and Teacher Portal for Daily Academic Operations",
-    highlight: "Academic Operations",
+    title: "Student / Parent Portal for Admissions, Documents, Notices and Fee Updates",
+    highlight: "Student / Parent Portal",
     description:
       "Give students, parents, teachers, counselors, and admins a secure portal for notices, documents, admissions, assignments, fees, records, and daily academic communication.",
     aliases: ["portal", "student-portal", "parent-portal"],
@@ -614,8 +1009,8 @@ export const industryPortalPages: Record<string, IndustryPortalPageData> = {
   manufacturing: createPage({
     industrySlug: "manufacturing",
     industryName: "Manufacturing",
-    title: "Dealer & Vendor Portal for Requests, Documents and Dispatch Visibility",
-    highlight: "Dispatch Visibility",
+    title: "Dealer / Vendor Portal for RFQs, Orders, Documents and Dispatch Status",
+    highlight: "Dealer / Vendor Portal",
     description:
       "Give dealers, vendors, admins, and dispatch teams a secure portal for RFQs, order requests, compliance documents, approvals, inventory visibility, and shipment updates.",
     aliases: ["portal", "vendor-portal", "dealer-portal"],
@@ -713,8 +1108,8 @@ export const industryPortalPages: Record<string, IndustryPortalPageData> = {
   retail: createPage({
     industrySlug: "retail",
     industryName: "Retail",
-    title: "Customer and Store Portal for Orders, Loyalty and Support",
-    highlight: "Orders, Loyalty and Support",
+    title: "Customer / Loyalty Portal for Orders, Rewards, Returns and Support",
+    highlight: "Customer / Loyalty Portal",
     description:
       "Give customers, store admins, support teams, and loyalty managers a secure portal for order status, returns, documents, rewards, service requests, and account updates.",
     aliases: ["portal", "customer-portal", "store-portal"],
@@ -812,8 +1207,8 @@ export const industryPortalPages: Record<string, IndustryPortalPageData> = {
   finance: createPage({
     industrySlug: "finance",
     industryName: "Finance",
-    title: "Client Portal for Documents, Approvals and Advisory Workflows",
-    highlight: "Advisory Workflows",
+    title: "Client Portal for Documents, Requests, Payments and Advisory Updates",
+    highlight: "Client Portal",
     description:
       "Give clients, advisors, document reviewers, and admins a secure portal for service requests, document collection, consultation status, approvals, statements, and advisory updates.",
     aliases: ["portal", "client-portal", "finance-portal"],
@@ -1307,7 +1702,9 @@ export const industryPortalPages: Record<string, IndustryPortalPageData> = {
 
 export const industryPortalStaticParams: IndustryPortalRoute[] = Object.values(
   industryPortalPages,
-).flatMap((page) =>
+)
+  .filter((page) => page.industrySlug !== "healthcare")
+  .flatMap((page) =>
   page.aliases.map((solutionSlug) => ({
     industrySlug: page.industrySlug,
     solutionSlug,

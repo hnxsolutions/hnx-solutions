@@ -2,11 +2,19 @@ import type { ReactNode } from "react";
 import { createMetadata } from "@/lib/seo";
 
 export const metadata = createMetadata({
-  title: "About HNX Solutions | Digital Systems, CRM & Automation Company",
+  title: "About HNX Solutions | Digital Systems, CRM, AI & Industry Platforms",
   description:
-    "Learn about HNX Solutions, an IT services and digital solutions company building custom CRM systems, AI automation, SaaS platforms, websites, mobile apps, and business workflows.",
+    "Learn about HNX Solutions, a digital systems company building websites, mobile apps, custom CRM, portals, dashboards, AI automation, integrations, cloud deployment, and industry business suites.",
   path: "/about",
-  keywords: ["about HNX Solutions", "HNX Technologies", "digital solutions company", "CRM development company"],
+  keywords: [
+    "about HNX Solutions",
+    "HNX Technologies",
+    "digital systems company",
+    "CRM development company",
+    "AI automation company",
+    "business suite development",
+    "industry digital platforms",
+  ],
 });
 
 export default function AboutLayout({ children }: { children: ReactNode }) {

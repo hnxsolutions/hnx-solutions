@@ -1,6 +1,9 @@
 import type { ComponentType } from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import IndustryBusinessSuitePage from "@/components/industries/shared/business-suite-shared/IndustryBusinessSuitePage";
+import { getIndustryBusinessSuitePage } from "@/components/industries/shared/business-suite-shared/industryBusinessSuiteData";
+import { getIndustryPortalPage } from "@/components/industries/shared/portal-shared/industryPortalData";
 import HealthcareFullSuitePreview from "@/components/industries/healthcare/full-suite";
 import {
   getHealthcareSolution,
@@ -24,6 +27,14 @@ function HealthcareCrmPreview() {
   return <IndustryCrmPage industrySlug="healthcare" solutionSlug="crm" />;
 }
 
+function HealthcareBusinessSuitePreview() {
+  return <IndustryBusinessSuitePage industrySlug="healthcare" solutionSlug="business-suite" />;
+}
+
+function HealthcarePortalAliasPreview() {
+  return <HealthcarePatientPortalPreview />;
+}
+
 const previewComponents: Record<HealthcareSolutionSlug, ComponentType> = {
   website: HealthcareWebsitePreview,
   "mobile-app": HealthcareMobileAppPreview,
@@ -33,13 +44,46 @@ const previewComponents: Record<HealthcareSolutionSlug, ComponentType> = {
 };
 
 export function generateStaticParams() {
-  return healthcareSolutionSlugs.map((solutionType) => ({ solutionType }));
+  return [
+    ...healthcareSolutionSlugs.map((solutionType) => ({ solutionType })),
+    { solutionType: "portal" },
+    { solutionType: "business-suite" },
+  ];
 }
 
 export async function generateMetadata({
   params,
 }: HealthcareSolutionPageProps): Promise<Metadata> {
   const { solutionType } = await params;
+
+  if (solutionType === "business-suite") {
+    const businessSuitePage = getIndustryBusinessSuitePage("healthcare", "business-suite");
+
+    if (businessSuitePage) {
+      return createMetadata({
+        title: "Healthcare Full Business Suite | HNX Solutions",
+        description:
+          "Build a complete healthcare digital system with website, mobile app, CRM, patient portal, dashboards, integrations, and AI automation.",
+        path: businessSuitePage.primaryRoute,
+        keywords: businessSuitePage.keywords,
+      });
+    }
+  }
+
+  if (solutionType === "portal") {
+    const portalPage = getIndustryPortalPage("healthcare", "portal");
+
+    if (portalPage) {
+      return createMetadata({
+        title: "Healthcare Patient Portal | HNX Solutions",
+        description:
+          "Build a secure patient portal for reports, appointments, prescriptions, payments, requests, notifications, and support.",
+        path: "/industries/healthcare/portal",
+        keywords: portalPage.keywords,
+      });
+    }
+  }
+
   const solution = getHealthcareSolution(solutionType);
 
   if (!solution) {
@@ -67,6 +111,67 @@ export default async function HealthcareSolutionPage({
   params,
 }: HealthcareSolutionPageProps) {
   const { solutionType } = await params;
+
+  if (solutionType === "business-suite") {
+    const businessSuitePage = getIndustryBusinessSuitePage("healthcare", "business-suite");
+
+    if (!businessSuitePage) {
+      notFound();
+    }
+
+    return (
+      <>
+        <JsonLd
+          data={[
+            createBreadcrumbJsonLd([
+              { name: "Home", path: "/" },
+              { name: "Industries", path: "/industries" },
+              { name: "Healthcare", path: "/industries/healthcare" },
+              { name: "Full Business Suite", path: businessSuitePage.primaryRoute },
+            ]),
+            createServiceJsonLd({
+              name: "Healthcare Full Business Suite",
+              description: businessSuitePage.hero.description,
+              path: businessSuitePage.primaryRoute,
+              serviceType: businessSuitePage.serviceType,
+            }),
+          ]}
+        />
+        <HealthcareBusinessSuitePreview />
+      </>
+    );
+  }
+
+  if (solutionType === "portal") {
+    const portalPage = getIndustryPortalPage("healthcare", "portal");
+
+    if (!portalPage) {
+      notFound();
+    }
+
+    return (
+      <>
+        <JsonLd
+          data={[
+            createBreadcrumbJsonLd([
+              { name: "Home", path: "/" },
+              { name: "Industries", path: "/industries" },
+              { name: "Healthcare", path: "/industries/healthcare" },
+              { name: "Patient Portal", path: "/industries/healthcare/portal" },
+            ]),
+            createServiceJsonLd({
+              name: "Healthcare Patient Portal",
+              description: portalPage.portalHero.description,
+              path: "/industries/healthcare/portal",
+              serviceType: portalPage.serviceType,
+            }),
+          ]}
+        />
+        <HealthcarePortalAliasPreview />
+      </>
+    );
+  }
+
   const solution = getHealthcareSolution(solutionType);
 
   if (!solution) {
