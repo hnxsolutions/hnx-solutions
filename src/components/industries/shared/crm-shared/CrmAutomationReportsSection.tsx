@@ -1464,7 +1464,6 @@ export default function CrmAutomationReportsSection({
               color: #ddd6fe;
               background: rgba(167, 139, 250, 0.12);
             }
-            .crm-workflow-tabs .crm-tab-fade-left { display: none; }
             #crm-workflow-tab-finance:checked ~ .crm-workflow-grid .crm-tab-fade-right,
             #crm-workflow-tab-documents:checked ~ .crm-workflow-grid .crm-tab-fade-right,
             #crm-workflow-tab-payments:checked ~ .crm-workflow-grid .crm-tab-fade-right {
@@ -1513,14 +1512,14 @@ export default function CrmAutomationReportsSection({
               </div>
 
               <div className="relative mt-6 border-b border-slate-200 dark:border-white/10">
-                <div className="flex flex-nowrap gap-3 overflow-x-auto pb-3 pl-1 pr-12 text-xs font-black text-slate-500 [scrollbar-width:none] dark:text-slate-400 [&::-webkit-scrollbar]:hidden">
+                <div className="flex flex-nowrap gap-3 overflow-x-auto pb-3 pl-1 pr-6 text-xs font-black text-slate-500 [scrollbar-width:none] dark:text-slate-400 [&::-webkit-scrollbar]:hidden">
                   {workflowTabs.map((tab) => (
                     <label
                       key={tab.id}
                       htmlFor={`crm-workflow-tab-${tab.id}`}
                       className={crmClass(
                         `crm-tab-label-${tab.id}`,
-                        "relative z-10 shrink-0 cursor-pointer rounded-full px-3.5 py-2 transition hover:bg-slate-50 hover:text-slate-900 dark:hover:bg-white/5 dark:hover:text-white",
+                        "shrink-0 cursor-pointer rounded-full px-3.5 py-2 transition hover:bg-slate-50 hover:text-slate-900 dark:hover:bg-white/5 dark:hover:text-white",
                       )}
                     >
                       {tab.label}
@@ -1528,8 +1527,8 @@ export default function CrmAutomationReportsSection({
                   ))}
                 </div>
 
-                <div className="crm-tab-fade-left pointer-events-none absolute bottom-3 left-0 top-0 w-12 bg-gradient-to-r from-white via-white/95 to-transparent dark:from-[#111827] dark:via-[#111827]/95" />
-                <div className="crm-tab-fade-right pointer-events-none absolute bottom-3 right-0 top-0 w-12 bg-gradient-to-l from-white via-white/95 to-transparent dark:from-[#111827] dark:via-[#111827]/95" />
+                <div className="crm-tab-fade-left pointer-events-none absolute bottom-3 left-0 top-0 z-30 hidden w-24 bg-[linear-gradient(90deg,#ffffff_0%,rgba(255,255,255,0.96)_45%,rgba(255,255,255,0.62)_76%,rgba(255,255,255,0)_100%)] dark:bg-[linear-gradient(90deg,#111827_0%,rgba(17,24,39,0.96)_45%,rgba(17,24,39,0.62)_76%,rgba(17,24,39,0)_100%)]" />
+                <div className="crm-tab-fade-right pointer-events-none absolute bottom-3 right-0 top-0 z-30 block w-24 bg-[linear-gradient(270deg,#ffffff_0%,rgba(255,255,255,0.96)_45%,rgba(255,255,255,0.62)_76%,rgba(255,255,255,0)_100%)] dark:bg-[linear-gradient(270deg,#111827_0%,rgba(17,24,39,0.96)_45%,rgba(17,24,39,0.62)_76%,rgba(17,24,39,0)_100%)]" />
               </div>
 
               <div className="mt-4 overflow-hidden rounded-[1.4rem] border border-slate-200 bg-white dark:border-white/10 dark:bg-white/[0.03]">

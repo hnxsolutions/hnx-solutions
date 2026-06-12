@@ -345,11 +345,11 @@ function CrmDashboardPreview({ config }: { config: DashboardConfig }) {
         "relative z-10 min-w-0 w-full overflow-visible px-4 pt-5 sm:px-6 lg:px-0 lg:pt-0 lg:pr-[1.2vw] lg:-ml-[2.5vw] xl:-ml-[3vw]",
       )}
     >
-      <div className="relative ml-0 w-full max-w-none lg:hidden">
+      <div className="relative ml-0 w-full max-w-none overflow-hidden rounded-[1.35rem] lg:hidden">
         <img
           src={getMobileDashboardImageUrl(config.variant)}
           alt={`${config.dashboardLabel} mobile dashboard preview`}
-          className="block h-auto w-full rounded-[1.35rem] border border-white/80 object-contain shadow-[0_20px_60px_rgba(15,23,42,0.10)]"
+          className="block h-auto min-h-[285px] w-full scale-[1.08] rounded-[1.35rem] border border-white/80 object-cover object-top shadow-[0_20px_60px_rgba(15,23,42,0.10)]"
           loading="eager"
           draggable={false}
         />
