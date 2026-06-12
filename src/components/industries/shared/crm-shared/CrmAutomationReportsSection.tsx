@@ -1739,47 +1739,79 @@ function LegendItem({
 }
 
 function WorkflowBuilder({ preview }: { preview: WorkflowPreview }) {
+  const actions = preview.actions.slice(0, 3);
+  const outcomes = preview.outcomes.slice(0, 2);
+
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="mx-auto max-w-6xl py-1">
       <div className="flex justify-center">
-        <div className="text-center">
-          <p className="mb-3 text-[10px] font-black uppercase tracking-[0.18em] text-violet-600 dark:text-violet-300">
+        <div className="w-full max-w-2xl text-center">
+          <p className="mb-3 text-[10px] font-black uppercase tracking-[0.2em] text-violet-600 dark:text-violet-300">
             Trigger
           </p>
-          <WorkflowNode item={preview.trigger} />
+          <WorkflowNode item={preview.trigger} variant="trigger" />
         </div>
       </div>
 
-      <div className="mx-auto h-9 w-px border-l-2 border-dashed border-slate-400/75" />
-
-      <div className="relative rounded-[1.35rem] bg-white/70 p-4 ring-1 ring-violet-100 dark:bg-white/[0.03] dark:ring-violet-300/20">
-        <div className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white px-3 py-1 text-[10px] font-black uppercase tracking-[0.16em] text-violet-600 shadow-[0_8px_20px_rgba(124,58,237,0.08)] ring-1 ring-violet-200/80 dark:bg-slate-950 dark:text-violet-200 dark:ring-violet-300/20">
-          Actions
-        </div>
-
-        <div className="pointer-events-none absolute left-[16%] right-[16%] top-1/2 hidden border-t-2 border-dashed border-slate-400/75 lg:block" />
-
-        <div className="relative z-10 grid gap-3 lg:grid-cols-3">
-          {preview.actions.map((item, index) => (
-            <WorkflowNode key={item.title} item={item} index={index + 1} />
-          ))}
-        </div>
-      </div>
-
-      <div className="mx-auto h-9 w-px border-l-2 border-dashed border-slate-400/75" />
+      <VerticalConnector />
 
       <div className="relative">
-        <div className="absolute left-[24%] right-[24%] top-0 hidden border-t-2 border-dashed border-slate-400/75 lg:block" />
-        <div className="absolute left-[24%] top-0 hidden h-9 border-l-2 border-dashed border-slate-400/75 lg:block" />
-        <div className="absolute right-[24%] top-0 hidden h-9 border-l-2 border-dashed border-slate-400/75 lg:block" />
+        <StagePill label="Actions" />
 
-        <p className="mb-4 text-center text-[10px] font-black uppercase tracking-[0.18em] text-violet-600 dark:text-violet-300">
-          Outcomes
-        </p>
+        <div className="pointer-events-none absolute left-1/2 top-0 hidden h-12 -translate-x-1/2 border-l-2 border-dashed border-violet-300/80 lg:block">
+          <DownArrow className="-bottom-1" />
+        </div>
 
-        <div className="grid gap-3 lg:grid-cols-2">
-          {preview.outcomes.map((item) => (
-            <WorkflowNode key={item.title} item={item} />
+        <div className="relative mt-6 rounded-[1.45rem] bg-white/65 px-4 py-5 ring-1 ring-violet-100/90 dark:bg-white/[0.03] dark:ring-violet-300/20 sm:px-5">
+          <div className="pointer-events-none absolute left-[11%] right-[11%] top-1/2 hidden -translate-y-1/2 border-t-2 border-dashed border-violet-300/80 lg:block">
+            <RightArrow className="left-[31%]" />
+            <RightArrow className="left-[66%]" />
+          </div>
+
+          <div className="pointer-events-none absolute left-[16.66%] right-[16.66%] top-0 hidden h-8 lg:block">
+            <div className="absolute left-0 top-0 h-8 border-l-2 border-dashed border-violet-300/80">
+              <DownArrow className="-bottom-1" />
+            </div>
+            <div className="absolute left-1/2 top-0 h-8 border-l-2 border-dashed border-violet-300/80">
+              <DownArrow className="-bottom-1" />
+            </div>
+            <div className="absolute right-0 top-0 h-8 border-l-2 border-dashed border-violet-300/80">
+              <DownArrow className="-bottom-1" />
+            </div>
+          </div>
+
+          <div className="relative z-10 grid gap-4 lg:grid-cols-3">
+            {actions.map((item, index) => (
+              <WorkflowNode
+                key={`${item.title}-${index}`}
+                item={item}
+                index={index + 1}
+                variant="action"
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <VerticalConnector />
+
+      <div className="relative">
+        <StagePill label="Outcomes" />
+
+        <div className="pointer-events-none relative hidden h-12 lg:block">
+          <div className="absolute left-1/2 top-0 h-6 -translate-x-1/2 border-l-2 border-dashed border-violet-300/80" />
+          <div className="absolute left-[25%] right-[25%] top-6 border-t-2 border-dashed border-violet-300/80" />
+          <div className="absolute left-[25%] top-6 h-6 border-l-2 border-dashed border-violet-300/80">
+            <DownArrow className="-bottom-1" />
+          </div>
+          <div className="absolute right-[25%] top-6 h-6 border-l-2 border-dashed border-violet-300/80">
+            <DownArrow className="-bottom-1" />
+          </div>
+        </div>
+
+        <div className="grid gap-4 lg:grid-cols-2">
+          {outcomes.map((item) => (
+            <WorkflowNode key={item.title} item={item} variant="outcome" />
           ))}
         </div>
       </div>
@@ -1787,34 +1819,101 @@ function WorkflowBuilder({ preview }: { preview: WorkflowPreview }) {
   );
 }
 
+function StagePill({ label }: { label: string }) {
+  return (
+    <div className="relative z-20 mx-auto flex h-9 w-fit items-center rounded-full bg-white px-4 text-[11px] font-black uppercase tracking-[0.18em] text-violet-600 shadow-[0_8px_20px_rgba(124,58,237,0.08)] ring-2 ring-violet-300 dark:bg-slate-950 dark:text-violet-200 dark:ring-violet-300/40">
+      {label}
+    </div>
+  );
+}
+
+function VerticalConnector() {
+  return (
+    <div className="relative mx-auto h-10 w-px border-l-2 border-dashed border-violet-300/80">
+      <DownArrow className="-bottom-1" />
+    </div>
+  );
+}
+
+function DownArrow({ className }: { className?: string }) {
+  return (
+    <span
+      aria-hidden="true"
+      className={crmClass(
+        "absolute left-1/2 h-0 w-0 -translate-x-1/2 border-x-[5px] border-t-[7px] border-x-transparent border-t-violet-400",
+        className,
+      )}
+    />
+  );
+}
+
+function RightArrow({ className }: { className?: string }) {
+  return (
+    <span
+      aria-hidden="true"
+      className={crmClass(
+        "absolute top-1/2 h-0 w-0 -translate-y-1/2 border-y-[5px] border-l-[7px] border-y-transparent border-l-violet-400",
+        className,
+      )}
+    />
+  );
+}
+
 function WorkflowNode({
   item,
   index,
+  variant = "action",
 }: {
   item: WorkflowNodeItem;
   index?: number;
+  variant?: "trigger" | "action" | "outcome";
 }) {
   const Icon = item.icon;
 
   return (
     <div
       style={styles.node}
-      className="relative flex items-center gap-3 rounded-[1.15rem] bg-white p-4 dark:bg-slate-950"
+      className={crmClass(
+        "relative flex items-center gap-4 rounded-[1.15rem] bg-white text-left dark:bg-slate-950",
+        variant === "trigger" && "mx-auto min-h-[5.75rem] max-w-2xl p-5",
+        variant === "action" && "min-h-[7rem] p-4",
+        variant === "outcome" && "min-h-[5.75rem] p-5",
+      )}
     >
       <span
         className={crmClass(
-          "grid h-[3.25rem] w-[3.25rem] shrink-0 place-items-center rounded-2xl",
+          "grid shrink-0 place-items-center rounded-2xl",
+          variant === "action" ? "h-12 w-12" : "h-13 w-13",
           toneClasses[item.tone],
         )}
       >
-        <Icon className="h-6 w-6" aria-hidden="true" />
+        <Icon
+          className={crmClass(
+            variant === "action" ? "h-5 w-5" : "h-6 w-6",
+          )}
+          aria-hidden="true"
+        />
       </span>
 
-      <div className="min-w-0">
-        <h4 className="text-sm font-black leading-5 text-slate-950 dark:text-white">
+      <div className="min-w-0 flex-1">
+        <h4
+          className={crmClass(
+            "font-black text-slate-950 dark:text-white",
+            variant === "action"
+              ? "text-sm leading-5"
+              : "text-base leading-6",
+          )}
+        >
           {item.title}
         </h4>
-        <p className="mt-1 line-clamp-2 text-xs font-semibold leading-5 text-slate-500 dark:text-slate-400">
+        <p
+          className={crmClass(
+            "mt-1 font-semibold text-slate-500 dark:text-slate-400",
+            variant === "action"
+              ? "line-clamp-2 text-xs leading-5"
+              : "line-clamp-2 text-sm leading-6",
+          )}
+        >
           {item.description}
         </p>
       </div>
@@ -1827,3 +1926,4 @@ function WorkflowNode({
     </div>
   );
 }
+
