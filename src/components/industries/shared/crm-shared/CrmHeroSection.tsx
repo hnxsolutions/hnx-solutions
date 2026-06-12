@@ -349,7 +349,7 @@ function CrmDashboardPreview({ config }: { config: DashboardConfig }) {
         <img
           src={getMobileDashboardImageUrl(config.variant)}
           alt={`${config.dashboardLabel} mobile dashboard preview`}
-          className="block h-auto min-h-[285px] w-full scale-[1.08] rounded-[1.35rem] border border-white/80 object-cover object-top shadow-[0_20px_60px_rgba(15,23,42,0.10)]"
+          className="block h-auto min-h-[340px] w-full scale-[1.08] rounded-[1.35rem] border border-white/80 object-cover object-top shadow-[0_20px_60px_rgba(15,23,42,0.10)]"
           loading="eager"
           draggable={false}
         />
