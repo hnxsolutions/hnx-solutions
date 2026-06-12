@@ -14,6 +14,7 @@ import {
   CalendarCheck,
   CheckCircle2,
   ClipboardCheck,
+  PhoneCall,
   Clock3,
   CreditCard,
   DollarSign,
@@ -982,6 +983,7 @@ type WorkflowCategoryId =
   | "payments";
 
 type WorkflowLibraryWorkflow = WorkflowLibraryItem & {
+  id: string;
   category: Exclude<WorkflowCategoryId, "all">;
   preview: WorkflowPreview;
 };
@@ -1099,6 +1101,7 @@ function getCategoryPreview(
           "Classify Request",
           "Identify priority, owner, source, and required response window.",
           ClipboardCheck,
+  PhoneCall,
           "purple",
         ),
         createWorkflowNode(
@@ -1248,6 +1251,7 @@ function getCategoryPreview(
         "Update Internal Status",
         "Move document status to pending, verified, or rejected.",
         ClipboardCheck,
+  PhoneCall,
         "purple",
       ),
     ],
@@ -1268,14 +1272,24 @@ function getCategoryPreview(
   };
 }
 
+
+function slugifyWorkflowId(value: string): string {
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
+
 function buildWorkflow(
   data: IndustryCrmPageData,
   item: WorkflowLibraryItem,
   category: Exclude<WorkflowCategoryId, "all">,
   basePreview: WorkflowPreview,
+  index: number,
 ): WorkflowLibraryWorkflow {
   return {
     ...item,
+    id: `${category}-${index}-${slugifyWorkflowId(item.title)}`,
     category,
     preview: getCategoryPreview(data, item, category, basePreview),
   };
@@ -1331,58 +1345,127 @@ function getGeneratedWorkflow(
 
 function getWorkflowTabs(data: IndustryCrmPageData): WorkflowTab[] {
   const copy = getAutomationCopy(data);
-  const [leadOne, leadTwo, salesOne, financeOne, documentsOne] = copy.library;
+  const [
+    leadOne,
+    leadTwo,
+    salesOne,
+    financeOne,
+    documentsOne,
+  ] = copy.library;
 
-  const workflows: WorkflowLibraryWorkflow[] = [
-    buildWorkflow(
-      data,
-      leadOne ?? getGeneratedWorkflow(data, "lead"),
-      "lead",
-      copy.preview,
-    ),
-    buildWorkflow(
-      data,
-      leadTwo ?? getGeneratedWorkflow(data, "lead"),
-      "lead",
-      copy.preview,
-    ),
-    buildWorkflow(
-      data,
-      getGeneratedWorkflow(data, "support"),
-      "support",
-      copy.preview,
-    ),
-    buildWorkflow(
-      data,
-      salesOne ?? getGeneratedWorkflow(data, "sales"),
-      "sales",
-      copy.preview,
-    ),
-    buildWorkflow(
-      data,
-      financeOne ?? getGeneratedWorkflow(data, "finance"),
-      "finance",
-      copy.preview,
-    ),
-    buildWorkflow(
-      data,
-      documentsOne ?? getGeneratedWorkflow(data, "documents"),
-      "documents",
-      copy.preview,
-    ),
-    buildWorkflow(
-      data,
-      getGeneratedWorkflow(data, "payments"),
-      "payments",
-      copy.preview,
-    ),
+  const industry = data.industryName;
+  const recordLabel = getIndustryRecordLabel(data);
+
+  const workflowDefinitions: Array<{
+    item: WorkflowLibraryItem;
+    category: Exclude<WorkflowCategoryId, "all">;
+  }> = [
+    {
+      item: leadOne ?? getGeneratedWorkflow(data, "lead"),
+      category: "lead",
+    },
+    {
+      item:
+        leadTwo ??
+        {
+          title: `${industry} Follow-Up Sequence`,
+          description: `Create reminders and messages for every warm ${recordLabel}.`,
+          icon: MessageCircle,
+          status: "Active",
+        },
+      category: "lead",
+    },
+    {
+      item: {
+        title: `${industry} Lead Re-Engagement`,
+        description: `Bring inactive ${recordLabel}s back into the sales pipeline.`,
+        icon: PhoneCall,
+        status: "Active",
+      },
+      category: "lead",
+    },
+    {
+      item: getGeneratedWorkflow(data, "support"),
+      category: "support",
+    },
+    {
+      item: {
+        title: `${industry} Support SLA Escalation`,
+        description: "Escalate unresolved support requests before SLA risk.",
+        icon: ShieldCheck,
+        status: "Active",
+      },
+      category: "support",
+    },
+    {
+      item: salesOne ?? getGeneratedWorkflow(data, "sales"),
+      category: "sales",
+    },
+    {
+      item: {
+        title: `${industry} Stage Movement Automation`,
+        description: "Move records across stages when tasks, bookings, or approvals happen.",
+        icon: Route,
+        status: "Active",
+      },
+      category: "sales",
+    },
+    {
+      item: financeOne ?? getGeneratedWorkflow(data, "finance"),
+      category: "finance",
+    },
+    {
+      item: {
+        title: `${industry} Invoice / Fee Follow-Up`,
+        description: "Create finance tasks for open invoices, fees, or dues.",
+        icon: CreditCard,
+        status: "Paused",
+      },
+      category: "finance",
+    },
+    {
+      item: documentsOne ?? getGeneratedWorkflow(data, "documents"),
+      category: "documents",
+    },
+    {
+      item: {
+        title: `${industry} Approval Document Check`,
+        description: "Verify files, approvals, and missing document requirements.",
+        icon: FileCheck2,
+        status: "Draft",
+      },
+      category: "documents",
+    },
+    {
+      item: getGeneratedWorkflow(data, "payments"),
+      category: "payments",
+    },
+    {
+      item: {
+        title: `${industry} Overdue Payment Escalation`,
+        description: "Escalate overdue payments and notify the responsible owner.",
+        icon: Bell,
+        status: "Active",
+      },
+      category: "payments",
+    },
   ];
+
+  const workflows = workflowDefinitions.map((definition, index) =>
+    buildWorkflow(
+      data,
+      definition.item,
+      definition.category,
+      copy.preview,
+      index + 1,
+    ),
+  );
 
   return workflowTabLabels.map((tab) => ({
     ...tab,
     workflows:
       tab.id === "all"
-        ? workflows.slice(0, 5)
+        ? workflows
         : workflows.filter((workflow) => workflow.category === tab.id),
   }));
 }
@@ -1397,6 +1480,23 @@ export default function CrmAutomationReportsSection({
   data: IndustryCrmPageData;
 }) {
   const workflowTabs = getWorkflowTabs(data);
+  const allWorkflows =
+    workflowTabs.find((tab) => tab.id === "all")?.workflows ?? [];
+  const defaultWorkflowId = allWorkflows[0]?.id;
+
+  const workflowVisibilityCss = allWorkflows
+    .map(
+      (workflow) => `
+            #crm-workflow-item-${workflow.id}:checked ~ .crm-workflow-grid .crm-workflow-panel-${workflow.id} { display: block; }
+            #crm-workflow-item-${workflow.id}:checked ~ .crm-workflow-grid .crm-workflow-card-${workflow.id} {
+              background: linear-gradient(90deg, rgb(245 243 255), rgb(239 246 255 / 0.55), #ffffff);
+              box-shadow: inset 4px 0 0 rgba(124,58,237,0.95), inset 0 0 0 1px rgba(196,181,253,0.72), 0 18px 46px rgba(124,58,237,0.10);
+            }
+            .dark #crm-workflow-item-${workflow.id}:checked ~ .crm-workflow-grid .crm-workflow-card-${workflow.id} {
+              background: linear-gradient(90deg, rgba(167,139,250,0.10), rgba(96,165,250,0.05), transparent);
+            }`,
+    )
+    .join("");
 
   return (
     <section id="crm-automation-reports" className="py-8 sm:py-10">
@@ -1464,6 +1564,45 @@ export default function CrmAutomationReportsSection({
               color: #ddd6fe;
               background: rgba(167, 139, 250, 0.12);
             }
+            .crm-workflow-tabs .crm-workflow-panel { display: none; }
+            .crm-workflow-list-scroll {
+              max-height: 41.125rem;
+              overflow-y: auto;
+              overscroll-behavior: contain;
+              scrollbar-width: thin;
+              scrollbar-color: rgba(148, 163, 184, 0.42) transparent;
+            }
+            .crm-workflow-list-scroll:hover {
+              scrollbar-color: rgba(124, 58, 237, 0.42) transparent;
+            }
+            .crm-workflow-list-scroll::-webkit-scrollbar {
+              display: block;
+              width: 6px;
+            }
+            .crm-workflow-list-scroll::-webkit-scrollbar-track {
+              background: transparent;
+              border-radius: 999px;
+            }
+            .crm-workflow-list-scroll::-webkit-scrollbar-thumb {
+              background: rgba(148, 163, 184, 0.36);
+              border-radius: 999px;
+            }
+            .crm-workflow-list-scroll:hover::-webkit-scrollbar-thumb {
+              background: rgba(124, 58, 237, 0.42);
+            }
+            .dark .crm-workflow-list-scroll {
+              scrollbar-color: rgba(148, 163, 184, 0.35) transparent;
+            }
+            .dark .crm-workflow-list-scroll:hover {
+              scrollbar-color: rgba(167, 139, 250, 0.45) transparent;
+            }
+            .dark .crm-workflow-list-scroll::-webkit-scrollbar-thumb {
+              background: rgba(148, 163, 184, 0.28);
+            }
+            .dark .crm-workflow-list-scroll:hover::-webkit-scrollbar-thumb {
+              background: rgba(167, 139, 250, 0.45);
+            }
+            ${workflowVisibilityCss}
           `}</style>
 
           {workflowTabs.map((tab, index) => (
@@ -1474,6 +1613,17 @@ export default function CrmAutomationReportsSection({
               type="radio"
               className="crm-tab-input"
               defaultChecked={index === 0}
+            />
+          ))}
+
+          {allWorkflows.map((workflow) => (
+            <input
+              key={workflow.id}
+              id={`crm-workflow-item-${workflow.id}`}
+              name="crm-workflow-item"
+              type="radio"
+              className="crm-tab-input"
+              defaultChecked={workflow.id === defaultWorkflowId}
             />
           ))}
 
@@ -1539,21 +1689,13 @@ export default function CrmAutomationReportsSection({
                 "overflow-hidden rounded-[1.8rem] bg-white p-5 shadow-[inset_0_0_0_1px_rgba(226,232,240,0.98),0_18px_58px_rgba(15,23,42,0.055)] dark:bg-white/[0.05] sm:p-6 lg:p-6",
               )}
             >
-              {workflowTabs.map((tab) => {
-                const activeWorkflow = tab.workflows[0];
-
-                if (!activeWorkflow) {
-                  return null;
-                }
-
-                return (
-                  <VisualWorkflowPanel
-                    key={tab.id}
-                    className={getTabPaneClass(tab.id)}
-                    workflow={activeWorkflow}
-                  />
-                );
-              })}
+              {allWorkflows.map((workflow) => (
+                <VisualWorkflowPanel
+                  key={workflow.id}
+                  className={`crm-workflow-panel crm-workflow-panel-${workflow.id}`}
+                  workflow={workflow}
+                />
+              ))}
             </CrmReveal>
           </div>
         </div>
@@ -1569,53 +1711,72 @@ function WorkflowLibraryList({
   workflows: WorkflowLibraryWorkflow[];
   className: string;
 }) {
+  const shouldScroll = workflows.length > 7;
+
   return (
     <div className={className}>
-      {workflows.map((item, index) => {
-        const Icon = item.icon;
-        const isActive = index === 0;
+      <div className="relative">
+        <div
+          className={crmClass(
+            "divide-y divide-slate-200 dark:divide-white/10",
+            shouldScroll
+              ? "crm-workflow-list-scroll pr-1.5"
+              : "overflow-hidden",
+          )}
+        >
+        {workflows.map((item, index) => {
+          const Icon = item.icon;
 
-        return (
-          <article
-            key={item.title}
-            style={isActive ? styles.activeCard : undefined}
-            className={crmClass(
-              crmRevealCard(index),
-              "group flex items-center gap-3 border-b border-slate-200 p-3.5 transition last:border-b-0 dark:border-white/10",
-              isActive
-                ? "bg-gradient-to-r from-violet-50 via-blue-50/55 to-white dark:from-violet-400/10 dark:via-blue-400/5 dark:to-transparent"
-                : "bg-white hover:bg-slate-50 dark:bg-transparent dark:hover:bg-white/[0.04]",
-            )}
-          >
-            <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-violet-50 text-violet-600 dark:bg-violet-400/10 dark:text-violet-200">
-              <Icon className="h-5 w-5" aria-hidden="true" />
-            </span>
+          return (
+            <label
+              key={item.id}
+              htmlFor={`crm-workflow-item-${item.id}`}
+              style={{ height: "5.875rem", minHeight: "5.875rem" }}
+              className={crmClass(
+                `crm-workflow-card-${item.id}`,
+                crmRevealCard(index),
+                "group flex cursor-pointer items-center gap-3 p-3.5 transition",
+                "bg-white hover:bg-slate-50 dark:bg-transparent dark:hover:bg-white/[0.04]",
+              )}
+            >
+              <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-violet-50 text-violet-600 dark:bg-violet-400/10 dark:text-violet-200">
+                <Icon className="h-5 w-5" aria-hidden="true" />
+              </span>
 
-            <div className="min-w-0 flex-1">
-              <div className="flex items-center justify-between gap-3">
-                <h4 className="truncate text-base font-black text-slate-950 dark:text-white">
-                  {item.title}
-                </h4>
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center justify-between gap-3">
+                  <h4 className="truncate text-base font-black text-slate-950 dark:text-white">
+                    {item.title}
+                  </h4>
 
-                <span
-                  className={crmClass(
-                    "shrink-0 rounded-full px-3 py-1 text-[10px] font-black ring-1",
-                    statusClasses[item.status],
-                  )}
-                >
-                  {item.status}
-                </span>
+                  <span
+                    className={crmClass(
+                      "shrink-0 rounded-full px-3 py-1 text-[10px] font-black ring-1",
+                      statusClasses[item.status],
+                    )}
+                  >
+                    {item.status}
+                  </span>
+                </div>
+
+                <p className="mt-1 line-clamp-2 text-sm font-semibold leading-6 text-slate-500 dark:text-slate-400">
+                  {item.description}
+                </p>
               </div>
 
-              <p className="mt-1 line-clamp-2 text-sm font-semibold leading-6 text-slate-500 dark:text-slate-400">
-                {item.description}
-              </p>
-            </div>
+              <ArrowRight className="h-4 w-4 shrink-0 text-slate-400 transition group-hover:translate-x-0.5 group-hover:text-violet-600" />
+            </label>
+          );
+        })}
+        </div>
 
-            <ArrowRight className="h-4 w-4 shrink-0 text-slate-400 transition group-hover:translate-x-0.5 group-hover:text-violet-600" />
-          </article>
-        );
-      })}
+        {shouldScroll ? (
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-white via-white/85 to-transparent dark:from-[#111827] dark:via-[#111827]/80"
+          />
+        ) : null}
+      </div>
     </div>
   );
 }
@@ -1743,10 +1904,10 @@ function WorkflowBuilder({ preview }: { preview: WorkflowPreview }) {
   const outcomes = preview.outcomes.slice(0, 2);
 
   return (
-    <div className="mx-auto max-w-6xl py-1">
+    <div className="mx-auto max-w-6xl py-0">
       <div className="flex justify-center">
         <div className="w-full max-w-2xl text-center">
-          <p className="mb-3 text-[10px] font-black uppercase tracking-[0.2em] text-violet-600 dark:text-violet-300">
+          <p className="mb-2 text-[10px] font-black uppercase tracking-[0.2em] text-violet-600 dark:text-violet-300">
             Trigger
           </p>
           <WorkflowNode item={preview.trigger} variant="trigger" />
@@ -1758,17 +1919,17 @@ function WorkflowBuilder({ preview }: { preview: WorkflowPreview }) {
       <div className="relative">
         <StagePill label="Actions" />
 
-        <div className="pointer-events-none absolute left-1/2 top-0 hidden h-12 -translate-x-1/2 border-l-2 border-dashed border-violet-300/80 lg:block">
+        <div className="pointer-events-none absolute left-1/2 top-0 hidden h-8 -translate-x-1/2 border-l-2 border-dashed border-violet-300/80 lg:block">
           <DownArrow className="-bottom-1" />
         </div>
 
-        <div className="relative mt-6 rounded-[1.45rem] bg-white/65 px-4 py-5 ring-1 ring-violet-100/90 dark:bg-white/[0.03] dark:ring-violet-300/20 sm:px-5">
+        <div className="relative mt-4 rounded-[1.35rem] bg-violet-50/30 px-3 py-4 ring-1 ring-slate-200/85 dark:bg-white/[0.03] dark:ring-violet-300/20 sm:px-4">
           <div className="pointer-events-none absolute left-[11%] right-[11%] top-1/2 hidden -translate-y-1/2 border-t-2 border-dashed border-violet-300/80 lg:block">
             <RightArrow className="left-[31%]" />
             <RightArrow className="left-[66%]" />
           </div>
 
-          <div className="pointer-events-none absolute left-[16.66%] right-[16.66%] top-0 hidden h-8 lg:block">
+          <div className="pointer-events-none absolute left-[16.66%] right-[16.66%] top-0 hidden h-6 lg:block">
             <div className="absolute left-0 top-0 h-8 border-l-2 border-dashed border-violet-300/80">
               <DownArrow className="-bottom-1" />
             </div>
@@ -1780,7 +1941,7 @@ function WorkflowBuilder({ preview }: { preview: WorkflowPreview }) {
             </div>
           </div>
 
-          <div className="relative z-10 grid gap-4 lg:grid-cols-3">
+          <div className="relative z-10 grid gap-3 lg:grid-cols-3">
             {actions.map((item, index) => (
               <WorkflowNode
                 key={`${item.title}-${index}`}
@@ -1798,7 +1959,7 @@ function WorkflowBuilder({ preview }: { preview: WorkflowPreview }) {
       <div className="relative">
         <StagePill label="Outcomes" />
 
-        <div className="pointer-events-none relative hidden h-12 lg:block">
+        <div className="pointer-events-none relative hidden h-10 lg:block">
           <div className="absolute left-1/2 top-0 h-6 -translate-x-1/2 border-l-2 border-dashed border-violet-300/80" />
           <div className="absolute left-[25%] right-[25%] top-6 border-t-2 border-dashed border-violet-300/80" />
           <div className="absolute left-[25%] top-6 h-6 border-l-2 border-dashed border-violet-300/80">
@@ -1809,7 +1970,7 @@ function WorkflowBuilder({ preview }: { preview: WorkflowPreview }) {
           </div>
         </div>
 
-        <div className="grid gap-4 lg:grid-cols-2">
+        <div className="grid gap-3 lg:grid-cols-2">
           {outcomes.map((item) => (
             <WorkflowNode key={item.title} item={item} variant="outcome" />
           ))}
@@ -1821,7 +1982,7 @@ function WorkflowBuilder({ preview }: { preview: WorkflowPreview }) {
 
 function StagePill({ label }: { label: string }) {
   return (
-    <div className="relative z-20 mx-auto flex h-9 w-fit items-center rounded-full bg-white px-4 text-[11px] font-black uppercase tracking-[0.18em] text-violet-600 shadow-[0_8px_20px_rgba(124,58,237,0.08)] ring-2 ring-violet-300 dark:bg-slate-950 dark:text-violet-200 dark:ring-violet-300/40">
+    <div className="relative z-20 mx-auto flex h-8 w-fit items-center rounded-full bg-white px-4 text-[11px] font-black uppercase tracking-[0.18em] text-violet-600 shadow-[0_8px_20px_rgba(124,58,237,0.08)] ring-2 ring-violet-300 dark:bg-slate-950 dark:text-violet-200 dark:ring-violet-300/40">
       {label}
     </div>
   );
@@ -1829,7 +1990,7 @@ function StagePill({ label }: { label: string }) {
 
 function VerticalConnector() {
   return (
-    <div className="relative mx-auto h-10 w-px border-l-2 border-dashed border-violet-300/80">
+    <div className="relative mx-auto h-7 w-px border-l-2 border-dashed border-violet-300/80">
       <DownArrow className="-bottom-1" />
     </div>
   );
@@ -1875,15 +2036,15 @@ function WorkflowNode({
       style={styles.node}
       className={crmClass(
         "relative flex items-center gap-4 rounded-[1.15rem] bg-white text-left dark:bg-slate-950",
-        variant === "trigger" && "mx-auto min-h-[5.75rem] max-w-2xl p-5",
-        variant === "action" && "min-h-[7rem] p-4",
-        variant === "outcome" && "min-h-[5.75rem] p-5",
+        variant === "trigger" && "mx-auto min-h-[4.75rem] max-w-2xl p-4",
+        variant === "action" && "min-h-[6rem] p-4",
+        variant === "outcome" && "min-h-[4.75rem] p-4",
       )}
     >
       <span
         className={crmClass(
           "grid shrink-0 place-items-center rounded-2xl",
-          variant === "action" ? "h-12 w-12" : "h-13 w-13",
+          variant === "action" ? "h-11 w-11" : "h-12 w-12",
           toneClasses[item.tone],
         )}
       >
@@ -1901,7 +2062,7 @@ function WorkflowNode({
             "font-black text-slate-950 dark:text-white",
             variant === "action"
               ? "text-sm leading-5"
-              : "text-base leading-6",
+              : "text-[15px] leading-6",
           )}
         >
           {item.title}
@@ -1911,7 +2072,7 @@ function WorkflowNode({
             "mt-1 font-semibold text-slate-500 dark:text-slate-400",
             variant === "action"
               ? "line-clamp-2 text-xs leading-5"
-              : "line-clamp-2 text-sm leading-6",
+              : "line-clamp-2 text-[13px] leading-5",
           )}
         >
           {item.description}
