@@ -144,7 +144,7 @@ function getIndustryProfile(demo: IndustryMobileAppDemo): IndustryProfile {
       appName: "PolicyCare",
       dashboardTitle: "Policy Command Center",
       heroLabel: "Coverage health",
-      primaryMetric: "₹8.2L",
+      primaryMetric: "$8.2L",
       primaryMetricLabel: "Coverage",
       secondaryMetric: "02",
       secondaryMetricLabel: "Claims",
@@ -161,9 +161,9 @@ function getIndustryProfile(demo: IndustryMobileAppDemo): IndustryProfile {
       ],
       walletLabel: "Premium Wallet",
       receiptRows: [
-        ["Base premium", "₹9,850"],
-        ["GST", "₹1,773"],
-        ["Total", "₹11,623"],
+        ["Base premium", "$9,850"],
+        ["GST", "$1,773"],
+        ["Total", "$11,623"],
       ],
       notifications: [
         "Claim surveyor assigned for your vehicle",
@@ -220,9 +220,9 @@ function getIndustryProfile(demo: IndustryMobileAppDemo): IndustryProfile {
       ],
       walletLabel: "Care Payment",
       receiptRows: [
-        ["Consultation", "₹799"],
-        ["Lab pickup", "₹250"],
-        ["Total", "₹1,049"],
+        ["Consultation", "$799"],
+        ["Lab pickup", "$250"],
+        ["Total", "$1,049"],
       ],
       notifications: [
         "Doctor consultation starts in 20 minutes",
@@ -279,9 +279,9 @@ function getIndustryProfile(demo: IndustryMobileAppDemo): IndustryProfile {
       ],
       walletLabel: "Shopping Wallet",
       receiptRows: [
-        ["Items", "₹2,499"],
-        ["Delivery", "₹99"],
-        ["Total", "₹2,598"],
+        ["Items", "$2,499"],
+        ["Delivery", "$99"],
+        ["Total", "$2,598"],
       ],
       notifications: [
         "Your order is out for delivery",
@@ -338,9 +338,9 @@ function getIndustryProfile(demo: IndustryMobileAppDemo): IndustryProfile {
       ],
       walletLabel: "Fee Wallet",
       receiptRows: [
-        ["Course fee", "₹4,500"],
-        ["Platform fee", "₹299"],
-        ["Total", "₹4,799"],
+        ["Course fee", "$4,500"],
+        ["Platform fee", "$299"],
+        ["Total", "$4,799"],
       ],
       notifications: [
         "Live class starts in 15 minutes",
@@ -384,7 +384,7 @@ function getIndustryProfile(demo: IndustryMobileAppDemo): IndustryProfile {
       primaryMetricLabel: "Listings",
       secondaryMetric: "03",
       secondaryMetricLabel: "Visits",
-      tertiaryMetric: "₹75L",
+      tertiaryMetric: "$75L",
       tertiaryMetricLabel: "Budget",
       quickActions: ["Book visit", "Shortlist", "Loan check", "Map search"],
       discoverCards: ["Premium flats", "Ready homes", "Rental picks", "Nearby projects"],
@@ -393,13 +393,13 @@ function getIndustryProfile(demo: IndustryMobileAppDemo): IndustryProfile {
       formFields: [
         { label: "Property type", value: "3BHK apartment" },
         { label: "Visit slot", value: "Sunday, 12:30 PM" },
-        { label: "Budget range", value: "₹65L - ₹80L" },
+        { label: "Budget range", value: "$65L - $80L" },
       ],
       walletLabel: "Booking Wallet",
       receiptRows: [
-        ["Visit booking", "₹0"],
-        ["Token amount", "₹25,000"],
-        ["Total", "₹25,000"],
+        ["Visit booking", "$0"],
+        ["Token amount", "$25,000"],
+        ["Total", "$25,000"],
       ],
       notifications: [
         "Site visit has been confirmed",
@@ -439,7 +439,7 @@ function getIndustryProfile(demo: IndustryMobileAppDemo): IndustryProfile {
       appName: "FinPulse",
       dashboardTitle: "Financial Control Room",
       heroLabel: "Portfolio health",
-      primaryMetric: "₹4.8L",
+      primaryMetric: "$4.8L",
       primaryMetricLabel: "Balance",
       secondaryMetric: "+12%",
       secondaryMetricLabel: "Growth",
@@ -451,14 +451,14 @@ function getIndustryProfile(demo: IndustryMobileAppDemo): IndustryProfile {
       searchFilters: ["Accounts", "Loans", "Investments"],
       formFields: [
         { label: "Request type", value: "Personal loan pre-check" },
-        { label: "Amount", value: "₹2,00,000" },
+        { label: "Amount", value: "$2,00,000" },
         { label: "Documents", value: "PAN, salary slips, bank PDF" },
       ],
       walletLabel: "Finance Wallet",
       receiptRows: [
-        ["Transfer", "₹20,000"],
-        ["Fee", "₹12"],
-        ["Total", "₹20,012"],
+        ["Transfer", "$20,000"],
+        ["Fee", "$12"],
+        ["Total", "$20,012"],
       ],
       notifications: [
         "Investment order has been processed",
@@ -515,9 +515,9 @@ function getIndustryProfile(demo: IndustryMobileAppDemo): IndustryProfile {
       ],
       walletLabel: "Procurement Wallet",
       receiptRows: [
-        ["Raw material", "₹85,000"],
-        ["Logistics", "₹7,500"],
-        ["Total", "₹92,500"],
+        ["Raw material", "$85,000"],
+        ["Logistics", "$7,500"],
+        ["Total", "$92,500"],
       ],
       notifications: [
         "Machine M-12 needs inspection",
@@ -637,7 +637,7 @@ function getIndustryVisualTone(profile: IndustryProfile) {
         topLine: "Portfolio up",
         midLine: "KYC verified",
         bottomLine: "Statement ready",
-        symbol: "₹",
+        symbol: "$",
       };
     case "manufacturing":
       return {

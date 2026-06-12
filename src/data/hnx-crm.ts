@@ -108,7 +108,7 @@ export const workflowAutomations: WorkflowAutomation[] = [
     category: "Customer Care",
     automates:
       "Sends birthday greetings and follow-up reminders to customers automatically.",
-    price: "₹4,999 - ₹9,999",
+    price: "$4,999 - $9,999",
     tier: "Small",
     iconKey: "birthday",
   },
@@ -117,7 +117,7 @@ export const workflowAutomations: WorkflowAutomation[] = [
     category: "Sales Operations",
     automates:
       "Assigns fresh leads to the right sales owner based on rules, location, or workload.",
-    price: "₹14,999 - ₹29,999",
+    price: "$14,999 - $29,999",
     tier: "Medium",
     iconKey: "assignment",
   },
@@ -126,7 +126,7 @@ export const workflowAutomations: WorkflowAutomation[] = [
     category: "Sales Discipline",
     automates:
       "Flags overdue lead and customer follow-ups before opportunities go cold.",
-    price: "₹4,999 - ₹9,999",
+    price: "$4,999 - $9,999",
     tier: "Small",
     iconKey: "followup",
   },
@@ -135,7 +135,7 @@ export const workflowAutomations: WorkflowAutomation[] = [
     category: "Finance",
     automates:
       "Reminds customers and internal teams when invoices are pending or overdue.",
-    price: "₹14,999 - ₹29,999",
+    price: "$14,999 - $29,999",
     tier: "Medium",
     iconKey: "invoice",
   },
@@ -144,7 +144,7 @@ export const workflowAutomations: WorkflowAutomation[] = [
     category: "Communication",
     automates:
       "Prepares structured WhatsApp follow-up flows for leads, customers, and reminders.",
-    price: "₹14,999 - ₹29,999",
+    price: "$14,999 - $29,999",
     tier: "Medium",
     iconKey: "whatsapp",
   },
@@ -153,7 +153,7 @@ export const workflowAutomations: WorkflowAutomation[] = [
     category: "Retention",
     automates:
       "Finds inactive customers and creates winback tasks, offers, or outreach reminders.",
-    price: "₹14,999 - ₹29,999",
+    price: "$14,999 - $29,999",
     tier: "Medium",
     iconKey: "winback",
   },
@@ -162,7 +162,7 @@ export const workflowAutomations: WorkflowAutomation[] = [
     category: "Team Management",
     automates:
       "Escalates stuck or overdue tasks to managers with clear ownership history.",
-    price: "₹14,999 - ₹29,999",
+    price: "$14,999 - $29,999",
     tier: "Medium",
     iconKey: "task",
   },
@@ -171,7 +171,7 @@ export const workflowAutomations: WorkflowAutomation[] = [
     category: "Collections",
     automates:
       "Triggers payment reminders and internal collection tasks for pending dues.",
-    price: "₹4,999 - ₹9,999",
+    price: "$4,999 - $9,999",
     tier: "Small",
     iconKey: "payment",
   },
@@ -180,7 +180,7 @@ export const workflowAutomations: WorkflowAutomation[] = [
     category: "Scheduling",
     automates:
       "Sends reminders for appointments, meetings, site visits, demos, or consultations.",
-    price: "₹4,999 - ₹9,999",
+    price: "$4,999 - $9,999",
     tier: "Small",
     iconKey: "appointment",
   },
@@ -189,7 +189,7 @@ export const workflowAutomations: WorkflowAutomation[] = [
     category: "Operations",
     automates:
       "Tracks required documents and reminds teams or customers until files are complete.",
-    price: "₹14,999 - ₹29,999",
+    price: "$14,999 - $29,999",
     tier: "Medium",
     iconKey: "document",
   },
@@ -198,7 +198,7 @@ export const workflowAutomations: WorkflowAutomation[] = [
     category: "Process Control",
     automates:
       "Routes requests to the right approver and keeps approval status visible inside CRM.",
-    price: "₹49,999+",
+    price: "$49,999+",
     tier: "Advanced",
     iconKey: "approval",
   },
@@ -207,7 +207,7 @@ export const workflowAutomations: WorkflowAutomation[] = [
     category: "Revenue Operations",
     automates:
       "Monitors stale deals and nudges sales teams before pipeline movement slows down.",
-    price: "₹14,999 - ₹29,999",
+    price: "$14,999 - $29,999",
     tier: "Medium",
     iconKey: "pipeline",
   },

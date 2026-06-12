@@ -203,7 +203,7 @@ export const CHAT_KNOWLEDGE = {
       suggestionMessage:
         "Sure — here's a simple guide for web development:\n\n• Business website → best for company profile, services, credibility, and inquiries.\n• Ecommerce website → best for selling products online.\n• Landing page → best for ads, campaigns, and lead generation.\n• Portfolio website → best for showcasing work and projects.\n• Custom web platform → best for dashboards, portals, and advanced workflows.\n\nWhich one sounds closest to your requirement?",
       pricingMessage:
-        "No problem — here's a rough idea for web development pricing:\n\n• Basic website / landing page → ₹10k – ₹25k\n• Standard business website / ecommerce starter → ₹25k – ₹50k\n• Advanced web platform / ecommerce / custom portal → ₹50k – ₹1L+\n\nThe final cost depends on pages, features, integrations, design quality, and complexity. Our team will review your exact requirement and suggest the final quotation.\n\nWhich range fits you best?",
+        "No problem — here's a rough idea for web development pricing:\n\n• Basic website / landing page → $10k – $25k\n• Standard business website / ecommerce starter → $25k – $50k\n• Advanced web platform / ecommerce / custom portal → $50k – $1L+\n\nThe final cost depends on pages, features, integrations, design quality, and complexity. Our team will review your exact requirement and suggest the final quotation.\n\nWhich range fits you best?",
       pricingQuickReplies: ["Under 25k", "25k–50k", "50k–1L", "Above 1L"]
     },
 
@@ -265,7 +265,7 @@ export const CHAT_KNOWLEDGE = {
       suggestionMessage:
         "Sure — here's a simple guide for SaaS:\n\n• MVP SaaS → best if you want to launch fast and validate an idea.\n• Business SaaS → best for dashboards and workflows for businesses.\n• Marketplace SaaS → best for multiple users or vendors.\n• Subscription platform → best for recurring paid access.\n• Internal SaaS → best for tools used inside an organization.\n\nWhich one sounds closest to your requirement?",
       pricingMessage:
-        "No problem — here's a rough idea for SaaS development pricing:\n\n• Basic MVP SaaS → ₹50k – ₹1L\n• Standard SaaS platform → ₹1L – ₹3L\n• Advanced SaaS product → ₹3L+\n\nThe final cost depends on billing, dashboards, user roles, integrations, and architecture. Our team will review your exact requirement and suggest the final quotation.\n\nWhich range fits you best?",
+        "No problem — here's a rough idea for SaaS development pricing:\n\n• Basic MVP SaaS → $50k – $1L\n• Standard SaaS platform → $1L – $3L\n• Advanced SaaS product → $3L+\n\nThe final cost depends on billing, dashboards, user roles, integrations, and architecture. Our team will review your exact requirement and suggest the final quotation.\n\nWhich range fits you best?",
       pricingQuickReplies: ["50k–1L", "1L–3L", "3L+", "Need expert help"]
     },
 
@@ -326,7 +326,7 @@ export const CHAT_KNOWLEDGE = {
       suggestionMessage:
         "Sure — here's a simple guide for mobile apps:\n\n• Business app → for company services, operations, or internal processes.\n• Customer app → for user accounts, services, orders, or engagement.\n• Booking app → for appointments and scheduling.\n• Ecommerce app → for shopping and ordering.\n• Internal team app → for staff workflows and reporting.\n\nWhich one sounds closest to your requirement?",
       pricingMessage:
-        "No problem — here's a rough idea for mobile app pricing:\n\n• Basic mobile app → ₹30k – ₹70k\n• Standard mobile app → ₹70k – ₹1.5L\n• Advanced mobile app → ₹1.5L+\n\nThe final cost depends on screens, APIs, roles, notifications, admin needs, and complexity. Our team will review your exact requirement and suggest the final quotation.\n\nWhich range fits you best?",
+        "No problem — here's a rough idea for mobile app pricing:\n\n• Basic mobile app → $30k – $70k\n• Standard mobile app → $70k – $1.5L\n• Advanced mobile app → $1.5L+\n\nThe final cost depends on screens, APIs, roles, notifications, admin needs, and complexity. Our team will review your exact requirement and suggest the final quotation.\n\nWhich range fits you best?",
       pricingQuickReplies: ["Under 50k", "50k–1L", "1L–2L", "Above 2L"]
     },
 
@@ -396,7 +396,7 @@ export const CHAT_KNOWLEDGE = {
       suggestionMessage:
         "Sure — here's a simple guide for custom CRM systems:\n\n• Lead management → capture and track leads.\n• Sales pipeline → deals, stages, and forecasting.\n• Customer support → ticketing and service workflows.\n• Workflow automation → approvals and follow-ups.\n• Custom CRM workflows → CRM modules built around your exact process.\n\nWhich one sounds closest to your requirement?",
       pricingMessage:
-        "No problem — here's a rough idea for custom CRM system pricing:\n\n• Basic CRM setup → ₹25k – ₹50k\n• Standard custom CRM system → ₹50k – ₹1L\n• Advanced CRM with automation and AI insights → ₹1L+\n\nThe final cost depends on workflows, automations, integrations, users, and reporting needs. Our team will review your exact requirement and suggest the final quotation.\n\nWhich range fits you best?",
+        "No problem — here's a rough idea for custom CRM system pricing:\n\n• Basic CRM setup → $25k – $50k\n• Standard custom CRM system → $50k – $1L\n• Advanced CRM with automation and AI insights → $1L+\n\nThe final cost depends on workflows, automations, integrations, users, and reporting needs. Our team will review your exact requirement and suggest the final quotation.\n\nWhich range fits you best?",
       pricingQuickReplies: ["Under 50k", "50k–1L", "1L–2L", "Above 2L"]
     },
 
@@ -463,7 +463,7 @@ export const CHAT_KNOWLEDGE = {
       suggestionMessage:
         "Sure — here's a simple guide for DevOps:\n\n• CI/CD setup → automated testing and deployment.\n• Docker & Kubernetes → scalable containerized deployment.\n• Infrastructure as Code → repeatable infra setup.\n• Monitoring & reliability → uptime, alerting, and observability.\n• Cloud deployment → production deployment workflows.\n\nWhich one sounds closest to your requirement?",
       pricingMessage:
-        "No problem — here's a rough idea for DevOps pricing:\n\n• Basic CI/CD or deployment setup → ₹20k – ₹50k\n• Standard DevOps implementation → ₹50k – ₹1L\n• Advanced infra automation → ₹1L+\n\nThe final cost depends on environments, infra complexity, monitoring, and automation depth. Our team will review your exact requirement and suggest the final quotation.\n\nWhich range fits you best?",
+        "No problem — here's a rough idea for DevOps pricing:\n\n• Basic CI/CD or deployment setup → $20k – $50k\n• Standard DevOps implementation → $50k – $1L\n• Advanced infra automation → $1L+\n\nThe final cost depends on environments, infra complexity, monitoring, and automation depth. Our team will review your exact requirement and suggest the final quotation.\n\nWhich range fits you best?",
       pricingQuickReplies: ["Under 50k", "50k–1L", "1L–2L", "Above 2L"]
     },
 
@@ -539,7 +539,7 @@ export const CHAT_KNOWLEDGE = {
       suggestionMessage:
         "Sure — here's a simple guide for AI & Automation:\n\n• AI chatbot → website assistant and FAQs.\n• Lead automation → capture and qualify leads.\n• Customer support automation → reduce manual support effort.\n• Internal workflow automation → automate repetitive business operations.\n• Document processing → extract data from files and forms.\n\nWhich one sounds closest to your requirement?",
       pricingMessage:
-        "No problem — here's a rough idea for AI & Automation pricing:\n\n• Basic chatbot or workflow automation → ₹30k – ₹75k\n• Standard AI automation system → ₹75k – ₹1.5L\n• Advanced AI agent / business automation → ₹1.5L+\n\nThe final cost depends on integrations, data sources, workflows, and model usage. Our team will review your exact requirement and suggest the final quotation.\n\nWhich range fits you best?",
+        "No problem — here's a rough idea for AI & Automation pricing:\n\n• Basic chatbot or workflow automation → $30k – $75k\n• Standard AI automation system → $75k – $1.5L\n• Advanced AI agent / business automation → $1.5L+\n\nThe final cost depends on integrations, data sources, workflows, and model usage. Our team will review your exact requirement and suggest the final quotation.\n\nWhich range fits you best?",
       pricingQuickReplies: ["Under 50k", "50k–1L", "1L–2L", "Above 2L"]
     },
 
@@ -609,7 +609,7 @@ export const CHAT_KNOWLEDGE = {
       suggestionMessage:
         "Sure — here's a simple guide for Cloud Solutions:\n\n• Cloud architecture → scalable cloud systems.\n• Migration → move apps or infra to cloud.\n• Deployment → launch production systems.\n• Scaling → growth, load handling, and reliability.\n• Cost optimization → reduce cloud spend.\n\nWhich one sounds closest to your requirement?",
       pricingMessage:
-        "No problem — here's a rough idea for Cloud Solutions pricing:\n\n• Basic cloud setup → ₹20k – ₹50k\n• Standard architecture / migration → ₹50k – ₹1L\n• Advanced cloud transformation → ₹1L+\n\nThe final cost depends on providers, environments, workloads, security, and scaling needs. Our team will review your exact requirement and suggest the final quotation.\n\nWhich range fits you best?",
+        "No problem — here's a rough idea for Cloud Solutions pricing:\n\n• Basic cloud setup → $20k – $50k\n• Standard architecture / migration → $50k – $1L\n• Advanced cloud transformation → $1L+\n\nThe final cost depends on providers, environments, workloads, security, and scaling needs. Our team will review your exact requirement and suggest the final quotation.\n\nWhich range fits you best?",
       pricingQuickReplies: ["Under 50k", "50k–1L", "1L–2L", "Above 2L"]
     },
 
@@ -676,7 +676,7 @@ export const CHAT_KNOWLEDGE = {
       suggestionMessage:
         "Sure — here's a simple guide for UI/UX Design:\n\n• UI design → polished screens and visuals.\n• UX research → user understanding and product decisions.\n• Wireframing → structure before development.\n• Prototype → interactive mockups and testing.\n• Design system → consistent scalable product design.\n\nWhich one sounds closest to your requirement?",
       pricingMessage:
-        "No problem — here's a rough idea for UI/UX Design pricing:\n\n• Basic design package → ₹10k – ₹25k\n• Standard design workflow → ₹25k – ₹50k\n• Advanced product design system → ₹50k+\n\nThe final cost depends on number of screens, prototypes, design system depth, and research needs. Our team will review your exact requirement and suggest the final quotation.\n\nWhich range fits you best?",
+        "No problem — here's a rough idea for UI/UX Design pricing:\n\n• Basic design package → $10k – $25k\n• Standard design workflow → $25k – $50k\n• Advanced product design system → $50k+\n\nThe final cost depends on number of screens, prototypes, design system depth, and research needs. Our team will review your exact requirement and suggest the final quotation.\n\nWhich range fits you best?",
       pricingQuickReplies: ["Under 25k", "25k–50k", "50k–1L", "Above 1L"]
     },
 
@@ -765,7 +765,7 @@ export const CHAT_KNOWLEDGE = {
       suggestionMessage:
         "Sure — here's a simple guide for Digital Growth:\n\n• SEO → improve search visibility.\n• Analytics setup → measure users and conversions.\n• Performance optimization → improve speed and Core Web Vitals.\n• Conversion optimization → improve leads and sales.\n• Technical audit → identify growth blockers.\n\nWhich one sounds closest to your requirement?",
       pricingMessage:
-        "No problem — here's a rough idea for Digital Growth pricing:\n\n• Basic SEO / analytics setup → ₹10k – ₹25k\n• Standard growth optimization → ₹25k – ₹50k\n• Advanced growth strategy / CRO / performance work → ₹50k+\n\nThe final cost depends on current setup, goals, reporting, and optimization scope. Our team will review your exact requirement and suggest the final quotation.\n\nWhich range fits you best?",
+        "No problem — here's a rough idea for Digital Growth pricing:\n\n• Basic SEO / analytics setup → $10k – $25k\n• Standard growth optimization → $25k – $50k\n• Advanced growth strategy / CRO / performance work → $50k+\n\nThe final cost depends on current setup, goals, reporting, and optimization scope. Our team will review your exact requirement and suggest the final quotation.\n\nWhich range fits you best?",
       pricingQuickReplies: ["Under 25k", "25k–50k", "50k–1L", "Above 1L"]
     }
   }

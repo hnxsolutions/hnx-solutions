@@ -1,4 +1,12 @@
 import { Boxes } from "lucide-react";
+import CrmReveal from "./CrmReveal";
+import {
+  crmClass,
+  crmLineGrowX,
+  crmRevealCard,
+  crmRevealHeading,
+  crmRevealScale,
+} from "./crmAnimationUtils";
 import type { IndustryCrmPageData } from "./industryCrmData";
 
 const palette = [
@@ -76,6 +84,10 @@ export default function CrmModulesSection({ data }: { data: IndustryCrmPageData 
           display: grid;
         }
 
+        #crm-modules-page-${index}:checked ~ .crm-modules-mobile-controls .crm-modules-mobile-control-${index} {
+          display: flex;
+        }
+
         #crm-modules-page-${index}:checked ~ .crm-modules-footer .crm-modules-dots label[for="crm-modules-page-${index}"] {
           transform: scale(1.25);
           background: rgb(124 58 237);
@@ -92,6 +104,10 @@ export default function CrmModulesSection({ data }: { data: IndustryCrmPageData 
             display: none;
           }
 
+          .crm-modules-mobile-control {
+            display: none;
+          }
+
           .crm-modules-radio {
             position: absolute;
             opacity: 0;
@@ -102,12 +118,16 @@ export default function CrmModulesSection({ data }: { data: IndustryCrmPageData 
         `}
       </style>
 
-      <div className="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white px-4 py-7 shadow-[0_18px_60px_rgba(15,23,42,0.06)] dark:border-white/10 dark:bg-white/[0.04] sm:px-6 lg:px-8">
+      <CrmReveal
+        variant="scale-in"
+        duration={820}
+        className="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white px-4 py-7 shadow-[0_18px_60px_rgba(15,23,42,0.06)] dark:border-white/10 dark:bg-white/[0.04] sm:px-6 lg:px-8"
+      >
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(124,58,237,0.06),transparent_32%),radial-gradient(circle_at_bottom_left,rgba(14,165,233,0.06),transparent_28%)]" />
         <div className="pointer-events-none absolute left-8 top-8 h-40 w-40 rounded-full border border-blue-100/70 opacity-35" />
         <div className="pointer-events-none absolute right-8 bottom-8 h-44 w-44 rounded-full border border-violet-100/70 opacity-40" />
 
-        <div className="relative mx-auto max-w-4xl text-center">
+        <div className={crmClass(crmRevealHeading, "relative mx-auto max-w-4xl text-center")}>
           <h2 className="text-3xl font-black leading-tight tracking-[-0.04em] text-slate-950 dark:text-white sm:text-4xl lg:text-[2.8rem]">
             CRM Modules
           </h2>
@@ -129,8 +149,18 @@ export default function CrmModulesSection({ data }: { data: IndustryCrmPageData 
         ))}
 
         <div className="crm-modules-carousel relative mt-7">
-          <div className="pointer-events-none absolute left-[7%] right-[7%] top-[26%] hidden h-0.5 rounded-full bg-gradient-to-r from-violet-100 via-blue-100 to-violet-100 lg:block" />
-          <div className="pointer-events-none absolute left-[7%] right-[7%] top-[68%] hidden h-0.5 rounded-full bg-gradient-to-r from-violet-100 via-blue-100 to-violet-100 lg:block" />
+          <div
+            className={crmClass(
+              crmLineGrowX,
+              "pointer-events-none absolute left-[7%] right-[7%] top-[26%] hidden h-0.5 rounded-full bg-gradient-to-r from-violet-100 via-blue-100 to-violet-100 lg:block",
+            )}
+          />
+          <div
+            className={crmClass(
+              crmLineGrowX,
+              "pointer-events-none absolute left-[7%] right-[7%] top-[68%] hidden h-0.5 rounded-full bg-gradient-to-r from-violet-100 via-blue-100 to-violet-100 lg:block",
+            )}
+          />
 
           {modulePages.map((pageModules, pageIndex) => {
             const previousPage = pageIndex === 0 ? pageCount - 1 : pageIndex - 1;
@@ -139,7 +169,7 @@ export default function CrmModulesSection({ data }: { data: IndustryCrmPageData 
             return (
               <div
                 key={`crm-modules-panel-${pageIndex}`}
-                className={`crm-modules-panel crm-modules-panel-${pageIndex} relative z-10 mx-auto max-w-6xl grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5 lg:gap-x-6 lg:gap-y-5`}
+                className={`crm-modules-panel crm-modules-panel-${pageIndex} relative z-10 mx-auto w-full max-w-6xl grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5 lg:gap-x-6 lg:gap-y-5`}
               >
                 {pageCount > 1 ? (
                   <>
@@ -170,7 +200,10 @@ export default function CrmModulesSection({ data }: { data: IndustryCrmPageData 
                   return (
                     <article
                       key={`${module.title}-${globalIndex}`}
-                      className="group relative min-h-[10.8rem] overflow-hidden rounded-[1.25rem] border border-slate-200 bg-white/90 p-4 text-center shadow-[0_12px_34px_rgba(15,23,42,0.055)] backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-violet-200 hover:shadow-[0_18px_48px_rgba(79,70,229,0.11)] dark:border-white/10 dark:bg-white/[0.05]"
+                      className={crmClass(
+                        crmRevealCard(moduleIndex),
+                        "group relative min-h-[10.8rem] overflow-hidden rounded-[1.25rem] border border-slate-200 bg-white/90 p-4 text-center shadow-[0_12px_34px_rgba(15,23,42,0.055)] backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-violet-200 hover:shadow-[0_18px_48px_rgba(79,70,229,0.11)] dark:border-white/10 dark:bg-white/[0.05]",
+                      )}
                     >
                       <div className="pointer-events-none absolute inset-0 rounded-[1.25rem] bg-gradient-to-br from-white via-transparent to-slate-50/70 opacity-80 dark:from-white/5 dark:to-transparent" />
 
@@ -207,7 +240,59 @@ export default function CrmModulesSection({ data }: { data: IndustryCrmPageData 
           })}
         </div>
 
-        <div className="crm-modules-footer relative mx-auto mt-7 flex w-fit flex-col items-center gap-3">
+        {pageCount > 1 ? (
+          <div className="crm-modules-mobile-controls relative z-20 mt-6 flex w-full items-center justify-center lg:hidden">
+            {modulePages.map((_, pageIndex) => {
+              const previousPage = pageIndex === 0 ? pageCount - 1 : pageIndex - 1;
+              const nextPage = pageIndex === pageCount - 1 ? 0 : pageIndex + 1;
+
+              return (
+                <div
+                  key={`crm-modules-mobile-control-${pageIndex}`}
+                  className={`crm-modules-mobile-control crm-modules-mobile-control-${pageIndex} mx-auto items-center justify-center gap-3 rounded-full border border-slate-200 bg-white/90 px-3 py-2 shadow-[0_12px_30px_rgba(15,23,42,0.08)] backdrop-blur dark:border-white/10 dark:bg-white/[0.06]`}
+                >
+                  <label
+                    htmlFor={`crm-modules-page-${previousPage}`}
+                    aria-label="Previous CRM modules"
+                    className="grid h-8 w-8 cursor-pointer place-items-center rounded-full bg-slate-50 text-blue-700 transition active:scale-95 dark:bg-white/[0.08] dark:text-blue-200"
+                  >
+                    <span className="text-2xl leading-none">‹</span>
+                  </label>
+
+                  <div className="flex items-center gap-2 px-1">
+                    {modulePages.map((_, dotIndex) => (
+                      <label
+                        key={`crm-modules-mobile-dot-${pageIndex}-${dotIndex}`}
+                        htmlFor={`crm-modules-page-${dotIndex}`}
+                        aria-label={`Show CRM module page ${dotIndex + 1}`}
+                        className={`h-2 cursor-pointer rounded-full transition ${
+                          dotIndex === pageIndex
+                            ? "w-5 bg-violet-600"
+                            : "w-2 bg-slate-200 dark:bg-white/20"
+                        }`}
+                      />
+                    ))}
+                  </div>
+
+                  <label
+                    htmlFor={`crm-modules-page-${nextPage}`}
+                    aria-label="Next CRM modules"
+                    className="grid h-8 w-8 cursor-pointer place-items-center rounded-full bg-slate-50 text-blue-700 transition active:scale-95 dark:bg-white/[0.08] dark:text-blue-200"
+                  >
+                    <span className="text-2xl leading-none">›</span>
+                  </label>
+                </div>
+              );
+            })}
+          </div>
+        ) : null}
+
+        <div
+          className={crmClass(
+            crmRevealScale,
+            "crm-modules-footer relative mx-auto mt-7 hidden w-fit flex-col items-center gap-3 lg:flex",
+          )}
+        >
           <div className="inline-flex items-center gap-4 rounded-full border border-slate-200 bg-white/80 px-5 py-2 text-xs font-black text-slate-500 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/[0.05] dark:text-slate-300 sm:text-sm">
             <span>{totalModules} Modules</span>
             <span className="h-1 w-1 rounded-full bg-slate-400" />
@@ -227,7 +312,7 @@ export default function CrmModulesSection({ data }: { data: IndustryCrmPageData 
             </div>
           ) : null}
         </div>
-      </div>
+      </CrmReveal>
     </section>
   );
 }

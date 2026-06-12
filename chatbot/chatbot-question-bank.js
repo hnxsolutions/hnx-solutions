@@ -354,7 +354,7 @@ const CHATBOT_QUESTION_BANK = [
           "What is the price for CRM development?"
         ],
         responseGoal:
-          "Pricing depends on the service, features, design complexity, integrations, and timeline.\n\nRough starting ranges:\n• Website / landing page: ₹10k–₹50k+\n• Mobile app: ₹50k–₹2L+\n• Custom CRM: ₹50k–₹2L+\n• SaaS platform: ₹75k–₹3L+\n• AI automation/chatbot: ₹30k–₹1.5L+\n• UI/UX design: ₹10k–₹1L+\n\nPlease choose your service and budget range so we can guide you better.",
+          "Pricing depends on the service, features, design complexity, integrations, and timeline.\n\nRough starting ranges:\n• Website / landing page: $10k–$50k+\n• Mobile app: $50k–$2L+\n• Custom CRM: $50k–$2L+\n• SaaS platform: $75k–$3L+\n• AI automation/chatbot: $30k–$1.5L+\n• UI/UX design: $10k–$1L+\n\nPlease choose your service and budget range so we can guide you better.",
         collect: ["projectType", "features", "timeline", "budget", "name", "email"],
         quickReplies: ["Under 25k", "25k–50k", "50k–1L", "1L–2L", "Above 2L", "Need expert help"]
       },

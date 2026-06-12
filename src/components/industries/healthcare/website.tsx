@@ -364,7 +364,7 @@ const pricingPlans = [
   {
     name: "Clinic Starter",
     subtitle: "Best for smaller clinics and individual practices",
-    price: "₹25,000",
+    price: "$25,000",
     icon: Stethoscope,
     features: [
       "Up to 10 Pages",
@@ -379,7 +379,7 @@ const pricingPlans = [
   {
     name: "Healthcare Growth",
     subtitle: "Best for growing clinics and multi-specialty providers",
-    price: "₹50,000",
+    price: "$50,000",
     icon: TrendingUp,
     features: [
       "Up to 25 Pages",
@@ -394,7 +394,7 @@ const pricingPlans = [
   {
     name: "Enterprise Healthcare",
     subtitle: "Best for hospitals, groups, and larger healthcare systems",
-    price: "₹1,00,000+",
+    price: "$1,00,000+",
     icon: ShieldCheck,
     features: [
       "Unlimited Pages",

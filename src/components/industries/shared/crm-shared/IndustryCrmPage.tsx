@@ -1,7 +1,6 @@
 import { PT_Sans } from "next/font/google";
 import { notFound } from "next/navigation";
 import IndustryAiAutomationSection from "../common/IndustryAiAutomationSection";
-import IndustryIntegrationsDeploymentSection from "../common/IndustryIntegrationsDeploymentSection";
 import CrmAutomationReportsSection from "./CrmAutomationReportsSection";
 import CrmDemoRedirectSection from "./CrmDemoRedirectSection";
 import CrmFinalCTASection from "./CrmFinalCTASection";
@@ -10,9 +9,11 @@ import CrmIntegrationsUseCasesSection from "./CrmIntegrationsUseCasesSection";
 import CrmModulesSection from "./CrmModulesSection";
 import CrmOwnershipComparisonSection from "./CrmOwnershipComparisonSection";
 import CrmProblemsSection from "./CrmProblemsSection";
+import CrmReveal from "./CrmReveal";
 import CrmRolesSection from "./CrmRolesSection";
 import CrmTimelinePackagesSection from "./CrmTimelinePackagesSection";
 import CrmWorkflowSection from "./CrmWorkflowSection";
+import { crmRevealScale } from "./crmAnimationUtils";
 import { getIndustryCrmPage } from "./industryCrmData";
 
 const ptSans = PT_Sans({
@@ -46,8 +47,13 @@ export default function IndustryCrmPage({
           <CrmWorkflowSection data={data} />
           <CrmModulesSection data={data} />
           <CrmRolesSection data={data} />
-          <IndustryAiAutomationSection {...data.aiAutomation} />
-          {/* <IndustryIntegrationsDeploymentSection {...data.integrationsDeployment} /> */}
+          <CrmReveal
+            variant="scale-in"
+            duration={840}
+            className={crmRevealScale}
+          >
+            <IndustryAiAutomationSection {...data.aiAutomation} />
+          </CrmReveal>
           <CrmDemoRedirectSection data={data} />
           <CrmAutomationReportsSection data={data} />
           <CrmIntegrationsUseCasesSection data={data} />

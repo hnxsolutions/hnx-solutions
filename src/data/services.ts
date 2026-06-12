@@ -72,7 +72,7 @@ export const services: ServiceItem[] = [
     heroTitle: "High-performance websites built for trust, speed, and conversion.",
     heroDescription:
       "Launch a polished website that feels premium on every screen, communicates your offer clearly, and gives your team a reliable lead-generation foundation.",
-    startingPrice: "Starting from ₹25,000",
+    startingPrice: "Starting from $25,000",
     timeline: "1 to 4 weeks",
     bestFor:
       "Business websites, service companies, portfolios, landing pages, and lead generation websites.",
@@ -83,8 +83,8 @@ export const services: ServiceItem[] = [
     process: defaultProcess,
     useCases: ["IT company website", "Healthcare website", "Real estate landing page", "Education website"],
     packages: [
-      { name: "Starter", price: "₹25,000+", description: "A focused launch-ready website for a clear service offer.", features: ["Landing page", "Responsive UI", "Contact form"] },
-      { name: "Growth", price: "₹55,000+", description: "A multi-page business website with stronger SEO and analytics.", features: ["Multi-page website", "SEO setup", "Analytics"], popular: true },
+      { name: "Starter", price: "$25,000+", description: "A focused launch-ready website for a clear service offer.", features: ["Landing page", "Responsive UI", "Contact form"] },
+      { name: "Growth", price: "$55,000+", description: "A multi-page business website with stronger SEO and analytics.", features: ["Multi-page website", "SEO setup", "Analytics"], popular: true },
       { name: "Premium", price: "Custom Quote", description: "A custom web app or content platform with admin controls.", features: ["Custom web app", "Admin panel", "Integrations"] },
     ],
     ctaTitle: "Need a website that actually brings leads?",
@@ -105,7 +105,7 @@ export const services: ServiceItem[] = [
     heroTitle: "Build scalable SaaS platforms with dashboards, subscriptions, and automation.",
     heroDescription:
       "Turn a product idea into a working SaaS platform with clean architecture, user roles, revenue flows, product analytics, and a practical launch path.",
-    startingPrice: "Starting from ₹75,000",
+    startingPrice: "Starting from $75,000",
     timeline: "4 to 10 weeks",
     bestFor: "Startup MVPs, B2B SaaS tools, subscription platforms, portals, and admin products.",
     tags: ["MVP Build", "Subscriptions", "Admin Panel", "Cloud Ready"],
@@ -115,8 +115,8 @@ export const services: ServiceItem[] = [
     process: defaultProcess,
     useCases: ["Subscription CRM", "B2B dashboard SaaS", "Booking platform", "Internal product portal"],
     packages: [
-      { name: "MVP", price: "₹75,000+", description: "Core SaaS flow to validate your idea quickly.", features: ["Auth", "Dashboard", "Basic billing"] },
-      { name: "Growth", price: "₹1,50,000+", description: "A stronger SaaS foundation with roles and analytics.", features: ["Roles", "Subscription billing", "Admin controls"], popular: true },
+      { name: "MVP", price: "$75,000+", description: "Core SaaS flow to validate your idea quickly.", features: ["Auth", "Dashboard", "Basic billing"] },
+      { name: "Growth", price: "$1,50,000+", description: "A stronger SaaS foundation with roles and analytics.", features: ["Roles", "Subscription billing", "Admin controls"], popular: true },
       { name: "Scale", price: "Custom Quote", description: "Advanced SaaS architecture for complex workflows.", features: ["Multi-tenant design", "Advanced reporting", "Automation"] },
     ],
     ctaTitle: "Ready to turn your SaaS idea into a real platform?",
@@ -137,7 +137,7 @@ export const services: ServiceItem[] = [
     heroTitle: "Mobile apps that feel fast, clean, and business-ready.",
     heroDescription:
       "Build Android and iOS apps with user-friendly screens, secure data flows, and the backend foundation needed for real customer usage.",
-    startingPrice: "Starting from ₹90,000",
+    startingPrice: "Starting from $90,000",
     timeline: "5 to 12 weeks",
     bestFor: "Startup apps, booking apps, business apps, service platforms, and customer-facing products.",
     tags: ["Android & iOS", "Smooth UX", "Secure Backend", "Push Notifications"],
@@ -147,8 +147,8 @@ export const services: ServiceItem[] = [
     process: defaultProcess,
     useCases: ["Healthcare booking app", "Education app", "Service marketplace", "Customer loyalty app"],
     packages: [
-      { name: "Starter App", price: "₹90,000+", description: "A focused MVP app with the essential user journey.", features: ["8 screens", "Auth", "Backend integration"] },
-      { name: "Business App", price: "₹1,60,000+", description: "A production-ready app with stronger flows and analytics.", features: ["15 screens", "Payments", "Notifications"], popular: true },
+      { name: "Starter App", price: "$90,000+", description: "A focused MVP app with the essential user journey.", features: ["8 screens", "Auth", "Backend integration"] },
+      { name: "Business App", price: "$1,60,000+", description: "A production-ready app with stronger flows and analytics.", features: ["15 screens", "Payments", "Notifications"], popular: true },
       { name: "Advanced App", price: "Custom Quote", description: "A complex app with realtime features and custom backend logic.", features: ["Realtime data", "Role access", "Advanced backend"] },
     ],
     ctaTitle: "Need a mobile app your customers will actually use?",
@@ -169,7 +169,7 @@ export const services: ServiceItem[] = [
     heroTitle: "Own your CRM instead of adjusting your business to rented software.",
     heroDescription:
       "Replace spreadsheets and generic CRM limitations with a custom system built around your pipeline, roles, dashboards, follow-ups, reports, and automation rules.",
-    startingPrice: "Starting from ₹1,20,000",
+    startingPrice: "Starting from $1,20,000",
     timeline: "5 to 12 weeks",
     bestFor: "Sales teams, service teams, lead tracking, operations, customer management, and owned workflow systems.",
     tags: ["Lead Pipeline", "Role Access", "Automation", "Reports"],
@@ -179,8 +179,8 @@ export const services: ServiceItem[] = [
     process: defaultProcess,
     useCases: ["Real estate CRM", "Education admissions CRM", "Healthcare CRM", "Sales team CRM"],
     packages: [
-      { name: "CRM Starter", price: "₹1,20,000+", description: "A clean owned CRM foundation for leads and customers.", features: ["Lead module", "Pipeline", "Basic reports"] },
-      { name: "CRM Growth", price: "₹2,25,000+", description: "A stronger CRM with automation, roles, and dashboards.", features: ["Workflows", "Roles", "Realtime dashboards"], popular: true },
+      { name: "CRM Starter", price: "$1,20,000+", description: "A clean owned CRM foundation for leads and customers.", features: ["Lead module", "Pipeline", "Basic reports"] },
+      { name: "CRM Growth", price: "$2,25,000+", description: "A stronger CRM with automation, roles, and dashboards.", features: ["Workflows", "Roles", "Realtime dashboards"], popular: true },
       { name: "CRM Enterprise", price: "Custom Quote", description: "A full custom operating system with AI and integrations.", features: ["AI insights", "Advanced automation", "Integrations"] },
     ],
     ctaTitle: "Want a CRM your business actually owns?",
@@ -201,7 +201,7 @@ export const services: ServiceItem[] = [
     heroTitle: "Automate repetitive work with AI agents and smart business workflows.",
     heroDescription:
       "Use AI to handle lead qualification, support replies, document summaries, CRM insights, internal assistants, and repeatable decisions without losing business control.",
-    startingPrice: "Starting from ₹60,000",
+    startingPrice: "Starting from $60,000",
     timeline: "2 to 6 weeks",
     bestFor: "Lead handling, support automation, document workflows, internal assistants, and CRM intelligence.",
     tags: ["AI Assistant", "Lead Scoring", "Smart Replies", "Workflow Triggers"],
@@ -211,8 +211,8 @@ export const services: ServiceItem[] = [
     process: defaultProcess,
     useCases: ["AI lead assistant", "Support response bot", "Document summary workflow", "CRM next-action assistant"],
     packages: [
-      { name: "AI Starter", price: "₹60,000+", description: "A focused AI assistant or automation for one workflow.", features: ["Prompt setup", "Basic assistant", "Lead capture"] },
-      { name: "AI Workflow", price: "₹1,20,000+", description: "AI connected to real business systems and dashboards.", features: ["Workflow logic", "Data integration", "Reports"], popular: true },
+      { name: "AI Starter", price: "$60,000+", description: "A focused AI assistant or automation for one workflow.", features: ["Prompt setup", "Basic assistant", "Lead capture"] },
+      { name: "AI Workflow", price: "$1,20,000+", description: "AI connected to real business systems and dashboards.", features: ["Workflow logic", "Data integration", "Reports"], popular: true },
       { name: "AI System", price: "Custom Quote", description: "Advanced AI workflows with roles, actions, and integrations.", features: ["Multi-step agents", "Custom data", "Automation engine"] },
     ],
     ctaTitle: "Want AI to remove repetitive work from your team?",
@@ -233,7 +233,7 @@ export const services: ServiceItem[] = [
     heroTitle: "Turn manual processes into automated workflows.",
     heroDescription:
       "Automate assignments, reminders, approvals, follow-ups, emails, WhatsApp messages, status changes, and manager alerts with workflows built around your real process.",
-    startingPrice: "Starting from ₹45,000",
+    startingPrice: "Starting from $45,000",
     timeline: "2 to 5 weeks",
     bestFor: "Lead routing, task assignment, reminders, approvals, alerts, and operations automation.",
     tags: ["Trigger Logic", "Approvals", "Follow-ups", "Task Automation"],
@@ -243,8 +243,8 @@ export const services: ServiceItem[] = [
     process: defaultProcess,
     useCases: ["Sales follow-up workflow", "Approval workflow", "Support escalation", "Onboarding task automation"],
     packages: [
-      { name: "Starter Flow", price: "₹45,000+", description: "A small workflow set for one business process.", features: ["3 workflows", "Basic triggers", "Notifications"] },
-      { name: "Automation Suite", price: "₹95,000+", description: "Multiple connected workflows for daily operations.", features: ["10 workflows", "Conditions", "Manager alerts"], popular: true },
+      { name: "Starter Flow", price: "$45,000+", description: "A small workflow set for one business process.", features: ["3 workflows", "Basic triggers", "Notifications"] },
+      { name: "Automation Suite", price: "$95,000+", description: "Multiple connected workflows for daily operations.", features: ["10 workflows", "Conditions", "Manager alerts"], popular: true },
       { name: "Workflow Engine", price: "Custom Quote", description: "A configurable automation engine inside your system.", features: ["Rule builder", "Role logic", "Audit trail"] },
     ],
     ctaTitle: "Ready to stop doing repeat work manually?",
@@ -265,7 +265,7 @@ export const services: ServiceItem[] = [
     heroTitle: "Secure APIs that connect your apps, dashboards, and platforms.",
     heroDescription:
       "Build reliable backend APIs with authentication, database design, webhook handling, documentation, third-party integrations, and clean architecture.",
-    startingPrice: "Starting from ₹50,000",
+    startingPrice: "Starting from $50,000",
     timeline: "2 to 6 weeks",
     bestFor: "Backend APIs, mobile backends, SaaS APIs, payment flows, dashboards, and platform integrations.",
     tags: ["REST API", "Auth", "Webhooks", "Documentation"],
@@ -275,8 +275,8 @@ export const services: ServiceItem[] = [
     process: defaultProcess,
     useCases: ["Mobile app backend", "CRM API layer", "Payment gateway API", "Third-party integration API"],
     packages: [
-      { name: "API Starter", price: "₹50,000+", description: "A focused API layer for one product or workflow.", features: ["REST endpoints", "Auth", "Docs"] },
-      { name: "API Platform", price: "₹1,10,000+", description: "A secure API backend with database and integrations.", features: ["Database design", "Webhooks", "Testing"], popular: true },
+      { name: "API Starter", price: "$50,000+", description: "A focused API layer for one product or workflow.", features: ["REST endpoints", "Auth", "Docs"] },
+      { name: "API Platform", price: "$1,10,000+", description: "A secure API backend with database and integrations.", features: ["Database design", "Webhooks", "Testing"], popular: true },
       { name: "Advanced API", price: "Custom Quote", description: "A scalable API architecture for complex products.", features: ["Versioning", "Rate limits", "Monitoring"] },
     ],
     ctaTitle: "Need a backend your product can depend on?",
@@ -297,7 +297,7 @@ export const services: ServiceItem[] = [
     heroTitle: "Connect your tools, platforms, and data into one unified business workflow.",
     heroDescription:
       "Stop copying data between systems manually. We connect the tools your team already uses so leads, payments, messages, reports, and records stay synced.",
-    startingPrice: "Starting from ₹40,000",
+    startingPrice: "Starting from $40,000",
     timeline: "1 to 5 weeks",
     bestFor: "CRM integrations, payment gateways, WhatsApp, email, analytics, Google Sheets, and third-party APIs.",
     tags: ["CRM Sync", "Payments", "WhatsApp", "Analytics"],
@@ -307,8 +307,8 @@ export const services: ServiceItem[] = [
     process: defaultProcess,
     useCases: ["Website to CRM lead sync", "Payment status automation", "WhatsApp follow-up flow", "Analytics event tracking"],
     packages: [
-      { name: "Single Integration", price: "₹40,000+", description: "Connect one important tool or workflow.", features: ["One integration", "Testing", "Documentation"] },
-      { name: "Business Hub", price: "₹90,000+", description: "Connect multiple tools around CRM or operations.", features: ["3-5 integrations", "Workflow sync", "Alerts"], popular: true },
+      { name: "Single Integration", price: "$40,000+", description: "Connect one important tool or workflow.", features: ["One integration", "Testing", "Documentation"] },
+      { name: "Business Hub", price: "$90,000+", description: "Connect multiple tools around CRM or operations.", features: ["3-5 integrations", "Workflow sync", "Alerts"], popular: true },
       { name: "Integration Platform", price: "Custom Quote", description: "A deeper connected system across many services.", features: ["API bridge", "Monitoring", "Data mapping"] },
     ],
     ctaTitle: "Want your tools to finally work together?",
@@ -329,7 +329,7 @@ export const services: ServiceItem[] = [
     heroTitle: "Reliable deployment systems for websites, apps, and SaaS.",
     heroDescription:
       "Build a clean delivery pipeline from GitHub to build, test, deploy, monitor, and rollback so releases become predictable instead of stressful.",
-    startingPrice: "Starting from ₹35,000",
+    startingPrice: "Starting from $35,000",
     timeline: "1 to 4 weeks",
     bestFor: "CI/CD setup, Vercel deployment, server deployment, domains, SSL, logs, and monitoring.",
     tags: ["CI/CD", "Deployment", "Monitoring", "SSL"],
@@ -339,8 +339,8 @@ export const services: ServiceItem[] = [
     process: defaultProcess,
     useCases: ["Next.js deployment", "SaaS release pipeline", "Backend deployment", "Monitoring setup"],
     packages: [
-      { name: "Deploy Starter", price: "₹35,000+", description: "Stable deployment setup for one project.", features: ["Hosting", "Domain + SSL", "Basic CI"] },
-      { name: "Release System", price: "₹80,000+", description: "CI/CD, environments, logging, and monitoring.", features: ["Build pipeline", "Staging", "Monitoring"], popular: true },
+      { name: "Deploy Starter", price: "$35,000+", description: "Stable deployment setup for one project.", features: ["Hosting", "Domain + SSL", "Basic CI"] },
+      { name: "Release System", price: "$80,000+", description: "CI/CD, environments, logging, and monitoring.", features: ["Build pipeline", "Staging", "Monitoring"], popular: true },
       { name: "Advanced DevOps", price: "Custom Quote", description: "Complex deployment and reliability workflows.", features: ["Rollback", "Infra automation", "Alerts"] },
     ],
     ctaTitle: "Want deployments that feel boring in the best way?",
@@ -361,7 +361,7 @@ export const services: ServiceItem[] = [
     heroTitle: "Scalable cloud infrastructure for growing digital products.",
     heroDescription:
       "Plan and deploy cloud architecture that keeps your product fast, secure, observable, backed up, and ready for future scale.",
-    startingPrice: "Starting from ₹50,000",
+    startingPrice: "Starting from $50,000",
     timeline: "2 to 6 weeks",
     bestFor: "Cloud hosting, migration, databases, storage, backups, CDN, and production architecture.",
     tags: ["Cloud Hosting", "Database", "Storage", "Monitoring"],
@@ -371,8 +371,8 @@ export const services: ServiceItem[] = [
     process: defaultProcess,
     useCases: ["SaaS cloud setup", "App migration", "Database modernization", "Production hosting"],
     packages: [
-      { name: "Cloud Starter", price: "₹50,000+", description: "A stable cloud setup for one app or website.", features: ["App hosting", "Database", "SSL"] },
-      { name: "Cloud Growth", price: "₹1,10,000+", description: "A stronger cloud foundation with monitoring and backups.", features: ["CDN", "Backups", "Monitoring"], popular: true },
+      { name: "Cloud Starter", price: "$50,000+", description: "A stable cloud setup for one app or website.", features: ["App hosting", "Database", "SSL"] },
+      { name: "Cloud Growth", price: "$1,10,000+", description: "A stronger cloud foundation with monitoring and backups.", features: ["CDN", "Backups", "Monitoring"], popular: true },
       { name: "Cloud Scale", price: "Custom Quote", description: "Advanced architecture for scale and reliability.", features: ["Load balancing", "Disaster recovery", "Cost optimization"] },
     ],
     ctaTitle: "Need cloud infrastructure that can grow with you?",
@@ -393,7 +393,7 @@ export const services: ServiceItem[] = [
     heroTitle: "Keep your website, app, CRM or SaaS running smoothly after launch.",
     heroDescription:
       "Protect your investment with ongoing technical care, update logs, bug fixes, uptime monitoring, performance improvements, and priority support.",
-    startingPrice: "Starting from ₹15,000/month",
+    startingPrice: "Starting from $15,000/month",
     timeline: "Monthly support",
     bestFor: "Businesses with live websites, SaaS platforms, apps, CRM systems, and production dashboards.",
     tags: ["Bug Fixes", "Updates", "Uptime", "Priority Support"],
@@ -403,8 +403,8 @@ export const services: ServiceItem[] = [
     process: ["Audit", "Support Plan", "Monitoring", "Fixes", "Updates", "Reports", "Ongoing Support"],
     useCases: ["Website maintenance", "CRM support", "SaaS bug fixing", "App update support"],
     packages: [
-      { name: "Care", price: "₹15,000/month", description: "Basic support for small websites or apps.", features: ["Bug fixes", "Small updates", "Monthly report"] },
-      { name: "Growth Support", price: "₹35,000/month", description: "Priority support and performance care.", features: ["Priority fixes", "Uptime checks", "Performance review"], popular: true },
+      { name: "Care", price: "$15,000/month", description: "Basic support for small websites or apps.", features: ["Bug fixes", "Small updates", "Monthly report"] },
+      { name: "Growth Support", price: "$35,000/month", description: "Priority support and performance care.", features: ["Priority fixes", "Uptime checks", "Performance review"], popular: true },
       { name: "Dedicated Support", price: "Custom Quote", description: "Extended technical support for active products.", features: ["SLA", "Feature updates", "Monitoring"] },
     ],
     ctaTitle: "Need reliable technical support after launch?",
@@ -425,7 +425,7 @@ export const services: ServiceItem[] = [
     heroTitle: "Secure your digital products with strong protection and control.",
     heroDescription:
       "Add the security basics that growing products need: authentication, permissions, audit logs, API protection, access rules, and deployment hardening.",
-    startingPrice: "Starting from ₹45,000",
+    startingPrice: "Starting from $45,000",
     timeline: "2 to 5 weeks",
     bestFor: "CRM systems, SaaS products, admin dashboards, APIs, internal tools, and customer platforms.",
     tags: ["Role Access", "Audit Logs", "API Protection", "Data Security"],
@@ -435,8 +435,8 @@ export const services: ServiceItem[] = [
     process: ["Security Audit", "Risk Mapping", "Control Design", "Implementation", "Testing", "Review", "Support"],
     useCases: ["CRM permission system", "SaaS security review", "API hardening", "Admin audit logs"],
     packages: [
-      { name: "Security Audit", price: "₹45,000+", description: "Review and prioritize the biggest security gaps.", features: ["Audit", "Risk report", "Fix roadmap"] },
-      { name: "Security Build", price: "₹95,000+", description: "Implement key security controls in your product.", features: ["Roles", "Logs", "API protection"], popular: true },
+      { name: "Security Audit", price: "$45,000+", description: "Review and prioritize the biggest security gaps.", features: ["Audit", "Risk report", "Fix roadmap"] },
+      { name: "Security Build", price: "$95,000+", description: "Implement key security controls in your product.", features: ["Roles", "Logs", "API protection"], popular: true },
       { name: "Compliance Ready", price: "Custom Quote", description: "Advanced controls and audit-ready architecture.", features: ["Policies", "Data controls", "Monitoring"] },
     ],
     ctaTitle: "Want stronger control over your product security?",
@@ -457,7 +457,7 @@ export const services: ServiceItem[] = [
     heroTitle: "Premium interfaces designed for clarity, trust, and conversion.",
     heroDescription:
       "Create a beautiful and practical UI system with wireframes, polished screens, responsive layouts, color palettes, typography, and developer-ready components.",
-    startingPrice: "Starting from ₹25,000",
+    startingPrice: "Starting from $25,000",
     timeline: "1 to 4 weeks",
     bestFor: "Product UI, dashboards, mobile app screens, SaaS design, landing pages, and redesigns.",
     tags: ["Wireframes", "Prototypes", "Design System", "Responsive UI"],
@@ -467,8 +467,8 @@ export const services: ServiceItem[] = [
     process: ["Discovery", "UX Direction", "Wireframes", "UI Design", "Prototype", "Handoff", "Support"],
     useCases: ["SaaS dashboard design", "Mobile app UI", "CRM interface", "Landing page redesign"],
     packages: [
-      { name: "UI Starter", price: "₹25,000+", description: "A focused design set for a landing page or key screens.", features: ["Wireframe", "UI design", "Responsive layout"] },
-      { name: "Product Design", price: "₹65,000+", description: "A fuller design system for apps and dashboards.", features: ["User flows", "Screens", "Prototype"], popular: true },
+      { name: "UI Starter", price: "$25,000+", description: "A focused design set for a landing page or key screens.", features: ["Wireframe", "UI design", "Responsive layout"] },
+      { name: "Product Design", price: "$65,000+", description: "A fuller design system for apps and dashboards.", features: ["User flows", "Screens", "Prototype"], popular: true },
       { name: "Design System", price: "Custom Quote", description: "A complete UI library for larger products.", features: ["Components", "Guidelines", "Handoff"] },
     ],
     ctaTitle: "Need a product interface that feels premium?",
@@ -489,7 +489,7 @@ export const services: ServiceItem[] = [
     heroTitle: "Conversion-focused landing pages for ads, campaigns, and product launches.",
     heroDescription:
       "Turn campaign traffic into enquiries with a clear hero, strong CTA, lead forms, trust badges, offer sections, analytics, and fast-loading responsive design.",
-    startingPrice: "Starting from ₹20,000",
+    startingPrice: "Starting from $20,000",
     timeline: "4 days to 2 weeks",
     bestFor: "Ad campaigns, product launches, lead magnets, service offers, events, and high-conversion funnels.",
     tags: ["Lead Forms", "Campaign Ready", "Fast Launch", "Analytics"],
@@ -499,8 +499,8 @@ export const services: ServiceItem[] = [
     process: ["Offer Discovery", "Funnel Strategy", "Page Design", "Development", "Tracking", "Launch", "Optimization"],
     useCases: ["Google Ads landing page", "Webinar registration", "Real estate campaign", "Product launch page"],
     packages: [
-      { name: "Campaign Page", price: "₹20,000+", description: "A fast landing page for one focused offer.", features: ["Hero section", "Lead form", "Mobile ready"] },
-      { name: "Growth Funnel", price: "₹45,000+", description: "A fuller campaign flow with analytics and trust sections.", features: ["Landing page", "Tracking", "Thank-you page"], popular: true },
+      { name: "Campaign Page", price: "$20,000+", description: "A fast landing page for one focused offer.", features: ["Hero section", "Lead form", "Mobile ready"] },
+      { name: "Growth Funnel", price: "$45,000+", description: "A fuller campaign flow with analytics and trust sections.", features: ["Landing page", "Tracking", "Thank-you page"], popular: true },
       { name: "Campaign System", price: "Custom Quote", description: "Multiple campaign pages with reusable sections.", features: ["A/B variants", "CRM sync", "Reports"] },
     ],
     ctaTitle: "Need a landing page that converts campaign traffic?",
@@ -521,7 +521,7 @@ export const services: ServiceItem[] = [
     heroTitle: "Make your website easier to find, track, and improve.",
     heroDescription:
       "Improve search visibility and measurement with technical SEO, schema, metadata, indexing checks, analytics events, traffic dashboards, and conversion tracking.",
-    startingPrice: "Starting from ₹18,000/month",
+    startingPrice: "Starting from $18,000/month",
     timeline: "Monthly growth",
     bestFor: "Business websites, blogs, service pages, local SEO, lead generation, and analytics setup.",
     tags: ["Technical SEO", "Schema", "Analytics", "Tracking"],
@@ -531,8 +531,8 @@ export const services: ServiceItem[] = [
     process: ["Audit", "Keyword Strategy", "Technical Fixes", "Schema", "Tracking", "Reports", "Optimization"],
     useCases: ["Service SEO", "Local business SEO", "Landing page analytics", "Blog performance tracking"],
     packages: [
-      { name: "SEO Setup", price: "₹18,000+", description: "Foundational SEO and analytics setup.", features: ["Audit", "Meta setup", "Search Console"] },
-      { name: "Growth SEO", price: "₹35,000/month", description: "Monthly SEO improvements and reporting.", features: ["Technical fixes", "Reports", "Tracking"], popular: true },
+      { name: "SEO Setup", price: "$18,000+", description: "Foundational SEO and analytics setup.", features: ["Audit", "Meta setup", "Search Console"] },
+      { name: "Growth SEO", price: "$35,000/month", description: "Monthly SEO improvements and reporting.", features: ["Technical fixes", "Reports", "Tracking"], popular: true },
       { name: "SEO System", price: "Custom Quote", description: "Full SEO and conversion measurement roadmap.", features: ["Schema", "Content plan", "Dashboards"] },
     ],
     ctaTitle: "Want clearer traffic, rankings, and conversion data?",
@@ -553,7 +553,7 @@ export const services: ServiceItem[] = [
     heroTitle: "Build a clear digital identity that makes your business look credible.",
     heroDescription:
       "Create a practical brand kit with logo direction, colors, typography, icons, social previews, reusable styles, and guidelines your team can actually use.",
-    startingPrice: "Starting from ₹30,000",
+    startingPrice: "Starting from $30,000",
     timeline: "1 to 4 weeks",
     bestFor: "New businesses, rebrands, SaaS products, service brands, campaign systems, and digital-first companies.",
     tags: ["Logo Direction", "Color Palette", "Typography", "Guidelines"],
@@ -563,8 +563,8 @@ export const services: ServiceItem[] = [
     process: ["Discovery", "Moodboard", "Identity Direction", "Design System", "Templates", "Guidelines", "Handoff"],
     useCases: ["Startup identity", "SaaS brand kit", "Agency rebrand", "Campaign visual system"],
     packages: [
-      { name: "Brand Starter", price: "₹30,000+", description: "A clear starter identity for digital launch.", features: ["Logo direction", "Colors", "Typography"] },
-      { name: "Brand Kit", price: "₹65,000+", description: "A complete practical brand kit for online use.", features: ["Guidelines", "Icons", "Social templates"], popular: true },
+      { name: "Brand Starter", price: "$30,000+", description: "A clear starter identity for digital launch.", features: ["Logo direction", "Colors", "Typography"] },
+      { name: "Brand Kit", price: "$65,000+", description: "A complete practical brand kit for online use.", features: ["Guidelines", "Icons", "Social templates"], popular: true },
       { name: "Brand System", price: "Custom Quote", description: "A deeper visual identity system for larger teams.", features: ["Design language", "Templates", "Campaign assets"] },
     ],
     ctaTitle: "Need a brand identity that looks professional everywhere?",

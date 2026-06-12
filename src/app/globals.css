@@ -793,3 +793,462 @@ html.dark .premium-card:hover {
     transform: none;
   }
 }
+
+@keyframes crmViewRevealUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 28px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes crmViewRevealSoft {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes crmViewRevealLeft {
+  from {
+    opacity: 0;
+    transform: translate3d(-34px, 20px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes crmViewRevealRight {
+  from {
+    opacity: 0;
+    transform: translate3d(34px, 20px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes crmViewRevealScale {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0) scale(0.94);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes crmViewRevealPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.72);
+  }
+
+  72% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes crmViewLineGrowX {
+  from {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes crmViewLineGrowY {
+  from {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+
+  to {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+@keyframes crmViewStrokeDraw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.crm-vt,
+.crm-vt-line-x,
+.crm-vt-line-y {
+  opacity: 1;
+  transform: none;
+}
+
+.crm-vt-line-x {
+  transform-origin: left center;
+}
+
+.crm-vt-line-y {
+  transform-origin: center top;
+}
+
+.crm-vt-svg-draw {
+  stroke-dasharray: var(--crm-vt-stroke-length, 3050);
+  stroke-dashoffset: 0;
+}
+
+@supports (animation-timeline: view()) {
+  .crm-vt {
+    opacity: 0;
+    animation-name: crmViewRevealUp;
+    animation-duration: 1ms;
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    animation-fill-mode: both;
+    animation-timeline: view();
+    animation-range: entry var(--crm-vt-entry, 7%) cover var(--crm-vt-cover, 34%);
+    will-change: opacity, transform;
+  }
+
+  .crm-vt-heading {
+    --crm-vt-entry: 2%;
+    --crm-vt-cover: 30%;
+  }
+
+  .crm-vt-card {
+    --crm-vt-entry: 7%;
+    --crm-vt-cover: 36%;
+  }
+
+  .crm-vt-soft {
+    animation-name: crmViewRevealSoft;
+  }
+
+  .crm-vt-left {
+    animation-name: crmViewRevealLeft;
+  }
+
+  .crm-vt-right {
+    animation-name: crmViewRevealRight;
+  }
+
+  .crm-vt-scale {
+    animation-name: crmViewRevealScale;
+  }
+
+  .crm-vt-pop {
+    animation-name: crmViewRevealPop;
+    --crm-vt-entry: 11%;
+    --crm-vt-cover: 38%;
+  }
+
+  .crm-vt-stagger-1 {
+    --crm-vt-entry: 5%;
+    --crm-vt-cover: 30%;
+  }
+
+  .crm-vt-stagger-2 {
+    --crm-vt-entry: 7%;
+    --crm-vt-cover: 32%;
+  }
+
+  .crm-vt-stagger-3 {
+    --crm-vt-entry: 9%;
+    --crm-vt-cover: 34%;
+  }
+
+  .crm-vt-stagger-4 {
+    --crm-vt-entry: 11%;
+    --crm-vt-cover: 36%;
+  }
+
+  .crm-vt-stagger-5 {
+    --crm-vt-entry: 13%;
+    --crm-vt-cover: 38%;
+  }
+
+  .crm-vt-stagger-6 {
+    --crm-vt-entry: 15%;
+    --crm-vt-cover: 40%;
+  }
+
+  .crm-vt-stagger-7 {
+    --crm-vt-entry: 17%;
+    --crm-vt-cover: 42%;
+  }
+
+  .crm-vt-stagger-8 {
+    --crm-vt-entry: 19%;
+    --crm-vt-cover: 44%;
+  }
+
+  .crm-vt-stagger-9 {
+    --crm-vt-entry: 21%;
+    --crm-vt-cover: 46%;
+  }
+
+  .crm-vt-stagger-10 {
+    --crm-vt-entry: 23%;
+    --crm-vt-cover: 48%;
+  }
+
+  .crm-vt-stagger-11 {
+    --crm-vt-entry: 25%;
+    --crm-vt-cover: 50%;
+  }
+
+  .crm-vt-stagger-12 {
+    --crm-vt-entry: 27%;
+    --crm-vt-cover: 52%;
+  }
+
+  .crm-vt-line-x,
+  .crm-vt-line-y {
+    opacity: 0;
+    animation-duration: 1ms;
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    animation-fill-mode: both;
+    animation-timeline: view();
+    animation-range: entry 9% cover 36%;
+    will-change: opacity, transform;
+  }
+
+  .crm-vt-line-x {
+    animation-name: crmViewLineGrowX;
+  }
+
+  .crm-vt-line-y {
+    animation-name: crmViewLineGrowY;
+  }
+
+  .crm-vt-svg-draw {
+    stroke-dashoffset: var(--crm-vt-stroke-length, 3050);
+    animation-name: crmViewStrokeDraw;
+    animation-duration: 1ms;
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    animation-fill-mode: both;
+    animation-timeline: view();
+    animation-range: entry 7% cover 58%;
+  }
+}
+
+@media (max-width: 640px) {
+  @supports (animation-timeline: view()) {
+    .crm-vt-left,
+    .crm-vt-right {
+      animation-name: crmViewRevealUp;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .crm-vt,
+  .crm-vt-line-x,
+  .crm-vt-line-y,
+  .crm-vt-svg-draw {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+}
+
+.crm-reveal .crm-vt,
+.crm-reveal.crm-vt {
+  animation: none !important;
+  opacity: 0;
+  transform: translate3d(0, 30px, 0);
+  transition:
+    opacity 780ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 780ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--crm-reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.crm-reveal .crm-vt-soft,
+.crm-reveal.crm-vt-soft {
+  transform: translate3d(0, 18px, 0);
+}
+
+.crm-reveal .crm-vt-left,
+.crm-reveal.crm-vt-left {
+  transform: translate3d(-34px, 18px, 0);
+}
+
+.crm-reveal .crm-vt-right,
+.crm-reveal.crm-vt-right {
+  transform: translate3d(34px, 18px, 0);
+}
+
+.crm-reveal .crm-vt-scale,
+.crm-reveal.crm-vt-scale,
+.crm-reveal .crm-vt-card,
+.crm-reveal.crm-vt-card {
+  transform: translate3d(0, 24px, 0) scale(0.95);
+}
+
+.crm-reveal .crm-vt-pop,
+.crm-reveal.crm-vt-pop {
+  transform: scale(0.82);
+}
+
+.crm-reveal[data-visible="true"] .crm-vt,
+.crm-reveal.crm-vt[data-visible="true"] {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+.crm-reveal .crm-vt-line-x,
+.crm-reveal.crm-vt-line-x,
+.crm-reveal .crm-vt-line-y,
+.crm-reveal.crm-vt-line-y {
+  animation: none !important;
+  opacity: 0;
+  transition:
+    opacity 820ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 820ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--crm-reveal-delay, 120ms);
+  will-change: opacity, transform;
+}
+
+.crm-reveal .crm-vt-line-x,
+.crm-reveal.crm-vt-line-x {
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.crm-reveal .crm-vt-line-y,
+.crm-reveal.crm-vt-line-y {
+  transform: scaleY(0);
+  transform-origin: center top;
+}
+
+.crm-reveal[data-visible="true"] .crm-vt-line-x,
+.crm-reveal.crm-vt-line-x[data-visible="true"] {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.crm-reveal[data-visible="true"] .crm-vt-line-y,
+.crm-reveal.crm-vt-line-y[data-visible="true"] {
+  opacity: 1;
+  transform: scaleY(1);
+}
+
+.crm-reveal .crm-vt-svg-draw,
+.crm-reveal.crm-vt-svg-draw {
+  animation: none !important;
+  stroke-dasharray: var(--crm-vt-stroke-length, 3050);
+  stroke-dashoffset: var(--crm-vt-stroke-length, 3050);
+  transition: stroke-dashoffset 1300ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--crm-reveal-delay, 180ms);
+}
+
+.crm-reveal[data-visible="true"] .crm-vt-svg-draw,
+.crm-reveal.crm-vt-svg-draw[data-visible="true"] {
+  stroke-dashoffset: 0;
+}
+
+.crm-reveal .crm-vt-stagger-1,
+.crm-reveal.crm-vt-stagger-1 {
+  --crm-reveal-delay: 0ms;
+}
+
+.crm-reveal .crm-vt-stagger-2,
+.crm-reveal.crm-vt-stagger-2 {
+  --crm-reveal-delay: 120ms;
+}
+
+.crm-reveal .crm-vt-stagger-3,
+.crm-reveal.crm-vt-stagger-3 {
+  --crm-reveal-delay: 240ms;
+}
+
+.crm-reveal .crm-vt-stagger-4,
+.crm-reveal.crm-vt-stagger-4 {
+  --crm-reveal-delay: 360ms;
+}
+
+.crm-reveal .crm-vt-stagger-5,
+.crm-reveal.crm-vt-stagger-5 {
+  --crm-reveal-delay: 480ms;
+}
+
+.crm-reveal .crm-vt-stagger-6,
+.crm-reveal.crm-vt-stagger-6 {
+  --crm-reveal-delay: 600ms;
+}
+
+.crm-reveal .crm-vt-stagger-7,
+.crm-reveal.crm-vt-stagger-7 {
+  --crm-reveal-delay: 720ms;
+}
+
+.crm-reveal .crm-vt-stagger-8,
+.crm-reveal.crm-vt-stagger-8 {
+  --crm-reveal-delay: 840ms;
+}
+
+.crm-reveal .crm-vt-stagger-9,
+.crm-reveal.crm-vt-stagger-9 {
+  --crm-reveal-delay: 960ms;
+}
+
+.crm-reveal .crm-vt-stagger-10,
+.crm-reveal.crm-vt-stagger-10,
+.crm-reveal .crm-vt-stagger-11,
+.crm-reveal.crm-vt-stagger-11,
+.crm-reveal .crm-vt-stagger-12,
+.crm-reveal.crm-vt-stagger-12 {
+  --crm-reveal-delay: 1080ms;
+}
+
+@media (max-width: 640px) {
+  .crm-reveal .crm-vt-left,
+  .crm-reveal.crm-vt-left,
+  .crm-reveal .crm-vt-right,
+  .crm-reveal.crm-vt-right {
+    transform: translate3d(0, 24px, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .crm-reveal,
+  .crm-reveal .crm-vt,
+  .crm-reveal.crm-vt,
+  .crm-reveal .crm-vt-line-x,
+  .crm-reveal.crm-vt-line-x,
+  .crm-reveal .crm-vt-line-y,
+  .crm-reveal.crm-vt-line-y,
+  .crm-reveal .crm-vt-svg-draw,
+  .crm-reveal.crm-vt-svg-draw {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+}

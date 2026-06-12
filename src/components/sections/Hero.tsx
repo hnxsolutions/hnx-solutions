@@ -43,7 +43,7 @@ const kpis = [
   { label: "Total Leads", value: "1,248", delta: "+18%", icon: ContactRound },
   { label: "Qualified Leads", value: "532", delta: "+12%", icon: Gauge },
   { label: "Deals Won", value: "198", delta: "+9%", icon: CheckCircle2 },
-  { label: "Revenue", value: "₹48.6L", delta: "+24%", icon: TrendingUp },
+  { label: "Revenue", value: "$48.6L", delta: "+24%", icon: TrendingUp },
 ];
 
 const leadScores = [

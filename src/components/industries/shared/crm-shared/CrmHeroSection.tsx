@@ -2,6 +2,14 @@ import { existsSync } from "node:fs";
 import { join } from "node:path";
 import Link from "next/link";
 import { ArrowRight, CalendarDays } from "lucide-react";
+import CrmReveal from "./CrmReveal";
+import {
+  crmClass,
+  crmRevealHeading,
+  crmRevealSoft,
+  crmSlideRight,
+  crmStagger,
+} from "./crmAnimationUtils";
 import type { IndustryCrmPageData } from "./industryCrmData";
 
 type CrmVariant =
@@ -27,7 +35,13 @@ type DashboardConfig = {
   sceneClass: string;
 };
 
-const fallbackCrmHeroAsset = {
+type CrmHeroAsset = {
+  background: string;
+  dashboard: string;
+  mobileDashboard?: string;
+};
+
+const fallbackCrmHeroAsset: CrmHeroAsset = {
   background: "/images/industries/crm/education-campus-preview.png",
   dashboard: "/images/industries/crm/education-crm-dashboard-preview.png",
 };
@@ -69,8 +83,9 @@ const crmHeroAssets = {
   travel: {
     background: "/images/industries/crm/travel-preview.png",
     dashboard: "/images/industries/crm/travel-crm-dashboard-preview.png",
+    mobileDashboard: "/images/industries/crm/travel-crm-mobile-dashboard.png",
   },
-} as const satisfies Record<Exclude<CrmVariant, "default">, typeof fallbackCrmHeroAsset>;
+} as const satisfies Record<Exclude<CrmVariant, "default">, CrmHeroAsset>;
 
 const publicAssetExistsCache = new Map<string, boolean>();
 
@@ -91,7 +106,7 @@ function resolvePublicAsset(assetPath: string, fallbackPath: string) {
   return publicAssetExists(assetPath) ? assetPath : fallbackPath;
 }
 
-function getHeroAssets(variant: CrmVariant) {
+function getHeroAssets(variant: CrmVariant): CrmHeroAsset {
   if (variant === "default") {
     return fallbackCrmHeroAsset;
   }
@@ -252,7 +267,6 @@ function getDashboardConfig(data: IndustryCrmPageData): DashboardConfig {
   return configs[variant];
 }
 
-
 export default function CrmHeroSection({ data }: { data: IndustryCrmPageData }) {
   const config = getDashboardConfig(data);
 
@@ -264,21 +278,39 @@ export default function CrmHeroSection({ data }: { data: IndustryCrmPageData }) 
       <IndustryPhotoBackground variant={config.variant} />
 
       <div className="grid min-h-[calc(100svh-5.85rem)] min-w-0 w-full gap-0 lg:grid-cols-[minmax(0,0.39fr)_minmax(0,0.61fr)] lg:items-start">
-        <div className="relative z-10 flex min-w-0 max-w-[620px] flex-col justify-start py-0 pl-5 pr-1 sm:pl-8 lg:min-h-[500px] lg:pl-[4.3vw] lg:pr-0 lg:pt-[3.1rem] xl:pl-[4.6vw] xl:pt-[3.35rem] 2xl:pl-[4.9vw] 2xl:pt-[3.65rem]">
-
+        <CrmReveal
+          variant="fade-up"
+          duration={840}
+          className={crmClass(
+            crmRevealHeading,
+            "relative z-10 flex min-w-0 max-w-[620px] flex-col justify-start py-0 pl-5 pr-1 sm:pl-8 lg:min-h-[500px] lg:pl-[4.3vw] lg:pr-0 lg:pt-[3.1rem] xl:pl-[4.6vw] xl:pt-[3.35rem] 2xl:pl-[4.9vw] 2xl:pt-[3.65rem]",
+          )}
+        >
           <h1 className="mt-0 max-w-[660px] break-words text-[clamp(2.45rem,3.05vw,4rem)] font-extrabold leading-[1.08] tracking-[-0.035em] text-slate-950 dark:text-white">
             <span className="block">{config.heroTitle}</span>
             <span className="mt-1.5 block text-blue-700 dark:text-blue-300">{config.heroLineOne}</span>
             <span className="block text-violet-600 dark:text-violet-300">{config.heroLineTwo}</span>
           </h1>
 
-          <p className="mt-4 max-w-[390px] text-[1rem] font-semibold leading-[1.75] text-slate-900 dark:text-slate-200">
-           <span className="box-decoration-clone rounded-md bg-white/42 px-1.5 py-0.5 shadow-[0_1px_16px_rgba(255,255,255,0.55)] backdrop-blur-[2px] [-webkit-box-decoration-break:clone] dark:bg-slate-950/35">
-             {config.description}
-           </span>
+          <p
+            className={crmClass(
+              crmRevealSoft,
+              crmStagger(1),
+              "mt-4 max-w-[390px] text-[1rem] font-semibold leading-[1.75] text-slate-900 dark:text-slate-200",
+            )}
+          >
+            <span className="box-decoration-clone rounded-md bg-white/42 px-1.5 py-0.5 shadow-[0_1px_16px_rgba(255,255,255,0.55)] backdrop-blur-[2px] [-webkit-box-decoration-break:clone] dark:bg-slate-950/35">
+              {config.description}
+            </span>
           </p>
- 
-          <div className="mt-4 flex w-[453px] max-w-full items-center justify-center gap-2">
+
+          <div
+            className={crmClass(
+              crmRevealSoft,
+              crmStagger(2),
+              "mt-4 flex w-[453px] max-w-full items-center justify-center gap-2",
+            )}
+          >
             <Link
               href="/contact"
               className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-700 px-4 py-2 text-[13px] font-extrabold text-white shadow-[0_12px_28px_rgba(37,99,235,0.22)] transition hover:-translate-y-0.5 hover:bg-blue-800"
@@ -294,7 +326,7 @@ export default function CrmHeroSection({ data }: { data: IndustryCrmPageData }) 
               <CalendarDays className="h-5 w-5" />
             </Link>
           </div>
-        </div>
+        </CrmReveal>
 
         <CrmDashboardPreview config={config} />
       </div>
@@ -304,8 +336,26 @@ export default function CrmHeroSection({ data }: { data: IndustryCrmPageData }) 
 
 function CrmDashboardPreview({ config }: { config: DashboardConfig }) {
   return (
-    <div className="relative z-10 min-w-0 w-full overflow-visible pr-[1.2vw] lg:-ml-[2.5vw] xl:-ml-[3vw]">
-      <div className="relative ml-0 w-full max-w-none">
+    <CrmReveal
+      variant="fade-left"
+      delay={140}
+      duration={900}
+      className={crmClass(
+        crmSlideRight,
+        "relative z-10 min-w-0 w-full overflow-visible px-4 pt-5 sm:px-6 lg:px-0 lg:pt-0 lg:pr-[1.2vw] lg:-ml-[2.5vw] xl:-ml-[3vw]",
+      )}
+    >
+      <div className="relative ml-0 w-full max-w-none lg:hidden">
+        <img
+          src={getMobileDashboardImageUrl(config.variant)}
+          alt={`${config.dashboardLabel} mobile dashboard preview`}
+          className="block h-auto w-full rounded-[1.35rem] border border-white/80 object-contain shadow-[0_20px_60px_rgba(15,23,42,0.10)]"
+          loading="eager"
+          draggable={false}
+        />
+      </div>
+
+      <div className="relative ml-0 hidden w-full max-w-none lg:block">
         <img
           src={getDashboardImageUrl(config.variant)}
           alt={`${config.dashboardLabel} dashboard preview`}
@@ -314,13 +364,19 @@ function CrmDashboardPreview({ config }: { config: DashboardConfig }) {
           draggable={false}
         />
       </div>
-    </div>
+    </CrmReveal>
   );
 }
 
 function getDashboardImageUrl(variant: CrmVariant) {
   const { dashboard } = getHeroAssets(variant);
   return resolvePublicAsset(dashboard, fallbackCrmHeroAsset.dashboard);
+}
+
+function getMobileDashboardImageUrl(variant: CrmVariant) {
+  const assets = getHeroAssets(variant);
+  const mobileDashboard = assets.mobileDashboard ?? assets.dashboard;
+  return resolvePublicAsset(mobileDashboard, assets.dashboard);
 }
 
 function getIndustryPhotoUrl(variant: CrmVariant) {
@@ -332,17 +388,32 @@ function IndustryPhotoBackground({ variant }: { variant: CrmVariant }) {
   const imageUrl = getIndustryPhotoUrl(variant);
 
   return (
-    <div className="pointer-events-none absolute bottom-0 left-0 -z-10 hidden h-[54%] w-[40vw] overflow-visible sm:block">
-      <img
-        src={imageUrl}
-        alt=""
-        aria-hidden="true"
-        className="absolute bottom-0 left-0 h-auto w-[40vw] max-w-none select-none object-contain opacity-100 saturate-[1.05]"
-        draggable={false}
-      />
-      <div className="absolute inset-x-0 top-0 h-[18%] bg-[linear-gradient(180deg,rgba(248,251,255,0.32)_0%,rgba(248,251,255,0.10)_52%,rgba(248,251,255,0)_100%)] dark:bg-[linear-gradient(180deg,rgba(2,6,23,0.32)_0%,rgba(2,6,23,0.10)_52%,rgba(2,6,23,0)_100%)]" />
-      <div className="absolute inset-y-0 right-[-8vw] w-[26vw] bg-[linear-gradient(90deg,rgba(248,251,255,0)_0%,rgba(248,251,255,0.25)_52%,rgba(248,251,255,0.78)_100%)] dark:bg-[linear-gradient(90deg,rgba(2,6,23,0)_0%,rgba(2,6,23,0.25)_52%,rgba(2,6,23,0.78)_100%)]" />
-      <div className="absolute inset-x-0 bottom-0 h-[16%] bg-[linear-gradient(180deg,rgba(248,251,255,0),rgba(248,251,255,0.10)_56%,rgba(248,251,255,0.24))] dark:bg-[linear-gradient(180deg,rgba(2,6,23,0),rgba(2,6,23,0.22)_56%,rgba(2,6,23,0.48))]" />
-    </div>
+    <>
+      <div className="pointer-events-none absolute right-0 top-[5.35rem] z-0 h-[50%] w-[92vw] overflow-hidden rounded-bl-[3.5rem] sm:hidden">
+        <img
+          src={imageUrl}
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 h-full w-full max-w-none select-none object-cover object-right opacity-[0.42] saturate-[1.12] contrast-[1.04]"
+          draggable={false}
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(248,251,255,0.98)_0%,rgba(248,251,255,0.76)_42%,rgba(248,251,255,0.28)_100%)] dark:bg-[linear-gradient(90deg,rgba(2,6,23,0.98)_0%,rgba(2,6,23,0.78)_42%,rgba(2,6,23,0.34)_100%)]" />
+        <div className="absolute inset-x-0 bottom-0 h-[45%] bg-[linear-gradient(180deg,rgba(248,251,255,0)_0%,rgba(248,251,255,0.72)_66%,rgba(248,251,255,1)_100%)] dark:bg-[linear-gradient(180deg,rgba(2,6,23,0)_0%,rgba(2,6,23,0.76)_66%,rgba(2,6,23,1)_100%)]" />
+        <div className="absolute inset-x-0 top-0 h-[24%] bg-[linear-gradient(180deg,rgba(248,251,255,0.78)_0%,rgba(248,251,255,0.28)_72%,rgba(248,251,255,0)_100%)] dark:bg-[linear-gradient(180deg,rgba(2,6,23,0.82)_0%,rgba(2,6,23,0.34)_72%,rgba(2,6,23,0)_100%)]" />
+      </div>
+
+      <div className="pointer-events-none absolute bottom-0 left-0 -z-10 hidden h-[54%] w-[40vw] overflow-visible sm:block">
+        <img
+          src={imageUrl}
+          alt=""
+          aria-hidden="true"
+          className="absolute bottom-0 left-0 h-auto w-[40vw] max-w-none select-none object-contain opacity-100 saturate-[1.05]"
+          draggable={false}
+        />
+        <div className="absolute inset-x-0 top-0 h-[18%] bg-[linear-gradient(180deg,rgba(248,251,255,0.32)_0%,rgba(248,251,255,0.10)_52%,rgba(248,251,255,0)_100%)] dark:bg-[linear-gradient(180deg,rgba(2,6,23,0.32)_0%,rgba(2,6,23,0.10)_52%,rgba(2,6,23,0)_100%)]" />
+        <div className="absolute inset-y-0 right-[-8vw] w-[26vw] bg-[linear-gradient(90deg,rgba(248,251,255,0)_0%,rgba(248,251,255,0.25)_52%,rgba(248,251,255,0.78)_100%)] dark:bg-[linear-gradient(90deg,rgba(2,6,23,0)_0%,rgba(2,6,23,0.25)_52%,rgba(2,6,23,0.78)_100%)]" />
+        <div className="absolute inset-x-0 bottom-0 h-[16%] bg-[linear-gradient(180deg,rgba(248,251,255,0),rgba(248,251,255,0.10)_56%,rgba(248,251,255,0.24))] dark:bg-[linear-gradient(180deg,rgba(2,6,23,0),rgba(2,6,23,0.22)_56%,rgba(2,6,23,0.48))]" />
+      </div>
+    </>
   );
 }

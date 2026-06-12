@@ -326,28 +326,28 @@ class botActivityHandler extends ActivityHandler {
 
     if (service.includes("Web Development")) {
       pricing =
-        "For web development, rough pricing usually starts from ₹10k–₹25k for landing/basic websites, ₹25k–₹50k for standard business websites, and ₹50k+ for advanced websites or portals.";
+        "For web development, rough pricing usually starts from $10k–$25k for landing/basic websites, $25k–$50k for standard business websites, and $50k+ for advanced websites or portals.";
     } else if (service.includes("Mobile App")) {
       pricing =
-        "For mobile apps, rough pricing usually starts from ₹50k–₹1L for a basic MVP and can go ₹1L–₹2L+ depending on screens, backend, payments, notifications, and admin panel.";
+        "For mobile apps, rough pricing usually starts from $50k–$1L for a basic MVP and can go $1L–$2L+ depending on screens, backend, payments, notifications, and admin panel.";
     } else if (service.includes("CRM")) {
       pricing =
-        "For custom CRM systems, rough pricing usually starts from ₹50k–₹1L and can go ₹1L–₹2L+ depending on workflows, dashboards, automation, roles, and integrations.";
+        "For custom CRM systems, rough pricing usually starts from $50k–$1L and can go $1L–$2L+ depending on workflows, dashboards, automation, roles, and integrations.";
     } else if (service.includes("SaaS")) {
       pricing =
-        "For SaaS development, rough pricing usually starts from ₹75k–₹1.5L for MVP and can go ₹2L–₹3L+ for advanced platforms with subscriptions, roles, dashboards, and integrations.";
+        "For SaaS development, rough pricing usually starts from $75k–$1.5L for MVP and can go $2L–$3L+ for advanced platforms with subscriptions, roles, dashboards, and integrations.";
     } else if (service.includes("AI")) {
       pricing =
-        "For AI automation or chatbot systems, rough pricing usually starts from ₹30k–₹75k and can go ₹1L+ depending on integrations, data sources, workflows, and AI complexity.";
+        "For AI automation or chatbot systems, rough pricing usually starts from $30k–$75k and can go $1L+ depending on integrations, data sources, workflows, and AI complexity.";
     } else if (service.includes("UI/UX")) {
       pricing =
-        "For UI/UX design, rough pricing usually starts from ₹10k–₹25k for basic screens and can go ₹50k+ for full product design systems and prototypes.";
+        "For UI/UX design, rough pricing usually starts from $10k–$25k for basic screens and can go $50k+ for full product design systems and prototypes.";
     } else if (service.includes("SEO")) {
       pricing =
-        "For SEO and growth work, rough pricing usually starts from ₹10k–₹25k for basic audits/setup and can go ₹25k–₹50k+ for technical SEO, analytics, and ongoing optimization.";
+        "For SEO and growth work, rough pricing usually starts from $10k–$25k for basic audits/setup and can go $25k–$50k+ for technical SEO, analytics, and ongoing optimization.";
     } else if (service.includes("Cloud") || service.includes("DevOps")) {
       pricing =
-        "For cloud, DevOps, and deployment work, rough pricing usually starts from ₹20k–₹50k for basic setup and can go ₹1L+ for advanced infrastructure, monitoring, scaling, or automation.";
+        "For cloud, DevOps, and deployment work, rough pricing usually starts from $20k–$50k for basic setup and can go $1L+ for advanced infrastructure, monitoring, scaling, or automation.";
     } else {
       pricing =
         "Pricing depends on the exact scope, features, integrations, and timeline.";

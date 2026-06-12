@@ -694,7 +694,7 @@ export const useCases: IconCard[] = [
 export const pricingPlans: PricingPlan[] = [
   {
     name: "Core CRM",
-    price: "₹49,999+",
+    price: "$49,999+",
     label: "Starter build",
     description: "For small teams moving away from manual lead tracking.",
     features: [
@@ -709,7 +709,7 @@ export const pricingPlans: PricingPlan[] = [
   },
   {
     name: "Growth CRM",
-    price: "₹99,999+",
+    price: "$99,999+",
     label: "Most Popular",
     description: "For growing teams that need automation and reporting.",
     featured: true,
@@ -726,7 +726,7 @@ export const pricingPlans: PricingPlan[] = [
   },
   {
     name: "Business AI CRM",
-    price: "₹1,99,999+",
+    price: "$1,99,999+",
     label: "Advanced operations",
     description: "For businesses needing advanced AI, integrations, and dashboards.",
     features: [
@@ -756,18 +756,18 @@ export const pricingPlans: PricingPlan[] = [
 ];
 
 export const addOns = [
-  { title: "WhatsApp Automation", price: "₹14,999+", description: "Auto-send WhatsApp updates on lead changes, payments, and reminders." },
-  { title: "Lead Scoring Engine", price: "₹19,999+", description: "Score leads using source, activity, budget, behavior, and readiness." },
-  { title: "Ticket Escalation System", price: "₹12,999+", description: "Escalate unresolved tickets and notify managers before SLA breaches." },
-  { title: "Payment Workflow", price: "₹9,999+", description: "Create due, overdue, and completed payment reminders and status updates." },
-  { title: "Email Drip Campaigns", price: "₹17,999+", description: "Automated follow-up emails based on lead stage and timing." },
-  { title: "Multi-Pipeline Builder", price: "₹11,999+", description: "Create sales, support, onboarding, and custom operational pipelines." },
+  { title: "WhatsApp Automation", price: "$14,999+", description: "Auto-send WhatsApp updates on lead changes, payments, and reminders." },
+  { title: "Lead Scoring Engine", price: "$19,999+", description: "Score leads using source, activity, budget, behavior, and readiness." },
+  { title: "Ticket Escalation System", price: "$12,999+", description: "Escalate unresolved tickets and notify managers before SLA breaches." },
+  { title: "Payment Workflow", price: "$9,999+", description: "Create due, overdue, and completed payment reminders and status updates." },
+  { title: "Email Drip Campaigns", price: "$17,999+", description: "Automated follow-up emails based on lead stage and timing." },
+  { title: "Multi-Pipeline Builder", price: "$11,999+", description: "Create sales, support, onboarding, and custom operational pipelines." },
 ];
 
 export const amcPlans = [
-  "Basic AMC - ₹9,999/year: bug fixes, minor updates, and email support.",
-  "Standard AMC - ₹24,999/year: Basic AMC plus 2 feature additions and priority support.",
-  "Premium AMC - ₹59,999/year: dedicated developer support, unlimited small changes, and SLA-based support.",
+  "Basic AMC - $9,999/year: bug fixes, minor updates, and email support.",
+  "Standard AMC - $24,999/year: Basic AMC plus 2 feature additions and priority support.",
+  "Premium AMC - $59,999/year: dedicated developer support, unlimited small changes, and SLA-based support.",
 ];
 
 export const blogPosts: BlogPost[] = [

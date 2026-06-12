@@ -7,7 +7,7 @@ export function PortalReveal({
   children,
   className,
   delay = 0,
-  y = 16,
+  y = 18,
 }: {
   children: ReactNode;
   className?: string;
@@ -38,15 +38,10 @@ export function PortalFloat({
 }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 14, scale: 0.98 }}
+      initial={{ opacity: 0, y: 12, scale: 0.98 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      animate={{ y: [0, -5, 0] }}
       viewport={{ once: true, margin: "-80px" }}
-      transition={{
-        opacity: { duration: 0.38, delay },
-        scale: { duration: 0.38, delay },
-        y: { duration: 5.5, repeat: Infinity, ease: "easeInOut", delay },
-      }}
+      transition={{ duration: 0.44, delay, ease: [0.22, 1, 0.36, 1] }}
       className={className}
     >
       {children}
@@ -60,10 +55,37 @@ export function PortalProgressLine({ className }: { className?: string }) {
       initial={{ scaleX: 0 }}
       whileInView={{ scaleX: 1 }}
       viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
       className={className}
       style={{ transformOrigin: "left" }}
       aria-hidden="true"
     />
+  );
+}
+
+export function PortalStaggerGroup({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-80px" }}
+      variants={{
+        hidden: {},
+        visible: {
+          transition: {
+            staggerChildren: 0.04,
+          },
+        },
+      }}
+      className={className}
+    >
+      {children}
+    </motion.div>
   );
 }

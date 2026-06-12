@@ -1,5 +1,5 @@
-import IndustryPortalPage from "@/components/industries/shared/portal-shared/IndustryPortalPage";
+import PortalPage from "@/components/industries/shared/portal-shared/PortalPage";
 
 export default function HealthcarePatientPortalPreview() {
-  return <IndustryPortalPage industrySlug="healthcare" solutionSlug="patient-portal" />;
+  return <PortalPage industrySlug="healthcare" solutionSlug="patient-portal" />;
 }

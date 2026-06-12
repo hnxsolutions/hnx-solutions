@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import IndustryBusinessSuitePage from "@/components/industries/shared/business-suite-shared/IndustryBusinessSuitePage";
 import { getIndustryBusinessSuitePage } from "@/components/industries/shared/business-suite-shared/industryBusinessSuiteData";
-import { getIndustryPortalPage } from "@/components/industries/shared/portal-shared/industryPortalData";
+import { getIndustryPortalPage } from "@/components/industries/shared/portal-shared/portalData";
 import HealthcareFullSuitePreview from "@/components/industries/healthcare/full-suite";
 import {
   getHealthcareSolution,
@@ -161,7 +161,7 @@ export default async function HealthcareSolutionPage({
             ]),
             createServiceJsonLd({
               name: "Healthcare Patient Portal",
-              description: portalPage.portalHero.description,
+              description: portalPage.hero.description,
               path: "/industries/healthcare/portal",
               serviceType: portalPage.serviceType,
             }),

@@ -9,7 +9,7 @@ const plans = [
   {
     name: "Core CRM",
     subtitle: "Perfect for small teams getting started.",
-    price: "₹1,999",
+    price: "$1,999",
     button: "Get Started",
     featured: false,
     features: ["Up to 3 Users", "Lead Management", "Task & Activity Tracking", "Basic Dashboards", "Email Support"],
@@ -17,7 +17,7 @@ const plans = [
   {
     name: "Growth CRM",
     subtitle: "Ideal for growing businesses.",
-    price: "₹4,999",
+    price: "$4,999",
     button: "Start 14-Day Free Trial",
     featured: true,
     features: [
@@ -31,7 +31,7 @@ const plans = [
   {
     name: "AI CRM Suite",
     subtitle: "Advanced CRM for scaling teams.",
-    price: "₹9,999",
+    price: "$9,999",
     button: "Talk to Sales",
     featured: false,
     features: [

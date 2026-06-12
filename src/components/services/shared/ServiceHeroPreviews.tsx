@@ -407,7 +407,7 @@ export function CrmHeroPreview({ accentClass }: PreviewProps) {
               <div className="mb-3 grid grid-cols-4 gap-2">
                 {[
                   ["Leads", "128", "+18%"],
-                  ["Pipeline", "₹48.6L", "+22%"],
+                  ["Pipeline", "$48.6L", "+22%"],
                   ["Won", "26", "+30%"],
                   ["Tasks", "42", "Due"],
                 ].map(([label, value, change]) => (
@@ -469,7 +469,7 @@ export function CrmHeroPreview({ accentClass }: PreviewProps) {
                               </div>
                               <div className="mt-1 flex justify-between text-[8px] font-bold text-slate-400">
                                 <span>{cardIndex + 1}d</span>
-                                <span>₹{cardIndex + 2}.4L</span>
+                                <span>${cardIndex + 2}.4L</span>
                               </div>
                             </div>
                           ))}
@@ -493,7 +493,7 @@ export function CrmHeroPreview({ accentClass }: PreviewProps) {
                         accentClass
                       )}
                     >
-                      ₹48.6L
+                      $48.6L
                     </p>
                     <div className="mt-3 flex h-14 items-end gap-1.5 rounded-xl bg-slate-50 p-2 dark:bg-white/6">
                       {[34, 48, 38, 62, 52, 74, 66].map((height, index) => (
@@ -1230,7 +1230,7 @@ function SaasHeroDashboard({ accentClass }: { accentClass: string }) {
 
               <div className="mb-3 grid grid-cols-4 gap-2">
                 {[
-                  ["MRR", "₹2.8L", "+18%"],
+                  ["MRR", "$2.8L", "+18%"],
                   ["Users", "4.2K", "+24%"],
                   ["Trials", "312", "Active"],
                   ["Churn", "2.1%", "-8%"],
@@ -1252,9 +1252,9 @@ function SaasHeroDashboard({ accentClass }: { accentClass: string }) {
 
                   <div className="grid grid-cols-3 gap-2">
                     {[
-                      ["Starter", "₹999", "42%"],
-                      ["Growth", "₹2,999", "38%"],
-                      ["Scale", "₹7,999", "20%"],
+                      ["Starter", "$999", "42%"],
+                      ["Growth", "$2,999", "38%"],
+                      ["Scale", "$7,999", "20%"],
                     ].map(([plan, price, width]) => (
                       <div key={plan} className="rounded-2xl border border-slate-200 bg-slate-50/90 p-3 dark:border-white/10 dark:bg-white/5">
                         <p className="text-xs font-black text-slate-900 dark:text-white">{plan}</p>

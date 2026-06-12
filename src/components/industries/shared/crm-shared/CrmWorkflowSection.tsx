@@ -14,6 +14,15 @@ import {
   Zap,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import CrmReveal from "./CrmReveal";
+import {
+  crmClass,
+  crmRevealCard,
+  crmRevealHeading,
+  crmRevealScale,
+  crmRevealScaleCard,
+  crmSvgDraw,
+} from "./crmAnimationUtils";
 import type { IndustryCrmPageData } from "./industryCrmData";
 
 const fallbackWorkflowSteps = [
@@ -142,7 +151,7 @@ function WorkflowConnector() {
       />
 
       <path
-        className="crm-workflow-line-draw"
+        className={crmClass("crm-workflow-line-draw", crmSvgDraw)}
         d="
           M 52 142
           H 1048
@@ -400,7 +409,7 @@ function MiniAdmissionCard() {
         <div className="flex items-center justify-between">
           <div>
             <p className="text-[7px] font-bold text-slate-400">Fee Payment</p>
-            <p className="text-[9px] font-black text-slate-900 dark:text-white">₹ 75,000 / ₹ 75,000</p>
+            <p className="text-[9px] font-black text-slate-900 dark:text-white">$ 75,000 / $ 75,000</p>
           </div>
           <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[7px] font-black text-emerald-700 dark:bg-emerald-400/10 dark:text-emerald-200">
             Paid
@@ -528,8 +537,10 @@ function WorkflowMiniCard({
 
   return (
     <article
-      className="crm-workflow-card relative z-10 w-[15.65rem] rounded-[1.2rem] border border-slate-200 bg-white/95 p-3 shadow-[0_14px_38px_rgba(15,23,42,0.05)] backdrop-blur dark:border-white/10 dark:bg-slate-950/75"
-      style={{ animationDelay: `${index === 0 ? 0.12 : 0.95 + index * 0.88}s` }}
+      className={crmClass(
+        "crm-workflow-card relative z-10 w-[15.65rem] rounded-[1.2rem] border border-slate-200 bg-white/95 p-3 shadow-[0_14px_38px_rgba(15,23,42,0.05)] backdrop-blur dark:border-white/10 dark:bg-slate-950/75",
+        crmRevealScaleCard(index),
+      )}
     >
       <div className="mb-2.5 flex items-start gap-2.5">
         <span className="grid h-[34px] w-[34px] shrink-0 place-items-center rounded-full bg-violet-50 text-sm font-black text-blue-600 shadow-inner dark:bg-violet-400/10 dark:text-violet-200">
@@ -560,17 +571,19 @@ function BenefitCard({
   icon: Icon,
   title,
   description,
-  delay,
+  index,
 }: {
   icon: LucideIcon;
   title: string;
   description: string;
-  delay: string;
+  index: number;
 }) {
   return (
     <article
-      className="crm-workflow-benefit group flex min-h-[5.8rem] items-center gap-3.5 rounded-[1.1rem] border border-slate-200 bg-white/90 p-3.5 shadow-[0_12px_34px_rgba(15,23,42,0.035)] transition duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-[0_18px_55px_rgba(37,99,235,0.09)] dark:border-white/10 dark:bg-white/[0.04] dark:hover:border-blue-300/20"
-      style={{ animationDelay: delay }}
+      className={crmClass(
+        "crm-workflow-benefit group flex min-h-[5.8rem] items-center gap-3.5 rounded-[1.1rem] border border-slate-200 bg-white/90 p-3.5 shadow-[0_12px_34px_rgba(15,23,42,0.035)] transition duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-[0_18px_55px_rgba(37,99,235,0.09)] dark:border-white/10 dark:bg-white/[0.04] dark:hover:border-blue-300/20",
+        crmRevealCard(index),
+      )}
     >
       <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-gradient-to-br from-blue-50 to-violet-100 text-blue-600 shadow-[inset_0_0_0_1px_rgba(99,102,241,0.12),0_12px_28px_rgba(79,70,229,0.08)] dark:from-blue-400/10 dark:to-violet-400/10 dark:text-blue-200">
         <Icon className="h-6 w-6" aria-hidden="true" />
@@ -601,110 +614,15 @@ export default function CrmWorkflowSection({ data }: { data: IndustryCrmPageData
 
   return (
     <section id="crm-workflow" className="py-8">
-      <style>{`
-        .crm-workflow-line-draw {
-          stroke-dasharray: 3050;
-          stroke-dashoffset: 3050;
-        }
-
-        .crm-workflow-node {
-          opacity: 0;
-          transform-box: fill-box;
-          transform-origin: center;
-        }
-
-        .crm-workflow-card {
-          opacity: 0;
-          transform: translateY(18px) scale(0.82);
-          transform-origin: center;
-        }
-
-        .crm-workflow-benefit {
-          opacity: 0;
-          transform: translateY(18px);
-        }
-
-        .crm-workflow-animate .crm-workflow-card {
-          animation: crmWorkflowCardZoomReveal 0.68s cubic-bezier(0.18, 0.9, 0.2, 1.15) forwards;
-        }
-
-        .crm-workflow-animate .crm-workflow-line-draw {
-          animation: crmWorkflowLineDraw 5.85s ease-in-out 0.78s forwards;
-        }
-
-        .crm-workflow-animate .crm-workflow-node {
-          animation: crmWorkflowNodePop 0.32s cubic-bezier(0.2, 0.8, 0.2, 1.18) forwards;
-        }
-
-        .crm-workflow-animate .crm-workflow-benefit {
-          animation: crmWorkflowBenefitReveal 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-        }
-
-        @keyframes crmWorkflowLineDraw {
-          to {
-            stroke-dashoffset: 0;
-          }
-        }
-
-        @keyframes crmWorkflowNodePop {
-          0% {
-            opacity: 0;
-            transform: scale(0.25);
-          }
-          70% {
-            opacity: 1;
-            transform: scale(1.18);
-          }
-          100% {
-            opacity: 1;
-            transform: scale(1);
-          }
-        }
-
-        @keyframes crmWorkflowCardZoomReveal {
-          0% {
-            opacity: 0;
-            transform: translateY(18px) scale(0.82);
-          }
-          55% {
-            opacity: 1;
-            transform: translateY(-4px) scale(1.06);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-          }
-        }
-
-        @keyframes crmWorkflowBenefitReveal {
-          0% {
-            opacity: 0;
-            transform: translateY(18px);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .crm-workflow-line-draw,
-          .crm-workflow-node,
-          .crm-workflow-card,
-          .crm-workflow-benefit {
-            animation: none !important;
-            opacity: 1 !important;
-            transform: none !important;
-            stroke-dashoffset: 0 !important;
-          }
-        }
-      `}</style>
-
-      <div className="crm-workflow-animate relative overflow-hidden rounded-[2.25rem] border border-slate-200 bg-[radial-gradient(circle_at_82%_10%,rgba(99,102,241,0.10),transparent_30%),linear-gradient(180deg,#ffffff_0%,#fbfdff_100%)] px-5 py-8 shadow-[0_24px_80px_rgba(15,23,42,0.055)] dark:border-white/10 dark:bg-[radial-gradient(circle_at_82%_10%,rgba(99,102,241,0.16),transparent_32%),linear-gradient(180deg,rgba(15,23,42,0.82)_0%,rgba(2,6,23,0.92)_100%)] sm:px-8 lg:px-9 lg:py-10">
+      <CrmReveal
+        variant="scale-in"
+        duration={860}
+        className={crmClass(crmRevealScale, "relative overflow-hidden rounded-[2.25rem] border border-slate-200 bg-[radial-gradient(circle_at_82%_10%,rgba(99,102,241,0.10),transparent_30%),linear-gradient(180deg,#ffffff_0%,#fbfdff_100%)] px-5 py-8 shadow-[0_24px_80px_rgba(15,23,42,0.055)] dark:border-white/10 dark:bg-[radial-gradient(circle_at_82%_10%,rgba(99,102,241,0.16),transparent_32%),linear-gradient(180deg,rgba(15,23,42,0.82)_0%,rgba(2,6,23,0.92)_100%)] sm:px-8 lg:px-9 lg:py-10")}
+      >
         <div className="pointer-events-none absolute right-16 top-24 hidden h-24 w-24 bg-[radial-gradient(circle,rgba(99,102,241,0.22)_1px,transparent_1px)] [background-size:13px_13px] lg:block" />
 
         <div className="relative z-10">
-          <div className="mx-auto max-w-4xl text-center">
+          <div className={crmClass(crmRevealHeading, "mx-auto max-w-4xl text-center")}>
             <h2 className="text-4xl font-black tracking-[-0.055em] text-slate-950 dark:text-white sm:text-5xl lg:text-[3.35rem] lg:leading-[0.98]">
               A Smarter Journey
               <span className="block bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent">
@@ -744,28 +662,28 @@ export default function CrmWorkflowSection({ data }: { data: IndustryCrmPageData
             icon={Eye}
             title="Unified Visibility"
             description="Track every lead, stage, owner, and stakeholder update from one connected workspace."
-            delay="6.35s"
+            index={0}
           />
           <BenefitCard
             icon={Bell}
             title="Automated Follow-ups"
             description="Reduce manual chasing with reminders, tasks, smart triggers, and timely next actions."
-            delay="6.5s"
+            index={1}
           />
           <BenefitCard
             icon={MessageCircle}
             title="Stronger Communication"
             description="Keep teams, customers, students, and parents informed with clear contextual updates."
-            delay="6.65s"
+            index={2}
           />
           <BenefitCard
             icon={BarChart3}
             title="Decision-ready Insights"
             description="Use real-time performance data to improve conversions, revenue, and team productivity."
-            delay="6.8s"
+            index={3}
           />
         </div>
-      </div>
+      </CrmReveal>
     </section>
   );
 }

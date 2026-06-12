@@ -17,6 +17,14 @@ import {
   Users,
   XCircle,
 } from "lucide-react";
+import CrmReveal from "./CrmReveal";
+import {
+  crmClass,
+  crmRevealCard,
+  crmRevealHeading,
+  crmRevealScale,
+  crmSlideRight,
+} from "./crmAnimationUtils";
 import type { IndustryCrmPageData } from "./industryCrmData";
 
 const fallbackRoles = [
@@ -60,7 +68,7 @@ const rolePresets = [
     permissions: ["Business overview", "Revenue dashboard", "Team performance", "Reports"],
     restricted: [],
     metrics: [
-      { label: "Revenue", value: "₹52.3L", trend: "↑ 18.6%", icon: IndianRupee },
+      { label: "Revenue", value: "$52.3L", trend: "↑ 18.6%", icon: IndianRupee },
       { label: "Active Leads", value: "1,248", trend: "↑ 12.4%", icon: Users },
       { label: "Conversions", value: "320", trend: "↑ 15.3%", icon: Target },
       { label: "Team Score", value: "86%", trend: "↑ 9.2%", icon: TrendingUp },
@@ -78,7 +86,7 @@ const rolePresets = [
       { label: "Team Leads", value: "486", trend: "↑ 14.2%", icon: Users },
       { label: "Follow-ups", value: "128", trend: "↓ 8.4%", icon: CalendarCheck },
       { label: "Won Deals", value: "74", trend: "↑ 11.8%", icon: Target },
-      { label: "Pipeline", value: "₹31.4L", trend: "↑ 16.2%", icon: IndianRupee },
+      { label: "Pipeline", value: "$31.4L", trend: "↑ 16.2%", icon: IndianRupee },
     ],
     chartTitle: "Sales Pipeline Trend",
     journey: ["Assign", "Monitor", "Review", "Close"],
@@ -120,8 +128,8 @@ const rolePresets = [
     permissions: ["Invoices", "Collections", "Payment notes", "Receipts"],
     restricted: ["Lead assignment"],
     metrics: [
-      { label: "Collections", value: "₹48.6L", trend: "↑ 14.6%", icon: IndianRupee },
-      { label: "Due Amount", value: "₹12.7L", trend: "↑ 8.2%", icon: CreditCard },
+      { label: "Collections", value: "$48.6L", trend: "↑ 14.6%", icon: IndianRupee },
+      { label: "Due Amount", value: "$12.7L", trend: "↑ 8.2%", icon: CreditCard },
       { label: "Invoices", value: "248", trend: "↑ 5.3%", icon: FileText },
       { label: "Success", value: "96.4%", trend: "↑ 2.8%", icon: CheckCircle2 },
     ],
@@ -250,9 +258,13 @@ export default function CrmRolesSection({ data }: { data: IndustryCrmPageData })
       <input id="crm-role-tab-3" className="sr-only" type="radio" name="crm-role-tabs" aria-label="Show role tab 4" title="Show role tab 4" />
       <input id="crm-role-tab-4" className="sr-only" type="radio" name="crm-role-tabs" aria-label="Show role tab 5" title="Show role tab 5" />
 
-      <div className="crm-role-console rounded-[2rem] border border-slate-200 bg-white px-5 py-7 shadow-[0_22px_70px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-white/[0.04] sm:px-7 lg:px-8">
+      <CrmReveal
+        variant="scale-in"
+        duration={820}
+        className={crmClass(crmRevealScale, "crm-role-console rounded-[2rem] border border-slate-200 bg-white px-5 py-7 shadow-[0_22px_70px_rgba(15,23,42,0.05)] dark:border-white/10 dark:bg-white/[0.04] sm:px-7 lg:px-8")}
+      >
         <div className="grid gap-7 lg:grid-cols-[0.34fr_0.66fr] lg:items-center">
-          <div>
+          <div className={crmRevealHeading}>
             <span className="inline-flex items-center gap-2 rounded-full bg-violet-50 px-3 py-1.5 text-[11px] font-black uppercase tracking-[0.15em] text-violet-700 dark:bg-violet-400/10 dark:text-violet-200">
               <span className="grid h-7 w-7 place-items-center rounded-full bg-gradient-to-br from-violet-600 to-blue-600 text-white">
                 <Users className="h-3.5 w-3.5" aria-hidden="true" />
@@ -274,13 +286,16 @@ export default function CrmRolesSection({ data }: { data: IndustryCrmPageData })
                 { title: "Admin Control", text: "Centralized setup.", icon: ShieldCheck },
                 { title: "Focused Views", text: "Only what matters.", icon: BarChart3 },
                 { title: "Secure Access", text: "Granular controls.", icon: Lock },
-              ].map((item) => {
+              ].map((item, index) => {
                 const Icon = item.icon;
 
                 return (
                   <article
                     key={item.title}
-                    className="rounded-2xl bg-white p-3 shadow-[0_0_0_1px_rgba(226,232,240,0.95),0_10px_26px_rgba(15,23,42,0.035)] dark:bg-white/[0.05] dark:shadow-[0_0_0_1px_rgba(255,255,255,0.1)]"
+                    className={crmClass(
+                      crmRevealCard(index),
+                      "rounded-2xl bg-white p-3 shadow-[0_0_0_1px_rgba(226,232,240,0.95),0_10px_26px_rgba(15,23,42,0.035)] dark:bg-white/[0.05] dark:shadow-[0_0_0_1px_rgba(255,255,255,0.1)]",
+                    )}
                   >
                     <Icon className="h-5 w-5 text-violet-600 dark:text-violet-300" aria-hidden="true" />
                     <h3 className="mt-3 text-[11px] font-black text-slate-950 dark:text-white">
@@ -303,7 +318,7 @@ export default function CrmRolesSection({ data }: { data: IndustryCrmPageData })
             </div>
           </div>
 
-          <div className="rounded-[1.5rem] border border-slate-200 bg-white p-3.5 shadow-[0_16px_46px_rgba(37,99,235,0.06)] dark:border-white/10 dark:bg-white/[0.045]">
+          <div className={crmClass(crmSlideRight, "rounded-[1.5rem] border border-slate-200 bg-white p-3.5 shadow-[0_16px_46px_rgba(37,99,235,0.06)] dark:border-white/10 dark:bg-white/[0.045]")}>
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div>
                 <h3 className="text-base font-black tracking-[-0.025em] text-slate-950 dark:text-white">
@@ -538,7 +553,7 @@ export default function CrmRolesSection({ data }: { data: IndustryCrmPageData })
             })}
           </div>
         </div>
-      </div>
+      </CrmReveal>
     </section>
   );
 }

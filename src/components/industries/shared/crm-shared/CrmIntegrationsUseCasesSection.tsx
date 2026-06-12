@@ -4,7 +4,6 @@ import {
   Bot,
   ClipboardList,
   CreditCard,
-  FileText,
   Globe2,
   Mail,
   MessageCircle,
@@ -17,6 +16,17 @@ import {
   Workflow,
   Zap,
 } from "lucide-react";
+import CrmReveal from "./CrmReveal";
+import {
+  crmClass,
+  crmRevealCard,
+  crmRevealHeading,
+  crmRevealPop,
+  crmRevealScale,
+  crmRevealScaleCard,
+  crmSlideRight,
+  crmSvgDraw,
+} from "./crmAnimationUtils";
 import type { IndustryCrmPageData } from "./industryCrmData";
 
 const integrationHighlights = [
@@ -148,6 +158,26 @@ const fallbackUseCases = [
   },
 ];
 
+function getUseCaseTone(index: number) {
+  if (index % 5 === 0) {
+    return "bg-emerald-50/60 text-emerald-600 dark:bg-emerald-400/10 dark:text-emerald-300";
+  }
+
+  if (index % 5 === 1) {
+    return "bg-blue-50/60 text-blue-600 dark:bg-blue-400/10 dark:text-blue-300";
+  }
+
+  if (index % 5 === 2) {
+    return "bg-orange-50/60 text-orange-600 dark:bg-orange-400/10 dark:text-orange-300";
+  }
+
+  if (index % 5 === 3) {
+    return "bg-violet-50/60 text-violet-600 dark:bg-violet-400/10 dark:text-violet-300";
+  }
+
+  return "bg-pink-50/60 text-pink-600 dark:bg-pink-400/10 dark:text-pink-300";
+}
+
 export default function CrmIntegrationsUseCasesSection({
   data,
 }: {
@@ -164,10 +194,74 @@ export default function CrmIntegrationsUseCasesSection({
 
   return (
     <section id="crm-integrations-use-cases" className="py-8 sm:py-10">
+      <style>
+        {`
+          @keyframes crmMobileSlideLeft {
+            from {
+              transform: translateX(0);
+            }
+            to {
+              transform: translateX(-50%);
+            }
+          }
+
+          @keyframes crmMobileSlideRight {
+            from {
+              transform: translateX(-50%);
+            }
+            to {
+              transform: translateX(0);
+            }
+          }
+
+          .crm-mobile-slider-mask {
+            -webkit-mask-image: linear-gradient(
+              90deg,
+              transparent,
+              #000 8%,
+              #000 92%,
+              transparent
+            );
+            mask-image: linear-gradient(
+              90deg,
+              transparent,
+              #000 8%,
+              #000 92%,
+              transparent
+            );
+          }
+
+          .crm-mobile-slider-track-left {
+            width: max-content;
+            animation: crmMobileSlideLeft 34s linear infinite;
+          }
+
+          .crm-mobile-slider-track-right {
+            width: max-content;
+            animation: crmMobileSlideRight 38s linear infinite;
+          }
+
+          @media (prefers-reduced-motion: reduce) {
+            .crm-mobile-slider-track-left,
+            .crm-mobile-slider-track-right {
+              animation: none;
+              transform: none;
+            }
+          }
+        `}
+      </style>
+
       <div className="space-y-4">
-        <section className="overflow-hidden rounded-[2rem] bg-[radial-gradient(circle_at_82%_20%,rgba(37,99,235,0.12),transparent_32%),radial-gradient(circle_at_18%_12%,rgba(124,58,237,0.10),transparent_34%),linear-gradient(135deg,#ffffff,#f8fbff)] p-6 shadow-[0_26px_90px_rgba(15,23,42,0.06)] dark:bg-none dark:bg-white/[0.04] sm:p-8 lg:p-10">
-          <div className="grid gap-10 lg:grid-cols-[0.78fr_1fr] lg:items-center">
-            <div>
+        <CrmReveal
+          variant="scale-in"
+          duration={860}
+          className={crmClass(
+            crmRevealScale,
+            "overflow-hidden rounded-[2rem] bg-[radial-gradient(circle_at_82%_20%,rgba(37,99,235,0.12),transparent_32%),radial-gradient(circle_at_18%_12%,rgba(124,58,237,0.10),transparent_34%),linear-gradient(135deg,#ffffff,#f8fbff)] p-6 shadow-[0_26px_90px_rgba(15,23,42,0.06)] dark:bg-none dark:bg-white/[0.04] sm:p-8 lg:p-10",
+          )}
+        >
+          <div className="grid gap-8 lg:grid-cols-[0.78fr_1fr] lg:items-center lg:gap-10">
+            <div className={crmRevealHeading}>
               <p className="text-xs font-black uppercase tracking-[0.24em] text-violet-700 dark:text-violet-300">
                 Integrations
               </p>
@@ -185,12 +279,18 @@ export default function CrmIntegrationsUseCasesSection({
                 that grows with your business.
               </p>
 
-              <div className="mt-9 grid gap-5 sm:grid-cols-2">
-                {integrationHighlights.map((item) => {
+              <div className="mt-8 grid gap-5 sm:mt-9 sm:grid-cols-2">
+                {integrationHighlights.map((item, index) => {
                   const Icon = item.icon;
 
                   return (
-                    <div key={item.title} className="flex items-start gap-4">
+                    <div
+                      key={item.title}
+                      className={crmClass(
+                        crmRevealCard(index),
+                        "flex items-start gap-4",
+                      )}
+                    >
                       <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-white text-violet-600 shadow-sm ring-1 ring-slate-200 dark:bg-white/10 dark:text-violet-200 dark:ring-white/10">
                         <Icon className="h-5 w-5" aria-hidden="true" />
                       </span>
@@ -208,154 +308,220 @@ export default function CrmIntegrationsUseCasesSection({
               </div>
             </div>
 
-            <div className="relative min-h-[37rem] overflow-hidden rounded-[1.8rem] bg-white/70 p-5 shadow-[0_24px_80px_rgba(15,23,42,0.08)] dark:bg-white/[0.04] sm:min-h-[40rem]">
-              <div className="absolute inset-7 rounded-full border border-blue-100/80 dark:border-white/10" />
-              <div className="absolute inset-16 rounded-full border border-violet-100/80 dark:border-white/10" />
-              <div className="absolute inset-[6.5rem] rounded-full border border-slate-100 dark:border-white/10" />
+            <div
+              className={crmClass(
+                crmSlideRight,
+                "relative min-h-[21rem] overflow-hidden rounded-[1.8rem] bg-white/70 p-5 shadow-[0_24px_80px_rgba(15,23,42,0.08)] dark:bg-white/[0.04] sm:min-h-[40rem]",
+              )}
+            >
+              <div className="hidden sm:block">
+                <div className="absolute inset-7 rounded-full border border-blue-100/80 dark:border-white/10" />
+                <div className="absolute inset-16 rounded-full border border-violet-100/80 dark:border-white/10" />
+                <div className="absolute inset-[6.5rem] rounded-full border border-slate-100 dark:border-white/10" />
 
-              <div className="absolute left-1/2 top-1/2 z-20 grid h-28 w-28 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-[1.8rem] bg-gradient-to-br from-blue-600 to-violet-600 text-center text-white shadow-[0_24px_70px_rgba(79,70,229,0.32)] sm:h-32 sm:w-32">
-                <div>
-                  <Bot className="mx-auto h-7 w-7" aria-hidden="true" />
-                  <p className="mt-3 text-lg font-black tracking-[-0.03em]">
-                    HNX
-                  </p>
-                  <p className="text-xs font-black uppercase tracking-[0.24em]">
-                    CRM
-                  </p>
+                <div className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2">
+                  <div
+                    className={crmClass(
+                      crmRevealPop,
+                      "grid h-28 w-28 place-items-center rounded-[1.8rem] bg-gradient-to-br from-blue-600 to-violet-600 text-center text-white shadow-[0_24px_70px_rgba(79,70,229,0.32)] sm:h-32 sm:w-32",
+                    )}
+                  >
+                    <div>
+                      <Bot className="mx-auto h-7 w-7" aria-hidden="true" />
+                      <p className="mt-3 text-lg font-black tracking-[-0.03em]">
+                        HNX
+                      </p>
+                      <p className="text-xs font-black uppercase tracking-[0.24em]">
+                        CRM
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="absolute left-1/2 top-[64%] z-30 hidden -translate-x-1/2 rounded-full bg-white px-4 py-2 text-[11px] font-black text-violet-700 shadow-sm dark:bg-slate-950 dark:text-violet-300 sm:block">
+                  100+ More
+                </div>
+
+                <div
+                  className="absolute inset-0 z-10 hidden sm:block"
+                  aria-hidden="true"
+                >
+                  <svg
+                    className="h-full w-full"
+                    viewBox="0 0 680 620"
+                    fill="none"
+                  >
+                    <path
+                      className={crmSvgDraw}
+                      d="M340 95 C340 175 340 220 340 260"
+                      stroke="#8B5CF6"
+                      strokeWidth="2"
+                      strokeDasharray="8 9"
+                      strokeLinecap="round"
+                    />
+                    <path
+                      className={crmSvgDraw}
+                      d="M500 130 C430 170 392 215 365 265"
+                      stroke="#8B5CF6"
+                      strokeWidth="2"
+                      strokeDasharray="8 9"
+                      strokeLinecap="round"
+                    />
+                    <path
+                      className={crmSvgDraw}
+                      d="M580 270 C500 280 430 292 385 302"
+                      stroke="#8B5CF6"
+                      strokeWidth="2"
+                      strokeDasharray="8 9"
+                      strokeLinecap="round"
+                    />
+                    <path
+                      className={crmSvgDraw}
+                      d="M555 445 C485 405 424 365 380 330"
+                      stroke="#8B5CF6"
+                      strokeWidth="2"
+                      strokeDasharray="8 9"
+                      strokeLinecap="round"
+                    />
+                    <path
+                      className={crmSvgDraw}
+                      d="M455 540 C410 460 375 385 358 345"
+                      stroke="#8B5CF6"
+                      strokeWidth="2"
+                      strokeDasharray="8 9"
+                      strokeLinecap="round"
+                    />
+                    <path
+                      className={crmSvgDraw}
+                      d="M340 545 C340 455 340 388 340 352"
+                      stroke="#8B5CF6"
+                      strokeWidth="2"
+                      strokeDasharray="8 9"
+                      strokeLinecap="round"
+                    />
+                    <path
+                      className={crmSvgDraw}
+                      d="M225 540 C270 460 305 385 322 345"
+                      stroke="#8B5CF6"
+                      strokeWidth="2"
+                      strokeDasharray="8 9"
+                      strokeLinecap="round"
+                    />
+                    <path
+                      className={crmSvgDraw}
+                      d="M125 445 C195 405 256 365 300 330"
+                      stroke="#8B5CF6"
+                      strokeWidth="2"
+                      strokeDasharray="8 9"
+                      strokeLinecap="round"
+                    />
+                    <path
+                      className={crmSvgDraw}
+                      d="M100 270 C180 280 250 292 295 302"
+                      stroke="#8B5CF6"
+                      strokeWidth="2"
+                      strokeDasharray="8 9"
+                      strokeLinecap="round"
+                    />
+                    <path
+                      className={crmSvgDraw}
+                      d="M180 130 C250 170 288 215 315 265"
+                      stroke="#8B5CF6"
+                      strokeWidth="2"
+                      strokeDasharray="8 9"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </div>
+
+                <div className="absolute inset-0 z-30 hidden sm:block">
+                  {integrationTools.map((item, index) => (
+                    <div key={item.title} className={`absolute ${item.position}`}>
+                      <div
+                        className={crmClass(
+                          crmRevealScaleCard(index),
+                          "group w-[6.35rem] rounded-2xl bg-white p-2.5 text-center shadow-[0_16px_40px_rgba(15,23,42,0.08)] transition hover:-translate-y-1 dark:bg-slate-950",
+                        )}
+                      >
+                        <BrandIcon brand={item.brand} />
+                        <p className="mt-2 text-[9.5px] font-black leading-4 text-slate-950 dark:text-white">
+                          {item.title}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
 
-              <div className="absolute left-1/2 top-[64%] z-30 hidden -translate-x-1/2 rounded-full bg-white px-4 py-2 text-[11px] font-black text-violet-700 shadow-sm dark:bg-slate-950 dark:text-violet-300 sm:block">
-                100+ More
-              </div>
-
-              <div className="absolute inset-0 z-10 hidden sm:block" aria-hidden="true">
-                <svg className="h-full w-full" viewBox="0 0 680 620" fill="none">
-                  <path
-                    d="M340 95 C340 175 340 220 340 260"
-                    stroke="#8B5CF6"
-                    strokeWidth="2"
-                    strokeDasharray="8 9"
-                    strokeLinecap="round"
-                  />
-                  <path
-                    d="M500 130 C430 170 392 215 365 265"
-                    stroke="#8B5CF6"
-                    strokeWidth="2"
-                    strokeDasharray="8 9"
-                    strokeLinecap="round"
-                  />
-                  <path
-                    d="M580 270 C500 280 430 292 385 302"
-                    stroke="#8B5CF6"
-                    strokeWidth="2"
-                    strokeDasharray="8 9"
-                    strokeLinecap="round"
-                  />
-                  <path
-                    d="M555 445 C485 405 424 365 380 330"
-                    stroke="#8B5CF6"
-                    strokeWidth="2"
-                    strokeDasharray="8 9"
-                    strokeLinecap="round"
-                  />
-                  <path
-                    d="M455 540 C410 460 375 385 358 345"
-                    stroke="#8B5CF6"
-                    strokeWidth="2"
-                    strokeDasharray="8 9"
-                    strokeLinecap="round"
-                  />
-                  <path
-                    d="M340 545 C340 455 340 388 340 352"
-                    stroke="#8B5CF6"
-                    strokeWidth="2"
-                    strokeDasharray="8 9"
-                    strokeLinecap="round"
-                  />
-                  <path
-                    d="M225 540 C270 460 305 385 322 345"
-                    stroke="#8B5CF6"
-                    strokeWidth="2"
-                    strokeDasharray="8 9"
-                    strokeLinecap="round"
-                  />
-                  <path
-                    d="M125 445 C195 405 256 365 300 330"
-                    stroke="#8B5CF6"
-                    strokeWidth="2"
-                    strokeDasharray="8 9"
-                    strokeLinecap="round"
-                  />
-                  <path
-                    d="M100 270 C180 280 250 292 295 302"
-                    stroke="#8B5CF6"
-                    strokeWidth="2"
-                    strokeDasharray="8 9"
-                    strokeLinecap="round"
-                  />
-                  <path
-                    d="M180 130 C250 170 288 215 315 265"
-                    stroke="#8B5CF6"
-                    strokeWidth="2"
-                    strokeDasharray="8 9"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </div>
-
-              <div className="absolute inset-0 z-30 hidden sm:block">
-                {integrationTools.map((item) => (
-                  <div key={item.title} className={`absolute ${item.position}`}>
-                    <div className="group w-[6.35rem] rounded-2xl bg-white p-2.5 text-center shadow-[0_16px_40px_rgba(15,23,42,0.08)] transition hover:-translate-y-1 dark:bg-slate-950">
-                      <BrandIcon brand={item.brand} />
-                      <p className="mt-2 text-[9.5px] font-black leading-4 text-slate-950 dark:text-white">
-                        {item.title}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="relative z-30 grid gap-3 sm:hidden">
-                {integrationTools.map((item) => (
-                  <div
-                    key={item.title}
-                    className="flex items-center gap-3 rounded-2xl bg-white p-3 shadow-sm dark:bg-slate-950"
-                  >
-                    <BrandIcon brand={item.brand} compact />
-                    <div>
-                      <p className="text-sm font-black text-slate-950 dark:text-white">
-                        {item.title}
-                      </p>
-                      <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">
-                        Connected
-                      </p>
-                    </div>
-                  </div>
-                ))}
-
-                <div className="flex items-center gap-3 rounded-2xl bg-white p-3 shadow-sm dark:bg-slate-950">
-                  <span className="grid h-10 w-10 place-items-center rounded-xl bg-slate-50 text-blue-600 ring-1 ring-slate-200 dark:bg-white/10 dark:text-blue-300 dark:ring-white/10">
-                    <Globe2 className="h-5 w-5" aria-hidden="true" />
-                  </span>
+              <div className="relative z-30 sm:hidden">
+                <div className="mx-auto grid h-24 w-24 place-items-center rounded-[1.5rem] bg-gradient-to-br from-blue-600 to-violet-600 text-center text-white shadow-[0_20px_55px_rgba(79,70,229,0.25)]">
                   <div>
-                    <p className="text-sm font-black text-slate-950 dark:text-white">
-                      100+ More
+                    <Bot className="mx-auto h-6 w-6" aria-hidden="true" />
+                    <p className="mt-2 text-base font-black tracking-[-0.03em]">
+                      HNX
                     </p>
-                    <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">
-                      Connected
+                    <p className="text-[10px] font-black uppercase tracking-[0.22em]">
+                      CRM
                     </p>
+                  </div>
+                </div>
+
+                <div className="crm-mobile-slider-mask -mx-5 mt-6 overflow-hidden">
+                  <div className="crm-mobile-slider-track-left flex gap-3 px-5">
+                    {[...integrationTools, ...integrationTools].map(
+                      (item, index) => (
+                        <div
+                          key={`${item.title}-${index}`}
+                          className="flex w-[9.5rem] shrink-0 items-center gap-3 rounded-2xl bg-white p-3 shadow-[0_12px_32px_rgba(15,23,42,0.08)] dark:bg-slate-950"
+                        >
+                          <BrandIcon brand={item.brand} compact />
+                          <div>
+                            <p className="text-sm font-black text-slate-950 dark:text-white">
+                              {item.title}
+                            </p>
+                            <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">
+                              Connected
+                            </p>
+                          </div>
+                        </div>
+                      ),
+                    )}
+
+                    {[0, 1].map((item) => (
+                      <div
+                        key={`more-${item}`}
+                        className="flex w-[9.5rem] shrink-0 items-center gap-3 rounded-2xl bg-white p-3 shadow-[0_12px_32px_rgba(15,23,42,0.08)] dark:bg-slate-950"
+                      >
+                        <span className="grid h-10 w-10 place-items-center rounded-xl bg-slate-50 text-blue-600 ring-1 ring-slate-200 dark:bg-white/10 dark:text-blue-300 dark:ring-white/10">
+                          <Globe2 className="h-5 w-5" aria-hidden="true" />
+                        </span>
+                        <div>
+                          <p className="text-sm font-black text-slate-950 dark:text-white">
+                            100+ More
+                          </p>
+                          <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">
+                            Connected
+                          </p>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </section>
+        </CrmReveal>
 
-        <section className="overflow-hidden rounded-[2rem] bg-[radial-gradient(circle_at_8%_92%,rgba(124,58,237,0.10),transparent_32%),linear-gradient(135deg,#ffffff,#f7f8ff)] p-6 shadow-[0_26px_90px_rgba(15,23,42,0.06)] dark:bg-none dark:bg-white/[0.04] sm:p-7 lg:p-9">
+        <CrmReveal
+          variant="scale-in"
+          duration={820}
+          className={crmClass(
+            crmRevealScale,
+            "overflow-hidden rounded-[2rem] bg-[radial-gradient(circle_at_8%_92%,rgba(124,58,237,0.10),transparent_32%),linear-gradient(135deg,#ffffff,#f7f8ff)] p-6 shadow-[0_26px_90px_rgba(15,23,42,0.06)] dark:bg-none dark:bg-white/[0.04] sm:p-7 lg:p-9",
+          )}
+        >
           <div className="grid gap-8 lg:grid-cols-[0.32fr_1fr] lg:items-start">
-            <div className="lg:sticky lg:top-28">
+            <div className={crmClass(crmRevealHeading, "lg:sticky lg:top-28")}>
               <p className="text-xs font-black uppercase tracking-[0.14em] text-violet-700 dark:text-violet-300">
                 Use Cases
               </p>
@@ -381,24 +547,58 @@ export default function CrmIntegrationsUseCasesSection({
               </a>
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
+            <div className="sm:hidden">
+              <div className="crm-mobile-slider-mask -mx-6 overflow-hidden py-1">
+                <div className="crm-mobile-slider-track-right flex gap-3 px-6">
+                  {[...useCases, ...useCases].map((item, index) => {
+                    const Icon = item.icon;
+                    const tone = getUseCaseTone(index);
+
+                    return (
+                      <article
+                        key={`${item.title}-${index}`}
+                        className="group w-[13.5rem] shrink-0 rounded-[1.5rem] bg-white/95 p-5 shadow-[0_14px_42px_rgba(15,23,42,0.07)] dark:bg-white/[0.05]"
+                      >
+                        <span
+                          className={`mx-auto grid h-14 w-14 place-items-center rounded-[1.2rem] ${tone}`}
+                        >
+                          <Icon className="h-5 w-5" aria-hidden="true" />
+                        </span>
+
+                        <h3 className="mt-4 text-center text-base font-black leading-6 text-slate-950 dark:text-white">
+                          {item.title}
+                        </h3>
+
+                        <p className="mt-2 line-clamp-3 text-center text-sm font-semibold leading-6 text-slate-500 dark:text-slate-300">
+                          {item.description}
+                        </p>
+
+                        <div className="mt-5 flex items-center justify-center gap-2 text-sm font-black text-blue-700 dark:text-blue-300">
+                          Learn more
+                          <ArrowRight
+                            className="h-3.5 w-3.5"
+                            aria-hidden="true"
+                          />
+                        </div>
+                      </article>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+
+            <div className="hidden gap-4 sm:grid sm:grid-cols-2 xl:grid-cols-5">
               {useCases.map((item, index) => {
                 const Icon = item.icon;
-                const tone =
-                  index % 5 === 0
-                    ? "bg-emerald-50/60 text-emerald-600 dark:bg-emerald-400/10 dark:text-emerald-300"
-                    : index % 5 === 1
-                      ? "bg-blue-50/60 text-blue-600 dark:bg-blue-400/10 dark:text-blue-300"
-                      : index % 5 === 2
-                        ? "bg-orange-50/60 text-orange-600 dark:bg-orange-400/10 dark:text-orange-300"
-                        : index % 5 === 3
-                          ? "bg-violet-50/60 text-violet-600 dark:bg-violet-400/10 dark:text-violet-300"
-                          : "bg-pink-50/60 text-pink-600 dark:bg-pink-400/10 dark:text-pink-300";
+                const tone = getUseCaseTone(index);
 
                 return (
                   <article
                     key={`${item.title}-${index}`}
-                    className="group rounded-[1.5rem] bg-white/95 p-5 shadow-[0_14px_42px_rgba(15,23,42,0.07)] transition hover:-translate-y-1 hover:shadow-[0_20px_52px_rgba(15,23,42,0.1)] dark:bg-white/[0.05]"
+                    className={crmClass(
+                      crmRevealCard(index),
+                      "group rounded-[1.5rem] bg-white/95 p-5 shadow-[0_14px_42px_rgba(15,23,42,0.07)] transition hover:-translate-y-1 hover:shadow-[0_20px_52px_rgba(15,23,42,0.1)] dark:bg-white/[0.05]",
+                    )}
                   >
                     <span
                       className={`mx-auto grid h-14 w-14 place-items-center rounded-[1.2rem] ${tone}`}
@@ -426,7 +626,7 @@ export default function CrmIntegrationsUseCasesSection({
               })}
             </div>
           </div>
-        </section>
+        </CrmReveal>
       </div>
     </section>
   );
@@ -443,7 +643,9 @@ function BrandIcon({
 
   if (brand === "whatsapp") {
     return (
-      <span className={`mx-auto grid ${size} place-items-center bg-[#25D366] text-white`}>
+      <span
+        className={`mx-auto grid ${size} place-items-center bg-[#25D366] text-white`}
+      >
         <MessageCircle className="h-5 w-5" aria-hidden="true" />
       </span>
     );
@@ -451,10 +653,18 @@ function BrandIcon({
 
   if (brand === "gmail") {
     return (
-      <span className={`mx-auto grid ${size} place-items-center bg-white ring-1 ring-slate-200`}>
+      <span
+        className={`mx-auto grid ${size} place-items-center bg-white ring-1 ring-slate-200`}
+      >
         <svg className="h-6 w-6" viewBox="0 0 48 48" aria-hidden="true">
-          <path fill="#EA4335" d="M24 27.5 6 14.2V38h7V24.8l11 8.2 11-8.2V38h7V14.2L24 27.5Z" />
-          <path fill="#FBBC04" d="M6 14.2 24 27.5l18-13.3V10c0-2.2-2.5-3.5-4.3-2.2L24 18 10.3 7.8C8.5 6.5 6 7.8 6 10v4.2Z" />
+          <path
+            fill="#EA4335"
+            d="M24 27.5 6 14.2V38h7V24.8l11 8.2 11-8.2V38h7V14.2L24 27.5Z"
+          />
+          <path
+            fill="#FBBC04"
+            d="M6 14.2 24 27.5l18-13.3V10c0-2.2-2.5-3.5-4.3-2.2L24 18 10.3 7.8C8.5 6.5 6 7.8 6 10v4.2Z"
+          />
           <path fill="#34A853" d="M6 14.2V38h7V24.8L6 14.2Z" />
           <path fill="#4285F4" d="M35 24.8V38h7V14.2l-7 10.6Z" />
         </svg>
@@ -464,9 +674,14 @@ function BrandIcon({
 
   if (brand === "calendar") {
     return (
-      <span className={`mx-auto grid ${size} place-items-center bg-white ring-1 ring-slate-200`}>
+      <span
+        className={`mx-auto grid ${size} place-items-center bg-white ring-1 ring-slate-200`}
+      >
         <svg className="h-6 w-6" viewBox="0 0 48 48" aria-hidden="true">
-          <path fill="#4285F4" d="M10 8h28a4 4 0 0 1 4 4v26a4 4 0 0 1-4 4H10a4 4 0 0 1-4-4V12a4 4 0 0 1 4-4Z" />
+          <path
+            fill="#4285F4"
+            d="M10 8h28a4 4 0 0 1 4 4v26a4 4 0 0 1-4 4H10a4 4 0 0 1-4-4V12a4 4 0 0 1 4-4Z"
+          />
           <path fill="#fff" d="M10 18h28v20H10V18Z" />
           <path fill="#34A853" d="M10 8h28v10H10V8Z" />
           <path fill="#FBBC04" d="M6 18h4V8a4 4 0 0 0-4 4v6Z" />
@@ -481,7 +696,9 @@ function BrandIcon({
 
   if (brand === "outlook") {
     return (
-      <span className={`mx-auto grid ${size} place-items-center bg-white ring-1 ring-slate-200`}>
+      <span
+        className={`mx-auto grid ${size} place-items-center bg-white ring-1 ring-slate-200`}
+      >
         <svg className="h-6 w-6" viewBox="0 0 48 48" aria-hidden="true">
           <path fill="#0078D4" d="M20 10h20v28H20z" />
           <path fill="#50A6F1" d="M20 22h18v6H20z" />
@@ -496,7 +713,9 @@ function BrandIcon({
 
   if (brand === "slack") {
     return (
-      <span className={`mx-auto grid ${size} place-items-center bg-white ring-1 ring-slate-200`}>
+      <span
+        className={`mx-auto grid ${size} place-items-center bg-white ring-1 ring-slate-200`}
+      >
         <svg className="h-6 w-6" viewBox="0 0 48 48" aria-hidden="true">
           <rect x="20" y="5" width="7" height="18" rx="3.5" fill="#36C5F0" />
           <rect x="20" y="25" width="7" height="18" rx="3.5" fill="#2EB67D" />
@@ -509,7 +728,9 @@ function BrandIcon({
 
   if (brand === "razorpay") {
     return (
-      <span className={`mx-auto grid ${size} place-items-center bg-white ring-1 ring-slate-200`}>
+      <span
+        className={`mx-auto grid ${size} place-items-center bg-white ring-1 ring-slate-200`}
+      >
         <span className="text-base font-black italic text-[#0B72E7]">R</span>
       </span>
     );
@@ -517,7 +738,9 @@ function BrandIcon({
 
   if (brand === "stripe") {
     return (
-      <span className={`mx-auto grid ${size} place-items-center bg-[#635BFF] text-white`}>
+      <span
+        className={`mx-auto grid ${size} place-items-center bg-[#635BFF] text-white`}
+      >
         <span className="text-base font-black">S</span>
       </span>
     );
@@ -525,11 +748,16 @@ function BrandIcon({
 
   if (brand === "sheets") {
     return (
-      <span className={`mx-auto grid ${size} place-items-center bg-white ring-1 ring-slate-200`}>
+      <span
+        className={`mx-auto grid ${size} place-items-center bg-white ring-1 ring-slate-200`}
+      >
         <svg className="h-6 w-6" viewBox="0 0 48 48" aria-hidden="true">
           <path fill="#0F9D58" d="M12 4h17l9 9v31H12z" />
           <path fill="#87CEAC" d="M29 4v9h9z" />
-          <path fill="white" d="M17 20h18v16H17V20Zm3 3v3h5v-3h-5Zm8 0v3h4v-3h-4Zm-8 6v4h5v-4h-5Zm8 0v4h4v-4h-4Z" />
+          <path
+            fill="white"
+            d="M17 20h18v16H17V20Zm3 3v3h5v-3h-5Zm8 0v3h4v-3h-4Zm-8 6v4h5v-4h-5Zm8 0v4h4v-4h-4Z"
+          />
         </svg>
       </span>
     );
@@ -537,7 +765,9 @@ function BrandIcon({
 
   if (brand === "zapier") {
     return (
-      <span className={`mx-auto grid ${size} place-items-center bg-[#FF4A00] text-white`}>
+      <span
+        className={`mx-auto grid ${size} place-items-center bg-[#FF4A00] text-white`}
+      >
         <Zap className="h-5 w-5" aria-hidden="true" />
       </span>
     );
@@ -545,7 +775,9 @@ function BrandIcon({
 
   if (brand === "hubspot") {
     return (
-      <span className={`mx-auto grid ${size} place-items-center bg-[#FF5C35] text-white`}>
+      <span
+        className={`mx-auto grid ${size} place-items-center bg-[#FF5C35] text-white`}
+      >
         <Workflow className="h-5 w-5" aria-hidden="true" />
       </span>
     );
@@ -553,14 +785,18 @@ function BrandIcon({
 
   if (brand === "mailchimp") {
     return (
-      <span className={`mx-auto grid ${size} place-items-center bg-[#FFE01B] text-slate-950`}>
+      <span
+        className={`mx-auto grid ${size} place-items-center bg-[#FFE01B] text-slate-950`}
+      >
         <Mail className="h-5 w-5" aria-hidden="true" />
       </span>
     );
   }
 
   return (
-    <span className={`mx-auto grid ${size} place-items-center bg-slate-50 text-blue-600 ring-1 ring-slate-200 dark:bg-white/10 dark:text-blue-300 dark:ring-white/10`}>
+    <span
+      className={`mx-auto grid ${size} place-items-center bg-slate-50 text-blue-600 ring-1 ring-slate-200 dark:bg-white/10 dark:text-blue-300 dark:ring-white/10`}
+    >
       <Globe2 className="h-5 w-5" aria-hidden="true" />
     </span>
   );

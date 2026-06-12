@@ -1,5 +1,12 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import CrmReveal from "./CrmReveal";
+import {
+  crmClass,
+  crmRevealHeading,
+  crmRevealScale,
+  crmSlideRight,
+} from "./crmAnimationUtils";
 import type { IndustryCrmPageData } from "./industryCrmData";
 
 export default function CrmDemoRedirectSection({
@@ -9,9 +16,13 @@ export default function CrmDemoRedirectSection({
 }) {
   return (
     <section id="crm-demo-preview" className="py-8 sm:py-10">
-      <div className="rounded-[2rem] bg-slate-950 px-6 py-8 shadow-[0_28px_90px_rgba(15,23,42,0.18)] sm:px-8 lg:px-10">
+      <CrmReveal
+        variant="fade-up"
+        duration={820}
+        className={crmClass(crmRevealScale, "rounded-[2rem] bg-slate-950 px-6 py-8 shadow-[0_28px_90px_rgba(15,23,42,0.18)] sm:px-8 lg:px-10")}
+      >
         <div className="flex flex-col gap-7 lg:flex-row lg:items-center lg:justify-between">
-          <div className="max-w-3xl">
+          <div className={crmClass(crmRevealHeading, "max-w-3xl")}>
             <p className="text-xs font-black uppercase tracking-[0.24em] text-sky-300">
               Custom CRM Demo
             </p>
@@ -33,7 +44,7 @@ export default function CrmDemoRedirectSection({
             </div>
           </div>
 
-          <div className="flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
+          <div className={crmClass(crmSlideRight, "flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row")}>
             <Link
               href="/crm-demo"
               className="inline-flex items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-blue-600 to-violet-600 px-7 py-4 text-sm font-black text-white shadow-[0_18px_42px_rgba(37,99,235,0.32)] transition hover:-translate-y-0.5 hover:shadow-[0_22px_54px_rgba(37,99,235,0.4)]"
@@ -51,7 +62,7 @@ export default function CrmDemoRedirectSection({
             </Link>
           </div>
         </div>
-      </div>
+      </CrmReveal>
     </section>
   );
 }

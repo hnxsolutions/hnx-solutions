@@ -15,11 +15,11 @@ import {
   getIndustryMobileAppPage,
   industryMobileAppStaticParams,
 } from "@/components/industries/shared/mobile-app-shared/industryMobileAppData";
-import IndustryPortalPage from "@/components/industries/shared/portal-shared/IndustryPortalPage";
+import PortalPage from "@/components/industries/shared/portal-shared/PortalPage";
 import {
   getIndustryPortalPage,
   industryPortalStaticParams,
-} from "@/components/industries/shared/portal-shared/industryPortalData";
+} from "@/components/industries/shared/portal-shared/portalData";
 import IndustryWebsitePage from "@/components/industries/shared/website-shared/IndustryWebsitePage";
 import {
   getIndustryWebsitePage,
@@ -97,7 +97,6 @@ export async function generateMetadata({
         title: `${portalPage.industryName} Portal Development Services | HNX Solutions`,
         description: `Build a secure ${portalPage.industryName.toLowerCase()} portal for role-based access, requests, documents, approvals, status tracking and admin visibility.`,
         path: portalPage.primaryRoute,
-        image: portalPage.heroImage,
         keywords: portalPage.keywords,
       });
     }
@@ -203,13 +202,13 @@ export default async function IndustrySolutionRoutePage({
               ]),
               createServiceJsonLd({
                 name: `${portalPage.eyebrow} Development`,
-                description: portalPage.description,
+                description: portalPage.hero.description,
                 path: portalPage.primaryRoute,
                 serviceType: portalPage.serviceType,
               }),
             ]}
           />
-          <IndustryPortalPage industrySlug={slug} solutionSlug={solutionSlug} />
+          <PortalPage industrySlug={slug} solutionSlug={solutionSlug} />
         </>
       );
     }

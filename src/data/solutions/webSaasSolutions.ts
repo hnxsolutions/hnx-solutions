@@ -331,7 +331,7 @@ const webSaasSolutionsBase: SolutionPageData[] = [
         stat("Open Requests", "18", "Assigned to team"),
         stat("Client Logins", "82%", "Monthly active"),
         stat("Pending Files", "7", "Awaiting upload"),
-        stat("Payments", "₹4.8L", "Visible account value"),
+        stat("Payments", "$4.8L", "Visible account value"),
       ],
       rows: [
         "Client uploaded signed agreement",
@@ -585,7 +585,7 @@ const webSaasSolutionsBase: SolutionPageData[] = [
       metrics: [
         stat("Bookings", "312", "This month"),
         stat("Paid", "86%", "Completed payments"),
-        stat("Revenue", "₹8.6L", "Tracked payments"),
+        stat("Revenue", "$8.6L", "Tracked payments"),
         stat("Reminders", "1,240", "Auto-sent"),
       ],
       rows: [
