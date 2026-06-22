@@ -1,5 +1,7 @@
 
 
+/* eslint-disable @typescript-eslint/no-require-imports */
+
 // const { ActivityHandler } = require("botbuilder");
 
 // class botActivityHandler extends ActivityHandler {

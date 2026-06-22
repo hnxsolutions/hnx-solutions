@@ -39,3 +39,21 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Codex / browser automation temp files
+.codex-temp/
+.codex-*/
+chrome-profile/
+**/chrome-profile/
+playwright-report/
+test-results/
+
+
+# Codex / browser automation temp files
+.codex-temp/
+.codex-*/
+chrome-profile/
+**/chrome-profile/
+playwright-report/
+test-results/
+

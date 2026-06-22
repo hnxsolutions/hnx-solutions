@@ -51,6 +51,7 @@ type CrmHeroAsset = {
 
 const fallbackCrmHeroAsset: CrmHeroAsset = {
   background: "/images/industries/crm/education-campus-preview.png",
+  mobileBackground: "/images/industries/crm/education-mobile-preview.png",
   dashboard: "/images/industries/crm/education-crm-dashboard-preview.png",
 };
 
@@ -58,34 +59,42 @@ const crmHeroAssets = {
   education: fallbackCrmHeroAsset,
   healthcare: {
     background: "/images/industries/crm/healthcare-preview.png",
+    mobileBackground: "/images/industries/crm/healthcare-mobile-preview.png",
     dashboard: "/images/industries/crm/healthcare-crm-dashboard-preview.png",
   },
   "real-estate": {
     background: "/images/industries/crm/real-estate-preview.png",
+    mobileBackground: "/images/industries/crm/real-estate-mobile-preview.png",
     dashboard: "/images/industries/crm/real-estate-crm-dashboard-preview.png",
   },
   manufacturing: {
     background: "/images/industries/crm/manufacturing-preview.png",
+    mobileBackground: "/images/industries/crm/manufacturing-mobile-preview.png",
     dashboard: "/images/industries/crm/manufacturing-crm-dashboard-preview.png",
   },
   retail: {
     background: "/images/industries/crm/retail-preview.png",
-    dashboard: "/images/industries/crm/retail-crm-dashboard-preview.png",
+    mobileBackground: "/images/industries/crm/retail-mobile-preview.png",
+    dashboard: "/images/industries/crm/Retail-crm-dashboard-preview.png",
   },
   finance: {
     background: "/images/industries/crm/finance-preview.png",
+    mobileBackground: "/images/industries/crm/finance-mobile-preview.png",
     dashboard: "/images/industries/crm/finance-crm-dashboard-preview.png",
   },
   insurance: {
     background: "/images/industries/crm/insurance-preview.png",
+    mobileBackground: "/images/industries/crm/insurance-mobile-preview.png",
     dashboard: "/images/industries/crm/insurance-crm-dashboard-preview.png",
   },
   automobile: {
     background: "/images/industries/crm/automobile-preview.png",
+    mobileBackground: "/images/industries/crm/automobile-mobile-preview.png",
     dashboard: "/images/industries/crm/automobile-crm-dashboard-preview.png",
   },
   "service-business": {
     background: "/images/industries/crm/service-preview.png",
+    mobileBackground: "/images/industries/crm/service-business-mobile-preview.png",
     dashboard: "/images/industries/crm/service-crm-dashboard-preview.png",
   },
   travel: {
@@ -514,7 +523,7 @@ function CrmDashboardPreview({ config }: { config: DashboardConfig }) {
       duration={900}
       className={crmClass(
         crmSlideRight,
-        "relative z-[2] min-w-0 w-full overflow-visible px-4 pt-[6.2rem] sm:px-8 lg:z-10 lg:px-0 lg:pt-0 lg:pr-[1.2vw] lg:-ml-[2.5vw] xl:-ml-[3vw]",
+        "relative z-[2] min-w-0 w-full overflow-visible px-4 pt-[5.75rem] sm:px-8 lg:z-10 lg:px-0 lg:pt-0 lg:pr-[1.2vw] lg:-ml-[2.5vw] xl:-ml-[3vw]",
       )}
     >
       <div className="relative mx-auto w-full max-w-[900px] overflow-hidden rounded-[1.65rem] border border-white/80 bg-white/94 p-1.5 shadow-[0_24px_80px_rgba(15,23,42,0.14)] backdrop-blur-md lg:hidden">
@@ -615,27 +624,63 @@ function getMobileIndustryPhotoUrl(variant: CrmVariant) {
   return assets.mobileBackground ?? assets.background;
 }
 
+function getMobileBackgroundPositionClass(variant: CrmVariant) {
+  switch (variant) {
+    case "healthcare":
+      return "object-[42%_center]";
+    case "manufacturing":
+      return "object-[52%_center]";
+    case "automobile":
+      return "object-[58%_center]";
+    case "service-business":
+      return "object-[44%_center]";
+    case "travel":
+      return "object-[48%_center]";
+    default:
+      return "object-[50%_center]";
+  }
+}
+
+function getMobileBackgroundTopClass(variant: CrmVariant) {
+  switch (variant) {
+    case "real-estate":
+      return "top-[-145px]";
+    case "manufacturing":
+      return "top-[-120px]";
+    case "automobile":
+      return "top-[-110px]";
+    case "service-business":
+      return "top-[-105px]";
+    default:
+      return "top-[-95px]";
+  }
+}
+
 function IndustryPhotoBackground({ variant }: { variant: CrmVariant }) {
   const desktopImageUrl = getIndustryPhotoUrl(variant);
   const mobileImageUrl = getMobileIndustryPhotoUrl(variant);
 
   return (
     <>
-      <div className="pointer-events-none absolute inset-x-0 top-[5.35rem] z-[1] block h-[850px] overflow-hidden sm:hidden">
+      <div className="pointer-events-none absolute inset-x-0 top-[5.35rem] z-[1] block h-[1080px] overflow-hidden sm:hidden">
         <img
           src={mobileImageUrl}
           alt=""
           aria-hidden="true"
-          className="absolute inset-x-0 top-[-55px] h-[820px] w-full max-w-none select-none object-cover object-center opacity-100 saturate-[1.18] contrast-[1.08]"
+          className={crmClass(
+            "absolute inset-x-0 h-[980px] w-full max-w-none select-none object-cover opacity-100 saturate-[1.18] contrast-[1.08]",
+            getMobileBackgroundTopClass(variant),
+            getMobileBackgroundPositionClass(variant),
+          )}
           loading="eager"
           draggable={false}
         />
 
-        <div className="absolute inset-x-0 top-0 h-[230px] bg-[linear-gradient(180deg,rgba(248,251,255,0.52)_0%,rgba(248,251,255,0.34)_55%,rgba(248,251,255,0)_100%)] dark:bg-[linear-gradient(180deg,rgba(2,6,23,0.76)_0%,rgba(2,6,23,0.48)_55%,rgba(2,6,23,0)_100%)]" />
+        <div className="absolute inset-x-0 top-0 h-[220px] bg-[linear-gradient(180deg,rgba(248,251,255,0.42)_0%,rgba(248,251,255,0.22)_55%,rgba(248,251,255,0)_100%)] dark:bg-[linear-gradient(180deg,rgba(2,6,23,0.76)_0%,rgba(2,6,23,0.48)_55%,rgba(2,6,23,0)_100%)]" />
 
-        <div className="absolute inset-x-0 top-[110px] h-[430px] bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.70)_0%,rgba(255,255,255,0.48)_42%,rgba(255,255,255,0.08)_75%,rgba(255,255,255,0)_100%)] dark:bg-[radial-gradient(circle_at_center,rgba(2,6,23,0.64)_0%,rgba(2,6,23,0.42)_42%,rgba(2,6,23,0.14)_75%,rgba(2,6,23,0)_100%)]" />
+        <div className="absolute inset-x-0 top-[115px] h-[430px] bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.64)_0%,rgba(255,255,255,0.42)_42%,rgba(255,255,255,0.06)_75%,rgba(255,255,255,0)_100%)] dark:bg-[radial-gradient(circle_at_center,rgba(2,6,23,0.64)_0%,rgba(2,6,23,0.42)_42%,rgba(2,6,23,0.14)_75%,rgba(2,6,23,0)_100%)]" />
 
-        <div className="absolute inset-x-0 bottom-0 h-[210px] bg-[linear-gradient(180deg,rgba(248,251,255,0)_0%,rgba(248,251,255,0.48)_62%,rgba(248,251,255,1)_100%)] dark:bg-[linear-gradient(180deg,rgba(2,6,23,0)_0%,rgba(2,6,23,0.72)_62%,rgba(2,6,23,1)_100%)]" />
+        <div className="absolute inset-x-0 bottom-0 h-[170px] bg-[linear-gradient(180deg,rgba(248,251,255,0)_0%,rgba(248,251,255,0.22)_68%,rgba(248,251,255,0.88)_100%)] dark:bg-[linear-gradient(180deg,rgba(2,6,23,0)_0%,rgba(2,6,23,0.52)_68%,rgba(2,6,23,0.96)_100%)]" />
       </div>
 
       <div className="pointer-events-none absolute bottom-0 left-0 -z-10 hidden h-[54%] w-[40vw] overflow-visible sm:block">

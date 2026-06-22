@@ -1,5 +1,0 @@
-2026/06/11-21:24:46.423 3058 Creating DB C:\Users\karan\hnxtechnology\hnx-technologies\.codex-temp\edge-crm-animation-profile\Default\EdgeCoupons/coupons_data.db since it was missing.
-2026/06/11-21:24:46.564 3058 Reusing MANIFEST C:\Users\karan\hnxtechnology\hnx-technologies\.codex-temp\edge-crm-animation-profile\Default\EdgeCoupons/coupons_data.db/MANIFEST-000001
-2026/06/11-21:25:52.014 50cc Level-0 table #5: started
-2026/06/11-21:25:52.019 50cc Level-0 table #5: 682680 bytes OK
-2026/06/11-21:25:52.021 50cc Delete type=0 #3

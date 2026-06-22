@@ -19,7 +19,7 @@ export function PortalSection({
     <section
       id={id}
       className={cn(
-        "border-t border-slate-200 px-5 py-12 dark:border-white/10 sm:px-8 lg:px-10 xl:px-12",
+        "scroll-mt-[calc(var(--nav-offset)+1rem)] border-t border-slate-200 px-5 py-12 dark:border-white/10 sm:px-8 sm:py-14 lg:px-10 lg:py-16 xl:px-12",
         className,
       )}
     >
@@ -45,11 +45,11 @@ export function PortalSectionHeader({
         <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
         {eyebrow}
       </span>
-      <h2 className="mt-4 text-3xl font-black leading-tight tracking-[-0.035em] text-slate-950 dark:text-white sm:text-4xl">
+      <h2 className="mt-4 text-3xl font-black leading-tight tracking-[-0.035em] text-slate-950 dark:text-white sm:text-4xl lg:text-5xl">
         {title}
       </h2>
       {description ? (
-        <p className="mt-3 text-sm font-semibold leading-7 text-slate-600 dark:text-slate-300">
+        <p className="mt-3 text-base leading-7 text-slate-600 dark:text-slate-300">
           {description}
         </p>
       ) : null}
@@ -76,8 +76,8 @@ export function PortalIcon({
   };
 
   return (
-    <span className={cn("grid h-11 w-11 shrink-0 place-items-center rounded-2xl", tones[tone], className)}>
-      <Icon className="h-5 w-5" aria-hidden="true" />
+    <span className={cn("grid h-10 w-10 shrink-0 place-items-center rounded-2xl", tones[tone], className)}>
+      <Icon className="h-[18px] w-[18px]" aria-hidden="true" />
     </span>
   );
 }
@@ -92,7 +92,7 @@ export function PortalCard({
   return (
     <article
       className={cn(
-        "rounded-[1.5rem] border border-slate-200 bg-white p-5 shadow-[0_12px_36px_rgba(15,23,42,0.045)] dark:border-white/10 dark:bg-white/[0.05]",
+        "rounded-[1.35rem] border border-slate-200 bg-white p-5 shadow-[0_12px_34px_rgba(15,23,42,0.045)] dark:border-white/10 dark:bg-white/[0.05]",
         className,
       )}
     >

@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import type { SolutionCategoryId, SolutionPageData } from "@/data/solutions/types";
 import { Button } from "@/components/ui/Button";
-import { getSolutionIcon } from "@/components/solutions/shared/solutionIcons";
+import { solutionIcons } from "@/components/solutions/shared/solutionIcons";
 import { solutionCategoryMeta } from "@/components/solutions/shared/solutionCategoryMeta";
 
 type SolutionHeroProps = {
@@ -14,7 +14,7 @@ type SolutionHeroProps = {
 
 export function SolutionHero({ category, solution }: SolutionHeroProps) {
   const meta = solutionCategoryMeta[category];
-  const Icon = getSolutionIcon(solution.icon);
+  const Icon = solutionIcons[solution.icon];
   const primaryCtaLabel = `Plan ${solution.label}`;
 
   return (

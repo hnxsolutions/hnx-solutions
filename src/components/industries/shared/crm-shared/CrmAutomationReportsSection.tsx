@@ -1101,7 +1101,6 @@ function getCategoryPreview(
           "Classify Request",
           "Identify priority, owner, source, and required response window.",
           ClipboardCheck,
-  PhoneCall,
           "purple",
         ),
         createWorkflowNode(
@@ -1251,7 +1250,6 @@ function getCategoryPreview(
         "Update Internal Status",
         "Move document status to pending, verified, or rejected.",
         ClipboardCheck,
-  PhoneCall,
         "purple",
       ),
     ],
@@ -2087,4 +2085,3 @@ function WorkflowNode({
     </div>
   );
 }
-

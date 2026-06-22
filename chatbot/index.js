@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
+
 const express = require("express");
 const path = require("path");
 require("dotenv").config({ path: path.join(__dirname, ".env") });

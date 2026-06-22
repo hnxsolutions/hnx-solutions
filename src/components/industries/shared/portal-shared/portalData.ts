@@ -143,8 +143,8 @@ const configs: IndustryPortalConfig[] = [
     industryName: "Healthcare",
     portalName: "Patient Portal",
     aliases: ["portal", "patient-portal"],
-    heroTitle: "Patient Portal for Reports, Appointments and Payments",
-    heroDescription: "Give patients secure self-service access to lab reports, prescriptions, appointments, billing, care updates, and support without repeated front-desk calls.",
+    heroTitle: "Healthcare Portal for Patients, Staff, and Operations",
+    heroDescription: "A secure, unified portal that connects patients, healthcare professionals, and administrators—simplifying access to care, improving efficiency, and ensuring better outcomes.",
     profileTitle: "Patient Profile",
     profileSubtitle: "Reports, visits, prescriptions, and billing in one secure workspace.",
     accountStatus: "Verified patient",
@@ -624,6 +624,8 @@ export function getIndustryPortalPage(
 }
 
 function createPage(config: IndustryPortalConfig): IndustryPortalPageData {
+  const isHealthcare = config.industrySlug === "healthcare";
+
   return {
     industrySlug: config.industrySlug,
     industryName: config.industryName,
@@ -641,12 +643,14 @@ function createPage(config: IndustryPortalConfig): IndustryPortalPageData {
     ],
     serviceType: `${config.portalName} Development`,
     hero: {
-      eyebrow: "Secure Portal System",
+      eyebrow: `${config.industryName} Industry`,
       title: config.heroTitle,
       description: config.heroDescription,
-      primaryCta: { label: "Build My Portal", href: contactHref },
-      secondaryCta: { label: "View Portal Flow", href: "#portal-workflow" },
-      trustChips: ["Secure login", "Role-based access", "Document control", "Status updates"],
+      primaryCta: { label: "Book a Consultation", href: contactHref },
+      secondaryCta: { label: "View Live Demo", href: "#portal-workflow" },
+      trustChips: isHealthcare
+        ? ["HIPAA Compliant & Secure", "Role-based Access", "Scalable & Enterprise Ready"]
+        : ["Secure & Compliant", "Role-based Access", "Scalable & Enterprise Ready"],
     },
     problems: config.problems.map(([title, description, icon]) => ({ title, description, icon })),
     loginExperience: {
