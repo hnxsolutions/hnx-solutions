@@ -43,6 +43,12 @@ const journeyTones: JourneyTone[] = [
     icon: "text-rose-600",
     number: "text-rose-500",
   },
+  {
+    ring: "border-cyan-100",
+    bg: "bg-cyan-50",
+    icon: "text-cyan-600",
+    number: "text-cyan-600",
+  },
 ];
 
 function JourneyIcon({
@@ -78,7 +84,7 @@ export default function MobileAppJourneySection({
 }) {
   const sectionRef = useRef<HTMLElement | null>(null);
   const [animateJourney, setAnimateJourney] = useState(false);
-  const steps = data.flowSteps.slice(0, 5);
+  const steps = data.flowSteps.slice(0, 6);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -132,7 +138,7 @@ export default function MobileAppJourneySection({
         </div>
 
         <div className="mt-9 overflow-x-auto pb-3 [scrollbar-width:none] xl:overflow-visible [&::-webkit-scrollbar]:hidden">
-          <div className="flex min-w-max snap-x snap-mandatory gap-8 px-1 xl:grid xl:min-w-0 xl:grid-cols-5 xl:gap-0 xl:px-0">
+          <div className="flex min-w-max snap-x snap-mandatory gap-8 px-1 xl:grid xl:min-w-0 xl:grid-cols-6 xl:gap-0 xl:px-0">
             {steps.map((step, index) => {
               const tone = journeyTones[index % journeyTones.length];
 
