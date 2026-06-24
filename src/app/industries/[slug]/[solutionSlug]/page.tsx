@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import IndustryBusinessSuitePage from "@/components/industries/shared/business-suite-shared/IndustryBusinessSuitePage";
+import BusinessSuitePage from "@/components/industries/shared/business-suite-shared/BusinessSuitePage";
 import {
   getIndustryBusinessSuitePage,
   industryBusinessSuiteStaticParams,
-} from "@/components/industries/shared/business-suite-shared/industryBusinessSuiteData";
+} from "@/components/industries/shared/business-suite-shared/businessSuiteData";
 import IndustryCrmPage from "@/components/industries/shared/crm-shared/IndustryCrmPage";
 import {
   getIndustryCrmPage,
@@ -171,7 +171,7 @@ export default async function IndustrySolutionRoutePage({
               createBreadcrumbJsonLd([
                 { name: "Home", path: "/" },
                 { name: "Industries", path: "/industries" },
-                { name: businessSuitePage.industryName, path: `/industries/${businessSuitePage.slug}` },
+                { name: businessSuitePage.industryName, path: `/industries/${businessSuitePage.industrySlug}` },
                 { name: "Full Business Suite", path: businessSuitePage.primaryRoute },
               ]),
               createServiceJsonLd({
@@ -182,7 +182,7 @@ export default async function IndustrySolutionRoutePage({
               }),
             ]}
           />
-          <IndustryBusinessSuitePage industrySlug={slug} solutionSlug={solutionSlug} />
+          <BusinessSuitePage industrySlug={slug} solutionSlug={solutionSlug} />
         </>
       );
     }

@@ -6,7 +6,7 @@ import { mobileAppSolutions } from "@/data/solutions/mobileAppSolutions";
 import { aiAutomationSolutions } from "@/data/solutions/aiAutomationSolutions";
 import { cloudDevopsSolutions } from "@/data/solutions/cloudDevopsSolutions";
 import { designGrowthSolutions } from "@/data/solutions/designGrowthSolutions";
-import { industryBusinessSuitePages } from "@/components/industries/shared/business-suite-shared/industryBusinessSuiteData";
+import { industryBusinessSuitePages } from "@/components/industries/shared/business-suite-shared/businessSuiteData";
 import { industryCrmPages } from "@/components/industries/shared/crm-shared/industryCrmData";
 import { industryPortalPages } from "@/components/industries/shared/portal-shared/portalData";
 

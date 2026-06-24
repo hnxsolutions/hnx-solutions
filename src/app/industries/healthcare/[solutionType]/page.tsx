@@ -1,8 +1,8 @@
 import type { ComponentType } from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import IndustryBusinessSuitePage from "@/components/industries/shared/business-suite-shared/IndustryBusinessSuitePage";
-import { getIndustryBusinessSuitePage } from "@/components/industries/shared/business-suite-shared/industryBusinessSuiteData";
+import BusinessSuitePage from "@/components/industries/shared/business-suite-shared/BusinessSuitePage";
+import { getIndustryBusinessSuitePage } from "@/components/industries/shared/business-suite-shared/businessSuiteData";
 import { getIndustryPortalPage } from "@/components/industries/shared/portal-shared/portalData";
 import HealthcareFullSuitePreview from "@/components/industries/healthcare/full-suite";
 import {
@@ -28,7 +28,7 @@ function HealthcareCrmPreview() {
 }
 
 function HealthcareBusinessSuitePreview() {
-  return <IndustryBusinessSuitePage industrySlug="healthcare" solutionSlug="business-suite" />;
+  return <BusinessSuitePage industrySlug="healthcare" solutionSlug="business-suite" />;
 }
 
 function HealthcarePortalAliasPreview() {
