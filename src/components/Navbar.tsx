@@ -217,7 +217,7 @@ const serviceColumns: ServiceColumn[] = [
 const serviceFeaturedLinks = [
   {
     label: "Digital Strategy",
-    href: "/services/full-business-suite#starting-point",
+    href: "/services/full-business-suite#discovery",
     icon: Rocket,
   },
   {
@@ -227,7 +227,7 @@ const serviceFeaturedLinks = [
   },
   {
     label: "CRM + Portal",
-    href: "/services/full-business-suite#suite-architecture",
+    href: "/services/full-business-suite#modules",
     icon: Network,
   },
   {
