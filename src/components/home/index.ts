@@ -1,0 +1,10 @@
+export { default } from "./HomePage";
+export { default as HomePage } from "./HomePage";
+export { default as HomeHero } from "./HomeHero";
+export { default as HomeEcosystem } from "./HomeEcosystem";
+export { default as HomeCRMPreview } from "./HomeCRMPreview";
+export { default as HomeServices } from "./HomeServices";
+export { default as HomePortfolio } from "./HomePortfolio";
+export { default as HomeTestimonials } from "./HomeTestimonials";
+export { default as HomeCTA } from "./HomeCTA";
+export { homeMetadata } from "./homeData";

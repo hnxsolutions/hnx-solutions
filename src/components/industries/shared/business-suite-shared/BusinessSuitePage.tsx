@@ -28,18 +28,20 @@ export default function BusinessSuitePage({
 
   return (
     <main className="relative bg-[#f8fbff] text-slate-950 dark:bg-[#050814] dark:text-white">
-      <BusinessSuiteHero data={data} />
-      <BusinessSuiteSystemComparison data={data} />
-      <BusinessSuiteDiscoveryProcess data={data} />
-      <BusinessSuiteStackBuilder data={data} />
-      <BusinessSuiteModules data={data} />
-      <BusinessSuiteAutomationOpportunities data={data} />
-      <BusinessSuiteIndustryExamples data={data} />
-      <BusinessSuiteGrowthRoadmap data={data} />
-      <BusinessSuiteDashboardPreview data={data} />
-      <BusinessSuiteWhyChoose data={data} />
-      <BusinessSuitePackages data={data} />
-      <BusinessSuiteFinalCTA data={data} />
+      <div className="mx-auto w-full max-w-full px-3 sm:max-w-[min(105vw,1540px)] sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
+        <BusinessSuiteHero data={data} />
+        <BusinessSuiteSystemComparison data={data} />
+        <BusinessSuiteDiscoveryProcess data={data} />
+        <BusinessSuiteStackBuilder data={data} />
+        <BusinessSuiteModules data={data} />
+        <BusinessSuiteAutomationOpportunities data={data} />
+        <BusinessSuiteIndustryExamples data={data} />
+        <BusinessSuiteGrowthRoadmap data={data} />
+        <BusinessSuiteDashboardPreview data={data} />
+        <BusinessSuiteWhyChoose data={data} />
+        <BusinessSuitePackages data={data} />
+        <BusinessSuiteFinalCTA data={data} />
+      </div>
     </main>
   );
 }

@@ -34,7 +34,7 @@ const ecosystemPillars = [
   },
 ];
 
-export default function HNXSystemEcosystem() {
+export default function HomeEcosystem() {
   return (
     <section className="relative overflow-hidden bg-(--bg) py-18 text-(--text) sm:py-22 lg:py-24">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,rgba(56,189,248,0.10),transparent_28%),radial-gradient(circle_at_82%_78%,rgba(139,92,246,0.10),transparent_30%)]" />

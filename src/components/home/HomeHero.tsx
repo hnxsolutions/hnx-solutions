@@ -138,7 +138,7 @@ const serviceSlides = [
 
 const ease = [0.25, 0.46, 0.45, 0.94] as const;
 
-export default function Hero() {
+export default function HomeHero() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [direction, setDirection] = useState(1);
 

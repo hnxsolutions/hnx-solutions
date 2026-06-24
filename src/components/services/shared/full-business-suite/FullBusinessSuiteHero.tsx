@@ -24,9 +24,22 @@ export default function FullBusinessSuiteHero() {
       <div className="relative grid min-w-0 items-center gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-9 xl:gap-10">
         <div className="min-w-0 max-w-[650px]">
           <p className="text-sm font-semibold text-slate-950 sm:text-base">{hero.eyebrow}</p>
-          <h1 className="mt-4 max-w-[650px] text-[2rem] font-black leading-[1.12] tracking-[-0.03em] text-[#06143a] sm:text-4xl lg:text-[2.75rem] xl:text-[3.05rem]">
-            One Complete Digital System to Run & Grow Your Service Business
-          </h1>
+          {(() => {
+            const parts = hero.title.split(" ");
+            const highlightedWords = parts.slice(-3).join(" ");
+            const normalWords = parts.slice(0, -3).join(" ");
+            const accentClass = "from-cyan-400 via-sky-500 to-violet-500";
+
+            return (
+              <h1 className="mt-4 max-w-[650px] text-[2rem] font-black leading-[1.12] tracking-[-0.03em] text-[#06143a] sm:text-4xl lg:text-[2.75rem] xl:text-[3.05rem]">
+                {normalWords} {
+                  <span className={`bg-gradient-to-r ${accentClass} bg-clip-text font-semibold text-transparent`}>
+                    {highlightedWords}
+                  </span>
+                }
+              </h1>
+            );
+          })()}
           <p className="mt-4 max-w-xl text-base font-medium leading-7 text-[#1e2f53] sm:text-[1.05rem] sm:leading-8">
             {hero.description}
           </p>

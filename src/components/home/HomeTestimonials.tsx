@@ -103,7 +103,7 @@ function TestimonialCard({
   );
 }
 
-export default function Testimonials() {
+export default function HomeTestimonials() {
   return (
     <section className="relative grid-bg bg-(--bg) py-16 text-(--text)">
       <div className="mx-auto w-full max-w-full px-3 sm:max-w-[min(92vw,1440px)] sm:px-6 lg:px-8 xl:px-10 2xl:px-12">

@@ -366,7 +366,7 @@ function SolutionPreviewCard({ solution, featured }: SolutionPreviewCardProps) {
   );
 }
 
-export default function CRMPreviewShowcase() {
+export default function HomeCRMPreview() {
   const visibleCount = useVisibleSolutionCount();
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);

@@ -8,6 +8,15 @@ import {
   createServiceJsonLd,
 } from "@/lib/seo";
 
+import { Exo_2 } from "next/font/google";
+
+const exo2 = Exo_2({
+  variable: "--font-exo2",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+  display: "swap",
+});
+
 const { path, metadata: pageMetadata } = fullBusinessSuiteData;
 
 export const metadata: Metadata = createMetadata({
@@ -35,7 +44,27 @@ export default function ServicesFullBusinessSuiteRoute() {
           }),
         ]}
       />
-      <FullBusinessSuitePage />
+      <div className={`${exo2.variable} full-business-exo2-scope`}>
+        <style>{`
+          .full-business-exo2-scope,
+          .full-business-exo2-scope * {
+            font-family: var(--font-exo2), Inter, ui-sans-serif, system-ui, sans-serif !important;
+          }
+
+          .full-business-exo2-scope :where(h1, h2, h3, .solution-heading, .solution-serif) {
+            font-weight: 700;
+            letter-spacing: -0.045em;
+          }
+
+          .full-business-exo2-scope :where(h1) { line-height: 1.02; }
+          .full-business-exo2-scope :where(h2) { line-height: 1.08; }
+
+          .full-business-exo2-scope :where(button, a, p, span, li, label, input, textarea, select) {
+            font-family: var(--font-exo2), Inter, ui-sans-serif, system-ui, sans-serif !important;
+          }
+        `}</style>
+        <FullBusinessSuitePage />
+      </div>
     </>
   );
 }
