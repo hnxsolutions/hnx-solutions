@@ -5,8 +5,12 @@ export const contactSchema = z.object({
   email: z.string().email("Invalid email address"),
   projectType: z.enum([
     "Web Application",
+    "SaaS Platform",
     "Mobile App",
+    "Custom CRM Systems",
     "AI & Automation",
+    "Workflow Automation",
+    "Industry CRM Systems",
     "Cloud Solutions",
     "UI/UX Design",
     "Full-Stack Solution",

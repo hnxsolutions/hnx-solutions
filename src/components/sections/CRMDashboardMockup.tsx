@@ -96,11 +96,11 @@ export default function CRMDashboardMockup({
               </span>
             </div>
 
-            <div className="flex h-34 items-end gap-2">
+            <div className="flex h-[8.5rem] items-end gap-2">
               {revenueBars.map((height, index) => (
                 <div
                   key={`${height}-${index}`}
-                  className="flex flex-1 items-end rounded-full bg-white/7"
+                  className="flex h-full flex-1 items-end rounded-full bg-white/7"
                 >
                   <div
                     className="w-full rounded-full bg-linear-to-t from-cyan-400 via-sky-300 to-violet-300 shadow-[0_0_18px_rgba(56,189,248,0.28)]"
