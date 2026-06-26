@@ -86,11 +86,7 @@ function PortfolioCard({
                 <iframe
                   src={project.liveUrl}
                   title={`Preview of ${project.title}`}
-                  className="pointer-events-none h-180 w-7xl origin-top-left"
-                  style={{
-                    transform: "scale(0.25)",
-                    transformOrigin: "top left",
-                  }}
+                  className="pointer-events-none h-180 w-7xl origin-top-left iframe-scale"
                   tabIndex={-1}
                   loading="lazy"
                   sandbox="allow-scripts allow-same-origin"
@@ -316,6 +312,17 @@ export default function HomePortfolio() {
               />
             ))}
           </div>
+        </div>
+
+        <div className="mt-6 flex flex-wrap justify-center gap-3 text-xs font-semibold uppercase tracking-[0.22em] text-(--text-soft)">
+          {['Web Apps', 'CRM Systems', 'AI Automation', 'Product Design'].map((item) => (
+            <span
+              key={item}
+              className="rounded-full border border-white/10 bg-white/10 px-3 py-2"
+            >
+              {item}
+            </span>
+          ))}
         </div>
 
         <div className="mt-10 text-center md:mt-12">

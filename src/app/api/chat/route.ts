@@ -10,6 +10,48 @@ import { CHAT_KNOWLEDGE } from "@/data/chat-knowledge";
 type LeadData = ReturnType<typeof extractLeadDataFromMessages>;
 type ServiceName = keyof typeof CHAT_KNOWLEDGE.services;
 
+const AZURE_CHATBOT_FALLBACK_RESPONSE = {
+  mode: "text",
+  message:
+    "Sorry, chatbot service is unavailable right now. Please try again or contact our team directly.",
+  quickReplies: ["Try again", "Talk to team"],
+};
+
+async function proxyChatToAzure(body: unknown) {
+  const azureUrl = process.env.AZURE_CHATBOT_API_URL;
+
+  if (!azureUrl) {
+    return null;
+  }
+
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+  };
+
+  if (process.env.AZURE_CHATBOT_API_KEY) {
+    headers.Authorization = `Bearer ${process.env.AZURE_CHATBOT_API_KEY}`;
+  }
+
+  try {
+    const azureResponse = await fetch(azureUrl, {
+      method: "POST",
+      headers,
+      body: JSON.stringify(body),
+      cache: "no-store",
+    });
+
+    if (!azureResponse.ok) {
+      throw new Error(`Azure chatbot request failed: ${azureResponse.status}`);
+    }
+
+    const data = await azureResponse.json();
+    return NextResponse.json(data, { status: azureResponse.status });
+  } catch (error) {
+    console.error("Azure chatbot proxy error:", error);
+    return NextResponse.json(AZURE_CHATBOT_FALLBACK_RESPONSE);
+  }
+}
+
 const LOW_SIGNAL_WORDS = new Set([
   "automation",
   "platform",
@@ -484,6 +526,12 @@ function getQuestionForField(field: string, lead: LeadData) {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
+    const azureResponse = await proxyChatToAzure(body);
+
+    if (azureResponse) {
+      return azureResponse;
+    }
+
     const messages: ChatMessage[] = Array.isArray(body.messages)
       ? body.messages
       : [];

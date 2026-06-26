@@ -118,6 +118,11 @@ iframe {
   max-width: 100%;
 }
 
+.iframe-scale {
+  transform: scale(0.25);
+  transform-origin: top left;
+}
+
 /* global page shell */
 .page-shell {
   width: 100%;

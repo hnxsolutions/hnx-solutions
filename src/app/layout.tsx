@@ -4,6 +4,7 @@ import type { CSSProperties } from "react";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ChatWidget from "@/components/chat/ChatWidget";
 import WhatsAppFloatingButton from "@/components/shared/WhatsAppFloatingButton";
 import { JsonLd } from "@/components/seo/JsonLd";
 import {
@@ -85,6 +86,7 @@ export default function RootLayout({
           <Navbar />
           {children}
           <Footer />
+          <ChatWidget />
           <WhatsAppFloatingButton />
         </ThemeProvider>
       </body>

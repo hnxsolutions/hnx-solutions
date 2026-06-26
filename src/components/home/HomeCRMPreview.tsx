@@ -38,6 +38,15 @@ const iconBySolution: Record<
   "industry-crm-systems": HiChartBar,
 };
 
+const browserBarHeightClasses = ["h-[48px]", "h-[70px]", "h-[58px]"];
+const saasPerformanceBarClasses = [
+  "h-[35%]",
+  "h-[64%]",
+  "h-[52%]",
+  "h-[82%]",
+  "h-[76%]",
+];
+
 function useVisibleSolutionCount() {
   const [visibleCount, setVisibleCount] = useState(1);
 
@@ -86,11 +95,10 @@ function BrowserPreview() {
         <div className="rounded-xl border border-cyan-300/12 bg-cyan-300/8 p-3">
           <div className="mb-3 h-16 rounded-xl bg-linear-to-br from-cyan-300/55 to-violet-300/45" />
           <div className="grid grid-cols-3 gap-1.5">
-            {[48, 70, 58].map((height) => (
+            {browserBarHeightClasses.map((heightClass) => (
               <span
-                key={height}
-                className="rounded-full bg-white/16"
-                style={{ height: `${height}px` }}
+                key={heightClass}
+                className={`${heightClass} rounded-full bg-white/16`}
               />
             ))}
           </div>
@@ -127,11 +135,10 @@ function SaaSPreview() {
         <div className="rounded-xl bg-linear-to-br from-indigo-300/28 to-cyan-300/18 p-3">
           <div className="mb-3 h-3 w-20 rounded-full bg-white/28" />
           <div className="flex h-20 items-end gap-1.5">
-            {[35, 64, 52, 82, 76].map((height, index) => (
+            {saasPerformanceBarClasses.map((heightClass, index) => (
               <span
-                key={`${height}-${index}`}
-                className="flex-1 rounded-full bg-white/24"
-                style={{ height: `${height}%` }}
+                key={`${heightClass}-${index}`}
+                className={`${heightClass} flex-1 rounded-full bg-white/24`}
               />
             ))}
           </div>
@@ -244,31 +251,32 @@ function WorkflowPreview() {
 }
 
 function IndustryPreview() {
+  const industryMetrics = [
+    { industry: "Real Estate", workflow: "Visits", value: 76, progress: "w-3/4" },
+    { industry: "Healthcare", workflow: "Appointments", value: 58, progress: "w-9/16" },
+    { industry: "Education", workflow: "Admissions", value: 86, progress: "w-5/6" },
+    { industry: "Ecommerce", workflow: "Orders", value: 68, progress: "w-2/3" },
+  ];
+
   return (
     <div className="rounded-2xl border border-white/10 bg-slate-950/76 p-3">
       <div className="grid gap-2">
-        {[
-          ["Real Estate", "Visits", 76],
-          ["Healthcare", "Appointments", 58],
-          ["Education", "Admissions", 86],
-          ["Ecommerce", "Orders", 68],
-        ].map(([industry, workflow, value]) => (
+        {industryMetrics.map(({ industry, workflow, progress }) => (
           <div
-            key={industry.toString()}
+            key={industry}
             className="grid grid-cols-[1fr_auto] items-center gap-3 rounded-xl bg-white/8 p-3"
           >
             <div>
               <p className="text-xs font-semibold text-white/80">
-                {industry.toString()}
+                {industry}
               </p>
               <p className="mt-1 text-[10px] text-white/46">
-                {workflow.toString()}
+                {workflow}
               </p>
             </div>
             <div className="h-10 w-18 rounded-full border border-cyan-300/12 bg-cyan-300/8 p-1.5">
               <div
-                className="h-full rounded-full bg-linear-to-r from-cyan-300 to-violet-300"
-                style={{ width: `${Number(value)}%` }}
+                className={`h-full rounded-full bg-linear-to-r from-cyan-300 to-violet-300 ${progress}`}
               />
             </div>
           </div>
@@ -409,6 +417,13 @@ export default function HomeCRMPreview() {
     });
   }, [activeIndex, visibleCount]);
 
+  const overviewStats = [
+    { value: "8x", label: "faster launch" },
+    { value: "100%", label: "owned platform" },
+    { value: "4+", label: "system previews" },
+    { value: "industry-ready", label: "templates" },
+  ];
+
   return (
     <section className="relative overflow-hidden bg-(--bg) py-18 text-(--text) sm:py-22 lg:py-24">
       <div className="pointer-events-none absolute inset-x-0 top-10 mx-auto h-72 w-[86%] max-w-5xl rounded-full bg-primary/8 blur-3xl" />
@@ -447,6 +462,18 @@ export default function HomeCRMPreview() {
               Preview the HNX ecosystem with real product-style cards for core
               services, CRM ownership, AI workflows, and industry systems.
             </motion.p>
+
+            <div className="mt-8 grid max-w-xl grid-cols-2 gap-3 sm:grid-cols-4">
+              {overviewStats.map((stat) => (
+                <div
+                  key={stat.label}
+                  className="rounded-3xl border border-white/10 bg-white/10 px-4 py-4 text-center text-sm text-(--text-soft)"
+                >
+                  <p className="text-lg font-semibold text-(--text)">{stat.value}</p>
+                  <p className="mt-1 uppercase tracking-[0.18em] text-[10px] text-(--text-soft)">{stat.label}</p>
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className="flex items-center gap-3">
@@ -476,7 +503,7 @@ export default function HomeCRMPreview() {
           onBlur={() => setIsPaused(false)}
           className="relative"
         >
-          <div className="grid min-h-[34rem] grid-cols-1 items-stretch gap-5 md:grid-cols-2 xl:grid-cols-3">
+          <div className="grid min-h-136 grid-cols-1 items-stretch gap-5 md:grid-cols-2 xl:grid-cols-3">
             <AnimatePresence initial={false}>
               {visibleSolutions.map(({ solution, featured }) => (
                 <SolutionPreviewCard

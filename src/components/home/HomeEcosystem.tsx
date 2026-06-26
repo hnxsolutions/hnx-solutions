@@ -68,7 +68,7 @@ export default function HomeEcosystem() {
               {ecosystemPillars.map((pillar) => (
                 <div
                   key={pillar.title}
-                  className="w-[76vw] max-w-[300px] shrink-0 snap-center rounded-2xl border border-(--border) bg-white/52 p-4 backdrop-blur-xl dark:bg-[#18181B] sm:w-auto sm:max-w-none"
+                  className="w-[76vw] max-w-75 shrink-0 snap-center rounded-2xl border border-(--border) bg-white/52 p-4 backdrop-blur-xl dark:bg-[#18181B] sm:w-auto sm:max-w-none"
                 >
                   <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
                     <pillar.icon className="text-lg" />
@@ -107,7 +107,7 @@ export default function HomeEcosystem() {
             transition={{ duration: 0.65, delay: 0.08, ease: "easeOut" }}
             className="relative"
           >
-            <div className="absolute -inset-4 rounded-[2rem] bg-linear-to-br from-primary/16 via-accent/10 to-cyan-300/10 blur-2xl" />
+            <div className="absolute -inset-4 rounded-4xl bg-linear-to-br from-primary/16 via-accent/10 to-cyan-300/10 blur-2xl" />
             <CRMDashboardMockup compact className="relative" />
           </motion.div>
         </div>

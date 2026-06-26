@@ -105,7 +105,9 @@ function TestimonialCard({
 
 export default function HomeTestimonials() {
   return (
-    <section className="relative grid-bg bg-(--bg) py-16 text-(--text)">
+    <section className="relative overflow-hidden bg-(--bg) py-20 text-(--text)">
+      <div className="pointer-events-none absolute left-0 top-0 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
+      <div className="pointer-events-none absolute right-0 bottom-0 h-72 w-72 rounded-full bg-accent/10 blur-3xl" />
       <div className="mx-auto w-full max-w-full px-3 sm:max-w-[min(92vw,1440px)] sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -114,7 +116,7 @@ export default function HomeTestimonials() {
           viewport={{ once: true }}
           className="mb-16 text-center"
         >
-          <span className="text-sm font-semibold uppercase tracking-widest text-primary">
+          <span className="inline-flex items-center rounded-full border border-primary/20 bg-primary/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-primary">
             Testimonials
           </span>
 
@@ -123,15 +125,32 @@ export default function HomeTestimonials() {
           </h2>
 
           <p className="mx-auto max-w-2xl text-lg text-(--text-soft)">
-            Real feedback from businesses we&apos;ve helped scale.
+            Real feedback from businesses we&apos;ve helped scale with premium product design and engineering.
           </p>
+
+          <div className="mt-10 grid gap-3 sm:grid-cols-4">
+            {[
+              { value: "5.0", label: "Average rating" },
+              { value: "60+", label: "Projects delivered" },
+              { value: "8", label: "Industries served" },
+              { value: "100%", label: "Client satisfaction" },
+            ].map((metric) => (
+              <div
+                key={metric.label}
+                className="rounded-3xl border border-white/10 bg-white/10 px-4 py-4 text-center text-sm text-(--text-soft)"
+              >
+                <p className="text-lg font-bold text-(--text)">{metric.value}</p>
+                <p className="mt-1 text-xs uppercase tracking-[0.18em] text-(--text-soft)">{metric.label}</p>
+              </div>
+            ))}
+          </div>
         </motion.div>
 
         <MobileAutoSlider hideAt="md" duration="long" className="-mx-3">
           {testimonials.map((testimonial, index) => (
             <div
               key={testimonial.name}
-              className="w-[82vw] max-w-[340px] shrink-0"
+              className="w-[82vw] max-w-85 shrink-0"
             >
               <TestimonialCard testimonial={testimonial} index={index} />
             </div>
