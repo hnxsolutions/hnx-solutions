@@ -472,7 +472,7 @@ export default function ChatWidget() {
         </div>
       </div>
 
-      <div className="fixed bottom-15 right-[84px] z-50 sm:bottom-11 sm:right-[104px]">
+      <div className="fixed bottom-24 right-3 z-50 sm:bottom-24 sm:right-3">
         {!isOpen && (
           <div className="absolute bottom-[76px] right-0 w-[176px] rounded-2xl border border-slate-200/80 bg-white px-3 py-2 text-left shadow-[0_14px_40px_rgba(15,23,42,0.16)] dark:border-white/10 dark:bg-slate-950 sm:bottom-[88px]">
             <p className="text-xs font-semibold text-slate-950 dark:text-white">
@@ -490,7 +490,7 @@ export default function ChatWidget() {
           onClick={() => setIsOpen((open) => !open)}
           aria-label={isOpen ? "Close HNX AI assistant" : "Open HNX AI assistant"}
           aria-expanded={isOpen}
-          className={`group relative grid h-[60px] w-[60px] place-items-center rounded-full bg-linear-to-br from-slate-950 via-indigo-950 to-violet-900 text-white shadow-[0_18px_48px_rgba(79,70,229,0.36)] transition-all duration-200 ease-out hover:-translate-y-1 hover:scale-105 hover:shadow-[0_24px_60px_rgba(79,70,229,0.46)] active:scale-95 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-400/45 motion-reduce:transition-none motion-reduce:hover:translate-y-0 motion-reduce:hover:scale-100 sm:h-[72px] sm:w-[72px] ${
+          className={`group relative grid h-[52px] w-[52px] place-items-center rounded-full bg-linear-to-br from-slate-950 via-indigo-950 to-violet-900 text-white shadow-[0_18px_48px_rgba(79,70,229,0.36)] transition-all duration-200 ease-out hover:-translate-y-1 hover:scale-105 hover:shadow-[0_24px_60px_rgba(79,70,229,0.46)] active:scale-95 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-400/45 motion-reduce:transition-none motion-reduce:hover:translate-y-0 motion-reduce:hover:scale-100 sm:h-[60px] sm:w-[60px] ${
             isOpen ? "ring-4 ring-blue-400/25" : ""
           }`}
         >
@@ -506,7 +506,7 @@ export default function ChatWidget() {
             <svg
               aria-hidden="true"
               viewBox="0 0 24 24"
-              className="relative z-10 h-7 w-7 transition-transform duration-200 group-hover:rotate-90 sm:h-8 sm:w-8"
+              className="relative z-10 h-6 w-6 transition-transform duration-200 group-hover:rotate-90 sm:h-7 sm:w-7"
               fill="none"
             >
               <path
@@ -521,7 +521,7 @@ export default function ChatWidget() {
             <svg
               aria-hidden="true"
               viewBox="0 0 24 24"
-              className="relative z-10 h-8 w-8 transition-transform duration-300 ease-out group-hover:rotate-6 group-hover:scale-110 sm:h-9 sm:w-9"
+              className="relative z-10 h-7 w-7 transition-transform duration-300 ease-out group-hover:rotate-6 group-hover:scale-110 sm:h-8 sm:w-8"
               fill="none"
             >
               <path

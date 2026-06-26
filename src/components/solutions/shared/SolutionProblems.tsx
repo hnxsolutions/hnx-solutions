@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import type { SolutionCard, SolutionCategoryId, SolutionPageData } from "@/data/solutions/types";
 import { getSolutionIcon } from "@/components/solutions/shared/solutionIcons";
-import MobileAutoSlider from "@/components/shared/MobileAutoSlider";
 import { solutionCategoryMeta } from "@/components/solutions/shared/solutionCategoryMeta";
 
 type SolutionProblemsProps = {
@@ -31,15 +30,18 @@ export function SolutionProblems({ category, solution, items }: SolutionProblems
         <p className="mt-4 text-base font-semibold leading-8 text-[#66728f] dark:text-zinc-400">{solution.solution}</p>
       </div>
 
-      <MobileAutoSlider hideAt="md" duration="medium" className="-mx-3">
+      <div className="space-y-3 md:hidden">
         {items.map((item, index) => {
           const Icon = getSolutionIcon(item.icon);
 
           return (
             <motion.article
               key={item.title}
-              whileHover={{ y: -6, rotateX: 2, rotateY: index % 2 === 0 ? -2 : 2 }}
-              className="group relative w-[82vw] max-w-[340px] shrink-0 overflow-hidden rounded-[1.45rem] border border-[#d7e1f2] bg-white p-5 shadow-[0_18px_55px_rgba(15,23,42,0.07)] dark:border-white/10 dark:bg-[#18181B]"
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              whileHover={{ y: -4, rotateX: 1, rotateY: index % 2 === 0 ? -1 : 1 }}
+              className="group relative w-full overflow-hidden rounded-[1.45rem] border border-[#d7e1f2] bg-white p-5 shadow-[0_18px_55px_rgba(15,23,42,0.07)] dark:border-white/10 dark:bg-[#18181B]"
               style={{ transformStyle: "preserve-3d" }}
             >
               <div className={`absolute -right-12 -top-12 h-28 w-28 rounded-full bg-gradient-to-br ${meta.accent} opacity-10 blur-2xl transition group-hover:opacity-15`} />
@@ -64,7 +66,7 @@ export function SolutionProblems({ category, solution, items }: SolutionProblems
             </motion.article>
           );
         })}
-      </MobileAutoSlider>
+      </div>
 
       <motion.div
         initial="hidden"

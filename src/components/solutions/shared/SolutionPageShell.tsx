@@ -442,7 +442,7 @@ export function SolutionPageShell({ category, activeSlug, solutions }: SolutionP
   }
 
   return (
-    <main className="min-h-screen bg-[#f8fbff] pt-[70px] text-[#0f214f] dark:bg-[#050b18] dark:text-white">
+    <main className="min-h-screen overflow-x-hidden bg-[#f8fbff] pt-17.5 text-[#0f214f] dark:bg-[#050b18] dark:text-white">
       <SolutionCategoryTabs category={category} solutions={solutions} />
 
       <div className="mx-auto flex w-full max-w-full items-start gap-6 px-0 sm:max-w-[min(92vw,1440px)]">
@@ -455,7 +455,7 @@ export function SolutionPageShell({ category, activeSlug, solutions }: SolutionP
           onTabChange={handleTabChange}
         />
 
-        <div id="solution-content-panel" className="min-w-0 scroll-mt-32 flex-1 bg-white px-3 py-8 sm:px-6 lg:px-8 xl:px-10 2xl:px-12 dark:bg-[#050b18]">
+        <div id="solution-content-panel" className="min-w-0 max-w-full flex-1 scroll-mt-32 overflow-x-hidden bg-white px-3 py-8 sm:px-6 lg:px-8 xl:px-10 2xl:px-12 dark:bg-[#050b18]">
           {activeTab === "overview" ? (
             <>
               <SolutionHero category={category} solution={solution} />
