@@ -1,11 +1,19 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState, type ReactNode, type TouchEvent } from "react";
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type ReactNode,
+  type TouchEvent,
+} from "react";
 import {
   HiArrowLeft,
   HiArrowRight,
   HiChartBar,
   HiCheck,
+  HiChevronRight,
   HiEye,
   HiLightningBolt,
   HiPause,
@@ -13,7 +21,6 @@ import {
   HiShieldCheck,
   HiSparkles,
   HiUsers,
-  HiViewGrid,
 } from "react-icons/hi";
 
 const commandCards = [
@@ -21,73 +28,65 @@ const commandCards = [
     id: "overview",
     number: "01",
     title: "Executive Overview",
-    shortTitle: "Overview",
-    description: "Revenue, leads, tasks, and customer health in one board.",
+    eyebrow: "Executive Overview",
+    description: "Real-time business performance at a glance.",
     icon: HiChartBar,
-    tone: "blue",
   },
   {
     id: "ai",
     number: "02",
     title: "AI Copilot",
-    shortTitle: "AI Copilot",
-    description: "Smart recommendations, risk alerts, and next-best actions.",
+    eyebrow: "AI Copilot",
+    description: "Smart insights and recommendations.",
     icon: HiSparkles,
-    tone: "violet",
   },
   {
     id: "sales",
     number: "03",
     title: "Sales Pipeline",
-    shortTitle: "Sales",
-    description: "Deal stages, pipeline value, win rate, and forecast clarity.",
+    eyebrow: "Sales Pipeline",
+    description: "Pipeline visibility and forecast.",
     icon: HiEye,
-    tone: "indigo",
   },
   {
     id: "automation",
     number: "04",
     title: "Automation Hub",
-    shortTitle: "Automation",
-    description: "Workflows, automated tasks, saved hours, and live triggers.",
+    eyebrow: "Automation Hub",
+    description: "Automate tasks and save time.",
     icon: HiLightningBolt,
-    tone: "emerald",
   },
   {
     id: "team",
     number: "05",
     title: "Team Operations",
-    shortTitle: "Team",
-    description: "Ownership, workload, activity, and response accountability.",
+    eyebrow: "Team Operations",
+    description: "Team performance and accountability.",
     icon: HiUsers,
-    tone: "sky",
   },
   {
-    id: "alerts",
+    id: "risk",
     number: "06",
-    title: "Risk & Alerts",
-    shortTitle: "Alerts",
-    description: "Catch stuck work, missed follow-ups, and business bottlenecks.",
+    title: "Risk Monitor",
+    eyebrow: "Risk Monitor",
+    description: "Alerts, bottlenecks, and business risks.",
     icon: HiShieldCheck,
-    tone: "amber",
   },
   {
     id: "workflow",
     number: "07",
-    title: "Workflow Hub",
-    shortTitle: "Workflow",
-    description: "Orchestrate business processes from lead capture to delivery.",
-    icon: HiViewGrid,
-    tone: "purple",
+    title: "Workflow Studio",
+    eyebrow: "Workflow Studio",
+    description: "Processes from lead capture to delivery.",
+    icon: HiLightningBolt,
   },
   {
-    id: "customers",
+    id: "customer",
     number: "08",
     title: "Customer Health",
-    shortTitle: "Customers",
-    description: "NPS, sentiment, account risk, and customer engagement signals.",
+    eyebrow: "Customer Health",
+    description: "NPS, sentiment, and account health.",
     icon: HiUsers,
-    tone: "teal",
   },
 ];
 
@@ -96,6 +95,7 @@ type CommandCard = (typeof commandCards)[number];
 export default function HomeCommandCenterSection() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+
   const activeCard = commandCards[activeIndex];
 
   useEffect(() => {
@@ -103,7 +103,7 @@ export default function HomeCommandCenterSection() {
 
     const timer = window.setInterval(() => {
       setActiveIndex((current) => (current + 1) % commandCards.length);
-    }, 4600);
+    }, 5200);
 
     return () => window.clearInterval(timer);
   }, [isPaused]);
@@ -118,18 +118,32 @@ export default function HomeCommandCenterSection() {
     );
   };
 
+  const visibleCards = useMemo(() => {
+    return commandCards
+      .map((card, index) => ({
+        ...card,
+        relative: getRelativePosition(index, activeIndex),
+        originalIndex: index,
+      }))
+      .filter((card) => card.relative >= -2 && card.relative <= 2)
+      .sort((a, b) => a.relative - b.relative);
+  }, [activeIndex]);
+
+  const leftCards = visibleCards.filter((card) => card.relative < 0);
+  const rightCards = visibleCards.filter((card) => card.relative > 0);
+
   return (
     <section className="relative overflow-hidden bg-[#f8fbff] pt-24 pb-16 text-slate-950 sm:pt-28 lg:pt-32 lg:pb-20 dark:bg-slate-950 dark:text-white">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,rgba(37,99,235,0.10),transparent_30%),radial-gradient(circle_at_86%_78%,rgba(124,58,237,0.14),transparent_34%)] dark:bg-[radial-gradient(circle_at_18%_12%,rgba(59,130,246,0.14),transparent_30%),radial-gradient(circle_at_86%_78%,rgba(139,92,246,0.16),transparent_34%)]" />
-      <div className="pointer-events-none absolute -left-44 top-20 h-[560px] w-[560px] rounded-full border border-blue-200/60 opacity-50 dark:border-blue-400/10" />
-      <div className="pointer-events-none absolute -right-36 bottom-0 h-[660px] w-[660px] rounded-full border border-violet-200/70 opacity-60 dark:border-violet-400/10" />
-      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-[#f8fbff] to-transparent dark:from-slate-950" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(59,130,246,0.12),transparent_30%),radial-gradient(circle_at_82%_70%,rgba(124,58,237,0.16),transparent_34%)] dark:bg-[radial-gradient(circle_at_18%_18%,rgba(59,130,246,0.16),transparent_30%),radial-gradient(circle_at_82%_70%,rgba(124,58,237,0.18),transparent_34%)]" />
+      <div className="pointer-events-none absolute left-[-15%] top-16 h-[540px] w-[540px] rounded-full border border-blue-200/60 dark:border-blue-400/10" />
+      <div className="pointer-events-none absolute right-[-14%] bottom-8 h-[620px] w-[620px] rounded-full border border-violet-200/70 dark:border-violet-400/10" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-[#f8fbff] to-transparent dark:from-slate-950" />
 
-      <div className="relative mx-auto w-full max-w-[min(94vw,1560px)] px-4 sm:px-6 lg:px-8">
+      <div className="relative mx-auto w-full max-w-[min(95vw,1580px)] px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-5xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-white/85 px-5 py-2 text-xs font-black uppercase tracking-[0.18em] text-blue-700 shadow-[0_14px_36px_rgba(79,70,229,0.10)] backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.06] dark:text-blue-300">
+          <span className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-white/90 px-5 py-2 text-xs font-black uppercase tracking-[0.18em] text-blue-700 shadow-[0_14px_36px_rgba(37,99,235,0.10)] backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.06] dark:text-blue-300">
             <HiSparkles className="text-base" />
-            Platform Overview
+            All-in-one Intelligence
           </span>
 
           <h2 className="mt-5 text-4xl font-black tracking-[-0.055em] text-slate-950 sm:text-5xl lg:text-6xl dark:text-white">
@@ -137,8 +151,8 @@ export default function HomeCommandCenterSection() {
           </h2>
 
           <p className="mx-auto mt-4 max-w-3xl text-sm font-semibold leading-7 text-slate-600 sm:text-base lg:text-lg dark:text-slate-300">
-            One intelligent view for leads, sales, automation, team activity,
-            customer health, and business decisions.
+            Real-time intelligence across your entire business. One platform.
+            Every insight. Every workflow. Every decision.
           </p>
         </div>
 
@@ -147,153 +161,73 @@ export default function HomeCommandCenterSection() {
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
-          <div className="relative hidden h-[560px] lg:block">
-            <button
-              type="button"
-              onClick={goPrev}
-              aria-label="Previous command centre card"
-              className="absolute left-0 top-1/2 z-40 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full border border-slate-200 bg-white text-blue-700 shadow-[0_18px_40px_rgba(15,23,42,0.12)] transition hover:-translate-x-1 hover:bg-blue-600 hover:text-white dark:border-white/10 dark:bg-slate-900 dark:text-blue-300"
-            >
-              <HiArrowLeft className="text-2xl" />
-            </button>
+          <div className="relative hidden items-stretch justify-center gap-4 lg:flex">
+            <ArrowButton direction="left" onClick={goPrev} />
 
-            <button
-              type="button"
-              onClick={goNext}
-              aria-label="Next command centre card"
-              className="absolute right-0 top-1/2 z-40 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full border border-slate-200 bg-white text-blue-700 shadow-[0_18px_40px_rgba(15,23,42,0.12)] transition hover:translate-x-1 hover:bg-blue-600 hover:text-white dark:border-white/10 dark:bg-slate-900 dark:text-blue-300"
-            >
-              <HiArrowRight className="text-2xl" />
-            </button>
-
-            <div className="absolute inset-x-12 top-0 h-full overflow-hidden">
-              {commandCards.map((card, index) => {
-                const relative = getRelativePosition(index, activeIndex);
-                const visual = getCardVisual(relative);
-
-                if (!visual.visible) return null;
-
-                const isActive = relative === 0;
-                const Icon = card.icon;
-
-                return (
-                  <div
-                    key={card.id}
-                    role="button"
-                    tabIndex={0}
-                    onClick={() => setActiveIndex(index)}
-                    onKeyDown={(event) => {
-                      if (event.key === "Enter" || event.key === " ") {
-                        setActiveIndex(index);
-                      }
-                    }}
-                    className="absolute left-1/2 top-0 cursor-pointer text-left outline-none transition-all duration-[850ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
-                    style={{
-                      width: visual.width,
-                      height: visual.height,
-                      opacity: visual.opacity,
-                      zIndex: visual.zIndex,
-                      transform: `translateX(${visual.x}px) translateY(${visual.y}px) scale(${visual.scale})`,
-                    }}
-                  >
-                    <article
-                      className={[
-                        "relative h-full overflow-hidden border bg-white/90 backdrop-blur-2xl transition-all duration-[850ms] dark:bg-white/[0.045]",
-                        isActive
-                          ? "rounded-[34px] border-blue-400 p-5 shadow-[0_34px_100px_rgba(79,70,229,0.26),inset_0_0_0_1px_rgba(255,255,255,0.8)] ring-[3px] ring-blue-200/80 dark:border-blue-400/40 dark:ring-blue-400/20"
-                          : "rounded-[26px] border-slate-200/80 p-4 shadow-[0_20px_55px_rgba(15,23,42,0.06)] dark:border-white/10",
-                      ].join(" ")}
-                    >
-                      {isActive ? (
-                        <div className="pointer-events-none absolute inset-0 rounded-[34px] bg-[linear-gradient(135deg,rgba(37,99,235,0.08),transparent_34%,rgba(124,58,237,0.09))]" />
-                      ) : null}
-
-                      <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-blue-100/60 blur-3xl dark:bg-blue-500/10" />
-
-                      {isActive ? (
-                        <ActiveDashboard card={card} />
-                      ) : (
-                        <SidePreviewCard card={card} Icon={Icon} />
-                      )}
-                    </article>
-                  </div>
-                );
-              })}
+            <div className="hidden w-[210px] flex-col gap-4 xl:flex">
+              {leftCards.map((card) => (
+                <SideDashboardCard
+                  key={card.id}
+                  card={card}
+                  onClick={() => setActiveIndex(card.originalIndex)}
+                />
+              ))}
             </div>
+
+            <div className="w-full max-w-[760px]">
+              <MainDashboardShell card={activeCard}>
+                <DashboardContent card={activeCard} />
+              </MainDashboardShell>
+            </div>
+
+            <div className="hidden w-[210px] flex-col gap-4 xl:flex">
+              {rightCards.map((card) => (
+                <SideDashboardCard
+                  key={card.id}
+                  card={card}
+                  onClick={() => setActiveIndex(card.originalIndex)}
+                />
+              ))}
+            </div>
+
+            <ArrowButton direction="right" onClick={goNext} />
           </div>
 
-          <MobileStackCarousel
+          <MobileCommandCards
             activeIndex={activeIndex}
             setActiveIndex={setActiveIndex}
             goNext={goNext}
             goPrev={goPrev}
           />
 
-          <div className="relative mx-auto mt-6 max-w-[1180px] px-4">
-            <div className="h-1.5 overflow-hidden rounded-full bg-slate-200/80 dark:bg-white/10">
-              <div
-                className="h-full rounded-full bg-gradient-to-r from-blue-600 to-violet-600 transition-all duration-700"
-                style={{
-                  width: `${((activeIndex + 1) / commandCards.length) * 100}%`,
-                }}
-              />
+          <div className="relative mx-auto mt-8 max-w-[760px]">
+            <div className="flex items-center justify-center gap-3">
+              {commandCards.map((card, index) => (
+                <button
+                  key={card.id}
+                  type="button"
+                  onClick={() => setActiveIndex(index)}
+                  aria-label={`Open ${card.title}`}
+                  className={[
+                    "h-3 rounded-full transition-all duration-300",
+                    index === activeIndex
+                      ? "w-9 bg-blue-600"
+                      : "w-3 bg-slate-300 hover:bg-blue-300 dark:bg-white/20",
+                  ].join(" ")}
+                />
+              ))}
             </div>
 
-            <div className="mt-6 grid items-center gap-5 sm:grid-cols-[1fr_2fr_1fr]">
-              <div className="text-center text-lg font-black text-blue-700 sm:text-left dark:text-blue-300">
-                {activeCard.number}{" "}
-                <span className="font-semibold text-slate-400">
-                  / {String(commandCards.length).padStart(2, "0")}
-                </span>
-              </div>
-
-              <div className="hidden items-center justify-center gap-0 md:flex">
-                {commandCards.map((card, index) => {
-                  const isActive = activeIndex === index;
-
-                  return (
-                    <button
-                      key={card.id}
-                      type="button"
-                      onClick={() => setActiveIndex(index)}
-                      className="group flex items-center"
-                    >
-                      <span
-                        className={[
-                          "grid h-8 w-8 place-items-center rounded-full border text-xs font-black transition",
-                          isActive
-                            ? "border-blue-600 bg-blue-600 text-white"
-                            : "border-slate-200 bg-white text-slate-500 group-hover:border-blue-300 group-hover:text-blue-600 dark:border-white/10 dark:bg-white/[0.04]",
-                        ].join(" ")}
-                      >
-                        {card.number}
-                      </span>
-
-                      {index !== commandCards.length - 1 ? (
-                        <span
-                          className={[
-                            "h-px w-12 transition lg:w-16",
-                            index < activeIndex
-                              ? "bg-blue-600"
-                              : "bg-slate-200 dark:bg-white/10",
-                          ].join(" ")}
-                        />
-                      ) : null}
-                    </button>
-                  );
-                })}
-              </div>
-
-              <div className="flex items-center justify-center gap-3 sm:justify-end">
-                <button
-                  type="button"
-                  onClick={() => setIsPaused((value) => !value)}
-                  className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-4 py-2 text-sm font-bold text-blue-700 shadow-sm backdrop-blur transition hover:bg-blue-600 hover:text-white dark:border-white/10 dark:bg-white/[0.04] dark:text-blue-300"
-                >
-                  {isPaused ? <HiPlay /> : <HiPause />}
-                  {isPaused ? "Play" : "Auto-rotating"}
-                </button>
-              </div>
+            <div className="mt-5 flex items-center justify-center gap-3 text-sm font-semibold text-slate-500 dark:text-slate-400">
+              <span>Swipe or click to explore command centres</span>
+              <button
+                type="button"
+                onClick={() => setIsPaused((value) => !value)}
+                className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/85 px-3 py-1.5 text-xs font-black text-blue-700 shadow-sm backdrop-blur-xl transition hover:bg-blue-600 hover:text-white dark:border-white/10 dark:bg-white/[0.05] dark:text-blue-300"
+              >
+                {isPaused ? <HiPlay /> : <HiPause />}
+                {isPaused ? "Play" : "Auto"}
+              </button>
             </div>
           </div>
         </div>
@@ -302,7 +236,428 @@ export default function HomeCommandCenterSection() {
   );
 }
 
-function MobileStackCarousel({
+function MainDashboardShell({
+  card,
+  children,
+}: {
+  card: CommandCard;
+  children: ReactNode;
+}) {
+  const Icon = card.icon;
+
+  return (
+    <article className="relative overflow-hidden rounded-[34px] border border-blue-300 bg-white/92 p-6 shadow-[0_34px_100px_rgba(79,70,229,0.22),inset_0_0_0_1px_rgba(255,255,255,0.85)] ring-[3px] ring-blue-200/80 backdrop-blur-2xl dark:border-blue-400/40 dark:bg-white/[0.055] dark:ring-blue-400/20">
+      <div className="pointer-events-none absolute inset-0 rounded-[34px] bg-[linear-gradient(135deg,rgba(37,99,235,0.08),transparent_36%,rgba(124,58,237,0.10))]" />
+      <div className="pointer-events-none absolute -right-24 -top-24 h-60 w-60 rounded-full bg-violet-100/80 blur-3xl dark:bg-violet-500/10" />
+      <div className="pointer-events-none absolute -bottom-32 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full bg-blue-100/60 blur-3xl dark:bg-blue-500/10" />
+
+      <div className="relative flex items-start justify-between gap-5">
+        <div className="flex items-start gap-4">
+          <span className="grid h-16 w-16 shrink-0 place-items-center rounded-2xl bg-blue-50 text-blue-700 shadow-[0_16px_36px_rgba(37,99,235,0.14)] ring-1 ring-blue-100 dark:bg-blue-500/10 dark:text-blue-300 dark:ring-blue-400/20">
+            <Icon className="text-3xl" />
+          </span>
+
+          <div>
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="grid h-8 w-11 place-items-center rounded-full bg-white text-xs font-black text-blue-700 ring-1 ring-blue-100 dark:bg-white/[0.06] dark:text-blue-300 dark:ring-blue-400/20">
+                {card.number}
+              </span>
+              <span className="rounded-full bg-blue-50 px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-blue-700 dark:bg-blue-500/10 dark:text-blue-300">
+                {card.eyebrow}
+              </span>
+            </div>
+
+            <h3 className="mt-3 text-3xl font-black tracking-[-0.045em] text-slate-950 dark:text-white">
+              {card.title}
+            </h3>
+
+            <p className="mt-2 text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
+              {card.description}
+            </p>
+          </div>
+        </div>
+
+        <div className="hidden items-center gap-2 sm:flex">
+          <span className="rounded-xl border border-slate-200 bg-white/85 px-4 py-2.5 text-xs font-black text-slate-700 shadow-sm dark:border-white/10 dark:bg-white/[0.05] dark:text-slate-300">
+            This Month
+          </span>
+          <span className="grid h-11 w-11 place-items-center rounded-xl border border-slate-200 bg-white/85 text-slate-500 shadow-sm dark:border-white/10 dark:bg-white/[0.05]">
+            ⋮
+          </span>
+        </div>
+      </div>
+
+      <div className="relative mt-6">{children}</div>
+    </article>
+  );
+}
+
+function DashboardContent({ card }: { card: CommandCard }) {
+  if (card.id === "ai") return <AiInterface />;
+  if (card.id === "sales") return <SalesInterface />;
+  if (card.id === "automation") return <AutomationInterface />;
+  if (card.id === "team") return <TeamInterface />;
+  if (card.id === "risk") return <RiskInterface />;
+  if (card.id === "workflow") return <WorkflowInterface />;
+  if (card.id === "customer") return <CustomerInterface />;
+
+  return <OverviewInterface />;
+}
+
+function OverviewInterface() {
+  return (
+    <div className="space-y-4">
+      <div className="grid gap-3 md:grid-cols-4">
+        <MetricCard icon="$" title="Revenue" value="$3.67M" change="↑ 18.6%" tone="blue" />
+        <MetricCard icon="👥" title="New Leads" value="248" change="↑ 14.2%" tone="violet" />
+        <MetricCard icon="✓" title="Tasks Done" value="86%" change="↑ 9.1%" tone="emerald" />
+        <MetricCard icon="!" title="At Risk" value="14%" change="↓ 4.1%" tone="rose" />
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-[1.25fr_0.95fr]">
+        <GlassPanel title="Revenue Over Time" action="Weekly">
+          <LineChart height="h-[170px]" />
+          <div className="mt-3 grid grid-cols-3 gap-3">
+            <MiniKpi title="Pipeline" value="$3.67M" change="↑ 12.5%" />
+            <MiniKpi title="Won Deals" value="$1.24M" change="↑ 22.3%" />
+            <MiniKpi title="Forecast" value="$5.92M" change="↑ 8.4%" />
+          </div>
+        </GlassPanel>
+
+        <GlassPanel title="Revenue by Source">
+          <div className="grid grid-cols-[120px_1fr] items-center gap-4">
+            <DonutChart />
+            <div className="space-y-2.5">
+              <LegendRow color="bg-blue-600" label="Direct" value="$1.24M" />
+              <LegendRow color="bg-violet-500" label="Partner" value="$1.01M" />
+              <LegendRow color="bg-emerald-500" label="Organic" value="$782K" />
+              <LegendRow color="bg-amber-500" label="Paid Ads" value="$456K" />
+              <LegendRow color="bg-slate-300" label="Referral" value="$192K" />
+            </div>
+          </div>
+          <DealList />
+        </GlassPanel>
+      </div>
+
+      <div className="grid gap-3 md:grid-cols-3">
+        <BottomStat icon="👤" title="Team Activity" value="24" note="Active" />
+        <BottomStat icon="⚙" title="Automation Impact" value="1,243" note="↑ 32%" />
+        <BottomStat icon="😊" title="Customer NPS" value="82" note="↑ 6.4%" />
+      </div>
+    </div>
+  );
+}
+
+function AiInterface() {
+  return (
+    <div className="grid gap-4 md:grid-cols-[0.95fr_1.05fr]">
+      <GlassPanel title="Recommendation">
+        <ActionRow icon="✓" title="Follow up with 8 cold leads" note="High engagement" tone="emerald" />
+        <ActionRow icon="⏱" title="Review 3 at-risk accounts" note="Health declining" tone="blue" />
+        <ActionRow icon="★" title="Schedule pipeline review" note="22 updates available" tone="amber" />
+
+        <div className="mt-4 rounded-2xl bg-violet-50 p-4 dark:bg-violet-500/10">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-xs font-black text-slate-500 dark:text-slate-400">AI Score</p>
+              <p className="mt-1 text-3xl font-black text-slate-950 dark:text-white">91%</p>
+            </div>
+            <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-black text-emerald-700">
+              Excellent
+            </span>
+          </div>
+          <MiniChart />
+        </div>
+      </GlassPanel>
+
+      <GlassPanel title="Copilot Forecast">
+        <div className="rounded-2xl bg-gradient-to-br from-blue-50 to-violet-50 p-5 dark:from-blue-500/10 dark:to-violet-500/10">
+          <p className="text-sm font-black text-slate-950 dark:text-white">
+            Next best action
+          </p>
+          <p className="mt-2 text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
+            Focus on Enterprise SaaS renewals. Highest risk accounts need
+            attention this week.
+          </p>
+        </div>
+
+        <div className="mt-4 grid grid-cols-3 gap-3">
+          <MiniKpi title="Potential" value="$420K" change="Unlocked" />
+          <MiniKpi title="Risk" value="3" change="Accounts" />
+          <MiniKpi title="Speed" value="14%" change="Better" />
+        </div>
+
+        <LineChart height="mt-4 h-[150px]" />
+      </GlassPanel>
+    </div>
+  );
+}
+
+function SalesInterface() {
+  return (
+    <div className="grid gap-4 md:grid-cols-[0.82fr_1.18fr]">
+      <GlassPanel title="Pipeline Forecast">
+        <p className="text-3xl font-black text-slate-950 dark:text-white">
+          $3.67M
+        </p>
+        <p className="mt-1 text-xs font-black text-emerald-500">
+          ↑ 18.6% vs last 30 days
+        </p>
+
+        <div className="mt-5 space-y-4">
+          <ProgressRow label="Prospecting" value="$1.24M" width="82%" />
+          <ProgressRow label="Qualification" value="$982K" width="64%" />
+          <ProgressRow label="Proposal" value="$756K" width="78%" />
+          <ProgressRow label="Closed Won" value="$226K" width="36%" />
+        </div>
+
+        <button
+          type="button"
+          className="mt-5 inline-flex items-center gap-2 text-sm font-black text-blue-700"
+        >
+          View pipeline <HiChevronRight />
+        </button>
+      </GlassPanel>
+
+      <GlassPanel title="Top Deals">
+        <div className="grid gap-3">
+          <DealCard title="Enterprise SaaS Rollout" value="$128K" status="Qualification" />
+          <DealCard title="Analytics Platform" value="$96K" status="Proposal" />
+          <DealCard title="Security Upgrade" value="$74K" status="Negotiation" />
+          <DealCard title="Automation Suite" value="$52K" status="Discovery" />
+        </div>
+      </GlassPanel>
+    </div>
+  );
+}
+
+function AutomationInterface() {
+  return (
+    <div className="grid gap-4 md:grid-cols-[0.9fr_1.1fr]">
+      <GlassPanel title="Automation Impact">
+        <MetricCard icon="$" title="Runs" value="1,243" change="↑ 32%" tone="blue" compact />
+        <MetricCard icon="♟" title="Tasks" value="5,689" change="↑ 28%" tone="emerald" compact />
+        <MetricCard icon="⏱" title="Saved" value="128h" change="↑ 35%" tone="violet" compact />
+      </GlassPanel>
+
+      <GlassPanel title="Active Workflows">
+        <WorkflowRow title="Lead Nurture Flow" note="Triggered 12m ago" />
+        <WorkflowRow title="Invoice Reminders" note="Triggered 1h ago" />
+        <WorkflowRow title="Support Escalation" note="Triggered 2h ago" />
+
+        <div className="mt-5 rounded-2xl bg-gradient-to-br from-blue-50 to-violet-50 p-4 dark:from-blue-500/10 dark:to-violet-500/10">
+          <p className="text-sm font-black text-slate-950 dark:text-white">
+            Workflow Overview
+          </p>
+          <div className="mt-4 flex items-center justify-between gap-2">
+            {["▶", "✉", "🤖", "☰"].map((item) => (
+              <span
+                key={item}
+                className="grid h-11 w-11 place-items-center rounded-full bg-white text-lg shadow-sm dark:bg-white/[0.08]"
+              >
+                {item}
+              </span>
+            ))}
+          </div>
+        </div>
+      </GlassPanel>
+    </div>
+  );
+}
+
+function TeamInterface() {
+  return (
+    <div className="grid gap-4 md:grid-cols-[0.95fr_1.05fr]">
+      <GlassPanel title="Top Performers">
+        <TeamRow initials="AM" name="Alex Morgan" value="72%" />
+        <TeamRow initials="PS" name="Priya Shah" value="67%" />
+        <TeamRow initials="JL" name="Jordan Lee" value="62%" />
+      </GlassPanel>
+
+      <GlassPanel title="Team Health">
+        <div className="grid grid-cols-[110px_1fr] items-center gap-4">
+          <RingScore value="87%" />
+          <div>
+            <p className="text-xl font-black text-emerald-600">On Track</p>
+            <p className="mt-2 text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
+              Team workload is balanced. Response time improved this month.
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-5 space-y-3">
+          <ProgressRow label="Sales" value="78%" width="78%" />
+          <ProgressRow label="Support" value="82%" width="82%" />
+          <ProgressRow label="Operations" value="58%" width="58%" />
+        </div>
+      </GlassPanel>
+    </div>
+  );
+}
+
+function RiskInterface() {
+  return (
+    <div className="grid gap-4 md:grid-cols-[0.9fr_1.1fr]">
+      <GlassPanel title="Active Risk Queue">
+        <ActionRow icon="!" title="3 accounts need attention" note="High priority" tone="rose" />
+        <ActionRow icon="⏱" title="6 overdue follow-ups" note="Sales team" tone="amber" />
+        <ActionRow icon="✓" title="12 resolved alerts" note="This week" tone="emerald" />
+      </GlassPanel>
+
+      <GlassPanel title="Risk Heatmap">
+        <div className="grid grid-cols-4 gap-2">
+          {Array.from({ length: 16 }).map((_, index) => (
+            <span
+              key={index}
+              className={[
+                "h-12 rounded-xl",
+                index % 5 === 0
+                  ? "bg-red-100"
+                  : index % 3 === 0
+                    ? "bg-amber-100"
+                    : "bg-emerald-100",
+              ].join(" ")}
+            />
+          ))}
+        </div>
+      </GlassPanel>
+    </div>
+  );
+}
+
+function WorkflowInterface() {
+  return (
+    <div className="grid gap-4 md:grid-cols-[1fr_1fr]">
+      <GlassPanel title="Workflow Builder">
+        <div className="grid grid-cols-2 gap-3">
+          {[
+            ["Lead", "Captured"],
+            ["CRM", "Updated"],
+            ["Email", "Sent"],
+            ["Task", "Assigned"],
+          ].map(([title, note], index) => (
+            <div
+              key={title}
+              className="rounded-2xl border border-blue-100 bg-white p-4 text-center dark:border-white/10 dark:bg-white/[0.04]"
+            >
+              <span className="mx-auto grid h-9 w-9 place-items-center rounded-full bg-blue-50 text-sm font-black text-blue-700">
+                {index + 1}
+              </span>
+              <p className="mt-3 text-sm font-black text-slate-950 dark:text-white">
+                {title}
+              </p>
+              <p className="text-xs font-semibold text-slate-500">{note}</p>
+            </div>
+          ))}
+        </div>
+      </GlassPanel>
+
+      <GlassPanel title="Running Automations">
+        <WorkflowRow title="Lead routing" note="Live" />
+        <WorkflowRow title="Invoice reminders" note="Live" />
+        <WorkflowRow title="Support escalation" note="Live" />
+        <div className="mt-4 rounded-2xl bg-violet-50 p-4 dark:bg-violet-500/10">
+          <p className="text-lg font-black text-slate-950 dark:text-white">
+            18 active workflows
+          </p>
+          <p className="text-xs font-black text-emerald-600">
+            ↑ 28% automation coverage
+          </p>
+        </div>
+      </GlassPanel>
+    </div>
+  );
+}
+
+function CustomerInterface() {
+  return (
+    <div className="grid gap-4 md:grid-cols-[0.85fr_1.15fr]">
+      <GlassPanel title="Health Score">
+        <RingScore value="82" />
+        <p className="mt-4 text-center text-sm font-black text-emerald-600">
+          Healthy Accounts
+        </p>
+      </GlassPanel>
+
+      <GlassPanel title="Account Pulse">
+        <CustomerRow name="Acme Corp" status="Healthy" tone="emerald" />
+        <CustomerRow name="Globex Inc." status="At Risk" tone="amber" />
+        <CustomerRow name="Northstar Group" status="Growing" tone="blue" />
+        <LineChart height="mt-4 h-[130px]" />
+      </GlassPanel>
+    </div>
+  );
+}
+
+function SideDashboardCard({
+  card,
+  onClick,
+}: {
+  card: CommandCard & { originalIndex: number; relative: number };
+  onClick: () => void;
+}) {
+  const Icon = card.icon;
+
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={[
+        "group relative min-h-[250px] overflow-hidden rounded-[26px] border border-slate-200/80 bg-white/74 p-5 text-left shadow-[0_20px_60px_rgba(15,23,42,0.06)] backdrop-blur-2xl transition duration-300 hover:-translate-y-1 hover:border-blue-200 hover:bg-white dark:border-white/10 dark:bg-white/[0.045]",
+        Math.abs(card.relative) === 2 ? "opacity-70" : "opacity-100",
+      ].join(" ")}
+    >
+      <div className="flex items-start justify-between">
+        <span className="grid h-12 w-12 place-items-center rounded-2xl bg-blue-50 text-blue-700 shadow-sm ring-1 ring-blue-100 dark:bg-blue-500/10 dark:text-blue-300">
+          <Icon className="text-xl" />
+        </span>
+        <span className="grid h-8 w-10 place-items-center rounded-full bg-blue-50 text-xs font-black text-blue-700 ring-1 ring-blue-100">
+          {card.number}
+        </span>
+      </div>
+
+      <h3 className="mt-5 text-lg font-black tracking-[-0.03em] text-slate-950 dark:text-white">
+        {card.title}
+      </h3>
+
+      <p className="mt-3 text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
+        {card.description}
+      </p>
+
+      <div className="mt-5 rounded-2xl border border-slate-200 bg-white/80 p-3 dark:border-white/10 dark:bg-white/[0.04]">
+        {card.id === "ai" ? (
+          <>
+            <MiniKpi title="AI Score" value="91%" change="Excellent" />
+            <MiniChart />
+          </>
+        ) : card.id === "sales" ? (
+          <>
+            <MiniKpi title="Pipeline Value" value="$3.67M" change="↑ 18.6%" />
+            <ProgressRow label="Prospecting" value="82%" width="82%" />
+            <ProgressRow label="Proposal" value="78%" width="78%" />
+          </>
+        ) : card.id === "automation" ? (
+          <>
+            <MiniKpi title="Hours Saved" value="128h" change="↑ 35%" />
+            <MiniChart />
+          </>
+        ) : card.id === "team" ? (
+          <>
+            <TeamRow initials="AM" name="Alex Morgan" value="72%" small />
+            <TeamRow initials="PS" name="Priya Shah" value="67%" small />
+          </>
+        ) : (
+          <>
+            <MiniKpi title="Health" value="82" change="↑ 6.4%" />
+            <MiniChart />
+          </>
+        )}
+      </div>
+    </button>
+  );
+}
+
+function MobileCommandCards({
   activeIndex,
   setActiveIndex,
   goNext,
@@ -314,13 +669,7 @@ function MobileStackCarousel({
   goPrev: () => void;
 }) {
   const startX = useRef<number | null>(null);
-
-  const visibleCards = useMemo(() => {
-    return commandCards.map((card, index) => {
-      const relative = getRelativePosition(index, activeIndex);
-      return { ...card, relative, originalIndex: index };
-    });
-  }, [activeIndex]);
+  const activeCard = commandCards[activeIndex];
 
   const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
     startX.current = event.touches[0]?.clientX ?? null;
@@ -343,978 +692,432 @@ function MobileStackCarousel({
   return (
     <div className="lg:hidden">
       <div
-        className="relative mx-auto h-[720px] max-w-[380px]"
+        className="mx-auto max-w-[380px]"
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        {visibleCards.map((card) => {
-          const visual = getMobileCardVisual(card.relative);
-          if (!visual.visible) return null;
-
-          const isActive = card.relative === 0;
-
-          return (
-            <div
-              key={card.id}
-              role="button"
-              tabIndex={0}
-              onClick={() => setActiveIndex(card.originalIndex)}
-              className="absolute left-1/2 top-0 w-[340px] cursor-pointer text-left outline-none transition-all duration-[650ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
-              style={{
-                opacity: visual.opacity,
-                zIndex: visual.zIndex,
-                transform: `translateX(-50%) translateX(${visual.x}px) translateY(${visual.y}px) scale(${visual.scale}) rotate(${visual.rotate}deg)`,
-              }}
-            >
-              <article
-                className={[
-                  "relative min-h-[670px] overflow-hidden border bg-white/92 backdrop-blur-2xl dark:bg-white/[0.055]",
-                  isActive
-                    ? "rounded-[30px] border-blue-300/80 p-4 shadow-[0_26px_75px_rgba(79,70,229,0.20)] ring-2 ring-blue-300/40 dark:border-blue-400/40 dark:ring-blue-400/20"
-                    : "rounded-[28px] border-slate-200/80 p-5 shadow-[0_18px_50px_rgba(15,23,42,0.08)] dark:border-white/10",
-                ].join(" ")}
-              >
-                {isActive ? (
-                  <ActiveDashboard card={card} compact />
-                ) : (
-                  <SidePreviewCard card={card} Icon={card.icon} />
-                )}
-              </article>
-            </div>
-          );
-        })}
+        <MainDashboardShell card={activeCard}>
+          <DashboardContent card={activeCard} />
+        </MainDashboardShell>
       </div>
 
-      <div className="mt-5 flex items-center justify-center gap-2">
+      <div className="mt-5 flex gap-3 overflow-x-auto pb-2">
         {commandCards.map((card, index) => (
           <button
             key={card.id}
             type="button"
             onClick={() => setActiveIndex(index)}
-            aria-label={`Go to ${card.title}`}
             className={[
-              "h-2.5 rounded-full transition",
+              "w-[170px] shrink-0 rounded-2xl border p-4 text-left transition",
               activeIndex === index
-                ? "w-8 bg-blue-600"
-                : "w-2.5 bg-slate-300 dark:bg-white/20",
+                ? "border-blue-300 bg-blue-50 dark:border-blue-400/30 dark:bg-blue-500/10"
+                : "border-slate-200 bg-white/80 dark:border-white/10 dark:bg-white/[0.04]",
             ].join(" ")}
-          />
+          >
+            <card.icon className="text-xl text-blue-700 dark:text-blue-300" />
+            <p className="mt-3 text-xs font-black text-blue-700 dark:text-blue-300">
+              {card.number}
+            </p>
+            <p className="mt-1 text-sm font-black text-slate-950 dark:text-white">
+              {card.title}
+            </p>
+          </button>
         ))}
       </div>
-
-      <p className="mt-3 text-center text-xs font-semibold text-slate-500 dark:text-slate-400">
-        Swipe left or right to explore cards
-      </p>
     </div>
   );
 }
 
-function ActiveDashboard({
-  card,
-  compact = false,
+function ArrowButton({
+  direction,
+  onClick,
 }: {
-  card: CommandCard;
-  compact?: boolean;
+  direction: "left" | "right";
+  onClick: () => void;
+}) {
+  const Icon = direction === "left" ? HiArrowLeft : HiArrowRight;
+
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={direction === "left" ? "Previous card" : "Next card"}
+      className={[
+        "absolute top-1/2 z-30 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full border border-slate-200 bg-white text-blue-700 shadow-[0_18px_45px_rgba(15,23,42,0.12)] transition hover:bg-blue-600 hover:text-white dark:border-white/10 dark:bg-slate-900 dark:text-blue-300",
+        direction === "left" ? "left-0" : "right-0",
+      ].join(" ")}
+    >
+      <Icon className="text-2xl" />
+    </button>
+  );
+}
+
+function GlassPanel({
+  title,
+  action,
+  children,
+}: {
+  title: string;
+  action?: string;
+  children: ReactNode;
 }) {
   return (
-    <div className="relative h-full">
-      <CommandWindowHeader card={card} compact={compact} />
-      <div className={compact ? "mt-4" : "mt-5"}>
-        <DashboardBody card={card} compact={compact} />
+    <div className="rounded-2xl border border-slate-200 bg-white/82 p-4 shadow-[0_14px_40px_rgba(15,23,42,0.04)] dark:border-white/10 dark:bg-white/[0.04]">
+      <div className="flex items-center justify-between gap-3">
+        <p className="text-sm font-black text-slate-950 dark:text-white">
+          {title}
+        </p>
+        {action ? (
+          <span className="rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-black text-slate-600 dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-300">
+            {action}
+          </span>
+        ) : null}
       </div>
+      <div className="mt-3">{children}</div>
     </div>
   );
 }
 
-function CommandWindowHeader({
-  card,
+function MetricCard({
+  icon,
+  title,
+  value,
+  change,
+  tone,
   compact = false,
 }: {
-  card: CommandCard;
+  icon: string;
+  title: string;
+  value: string;
+  change: string;
+  tone: "blue" | "violet" | "emerald" | "rose";
   compact?: boolean;
 }) {
-  const Icon = card.icon;
+  const toneClasses = {
+    blue: "bg-blue-50 text-blue-700",
+    violet: "bg-violet-50 text-violet-700",
+    emerald: "bg-emerald-50 text-emerald-700",
+    rose: "bg-rose-50 text-rose-700",
+  };
+
+  const chartStroke = {
+    blue: "#2563eb",
+    violet: "#8b5cf6",
+    emerald: "#10b981",
+    rose: "#f43f5e",
+  };
 
   return (
-    <div className="relative flex items-start justify-between gap-4">
+    <div className="rounded-2xl border border-slate-200 bg-white/86 p-4 dark:border-white/10 dark:bg-white/[0.04]">
       <div className="flex items-start gap-3">
         <span
           className={[
-            "grid shrink-0 place-items-center rounded-2xl bg-blue-50 text-blue-700 shadow-[0_14px_34px_rgba(79,70,229,0.12)] ring-1 ring-blue-100 dark:bg-blue-500/10 dark:text-blue-300 dark:ring-blue-400/20",
-            compact ? "h-12 w-12" : "h-14 w-14",
+            "grid h-11 w-11 shrink-0 place-items-center rounded-full text-lg font-black",
+            toneClasses[tone],
           ].join(" ")}
         >
-          <Icon className={compact ? "text-2xl" : "text-3xl"} />
+          {icon}
         </span>
-
         <div>
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="grid h-7 w-10 place-items-center rounded-full bg-blue-50 text-[11px] font-black text-blue-700 ring-1 ring-blue-100 dark:bg-blue-500/10 dark:text-blue-300 dark:ring-blue-400/20">
-              {card.number}
-            </span>
-            <span className="hidden rounded-full bg-slate-100 px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.13em] text-slate-500 sm:inline-flex dark:bg-white/[0.06] dark:text-slate-300">
-              {card.shortTitle}
-            </span>
-          </div>
-
-          <h3
-            className={[
-              "font-black tracking-[-0.04em] text-slate-950 dark:text-white",
-              compact ? "mt-3 text-xl" : "mt-3 text-2xl",
-            ].join(" ")}
-          >
-            {card.title}
-          </h3>
-
+          <p className="text-xs font-black text-slate-500 dark:text-slate-400">
+            {title}
+          </p>
+          <p className="mt-1 text-2xl font-black text-slate-950 dark:text-white">
+            {value}
+          </p>
           <p
             className={[
-              "font-semibold leading-6 text-slate-600 dark:text-slate-300",
-              compact ? "mt-1 text-xs" : "mt-2 max-w-md text-sm",
+              "text-xs font-black",
+              change.includes("↓") ? "text-red-500" : "text-emerald-500",
             ].join(" ")}
           >
-            {card.description}
+            {change}
           </p>
         </div>
       </div>
 
-      {!compact ? (
-        <div className="flex items-center gap-2">
-          <span className="rounded-xl border border-slate-200 bg-white/80 px-3 py-2 text-xs font-black text-slate-600 shadow-sm dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-300">
-            This Month
-          </span>
-          <span className="grid h-10 w-10 place-items-center rounded-xl border border-slate-200 bg-white/80 text-slate-500 shadow-sm dark:border-white/10 dark:bg-white/[0.04]">
-            ⋮
-          </span>
-        </div>
-      ) : null}
+      {!compact ? <TinyLine stroke={chartStroke[tone]} /> : null}
     </div>
   );
 }
 
-function DashboardBody({
-  card,
-  compact = false,
-}: {
-  card: CommandCard;
-  compact?: boolean;
-}) {
-  if (card.id === "ai") return <AiDashboard compact={compact} />;
-  if (card.id === "sales") return <SalesDashboard compact={compact} />;
-  if (card.id === "automation") return <AutomationDashboard compact={compact} />;
-  if (card.id === "team") return <TeamDashboard compact={compact} />;
-  if (card.id === "alerts") return <AlertsDashboard compact={compact} />;
-  if (card.id === "workflow") return <WorkflowDashboard compact={compact} />;
-  if (card.id === "customers") return <CustomerDashboard compact={compact} />;
-
-  return <OverviewDashboard compact={compact} />;
-}
-
-function OverviewDashboard({ compact = false }: { compact?: boolean }) {
-  return (
-    <div className="space-y-3">
-      <div className="grid gap-2.5 sm:grid-cols-4">
-        {[
-          ["Revenue", "$3.67M", "↑ 18.6%"],
-          ["New Leads", "248", "↑ 14.2%"],
-          ["Tasks Done", "86%", "↑ 9.1%"],
-          ["At Risk", "14%", "↓ 4.1%"],
-        ].map(([label, value, change]) => (
-          <MetricTile key={label} label={label} value={value} change={change} />
-        ))}
-      </div>
-
-      <div className={compact ? "grid gap-3" : "grid gap-3 md:grid-cols-[1.25fr_0.75fr]"}>
-        <Panel title="Revenue Over Time">
-          <LineChart />
-        </Panel>
-
-        <Panel title="Revenue by Source">
-          <DonutWithLegend />
-        </Panel>
-      </div>
-
-      {!compact ? <BottomDashboardGrid /> : null}
-    </div>
-  );
-}
-
-function AiDashboard({ compact = false }: { compact?: boolean }) {
-  return (
-    <div className="space-y-3">
-      <div className={compact ? "grid gap-3" : "grid gap-3 md:grid-cols-[1.05fr_0.95fr]"}>
-        <Panel title="Recommended For You" accent="violet">
-          <ActionList
-            items={[
-              ["Follow up with 8 cold leads", "Engagement score is high", "blue"],
-              ["Review 3 at-risk accounts", "Health score declining", "red"],
-              ["Schedule pipeline review", "22 forecast updates", "violet"],
-            ]}
-          />
-        </Panel>
-
-        <Panel title="Copilot Impact" accent="blue">
-          <p className="mt-3 text-3xl font-black text-slate-950 dark:text-white">
-            +$1.24M
-          </p>
-          <p className="text-xs font-black text-emerald-500">↑ 21.7% revenue impact</p>
-          <MiniChart />
-        </Panel>
-      </div>
-
-      <div className="rounded-2xl border border-violet-100 bg-gradient-to-br from-violet-50 to-white p-3 dark:border-violet-400/10 dark:from-violet-500/10 dark:to-white/[0.03]">
-        <div className="flex items-start gap-3">
-          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-white text-blue-700 shadow-sm dark:bg-white/[0.08] dark:text-blue-300">
-            <HiSparkles />
-          </span>
-          <div>
-            <p className="text-xs font-black text-slate-950 dark:text-white">AI Summary</p>
-            <p className="mt-1 text-xs font-semibold leading-5 text-slate-600 dark:text-slate-300">
-              Conversion improved by 14%. Highest opportunity is follow-up automation for warm leads.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function SalesDashboard({ compact = false }: { compact?: boolean }) {
-  return (
-    <div className={compact ? "grid gap-3" : "grid gap-3 md:grid-cols-[0.8fr_1.2fr]"}>
-      <Panel title="Pipeline by Stage" accent="indigo">
-        <StageStack />
-      </Panel>
-
-      <div className="space-y-3">
-        <Panel title="Forecast Value">
-          <div className="flex items-end justify-between gap-4">
-            <div>
-              <p className="text-3xl font-black text-slate-950 dark:text-white">$3.67M</p>
-              <p className="text-xs font-black text-emerald-500">↑ 22.4% this month</p>
-            </div>
-            <div className="rounded-xl bg-blue-50 px-3 py-2 text-right dark:bg-blue-500/10">
-              <p className="text-[10px] font-black text-slate-500 dark:text-slate-400">Win Rate</p>
-              <p className="text-lg font-black text-blue-700 dark:text-blue-300">32.4%</p>
-            </div>
-          </div>
-          <LineChart small />
-        </Panel>
-
-        <Panel title="Top Deals">
-          <DealRows />
-        </Panel>
-      </div>
-    </div>
-  );
-}
-
-function AutomationDashboard({ compact = false }: { compact?: boolean }) {
-  return (
-    <div className={compact ? "grid gap-3" : "grid gap-3 md:grid-cols-[1fr_0.82fr]"}>
-      <Panel title="Automation Impact" accent="emerald">
-        <div className="grid grid-cols-3 gap-2">
-          {[
-            ["Runs", "1,243", "↑ 32%"],
-            ["Tasks", "5,689", "↑ 28%"],
-            ["Saved", "128h", "↑ 35%"],
-          ].map(([label, value, change]) => (
-            <MiniNumberCard key={label} label={label} value={value} change={change} />
-          ))}
-        </div>
-        <MiniChart />
-      </Panel>
-
-      <Panel title="Live Workflows">
-        <WorkflowRows />
-      </Panel>
-    </div>
-  );
-}
-
-function TeamDashboard({ compact = false }: { compact?: boolean }) {
-  return (
-    <div className={compact ? "grid gap-3" : "grid gap-3 md:grid-cols-[1.05fr_0.95fr]"}>
-      <Panel title="Team Scorecard" accent="sky">
-        <TeamRows />
-      </Panel>
-
-      <Panel title="Operations Snapshot">
-        <div className="grid grid-cols-2 gap-2">
-          {[
-            ["Team Score", "89%", "↑ 8%"],
-            ["Tasks Done", "2,451", "↑ 10%"],
-            ["On Track", "12", "↑ 2"],
-            ["Response", "1.2h", "↓ 0.3h"],
-          ].map(([label, value, change]) => (
-            <MiniNumberCard key={label} label={label} value={value} change={change} />
-          ))}
-        </div>
-        <AvatarStrip />
-      </Panel>
-    </div>
-  );
-}
-
-function AlertsDashboard({ compact = false }: { compact?: boolean }) {
-  return (
-    <div className={compact ? "grid gap-3" : "grid gap-3 md:grid-cols-[1fr_0.82fr]"}>
-      <Panel title="Risk Queue" accent="amber">
-        <ActionList
-          items={[
-            ["High-priority follow-up", "12 minutes overdue", "red"],
-            ["Invoice approval waiting", "Finance owner pending", "amber"],
-            ["Response SLA slipping", "Support queue needs help", "blue"],
-          ]}
-        />
-      </Panel>
-
-      <Panel title="Risk Summary">
-        <div className="grid place-items-center rounded-2xl bg-gradient-to-br from-orange-50 to-white p-5 text-center dark:from-orange-500/10 dark:to-white/[0.03]">
-          <p className="text-5xl font-black text-orange-500">23</p>
-          <p className="mt-1 text-xs font-black text-slate-950 dark:text-white">Needs Attention</p>
-          <p className="mt-1 text-[10px] font-semibold text-slate-500 dark:text-slate-400">7 high priority</p>
-        </div>
-      </Panel>
-    </div>
-  );
-}
-
-function WorkflowDashboard({ compact = false }: { compact?: boolean }) {
-  return (
-    <div className={compact ? "grid gap-3" : "grid gap-3 md:grid-cols-[0.88fr_1.12fr]"}>
-      <Panel title="Workflow Map" accent="violet">
-        <FlowMap />
-      </Panel>
-
-      <Panel title="Running Automations">
-        <WorkflowRows />
-        <div className="mt-3 rounded-xl bg-violet-50 p-3 dark:bg-violet-500/10">
-          <p className="text-xs font-black text-slate-950 dark:text-white">18 active workflows</p>
-          <p className="mt-1 text-[10px] font-semibold text-emerald-600">↑ 28% automation coverage</p>
-        </div>
-      </Panel>
-    </div>
-  );
-}
-
-function CustomerDashboard({ compact = false }: { compact?: boolean }) {
-  return (
-    <div className={compact ? "grid gap-3" : "grid gap-3 md:grid-cols-[0.82fr_1.18fr]"}>
-      <Panel title="Health Score" accent="teal">
-        <HealthDonut />
-      </Panel>
-
-      <Panel title="Top Accounts">
-        <div className="space-y-2.5">
-          {[
-            ["Acme Corp", "Healthy", "emerald"],
-            ["Globex Inc.", "At Risk", "amber"],
-            ["Soylent Corp.", "Healthy", "emerald"],
-          ].map(([name, status, color]) => (
-            <div key={name} className="flex items-center justify-between rounded-xl bg-slate-50 p-3 dark:bg-white/[0.04]">
-              <span className="text-xs font-black text-slate-800 dark:text-slate-200">{name}</span>
-              <span className={[
-                "rounded-full px-2 py-1 text-[10px] font-black",
-                color === "amber" ? "bg-amber-50 text-amber-600" : "bg-emerald-50 text-emerald-600",
-              ].join(" ")}>{status}</span>
-            </div>
-          ))}
-        </div>
-        <MiniChart />
-      </Panel>
-    </div>
-  );
-}
-
-function SidePreviewCard({ card, Icon }: { card: CommandCard; Icon: CommandCard["icon"] }) {
-  return (
-    <div className="relative h-full">
-      <div className="flex items-start justify-between gap-3">
-        <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-blue-50 text-blue-700 ring-1 ring-blue-100 dark:bg-blue-500/10 dark:text-blue-300 dark:ring-blue-400/20">
-          <Icon className="text-xl" />
-        </span>
-        <span className="grid h-8 w-10 place-items-center rounded-full bg-blue-50 text-xs font-black text-blue-700 ring-1 ring-blue-100 dark:bg-blue-500/10 dark:text-blue-300 dark:ring-blue-400/20">
-          {card.number}
-        </span>
-      </div>
-
-      <h3 className="mt-5 text-lg font-black leading-tight tracking-[-0.03em] text-slate-950 dark:text-white">
-        {card.title}
-      </h3>
-      <p className="mt-3 text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
-        {card.description}
-      </p>
-
-      <div className="absolute bottom-0 left-0 right-0">
-        <SideMiniInterface id={card.id} />
-      </div>
-    </div>
-  );
-}
-
-function SideMiniInterface({ id }: { id: string }) {
-  if (id === "sales") {
-    return (
-      <Panel title="Pipeline" compact>
-        <MiniStat label="Forecast" value="$3.67M" />
-        <ProgressRows />
-      </Panel>
-    );
-  }
-  if (id === "ai") {
-    return (
-      <Panel title="AI Signal" compact>
-        <p className="mt-3 text-xs font-semibold leading-5 text-slate-600 dark:text-slate-300">
-          Conversion improved by 14%.
-        </p>
-        <MiniChart />
-      </Panel>
-    );
-  }
-  if (id === "automation" || id === "workflow") {
-    return (
-      <Panel title={id === "workflow" ? "Workflow" : "Automations"} compact>
-        <MiniStat label="Active" value={id === "workflow" ? "18" : "1,243"} />
-        <MiniChart />
-      </Panel>
-    );
-  }
-  if (id === "team") {
-    return (
-      <Panel title="Team" compact>
-        <TeamRows small />
-      </Panel>
-    );
-  }
-  if (id === "alerts") {
-    return (
-      <Panel title="Alerts" compact>
-        <MiniStat label="Open" value="23" />
-        <MiniChart />
-      </Panel>
-    );
-  }
-  if (id === "customers") {
-    return (
-      <Panel title="Health" compact>
-        <MiniStat label="NPS" value="82" />
-        <MiniChart />
-      </Panel>
-    );
-  }
-
-  return (
-    <Panel title="Revenue" compact>
-      <MiniStat label="Total" value="$3.67M" />
-      <MiniChart />
-    </Panel>
-  );
-}
-
-function getRelativePosition(index: number, activeIndex: number) {
-  const total = commandCards.length;
-  let diff = index - activeIndex;
-
-  if (diff > total / 2) diff -= total;
-  if (diff < -total / 2) diff += total;
-
-  return diff;
-}
-
-function getCardVisual(position: number) {
-  const activeWidth = 650;
-  const activeHeight = 500;
-  const collapsedWidth = 195;
-  const collapsedHeight = 420;
-
-  const visuals: Record<
-    number,
-    {
-      visible: boolean;
-      x: number;
-      y: number;
-      scale: number;
-      opacity: number;
-      zIndex: number;
-      width: number;
-      height: number;
-    }
-  > = {
-    [-3]: {
-      visible: true,
-      x: -805,
-      y: 58,
-      scale: 0.78,
-      opacity: 0.2,
-      zIndex: 1,
-      width: collapsedWidth,
-      height: collapsedHeight,
-    },
-    [-2]: {
-      visible: true,
-      x: -600,
-      y: 45,
-      scale: 0.86,
-      opacity: 0.42,
-      zIndex: 2,
-      width: collapsedWidth,
-      height: collapsedHeight,
-    },
-    [-1]: {
-      visible: true,
-      x: -397,
-      y: 32,
-      scale: 0.92,
-      opacity: 0.64,
-      zIndex: 3,
-      width: collapsedWidth,
-      height: collapsedHeight,
-    },
-    0: {
-      visible: true,
-      x: -325,
-      y: 0,
-      scale: 1,
-      opacity: 1,
-      zIndex: 10,
-      width: activeWidth,
-      height: activeHeight,
-    },
-    1: {
-      visible: true,
-      x: 360,
-      y: 32,
-      scale: 0.92,
-      opacity: 0.84,
-      zIndex: 5,
-      width: collapsedWidth,
-      height: collapsedHeight,
-    },
-    2: {
-      visible: true,
-      x: 563,
-      y: 45,
-      scale: 0.86,
-      opacity: 0.62,
-      zIndex: 4,
-      width: collapsedWidth,
-      height: collapsedHeight,
-    },
-    3: {
-      visible: true,
-      x: 765,
-      y: 58,
-      scale: 0.78,
-      opacity: 0.32,
-      zIndex: 3,
-      width: collapsedWidth,
-      height: collapsedHeight,
-    },
-    4: {
-      visible: true,
-      x: 940,
-      y: 66,
-      scale: 0.7,
-      opacity: 0.14,
-      zIndex: 2,
-      width: collapsedWidth,
-      height: collapsedHeight,
-    },
-  };
-
-  return (
-    visuals[position] ?? {
-      visible: false,
-      x: 0,
-      y: 0,
-      scale: 0,
-      opacity: 0,
-      zIndex: 0,
-      width: collapsedWidth,
-      height: collapsedHeight,
-    }
-  );
-}
-
-function getMobileCardVisual(position: number) {
-  const visuals: Record<
-    number,
-    {
-      visible: boolean;
-      x: number;
-      y: number;
-      scale: number;
-      opacity: number;
-      zIndex: number;
-      rotate: number;
-    }
-  > = {
-    [-2]: {
-      visible: true,
-      x: -34,
-      y: 34,
-      scale: 0.88,
-      opacity: 0.2,
-      zIndex: 1,
-      rotate: -5,
-    },
-    [-1]: {
-      visible: true,
-      x: -20,
-      y: 20,
-      scale: 0.94,
-      opacity: 0.45,
-      zIndex: 2,
-      rotate: -3,
-    },
-    0: {
-      visible: true,
-      x: 0,
-      y: 0,
-      scale: 1,
-      opacity: 1,
-      zIndex: 8,
-      rotate: 0,
-    },
-    1: {
-      visible: true,
-      x: 20,
-      y: 20,
-      scale: 0.94,
-      opacity: 0.45,
-      zIndex: 3,
-      rotate: 3,
-    },
-    2: {
-      visible: true,
-      x: 34,
-      y: 34,
-      scale: 0.88,
-      opacity: 0.2,
-      zIndex: 1,
-      rotate: 5,
-    },
-  };
-
-  return (
-    visuals[position] ?? {
-      visible: false,
-      x: 0,
-      y: 0,
-      scale: 0,
-      opacity: 0,
-      zIndex: 0,
-      rotate: 0,
-    }
-  );
-}
-
-function Panel({
+function MiniKpi({
   title,
-  children,
-  compact = false,
-  accent,
+  value,
+  change,
 }: {
   title: string;
-  children: ReactNode;
-  compact?: boolean;
-  accent?: string;
+  value: string;
+  change: string;
 }) {
-  const accentClass =
-    accent === "violet"
-      ? "border-violet-100 bg-gradient-to-br from-violet-50 to-white dark:border-violet-400/10 dark:from-violet-500/10"
-      : accent === "blue" || accent === "indigo" || accent === "sky"
-        ? "border-blue-100 bg-gradient-to-br from-blue-50 to-white dark:border-blue-400/10 dark:from-blue-500/10"
-        : accent === "emerald" || accent === "teal"
-          ? "border-emerald-100 bg-gradient-to-br from-emerald-50 to-white dark:border-emerald-400/10 dark:from-emerald-500/10"
-          : accent === "amber"
-            ? "border-orange-100 bg-gradient-to-br from-orange-50 to-white dark:border-orange-400/10 dark:from-orange-500/10"
-            : "border-slate-200 bg-white/80 dark:border-white/10 dark:bg-white/[0.04]";
-
   return (
-    <div className={["rounded-2xl border dark:to-white/[0.03]", accentClass, compact ? "p-3" : "p-3.5"].join(" ")}>
-      <p className="text-xs font-black text-slate-950 dark:text-white">{title}</p>
-      {children}
+    <div className="rounded-xl bg-slate-50 p-3 dark:bg-white/[0.04]">
+      <p className="text-xs font-black text-slate-500 dark:text-slate-400">
+        {title}
+      </p>
+      <p className="mt-1 text-lg font-black text-slate-950 dark:text-white">
+        {value}
+      </p>
+      <p className="text-[10px] font-black text-emerald-500">{change}</p>
     </div>
   );
 }
 
-function MetricTile({ label, value, change }: { label: string; value: string; change: string }) {
-  const positive = change.includes("↑");
-  const negative = change.includes("↓");
-
+function BottomStat({
+  icon,
+  title,
+  value,
+  note,
+}: {
+  icon: string;
+  title: string;
+  value: string;
+  note: string;
+}) {
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white/85 p-3 dark:border-white/10 dark:bg-white/[0.04]">
-      <p className="text-[10px] font-black text-slate-500 dark:text-slate-400">{label}</p>
-      <div className="mt-2 flex items-end justify-between gap-2">
-        <p className="text-lg font-black text-slate-950 dark:text-white">{value}</p>
-        <p className={["text-[10px] font-black", positive ? "text-emerald-500" : negative ? "text-red-500" : "text-blue-600 dark:text-blue-300"].join(" ")}>{change}</p>
+    <div className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white/82 p-4 dark:border-white/10 dark:bg-white/[0.04]">
+      <span className="grid h-11 w-11 place-items-center rounded-full bg-blue-50 text-xl">
+        {icon}
+      </span>
+      <div>
+        <p className="text-xs font-black text-slate-600 dark:text-slate-300">
+          {title}
+        </p>
+        <p className="text-xl font-black text-slate-950 dark:text-white">
+          {value} <span className="text-xs text-emerald-500">{note}</span>
+        </p>
       </div>
     </div>
   );
 }
 
-function MiniNumberCard({ label, value, change }: { label: string; value: string; change: string }) {
+function ActionRow({
+  icon,
+  title,
+  note,
+  tone,
+}: {
+  icon: string;
+  title: string;
+  note: string;
+  tone: "emerald" | "blue" | "amber" | "rose";
+}) {
+  const toneClass = {
+    emerald: "bg-emerald-50 text-emerald-600",
+    blue: "bg-blue-50 text-blue-600",
+    amber: "bg-amber-50 text-amber-600",
+    rose: "bg-rose-50 text-rose-600",
+  };
+
   return (
-    <div className="rounded-xl border border-slate-200 bg-white/80 p-2.5 dark:border-white/10 dark:bg-white/[0.04]">
-      <p className="text-[9px] font-black text-slate-500 dark:text-slate-400">{label}</p>
-      <p className="mt-1 text-base font-black text-slate-950 dark:text-white">{value}</p>
-      <p className="text-[9px] font-black text-emerald-500">{change}</p>
+    <div className="mb-3 flex items-center gap-3 rounded-2xl bg-white/82 p-3 last:mb-0 dark:bg-white/[0.04]">
+      <span className={["grid h-10 w-10 place-items-center rounded-full text-sm font-black", toneClass[tone]].join(" ")}>
+        {icon}
+      </span>
+      <div>
+        <p className="text-sm font-black text-slate-950 dark:text-white">
+          {title}
+        </p>
+        <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">
+          {note}
+        </p>
+      </div>
     </div>
   );
 }
 
-function MiniStat({ label, value }: { label: string; value: string }) {
+function DealCard({
+  title,
+  value,
+  status,
+}: {
+  title: string;
+  value: string;
+  status: string;
+}) {
   return (
-    <div className="mb-3">
-      <p className="text-[10px] font-black text-slate-500 dark:text-slate-400">{label}</p>
-      <p className="mt-1 text-lg font-black text-slate-950 dark:text-white">{value}</p>
+    <div className="grid grid-cols-[1fr_auto] items-center gap-4 rounded-2xl bg-slate-50 p-4 dark:bg-white/[0.04]">
+      <div>
+        <p className="text-sm font-black text-slate-950 dark:text-white">
+          {title}
+        </p>
+        <p className="text-xs font-semibold text-slate-500">{status}</p>
+      </div>
+      <p className="text-sm font-black text-blue-700 dark:text-blue-300">
+        {value}
+      </p>
     </div>
   );
 }
 
-function ProgressRows({ large = false }: { large?: boolean }) {
+function WorkflowRow({ title, note }: { title: string; note: string }) {
   return (
-    <div className={large ? "mt-5 space-y-4" : "mt-3 space-y-2"}>
-      {[
-        ["Prospecting", "82%"],
-        ["Qualification", "64%"],
-        ["Proposal", "78%"],
-        ["Closed Won", "36%"],
-      ].map(([label, width]) => (
-        <div key={label}>
-          <div className="mb-1 flex justify-between text-[10px] font-bold text-slate-500 dark:text-slate-400">
-            <span>{label}</span>
-            <span>{width}</span>
-          </div>
-          <div className="h-2 rounded-full bg-slate-100 dark:bg-white/10">
-            <div className="h-full rounded-full bg-gradient-to-r from-blue-600 to-violet-600" style={{ width }} />
-          </div>
+    <div className="mb-3 flex items-center justify-between rounded-2xl bg-slate-50 p-4 last:mb-0 dark:bg-white/[0.04]">
+      <p className="text-sm font-black text-slate-800 dark:text-slate-200">
+        {title}
+      </p>
+      <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-black text-emerald-600">
+        {note}
+      </span>
+    </div>
+  );
+}
+
+function TeamRow({
+  initials,
+  name,
+  value,
+  small = false,
+}: {
+  initials: string;
+  name: string;
+  value: string;
+  small?: boolean;
+}) {
+  return (
+    <div className="mb-3 grid grid-cols-[40px_1fr_auto] items-center gap-3 last:mb-0">
+      <span className="grid h-10 w-10 place-items-center rounded-full bg-blue-100 text-xs font-black text-blue-700">
+        {initials}
+      </span>
+      <div>
+        <p className="text-sm font-black text-slate-950 dark:text-white">
+          {name}
+        </p>
+        <div className="mt-1 h-2 rounded-full bg-slate-100 dark:bg-white/10">
+          <div className="h-full rounded-full bg-blue-600" style={{ width: value }} />
         </div>
-      ))}
+      </div>
+      <span className={small ? "text-xs font-black text-slate-500" : "text-sm font-black text-slate-600 dark:text-slate-300"}>
+        {value}
+      </span>
     </div>
   );
 }
 
-function ActionList({ items }: { items: string[][] }) {
+function CustomerRow({
+  name,
+  status,
+  tone,
+}: {
+  name: string;
+  status: string;
+  tone: "emerald" | "amber" | "blue";
+}) {
+  const toneClass = {
+    emerald: "bg-emerald-50 text-emerald-600",
+    amber: "bg-amber-50 text-amber-600",
+    blue: "bg-blue-50 text-blue-600",
+  };
+
   return (
-    <div className="mt-3 space-y-2.5">
-      {items.map(([title, desc, color]) => (
-        <div key={title} className="flex items-start gap-3 rounded-xl bg-white/80 p-3 dark:bg-white/[0.04]">
-          <span className={[
-            "mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-lg text-xs",
-            color === "red" ? "bg-red-50 text-red-500" : color === "amber" ? "bg-amber-50 text-amber-500" : color === "violet" ? "bg-violet-50 text-violet-600" : "bg-blue-50 text-blue-600",
-          ].join(" ")}>
-            {color === "red" || color === "amber" ? "!" : <HiCheck />}
-          </span>
-          <div>
-            <p className="text-xs font-black text-slate-950 dark:text-white">{title}</p>
-            <p className="mt-1 text-[10px] font-semibold text-slate-500 dark:text-slate-400">{desc}</p>
-          </div>
+    <div className="mb-3 flex items-center justify-between rounded-2xl bg-slate-50 p-4 last:mb-0 dark:bg-white/[0.04]">
+      <p className="text-sm font-black text-slate-800 dark:text-slate-200">
+        {name}
+      </p>
+      <span className={["rounded-full px-3 py-1 text-xs font-black", toneClass[tone]].join(" ")}>
+        {status}
+      </span>
+    </div>
+  );
+}
+
+function ProgressRow({
+  label,
+  value,
+  width,
+}: {
+  label: string;
+  value: string;
+  width: string;
+}) {
+  return (
+    <div className="mt-3 first:mt-0">
+      <div className="mb-1 flex items-center justify-between text-xs font-black text-slate-500 dark:text-slate-400">
+        <span>{label}</span>
+        <span>{value}</span>
+      </div>
+      <div className="h-2.5 rounded-full bg-slate-100 dark:bg-white/10">
+        <div className="h-full rounded-full bg-gradient-to-r from-blue-600 to-violet-600" style={{ width }} />
+      </div>
+    </div>
+  );
+}
+
+function LegendRow({
+  color,
+  label,
+  value,
+}: {
+  color: string;
+  label: string;
+  value: string;
+}) {
+  return (
+    <div className="grid grid-cols-[14px_1fr_auto] items-center gap-2 text-xs font-bold text-slate-600 dark:text-slate-300">
+      <span className={["h-3 w-3 rounded-full", color].join(" ")} />
+      <span>{label}</span>
+      <span>{value}</span>
+    </div>
+  );
+}
+
+function DealList() {
+  return (
+    <div className="mt-4 border-t border-slate-100 pt-4 dark:border-white/10">
+      <p className="text-sm font-black text-slate-950 dark:text-white">
+        Top Performing Deals
+      </p>
+      <div className="mt-3 space-y-2">
+        <div className="flex items-center justify-between text-xs font-bold">
+          <span>Enterprise SaaS Rollout</span>
+          <span className="text-blue-700">$128,000</span>
         </div>
-      ))}
-    </div>
-  );
-}
-
-function DealRows() {
-  return (
-    <div className="mt-3 space-y-2">
-      {[
-        ["Enterprise SaaS Rollout", "$128,000", "Won"],
-        ["Data Automation Suite", "$95,000", "Won"],
-        ["AI Insights Platform", "$70,000", "Proposal"],
-      ].map(([deal, value, stage]) => (
-        <div key={deal} className="grid grid-cols-[1fr_auto] gap-3 rounded-xl bg-slate-50 p-2.5 dark:bg-white/[0.04]">
-          <div>
-            <p className="text-[11px] font-black text-slate-950 dark:text-white">{deal}</p>
-            <p className="text-[9px] font-semibold text-slate-400">{stage}</p>
-          </div>
-          <p className="text-[11px] font-black text-blue-700 dark:text-blue-300">{value}</p>
+        <div className="flex items-center justify-between text-xs font-bold">
+          <span>Cloud Migration Project</span>
+          <span className="text-blue-700">$96,400</span>
         </div>
-      ))}
-    </div>
-  );
-}
-
-function StageStack() {
-  return (
-    <div className="mt-3 space-y-2.5">
-      {[
-        ["Prospecting", "$4.38M", "bg-blue-100 text-blue-700"],
-        ["Qualification", "$3.11M", "bg-sky-100 text-sky-700"],
-        ["Proposal", "$2.30M", "bg-amber-100 text-amber-700"],
-        ["Negotiation", "$1.17M", "bg-violet-100 text-violet-700"],
-        ["Closed Won", "$2.45M", "bg-emerald-100 text-emerald-700"],
-      ].map(([stage, value, cls]) => (
-        <div key={stage} className={["flex items-center justify-between rounded-xl px-3 py-3", cls].join(" ")}>
-          <div>
-            <p className="text-xs font-black">{stage}</p>
-            <p className="text-[10px] font-semibold opacity-70">+10 deals</p>
-          </div>
-          <p className="text-xs font-black">{value}</p>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function WorkflowRows() {
-  return (
-    <div className="mt-3 space-y-2.5">
-      {[
-        ["Lead routing", "Live"],
-        ["Invoice reminders", "Live"],
-        ["Support escalation", "Live"],
-      ].map(([item, status]) => (
-        <div key={item} className="flex items-center justify-between rounded-xl bg-slate-50 p-3 dark:bg-white/[0.04]">
-          <span className="text-xs font-black text-slate-700 dark:text-slate-300">{item}</span>
-          <span className="rounded-full bg-emerald-50 px-2 py-1 text-[10px] font-black text-emerald-600">{status}</span>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function TeamRows({ small = false }: { small?: boolean }) {
-  const rows = small
-    ? [["Alex Morgan", "72%"], ["Priya Shah", "67%"], ["Jordan Lee", "62%"]]
-    : [["Alex Morgan", "72%"], ["Priya Shah", "67%"], ["Jordan Lee", "62%"], ["Taylor Brooks", "57%"]];
-
-  return (
-    <div className="mt-3 space-y-3">
-      {rows.map(([name, percent], index) => (
-        <div key={name} className="grid grid-cols-[30px_1fr_auto] items-center gap-2">
-          <Avatar index={index} />
-          <div>
-            <p className="text-[10px] font-black text-slate-800 dark:text-slate-200">{name}</p>
-            <div className="mt-1 h-1.5 rounded-full bg-slate-100 dark:bg-white/10">
-              <div className="h-full rounded-full bg-blue-600" style={{ width: percent }} />
-            </div>
-          </div>
-          <span className="text-[10px] font-black text-slate-500">{percent}</span>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function Avatar({ index }: { index: number }) {
-  const initials = ["AM", "PS", "JL", "TB", "NP"];
-  return (
-    <span className="grid h-8 w-8 place-items-center rounded-full bg-gradient-to-br from-blue-100 via-violet-100 to-emerald-100 text-[10px] font-black text-blue-700 ring-2 ring-white dark:ring-slate-900">
-      {initials[index % initials.length]}
-    </span>
-  );
-}
-
-function AvatarStrip() {
-  return (
-    <div className="mt-4 flex items-center">
-      {[0, 1, 2, 3, 4].map((item) => (
-        <span key={item} className="-ml-2 first:ml-0">
-          <Avatar index={item} />
-        </span>
-      ))}
-      <span className="ml-2 text-xs font-black text-slate-500">+6</span>
-    </div>
-  );
-}
-
-function FlowMap() {
-  return (
-    <div className="mt-4 grid grid-cols-2 gap-3">
-      {[
-        ["Lead", "Captured"],
-        ["CRM", "Updated"],
-        ["Email", "Sent"],
-        ["Task", "Assigned"],
-      ].map(([title, text], index) => (
-        <div key={title} className="rounded-2xl border border-violet-100 bg-white/80 p-3 text-center dark:border-white/10 dark:bg-white/[0.04]">
-          <span className="mx-auto grid h-8 w-8 place-items-center rounded-full bg-violet-50 text-xs font-black text-violet-700">{index + 1}</span>
-          <p className="mt-2 text-xs font-black text-slate-950 dark:text-white">{title}</p>
-          <p className="text-[10px] font-semibold text-slate-500">{text}</p>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function HealthDonut() {
-  return (
-    <div className="mt-4 grid place-items-center text-center">
-      <div className="relative h-32 w-32 rounded-full bg-[conic-gradient(#14b8a6_0_52%,#f59e0b_52%_78%,#ef4444_78%_100%)]">
-        <div className="absolute inset-5 grid place-items-center rounded-full bg-white dark:bg-slate-950">
-          <p className="text-3xl font-black text-slate-950 dark:text-white">82</p>
-          <p className="text-[10px] font-bold text-slate-500">Great</p>
+        <div className="flex items-center justify-between text-xs font-bold">
+          <span>AI Analytics Suite</span>
+          <span className="text-blue-700">$82,300</span>
         </div>
       </div>
     </div>
   );
 }
 
-function DonutWithLegend() {
+function DonutChart() {
   return (
-    <div className="mt-3 grid grid-cols-[92px_1fr] items-center gap-4">
-      <Donut />
-      <div className="space-y-2">
-        {[
-          ["Direct", "$1.24M"],
-          ["Partner", "$1.01M"],
-          ["Organic", "$782K"],
-          ["Paid Ads", "$456K"],
-        ].map(([label, value]) => (
-          <div key={label} className="flex justify-between text-[10px] font-bold text-slate-500 dark:text-slate-400">
-            <span>{label}</span>
-            <span>{value}</span>
-          </div>
-        ))}
+    <div className="relative h-28 w-28 rounded-full bg-[conic-gradient(#2563eb_0_34%,#8b5cf6_34%_61%,#14b8a6_61%_82%,#f59e0b_82%_94%,#cbd5e1_94%_100%)]">
+      <div className="absolute inset-5 grid place-items-center rounded-full bg-white text-center dark:bg-slate-950">
+        <p className="text-sm font-black text-slate-950 dark:text-white">$3.67M</p>
+        <p className="text-[10px] font-bold text-slate-500">Total</p>
       </div>
     </div>
   );
 }
 
-function BottomDashboardGrid() {
+function RingScore({ value }: { value: string }) {
   return (
-    <div className="grid gap-3 md:grid-cols-3">
-      <Panel title="Top Performing Deals">
-        <DealRows />
-      </Panel>
-      <Panel title="Team Activity">
-        <TeamRows small />
-      </Panel>
-      <Panel title="Automation Impact">
-        <AutomationRows />
-      </Panel>
-    </div>
-  );
-}
-
-function AutomationRows() {
-  return (
-    <div className="mt-3 space-y-2.5">
-      {[
-        ["Workflows Run", "1,243", "↑ 32%"],
-        ["Tasks Automated", "5,689", "↑ 28%"],
-        ["Time Saved", "128h", "↑ 35%"],
-      ].map(([label, value, change]) => (
-        <div key={label} className="flex items-center justify-between border-b border-slate-100 pb-2.5 last:border-b-0 last:pb-0 dark:border-white/10">
-          <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400">{label}</span>
-          <span className="text-sm font-black text-slate-950 dark:text-white">{value}</span>
-          <span className="text-[10px] font-black text-emerald-500">{change}</span>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function Donut() {
-  return (
-    <div className="relative h-20 w-20 shrink-0 rounded-full bg-[conic-gradient(#2563eb_0_30%,#8b5cf6_30%_58%,#14b8a6_58%_78%,#f59e0b_78%_90%,#cbd5e1_90%_100%)]">
-      <div className="absolute inset-4 grid place-items-center rounded-full bg-white dark:bg-slate-950">
-        <span className="text-xs font-black text-slate-950 dark:text-white">$3.67M</span>
+    <div className="relative mx-auto grid h-28 w-28 place-items-center rounded-full bg-[conic-gradient(#10b981_0_72%,#f59e0b_72%_87%,#e5e7eb_87%_100%)]">
+      <div className="grid h-20 w-20 place-items-center rounded-full bg-white text-center dark:bg-slate-950">
+        <p className="text-2xl font-black text-slate-950 dark:text-white">{value}</p>
+        <p className="text-[10px] font-bold text-slate-500">Score</p>
       </div>
     </div>
+  );
+}
+
+function TinyLine({ stroke }: { stroke: string }) {
+  return (
+    <svg viewBox="0 0 160 42" className="mt-3 h-10 w-full">
+      <path
+        d="M4 30 C18 12 28 38 42 24 S64 32 78 16 S102 26 116 12 S138 24 156 8"
+        fill="none"
+        stroke={stroke}
+        strokeLinecap="round"
+        strokeWidth="4"
+      />
+    </svg>
   );
 }
 
@@ -1336,13 +1139,13 @@ function MiniChart() {
   );
 }
 
-function LineChart({ small = false }: { small?: boolean }) {
+function LineChart({ height = "h-[150px]" }: { height?: string }) {
   return (
-    <svg viewBox="0 0 520 165" className={small ? "h-[96px] w-full" : "h-[128px] w-full"}>
+    <svg viewBox="0 0 520 180" className={["w-full", height].join(" ")}>
       <defs>
         <linearGradient id="commandChartFill" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0%" stopColor="#635bff" stopOpacity="0.24" />
-          <stop offset="100%" stopColor="#635bff" stopOpacity="0" />
+          <stop offset="0%" stopColor="#2563eb" stopOpacity="0.25" />
+          <stop offset="100%" stopColor="#2563eb" stopOpacity="0" />
         </linearGradient>
       </defs>
 
@@ -1351,23 +1154,33 @@ function LineChart({ small = false }: { small?: boolean }) {
       ))}
 
       {[0, 90, 180, 270, 360, 450].map((x) => (
-        <line key={x} x1={x} x2={x} y1="18" y2="150" stroke="rgba(148,163,184,0.16)" />
+        <line key={x} x1={x} x2={x} y1="18" y2="162" stroke="rgba(148,163,184,0.16)" />
       ))}
 
       <path
-        d="M0 140 C 38 132, 55 96, 84 112 S 130 148, 166 82 S 220 104, 252 96 S 302 44, 344 58 S 406 72, 448 48 S 492 60, 520 28 L520 165 L0 165 Z"
+        d="M0 146 C 35 128, 58 85, 96 104 S 156 132, 196 70 S 254 112, 292 88 S 356 42, 398 72 S 454 96, 520 38 L520 180 L0 180 Z"
         fill="url(#commandChartFill)"
       />
 
       <path
-        d="M0 140 C 38 132, 55 96, 84 112 S 130 148, 166 82 S 220 104, 252 96 S 302 44, 344 58 S 406 72, 448 48 S 492 60, 520 28"
+        d="M0 146 C 35 128, 58 85, 96 104 S 156 132, 196 70 S 254 112, 292 88 S 356 42, 398 72 S 454 96, 520 38"
         fill="none"
-        stroke="#4f46e5"
+        stroke="#2563eb"
         strokeLinecap="round"
         strokeWidth="5"
       />
 
-      <circle cx="520" cy="28" r="6" fill="#4f46e5" />
+      <circle cx="520" cy="38" r="6" fill="#2563eb" />
     </svg>
   );
+}
+
+function getRelativePosition(index: number, activeIndex: number) {
+  const total = commandCards.length;
+  let diff = index - activeIndex;
+
+  if (diff > total / 2) diff -= total;
+  if (diff < -total / 2) diff += total;
+
+  return diff;
 }

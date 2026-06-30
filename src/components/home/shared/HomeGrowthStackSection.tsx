@@ -487,15 +487,15 @@ function GrowthStackDiagram({ isVisible }: { isVisible: boolean }) {
 function MobileHeroStack({ isVisible }: { isVisible: boolean }) {
   return (
     <div
-      className={`home-mobile-stack relative mx-auto mt-5 flex h-[320px] w-full max-w-[318px] items-center justify-center overflow-visible ${
+      className={`home-mobile-stack relative mx-auto mt-5 flex h-[370px] w-full max-w-[370px] items-center justify-center overflow-visible ${
         isVisible ? "is-visible" : ""
       }`}
     >
-      <div className="pointer-events-none absolute inset-x-3 top-4 h-[290px] rounded-[2rem] bg-[radial-gradient(circle_at_50%_24%,rgba(23,71,207,0.08),transparent_42%),linear-gradient(180deg,rgba(255,255,255,0.82),rgba(255,255,255,0.18))]" />
+      <div className="pointer-events-none absolute inset-x-0 top-3 h-[348px] rounded-[2rem] bg-[radial-gradient(circle_at_50%_24%,rgba(23,71,207,0.08),transparent_42%),linear-gradient(180deg,rgba(255,255,255,0.82),rgba(255,255,255,0.18))]" />
 
       <svg
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-8 h-[250px] w-full"
+        className="pointer-events-none absolute inset-x-0 top-9 h-[292px] w-full"
         fill="none"
         viewBox="0 0 320 250"
       >
@@ -538,7 +538,7 @@ function MobileHeroStack({ isVisible }: { isVisible: boolean }) {
         <img
           src="/hnx_growth_stack.png"
           alt="HNX unified layered business system"
-          className="relative z-10 h-[305px] w-auto object-contain drop-shadow-[0_24px_34px_rgba(30,60,120,0.12)]"
+          className="relative z-10 h-[360px] w-auto max-w-none scale-x-[1.24] object-contain drop-shadow-[0_24px_34px_rgba(30,60,120,0.12)]"
           draggable={false}
         />
       </div>
