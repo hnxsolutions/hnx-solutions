@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState, type ReactNode } from "react";
+import type { IconType } from "react-icons";
 import {
   HiBriefcase,
   HiChartBar,
@@ -131,6 +132,33 @@ const solutions = [
     ],
     cta: "Start Your Transformation",
     preview: "suite",
+  },
+];
+
+const suitePreviewItems: Array<{
+  icon: IconType;
+  label: string;
+  position: string;
+}> = [
+  {
+    icon: HiGlobeAlt,
+    label: "Website",
+    position: "-top-7 left-1/2 -translate-x-1/2",
+  },
+  {
+    icon: HiDeviceMobile,
+    label: "Mobile App",
+    position: "right-[-72px] top-1/2 -translate-y-1/2",
+  },
+  {
+    icon: HiUsers,
+    label: "CRM",
+    position: "-bottom-7 left-1/2 -translate-x-1/2",
+  },
+  {
+    icon: HiViewGrid,
+    label: "Portal",
+    position: "left-[-72px] top-1/2 -translate-y-1/2",
   },
 ];
 
@@ -528,15 +556,10 @@ function SuitePreview() {
             <HiCubeTransparent className="text-4xl" />
           </div>
 
-          {[
-            [HiGlobeAlt, "Website", "-top-7 left-1/2 -translate-x-1/2"],
-            [HiDeviceMobile, "Mobile App", "right-[-72px] top-1/2 -translate-y-1/2"],
-            [HiUsers, "CRM", "-bottom-7 left-1/2 -translate-x-1/2"],
-            [HiViewGrid, "Portal", "left-[-72px] top-1/2 -translate-y-1/2"],
-          ].map(([Icon, label, pos]) => (
+          {suitePreviewItems.map(({ icon: Icon, label, position }) => (
             <div
-              key={String(label)}
-              className={`absolute ${pos} grid h-24 w-24 place-items-center rounded-3xl border border-slate-200 bg-white p-3 shadow-sm dark:border-white/10 dark:bg-slate-900`}
+              key={label}
+              className={`absolute ${position} grid h-24 w-24 place-items-center rounded-3xl border border-slate-200 bg-white p-3 shadow-sm dark:border-white/10 dark:bg-slate-900`}
             >
               <Icon className="text-2xl text-blue-600 dark:text-blue-300" />
               <p className="text-[10px] font-black text-slate-700 dark:text-slate-300">
