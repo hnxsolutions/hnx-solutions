@@ -16,7 +16,6 @@ import {
   HomeSectionShell,
   IconBubble,
   SectionBadge,
-  SoftCard,
 } from "./HomeSectionPrimitives";
 
 type ProcessTone = "blue" | "violet" | "pink" | "orange" | "green";
@@ -90,10 +89,18 @@ const connectorDelayClasses = [
 
 const mobileDelayClasses = [
   "delay-0",
-  "delay-[300ms]",
-  "delay-[600ms]",
-  "delay-[900ms]",
-  "delay-[1200ms]",
+  "delay-[950ms]",
+  "delay-[1900ms]",
+  "delay-[2850ms]",
+  "delay-[3800ms]",
+];
+
+const mobileStackClasses = [
+  "z-10 translate-y-0 scale-[0.94] rotate-[-2deg]",
+  "z-20 translate-y-2 scale-[0.955] rotate-[1.5deg]",
+  "z-30 translate-y-4 scale-[0.97] rotate-[-1deg]",
+  "z-40 translate-y-6 scale-[0.985] rotate-[1deg]",
+  "z-50 translate-y-8 scale-100 rotate-0",
 ];
 
 const toneClasses: Record<
@@ -103,53 +110,66 @@ const toneClasses: Record<
     border: string;
     glow: string;
     icon: string;
+    mobileIcon: string;
     line: string;
     dot: string;
+    cardGlow: string;
   }
 > = {
   blue: {
     text: "text-blue-600",
     border: "border-blue-200",
     glow: "shadow-[0_20px_54px_rgba(37,99,235,0.12)]",
-    icon: "bg-blue-600 text-white shadow-[0_14px_30px_rgba(37,99,235,0.25)]",
+    icon: "bg-linear-to-br from-sky-400 via-blue-500 to-blue-700 text-white shadow-[0_0_0_8px_rgba(59,130,246,0.08),0_18px_42px_rgba(37,99,235,0.38)]",
+    mobileIcon:
+      "bg-linear-to-br from-sky-400 via-blue-500 to-blue-700 text-white shadow-[0_14px_34px_rgba(37,99,235,0.3)]",
     line: "bg-blue-600",
     dot: "bg-blue-600",
+    cardGlow: "bg-blue-500/14",
   },
   violet: {
     text: "text-violet-600",
     border: "border-violet-200",
     glow: "shadow-[0_20px_54px_rgba(124,58,237,0.12)]",
-    icon:
-      "bg-violet-600 text-white shadow-[0_14px_30px_rgba(124,58,237,0.25)]",
+    icon: "bg-linear-to-br from-fuchsia-400 via-violet-500 to-indigo-700 text-white shadow-[0_0_0_8px_rgba(124,58,237,0.08),0_18px_42px_rgba(124,58,237,0.38)]",
+    mobileIcon:
+      "bg-linear-to-br from-fuchsia-400 via-violet-500 to-indigo-700 text-white shadow-[0_14px_34px_rgba(124,58,237,0.3)]",
     line: "bg-violet-600",
     dot: "bg-violet-600",
+    cardGlow: "bg-violet-500/14",
   },
   pink: {
     text: "text-pink-600",
     border: "border-pink-200",
     glow: "shadow-[0_20px_54px_rgba(219,39,119,0.12)]",
-    icon:
-      "bg-pink-500 text-white shadow-[0_14px_30px_rgba(219,39,119,0.23)]",
+    icon: "bg-linear-to-br from-pink-400 via-fuchsia-500 to-rose-600 text-white shadow-[0_0_0_8px_rgba(236,72,153,0.08),0_18px_42px_rgba(219,39,119,0.36)]",
+    mobileIcon:
+      "bg-linear-to-br from-pink-400 via-fuchsia-500 to-rose-600 text-white shadow-[0_14px_34px_rgba(219,39,119,0.28)]",
     line: "bg-pink-500",
     dot: "bg-pink-500",
+    cardGlow: "bg-pink-500/14",
   },
   orange: {
     text: "text-orange-500",
     border: "border-orange-200",
     glow: "shadow-[0_20px_54px_rgba(249,115,22,0.12)]",
-    icon:
-      "bg-orange-500 text-white shadow-[0_14px_30px_rgba(249,115,22,0.23)]",
+    icon: "bg-linear-to-br from-amber-300 via-orange-500 to-red-500 text-white shadow-[0_0_0_8px_rgba(249,115,22,0.08),0_18px_42px_rgba(249,115,22,0.34)]",
+    mobileIcon:
+      "bg-linear-to-br from-amber-300 via-orange-500 to-red-500 text-white shadow-[0_14px_34px_rgba(249,115,22,0.28)]",
     line: "bg-orange-500",
     dot: "bg-orange-500",
+    cardGlow: "bg-orange-500/14",
   },
   green: {
     text: "text-emerald-500",
     border: "border-emerald-200",
     glow: "shadow-[0_20px_54px_rgba(16,185,129,0.12)]",
-    icon:
-      "bg-emerald-500 text-white shadow-[0_14px_30px_rgba(16,185,129,0.23)]",
+    icon: "bg-linear-to-br from-lime-300 via-emerald-500 to-green-700 text-white shadow-[0_0_0_8px_rgba(16,185,129,0.08),0_18px_42px_rgba(16,185,129,0.34)]",
+    mobileIcon:
+      "bg-linear-to-br from-lime-300 via-emerald-500 to-green-700 text-white shadow-[0_14px_34px_rgba(16,185,129,0.28)]",
     line: "bg-emerald-500",
     dot: "bg-emerald-500",
+    cardGlow: "bg-emerald-500/14",
   },
 };
 
@@ -176,12 +196,15 @@ function ProcessCard({
       }`}
     >
       <div className="relative flex h-full flex-col justify-between bg-linear-to-br from-white via-white to-slate-50/70 px-5 py-5 [clip-path:polygon(0_0,88%_0,100%_50%,88%_100%,0_100%)] dark:from-white/6 dark:via-white/4.5 dark:to-white/2.5">
+        <div
+          className={`pointer-events-none absolute -left-6 -top-6 h-24 w-24 rounded-full blur-3xl ${tone.cardGlow}`}
+        />
         <div className="pointer-events-none absolute -bottom-10 left-4 h-20 w-20 rounded-full bg-violet-100/50 blur-3xl dark:bg-violet-500/10" />
 
         <div className="flex items-start justify-between gap-3">
           <IconBubble
             tone="violet"
-            className={`h-13 w-13 rounded-2xl ${tone.icon}`}
+            className={`h-[3.25rem] w-[3.25rem] rounded-2xl ${tone.icon}`}
           >
             <Icon className="text-2xl" />
           </IconBubble>
@@ -221,6 +244,61 @@ function ProcessCard({
           />
         </div>
       )}
+    </article>
+  );
+}
+
+function MobileStackCard({
+  step,
+  index,
+  hasEnteredView,
+}: {
+  step: ProcessStep;
+  index: number;
+  hasEnteredView: boolean;
+}) {
+  const Icon = step.icon;
+  const tone = toneClasses[step.tone];
+
+  return (
+    <article
+      className={`absolute inset-x-0 top-0 rounded-[1.35rem] border bg-white/95 p-4 shadow-[0_20px_54px_rgba(15,23,42,0.12)] backdrop-blur transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] dark:bg-slate-950/90 ${
+        tone.border
+      } ${mobileDelayClasses[index]} ${
+        hasEnteredView
+          ? `${mobileStackClasses[index]} opacity-100`
+          : "-translate-y-28 scale-95 rotate-0 opacity-0"
+      }`}
+    >
+      <div
+        className={`pointer-events-none absolute inset-x-8 -top-8 h-20 rounded-full blur-3xl ${tone.cardGlow}`}
+      />
+
+      <div className="relative flex items-start gap-4">
+        <IconBubble
+          tone="violet"
+          className={`h-13 w-13 shrink-0 rounded-2xl ${tone.mobileIcon}`}
+        >
+          <Icon className="text-2xl" />
+        </IconBubble>
+
+        <div className="min-w-0">
+          <div className="flex items-center gap-2">
+            <span className={`text-sm font-black ${tone.text}`}>
+              {step.number}
+            </span>
+            <div className={`h-0.5 w-8 rounded-full ${tone.line}`} />
+          </div>
+
+          <h3 className="mt-1 text-xl font-black text-slate-950 dark:text-white">
+            {step.title}
+          </h3>
+
+          <p className="mt-2 text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
+            {step.description}
+          </p>
+        </div>
+      </div>
     </article>
   );
 }
@@ -284,54 +362,22 @@ export default function HomeProcessSection() {
           ))}
         </div>
 
-        <div className="relative mt-8 grid gap-4 lg:hidden">
-          {processSteps.map((step, index) => {
-            const Icon = step.icon;
-            const tone = toneClasses[step.tone];
-
-            return (
-              <div
-                key={step.title}
-                className={`transition-all duration-700 ${
-                  mobileDelayClasses[index]
-                } ${
-                  hasEnteredView
-                    ? "translate-y-0 opacity-100"
-                    : "translate-y-6 opacity-0"
-                }`}
-              >
-                <SoftCard className="relative overflow-hidden p-4">
-                  <div className="flex items-start gap-4">
-                    <IconBubble
-                      tone="violet"
-                      className={`h-12 w-12 shrink-0 rounded-2xl ${tone.icon}`}
-                    >
-                      <Icon className="text-xl" />
-                    </IconBubble>
-
-                    <div>
-                      <span className={`text-xs font-black ${tone.text}`}>
-                        {step.number}
-                      </span>
-                      <h3 className="mt-0.5 text-lg font-black text-slate-950 dark:text-white">
-                        {step.title}
-                      </h3>
-                      <p className="mt-1.5 text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
-                        {step.description}
-                      </p>
-                    </div>
-                  </div>
-                </SoftCard>
-              </div>
-            );
-          })}
+        <div className="relative mx-auto mt-7 h-[11.25rem] max-w-md lg:hidden">
+          {processSteps.map((step, index) => (
+            <MobileStackCard
+              key={step.title}
+              step={step}
+              index={index}
+              hasEnteredView={hasEnteredView}
+            />
+          ))}
         </div>
 
         <div
-          className={`relative mx-auto mt-9 max-w-2xl rounded-2xl border border-slate-200 bg-white/80 px-4 py-3 shadow-[0_14px_34px_rgba(15,23,42,0.05)] backdrop-blur transition-all delay-[2600ms] duration-700 dark:border-white/10 dark:bg-white/4.5 ${
+          className={`relative mx-auto mt-4 max-w-2xl rounded-2xl border border-slate-200 bg-white/80 px-4 py-3 shadow-[0_14px_34px_rgba(15,23,42,0.05)] backdrop-blur transition-all delay-[4700ms] duration-700 dark:border-white/10 dark:bg-white/4.5 ${
             hasEnteredView
               ? "translate-y-0 opacity-100"
-              : "translate-y-6 opacity-0"
+              : "translate-y-5 opacity-0"
           }`}
         >
           <div className="flex flex-col items-center justify-center gap-3 text-center sm:flex-row">
