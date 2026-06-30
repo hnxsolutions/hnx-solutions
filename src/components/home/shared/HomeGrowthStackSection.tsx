@@ -318,8 +318,9 @@ function DesktopDiagram({ isVisible }: { isVisible: boolean }) {
   const stackPorts = [116, 204, 292, 380, 468, 556];
 
   return (
-    <div className="relative hidden h-[720px] min-w-0 xl:block">
-      <svg
+    <div className="home-desktop-diagram relative hidden min-w-0 xl:block">
+      <div className="home-diagram-stage absolute left-0 top-0">
+        <svg
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 h-full w-full"
         fill="none"
@@ -422,7 +423,7 @@ function DesktopDiagram({ isVisible }: { isVisible: boolean }) {
         <IsometricStack isVisible={isVisible} />
       </div>
 
-      <div className="absolute -right-2 top-[12px] z-20 w-[305px] space-y-3.5">
+      <div className="absolute right-0 top-[12px] z-20 w-[305px] space-y-3.5">
         {outputCards.map((card, index) => (
           <OutputCard
             key={card.title}
@@ -439,6 +440,7 @@ function DesktopDiagram({ isVisible }: { isVisible: boolean }) {
         }`}
       >
         <Legend />
+      </div>
       </div>
     </div>
   );
@@ -481,6 +483,301 @@ function GrowthStackDiagram({ isVisible }: { isVisible: boolean }) {
   );
 }
 
+
+function MobileHeroStack({ isVisible }: { isVisible: boolean }) {
+  return (
+    <div
+      className={`home-mobile-stack relative mx-auto mt-5 flex h-[320px] w-full max-w-[318px] items-center justify-center overflow-visible ${
+        isVisible ? "is-visible" : ""
+      }`}
+    >
+      <div className="pointer-events-none absolute inset-x-3 top-4 h-[290px] rounded-[2rem] bg-[radial-gradient(circle_at_50%_24%,rgba(23,71,207,0.08),transparent_42%),linear-gradient(180deg,rgba(255,255,255,0.82),rgba(255,255,255,0.18))]" />
+
+      <svg
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-8 h-[250px] w-full"
+        fill="none"
+        viewBox="0 0 320 250"
+      >
+        <path
+          className={`home-mobile-connector ${isVisible ? "is-visible" : ""}`}
+          d="M44 62 C20 62 20 176 44 176"
+          stroke="#AEBBD2"
+          strokeDasharray="5 6"
+          strokeLinecap="round"
+          strokeWidth="1.4"
+        />
+        <path
+          className={`home-mobile-connector ${isVisible ? "is-visible" : ""}`}
+          d="M276 62 C300 62 300 176 276 176"
+          stroke="#AEBBD2"
+          strokeDasharray="5 6"
+          strokeLinecap="round"
+          strokeWidth="1.4"
+          style={{ transitionDelay: isVisible ? "180ms" : "0ms" }}
+        />
+        <path
+          className={`home-mobile-current ${isVisible ? "is-visible" : ""}`}
+          d="M30 130 H55"
+          stroke="#596983"
+          strokeLinecap="round"
+          strokeWidth="1.7"
+        />
+        <path
+          className={`home-mobile-arrow ${isVisible ? "is-visible" : ""}`}
+          d="M51 123 L59 130 L51 137"
+          stroke="#596983"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="1.7"
+        />
+      </svg>
+
+      <div className={`home-stack-float ${isVisible ? "is-visible" : ""}`}>
+        <span className="home-stack-shine" />
+        <img
+          src="/hnx_growth_stack.png"
+          alt="HNX unified layered business system"
+          className="relative z-10 h-[305px] w-auto object-contain drop-shadow-[0_24px_34px_rgba(30,60,120,0.12)]"
+          draggable={false}
+        />
+      </div>
+    </div>
+  );
+}
+
+function MobileChannelsStrip({ isVisible }: { isVisible: boolean }) {
+  return (
+    <section
+      className={`home-mobile-panel home-mobile-rise mt-5 ${
+        isVisible ? "is-visible" : ""
+      }`}
+      style={{ transitionDelay: isVisible ? "520ms" : "0ms" }}
+    >
+      <div className="flex items-center justify-between gap-3">
+        <p className="text-[0.68rem] font-black uppercase tracking-[0.28em] text-[#101A31]">
+          Channels In
+        </p>
+        <span className="h-px flex-1 bg-[#E0E7F1]" />
+      </div>
+
+      <div className="mt-4 grid grid-cols-4 gap-2.5">
+        {channelsIn.map((item) => {
+          const Icon = item.icon;
+
+          return (
+            <div
+              key={item.title}
+              className="flex min-h-[74px] min-w-0 flex-col items-center justify-center gap-2 rounded-[1rem] border border-[#E3E9F4] bg-white/90 px-1.5 py-2 text-center shadow-[0_10px_20px_rgba(27,55,104,0.06)]"
+            >
+              <span className="grid h-9 w-9 place-items-center rounded-xl border border-[#E1E7F2] bg-white text-[#1747CF] shadow-[0_8px_14px_rgba(27,55,104,0.07)]">
+                <Icon className="text-[1.02rem]" />
+              </span>
+              <span className="max-w-full break-words text-[0.6rem] font-extrabold leading-[0.78rem] text-[#16223A]">
+                {item.title}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+function MobileOutputCard({
+  title,
+  description,
+  icon: Icon,
+  tone,
+  index,
+  isVisible,
+}: {
+  title: string;
+  description: string;
+  icon: IconType;
+  tone: OutputTone;
+  index: number;
+  isVisible: boolean;
+}) {
+  return (
+    <article
+      className={`home-mobile-output-row group ${isVisible ? "is-visible" : ""}`}
+      style={{ transitionDelay: isVisible ? `${720 + index * 90}ms` : "0ms" }}
+    >
+      <span
+        className={`grid h-[52px] w-[52px] shrink-0 place-items-center rounded-[1rem] bg-linear-to-br ${iconTone(
+          tone,
+        )} text-white shadow-[0_14px_24px_rgba(27,55,104,0.16)]`}
+      >
+        <Icon className="text-[1.45rem]" />
+      </span>
+
+      <div className="min-w-0 flex-1">
+        <h3 className="text-[0.94rem] font-black leading-tight text-[#101A31]">
+          {title}
+        </h3>
+        <p className="mt-1 text-[0.7rem] font-semibold leading-[1.08rem] text-[#53627A]">
+          {description}
+        </p>
+      </div>
+
+      <HiArrowRight className="shrink-0 text-base text-[#8A96AA] transition group-hover:translate-x-0.5 group-hover:text-[#1747CF]" />
+    </article>
+  );
+}
+
+function MobileOutputsPanel({ isVisible }: { isVisible: boolean }) {
+  return (
+    <section
+      className={`home-mobile-panel home-mobile-rise mt-5 ${
+        isVisible ? "is-visible" : ""
+      }`}
+      style={{ transitionDelay: isVisible ? "640ms" : "0ms" }}
+    >
+      <p className="text-[0.68rem] font-black uppercase tracking-[0.28em] text-[#101A31]">
+        Built-In Outputs
+      </p>
+
+      <div className="mt-4 space-y-2.5">
+        {outputCards.map((card, index) => (
+          <MobileOutputCard
+            key={card.title}
+            {...card}
+            index={index}
+            isVisible={isVisible}
+          />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function MobileLegend() {
+  return (
+    <div className="mx-auto mt-5 flex w-full max-w-[340px] flex-wrap items-center justify-center gap-x-4 gap-y-3 rounded-2xl border border-[#E3E9F4] bg-white/88 px-3 py-3.5 shadow-[0_14px_28px_rgba(27,55,104,0.07)] backdrop-blur">
+      <span className="flex items-center justify-center gap-1.5 text-[0.68rem] font-bold text-[#17213A]">
+        <span className="h-px w-7 border-t border-dashed border-[#7F8798]" />
+        Data In
+      </span>
+
+      <span className="flex items-center justify-center gap-1.5 text-[0.68rem] font-bold text-[#17213A]">
+        <span className="h-px w-7 bg-[#1747CF]" />
+        Data Flow
+      </span>
+
+      <span className="flex items-center justify-center gap-1.5 text-[0.68rem] font-bold text-[#17213A]">
+        <span className="h-3 w-3 rounded-full border-2 border-[#1747CF]" />
+        Automated
+      </span>
+    </div>
+  );
+}
+
+function MobileTrustedBar() {
+  return (
+    <div className="mt-7 pb-1">
+      <div className="flex items-center gap-3">
+        <span className="h-px flex-1 bg-[#D8E0EC]" />
+        <p className="whitespace-nowrap text-[0.66rem] font-black uppercase tracking-[0.2em] text-[#6B7890]">
+          Trusted by growing businesses
+        </p>
+        <span className="h-px flex-1 bg-[#D8E0EC]" />
+      </div>
+
+      <div className="mt-4 grid grid-cols-2 gap-2 text-center text-[0.84rem] font-bold text-[#2A354B] min-[390px]:grid-cols-4">
+        <span className="rounded-xl border border-[#E3E9F4] bg-white/64 px-3 py-2">novakos</span>
+        <span className="rounded-xl border border-[#E3E9F4] bg-white/64 px-3 py-2">MindSets</span>
+        <span className="rounded-xl border border-[#E3E9F4] bg-white/64 px-3 py-2">UrbanAuf</span>
+        <span className="rounded-xl border border-[#E3E9F4] bg-white/64 px-3 py-2">distrct</span>
+      </div>
+    </div>
+  );
+}
+
+function MobileGrowthStackLayout({ isVisible }: { isVisible: boolean }) {
+  return (
+    <div className="xl:hidden">
+      <div className="mx-auto w-full max-w-[430px]">
+        <div
+          className={`home-copy-enter ${isVisible ? "is-visible" : ""}`}
+          style={{ transitionDelay: isVisible ? "120ms" : "0ms" }}
+        >
+          <Eyebrow />
+        </div>
+
+        <div className="mt-7">
+          <h2
+            className={`home-copy-enter max-w-[350px] text-[clamp(2.05rem,9.2vw,2.7rem)] font-semibold leading-[1.12] tracking-[-0.045em] text-[#101A31] ${
+              isVisible ? "is-visible" : ""
+            }`}
+            style={{
+              fontFamily: "Georgia, 'Times New Roman', serif",
+              transitionDelay: isVisible ? "220ms" : "0ms",
+            }}
+          >
+            <span className="block">Everything Your</span>
+            <span className="block">Business Runs On.</span>
+            <span className="block">
+              Built as <span className="text-[#1747CF]">One System.</span>
+            </span>
+          </h2>
+
+          <p
+            className={`home-copy-enter mt-5 max-w-[340px] text-[0.96rem] font-medium leading-7 text-[#43516A] ${
+              isVisible ? "is-visible" : ""
+            }`}
+            style={{ transitionDelay: isVisible ? "320ms" : "0ms" }}
+          >
+            Websites, CRM, automation, AI, mobile apps, portals, and industry
+            workflows &mdash; connected together to drive growth, efficiency,
+            and profit.
+          </p>
+
+          <div
+            className={`home-copy-enter mt-6 grid gap-3 ${
+              isVisible ? "is-visible" : ""
+            }`}
+            style={{ transitionDelay: isVisible ? "420ms" : "0ms" }}
+          >
+            <Link
+              href="/services/full-business-suite"
+              className="inline-flex min-h-[52px] items-center justify-center gap-3 rounded-xl bg-[#1747CF] px-6 text-[0.95rem] font-bold text-white shadow-[0_16px_30px_rgba(23,71,207,0.22)] transition hover:-translate-y-0.5 hover:bg-[#123EB8]"
+            >
+              Explore Our Stack
+              <HiArrowRight className="text-lg" />
+            </Link>
+
+            <Link
+              href="/workflow-lab"
+              className="inline-flex min-h-[52px] items-center justify-center gap-3 rounded-xl border border-[#1747CF] bg-white/68 px-6 text-[0.95rem] font-bold text-[#17213A] shadow-[0_10px_22px_rgba(42,32,18,0.03)] transition hover:-translate-y-0.5 hover:bg-white"
+            >
+              View Workflow Lab
+              <HiBeaker className="text-lg text-[#1747CF]" />
+            </Link>
+          </div>
+        </div>
+
+        <div>
+          <MobileHeroStack isVisible={isVisible} />
+        </div>
+
+        <MobileChannelsStrip isVisible={isVisible} />
+
+        <div
+          className={`home-mobile-down-arrow ${isVisible ? "is-visible" : ""}`}
+          aria-hidden="true"
+        >
+          ↓
+        </div>
+
+        <MobileOutputsPanel isVisible={isVisible} />
+        <MobileLegend />
+        <MobileTrustedBar />
+      </div>
+    </div>
+  );
+}
+
 export default function HomeGrowthStackSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -510,13 +807,13 @@ export default function HomeGrowthStackSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden bg-[linear-gradient(180deg,#F6EFE5_0%,#FCFAF6_54%,#F8F2EA_100%)] py-16 text-[#101A31] sm:py-18 lg:py-20 xl:min-h-screen xl:py-[90px]"
+      className="relative overflow-hidden bg-[linear-gradient(180deg,#FBFAF7_0%,#FFFEFC_54%,#FAF8F3_100%)] py-8 text-[#101A31] sm:py-10 lg:py-12 xl:min-h-screen xl:py-[90px]"
     >
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_10%,rgba(255,255,255,0.9),transparent_30%),radial-gradient(circle_at_78%_48%,rgba(255,255,255,0.65),transparent_34%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_14%_8%,rgba(255,255,255,0.72),transparent_28%),radial-gradient(circle_at_78%_48%,rgba(255,255,255,0.48),transparent_34%)]" />
 
-      <div className="relative mx-auto w-full max-w-[min(92vw,1544px)] px-4 sm:px-6 lg:px-8 xl:px-0">
-        <div className="grid items-center gap-12 xl:grid-cols-[37%_63%] xl:gap-0">
-          <div className="max-w-[620px]">
+      <div className="relative mx-auto w-full max-w-[min(92vw,1544px)] px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
+        <div className="hidden items-center gap-12 xl:grid xl:grid-cols-[minmax(430px,38%)_minmax(0,1fr)] xl:gap-8 2xl:gap-6">
+          <div className="max-w-[610px]">
             <div
               className={`home-copy-enter ${isVisible ? "is-visible" : ""}`}
               style={{ transitionDelay: isVisible ? "120ms" : "0ms" }}
@@ -525,7 +822,7 @@ export default function HomeGrowthStackSection() {
             </div>
 
             <h2
-              className={`home-copy-enter mt-8 max-w-[610px] ${isVisible ? "is-visible" : ""}  text-[clamp(2.5rem,3.45vw,3.65rem)] font-semibold leading-[1.27] tracking-[-0.045em] text-[#101A31]`}
+              className={`home-copy-enter mt-8 max-w-[540px] 2xl:max-w-[570px] min-[1800px]:max-w-[590px] ${isVisible ? "is-visible" : ""} text-[clamp(2.4rem,2.75vw,3.1rem)] 2xl:text-[clamp(2.45rem,2.95vw,3.35rem)] min-[1800px]:text-[clamp(2.55rem,3.15vw,3.55rem)] font-semibold leading-[1.27] tracking-[-0.045em] text-[#101A31]`}
               style={{
                 fontFamily: "Georgia, 'Times New Roman', serif",
                 transitionDelay: isVisible ? "220ms" : "0ms",
@@ -599,12 +896,60 @@ export default function HomeGrowthStackSection() {
             </div>
           </div>
 
-          <div className="min-w-0 xl:-ml-3 2xl:-ml-1">
+          <div className="min-w-0 overflow-visible xl:ml-0 xl:pl-2 2xl:pl-4">
             <GrowthStackDiagram isVisible={isVisible} />
           </div>
         </div>
+
+        <MobileGrowthStackLayout isVisible={isVisible} />
       </div>
       <style>{`
+        .home-desktop-diagram {
+          height: 520px;
+          max-width: 100%;
+          width: 680px;
+        }
+
+        .home-diagram-stage {
+          height: 720px;
+          width: 940px;
+          transform: scale(0.723);
+          transform-origin: left top;
+        }
+
+        @media (min-width: 1440px) {
+          .home-desktop-diagram {
+            height: 568px;
+            width: 742px;
+          }
+
+          .home-diagram-stage {
+            transform: scale(0.79);
+          }
+        }
+
+        @media (min-width: 1536px) {
+          .home-desktop-diagram {
+            height: 612px;
+            width: 800px;
+          }
+
+          .home-diagram-stage {
+            transform: scale(0.851);
+          }
+        }
+
+        @media (min-width: 1700px) {
+          .home-desktop-diagram {
+            height: 648px;
+            width: 850px;
+          }
+
+          .home-diagram-stage {
+            transform: scale(0.904);
+          }
+        }
+
         .home-copy-enter {
           opacity: 0;
           transform: translate3d(0, 24px, 0);
@@ -825,6 +1170,129 @@ export default function HomeGrowthStackSection() {
           }
         }
 
+
+        .home-mobile-panel {
+          overflow: hidden;
+          border: 1px solid #e3e9f4;
+          border-radius: 1.45rem;
+          background: rgba(255, 255, 255, 0.82);
+          box-shadow: 0 18px 40px rgba(27, 55, 104, 0.075);
+          padding: 1rem;
+          backdrop-filter: blur(14px);
+        }
+
+        .home-mobile-rise {
+          opacity: 0;
+          transform: translate3d(0, 24px, 0) scale(0.98);
+          transition: opacity 720ms cubic-bezier(0.22, 1, 0.36, 1),
+            transform 760ms cubic-bezier(0.16, 1, 0.3, 1);
+          will-change: opacity, transform;
+        }
+
+        .home-mobile-rise.is-visible {
+          opacity: 1;
+          transform: translate3d(0, 0, 0) scale(1);
+        }
+
+        .home-mobile-stack {
+          isolation: isolate;
+          opacity: 0;
+          transform: perspective(1000px) translate3d(0, 30px, -80px) rotateX(10deg) scale(0.94);
+          transform-origin: center center;
+          filter: blur(7px);
+          transition: opacity 860ms cubic-bezier(0.22, 1, 0.36, 1) 460ms,
+            transform 920ms cubic-bezier(0.16, 1, 0.3, 1) 460ms,
+            filter 860ms cubic-bezier(0.22, 1, 0.36, 1) 460ms;
+          will-change: opacity, transform, filter;
+        }
+
+        .home-mobile-stack.is-visible {
+          opacity: 1;
+          transform: perspective(1000px) translate3d(0, 0, 0) rotateX(0deg) scale(1);
+          filter: blur(0);
+        }
+
+        .home-mobile-connector,
+        .home-mobile-current,
+        .home-mobile-arrow {
+          opacity: 0;
+          transform: translateX(-8px);
+          transition: opacity 620ms ease 900ms,
+            transform 720ms cubic-bezier(0.22, 1, 0.36, 1) 900ms;
+        }
+
+        .home-mobile-connector.is-visible,
+        .home-mobile-current.is-visible,
+        .home-mobile-arrow.is-visible {
+          opacity: 1;
+          transform: translateX(0);
+        }
+
+        .home-mobile-current.is-visible,
+        .home-mobile-arrow.is-visible {
+          animation: hnxArrowPulse 1.8s ease-in-out 1120ms infinite;
+        }
+
+        .home-mobile-down-arrow {
+          display: grid;
+          height: 34px;
+          place-items: center;
+          color: #64748b;
+          font-size: 1.45rem;
+          font-weight: 800;
+          opacity: 0;
+          transform: translateY(-8px);
+          transition: opacity 620ms ease 760ms,
+            transform 720ms cubic-bezier(0.22, 1, 0.36, 1) 760ms;
+        }
+
+        .home-mobile-down-arrow.is-visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .home-mobile-output-row {
+          display: flex;
+          min-height: 84px;
+          align-items: center;
+          gap: 0.78rem;
+          border: 1px solid rgba(226, 232, 240, 0.9);
+          border-radius: 1.1rem;
+          background: rgba(255, 255, 255, 0.92);
+          padding: 0.72rem 0.76rem;
+          box-shadow: 0 10px 24px rgba(27, 55, 104, 0.06);
+          opacity: 0;
+          transform: translate3d(26px, 14px, 0) scale(0.98);
+          transition: opacity 680ms cubic-bezier(0.22, 1, 0.36, 1),
+            transform 740ms cubic-bezier(0.16, 1, 0.3, 1),
+            border-color 360ms ease,
+            box-shadow 360ms ease;
+          will-change: opacity, transform;
+        }
+
+        .home-mobile-output-row.is-visible {
+          opacity: 1;
+          transform: translate3d(0, 0, 0) scale(1);
+        }
+
+        .home-mobile-output-row:hover {
+          border-color: rgba(23, 71, 207, 0.28);
+          box-shadow: 0 16px 30px rgba(27, 55, 104, 0.09);
+        }
+
+        @media (max-width: 380px) {
+          .home-mobile-panel {
+            border-radius: 1.25rem;
+            padding: 0.85rem;
+          }
+
+          .home-mobile-output-row {
+            min-height: 80px;
+            gap: 0.62rem;
+            padding: 0.68rem 0.68rem;
+          }
+        }
+
         @media (prefers-reduced-motion: reduce) {
           .home-copy-enter,
           .home-channel-enter,
@@ -836,7 +1304,14 @@ export default function HomeGrowthStackSection() {
           .home-input-flow,
           .home-arrow,
           .home-dot,
-          .home-legend-enter {
+          .home-legend-enter,
+          .home-mobile-rise,
+          .home-mobile-stack,
+          .home-mobile-connector,
+          .home-mobile-current,
+          .home-mobile-arrow,
+          .home-mobile-down-arrow,
+          .home-mobile-output-row {
             opacity: 1 !important;
             transform: none !important;
             filter: none !important;
