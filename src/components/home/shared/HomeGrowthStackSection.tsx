@@ -711,7 +711,6 @@ function MobileGrowthStackLayout({ isVisible }: { isVisible: boolean }) {
               isVisible ? "is-visible" : ""
             }`}
             style={{
-              fontFamily: "Georgia, 'Times New Roman', serif",
               transitionDelay: isVisible ? "220ms" : "0ms",
             }}
           >
@@ -824,7 +823,6 @@ export default function HomeGrowthStackSection() {
             <h2
               className={`home-copy-enter mt-8 max-w-[540px] 2xl:max-w-[570px] min-[1800px]:max-w-[590px] ${isVisible ? "is-visible" : ""} text-[clamp(2.4rem,2.75vw,3.1rem)] 2xl:text-[clamp(2.45rem,2.95vw,3.35rem)] min-[1800px]:text-[clamp(2.55rem,3.15vw,3.55rem)] font-semibold leading-[1.27] tracking-[-0.045em] text-[#101A31]`}
               style={{
-                fontFamily: "Georgia, 'Times New Roman', serif",
                 transitionDelay: isVisible ? "220ms" : "0ms",
               }}
             >

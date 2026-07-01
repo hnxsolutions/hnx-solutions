@@ -25,7 +25,7 @@ const HomeCTA = dynamic(() => import("./HomeCTA"), {
 
 export default function HomePage() {
   return (
-    <main className="page-shell">
+    <main className="page-shell home-mukta">
       <HomeHero />
       <HomeGrowthStackSection />
       <HomeBusinessChallengesSection />

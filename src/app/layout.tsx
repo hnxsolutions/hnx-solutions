@@ -27,6 +27,8 @@ const fontVariables = {
     '"Courier New", Consolas, "SFMono-Regular", Menlo, Monaco, monospace',
   "--font-raleway":
     'Raleway, Arial, Helvetica, "Segoe UI", system-ui, sans-serif',
+  "--font-mukta":
+    'Mukta, Arial, Helvetica, "Segoe UI", system-ui, sans-serif',
 } as CSSProperties;
 
 export const metadata: Metadata = {
