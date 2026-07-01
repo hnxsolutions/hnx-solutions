@@ -4,13 +4,16 @@ import HomeAiAddOnsSection from "./shared/HomeAiAddOnsSection";
 import HomeBusinessChallengesSection from "./shared/HomeBusinessChallengesSection";
 import HomeCommandCenterSection from "./shared/HomeCommandCenterSection";
 import HomeCoreServicesSection from "./shared/HomeCoreServicesSection";
-import HomeFeaturedProjectsSection from "./shared/HomeFeaturedProjectsSection";
 import HomeGrowthStackSection from "./shared/HomeGrowthStackSection";
 import HomeIndustrySolutionsSection from "./shared/HomeIndustrySolutionsSection";
 import HomeProcessSection from "./shared/HomeProcessSection";
 import HomeStartingPointSection from "./shared/HomeStartingPointSection";
 import HomeWhyCustomWinsSection from "./shared/HomeWhyCustomWinsSection";
 import { HomeSectionFallback } from "./homeUtils";
+
+const HomePortfolio = dynamic(() => import("./HomePortfolio"), {
+  loading: () => <HomeSectionFallback />,
+});
 
 const HomeTestimonials = dynamic(() => import("./HomeTestimonials"), {
   loading: () => <HomeSectionFallback />,
@@ -31,7 +34,7 @@ export default function HomePage() {
       <HomeCommandCenterSection />
       <HomeIndustrySolutionsSection />
       <HomeProcessSection />
-      <HomeFeaturedProjectsSection />
+      <HomePortfolio />
       <HomeWhyCustomWinsSection />
       <HomeAiAddOnsSection />
       <HomeTestimonials />
