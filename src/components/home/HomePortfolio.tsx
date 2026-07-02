@@ -8,6 +8,13 @@ import { HiArrowRight } from "react-icons/hi";
 import { homePortfolioProjects } from "@/data/portfolioProjects";
 import { useTilt } from "@/hooks/useTilt";
 
+const portfolioImageOverrides: Record<string, string> = {
+  "Novakos Healthcare":
+    "https://www.novakoshealthcare.com/_next/image?q=75&url=%2Fimages%2Fhero-medicines.jpg&w=3840",
+  "AI Support Agent":
+    "https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=1200&q=90",
+};
+
 function PortfolioCard({
   project,
   index,
@@ -20,6 +27,7 @@ function PortfolioCard({
   isActive?: boolean;
 }) {
   const { ref, handleMove, reset } = useTilt<HTMLDivElement>();
+  const overrideImage = portfolioImageOverrides[project.title];
 
   return (
     <motion.div
@@ -70,7 +78,17 @@ function PortfolioCard({
               isMobile ? "h-40" : "h-48"
             }`}
           >
-            {project.imageUrl ? (
+            {overrideImage ? (
+              <>
+                <img
+                  src={overrideImage}
+                  alt={project.title}
+                  loading="lazy"
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(4,8,15,0.62)_0%,rgba(4,8,15,0.16)_42%,rgba(4,8,15,0.02)_100%)]" />
+              </>
+            ) : project.imageUrl ? (
               <>
                 <Image
                   src={project.imageUrl}
@@ -135,18 +153,20 @@ function PortfolioCard({
             </p>
 
             <div className="mt-3 flex flex-wrap gap-1.5">
-              {project.tags.slice(0, isMobile ? 3 : project.tags.length).map((tag) => (
-                <span
-                  key={tag}
-                  className={`rounded-full border border-(--border) bg-white/60 font-medium text-(--text-soft) transition-all duration-300 group-hover:border-primary/20 group-hover:text-(--text) dark:bg-white/6 ${
-                    isMobile
-                      ? "px-2.5 py-1 text-[10px]"
-                      : "px-3 py-1.5 text-[11px]"
-                  }`}
-                >
-                  {tag}
-                </span>
-              ))}
+              {project.tags
+                .slice(0, isMobile ? 3 : project.tags.length)
+                .map((tag) => (
+                  <span
+                    key={tag}
+                    className={`rounded-full border border-(--border) bg-white/60 font-medium text-(--text-soft) transition-all duration-300 group-hover:border-primary/20 group-hover:text-(--text) dark:bg-white/6 ${
+                      isMobile
+                        ? "px-2.5 py-1 text-[10px]"
+                        : "px-3 py-1.5 text-[11px]"
+                    }`}
+                  >
+                    {tag}
+                  </span>
+                ))}
             </div>
 
             <div className="mt-4 flex items-center justify-between border-t border-white/10 pt-3">
@@ -210,7 +230,7 @@ export default function HomePortfolio() {
       const index = Math.round(el.scrollLeft / (cardWidth + gap));
 
       setActiveIndex(
-        Math.max(0, Math.min(index, homePortfolioProjects.length - 1))
+        Math.max(0, Math.min(index, homePortfolioProjects.length - 1)),
       );
     };
 
@@ -315,14 +335,16 @@ export default function HomePortfolio() {
         </div>
 
         <div className="mt-6 flex flex-wrap justify-center gap-3 text-xs font-semibold uppercase tracking-[0.22em] text-(--text-soft)">
-          {['Web Apps', 'CRM Systems', 'AI Automation', 'Product Design'].map((item) => (
-            <span
-              key={item}
-              className="rounded-full border border-white/10 bg-white/10 px-3 py-2"
-            >
-              {item}
-            </span>
-          ))}
+          {["Web Apps", "CRM Systems", "AI Automation", "Product Design"].map(
+            (item) => (
+              <span
+                key={item}
+                className="rounded-full border border-white/10 bg-white/10 px-3 py-2"
+              >
+                {item}
+              </span>
+            ),
+          )}
         </div>
 
         <div className="mt-10 text-center md:mt-12">

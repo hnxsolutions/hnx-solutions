@@ -41,12 +41,12 @@ export default function HomeCommandCenterSection() {
             <div className="mt-4 h-[3px] w-24 rounded-full bg-gradient-to-r from-blue-500 via-indigo-400 to-violet-400" />
 
             <p className="mt-5 max-w-[440px] text-sm font-medium leading-7 text-slate-600 sm:text-[15px] dark:text-slate-300">
-              We understand your business first, then build one connected
-              system that brings your Website, Mobile App, CRM, Portal, AI
-              Agent, and Automations together.
+              We understand your business first, then build one connected system
+              that brings your Website, Mobile App, CRM, Portal, AI Agent, and
+              Automations together.
             </p>
 
-            <div className="mt-6 grid gap-3">
+            <div className="mt-6 hidden gap-3 sm:grid">
               <FeaturePoint
                 icon={<HiCheckCircle />}
                 title="Understand Your Business"
@@ -67,7 +67,7 @@ export default function HomeCommandCenterSection() {
               />
             </div>
 
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-7 hidden flex-col gap-3 sm:flex sm:flex-row">
               <Link
                 href="/services/full-business-suite"
                 className="inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-500 to-violet-500 px-5 py-3.5 text-sm font-bold text-white shadow-[0_18px_42px_rgba(99,102,241,0.22)] transition hover:-translate-y-0.5"
@@ -86,9 +86,11 @@ export default function HomeCommandCenterSection() {
                 See How It Works
               </Link>
             </div>
+
+            <MobileCommandCentrePreview />
           </div>
 
-          <div className="relative">
+          <div className="relative hidden lg:block">
             <div className="pointer-events-none absolute inset-x-16 -bottom-4 h-14 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(99,102,241,0.22),transparent_68%)] blur-xl" />
 
             <div className="relative overflow-hidden rounded-[26px] bg-white shadow-[0_26px_72px_rgba(15,23,42,0.10)] dark:bg-slate-900">
@@ -180,9 +182,21 @@ export default function HomeCommandCenterSection() {
                       </h4>
 
                       <div className="mt-3 grid gap-2.5 sm:grid-cols-3">
-                        <StatCard label="Revenue" value="$2.45M" delta="↑ 18.6%" />
-                        <StatCard label="New Leads" value="1,243" delta="↑ 12.4%" />
-                        <StatCard label="Customers" value="856" delta="↑ 8.7%" />
+                        <StatCard
+                          label="Revenue"
+                          value="$2.45M"
+                          delta="↑ 18.6%"
+                        />
+                        <StatCard
+                          label="New Leads"
+                          value="1,243"
+                          delta="↑ 12.4%"
+                        />
+                        <StatCard
+                          label="Customers"
+                          value="856"
+                          delta="↑ 8.7%"
+                        />
                       </div>
                     </div>
 
@@ -226,6 +240,175 @@ export default function HomeCommandCenterSection() {
         </div>
       </div>
     </section>
+  );
+}
+
+const mobileSystems = [
+  {
+    icon: <HiDesktopComputer />,
+    label: "Website",
+    status: "Live",
+    tone: "blue" as const,
+  },
+  {
+    icon: <HiDeviceMobile />,
+    label: "App",
+    status: "Live",
+    tone: "violet" as const,
+  },
+  {
+    icon: <HiUserGroup />,
+    label: "CRM",
+    status: "Connected",
+    tone: "emerald" as const,
+  },
+  {
+    icon: <HiViewGrid />,
+    label: "Portal",
+    status: "Active",
+    tone: "indigo" as const,
+  },
+  {
+    icon: <HiChip />,
+    label: "AI Agent",
+    status: "Active",
+    tone: "violet" as const,
+  },
+  {
+    icon: <HiCog />,
+    label: "Automation",
+    status: "Running",
+    tone: "amber" as const,
+  },
+  {
+    icon: <HiChartBar />,
+    label: "Reports",
+    status: "Updated",
+    tone: "cyan" as const,
+  },
+  {
+    icon: <HiArrowRight />,
+    label: "More",
+    status: "Ready",
+    tone: "slate" as const,
+  },
+];
+
+const mobileStats = [
+  { label: "Revenue", value: "$2.45M", delta: "↑ 18.0%" },
+  { label: "New Leads", value: "1,243", delta: "↑ 12.4%" },
+  { label: "Customers", value: "856", delta: "↑ 8.7%" },
+  { label: "Open Deals", value: "316", delta: "↑ 10.3%" },
+] as const;
+
+function MobileCommandCentrePreview() {
+  return (
+    <div className="mt-7 rounded-[26px] bg-white/90 p-4 shadow-[0_22px_60px_rgba(15,23,42,0.08)] ring-1 ring-slate-200/70 backdrop-blur-xl dark:bg-white/[0.06] dark:ring-white/10 lg:hidden">
+      <div className="text-center">
+        <h3 className="text-xl font-black tracking-[-0.04em] text-slate-950 dark:text-white">
+          Command Centre
+        </h3>
+        <p className="mx-auto mt-1 max-w-[260px] text-xs font-semibold leading-5 text-slate-500 dark:text-slate-400">
+          Everything you need, in one place.
+        </p>
+      </div>
+
+      <div className="mt-5 grid grid-cols-4 gap-3">
+        {mobileSystems.map((system) => (
+          <MobileSystemIcon key={system.label} {...system} />
+        ))}
+      </div>
+
+      <div className="mt-5 rounded-[22px] bg-[#fbfcff] p-4 shadow-[inset_0_0_0_1px_rgba(148,163,184,0.12)] dark:bg-white/[0.04]">
+        <div className="flex items-center justify-between gap-3">
+          <h4 className="text-sm font-black text-slate-950 dark:text-white">
+            Key Performance
+          </h4>
+          <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-[10px] font-black text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-300">
+            Live
+          </span>
+        </div>
+
+        <div className="mt-3 space-y-2.5">
+          {mobileStats.map((stat) => (
+            <MobileMetricRow key={stat.label} {...stat} />
+          ))}
+        </div>
+      </div>
+
+      <Link
+        href="/services/full-business-suite"
+        className="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-500 to-violet-500 px-5 text-sm font-black text-white shadow-[0_18px_42px_rgba(99,102,241,0.22)] transition hover:-translate-y-0.5"
+      >
+        Explore Full Business Suite
+        <HiArrowRight className="text-base" />
+      </Link>
+    </div>
+  );
+}
+
+function MobileSystemIcon({
+  icon,
+  label,
+  status,
+  tone,
+}: {
+  icon: ReactNode;
+  label: string;
+  status: string;
+  tone: "blue" | "violet" | "emerald" | "indigo" | "amber" | "cyan" | "slate";
+}) {
+  const tones = {
+    blue: "bg-blue-50 text-blue-600",
+    violet: "bg-violet-50 text-violet-600",
+    emerald: "bg-emerald-50 text-emerald-600",
+    indigo: "bg-indigo-50 text-indigo-600",
+    amber: "bg-amber-50 text-amber-600",
+    cyan: "bg-cyan-50 text-cyan-600",
+    slate: "bg-slate-100 text-slate-500",
+  };
+
+  return (
+    <div className="rounded-2xl bg-white p-2.5 text-center shadow-[0_12px_28px_rgba(15,23,42,0.055)] dark:bg-white/[0.04]">
+      <div
+        className={`mx-auto grid h-10 w-10 place-items-center rounded-2xl text-lg ${tones[tone]}`}
+      >
+        {icon}
+      </div>
+      <div className="mt-2 truncate text-[10px] font-black leading-none text-slate-900 dark:text-white">
+        {label}
+      </div>
+      <div className="mt-1 inline-flex items-center gap-1 text-[9px] font-bold text-emerald-600 dark:text-emerald-300">
+        <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+        {status}
+      </div>
+    </div>
+  );
+}
+
+function MobileMetricRow({
+  label,
+  value,
+  delta,
+}: {
+  label: string;
+  value: string;
+  delta: string;
+}) {
+  return (
+    <div className="flex items-center justify-between gap-3 rounded-2xl bg-white px-3.5 py-3 shadow-sm dark:bg-white/[0.04]">
+      <span className="text-xs font-bold text-slate-500 dark:text-slate-400">
+        {label}
+      </span>
+      <div className="text-right">
+        <div className="text-sm font-black text-slate-950 dark:text-white">
+          {value}
+        </div>
+        <div className="text-[10px] font-bold text-emerald-600 dark:text-emerald-300">
+          {delta}
+        </div>
+      </div>
+    </div>
   );
 }
 

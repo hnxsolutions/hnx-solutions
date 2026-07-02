@@ -54,7 +54,7 @@ export default function HomeCTA() {
             </Link>
           </div>
 
-          <div className="mt-10 grid gap-4 sm:grid-cols-3">
+          {/* <div className="mt-10 grid gap-4 sm:grid-cols-3">
             {[
               "Design-led product strategy",
               "Fast delivery with modern stack",
@@ -67,7 +67,7 @@ export default function HomeCTA() {
                 {item}
               </div>
             ))}
-          </div>
+          </div> */}
         </motion.div>
       </div>
     </section>

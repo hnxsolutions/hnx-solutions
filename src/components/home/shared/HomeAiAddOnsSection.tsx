@@ -617,42 +617,46 @@ function MobileBackCard({
   const Icon = step.icon;
   const tone = toneClasses[step.tone];
 
+  const widths = ["88%", "92%", "96%", "100%"];
+  const topOffsets = ["0rem", "2.75rem", "5.5rem", "8.25rem"];
+
   return (
     <div
-      className="absolute left-1/2 top-0 w-[82%] -translate-x-1/2 rounded-[1.05rem] bg-white/92 px-3.5 py-3 shadow-[0_18px_44px_rgba(15,23,42,0.075)] ring-1 ring-blue-100/80 backdrop-blur-xl"
+      className="absolute left-1/2 h-[4.35rem] -translate-x-1/2 rounded-[1.2rem] bg-white/94 px-3.5 py-3 shadow-[0_18px_48px_rgba(15,23,42,0.08)] ring-1 ring-blue-100/80 backdrop-blur-xl"
       style={{
-        transform: `translateX(-50%) translateY(${position * 2.6}rem) scale(${
-          1 - position * 0.035
-        })`,
+        width: widths[position],
+        top: topOffsets[position],
         zIndex: 10 - position,
       }}
     >
-      <div className="flex items-center justify-between gap-2">
+      <div className="flex h-full items-center justify-between gap-2">
         <div className="flex min-w-0 items-center gap-2.5">
-          <span className="grid h-8 w-8 shrink-0 place-items-center rounded-xl bg-violet-50 text-sm font-black text-violet-700">
+          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-violet-50 text-sm font-black text-violet-700">
             {step.number}
           </span>
 
           <span
-            className={`grid h-8 w-8 shrink-0 place-items-center rounded-xl ${
-              position === 0 ? tone.icon : "bg-blue-50 text-blue-700"
+            className={`grid h-9 w-9 shrink-0 place-items-center rounded-xl ${
+              position === 3 ? tone.icon : "bg-blue-50 text-blue-700"
             }`}
           >
-            <Icon className="text-base" />
+            <Icon className="text-lg" />
           </span>
 
-          <p className="truncate text-sm font-black text-slate-950">
+          <p className="min-w-0 truncate text-[13px] font-black text-slate-950">
             {step.title}
           </p>
         </div>
 
         <span
-          className={`shrink-0 rounded-full px-2.5 py-1 text-[10px] font-black ${
+          className={`shrink-0 rounded-full px-2.5 py-1 text-[9.5px] font-black ${
             step.preview === "reporting"
               ? "bg-violet-50 text-violet-700"
               : step.preview === "support"
                 ? "bg-violet-50 text-violet-700"
-                : "bg-blue-50 text-blue-700"
+                : step.preview === "pipeline"
+                  ? "bg-blue-50 text-blue-700"
+                  : "bg-emerald-50 text-emerald-700"
           }`}
         >
           {step.preview === "reporting"
@@ -668,12 +672,51 @@ function MobileBackCard({
   );
 }
 
-function MobileLeadOverview() {
+function MobileLeadOverview({ step }: { step: AddOnStep }) {
+  const rows =
+    step.preview === "chat"
+      ? [
+          ["Answered", "214", "+31%"],
+          ["Booked", "42", "+16%"],
+          ["Qualified", "76", "+21%"],
+        ]
+      : step.preview === "pipeline"
+        ? [
+            ["Tracked", "128", "+22%"],
+            ["Nudged", "64", "+18%"],
+            ["Moved", "32", "+14%"],
+          ]
+        : step.preview === "support"
+          ? [
+              ["Resolved", "92", "+20%"],
+              ["Suggested", "118", "+17%"],
+              ["Escalated", "12", "-8%"],
+            ]
+          : step.preview === "reporting"
+            ? [
+                ["Reports", "48", "+26%"],
+                ["Insights", "86", "+18%"],
+                ["Decisions", "24", "+12%"],
+              ]
+            : [
+                ["Captured", "128", "+24%"],
+                ["Qualified", "86", "+18%"],
+                ["Routed", "64", "+12%"],
+              ];
+
   return (
     <div className="mt-5 rounded-[1.2rem] bg-white/92 p-4 shadow-[0_14px_40px_rgba(15,23,42,0.07)] ring-1 ring-blue-100/80">
       <div className="mb-4 flex items-center justify-between">
         <h4 className="text-sm font-black text-slate-950">
-          Live Intake Overview
+          {step.preview === "chat"
+            ? "Live Reply Overview"
+            : step.preview === "pipeline"
+              ? "Pipeline Overview"
+              : step.preview === "support"
+                ? "Support Overview"
+                : step.preview === "reporting"
+                  ? "Reporting Overview"
+                  : "Live Intake Overview"}
         </h4>
 
         <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-3 py-1 text-[11px] font-black text-emerald-700">
@@ -682,14 +725,12 @@ function MobileLeadOverview() {
         </span>
       </div>
 
-      <div className="grid grid-cols-[6.2rem_1fr] items-center gap-4">
-        <div className="relative grid h-24 w-24 place-items-center rounded-full bg-conic-from-180 from-emerald-400 via-emerald-500 via-65% to-emerald-100 p-4 shadow-[0_14px_30px_rgba(16,185,129,0.18)]">
+      <div className="grid grid-cols-[5.75rem_1fr] items-center gap-3">
+        <div className="relative grid h-[5.5rem] w-[5.5rem] place-items-center rounded-full bg-conic-from-180 from-emerald-400 via-emerald-500 via-65% to-emerald-100 p-3.5 shadow-[0_14px_30px_rgba(16,185,129,0.18)]">
           <div className="grid h-full w-full place-items-center rounded-full bg-white">
             <div className="text-center">
-              <p className="text-2xl font-black text-slate-950">128</p>
-              <p className="text-[9px] font-bold leading-3 text-slate-500">
-                New Leads
-                <br />
+              <p className="text-xl font-black text-slate-950">{rows[0][1]}</p>
+              <p className="text-[8px] font-bold leading-3 text-slate-500">
                 Today
               </p>
             </div>
@@ -697,20 +738,20 @@ function MobileLeadOverview() {
         </div>
 
         <div className="space-y-2">
-          {[
-            ["Captured", "128", "+24%"],
-            ["Qualified", "86", "+18%"],
-            ["Routed", "64", "+12%"],
-          ].map(([label, value, growth]) => (
+          {rows.map(([label, value, growth]) => (
             <div
               key={label}
-              className="flex items-center justify-between rounded-xl bg-white px-3 py-2 shadow-sm ring-1 ring-slate-100"
+              className="flex items-center justify-between rounded-xl bg-white px-2.5 py-2 shadow-sm ring-1 ring-slate-100"
             >
-              <span className="text-[11px] font-bold text-slate-600">
+              <span className="text-[10px] font-bold text-slate-600">
                 {label}
               </span>
-              <span className="text-sm font-black text-slate-950">{value}</span>
-              <span className="text-[11px] font-black text-emerald-600">
+              <span className="text-xs font-black text-slate-950">{value}</span>
+              <span
+                className={`text-[10px] font-black ${
+                  growth.startsWith("-") ? "text-rose-500" : "text-emerald-600"
+                }`}
+              >
                 {growth}
               </span>
             </div>
@@ -721,15 +762,178 @@ function MobileLeadOverview() {
   );
 }
 
-function MobileStackedDeck() {
-  const activeStep = addOnSteps[0];
-  const ActiveIcon = activeStep.icon;
-  const activeTone = toneClasses[activeStep.tone];
-  const backCards = [addOnSteps[4], addOnSteps[3], addOnSteps[2], addOnSteps[1]];
+function MobileFrontCard({
+  step,
+  activeIndex,
+  isLeaving,
+  onManualNext,
+}: {
+  step: AddOnStep;
+  activeIndex: number;
+  isLeaving: boolean;
+  onManualNext: () => void;
+}) {
+  const ActiveIcon = step.icon;
+  const activeTone = toneClasses[step.tone];
+  const pointerStartRef = useRef<{ x: number; y: number } | null>(null);
+  const hasTriggeredRef = useRef(false);
+
+  useEffect(() => {
+    pointerStartRef.current = null;
+    hasTriggeredRef.current = false;
+  }, [activeIndex]);
+
+  function triggerManualNext() {
+    if (hasTriggeredRef.current || isLeaving) return;
+    hasTriggeredRef.current = true;
+    onManualNext();
+  }
 
   return (
-    <div className="relative mx-auto mt-9 max-w-[25rem] px-2 lg:hidden">
-      <div className="pointer-events-none absolute left-0 top-18 h-[33rem] w-px bg-linear-to-b from-blue-200 via-violet-300 to-blue-100">
+    <article
+      key={step.number}
+      onPointerDown={(event) => {
+        pointerStartRef.current = {
+          x: event.clientX,
+          y: event.clientY,
+        };
+        hasTriggeredRef.current = false;
+        event.currentTarget.setPointerCapture?.(event.pointerId);
+      }}
+      onPointerMove={(event) => {
+        const start = pointerStartRef.current;
+
+        if (!start || hasTriggeredRef.current || isLeaving) return;
+
+        const dx = event.clientX - start.x;
+        const dy = event.clientY - start.y;
+
+        if (Math.abs(dx) > 70 || dy > 70) {
+          triggerManualNext();
+        }
+      }}
+      onPointerUp={(event) => {
+        const start = pointerStartRef.current;
+
+        if (!start || hasTriggeredRef.current || isLeaving) {
+          pointerStartRef.current = null;
+          return;
+        }
+
+        const dx = event.clientX - start.x;
+        const dy = event.clientY - start.y;
+
+        if (Math.abs(dx) > 44 || dy > 44) {
+          triggerManualNext();
+        }
+
+        pointerStartRef.current = null;
+      }}
+      onPointerCancel={() => {
+        pointerStartRef.current = null;
+      }}
+      className={`relative z-30 -mt-3 touch-pan-y overflow-hidden rounded-[1.55rem] bg-white/97 p-4 shadow-[0_26px_76px_rgba(15,23,42,0.12)] ring-1 ring-blue-100/90 backdrop-blur-xl ${
+        isLeaving
+          ? "animate-[mobileLeafExit_280ms_cubic-bezier(0.45,0,0.55,1)_both]"
+          : "animate-[mobileCardIn_420ms_cubic-bezier(0.22,1,0.36,1)_both]"
+      }`}
+    >
+      <div className="flex items-center justify-between gap-2">
+        <div className="flex min-w-0 items-center gap-2.5">
+          <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-emerald-50 text-base font-black text-emerald-700">
+            {step.number}
+          </span>
+
+          <span
+            className={`grid h-11 w-11 shrink-0 place-items-center rounded-full ${activeTone.icon}`}
+          >
+            <ActiveIcon className="text-xl" />
+          </span>
+
+          <h3 className="min-w-0 text-xl font-black leading-tight tracking-tight text-slate-950">
+            {step.title}
+          </h3>
+        </div>
+
+        <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-black text-emerald-700">
+          <span className="h-2 w-2 rounded-full bg-emerald-500" />
+          Active
+        </span>
+      </div>
+
+      <div className="relative mt-4 h-[8.75rem] overflow-hidden rounded-[1.1rem] bg-slate-100 shadow-[0_14px_34px_rgba(15,23,42,0.08)]">
+        <img
+          src={step.image}
+          alt={step.imageLabel}
+          loading="lazy"
+          className={`h-full w-full scale-[1.03] object-cover ${step.imagePosition}`}
+        />
+        <div
+          className={`absolute inset-0 bg-linear-to-r ${activeTone.imageOverlay}`}
+        />
+        <div className="absolute bottom-3 left-3 grid h-10 w-10 place-items-center rounded-full bg-emerald-500 text-white shadow-[0_12px_30px_rgba(16,185,129,0.28)]">
+          <HiSparkles className="text-lg" />
+        </div>
+      </div>
+
+      <p className="mt-5 text-[15px] font-semibold leading-7 text-slate-600">
+        {step.description}
+      </p>
+
+      <div className="mt-4 grid grid-cols-3 gap-2">
+        {step.actions.map((action, index) => (
+          <span
+            key={action}
+            className="inline-flex items-center justify-center gap-1.5 rounded-2xl bg-white px-2.5 py-2.5 text-[11px] font-black text-emerald-700 shadow-sm ring-1 ring-blue-100"
+          >
+            {index === 0 ? "↓" : index === 1 ? "♙" : "➤"}
+            {action}
+          </span>
+        ))}
+      </div>
+
+      <MobileLeadOverview step={step} />
+
+      <div className="mt-4 rounded-2xl bg-blue-50/70 px-4 py-3 text-center text-xs font-black text-blue-700">
+        ⚡ AI working 24/7 to automate your workflow
+      </div>
+
+      <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-blue-50">
+        <div
+          key={`bar-${activeIndex}`}
+          className={`h-full rounded-full bg-linear-to-r from-blue-600 to-violet-600 ${
+            isLeaving ? "opacity-0" : "animate-[mobileProgress_5000ms_linear_both]"
+          }`}
+        />
+      </div>
+    </article>
+  );
+}
+
+function MobileStackedDeck({
+  mobileActiveIndex,
+  mobileLeaving,
+  onManualNext,
+}: {
+  mobileActiveIndex: number;
+  mobileLeaving: boolean;
+  onManualNext: () => void;
+}) {
+  const safeActiveIndex = Math.min(
+    Math.max(mobileActiveIndex, 0),
+    addOnSteps.length - 1,
+  );
+
+  const activeStep = addOnSteps[safeActiveIndex];
+
+  const backCards = addOnSteps
+    .slice(safeActiveIndex + 1)
+    .reverse()
+    .slice(0, 4);
+
+  return (
+    <div className="relative mx-auto mt-10 w-full max-w-[24.5rem] px-4 lg:hidden">
+      <div className="pointer-events-none absolute left-3 top-20 h-[32rem] w-px bg-linear-to-b from-blue-200 via-violet-300 to-blue-100">
         <span className="absolute -left-5 -top-2 grid h-10 w-10 place-items-center rounded-full bg-white shadow-[0_16px_38px_rgba(124,58,237,0.18)] ring-1 ring-violet-100">
           <span className="grid h-7 w-7 place-items-center rounded-full bg-linear-to-br from-blue-500 to-violet-600 text-white shadow-[0_0_28px_rgba(124,58,237,0.32)]">
             <HiSparkles className="text-sm" />
@@ -745,98 +949,47 @@ function MobileStackedDeck() {
         ))}
       </div>
 
-      <div className="relative h-[13.4rem]">
+      <div
+        className={`relative mx-auto w-[92%] transition-all duration-700 ${
+          backCards.length === 0
+            ? "h-[1.5rem]"
+            : backCards.length === 1
+              ? "h-[5.2rem]"
+              : backCards.length === 2
+                ? "h-[8.3rem]"
+                : backCards.length === 3
+                  ? "h-[11.4rem]"
+                  : "h-[14.4rem]"
+        }`}
+      >
         {backCards.map((step, index) => (
-          <MobileBackCard key={step.number} step={step} position={index} />
+          <MobileBackCard
+            key={`${step.number}-${safeActiveIndex}`}
+            step={step}
+            position={index}
+          />
         ))}
       </div>
 
-      <article className="relative z-30 -mt-4 overflow-hidden rounded-[1.55rem] bg-white/97 p-4 shadow-[0_26px_76px_rgba(15,23,42,0.12)] ring-1 ring-blue-100/90 backdrop-blur-xl">
-        <div className="flex items-center justify-between gap-2">
-          <div className="flex min-w-0 items-center gap-2.5">
-            <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-emerald-50 text-base font-black text-emerald-700">
-              {activeStep.number}
-            </span>
+      <MobileFrontCard
+        step={activeStep}
+        activeIndex={safeActiveIndex}
+        isLeaving={mobileLeaving}
+        onManualNext={onManualNext}
+      />
 
-            <span
-              className={`grid h-11 w-11 shrink-0 place-items-center rounded-full ${activeTone.icon}`}
-            >
-              <ActiveIcon className="text-xl" />
-            </span>
-
-            <h3 className="min-w-0 text-xl font-black leading-tight tracking-tight text-slate-950">
-              {activeStep.title}
-            </h3>
-          </div>
-
-          <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-black text-emerald-700">
-            <span className="h-2 w-2 rounded-full bg-emerald-500" />
-            Active
-          </span>
-        </div>
-
-        <div className="relative mt-4 h-36 overflow-hidden rounded-[1.1rem] bg-slate-100 shadow-[0_14px_34px_rgba(15,23,42,0.08)]">
-          <img
-            src={activeStep.image}
-            alt={activeStep.imageLabel}
-            loading="lazy"
-            className={`h-full w-full scale-[1.03] object-cover ${activeStep.imagePosition}`}
-          />
-          <div
-            className={`absolute inset-0 bg-linear-to-r ${activeTone.imageOverlay}`}
-          />
-          <div className="absolute bottom-3 left-3 grid h-10 w-10 place-items-center rounded-full bg-emerald-500 text-white shadow-[0_12px_30px_rgba(16,185,129,0.28)]">
-            <HiSparkles className="text-lg" />
-          </div>
-        </div>
-
-        <p className="mt-5 text-[15px] font-semibold leading-7 text-slate-600">
-          {activeStep.description}
-        </p>
-
-        <div className="mt-4 grid grid-cols-3 gap-2">
-          {activeStep.actions.map((action, index) => (
-            <span
-              key={action}
-              className="inline-flex items-center justify-center gap-1.5 rounded-2xl bg-white px-2.5 py-2.5 text-[11px] font-black text-emerald-700 shadow-sm ring-1 ring-blue-100"
-            >
-              {index === 0 ? "↓" : index === 1 ? "♙" : "➤"}
-              {action}
-            </span>
-          ))}
-        </div>
-
-        <MobileLeadOverview />
-
-        <div className="mt-4 rounded-2xl bg-blue-50/70 px-4 py-3 text-center text-xs font-black text-blue-700">
-          ⚡ AI working 24/7 to fill your pipeline
-        </div>
-      </article>
-
-      <div className="mt-5 flex items-center justify-center gap-3">
-        <div className="flex items-center gap-2">
-          {addOnSteps.slice(0, 4).map((step, index) => (
-            <span
-              key={step.number}
-              className={`h-2.5 rounded-full transition-all duration-500 ${
-                index === 0
-                  ? "w-2.5 bg-linear-to-r from-blue-600 to-violet-600"
-                  : "w-2.5 bg-blue-100"
-              }`}
-            />
-          ))}
-        </div>
-
-        <span className="text-lg text-blue-200">👋</span>
-        <p className="text-xs font-bold text-slate-400">
-          Swipe to explore all add-ons
-        </p>
-      </div>
+      <p className="mt-4 text-center text-xs font-bold text-slate-400">
+        Drag card left, right, or down to skip
+      </p>
 
       <div className="mt-7 grid grid-cols-4 gap-3 rounded-[1.35rem] bg-white/88 p-3.5 shadow-[0_20px_50px_rgba(37,99,235,0.08)] ring-1 ring-blue-100/80 backdrop-blur-xl">
         {[
           { label: "Websites", icon: HiGlobeAlt, color: "text-blue-600" },
-          { label: "Mobile Apps", icon: HiDeviceMobile, color: "text-violet-600" },
+          {
+            label: "Mobile Apps",
+            icon: HiDeviceMobile,
+            color: "text-violet-600",
+          },
           { label: "CRMs", icon: HiDatabase, color: "text-emerald-600" },
           { label: "Portals", icon: HiCheckCircle, color: "text-orange-500" },
         ].map((item) => {
@@ -922,6 +1075,38 @@ export default function HomeAiAddOnsSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const [hasEnteredView, setHasEnteredView] = useState(false);
   const [activeStation, setActiveStation] = useState(-1);
+  const [mobileActiveIndex, setMobileActiveIndex] = useState(0);
+  const [mobileLeaving, setMobileLeaving] = useState(false);
+
+  const mobileReadTimerRef = useRef<number | null>(null);
+  const mobileTransitionTimerRef = useRef<number | null>(null);
+
+  function clearMobileReadTimer() {
+    if (mobileReadTimerRef.current) {
+      window.clearTimeout(mobileReadTimerRef.current);
+      mobileReadTimerRef.current = null;
+    }
+  }
+
+  function clearMobileTransitionTimer() {
+    if (mobileTransitionTimerRef.current) {
+      window.clearTimeout(mobileTransitionTimerRef.current);
+      mobileTransitionTimerRef.current = null;
+    }
+  }
+
+  function moveToNextMobileCard() {
+    clearMobileReadTimer();
+    clearMobileTransitionTimer();
+
+    setMobileLeaving(true);
+
+    mobileTransitionTimerRef.current = window.setTimeout(() => {
+      setMobileActiveIndex((current) => (current + 1) % addOnSteps.length);
+      setMobileLeaving(false);
+      mobileTransitionTimerRef.current = null;
+    }, 120);
+  }
 
   useEffect(() => {
     const currentSection = sectionRef.current;
@@ -960,6 +1145,25 @@ export default function HomeAiAddOnsSection() {
     };
   }, [hasEnteredView]);
 
+  useEffect(() => {
+    if (!hasEnteredView || mobileLeaving) return;
+
+    clearMobileReadTimer();
+
+    mobileReadTimerRef.current = window.setTimeout(() => {
+      moveToNextMobileCard();
+    }, 5200);
+
+    return clearMobileReadTimer;
+  }, [hasEnteredView, mobileActiveIndex, mobileLeaving]);
+
+  useEffect(() => {
+    return () => {
+      clearMobileReadTimer();
+      clearMobileTransitionTimer();
+    };
+  }, []);
+
   return (
     <HomeSectionShell>
       <section ref={sectionRef} className="relative overflow-hidden py-1">
@@ -980,7 +1184,11 @@ export default function HomeAiAddOnsSection() {
           </p>
         </div>
 
-        <MobileStackedDeck />
+        <MobileStackedDeck
+          mobileActiveIndex={mobileActiveIndex}
+          mobileLeaving={mobileLeaving}
+          onManualNext={moveToNextMobileCard}
+        />
 
         <div className="relative mx-auto mt-7 hidden max-w-[74rem] space-y-4 lg:mt-8 lg:block lg:space-y-0">
           {addOnSteps.map((step, index) => (
@@ -1007,6 +1215,38 @@ export default function HomeAiAddOnsSection() {
           100% {
             opacity: 0;
             transform: scale(1.35);
+          }
+        }
+
+        @keyframes mobileCardIn {
+          0% {
+            opacity: 0;
+            transform: translateY(-0.8rem) scale(0.98);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
+        }
+
+        @keyframes mobileLeafExit {
+          0% {
+            opacity: 1;
+            transform: translateY(0) rotate(0deg) scale(1);
+          }
+          100% {
+            opacity: 0;
+            transform: translateY(7rem) translateX(-1.1rem) rotate(-7deg)
+              scale(0.97);
+          }
+        }
+
+        @keyframes mobileProgress {
+          0% {
+            width: 0%;
+          }
+          100% {
+            width: 100%;
           }
         }
       `}</style>
