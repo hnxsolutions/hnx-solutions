@@ -7,21 +7,43 @@ const {
   CloudAdapter,
   ConfigurationServiceClientCredentialFactory,
   createBotFrameworkAuthenticationFromConfiguration,
-  MemoryStorage,
-  ConversationState,
 } = require("botbuilder");
 const BotActivityHandler = require("./botActivityHandler");
 
 const app = express();
+const allowedOrigins = new Set([
+  "https://hnxsolutions.com",
+  "https://www.hnxsolutions.com",
+  "http://localhost:3000",
+]);
+
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+
+  if (origin && allowedOrigins.has(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+    res.setHeader("Vary", "Origin");
+    res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+    if (req.method === "OPTIONS") {
+      return res.sendStatus(204);
+    }
+  }
+
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(403);
+  }
+
+  return next();
+});
+
 app.use(express.json());
 
 //  authentication for CloudAdapter
 const credentialsFactory = new ConfigurationServiceClientCredentialFactory({
-  MicrosoftAppId:
-    process.env.MicrosoftAppId || "4f0b36a7-98a2-4689-9340-d8ee574aa8dd",
-  MicrosoftAppPassword:
-    process.env.MicrosoftAppPassword ||
-    "Cxp8Q~BrxlwP7N26chS3xHMndJTqA0~n8nHKgdxw",
+  MicrosoftAppId: process.env.MicrosoftAppId || "",
+  MicrosoftAppPassword: process.env.MicrosoftAppPassword || "",
 });
 const botFrameworkAuthentication =
   createBotFrameworkAuthenticationFromConfiguration(null, credentialsFactory);
@@ -33,9 +55,6 @@ adapter.onTurnError = async (context, error) => {
   await context.sendActivity("Oops! Something went wrong.");
 };
 
-// Use in-memory storage and conversation state
-const memoryStorage = new MemoryStorage();
-const conversationState = new ConversationState(memoryStorage);
 const mainBot = new BotActivityHandler();
 app.get('/',(req,res)=>{
   res.send("hi")
@@ -43,7 +62,10 @@ app.get('/',(req,res)=>{
 
 app.post("/api/messages", async (req, res) => {
   try {
-    console.log("Incoming request:", req.body);
+    if (process.env.NODE_ENV === "development") {
+      console.log("Incoming bot request received");
+    }
+
     await adapter.process(req, res, async (context) => {
       await mainBot.run(context);
     });

@@ -4,33 +4,25 @@ import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import ChatBubble from "./ChatBubble";
 
-type Message = {
-  role: "user" | "assistant";
+type ChatRole = "user" | "assistant";
+
+type ChatMessage = {
+  id: string;
+  role: ChatRole;
   content: string;
 };
 
-type ChatResponse =
-  | {
-      mode: "text";
-      message: string;
-      quickReplies?: string[];
-      collected?: Record<string, string>;
-      nextField?: string;
-    }
-  | {
-      mode: "action";
-      action: "save_lead";
-      message: string;
-      data: {
-        name: string;
-        email: string;
-        phone?: string;
-        projectType: string;
-        budget?: string;
-        message: string;
-        chatTranscript: Message[];
-      };
-    };
+type ChatbotReply = {
+  reply: string;
+  quickReplies: string[];
+};
+
+const SESSION_STORAGE_KEY = "hnx_chat_session_id";
+const MAX_MESSAGE_LENGTH = 1000;
+const CHATBOT_TIMEOUT_MS = 20_000;
+const API_FAILURE_MESSAGE =
+  "Sorry, I'm having trouble connecting right now. Please try again in a moment.";
+const UNKNOWN_REPLY_MESSAGE = "Sorry, I could not understand that.";
 
 const WELCOME_MESSAGE =
   "Hi! I'm the HNX AI assistant. I can help with websites, mobile apps, CRM, SaaS, custom software, and AI automation. Tell me what you want to build, improve, or automate.";
@@ -45,26 +37,153 @@ const DEFAULT_QUICK_REPLIES = [
 ];
 
 const hiddenPrefixes = ["/admin", "/dashboard", "/login"];
-let fallbackSubmissionCounter = 0;
+let fallbackMessageCounter = 0;
 
-function createSubmissionKey() {
-  const browserCrypto =
-    typeof globalThis !== "undefined" ? globalThis.crypto : undefined;
+function getBrowserCrypto() {
+  return typeof globalThis !== "undefined" ? globalThis.crypto : undefined;
+}
+
+function createMessageId() {
+  const browserCrypto = getBrowserCrypto();
 
   if (browserCrypto?.randomUUID) {
     return browserCrypto.randomUUID();
   }
 
-  if (browserCrypto?.getRandomValues) {
-    const values = new Uint32Array(2);
-    browserCrypto.getRandomValues(values);
-    return `lead-${Array.from(values)
-      .map((value) => value.toString(36))
-      .join("-")}`;
+  fallbackMessageCounter += 1;
+  return `chat-message-${Date.now()}-${fallbackMessageCounter}`;
+}
+
+function createChatMessage(role: ChatRole, content: string): ChatMessage {
+  return {
+    id: createMessageId(),
+    role,
+    content,
+  };
+}
+
+function createSessionId() {
+  const browserCrypto = getBrowserCrypto();
+
+  if (browserCrypto?.randomUUID) {
+    return browserCrypto.randomUUID();
   }
 
-  fallbackSubmissionCounter += 1;
-  return `lead-${fallbackSubmissionCounter}`;
+  return `hnx-session-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+}
+
+function getOrCreateSessionId() {
+  if (typeof window === "undefined") {
+    return createSessionId();
+  }
+
+  try {
+    const existingSessionId = window.localStorage.getItem(SESSION_STORAGE_KEY);
+
+    if (existingSessionId?.trim()) {
+      return existingSessionId;
+    }
+
+    const sessionId = createSessionId();
+    window.localStorage.setItem(SESSION_STORAGE_KEY, sessionId);
+    return sessionId;
+  } catch {
+    return createSessionId();
+  }
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function getStringField(data: Record<string, unknown>, field: string) {
+  const value = data[field];
+  return typeof value === "string" ? value.trim() : "";
+}
+
+function extractBotReply(data: unknown) {
+  if (!isRecord(data)) {
+    return UNKNOWN_REPLY_MESSAGE;
+  }
+
+  const reply =
+    getStringField(data, "reply") ||
+    getStringField(data, "response") ||
+    getStringField(data, "answer") ||
+    getStringField(data, "message") ||
+    getStringField(data, "text");
+
+  return reply || UNKNOWN_REPLY_MESSAGE;
+}
+
+function extractQuickReplies(data: unknown) {
+  if (!isRecord(data) || !Array.isArray(data.quickReplies)) {
+    return [];
+  }
+
+  return data.quickReplies
+    .filter((reply): reply is string => typeof reply === "string")
+    .map((reply) => reply.trim())
+    .filter(Boolean)
+    .slice(0, 6);
+}
+
+async function readJsonResponse(response: Response): Promise<unknown> {
+  const responseText = await response.text();
+
+  if (!responseText) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(responseText) as unknown;
+  } catch {
+    throw new Error("Invalid chatbot response JSON");
+  }
+}
+
+async function fetchChatbotReply(
+  sessionId: string,
+  message: string,
+): Promise<ChatbotReply> {
+  const chatbotApiUrl = process.env.NEXT_PUBLIC_CHATBOT_API_URL;
+
+  if (!chatbotApiUrl) {
+    throw new Error("Missing NEXT_PUBLIC_CHATBOT_API_URL");
+  }
+
+  const controller = new AbortController();
+  const timeoutId = window.setTimeout(() => {
+    controller.abort();
+  }, CHATBOT_TIMEOUT_MS);
+
+  try {
+    const response = await fetch(chatbotApiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        sessionId,
+        message,
+      }),
+      signal: controller.signal,
+      cache: "no-store",
+    });
+
+    if (!response.ok) {
+      throw new Error(`Chatbot request failed with status ${response.status}`);
+    }
+
+    const data = await readJsonResponse(response);
+
+    return {
+      reply: extractBotReply(data),
+      quickReplies: extractQuickReplies(data),
+    };
+  } finally {
+    window.clearTimeout(timeoutId);
+  }
 }
 
 export default function ChatWidget() {
@@ -72,8 +191,9 @@ export default function ChatWidget() {
   const shouldHide = hiddenPrefixes.some((prefix) => pathname.startsWith(prefix));
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState("");
-  const [messages, setMessages] = useState<Message[]>([
+  const [messages, setMessages] = useState<ChatMessage[]>([
     {
+      id: "welcome",
       role: "assistant",
       content: WELCOME_MESSAGE,
     },
@@ -82,272 +202,48 @@ export default function ChatWidget() {
     useState<string[]>(DEFAULT_QUICK_REPLIES);
   const [loading, setLoading] = useState(false);
 
-  const messagesContainerRef = useRef<HTMLDivElement | null>(null);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
-  const hasSubmittedLeadRef = useRef(false);
-  const submissionKeyRef = useRef("");
-
-  const hasStartedChat = messages.some((message) => message.role === "user");
+  const requestInFlightRef = useRef(false);
+  const canSendMessage = input.trim().length > 0 && !loading;
 
   useEffect(() => {
-    if (!hasStartedChat) return;
+    if (!isOpen) return;
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, quickReplies, loading, hasStartedChat]);
+  }, [messages, quickReplies, loading, isOpen]);
 
   if (shouldHide) {
     return null;
   }
 
-  async function saveLead(leadData: {
-    name: string;
-    email: string;
-    phone?: string;
-    projectType: string;
-    budget?: string;
-    message: string;
-    chatTranscript: Message[];
-  }) {
-    if (hasSubmittedLeadRef.current) return;
-
-    hasSubmittedLeadRef.current = true;
-    submissionKeyRef.current ||= createSubmissionKey();
-
-    try {
-      const res = await fetch("/api/leads", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...leadData,
-          submissionKey: submissionKeyRef.current,
-        }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        hasSubmittedLeadRef.current = false;
-        throw new Error(data?.error || "Failed to save lead");
-      }
-
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: "assistant",
-          content:
-            "Thanks - your request has been shared with our team. We'll contact you soon. Meanwhile, you can also ask about pricing, timeline, features, or another service.",
-        },
-      ]);
-
-      setQuickReplies([
-        "Ask another question",
-        "Need another service",
-        "Pricing",
-        "Project timeline",
-        "Talk to team",
-      ]);
-    } catch {
-      hasSubmittedLeadRef.current = false;
-
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: "assistant",
-          content:
-            "I couldn't save your request right now. Please try again or contact our team directly.",
-        },
-      ]);
-
-      setQuickReplies(DEFAULT_QUICK_REPLIES);
-    }
-  }
-
-  function resetConversation() {
-    setMessages([
-      {
-        role: "assistant",
-        content: WELCOME_MESSAGE,
-      },
-    ]);
-    setQuickReplies(DEFAULT_QUICK_REPLIES);
-    setInput("");
-    hasSubmittedLeadRef.current = false;
-    submissionKeyRef.current = createSubmissionKey();
-  }
-
   async function handleSend(customText?: string) {
-    const userText = (customText ?? input).trim();
-    if (!userText || loading) return;
+    if (requestInFlightRef.current || loading) return;
 
-    if (userText === "Need another service") {
-      resetConversation();
-      return;
-    }
+    const userText = (customText ?? input).trim().slice(0, MAX_MESSAGE_LENGTH);
+    if (!userText) return;
 
-    if (userText === "Ask another question") {
-      setMessages((prev) => [
-        ...prev,
-        { role: "user", content: "Ask another question" },
-        {
-          role: "assistant",
-          content:
-            "Sure - ask me anything about websites, mobile apps, CRM, SaaS, software, or AI automation.",
-        },
-      ]);
-      setQuickReplies([
-        "Pricing",
-        "Project timeline",
-        "Recommended features",
-        "Talk to team",
-      ]);
-      return;
-    }
-
-    if (userText === "Pricing") {
-      setMessages((prev) => [
-        ...prev,
-        { role: "user", content: "Pricing" },
-        {
-          role: "assistant",
-          content:
-            "Pricing depends on the project type, features, complexity, and timeline. Tell me what you want to build, and I'll help you with an estimated range.",
-        },
-      ]);
-      setQuickReplies([
-        "Build a website",
-        "Create a mobile app",
-        "CRM solution",
-        "Build SaaS",
-        "AI automation",
-      ]);
-      return;
-    }
-
-    if (userText === "Project timeline") {
-      setMessages((prev) => [
-        ...prev,
-        { role: "user", content: "Project timeline" },
-        {
-          role: "assistant",
-          content:
-            "Timeline depends on scope and complexity. A simple website may take days, while a custom app, CRM, or SaaS platform can take weeks. Tell me your requirement and I'll guide you better.",
-        },
-      ]);
-      setQuickReplies([
-        "Build a website",
-        "Create a mobile app",
-        "CRM solution",
-        "Build SaaS",
-        "AI automation",
-      ]);
-      return;
-    }
-
-    if (userText === "Recommended features") {
-      setMessages((prev) => [
-        ...prev,
-        { role: "user", content: "Recommended features" },
-        {
-          role: "assistant",
-          content:
-            "Recommended features depend on your project type. For example, websites may need lead forms, SEO pages, and admin control, while apps or SaaS products may need login, dashboards, payments, notifications, and automation. Tell me what you want to build and I'll suggest the best features.",
-        },
-      ]);
-      setQuickReplies([
-        "Build a website",
-        "Create a mobile app",
-        "CRM solution",
-        "Build SaaS",
-        "AI automation",
-      ]);
-      return;
-    }
-
-    if (userText === "Talk to team") {
-      setMessages((prev) => [
-        ...prev,
-        { role: "user", content: "Talk to team" },
-        {
-          role: "assistant",
-          content:
-            "Sure - please share your requirement, name, and email, and our team will reach out shortly.",
-        },
-      ]);
-      setQuickReplies([]);
-      return;
-    }
-
-    const isFirstUserMessage = !messages.some(
-      (message) => message.role === "user",
-    );
-
-    const updatedMessages: Message[] = [
-      ...messages,
-      { role: "user", content: userText },
-    ];
-
-    setMessages(updatedMessages);
+    requestInFlightRef.current = true;
+    setMessages((prev) => [...prev, createChatMessage("user", userText)]);
     setInput("");
     setQuickReplies([]);
     setLoading(true);
 
-    if (isFirstUserMessage) {
-      requestAnimationFrame(() => {
-        if (messagesContainerRef.current) {
-          messagesContainerRef.current.scrollTo({
-            top: 0,
-            behavior: "smooth",
-          });
-        }
-      });
-    }
-
     try {
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          messages: updatedMessages,
-        }),
-      });
+      const sessionId = getOrCreateSessionId();
+      const chatbotReply = await fetchChatbotReply(sessionId, userText);
 
-      const data: ChatResponse = await res.json();
-
-      if (!res.ok) {
-        throw new Error("Chat request failed");
-      }
-
-      if (data.mode === "text") {
-        setMessages((prev) => [
-          ...prev,
-          { role: "assistant", content: data.message },
-        ]);
-        setQuickReplies(data.quickReplies || []);
-      } else if (data.mode === "action" && data.action === "save_lead") {
-        setMessages((prev) => [
-          ...prev,
-          { role: "assistant", content: data.message },
-        ]);
-
-        await saveLead({
-          ...data.data,
-          chatTranscript: updatedMessages,
-        });
-      }
+      setMessages((prev) => [
+        ...prev,
+        createChatMessage("assistant", chatbotReply.reply),
+      ]);
+      setQuickReplies(chatbotReply.quickReplies);
     } catch {
       setMessages((prev) => [
         ...prev,
-        {
-          role: "assistant",
-          content:
-            "Sorry, something went wrong. Please try again in a moment.",
-        },
+        createChatMessage("assistant", API_FAILURE_MESSAGE),
       ]);
       setQuickReplies(DEFAULT_QUICK_REPLIES);
     } finally {
+      requestInFlightRef.current = false;
       setLoading(false);
     }
   }
@@ -373,25 +269,22 @@ export default function ChatWidget() {
         <div className="relative flex justify-end border-b border-white/10 bg-linear-to-br from-slate-950 via-indigo-950 to-violet-900 px-3 py-2.5 text-white">
           <div className="absolute -right-10 -top-12 h-28 w-28 rounded-full bg-blue-500/30 blur-3xl" />
           <div className="absolute -bottom-14 left-8 h-24 w-24 rounded-full bg-violet-400/20 blur-3xl" />
-            <button
-              type="button"
-              onClick={() => setIsOpen(false)}
-              aria-label="Minimize HNX AI assistant"
+          <button
+            type="button"
+            onClick={() => setIsOpen(false)}
+            aria-label="Minimize HNX AI assistant"
             className="relative grid h-8 w-8 shrink-0 place-items-center rounded-full bg-white/10 text-white transition hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
-            >
-              <span aria-hidden="true" className="text-base leading-none">
-                x
-              </span>
-            </button>
+          >
+            <span aria-hidden="true" className="text-base leading-none">
+              x
+            </span>
+          </button>
         </div>
 
-        <div
-          ref={messagesContainerRef}
-          className="min-h-0 flex-1 space-y-3 overflow-y-auto bg-slate-50 px-3 py-3 dark:bg-slate-950"
-        >
-          {messages.map((message, index) => (
+        <div className="min-h-0 flex-1 space-y-3 overflow-y-auto bg-slate-50 px-3 py-3 dark:bg-slate-950">
+          {messages.map((message) => (
             <ChatBubble
-              key={index}
+              key={message.id}
               role={message.role}
               content={message.content}
             />
@@ -416,7 +309,8 @@ export default function ChatWidget() {
                   key={reply}
                   type="button"
                   onClick={() => handleSend(reply)}
-                  className="rounded-full border border-blue-200 bg-blue-50 px-2.5 py-1 text-[11px] font-semibold text-blue-700 transition hover:-translate-y-0.5 hover:border-blue-600 hover:bg-blue-600 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 motion-reduce:transition-none motion-reduce:hover:translate-y-0 dark:border-blue-400/30 dark:bg-blue-400/10 dark:text-blue-100"
+                  disabled={loading}
+                  className="rounded-full border border-blue-200 bg-blue-50 px-2.5 py-1 text-[11px] font-semibold text-blue-700 transition hover:-translate-y-0.5 hover:border-blue-600 hover:bg-blue-600 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 disabled:cursor-not-allowed disabled:opacity-60 motion-reduce:transition-none motion-reduce:hover:translate-y-0 dark:border-blue-400/30 dark:bg-blue-400/10 dark:text-blue-100"
                 >
                   {reply}
                 </button>
@@ -431,20 +325,25 @@ export default function ChatWidget() {
               <input
                 type="text"
                 value={input}
-                onChange={(e) => setInput(e.target.value)}
+                onChange={(e) =>
+                  setInput(e.target.value.slice(0, MAX_MESSAGE_LENGTH))
+                }
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
+                    e.preventDefault();
                     handleSend();
                   }
                 }}
+                disabled={loading}
+                maxLength={MAX_MESSAGE_LENGTH}
                 placeholder="Write a message..."
-                className="min-w-0 flex-1 bg-transparent px-1 py-1.5 text-xs text-slate-900 outline-none placeholder:text-slate-400 dark:text-white dark:placeholder:text-slate-500"
+                className="min-w-0 flex-1 bg-transparent px-1 py-1.5 text-xs text-slate-900 outline-none placeholder:text-slate-400 disabled:cursor-not-allowed disabled:opacity-70 dark:text-white dark:placeholder:text-slate-500"
               />
 
               <button
                 type="button"
                 onClick={() => handleSend()}
-                disabled={loading}
+                disabled={!canSendMessage}
                 aria-label="Send message"
                 className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-linear-to-br from-slate-950 via-indigo-950 to-violet-900 text-white shadow-[0_10px_24px_rgba(79,70,229,0.28)] transition hover:-translate-y-0.5 hover:scale-[1.03] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 disabled:cursor-not-allowed disabled:opacity-50 motion-reduce:transition-none motion-reduce:hover:translate-y-0 motion-reduce:hover:scale-100"
               >

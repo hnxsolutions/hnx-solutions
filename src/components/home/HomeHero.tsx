@@ -8,10 +8,10 @@ import { HiArrowRight, HiPlay } from "react-icons/hi";
 import { FiGithub, FiLinkedin, FiInstagram } from "react-icons/fi";
 
 const stats = [
-  { value: "20+", label: "Projects Delivered" },
-  { value: "15+", label: "Happy Clients" },
+  { value: "50+", label: "Projects Delivered" },
+  { value: "35+", label: "Happy Clients" },
   { value: "99%", label: "Client Satisfaction" },
-  { value: "2+", label: "Years Experience" },
+  { value: "3+", label: "Years Experience" },
 ];
 
 const serviceSlides = [
@@ -27,7 +27,7 @@ const serviceSlides = [
     secondaryCta: "View Our Work",
     primaryHref: "/services/web-development",
     secondaryHref: "/portfolio",
-    image: "/webhero (2).png",
+    image: "/images/home-hero/hero.png",
     visualTitle: "Web Solutions",
     visualSubtitle:
       "Modern websites, portals, SEO pages, dashboards, and conversion-ready interfaces.",
@@ -51,7 +51,7 @@ const serviceSlides = [
     secondaryCta: "Book App Call",
     primaryHref: "/services/mobile-app-development",
     secondaryHref: "/contact",
-    image: "/Mobilehero.png",
+    image: "/images/home-hero/Mobilehero.png",
     visualTitle: "Mobile Apps",
     visualSubtitle:
       "Android, iOS, Flutter, React Native, payments, notifications, and live app experiences.",
@@ -70,7 +70,7 @@ const serviceSlides = [
     secondaryCta: "Calculate ROI",
     primaryHref: "/demo-crm",
     secondaryHref: "/roi-calculator",
-    image: "/CRMhero (2).png",
+    image: "/images/home-hero/CRMhero (2).png",
     visualTitle: "Custom CRM Systems",
     visualSubtitle:
       "Leads, pipelines, dashboards, role-based access, reports, workflow rules, and AI insights.",
@@ -89,7 +89,7 @@ const serviceSlides = [
     secondaryCta: "Workflow Lab",
     primaryHref: "/services/ai-automation",
     secondaryHref: "/workflow-lab",
-    image: "/AI hero.png",
+    image: "/images/home-hero/AI hero.png",
     visualTitle: "AI Automation",
     visualSubtitle:
       "AI agents, workflow triggers, smart replies, task routing, and decision support systems.",
@@ -108,7 +108,7 @@ const serviceSlides = [
     secondaryCta: "View Portal Demo",
     primaryHref: "/solutions/web-saas/client-portal",
     secondaryHref: "/industries/healthcare/portal",
-    image: "/CRMhero (2).png",
+    image: "/images/home-hero/Portalhero.jpg",
     visualTitle: "Client & Team Portals",
     visualSubtitle:
       "Secure login systems for customers, staff, vendors, and teams.",
@@ -132,7 +132,7 @@ const serviceSlides = [
     secondaryCta: "See What's Included",
     primaryHref: "/services/full-business-suite",
     secondaryHref: "/services/full-business-suite#modules",
-    image: "/Cloudhero (2).png",
+    image: "/images/home-hero/fullbusinesssuitehero.png",
     visualTitle: "Full Business Suite",
     visualSubtitle:
       "Website, app, CRM, portal, dashboards, automation, AI tools, and integrations.",
@@ -156,7 +156,7 @@ const serviceSlides = [
     secondaryCta: "View Healthcare",
     primaryHref: "/industries",
     secondaryHref: "/industries/healthcare",
-    image: "/Designhero.png",
+    image: "/images/home-hero/Industryhero.jpg",
     visualTitle: "Industry Solutions",
     visualSubtitle:
       "Industry-specific CRM, portals, apps, websites, dashboards, and automation workflows.",
@@ -180,7 +180,7 @@ const serviceSlides = [
     secondaryCta: "Open Workflow Lab",
     primaryHref: "/solutions",
     secondaryHref: "/workflow-lab",
-    image: "/AI hero.png",
+    image: "/images/home-hero/Solutionshero.jpg",
     visualTitle: "Solutions & Explore Tools",
     visualSubtitle:
       "CRM demos, ROI calculators, workflow labs, dashboards, and automation previews.",
@@ -204,7 +204,7 @@ const serviceSlides = [
     secondaryCta: "Start Project",
     primaryHref: "/services/cloud-infrastructure",
     secondaryHref: "/contact",
-    image: "/Cloudhero (2).png",
+    image: "/images/home-hero/Cloudhero (2).png",
     visualTitle: "Cloud Systems",
     visualSubtitle:
       "APIs, databases, cloud deployment, security, admin panels, monitoring, and integrations.",
@@ -223,7 +223,7 @@ const serviceSlides = [
     secondaryCta: "See Portfolio",
     primaryHref: "/services/ui-ux-design",
     secondaryHref: "/portfolio",
-    image: "/Designhero.png",
+    image: "/images/home-hero/Designhero.png",
     visualTitle: "Design & Growth",
     visualSubtitle:
       "UI/UX, design systems, branding, SEO growth, analytics, and campaign pages.",
@@ -251,7 +251,7 @@ export default function HomeHero() {
   }, []);
 
   useEffect(() => {
-    const id = setInterval(nextCard, 4200);
+    const id = setInterval(nextCard, 10200);
     return () => clearInterval(id);
   }, [nextCard]);
 
