@@ -20,16 +20,25 @@ export async function POST(req: NextRequest) {
       { success: true, message: "Message received! We'll get back to you soon." },
       { status: 200 }
     );
-  } catch (error) {
+    } catch (error) {
+    console.error("CONTACT API ERROR:", error);
+
     if (error instanceof Error && error.name === "ZodError") {
       return NextResponse.json(
-        { success: false, message: "Invalid form data", errors: (error as never) },
+        { success: false, message: "Invalid form data" },
         { status: 400 }
       );
     }
 
     return NextResponse.json(
-      { success: false, message: "Something went wrong" },
+      {
+        success: false,
+        message: "Something went wrong",
+        details:
+          process.env.NODE_ENV === "development" && error instanceof Error
+            ? error.message
+            : undefined,
+      },
       { status: 500 }
     );
   }
