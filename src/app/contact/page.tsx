@@ -392,10 +392,7 @@ export default function ContactPage() {
                 </ul>
               </div>
 
-              <div className="glass-card rounded-3xl p-5 text-center sm:p-6">
-                <p className="mb-2 text-3xl font-bold gradient-text">&lt;24h</p>
-                <p className="text-sm text-(--text-muted)">Average response time</p>
-              </div>
+              
             </motion.div>
 
             {/* FORM */}
@@ -879,8 +876,7 @@ export default function ContactPage() {
                     </motion.button>
 
                     <p className="mt-3 text-xs text-(--text-soft)" aria-live="polite">
-                      We usually reply within 24 hours with next steps, estimates,
-                      or a discovery call suggestion.
+                      Just check your mail after submitting the form.
                     </p>
                   </motion.div>
                 </motion.form>
