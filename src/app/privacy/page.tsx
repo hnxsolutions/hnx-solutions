@@ -4,6 +4,21 @@ import { PolicyPage } from "@/components/pages/PolicyPage";
 export const metadata: Metadata = {
   title: "Privacy Policy | HNX",
   description: "Privacy policy overview for HNX visitors and CRM consultation requests.",
+
+  alternates: {
+    canonical: "https://hnxsolutions.com/privacy",
+  },
+  openGraph: {
+    title: "Privacy Policy | HNX",
+    description: "Privacy policy overview for HNX visitors and CRM consultation requests.",
+    url: "https://hnxsolutions.com/privacy",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Privacy Policy | HNX",
+    description: "Privacy policy overview for HNX visitors and CRM consultation requests.",
+  },
 };
 
 export default function PrivacyPage() {
