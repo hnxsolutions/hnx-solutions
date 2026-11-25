@@ -67,6 +67,7 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
+
 };
 
 export default function RootLayout({

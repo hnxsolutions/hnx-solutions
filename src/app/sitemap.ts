@@ -9,6 +9,9 @@ import { designGrowthSolutions } from "@/data/solutions/designGrowthSolutions";
 import { industryBusinessSuitePages } from "@/components/industries/shared/business-suite-shared/businessSuiteData";
 import { industryCrmPages } from "@/components/industries/shared/crm-shared/industryCrmData";
 import { industryPortalPages } from "@/components/industries/shared/portal-shared/portalData";
+import { industryMobileAppPages } from "@/components/industries/shared/mobile-app-shared/industryMobileAppData";
+import { healthcareSolutionSlugs } from "@/components/industries/healthcare/healthcareData";
+import { solutionSeoEntries } from "@/data/solutions/solutionSeo";
 
 type ChangeFrequency = NonNullable<MetadataRoute.Sitemap[number]["changeFrequency"]>;
 
@@ -62,13 +65,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entry("/", 1, "weekly"),
     entry("/services", 0.96, "weekly"),
     entry("/services/full-business-suite", 0.97, "weekly"),
-    entry("/solutions", 0.94, "weekly"),
     entry("/industries", 0.94, "weekly"),
-    entry("/demo-crm", 0.9, "weekly"),
+    // "/solutions" and "/demo-crm" are not listed: both return 200 but carry a
+    // canonical pointing somewhere else - "/solutions" to
+    // "/solutions/crm/business-os" and "/demo-crm" to "/crm-demo" - so Google
+    // would drop them from the index anyway. Their canonical destinations are
+    // both listed, "/crm-demo" immediately below.
     entry("/crm-demo", 0.9, "weekly"),
     entry("/roi-calculator", 0.86, "monthly"),
     entry("/workflow-lab", 0.86, "monthly"),
     entry("/contact", 0.86, "monthly"),
+    entry("/crm-systems", 0.9, "monthly"),
+    entry("/blog", 0.8, "weekly"),
     entry("/portfolio", 0.74, "monthly"),
     entry("/about", 0.72, "monthly"),
   ];
@@ -97,7 +105,47 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entry(page.primaryRoute, 0.9, "monthly"),
   );
 
-  return [
+  // The four industry mobile-app pages that are reachable today and that
+  // /industries/[slug]/[solutionSlug] already serves with its own metadata and
+  // self-referencing canonical - they were simply never listed. The route comes
+  // from the same data the page is built from, matching the portal, CRM and
+  // business-suite entries above, so no path is written twice.
+  //
+  // industryMobileAppPages holds ten entries. The other six are absent from the
+  // sitemap too, but they are outside this change and are deliberately left as
+  // they are rather than listed unverified.
+  const sitemappedMobileAppIndustries = ["automobile", "finance", "insurance", "travel"];
+  const industryMobileAppEntries = Object.values(industryMobileAppPages)
+    .filter((page) => sitemappedMobileAppIndustries.includes(page.industrySlug))
+    .map((page) => entry(page.primaryRoute, 0.88, "monthly"));
+
+  // Driven by the same list the route itself uses for generateStaticParams, so
+  // a new healthcare solution appears here without a second list to maintain.
+  // The hand-built solution pages, read from the same entries their layouts use
+  // for metadata — so a page is described and listed from one place.
+  const handBuiltSolutionEntries = solutionSeoEntries.map((item) =>
+    entry(item.path, 0.86, "monthly"),
+  );
+
+  const healthcareEntries = [
+    entry("/industries/healthcare", 0.9, "monthly"),
+    ...healthcareSolutionSlugs.map((slug) =>
+      entry(`/industries/healthcare/${slug}`, 0.88, "monthly"),
+    ),
+  ];
+
+  // De-duplicate by URL, keeping the first occurrence.
+  //
+  // Several of these lists legitimately overlap: `industryPaths` names the ten
+  // /industries/*-crm pages explicitly, and `industryCrmPages` arrives at the
+  // same ten through its own primaryRoute. The live sitemap has been shipping
+  // all ten twice (110 entries, 100 distinct). Collapsing here rather than
+  // editing either list keeps both sources intact — each is the right source
+  // for its own purpose — and means any future overlap is handled too.
+  //
+  // First occurrence wins so the earlier list's priority is the one kept, which
+  // preserves the values already published.
+  const all = [
     ...staticEntries,
     ...serviceEntries,
     ...solutionEntries,
@@ -105,5 +153,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...industryPortalEntries,
     ...industryCrmEntries,
     ...industryBusinessSuiteEntries,
+    ...industryMobileAppEntries,
+    ...healthcareEntries,
+    ...handBuiltSolutionEntries,
   ];
+
+  const seen = new Set<string>();
+  return all.filter((item) => {
+    if (seen.has(item.url)) return false;
+    seen.add(item.url);
+    return true;
+  });
 }

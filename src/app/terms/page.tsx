@@ -4,6 +4,21 @@ import { PolicyPage } from "@/components/pages/PolicyPage";
 export const metadata: Metadata = {
   title: "Terms of Service | HNX",
   description: "Terms of service overview for HNX website visitors and CRM consultation requests.",
+
+  alternates: {
+    canonical: "https://hnxsolutions.com/terms",
+  },
+  openGraph: {
+    title: "Terms of Service | HNX",
+    description: "Terms of service overview for HNX website visitors and CRM consultation requests.",
+    url: "https://hnxsolutions.com/terms",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Terms of Service | HNX",
+    description: "Terms of service overview for HNX website visitors and CRM consultation requests.",
+  },
 };
 
 export default function TermsPage() {

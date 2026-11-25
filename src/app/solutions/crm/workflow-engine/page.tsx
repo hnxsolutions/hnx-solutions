@@ -834,7 +834,12 @@ function FlowBuilderPreview({ compact = false }: { compact?: boolean }) {
     <section className={`${compact ? "mt-8" : "mt-8"} overflow-hidden rounded-[30px] border border-[#d7e1f2] bg-white shadow-[0_18px_55px_rgba(15,23,42,0.05)]`}>
       <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#d7e1f2] px-6 py-4">
         <div className="flex items-center gap-4">
-          <Link href="/solutions/workflow-engine" className="text-xs font-extrabold text-[#66728f]">← Back to Workflows</Link>
+          {/* Chrome inside the flow-builder mockup, not site navigation: it used to
+              link to /solutions/workflow-engine, which does not exist (this page is
+              /solutions/crm/workflow-engine) and there is no workflow list page to
+              point it at. Rendered as text so the mockup looks exactly the same
+              without the 404. */}
+          <span className="text-xs font-extrabold text-[#66728f]">← Back to Workflows</span>
           <h2 className="text-base font-extrabold text-[#0f214f]">Lead Onboarding Workflow</h2>
           <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-bold text-[#66728f]">Draft</span>
         </div>

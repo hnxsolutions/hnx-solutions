@@ -413,7 +413,13 @@ const mobileAppSolutionsBase: SolutionPageData[] = [
   {
     slug: "app-store-launch",
     label: "Play Store / App Store Launch",
-    href: href("app-store-launch"),
+    // The route that actually serves this page is
+    // /solutions/mobile-apps/play-store-app-store-launch - the slug above does
+    // not match it, so href() was producing a 404 that reached both the sitemap
+    // and the category tab strip. Only the href is corrected: the slug is the
+    // key contentEnhancements and the tab-active check use, so renaming it would
+    // change behaviour elsewhere.
+    href: href("play-store-app-store-launch"),
     icon: "Store",
     eyebrow: "Mobile Store Launch",
     headline: "Launch your app with the store details handled properly.",
