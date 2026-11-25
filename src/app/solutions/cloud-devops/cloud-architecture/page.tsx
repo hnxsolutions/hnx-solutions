@@ -1,151 +1,16 @@
-"use client";
+import { createSolutionMetadata } from "@/components/solutions/shared/SolutionSeoPage";
+import { cloudDevopsSolutions } from "@/data/solutions/cloudDevopsSolutions";
 
-import Link from "next/link";
-import { useMemo, useState, type ReactNode } from "react";
-import * as Lucide from "lucide-react";
-import { SolutionSidebar } from "@/components/solutions/SolutionSidebar";
-import { SolutionCategoryTabs } from "@/components/solutions/shared/SolutionCategoryTabs";
-import type { SolutionPageData } from "@/data/solutions/types";
+import CloudArchitectureClient from "./CloudArchitectureClient";
 
-type LucideIcon = Lucide.LucideIcon;
-type CardCopy = { title: string; text: string; tag: string };
-type MetricItem = { label: string; value: string; note: string };
-type FlowItem = { icon: LucideIcon; title: string; text: string };
-type SectionContent = { title: string; intro: string; cards: CardCopy[]; metrics: MetricItem[]; flow: FlowItem[]; implementationTitle: string; implementationText: string; implementationPoints: string[]; visualTitle: string; visualRows: string[] };
-type Seed = { focus: string; risk: string; design: string; tech: string; control: string; metric: string; roadmap: string; visualRows: string[] };
+const activeSlug = "cloud-architecture";
 
-const MODULE_NAME = "Cloud Architecture";
-const SIDEBAR_TITLE = "Cloud Architecture";
-const SIDEBAR_SUBTITLE = "System design layers";
-
-function tabSolution(slug: string, label: string, href: string, icon: SolutionPageData["icon"]): SolutionPageData {
-  return { slug, label, href, icon, eyebrow: label, headline: label, description: `${label} solution by HNX.`, problem: "", solution: "", impact: "", stats: [], problems: [], flow: [], modules: [], process: [], useCases: [], preview: { title: label, subtitle: "", metrics: [], rows: [] }, ctaTitle: label, ctaText: "" };
-}
-
-const cloudDevopsSolutions: readonly SolutionPageData[] = [
-  tabSolution("cloud-strategy", "Cloud Strategy", "/solutions/cloud-devops/cloud-strategy", "Cloud"),
-  tabSolution("cloud-architecture", "Cloud Architecture", "/solutions/cloud-devops/cloud-architecture", "Network"),
-  tabSolution("devops-ci-cd", "DevOps CI/CD", "/solutions/cloud-devops/devops-ci-cd", "GitBranch"),
-  tabSolution("deployment-automation", "Deployment Automation", "/solutions/cloud-devops/deployment-automation", "Rocket"),
-  tabSolution("monitoring-logging", "Monitoring & Logging", "/solutions/cloud-devops/monitoring-logging", "Activity"),
-  tabSolution("security-backup", "Security & Backup", "/solutions/cloud-devops/security-backup", "ShieldCheck"),
-  tabSolution("performance-scaling", "Performance & Scaling", "/solutions/cloud-devops/performance-scaling", "BarChart3"),
-  tabSolution("maintenance-support", "Maintenance Support", "/solutions/cloud-devops/maintenance-support", "Headphones"),
-];
-
-const knowledgeTabs = [
-  { id: "overview", label: "Overview", icon: Lucide.Home },
-  { id: "architecture-gaps", label: "Architecture Gaps", icon: Lucide.CircleAlert },
-  { id: "system-design", label: "System Design", icon: Lucide.Workflow },
-  { id: "network-security", label: "Network & Security", icon: Lucide.ShieldCheck },
-  { id: "database-layer", label: "Database Layer", icon: Lucide.Database },
-  { id: "storage-strategy", label: "Storage Strategy", icon: Lucide.Database },
-  { id: "api-service-layer", label: "API & Service Layer", icon: Lucide.ServerCog },
-  { id: "reliability-design", label: "Reliability Design", icon: Lucide.Activity },
-  { id: "architecture-roadmap", label: "Architecture Roadmap", icon: Lucide.GitBranch },
-  { id: "final-cta", label: "Final CTA", icon: Lucide.ArrowRight },
-] as const;
-
-type TabId = (typeof knowledgeTabs)[number]["id"];
-const cardIcons: LucideIcon[] = [Lucide.Cloud, Lucide.ServerCog, Lucide.ShieldCheck, Lucide.Database, Lucide.LayoutDashboard, Lucide.BarChart3];
-const sectionSeeds: Record<TabId, Seed> = {
-  "overview": { focus: "cloud architecture operating model", risk: "Applications become fragile when servers, APIs, databases, storage, and security are added without a system map.", design: "HNX designs architecture around real product flows, data ownership, traffic, release process, reliability, and maintenance.", tech: "Owners can understand what each layer does, how it fails, and where operational dashboards should exist.", control: "Application, network, database, storage, API, cache, queue, CDN, monitoring, and backup layers are mapped.", metric: "Architecture metrics include latency, uptime, dependency health, capacity, and recovery readiness.", roadmap: "The roadmap shows what to build now and what to prepare for future scale.", visualRows: ["Overview input and risk", "Infrastructure design layer", "Security and access control", "Monitoring and business visibility", "Runbook and improvement review"] },
-  "architecture-gaps": { focus: "hidden system design gaps", risk: "Architecture gaps appear as slow pages, failed releases, data confusion, and outages that no one can explain quickly.", design: "HNX reviews service boundaries, deployment paths, database load, security exposure, observability, and backup coverage.", tech: "The business sees which gaps are urgent, which are growth blockers, and which add unnecessary cost.", control: "Servers, APIs, databases, storage, DNS, CDN, queues, and third-party dependencies are assessed together.", metric: "Gap metrics include single points of failure, unmonitored services, manual steps, and missing recovery paths.", roadmap: "The gap list becomes a practical improvement backlog.", visualRows: ["Architecture Gaps input and risk", "Infrastructure design layer", "Security and access control", "Monitoring and business visibility", "Runbook and improvement review"] },
-  "system-design": { focus: "application and service topology", risk: "A system needs clear relationships between frontend, backend, admin, data, files, jobs, and external services.", design: "HNX designs component boundaries, environments, traffic flow, service ownership, and integration contracts.", tech: "Architecture diagrams help product, engineering, and business teams discuss the same system clearly.", control: "Frontend, API, worker, database, cache, queue, file storage, CDN, and integrations are placed into a readable topology.", metric: "Metrics include service latency, dependency count, request volume, and failure impact.", roadmap: "The design supports staged delivery and future modules without constant rewrites.", visualRows: ["System Design input and risk", "Infrastructure design layer", "Security and access control", "Monitoring and business visibility", "Runbook and improvement review"] },
-  "network-security": { focus: "network boundaries and access protection", risk: "Open services, flat networks, and unclear firewall rules expose applications to avoidable risk.", design: "HNX defines public and private boundaries, SSL, DNS, firewall rules, access paths, and secure admin entry.", tech: "Teams know which systems are internet-facing, which are internal, and who can access each layer.", control: "VPCs, subnets, firewalls, security groups, VPN or private access, SSL, WAF, and IAM are considered.", metric: "Security metrics include exposed ports, privileged users, certificate health, and blocked traffic.", roadmap: "Network design is reviewed as the product adds services and integrations.", visualRows: ["Network & Security input and risk", "Infrastructure design layer", "Security and access control", "Monitoring and business visibility", "Runbook and improvement review"] },
-  "database-layer": { focus: "database design, reliability, and access", risk: "Databases become bottlenecks when schema, indexing, backups, access, and reporting are not planned together.", design: "HNX designs database hosting, access roles, backup policy, read/write patterns, indexing, and growth headroom.", tech: "Business owners understand recovery expectations, reporting limitations, and data ownership responsibilities.", control: "Primary database, replicas, migrations, backups, connection pooling, encryption, and admin tools are mapped.", metric: "Metrics include query time, connection count, storage growth, backup success, and replication health.", roadmap: "The database roadmap protects data quality while preparing for scale.", visualRows: ["Database Layer input and risk", "Infrastructure design layer", "Security and access control", "Monitoring and business visibility", "Runbook and improvement review"] },
-  "storage-strategy": { focus: "file storage, media, and retention", risk: "File storage can become expensive, insecure, and hard to restore when treated as an afterthought.", design: "HNX plans object storage, media delivery, retention, permissions, lifecycle rules, and backup or replication needs.", tech: "Admins see where files live, how long they are kept, who can access them, and what recovery is possible.", control: "Buckets, CDN, signed URLs, image optimization, retention policies, archive tiers, and audit logs are considered.", metric: "Metrics include storage growth, bandwidth, access errors, lifecycle savings, and restore success.", roadmap: "The storage plan evolves with user uploads, reports, documents, and media-heavy features.", visualRows: ["Storage Strategy input and risk", "Infrastructure design layer", "Security and access control", "Monitoring and business visibility", "Runbook and improvement review"] },
-  "api-service-layer": { focus: "API boundaries and service communication", risk: "APIs fail operationally when contracts, rate limits, errors, retries, and ownership are unclear.", design: "HNX designs API routes, authentication, validation, service boundaries, webhooks, queues, and error handling.", tech: "Teams understand which service owns each action and what happens when dependencies fail.", control: "REST or RPC APIs, background jobs, queues, webhooks, third-party services, and service credentials are mapped.", metric: "Metrics include response time, error rate, retry volume, webhook failures, and endpoint usage.", roadmap: "The API roadmap prepares the platform for mobile apps, dashboards, integrations, and automation.", visualRows: ["API & Service Layer input and risk", "Infrastructure design layer", "Security and access control", "Monitoring and business visibility", "Runbook and improvement review"] },
-  "reliability-design": { focus: "uptime, failover, and recovery patterns", risk: "Reliability is not only bigger servers; it is knowing what fails, how fast it is detected, and how quickly service returns.", design: "HNX designs health checks, redundancy, backups, deployment safety, monitoring, incident process, and recovery priorities.", tech: "The business receives realistic availability targets and recovery expectations instead of vague promises.", control: "Load balancers, replicas, queues, backups, alerts, rollback paths, and runbooks are included.", metric: "Metrics include uptime, error rate, recovery time, backup age, and incident frequency.", roadmap: "Reliability improvements are phased based on business risk and budget.", visualRows: ["Reliability Design input and risk", "Infrastructure design layer", "Security and access control", "Monitoring and business visibility", "Runbook and improvement review"] },
-  "architecture-roadmap": { focus: "phased architecture evolution", risk: "Architecture should evolve deliberately as traffic, features, and operational complexity grow.", design: "HNX separates immediate stabilization, launch architecture, scale preparation, and future platform improvements.", tech: "Leaders can decide when to invest in redundancy, automation, observability, and database optimization.", control: "Infrastructure layers are sequenced so dependencies are fixed before visible features depend on them.", metric: "Roadmap metrics include readiness score, cost impact, risk reduction, and scaling capacity.", roadmap: "The architecture roadmap keeps engineering decisions connected to business timing.", visualRows: ["Architecture Roadmap input and risk", "Infrastructure design layer", "Security and access control", "Monitoring and business visibility", "Runbook and improvement review"] },
-  "final-cta": { focus: "cloud architecture delivery", risk: "A clear cloud architecture makes development, deployment, monitoring, and maintenance easier to manage.", design: "HNX can design the system layers, network, database, storage, APIs, reliability plan, and architecture roadmap.", tech: "The result is a platform view your technical team can build and your business team can understand.", control: "Architecture decisions include cost, security, recovery, and support expectations.", metric: "Success is measured through uptime, latency, error rate, recovery readiness, and release confidence.", roadmap: "The design becomes the foundation for DevOps, monitoring, security, and scaling.", visualRows: ["Final CTA input and risk", "Infrastructure design layer", "Security and access control", "Monitoring and business visibility", "Runbook and improvement review"] },
-};
-
-const preview = {
-  label: "Architecture Layer Diagram",
-  eyebrow: "Network to reliability view",
-  headline: "Design cloud systems that are clear, secure, and maintainable.",
-  text: "HNX maps system components, network boundaries, database/storage layers, APIs, reliability patterns, and architecture roadmap.",
-  pills: ["Layer diagram", "Security map", "Database plan", "Reliability view"],
-  stats: [["6", "System layers"], ["2", "Failover paths"], ["99.9%", "Target baseline"]],
-  rows: ["Application layer", "Network and access", "Database and storage", "API/service layer", "Reliability roadmap"],
-  outcome: "Outcome: architecture that supports growth without hidden fragility",
-};
-
-function makeSection(label: string, seed: Seed): SectionContent {
-  return {
-    title: `${label}: ${seed.focus} designed for reliability, visibility, and control.`,
-    intro: `${MODULE_NAME} treats ${seed.focus} as an operating system for the business, not a one-time technical setup. HNX documents the risk, designs the infrastructure layers, defines security and recovery controls, exposes useful dashboards, and creates a practical roadmap for launch and ongoing improvement.`,
-    cards: [
-      { title: `${label} risk profile`, text: seed.risk, tag: "Risk" },
-      { title: `${label} system design`, text: seed.design, tag: "Design" },
-      { title: `${label} technical layers`, text: seed.tech, tag: "Stack" },
-      { title: `${label} business visibility`, text: seed.control, tag: "Control" },
-      { title: `${label} metric model`, text: seed.metric, tag: "Metrics" },
-      { title: `${label} operating roadmap`, text: seed.roadmap, tag: "Roadmap" },
-    ],
-    metrics: [
-      { label: "Risk", value: "Mapped", note: `${label} includes failure points and business impact.` },
-      { label: "Layers", value: "Designed", note: "Hosting, network, data, security, and release paths are connected." },
-      { label: "Visibility", value: "Live", note: "Dashboards and alerts show what the team needs to act on." },
-      { label: "Improvement", value: "Planned", note: "The chapter feeds maintenance, scaling, and cost reviews." },
-    ],
-    flow: [
-      { icon: Lucide.SearchCheck, title: "Assess", text: `HNX reviews ${seed.focus}, current infrastructure, risk, ownership, cost, and operational gaps.` },
-      { icon: Lucide.Network, title: "Design", text: "The technical plan defines layers, environments, access, deployment, monitoring, backup, and recovery needs." },
-      { icon: Lucide.ServerCog, title: "Implement", text: "Infrastructure, automation, configuration, dashboards, and runbooks are built with controlled handoff." },
-      { icon: Lucide.Activity, title: "Operate", text: "Health, cost, security, incidents, and performance are reviewed so the system keeps improving." },
-    ],
-    implementationTitle: `HNX builds ${label.toLowerCase()} with engineering depth and business-readable control.`,
-    implementationText: `This chapter translates ${seed.focus} into practical infrastructure decisions: what should run where, who can access it, how releases move, how failures are detected, and how the business knows the platform is healthy.`,
-    implementationPoints: [
-      `Document the current ${seed.focus} state and the risk it creates for users, revenue, and teams.`,
-      "Define the exact infrastructure, security, deployment, monitoring, and recovery layers needed.",
-      "Expose dashboards, alerts, runbooks, and ownership so operations are not hidden in engineering tools.",
-      "Review cost, incidents, performance, and improvement items after launch.",
-    ],
-    visualTitle: `${label} implementation map`,
-    visualRows: seed.visualRows,
-  };
-}
-
-const sections = Object.fromEntries(knowledgeTabs.map((tab) => [tab.id, makeSection(tab.label, sectionSeeds[tab.id])])) as Record<TabId, SectionContent>;
-
-function cx(...classes: Array<string | false | null | undefined>) { return classes.filter(Boolean).join(" "); }
-function getTabFromHash(hash: string): TabId | null { const id = hash.replace("#", ""); return knowledgeTabs.find((item) => item.id === id)?.id ?? null; }
-function scrollToKnowledge() { window.requestAnimationFrame(() => { const element = document.getElementById("knowledge-content"); if (!element) return; const stickyOffset = window.innerWidth >= 1024 ? 190 : 170; const top = element.getBoundingClientRect().top + window.scrollY - stickyOffset; window.scrollTo({ top: Math.max(top, 0), behavior: "smooth" }); }); }
-function IconShell({ icon: Icon, className }: { icon: LucideIcon; className?: string }) { return <span className={cx("grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-[#eef6ff] text-[#2378ff] ring-1 ring-[#bfd7ff]", className)}><Icon className="h-5 w-5" aria-hidden="true" /></span>; }
-
-function MobileTabs({ activeTab, onTabChange }: { activeTab: TabId; onTabChange: (tab: TabId) => void }) {
-  return <div className="sticky top-[136px] z-30 border-b border-[#d7e1f2] bg-white/95 px-4 py-3 shadow-sm backdrop-blur-xl lg:hidden"><div className="flex gap-2 overflow-x-auto pb-1">{knowledgeTabs.map((item) => { const Icon = item.icon; const isActive = activeTab === item.id; return <button key={item.id} type="button" onClick={() => onTabChange(item.id)} className={cx("flex shrink-0 items-center gap-2 rounded-full border px-4 py-2 text-xs font-extrabold transition", isActive ? "border-[#9fc6e6] bg-[#eef6ff] text-[#145cb7]" : "border-[#d7e1f2] bg-white text-[#334766]")}><Icon className="h-4 w-4" aria-hidden="true" />{item.label}</button>; })}</div></div>;
-}
-
-function Breadcrumb({ activeLabel }: { activeLabel: string }) {
-  return <nav aria-label="Breadcrumb" className="mb-8 flex flex-wrap items-center gap-3 text-sm font-extrabold"><Link href="/solutions" className="text-[#0891b2] transition hover:text-[#145cb7]">Solutions</Link><span className="text-[#9aa7bd]">/</span><Link href="/solutions/cloud-devops/cloud-strategy" className="text-[#0891b2] transition hover:text-[#145cb7]">Cloud &amp; DevOps</Link><span className="text-[#9aa7bd]">/</span><span className="text-[#334766]">{MODULE_NAME}</span><span className="text-[#9aa7bd]">/</span><span className="text-[#0f214f]">{activeLabel}</span></nav>;
-}
-
-function ChapterShell({ activeLabel, title, intro, children }: { activeLabel: string; title: string; intro: string; children: ReactNode }) {
-  return <section className="border-b border-[#d7e1f2] bg-white px-5 py-10 sm:px-6 lg:px-8 xl:px-10 2xl:px-12"><Breadcrumb activeLabel={activeLabel} /><div className="max-w-5xl"><p className="text-xs font-black uppercase tracking-[0.22em] text-[#0f78a8]">{MODULE_NAME}</p><h1 className="mt-5 text-5xl font-black leading-[1.02] tracking-[-0.06em] text-[#0f214f] sm:text-6xl">{title}</h1><p className="mt-5 max-w-4xl text-base font-semibold leading-8 text-[#52627d] sm:text-lg">{intro}</p></div><div className="mt-10 space-y-8">{children}</div></section>;
-}
-
-function KnowledgeCard({ item, index }: { item: CardCopy; index: number }) { const Icon = cardIcons[index % cardIcons.length]; return <div className="rounded-[24px] border border-[#d7e1f2] bg-white p-5 shadow-[0_18px_45px_rgba(15,23,42,0.045)]"><div className="flex items-start gap-4"><IconShell icon={Icon} /><div><div className="flex flex-wrap items-center gap-2"><h3 className="text-lg font-black tracking-[-0.02em] text-[#0f214f]">{item.title}</h3><span className="rounded-full bg-[#fff7ed] px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.12em] text-[#c05621]">{item.tag}</span></div><p className="mt-2 text-sm font-semibold leading-6 text-[#52627d]">{item.text}</p></div></div></div>; }
-function MetricCard({ metric }: { metric: MetricItem }) { return <div className="rounded-[22px] border border-[#d7e1f2] bg-white p-5 shadow-[0_18px_40px_rgba(15,23,42,0.045)]"><p className="text-xs font-black uppercase tracking-[0.15em] text-[#66728f]">{metric.label}</p><p className="mt-3 text-3xl font-black tracking-[-0.05em] text-[#0f214f]">{metric.value}</p><p className="mt-2 text-sm font-semibold leading-6 text-[#52627d]">{metric.note}</p><svg viewBox="0 0 220 36" className="mt-3 h-9 w-full text-[#0891b2]" aria-hidden="true"><path d="M2 28 L18 24 L34 27 L50 22 L66 25 L82 17 L98 18 L114 14 L130 17 L146 10 L162 13 L178 8 L194 12 L218 7" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" /></svg></div>; }
-
-function PreviewWindow() {
-  return <div className="overflow-hidden rounded-[28px] border border-[#d7e1f2] bg-white shadow-[0_20px_55px_rgba(15,23,42,0.08)]"><div className="flex items-center justify-between border-b border-[#d7e1f2] bg-[#f8fbff] px-5 py-4"><div className="flex gap-2"><span className="h-3 w-3 rounded-full bg-red-400" /><span className="h-3 w-3 rounded-full bg-yellow-400" /><span className="h-3 w-3 rounded-full bg-green-400" /></div><p className="text-xs font-black text-[#66728f]">{preview.label}</p></div><div className="grid gap-5 p-5 lg:grid-cols-[0.95fr_1.05fr]"><div className="rounded-[24px] bg-gradient-to-br from-[#0f214f] via-[#0f78a8] to-[#f59e0b] p-6 text-white"><p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-100">{preview.eyebrow}</p><h3 className="mt-4 text-4xl font-black tracking-[-0.05em]">{preview.headline}</h3><p className="mt-4 text-sm font-semibold leading-7 text-blue-100">{preview.text}</p><div className="mt-6 grid gap-3 sm:grid-cols-2">{preview.pills.map((item) => <p key={item} className="rounded-xl bg-white/12 px-4 py-3 text-xs font-black">{item}</p>)}</div></div><div className="space-y-4"><div className="grid gap-4 sm:grid-cols-3">{preview.stats.map(([value, label]) => <div key={label} className="rounded-2xl border border-[#d7e1f2] bg-[#f8fbff] p-4"><p className="text-2xl font-black text-[#0f78a8]">{value}</p><p className="mt-1 text-xs font-bold text-[#66728f]">{label}</p></div>)}</div><div className="rounded-2xl border border-[#d7e1f2] bg-[#f8fbff] p-4"><p className="text-sm font-black text-[#0f214f]">Infrastructure layers</p><div className="mt-4 space-y-2">{preview.rows.map((item) => <div key={item} className="flex items-center justify-between rounded-xl bg-white px-4 py-3"><span className="text-xs font-black text-[#0f214f]">{item}</span><Lucide.CheckCircle2 className="h-4 w-4 text-emerald-600" /></div>)}</div></div><div className="rounded-2xl border border-[#fed7aa] bg-[#fff7ed] px-4 py-3"><p className="text-sm font-black text-[#c05621]">{preview.outcome}</p></div></div></div></div>;
-}
-
-function FlowVisual({ items }: { items: FlowItem[] }) { return <div className="overflow-x-auto rounded-[28px] border border-[#d7e1f2] bg-[#f8fbff] p-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"><div className="flex min-w-max items-stretch gap-4">{items.map((item, index) => { const Icon = item.icon; return <div key={item.title} className="relative flex w-[235px] shrink-0"><div className="flex min-h-[245px] w-full flex-col rounded-[24px] border border-[#d7e1f2] bg-white p-5 shadow-[0_18px_45px_rgba(15,23,42,0.045)]"><div className="flex items-start justify-between gap-4"><IconShell icon={Icon} className="h-12 w-12" /><span className="rounded-full bg-[#fff7ed] px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-[#c05621]">Step {index + 1}</span></div><p className="mt-5 text-xl font-black tracking-[-0.03em] text-[#0f214f]">{item.title}</p><p className="mt-3 text-sm font-semibold leading-6 text-[#52627d]">{item.text}</p></div>{index < items.length - 1 ? <span className="absolute -right-6 top-1/2 z-20 hidden h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-[#bfd7ff] bg-white text-[#2378ff] shadow-[0_10px_20px_rgba(15,23,42,0.08)] md:flex"><Lucide.ArrowRight className="h-4 w-4" /></span> : null}</div>; })}</div></div>; }
-function ImplementationMap({ title, rows }: { title: string; rows: string[] }) { return <div className="rounded-[28px] border border-[#d7e1f2] bg-white p-6 shadow-[0_18px_45px_rgba(15,23,42,0.04)]"><div className="flex items-center justify-between gap-4"><p className="text-lg font-black text-[#0f214f]">{title}</p><span className="rounded-full bg-[#eef6ff] px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-[#145cb7]">HNX Map</span></div><div className="mt-5 space-y-3">{rows.map((row, index) => <div key={row} className="flex items-center gap-3 rounded-2xl bg-[#f8fbff] p-4"><span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-white text-sm font-black text-[#0f78a8] ring-1 ring-[#9fc6e6]">{index + 1}</span><p className="text-sm font-black text-[#0f214f]">{row}</p></div>)}</div></div>; }
-function ChapterInsightPanel({ section }: { section: SectionContent }) { return <div className="grid gap-5 rounded-[28px] border border-[#d7e1f2] bg-[#f8fbff] p-6 lg:grid-cols-[1fr_1fr]"><div><p className="text-xs font-black uppercase tracking-[0.16em] text-[#0f78a8]">HNX Infrastructure Lens</p><h2 className="mt-3 text-2xl font-black tracking-[-0.035em] text-[#0f214f]">{section.implementationTitle}</h2><p className="mt-4 text-sm font-semibold leading-7 text-[#52627d]">{section.implementationText}</p></div><div className="grid gap-3 sm:grid-cols-2">{section.visualRows.slice(0, 4).map((row, index) => <div key={row} className="rounded-2xl border border-[#d7e1f2] bg-white p-4 shadow-[0_12px_26px_rgba(15,23,42,0.035)]"><p className="text-xs font-black uppercase tracking-[0.14em] text-[#c05621]">Checkpoint {index + 1}</p><p className="mt-2 text-sm font-black leading-6 text-[#0f214f]">{row}</p></div>)}</div></div>; }
-function SplitPanel({ title, text, points, visual }: { title: string; text: string; points: string[]; visual: ReactNode }) { return <div className="grid gap-6 rounded-[28px] border border-[#d7e1f2] bg-[#f8fbff] p-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-center"><div><h2 className="text-2xl font-black tracking-[-0.035em] text-[#0f214f]">{title}</h2><p className="mt-4 text-sm font-semibold leading-7 text-[#52627d]">{text}</p><div className="mt-5 space-y-3">{points.map((point) => <div key={point} className="flex items-start gap-3"><Lucide.CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-emerald-600" /><p className="text-sm font-semibold leading-6 text-[#465374]">{point}</p></div>)}</div></div>{visual}</div>; }
-
-function SectionFooter({ activeTab, onTabChange }: { activeTab: TabId; onTabChange: (tab: TabId) => void }) { const activeIndex = knowledgeTabs.findIndex((item) => item.id === activeTab); const nextTab = knowledgeTabs[activeIndex + 1]; if (!nextTab) return <div className="flex flex-col gap-3 rounded-[28px] bg-[#075edb] p-6 text-white sm:flex-row sm:items-center sm:justify-between"><div><p className="text-xl font-black">Ready to strengthen your cloud operations?</p><p className="mt-2 text-sm font-semibold text-blue-100">Plan the infrastructure, deployment, monitoring, security, backup, and support system before the next release.</p></div><Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-extrabold text-[#075edb]">Book Architecture Call <Lucide.ArrowRight className="h-4 w-4" /></Link></div>; return <div className="flex justify-end"><button type="button" onClick={() => onTabChange(nextTab.id)} className="inline-flex items-center justify-center gap-2 rounded-full border border-[#c8d7ea] bg-white px-6 py-3 text-sm font-extrabold text-[#0f214f] shadow-[0_12px_28px_rgba(15,23,42,0.06)] transition hover:border-[#145cb7] hover:text-[#145cb7]">Continue to {nextTab.label} <Lucide.ArrowRight className="h-4 w-4" /></button></div>; }
-function SectionRenderer({ activeTab, onTabChange }: { activeTab: TabId; onTabChange: (tab: TabId) => void }) { const section = sections[activeTab]; const activeLabel = knowledgeTabs.find((item) => item.id === activeTab)?.label ?? "Overview"; return <ChapterShell activeLabel={activeLabel} title={section.title} intro={section.intro}>{activeTab === "overview" ? <PreviewWindow /> : null}<div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">{section.cards.map((item, index) => <KnowledgeCard key={item.title} item={item} index={index} />)}</div><ChapterInsightPanel section={section} /><div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">{section.metrics.map((metric) => <MetricCard key={metric.label} metric={metric} />)}</div><FlowVisual items={section.flow} /><SplitPanel title={section.implementationTitle} text={section.implementationText} points={section.implementationPoints} visual={<ImplementationMap title={section.visualTitle} rows={section.visualRows} />} /><SectionFooter activeTab={activeTab} onTabChange={onTabChange} /></ChapterShell>; }
+export const metadata = createSolutionMetadata({
+  category: "cloud-devops",
+  activeSlug,
+  solutions: cloudDevopsSolutions,
+});
 
 export default function CloudArchitecturePage() {
-  const [activeTab, setActiveTab] = useState<TabId>(() => { if (typeof window === "undefined") return "overview"; return getTabFromHash(window.location.hash) ?? "overview"; });
-  const activeLabel = useMemo(() => knowledgeTabs.find((item) => item.id === activeTab)?.label ?? "Overview", [activeTab]);
-  const handleTabChange = (tab: TabId) => { setActiveTab(tab); window.history.replaceState(null, "", `#${tab}`); scrollToKnowledge(); };
-  return <main className="min-h-screen bg-[#f8fbff] text-[#0f214f]"><SolutionCategoryTabs category="cloud-devops" solutions={cloudDevopsSolutions} /><MobileTabs activeTab={activeTab} onTabChange={handleTabChange} /><div className="mx-auto flex max-w-[min(92vw,1440px)] pt-14"><SolutionSidebar<TabId> title={SIDEBAR_TITLE} subtitle={SIDEBAR_SUBTITLE} icon={Lucide.Network} items={knowledgeTabs} activeTab={activeTab} onTabChange={handleTabChange} ctaTitle="Design Architecture" ctaText="Design the application, network, database, storage, reliability, and roadmap layers." ctaButtonText="Book Architecture Call" ctaHref="/contact" /><div id="knowledge-content" className="min-w-0 flex-1"><div className="mb-5 rounded-2xl border border-[#d7e1f2] bg-white px-4 py-3 shadow-[0_10px_24px_rgba(15,23,42,0.04)] lg:hidden"><p className="text-xs font-bold text-[#66728f]">{MODULE_NAME}</p><p className="text-sm font-black text-[#0f214f]">{activeLabel}</p></div><SectionRenderer activeTab={activeTab} onTabChange={handleTabChange} /></div></div></main>;
+  return <CloudArchitectureClient />;
 }

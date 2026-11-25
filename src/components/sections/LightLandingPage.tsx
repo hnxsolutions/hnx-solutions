@@ -1019,7 +1019,7 @@ function WhatWeProvideSection() {
       description:
         "Create fields, configure pipelines, manage users, set permissions, and shape the CRM without changing code every time.",
       icon: UserRound,
-      href: "/solutions/admin-control-room",
+      href: "/solutions/crm/admin-control-room",
       cta: "Explore Admin Control",
     },
     {
@@ -1027,7 +1027,7 @@ function WhatWeProvideSection() {
       description:
         "Leads, deals, customers, tickets, notes, tasks, and team activity in one clean daily workspace.",
       icon: Briefcase,
-      href: "/solutions/crm-core",
+      href: "/solutions/crm/crmcore",
       cta: "Explore CRM Core",
     },
     {
@@ -1035,7 +1035,7 @@ function WhatWeProvideSection() {
       description:
         "Trigger → condition → action automation for assignments, reminders, escalations, approvals, and stage updates.",
       icon: Workflow,
-      href: "/solutions/workflow-engine",
+      href: "/solutions/crm/workflow-engine",
       cta: "Explore Workflow Engine",
     },
     {
@@ -1043,7 +1043,7 @@ function WhatWeProvideSection() {
       description:
         "Lead scoring, next best action, report explanation, smart message drafts, and sales insights based on CRM data.",
       icon: Bot,
-      href: "/solutions/ai-intelligence",
+      href: "/solutions/crm/ai-intelligence",
       cta: "Explore AI Intelligence",
     },
     {
@@ -1051,7 +1051,7 @@ function WhatWeProvideSection() {
       description:
         "Revenue, leads, conversion, tasks, support, and team performance visible without manual spreadsheet reporting.",
       icon: TrendingUp,
-      href: "/solutions/dashboards-reports",
+      href: "/solutions/crm/dashboards-reports",
       cta: "Explore Dashboards",
     },
   ];
