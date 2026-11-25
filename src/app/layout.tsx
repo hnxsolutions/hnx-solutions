@@ -68,9 +68,6 @@ export const metadata: Metadata = {
     },
   },
 
-  alternates: {
-    canonical: "https://hnxsolutions.com",
-  },
 };
 
 export default function RootLayout({
